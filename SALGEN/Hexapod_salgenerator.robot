@@ -42,7 +42,7 @@ Salgen Hexapod Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_start.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_configureAcceleration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_configureLimits.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_configureElevationRawLut.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_configureElevationRawLUT.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_move.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_positionSet.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_rawPositionSet.idl
@@ -51,10 +51,8 @@ Salgen Hexapod Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_pivot.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_clearError.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_test.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_configureElevationCoeffsLut.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_configureAzimuthCoeffsLut.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_configureTemperatureCoeffsLut.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_configureAzimuthRawLut.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_configureAzimuthRawLUT.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_configureTemperatureRawLUT.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_interlock.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_inPosition.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_deviceError.idl
@@ -136,8 +134,8 @@ Verify Hexapod C++ Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_configureAcceleration_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_configureLimits_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_configureLimits_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_configureElevationRawLut_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_configureElevationRawLut_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_configureElevationRawLUT_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_configureElevationRawLUT_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_move_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_move_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_positionSet_commander
@@ -154,14 +152,10 @@ Verify Hexapod C++ Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_clearError_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_test_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_test_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_configureElevationCoeffsLut_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_configureElevationCoeffsLut_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_configureAzimuthCoeffsLut_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_configureAzimuthCoeffsLut_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_configureTemperatureCoeffsLut_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_configureTemperatureCoeffsLut_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_configureAzimuthRawLut_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_configureAzimuthRawLut_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_configureAzimuthRawLUT_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_configureAzimuthRawLUT_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_configureTemperatureRawLUT_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_configureTemperatureRawLUT_controller
 
 Verify Hexapod C++ Event Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -221,8 +215,8 @@ Verify Hexapod Python Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_configureAcceleration.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_configureLimits.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_configureLimits.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_configureElevationRawLut.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_configureElevationRawLut.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_configureElevationRawLUT.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_configureElevationRawLUT.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_move.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_move.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_positionSet.py
@@ -239,14 +233,10 @@ Verify Hexapod Python Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_clearError.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_test.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_test.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_configureElevationCoeffsLut.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_configureElevationCoeffsLut.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_configureAzimuthCoeffsLut.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_configureAzimuthCoeffsLut.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_configureTemperatureCoeffsLut.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_configureTemperatureCoeffsLut.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_configureAzimuthRawLut.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_configureAzimuthRawLut.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_configureAzimuthRawLUT.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_configureAzimuthRawLUT.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_configureTemperatureRawLUT.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_configureTemperatureRawLUT.py
 
 Verify Hexapod Python Event Interfaces
     [Documentation]    Verify the Python interfaces were properly created.

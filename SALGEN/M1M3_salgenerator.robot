@@ -88,6 +88,7 @@ Salgen M1M3 Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_UpdatePID.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_ResetPID.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_SetThermalSetpoint.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_ProgramILC.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_ErrorCode.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_SettingVersions.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_AppliedSettingsMatchStart.idl
@@ -329,6 +330,8 @@ Verify M1M3 C++ Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_ResetPID_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_SetThermalSetpoint_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_SetThermalSetpoint_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_ProgramILC_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_ProgramILC_controller
 
 Verify M1M3 C++ Event Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -588,6 +591,8 @@ Verify M1M3 Python Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_ResetPID.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_SetThermalSetpoint.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_SetThermalSetpoint.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_ProgramILC.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_ProgramILC.py
 
 Verify M1M3 Python Event Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
