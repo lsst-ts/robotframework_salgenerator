@@ -304,6 +304,25 @@ function salgenLabview() {
     echo "" >> $testSuite
 }
 
+function salgenLib() {
+	echo "Salgen $subSystemUp Lib" >> $testSuite
+    echo "    [Documentation]    Generate the SAL shared library for \${subSystem}" >> $testSuite
+	echo "    [Tags]    " >> $testSuite
+    echo "    \${input}=    Write    \${SALHome}/scripts/salgenerator \${subSystem} lib" >> $testSuite
+    echo "    \${output}=    Read Until Prompt" >> $testSuite
+    echo "    Log    \${output}" >> $testSuite
+    echo "    Should Contain    \${output}    SAL generator - V\${SALVersion}" >> $testSuite
+    echo "    Should Contain    \${output}    Building shared library for \${subSystem} subsystem" >> $testSuite
+	echo "    Directory Should Exist    \${SALWorkDir}/lib" >> $testSuite
+    echo "    @{files}=    List Directory    \${SALWorkDir}/lib" >> $testSuite
+    echo "    Log Many    @{files}" >> $testSuite
+    echo "    File Should Exist    \${SALWorkDir}/lib/libsacpp_\${subSystem}_types.so" >> $testSuite
+    echo "    File Should Exist    \${SALWorkDir}/lib/libSAL_\${subSystem}.so" >> $testSuite
+	if ! [ "$subSystem" == "scheduler" ]; then    # The SALLV_* files are produced by the labview option. This is skipped for the scheduler.
+    	echo "    File Should Exist    \${SALWorkDir}/lib/SALLV_\${subSystem}.so" >> $testSuite
+    fi
+    echo "    File Should Exist    \${SALWorkDir}/lib/SALPY_\${subSystem}.so" >> $testSuite
+}
 function createTestSuite() {
 	subSystem=$1
 
@@ -365,6 +384,8 @@ function createTestSuite() {
 	# Create and verify Java interfaces.
 	salgenJava
     salgenMaven
+	# Move/Generate the share libraries.
+	salgenLib
 	# Indicate completion of the test suite.
 	echo Done with test suite.
 	echo ""

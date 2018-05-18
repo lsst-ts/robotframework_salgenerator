@@ -260,3 +260,18 @@ Salgen DomeLouvers Maven
     @{files}=    List Directory    ${SALWorkDir}/maven
     File Should Exist    ${SALWorkDir}/maven/${subSystem}_${SALVersion}/pom.xml
 
+Salgen DomeLouvers Lib
+    [Documentation]    Generate the SAL shared library for ${subSystem}
+    [Tags]    
+    ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} lib
+    ${output}=    Read Until Prompt
+    Log    ${output}
+    Should Contain    ${output}    SAL generator - V${SALVersion}
+    Should Contain    ${output}    Building shared library for ${subSystem} subsystem
+    Directory Should Exist    ${SALWorkDir}/lib
+    @{files}=    List Directory    ${SALWorkDir}/lib
+    Log Many    @{files}
+    File Should Exist    ${SALWorkDir}/lib/libsacpp_${subSystem}_types.so
+    File Should Exist    ${SALWorkDir}/lib/libSAL_${subSystem}.so
+    File Should Exist    ${SALWorkDir}/lib/SALLV_${subSystem}.so
+    File Should Exist    ${SALWorkDir}/lib/SALPY_${subSystem}.so
