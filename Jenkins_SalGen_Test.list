@@ -1,0 +1,39 @@
+###  Test Suite list ###
+#  Change the title of the test results
+--name SalGen
+--output SALGENERATOR
+
+# List of test suites
+rbtsal/Version.robot
+rbtsal/SALGEN/Archiver_salgenerator.robot
+rbtsal/SALGEN/AtArchiver_salgenerator.robot
+rbtsal/SALGEN/AtCamera_salgenerator.robot
+rbtsal/SALGEN/AtHeaderService_salgenerator.robot
+rbtsal/SALGEN/AtMonochromator_salgenerator.robot
+rbtsal/SALGEN/AtScheduler_salgenerator.robot
+rbtsal/SALGEN/Camera_salgenerator.robot
+rbtsal/SALGEN/CatchupArchiver_salgenerator.robot
+rbtsal/SALGEN/DomeADB_salgenerator.robot
+rbtsal/SALGEN/DomeAPS_salgenerator.robot
+rbtsal/SALGEN/DomeLWS_salgenerator.robot
+rbtsal/SALGEN/DomeLouvers_salgenerator.robot
+rbtsal/SALGEN/DomeMONCS_salgenerator.robot
+rbtsal/SALGEN/DomeTHCS_salgenerator.robot
+rbtsal/SALGEN/Dome_salgenerator.robot
+rbtsal/SALGEN/EEC_salgenerator.robot
+rbtsal/SALGEN/EFD_salgenerator.robot
+rbtsal/SALGEN/HeaderService_salgenerator.robot
+rbtsal/SALGEN/Hexapod_salgenerator.robot
+rbtsal/SALGEN/M1M3_salgenerator.robot
+rbtsal/SALGEN/M2MS_salgenerator.robot
+rbtsal/SALGEN/MTMount_salgenerator.robot
+rbtsal/SALGEN/OCS_salgenerator.robot
+rbtsal/SALGEN/PromptProcessing_salgenerator.robot
+rbtsal/SALGEN/Rotator_salgenerator.robot
+rbtsal/SALGEN/Scheduler_salgenerator.robot
+rbtsal/SALGEN/Sequencer_salgenerator.robot
+rbtsal/SALGEN/SummitFacility_salgenerator.robot
+rbtsal/SALGEN/TCS_salgenerator.robot
+rbtsal/SALGEN/TcsOFC_salgenerator.robot
+rbtsal/SALGEN/TcsWEP_salgenerator.robot
+rbtsal/SALGEN/VMS_salgenerator.robot
