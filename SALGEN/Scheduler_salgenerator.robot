@@ -20,7 +20,8 @@ Verify Scheduler XML Defintions exist
 Salgen Scheduler Validate
     [Documentation]    Validate the Scheduler XML definitions.
     [Tags]
-    Write    cd ${SALWorkDir}
+    ${input}=    Write    cd ${SALWorkDir}
+    ${output}=    Read Until Prompt
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} validate
     ${output}=    Read Until Prompt
     Log    ${output}
@@ -71,6 +72,9 @@ Salgen Scheduler HTML
     ${output}=    Read Until Prompt
     Log    ${output}
     Should Contain    ${output}    SAL generator - V${SALVersion}
+    Should Contain    ${output}    Generating telemetry stream definition editor html
+    Should Contain    ${output}    Creating sal-generator-${subSystem} form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.logevent to form
     Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
     @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}

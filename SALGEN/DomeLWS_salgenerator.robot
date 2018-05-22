@@ -22,7 +22,8 @@ Verify DomeLWS XML Defintions exist
 Salgen DomeLWS Validate
     [Documentation]    Validate the DomeLWS XML definitions.
     [Tags]
-    Write    cd ${SALWorkDir}
+    ${input}=    Write    cd ${SALWorkDir}
+    ${output}=    Read Until Prompt
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} validate
     ${output}=    Read Until Prompt
     Log    ${output}
@@ -71,6 +72,9 @@ Salgen DomeLWS HTML
     ${output}=    Read Until Prompt
     Log    ${output}
     Should Contain    ${output}    SAL generator - V${SALVersion}
+    Should Contain    ${output}    Generating telemetry stream definition editor html
+    Should Contain    ${output}    Creating sal-generator-${subSystem} form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.logevent to form
     Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
     @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}
@@ -294,6 +298,7 @@ Salgen DomeLWS LabVIEW
     File Should Exist    ${SALWorkDir}/${subSystem}/labview/SAL_${subSystem}_salShmMonitor.cpp
     File Should Exist    ${SALWorkDir}/${subSystem}/labview/SAL_${subSystem}_shmem.h
     File Should Exist    ${SALWorkDir}/${subSystem}/labview/SALLV_${subSystem}.so
+    File Should Exist    ${SALWorkDir}/${subSystem}/labview/SALLV_${subSystem}_Monitor
 
 Salgen DomeLWS Java
     [Documentation]    Generate Java wrapper.

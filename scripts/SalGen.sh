@@ -50,7 +50,8 @@ function salgenValidate() {
     echo "Salgen $subSystemUp Validate" >> $testSuite
     echo "    [Documentation]    Validate the $subSystemUp XML definitions." >> $testSuite
     echo "    [Tags]" >> $testSuite
-    echo "    Write    cd \${SALWorkDir}" >> $testSuite
+    echo "    \${input}=    Write    cd \${SALWorkDir}" >> $testSuite
+    echo "    \${output}=    Read Until Prompt" >> $testSuite
     echo "    \${input}=    Write    \${SALHome}/scripts/salgenerator \${subSystem} validate" >> $testSuite
     echo "    \${output}=    Read Until Prompt" >> $testSuite
     echo "    Log    \${output}" >> $testSuite
@@ -84,6 +85,9 @@ function salgenHTML() {
     echo "    \${output}=    Read Until Prompt" >> $testSuite
     echo "    Log    \${output}" >> $testSuite
     echo "    Should Contain    \${output}    SAL generator - V\${SALVersion}" >> $testSuite
+    echo "    Should Contain    \${output}    Generating telemetry stream definition editor html" >> $testSuite
+    echo "    Should Contain    \${output}    Creating sal-generator-\${subSystem} form" >> $testSuite
+    echo "    Should Contain    \${output}    Added sal-generator-\${subSystem}.logevent to form" >> $testSuite
     echo "    Directory Should Exist    \${SALWorkDir}/html/salgenerator/\${subSystem}" >> $testSuite
     echo "    @{files}=    List Directory    \${SALWorkDir}/html/salgenerator/\${subSystem}    pattern=*\${subSystem}*" >> $testSuite
     echo "    Log Many    @{files}" >> $testSuite
@@ -301,6 +305,7 @@ function salgenLabview() {
     echo "    File Should Exist    \${SALWorkDir}/\${subSystem}/labview/SAL_\${subSystem}_salShmMonitor.cpp" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/\${subSystem}/labview/SAL_\${subSystem}_shmem.h" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/\${subSystem}/labview/SALLV_\${subSystem}.so" >> $testSuite
+    echo "    File Should Exist    \${SALWorkDir}/\${subSystem}/labview/SALLV_\${subSystem}_Monitor" >> $testSuite
     echo "" >> $testSuite
 }
 

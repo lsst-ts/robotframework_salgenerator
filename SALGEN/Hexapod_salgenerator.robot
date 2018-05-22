@@ -22,7 +22,8 @@ Verify Hexapod XML Defintions exist
 Salgen Hexapod Validate
     [Documentation]    Validate the Hexapod XML definitions.
     [Tags]
-    Write    cd ${SALWorkDir}
+    ${input}=    Write    cd ${SALWorkDir}
+    ${output}=    Read Until Prompt
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} validate
     ${output}=    Read Until Prompt
     Log    ${output}
@@ -53,6 +54,7 @@ Salgen Hexapod Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_test.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_configureAzimuthRawLUT.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_configureTemperatureRawLUT.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_moveLUT.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_interlock.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_inPosition.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_deviceError.idl
@@ -64,6 +66,9 @@ Salgen Hexapod HTML
     ${output}=    Read Until Prompt
     Log    ${output}
     Should Contain    ${output}    SAL generator - V${SALVersion}
+    Should Contain    ${output}    Generating telemetry stream definition editor html
+    Should Contain    ${output}    Creating sal-generator-${subSystem} form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.logevent to form
     Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
     @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}
@@ -156,6 +161,8 @@ Verify Hexapod C++ Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_configureAzimuthRawLUT_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_configureTemperatureRawLUT_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_configureTemperatureRawLUT_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_moveLUT_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_moveLUT_controller
 
 Verify Hexapod C++ Event Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -237,6 +244,8 @@ Verify Hexapod Python Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_configureAzimuthRawLUT.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_configureTemperatureRawLUT.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_configureTemperatureRawLUT.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_moveLUT.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_moveLUT.py
 
 Verify Hexapod Python Event Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
@@ -263,6 +272,7 @@ Salgen Hexapod LabVIEW
     File Should Exist    ${SALWorkDir}/${subSystem}/labview/SAL_${subSystem}_salShmMonitor.cpp
     File Should Exist    ${SALWorkDir}/${subSystem}/labview/SAL_${subSystem}_shmem.h
     File Should Exist    ${SALWorkDir}/${subSystem}/labview/SALLV_${subSystem}.so
+    File Should Exist    ${SALWorkDir}/${subSystem}/labview/SALLV_${subSystem}_Monitor
 
 Salgen Hexapod Java
     [Documentation]    Generate Java wrapper.

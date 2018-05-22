@@ -22,7 +22,8 @@ Verify M1M3 XML Defintions exist
 Salgen M1M3 Validate
     [Documentation]    Validate the M1M3 XML definitions.
     [Tags]
-    Write    cd ${SALWorkDir}
+    ${input}=    Write    cd ${SALWorkDir}
+    ${output}=    Read Until Prompt
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} validate
     ${output}=    Read Until Prompt
     Log    ${output}
@@ -89,6 +90,7 @@ Salgen M1M3 Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_ResetPID.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_SetThermalSetpoint.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_ProgramILC.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_ModbusTransmit.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_ErrorCode.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_SettingVersions.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_AppliedSettingsMatchStart.idl
@@ -146,6 +148,7 @@ Salgen M1M3 Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_AppliedForces.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_RejectedCylinderForces.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_AppliedCylinderForces.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_ModbusResponse.idl
 
 Salgen M1M3 HTML
     [Documentation]    Create web form interfaces.
@@ -154,6 +157,9 @@ Salgen M1M3 HTML
     ${output}=    Read Until Prompt
     Log    ${output}
     Should Contain    ${output}    SAL generator - V${SALVersion}
+    Should Contain    ${output}    Generating telemetry stream definition editor html
+    Should Contain    ${output}    Creating sal-generator-${subSystem} form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.logevent to form
     Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
     @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}
@@ -332,6 +338,8 @@ Verify M1M3 C++ Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_SetThermalSetpoint_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_ProgramILC_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_ProgramILC_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_ModbusTransmit_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_ModbusTransmit_controller
 
 Verify M1M3 C++ Event Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -450,6 +458,8 @@ Verify M1M3 C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_RejectedCylinderForces_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_AppliedCylinderForces_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_AppliedCylinderForces_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_ModbusResponse_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_ModbusResponse_log
 
 Salgen M1M3 Python
     [Documentation]    Generate Python wrapper.
@@ -593,6 +603,8 @@ Verify M1M3 Python Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_SetThermalSetpoint.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_ProgramILC.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_ProgramILC.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_ModbusTransmit.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_ModbusTransmit.py
 
 Verify M1M3 Python Event Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
@@ -713,6 +725,8 @@ Verify M1M3 Python Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_RejectedCylinderForces.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_AppliedCylinderForces.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_AppliedCylinderForces.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_ModbusResponse.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_ModbusResponse.py
 
 Salgen M1M3 LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
@@ -727,6 +741,7 @@ Salgen M1M3 LabVIEW
     File Should Exist    ${SALWorkDir}/${subSystem}/labview/SAL_${subSystem}_salShmMonitor.cpp
     File Should Exist    ${SALWorkDir}/${subSystem}/labview/SAL_${subSystem}_shmem.h
     File Should Exist    ${SALWorkDir}/${subSystem}/labview/SALLV_${subSystem}.so
+    File Should Exist    ${SALWorkDir}/${subSystem}/labview/SALLV_${subSystem}_Monitor
 
 Salgen M1M3 Java
     [Documentation]    Generate Java wrapper.
