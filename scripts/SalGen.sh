@@ -106,6 +106,7 @@ function salgenCPP {
     echo "    \${output}=    Read Until Prompt" >> $testSuite
     echo "    Log    \${output}" >> $testSuite
     echo "    Should Not Contain    \${output}    *** DDS error in file" >> $testSuite
+    echo "    Should Not Contain    \${output}    Error 1" >> $testSuite
     echo "    Should Contain    \${output}    SAL generator - V\${SALVersion}" >> $testSuite
 	for topic in "${telemetryArray[@]}"; do
 		echo "    Should Contain    \${output}    Generating SAL CPP code for \${subSystem}_${topic}.idl" >> $testSuite
