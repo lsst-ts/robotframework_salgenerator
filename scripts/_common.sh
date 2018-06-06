@@ -44,8 +44,8 @@ function clearTestSuites() {
 }
 
 function subsystemArray() {
-	# atcs calibrationElectrometer (TSS-2608, TSS-2606)
-	echo "archiver atArchiver atcamera atHeaderService atMonochromator atScheduler camera catchuparchiver dome domeADB domeAPS domeLouvers domeLWS domeMONCS domeTHCS eec efd headerService hexapod m1m3 m2ms MTMount ocs promptprocessing rotator scheduler sequencer summitFacility tcs tcsOfc tcsWEP vms"
+	# calibrationElectrometer (TSS-2606)
+	echo "archiver atArchiver atcamera atcs atHeaderService atMonochromator atScheduler camera catchuparchiver dome domeADB domeAPS domeLouvers domeLWS domeMONCS domeTHCS eec efd headerService hexapod m1m3 m2ms MTMount ocs promptprocessing rotator scheduler sequencer summitFacility tcs tcsOfc tcsWEP vms"
 }
 
 function stateArray() {

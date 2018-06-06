@@ -34,12 +34,14 @@ Salgen TcsWEP Validate
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_WavefrontError.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_TargetSciSensorIdList.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_standby.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_start.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_WavefrontErrorCalculated.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_StateChanged.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_NoEnoughWfsNum.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_ErrorCode.idl
 
 Salgen TcsWEP HTML
@@ -65,10 +67,12 @@ Salgen TcsWEP C++
     ${output}=    Read Until Prompt
     Log    ${output}
     Should Not Contain    ${output}    *** DDS error in file
+    Should Not Contain    ${output}    Error 1
     Should Contain    ${output}    SAL generator - V${SALVersion}
     Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_WavefrontError.idl
-    Should Contain X Times    ${output}    cpp : Done Publisher    1
-    Should Contain X Times    ${output}    cpp : Done Subscriber    1
+    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_TargetSciSensorIdList.idl
+    Should Contain X Times    ${output}    cpp : Done Publisher    2
+    Should Contain X Times    ${output}    cpp : Done Subscriber    2
     Should Contain X Times    ${output}    cpp : Done Commander    1
     Should Contain X Times    ${output}    cpp : Done Event/Logger    1
 
@@ -87,12 +91,15 @@ Verify TcsWEP Telemetry directories
     @{files}=    List Directory    ${SALWorkDir}    pattern=*${subSystem}*
     Log Many    @{files}
     Directory Should Exist    ${SALWorkDir}/${subSystem}_WavefrontError
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_TargetSciSensorIdList
 
 Verify TcsWEP C++ Telemetry Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
     File Should Exist    ${SALWorkDir}/${subSystem}_WavefrontError/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_WavefrontError/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_TargetSciSensorIdList/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_TargetSciSensorIdList/cpp/standalone/sacpp_${subSystem}_sub
 
 Verify TcsWEP C++ State Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -113,6 +120,8 @@ Verify TcsWEP C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_WavefrontErrorCalculated_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_StateChanged_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_StateChanged_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_NoEnoughWfsNum_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_NoEnoughWfsNum_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_ErrorCode_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_ErrorCode_log
 
@@ -138,6 +147,8 @@ Verify TcsWEP Python Telemetry Interfaces
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_WavefrontError_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_WavefrontError_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_TargetSciSensorIdList_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_TargetSciSensorIdList_Subscriber.py
 
 Verify TcsWEP Python State Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -160,6 +171,8 @@ Verify TcsWEP Python Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_WavefrontErrorCalculated.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_StateChanged.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_StateChanged.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_NoEnoughWfsNum.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_NoEnoughWfsNum.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_ErrorCode.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_ErrorCode.py
 
@@ -186,10 +199,11 @@ Salgen TcsWEP Java
     Log    ${output}
     Should Contain    ${output}    SAL generator - V${SALVersion}
     Should Contain    ${output}    Generating SAL Java code for ${subSystem}_WavefrontError.idl
-    Should Contain X Times    ${output}    javac : Done Publisher    1
-    Should Contain X Times    ${output}    javac : Done Subscriber    1
-    Should Contain X Times    ${output}    javac : Done Commander/Controller    1
-    Should Contain X Times    ${output}    javac : Done Event/Logger    1
+    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_TargetSciSensorIdList.idl
+    Should Contain X Times    ${output}    javac : Done Publisher    2
+    Should Contain X Times    ${output}    javac : Done Subscriber    2
+    Should Contain X Times    ${output}    javac : Done Commander/Controller    2
+    Should Contain X Times    ${output}    javac : Done Event/Logger    2
     Directory Should Exist    ${SALWorkDir}/${subSystem}/java
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl

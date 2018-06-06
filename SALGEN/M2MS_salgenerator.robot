@@ -88,6 +88,7 @@ Salgen M2MS C++
     ${output}=    Read Until Prompt
     Log    ${output}
     Should Not Contain    ${output}    *** DDS error in file
+    Should Not Contain    ${output}    Error 1
     Should Contain    ${output}    SAL generator - V${SALVersion}
     Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_MirrorPositionMeasured.idl
     Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_AxialForcesMeasured.idl

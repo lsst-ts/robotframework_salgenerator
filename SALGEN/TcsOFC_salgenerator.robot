@@ -39,10 +39,9 @@ Salgen TcsOFC Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_standby.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_start.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_OffsetCameraHexapod.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_ApplyForces.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_OffsetM2Hexapod.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_ErrorCode.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_NoEnoughZernikeTerm.idl
 
 Salgen TcsOFC HTML
     [Documentation]    Create web form interfaces.
@@ -68,6 +67,7 @@ Salgen TcsOFC C++
     ${output}=    Read Until Prompt
     Log    ${output}
     Should Not Contain    ${output}    *** DDS error in file
+    Should Not Contain    ${output}    Error 1
     Should Contain    ${output}    SAL generator - V${SALVersion}
     Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_DegreeOfFreedom.idl
     Should Contain X Times    ${output}    cpp : Done Publisher    1
@@ -112,18 +112,16 @@ Verify TcsOFC C++ State Command Interfaces
 Verify TcsOFC C++ Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_OffsetCameraHexapod_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_OffsetCameraHexapod_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_ApplyForces_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_ApplyForces_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_OffsetM2Hexapod_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_OffsetM2Hexapod_controller
 
 Verify TcsOFC C++ Event Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_ErrorCode_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_ErrorCode_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_NoEnoughZernikeTerm_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_NoEnoughZernikeTerm_log
 
 Salgen TcsOFC Python
     [Documentation]    Generate Python wrapper.
@@ -165,12 +163,8 @@ Verify TcsOFC Python Command Interfaces
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_OffsetCameraHexapod.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_OffsetCameraHexapod.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_ApplyForces.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_ApplyForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_OffsetM2Hexapod.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_OffsetM2Hexapod.py
 
 Verify TcsOFC Python Event Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
@@ -179,6 +173,8 @@ Verify TcsOFC Python Event Interfaces
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_ErrorCode.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_ErrorCode.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_NoEnoughZernikeTerm.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_NoEnoughZernikeTerm.py
 
 Salgen TcsOFC LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
