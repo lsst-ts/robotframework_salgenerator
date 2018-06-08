@@ -5,6 +5,7 @@
 
 # List of test suites
 rbtsal/Version.robot
+rbtsal/SALGEN/ATCS_salgenerator.robot
 rbtsal/SALGEN/Archiver_salgenerator.robot
 rbtsal/SALGEN/AtArchiver_salgenerator.robot
 rbtsal/SALGEN/AtCamera_salgenerator.robot
