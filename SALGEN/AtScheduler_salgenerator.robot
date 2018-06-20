@@ -185,20 +185,6 @@ Salgen AtScheduler Java
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
 
-Salgen AtScheduler Maven
-    [Documentation]    Generate the Maven repository.
-    [Tags]    java
-    ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} maven
-    ${output}=    Read Until Prompt
-    Log    ${output}
-    Should Contain    ${output}    SAL generator - V${SALVersion}
-    Should Contain    ${output}    Running maven install
-    Should Contain    ${output}    [INFO] Building sal_${subSystem} ${SALVersion}
-    Should Contain X Times    ${output}    [INFO] BUILD SUCCESS    1
-    Should Contain X Times    ${output}    [INFO] Finished at:    1
-    @{files}=    List Directory    ${SALWorkDir}/maven
-    File Should Exist    ${SALWorkDir}/maven/${subSystem}_${SALVersion}/pom.xml
-
 Salgen AtScheduler Lib
     [Documentation]    Generate the SAL shared library for ${subSystem}
     [Tags]    
@@ -214,3 +200,18 @@ Salgen AtScheduler Lib
     File Should Exist    ${SALWorkDir}/lib/libSAL_${subSystem}.so
     File Should Exist    ${SALWorkDir}/lib/SALLV_${subSystem}.so
     File Should Exist    ${SALWorkDir}/lib/SALPY_${subSystem}.so
+
+Salgen AtScheduler Maven
+    [Documentation]    Generate the Maven repository.
+    [Tags]    java
+    ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} maven
+    ${output}=    Read Until Prompt
+    Log    ${output}
+    Should Contain    ${output}    SAL generator - V${SALVersion}
+    Should Contain    ${output}    Running maven install
+    Should Contain    ${output}    [INFO] Building sal_${subSystem} ${SALVersion}
+    Should Contain X Times    ${output}    [INFO] BUILD SUCCESS    1
+    Should Contain X Times    ${output}    [INFO] Finished at:    1
+    @{files}=    List Directory    ${SALWorkDir}/maven
+    File Should Exist    ${SALWorkDir}/maven/${subSystem}_${SALVersion}/pom.xml
+

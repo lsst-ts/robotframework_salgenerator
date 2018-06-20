@@ -328,7 +328,9 @@ function salgenLib() {
     	echo "    File Should Exist    \${SALWorkDir}/lib/SALLV_\${subSystem}.so" >> $testSuite
     fi
     echo "    File Should Exist    \${SALWorkDir}/lib/SALPY_\${subSystem}.so" >> $testSuite
+    echo "" >> $testSuite
 }
+
 function createTestSuite() {
 	subSystem=$1
 
@@ -389,9 +391,10 @@ function createTestSuite() {
 	fi
 	# Create and verify Java interfaces.
 	salgenJava
-    salgenMaven
 	# Move/Generate the share libraries.
 	salgenLib
+	# Run the Maven tests.
+    salgenMaven
 	# Indicate completion of the test suite.
 	echo Done with test suite.
 	echo ""
