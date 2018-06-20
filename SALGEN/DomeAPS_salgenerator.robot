@@ -309,7 +309,7 @@ Salgen DomeAPS Java
 
 Salgen DomeAPS Maven
     [Documentation]    Generate the Maven repository.
-    [Tags]    java    TSS-2602
+    [Tags]    java
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} maven
     ${output}=    Read Until Prompt
     Log    ${output}

@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation    This suite builds the various interfaces for the PromptProcessing.
-Force Tags    salgen    TSS-2633
+Force Tags    salgen    
 Suite Setup    Run Keywords    Log Many    ${Host}    ${subSystem}    ${timeout}
 ...    AND    Create Session    SALGEN
 Suite Teardown    Close All Connections
@@ -279,7 +279,7 @@ Salgen PromptProcessing Java
 
 Salgen PromptProcessing Maven
     [Documentation]    Generate the Maven repository.
-    [Tags]    java    TSS-2602
+    [Tags]    java
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} maven
     ${output}=    Read Until Prompt
     Log    ${output}
