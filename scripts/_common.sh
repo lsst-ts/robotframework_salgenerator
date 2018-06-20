@@ -182,14 +182,6 @@ function checkIfSkipped() {
 	topic=$2
 	if [[ ("$subsystem" == "summitFacility") ]]; then
 		skipped="TSS-2622"
-	elif [[ ("$subsystem" == "tcsOfc") ]]; then
-		skipped="TSS-2625"
-	elif [[ ("$subsystem" == "tcsWEP") ]]; then
-		skipped="TSS-2626"
-	elif [[ ("$subsystem" == "promptprocessing") ]]; then
-		skipped="TSS-2633"
-	elif [[ ("$subsystem" == "calibrationElectrometer") ]]; then
-		skipped="TSS-2619"
 	elif [[ ("$subsystem" == "m1m3") ]]; then
 		skipped="TSS-2617"
 	elif [[ ("$subsystem" == "vms") ]]; then
