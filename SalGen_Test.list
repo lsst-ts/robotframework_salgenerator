@@ -12,6 +12,7 @@ SALGEN/AtCamera_salgenerator.robot
 SALGEN/AtHeaderService_salgenerator.robot
 SALGEN/AtMonochromator_salgenerator.robot
 SALGEN/AtScheduler_salgenerator.robot
+SALGEN/CalibrationElectrometer_salgenerator.robot
 SALGEN/Camera_salgenerator.robot
 SALGEN/CatchupArchiver_salgenerator.robot
 SALGEN/DomeADB_salgenerator.robot
