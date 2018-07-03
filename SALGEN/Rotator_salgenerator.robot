@@ -54,6 +54,7 @@ Salgen Rotator Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_tracking.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_deviceError.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_inPosition.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingsApplied.idl
 
 Salgen Rotator HTML
     [Documentation]    Create web form interfaces.
@@ -162,6 +163,8 @@ Verify Rotator C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_deviceError_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_inPosition_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_inPosition_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsApplied_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsApplied_log
 
 Salgen Rotator Python
     [Documentation]    Generate Python wrapper.
@@ -239,6 +242,8 @@ Verify Rotator Python Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_deviceError.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_inPosition.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_inPosition.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_settingsApplied.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_settingsApplied.py
 
 Salgen Rotator LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
