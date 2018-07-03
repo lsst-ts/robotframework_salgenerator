@@ -1,6 +1,6 @@
 ###  Test Suite list ###
 #  Change the title of the test results
---name SalGen
+--name JenkinsSalGen
 --output SALGENERATOR
 
 # List of test suites
@@ -12,6 +12,7 @@ rbtsal/SALGEN/AtCamera_salgenerator.robot
 rbtsal/SALGEN/AtHeaderService_salgenerator.robot
 rbtsal/SALGEN/AtMonochromator_salgenerator.robot
 rbtsal/SALGEN/AtScheduler_salgenerator.robot
+rbtsal/SALGEN/CalibrationElectrometer_salgenerator.robot
 rbtsal/SALGEN/Camera_salgenerator.robot
 rbtsal/SALGEN/CatchupArchiver_salgenerator.robot
 rbtsal/SALGEN/DomeADB_salgenerator.robot
