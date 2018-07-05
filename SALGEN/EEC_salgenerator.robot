@@ -34,39 +34,39 @@ Salgen EEC Validate
     Directory Should Exist    ${SALWorkDir}/idl-templates/validated
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_hvactelem.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_Timestamp.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_nightsetpoint.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_eectelem.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_LoopTime_ms.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_daysetpoint.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_hvacTelem.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_timestamp.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_nightSetPoint.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_eecTelem.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_loopTimeMs.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_daySetPoint.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_standby.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_start.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_operatormode.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_nighttimemode.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_operatoMode.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_nightTimeMode.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_exitControl.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_sethvac.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_daytimemode.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setlouvers.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setHVAC.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_dayTimeMode.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setLouvers.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_start.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_engineeringmode.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_engineeringMode.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_standby.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_AppliedSettingsMatchStart.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_nighttimefail.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_RejectedCommand.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_SettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_DetailedState.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_daytimefail.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_InternalCommand.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_LoopTimeOutOfRange.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_SummaryState.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_ErrorCode.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_Heartbeat.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_SettingVersions.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_appliedSettingsMatchStart.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_nightTimeFail.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rejectedCommand.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingsApplied.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_detailedState.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_dayTimeFail.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_internalCommand.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_loopTimeOutOfRange.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_summaryState.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_errorCode.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_heartbeat.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingVersions.idl
 
 Salgen EEC HTML
     [Documentation]    Create web form interfaces.
@@ -94,12 +94,12 @@ Salgen EEC C++
     Should Not Contain    ${output}    *** DDS error in file
     Should Not Contain    ${output}    Error 1
     Should Contain    ${output}    SAL generator - V${SALVersion}
-    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_hvactelem.idl
-    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_Timestamp.idl
-    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_nightsetpoint.idl
-    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_eectelem.idl
-    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_LoopTime_ms.idl
-    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_daysetpoint.idl
+    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_hvacTelem.idl
+    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_timestamp.idl
+    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_nightSetPoint.idl
+    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_eecTelem.idl
+    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_loopTimeMs.idl
+    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_daySetPoint.idl
     Should Contain X Times    ${output}    cpp : Done Publisher    6
     Should Contain X Times    ${output}    cpp : Done Subscriber    6
     Should Contain X Times    ${output}    cpp : Done Commander    1
@@ -119,28 +119,28 @@ Verify EEC Telemetry directories
     [Tags]    cpp
     @{files}=    List Directory    ${SALWorkDir}    pattern=*${subSystem}*
     Log Many    @{files}
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_hvactelem
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_Timestamp
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_nightsetpoint
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_eectelem
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_LoopTime_ms
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_daysetpoint
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_hvacTelem
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_timestamp
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_nightSetPoint
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_eecTelem
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_loopTimeMs
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_daySetPoint
 
 Verify EEC C++ Telemetry Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}_hvactelem/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_hvactelem/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_Timestamp/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_Timestamp/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_nightsetpoint/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_nightsetpoint/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_eectelem/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_eectelem/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_LoopTime_ms/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_LoopTime_ms/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_daysetpoint/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_daysetpoint/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_hvacTelem/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_hvacTelem/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_timestamp/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_timestamp/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_nightSetPoint/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_nightSetPoint/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_eecTelem/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_eecTelem/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_loopTimeMs/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_loopTimeMs/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_daySetPoint/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_daySetPoint/cpp/standalone/sacpp_${subSystem}_sub
 
 Verify EEC C++ State Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -157,24 +157,24 @@ Verify EEC C++ State Command Interfaces
 Verify EEC C++ Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_operatormode_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_operatormode_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_nighttimemode_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_nighttimemode_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_operatoMode_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_operatoMode_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_nightTimeMode_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_nightTimeMode_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enable_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enable_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_exitControl_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_exitControl_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_sethvac_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_sethvac_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_daytimemode_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_daytimemode_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setlouvers_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setlouvers_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setHVAC_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setHVAC_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_dayTimeMode_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_dayTimeMode_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setLouvers_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setLouvers_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_start_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_start_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_engineeringmode_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_engineeringmode_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_engineeringMode_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_engineeringMode_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_standby_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_standby_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_disable_commander
@@ -183,30 +183,30 @@ Verify EEC C++ Command Interfaces
 Verify EEC C++ Event Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_AppliedSettingsMatchStart_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_AppliedSettingsMatchStart_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_nighttimefail_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_nighttimefail_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_RejectedCommand_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_RejectedCommand_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_SettingsApplied_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_SettingsApplied_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_DetailedState_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_DetailedState_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_daytimefail_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_daytimefail_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_InternalCommand_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_InternalCommand_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_LoopTimeOutOfRange_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_LoopTimeOutOfRange_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_SummaryState_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_SummaryState_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_ErrorCode_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_ErrorCode_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_Heartbeat_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_Heartbeat_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_SettingVersions_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_SettingVersions_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_appliedSettingsMatchStart_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_appliedSettingsMatchStart_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_nightTimeFail_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_nightTimeFail_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_rejectedCommand_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_rejectedCommand_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsApplied_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsApplied_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_detailedState_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_detailedState_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_dayTimeFail_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_dayTimeFail_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_internalCommand_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_internalCommand_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_loopTimeOutOfRange_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_loopTimeOutOfRange_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_summaryState_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_summaryState_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_errorCode_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_errorCode_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_heartbeat_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_heartbeat_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingVersions_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingVersions_log
 
 Salgen EEC Python
     [Documentation]    Generate Python wrapper.
@@ -228,18 +228,18 @@ Verify EEC Python Telemetry Interfaces
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_hvactelem_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_hvactelem_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Timestamp_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Timestamp_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_nightsetpoint_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_nightsetpoint_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_eectelem_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_eectelem_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_LoopTime_ms_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_LoopTime_ms_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_daysetpoint_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_daysetpoint_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_hvacTelem_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_hvacTelem_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_timestamp_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_timestamp_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_nightSetPoint_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_nightSetPoint_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_eecTelem_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_eecTelem_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_loopTimeMs_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_loopTimeMs_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_daySetPoint_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_daySetPoint_Subscriber.py
 
 Verify EEC Python State Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -258,24 +258,24 @@ Verify EEC Python Command Interfaces
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_operatormode.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_operatormode.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_nighttimemode.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_nighttimemode.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_operatoMode.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_operatoMode.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_nightTimeMode.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_nightTimeMode.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_enable.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_enable.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_exitControl.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_exitControl.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_sethvac.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_sethvac.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_daytimemode.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_daytimemode.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_setlouvers.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setlouvers.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_setHVAC.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setHVAC.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_dayTimeMode.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_dayTimeMode.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_setLouvers.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setLouvers.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_start.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_start.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_engineeringmode.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_engineeringmode.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_engineeringMode.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_engineeringMode.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_standby.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_standby.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_disable.py
@@ -286,30 +286,30 @@ Verify EEC Python Event Interfaces
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_AppliedSettingsMatchStart.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_AppliedSettingsMatchStart.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_nighttimefail.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_nighttimefail.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_RejectedCommand.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_RejectedCommand.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_SettingsApplied.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_SettingsApplied.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_DetailedState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_DetailedState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_daytimefail.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_daytimefail.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_InternalCommand.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_InternalCommand.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_LoopTimeOutOfRange.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_LoopTimeOutOfRange.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_SummaryState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_SummaryState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_ErrorCode.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_ErrorCode.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_Heartbeat.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_Heartbeat.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_SettingVersions.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_SettingVersions.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_appliedSettingsMatchStart.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_appliedSettingsMatchStart.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_nightTimeFail.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_nightTimeFail.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_rejectedCommand.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_rejectedCommand.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_settingsApplied.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_settingsApplied.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_detailedState.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_detailedState.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_dayTimeFail.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_dayTimeFail.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_internalCommand.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_internalCommand.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_loopTimeOutOfRange.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_loopTimeOutOfRange.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_summaryState.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_summaryState.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_errorCode.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_errorCode.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_heartbeat.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_heartbeat.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_settingVersions.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_settingVersions.py
 
 Salgen EEC LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
@@ -333,12 +333,12 @@ Salgen EEC Java
     ${output}=    Read Until Prompt
     Log    ${output}
     Should Contain    ${output}    SAL generator - V${SALVersion}
-    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_hvactelem.idl
-    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_Timestamp.idl
-    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_nightsetpoint.idl
-    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_eectelem.idl
-    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_LoopTime_ms.idl
-    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_daysetpoint.idl
+    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_hvacTelem.idl
+    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_timestamp.idl
+    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_nightSetPoint.idl
+    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_eecTelem.idl
+    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_loopTimeMs.idl
+    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_daySetPoint.idl
     Should Contain X Times    ${output}    javac : Done Publisher    6
     Should Contain X Times    ${output}    javac : Done Subscriber    6
     Should Contain X Times    ${output}    javac : Done Commander/Controller    6
