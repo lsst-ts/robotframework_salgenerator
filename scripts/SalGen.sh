@@ -111,8 +111,10 @@ function salgenCPP {
 	for topic in "${telemetryArray[@]}"; do
 		echo "    Should Contain    \${output}    Generating SAL CPP code for \${subSystem}_${topic}.idl" >> $testSuite
 	done
-    echo "    Should Contain X Times    \${output}    cpp : Done Publisher    ${#telemetryArray[@]}" >> $testSuite
-    echo "    Should Contain X Times    \${output}    cpp : Done Subscriber    ${#telemetryArray[@]}" >> $testSuite
+    if [ ${#telemetryArray[@]} -gt 0 ]; then
+		echo "    Should Contain X Times    \${output}    cpp : Done Publisher    ${#telemetryArray[@]}" >> $testSuite
+    	echo "    Should Contain X Times    \${output}    cpp : Done Subscriber    ${#telemetryArray[@]}" >> $testSuite
+	fi
     echo "    Should Contain X Times    \${output}    cpp : Done Commander    1" >> $testSuite
     echo "    Should Contain X Times    \${output}    cpp : Done Event/Logger    1" >> $testSuite
     echo "" >> $testSuite
@@ -197,8 +199,10 @@ function salgenJava() {
 	for topic in "${telemetryArray[@]}"; do
         echo "    Should Contain    \${output}    Generating SAL Java code for \${subSystem}_${topic}.idl" >> $testSuite
     done
-	echo "    Should Contain X Times    \${output}    javac : Done Publisher    ${#telemetryArray[@]}" >> $testSuite
-    echo "    Should Contain X Times    \${output}    javac : Done Subscriber    ${#telemetryArray[@]}" >> $testSuite
+	if [ ${#telemetryArray[@]} -gt 0 ]; then
+		echo "    Should Contain X Times    \${output}    javac : Done Publisher    ${#telemetryArray[@]}" >> $testSuite
+    	echo "    Should Contain X Times    \${output}    javac : Done Subscriber    ${#telemetryArray[@]}" >> $testSuite
+	fi
     echo "    Should Contain X Times    \${output}    javac : Done Commander/Controller    ${#telemetryArray[@]}" >> $testSuite
     echo "    Should Contain X Times    \${output}    javac : Done Event/Logger    ${#telemetryArray[@]}" >> $testSuite
     echo "    Directory Should Exist    \${SALWorkDir}/\${subSystem}/java" >> $testSuite

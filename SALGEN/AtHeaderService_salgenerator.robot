@@ -79,8 +79,6 @@ Salgen AtHeaderService C++
     Should Not Contain    ${output}    *** DDS error in file
     Should Not Contain    ${output}    Error 1
     Should Contain    ${output}    SAL generator - V${SALVersion}
-    Should Contain X Times    ${output}    cpp : Done Publisher    0
-    Should Contain X Times    ${output}    cpp : Done Subscriber    0
     Should Contain X Times    ${output}    cpp : Done Commander    1
     Should Contain X Times    ${output}    cpp : Done Event/Logger    1
 
@@ -239,8 +237,6 @@ Salgen AtHeaderService Java
     ${output}=    Read Until Prompt
     Log    ${output}
     Should Contain    ${output}    SAL generator - V${SALVersion}
-    Should Contain X Times    ${output}    javac : Done Publisher    0
-    Should Contain X Times    ${output}    javac : Done Subscriber    0
     Should Contain X Times    ${output}    javac : Done Commander/Controller    0
     Should Contain X Times    ${output}    javac : Done Event/Logger    0
     Directory Should Exist    ${SALWorkDir}/${subSystem}/java
