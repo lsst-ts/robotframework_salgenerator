@@ -26,8 +26,8 @@ Verify OpenSplice Version
 	[Documentation]    Verify the OpenSplice version and date.
 	[Tags]    smoke
 	Log    ${versionData}
-	Log Many    ${OpenspliceVersion}    ${OpenspliceDate}
-	Should Contain    ${versionData}    Vortex OpenSplice HDE Release 
+	Log Many    ${OpenspliceRelease}    ${OpenspliceVersion}    ${OpenspliceDate}
+	Should Contain    ${versionData}    ${OpenspliceRelease}
 	Should Contain    ${versionData}    ${OpenspliceVersion} For x86_64.linux-debug
 	Should Contain    ${versionData}    Date ${OpenspliceDate}
 
