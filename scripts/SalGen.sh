@@ -111,7 +111,10 @@ function salgenCPP {
 	for topic in "${telemetryArray[@]}"; do
 		echo "    Should Contain    \${output}    Generating SAL CPP code for \${subSystem}_${topic}.idl" >> $testSuite
 	done
-    if [ ${#telemetryArray[@]} -gt 0 ]; then
+    if [ ${#telemetryArray[@]} -eq 0 ]; then
+		echo "    Should Contain X Times    \${output}    cpp : Done Publisher    1" >> $testSuite
+    	echo "    Should Contain X Times    \${output}    cpp : Done Subscriber    1" >> $testSuite
+	else
 		echo "    Should Contain X Times    \${output}    cpp : Done Publisher    ${#telemetryArray[@]}" >> $testSuite
     	echo "    Should Contain X Times    \${output}    cpp : Done Subscriber    ${#telemetryArray[@]}" >> $testSuite
 	fi
@@ -199,10 +202,13 @@ function salgenJava() {
 	for topic in "${telemetryArray[@]}"; do
         echo "    Should Contain    \${output}    Generating SAL Java code for \${subSystem}_${topic}.idl" >> $testSuite
     done
-	if [ ${#telemetryArray[@]} -gt 0 ]; then
-		echo "    Should Contain X Times    \${output}    javac : Done Publisher    ${#telemetryArray[@]}" >> $testSuite
-    	echo "    Should Contain X Times    \${output}    javac : Done Subscriber    ${#telemetryArray[@]}" >> $testSuite
-	fi
+	if [ ${#telemetryArray[@]} -eq 0 ]; then
+        echo "    Should Contain X Times    \${output}    javac : Done Publisher    1" >> $testSuite
+        echo "    Should Contain X Times    \${output}    javac : Done Subscriber    1" >> $testSuite
+    else
+        echo "    Should Contain X Times    \${output}    javac : Done Publisher    ${#telemetryArray[@]}" >> $testSuite
+        echo "    Should Contain X Times    \${output}    javac : Done Subscriber    ${#telemetryArray[@]}" >> $testSuite
+    fi
     echo "    Should Contain X Times    \${output}    javac : Done Commander/Controller    ${#telemetryArray[@]}" >> $testSuite
     echo "    Should Contain X Times    \${output}    javac : Done Event/Logger    ${#telemetryArray[@]}" >> $testSuite
     echo "    Directory Should Exist    \${SALWorkDir}/\${subSystem}/java" >> $testSuite
