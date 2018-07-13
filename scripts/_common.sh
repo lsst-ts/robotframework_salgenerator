@@ -144,7 +144,7 @@ function getEntity() {
 	elif [ "$entity" == "headerservice" ]; then
 		echo "headerService"
     elif [ "$entity" == "sedspectrometer" ]; then
-        echo "SEDSpectrometer"
+        echo "sedSpectrometer"
 	elif [ "$entity" == "tcsofc" ]; then
 		echo "tcsOfc"
 	elif [ "$entity" == "tcswep" ]; then
@@ -187,6 +187,14 @@ function checkIfSkipped() {
 		skipped="TSS-2617"
 	elif [[ ("$subsystem" == "vms") ]]; then
 		skipped="TSS-2618"
+	elif [[ ("$subsystem" == "promptprocessing") ]]; then
+		skipped="TSS-2605"
+	elif [[ ("$subsystem" == "summitFacility") ]]; then
+        skipped="TSS-2803"
+	elif [[ ("$subsystem" == "atScheduler") ]]; then
+        skipped="TSS-2610"
+	elif [[ ("$subsystem" == "scheduler") ]]; then
+        skipped="TSS-1789"
 	else
 		skipped=""
 	fi
