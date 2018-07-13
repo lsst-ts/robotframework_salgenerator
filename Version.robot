@@ -28,7 +28,7 @@ Verify OpenSplice Version
 	Log    ${versionData}
 	Log Many    ${OpenspliceRelease}    ${OpenspliceVersion}    ${OpenspliceDate}
 	Should Contain    ${versionData}    ${OpenspliceRelease}
-	Should Contain    ${versionData}    ${OpenspliceVersion} For x86_64.linux-debug
+	Should Contain    ${versionData}    ${OpenspliceVersion} For x86_64.linux
 	Should Contain    ${versionData}    Date ${OpenspliceDate}
 
 Verify SAL Version file exists
