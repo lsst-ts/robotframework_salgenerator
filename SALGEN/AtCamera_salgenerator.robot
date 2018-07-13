@@ -36,13 +36,15 @@ Salgen AtCamera Validate
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_Heartbeat.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_WREB.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_BonnShutter.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_WREBPower.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_standby.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_start.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_discardRows.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setValue.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_SetValue.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_startImage.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disableCalibration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_initGuiders.idl
@@ -83,6 +85,8 @@ Salgen AtCamera Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_startReadout.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_shutterMotionProfile.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_imageReadoutParameters.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_BonnShutterSettingsApplied.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_WREBSettingsApplied.idl
 
 Salgen AtCamera HTML
     [Documentation]    Create web form interfaces.
@@ -112,8 +116,10 @@ Salgen AtCamera C++
     Should Contain    ${output}    SAL generator - V${SALVersion}
     Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_Heartbeat.idl
     Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_WREB.idl
-    Should Contain X Times    ${output}    cpp : Done Publisher    2
-    Should Contain X Times    ${output}    cpp : Done Subscriber    2
+    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_BonnShutter.idl
+    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_WREBPower.idl
+    Should Contain X Times    ${output}    cpp : Done Publisher    4
+    Should Contain X Times    ${output}    cpp : Done Subscriber    4
     Should Contain X Times    ${output}    cpp : Done Commander    1
     Should Contain X Times    ${output}    cpp : Done Event/Logger    1
 
@@ -133,6 +139,8 @@ Verify AtCamera Telemetry directories
     Log Many    @{files}
     Directory Should Exist    ${SALWorkDir}/${subSystem}_Heartbeat
     Directory Should Exist    ${SALWorkDir}/${subSystem}_WREB
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_BonnShutter
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_WREBPower
 
 Verify AtCamera C++ Telemetry Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -141,6 +149,10 @@ Verify AtCamera C++ Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}_Heartbeat/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_WREB/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_WREB/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_BonnShutter/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_BonnShutter/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_WREBPower/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_WREBPower/cpp/standalone/sacpp_${subSystem}_sub
 
 Verify AtCamera C++ State Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -161,8 +173,8 @@ Verify AtCamera C++ Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_discardRows_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enable_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enable_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setValue_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setValue_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_SetValue_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_SetValue_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_startImage_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_startImage_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_disableCalibration_commander
@@ -247,6 +259,10 @@ Verify AtCamera C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_shutterMotionProfile_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_imageReadoutParameters_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_imageReadoutParameters_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_BonnShutterSettingsApplied_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_BonnShutterSettingsApplied_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_WREBSettingsApplied_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_WREBSettingsApplied_log
 
 Salgen AtCamera Python
     [Documentation]    Generate Python wrapper.
@@ -272,6 +288,10 @@ Verify AtCamera Python Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Heartbeat_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_WREB_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_WREB_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_BonnShutter_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_BonnShutter_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_WREBPower_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_WREBPower_Subscriber.py
 
 Verify AtCamera Python State Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -294,8 +314,8 @@ Verify AtCamera Python Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_discardRows.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_enable.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_enable.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_setValue.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setValue.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_SetValue.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_SetValue.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_startImage.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_startImage.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_disableCalibration.py
@@ -382,6 +402,10 @@ Verify AtCamera Python Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_shutterMotionProfile.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_imageReadoutParameters.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_imageReadoutParameters.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_BonnShutterSettingsApplied.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_BonnShutterSettingsApplied.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_WREBSettingsApplied.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_WREBSettingsApplied.py
 
 Salgen AtCamera LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
@@ -407,10 +431,12 @@ Salgen AtCamera Java
     Should Contain    ${output}    SAL generator - V${SALVersion}
     Should Contain    ${output}    Generating SAL Java code for ${subSystem}_Heartbeat.idl
     Should Contain    ${output}    Generating SAL Java code for ${subSystem}_WREB.idl
-    Should Contain X Times    ${output}    javac : Done Publisher    2
-    Should Contain X Times    ${output}    javac : Done Subscriber    2
-    Should Contain X Times    ${output}    javac : Done Commander/Controller    2
-    Should Contain X Times    ${output}    javac : Done Event/Logger    2
+    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_BonnShutter.idl
+    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_WREBPower.idl
+    Should Contain X Times    ${output}    javac : Done Publisher    4
+    Should Contain X Times    ${output}    javac : Done Subscriber    4
+    Should Contain X Times    ${output}    javac : Done Commander/Controller    4
+    Should Contain X Times    ${output}    javac : Done Event/Logger    4
     Directory Should Exist    ${SALWorkDir}/${subSystem}/java
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
