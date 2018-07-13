@@ -44,7 +44,7 @@ function clearTestSuites() {
 }
 
 function subsystemArray() {
-	echo "archiver atArchiver atcamera atcs atHeaderService atMonochromator atScheduler calibrationElectrometer camera catchuparchiver dome domeADB domeAPS domeLouvers domeLWS domeMONCS domeTHCS eec efd headerService hexapod m1m3 m2ms MTMount ocs promptprocessing rotator scheduler sequencer summitFacility tcs tcsOfc tcsWEP vms"
+	echo "archiver atArchiver atcamera atcs atHeaderService atMonochromator atScheduler calibrationElectrometer camera catchuparchiver dome domeADB domeAPS domeLouvers domeLWS domeMONCS domeTHCS eec efd headerService hexapod m1m3 m2ms MTMount ocs promptprocessing rotator scheduler sedSpectrometer sequencer summitFacility tcs tcsOfc tcsWEP vms"
 }
 
 function stateArray() {
@@ -91,6 +91,8 @@ function capitializeSubsystem() {
         echo "HeaderService"
 	elif [ "$subSystem" == "atHeaderService" ]; then
         echo "AtHeaderService"
+	elif [ "$subSystem" == "sedSpectrometer" ]; then
+		echo "SEDSpectrometer"
 	elif [ "$subSystem" == "tcsOfc" ]; then
         echo "TcsOFC"
 	elif [ "$subSystem" == "tcsWEP" ]; then
@@ -141,6 +143,8 @@ function getEntity() {
 		echo "domeTHCS"
 	elif [ "$entity" == "headerservice" ]; then
 		echo "headerService"
+    elif [ "$entity" == "sedspectrometer" ]; then
+        echo "SEDSpectrometer"
 	elif [ "$entity" == "tcsofc" ]; then
 		echo "tcsOfc"
 	elif [ "$entity" == "tcswep" ]; then
