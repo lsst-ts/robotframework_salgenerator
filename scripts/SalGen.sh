@@ -366,8 +366,10 @@ function createTestSuite() {
 	# Create and verify C++ interfaces.
 	salgenCPP
 	verifyCppDirectories
-	verifyTelemetryDirectories
-	verifyCppTelemetryInterfaces
+	if [[ ${xmls[*]} =~ "${subSystem}_Telemetry.xml" ]]; then
+		verifyTelemetryDirectories
+		verifyCppTelemetryInterfaces
+	fi
 	verifyCppStateInterfaces
 	if [[ ${xmls[*]} =~ "${subSystem}_Commands.xml" ]]; then
 		verifyCppCommandInterfaces
@@ -377,7 +379,9 @@ function createTestSuite() {
     fi
 	# Create and verify Python interfaces.
     salgenPython
-    verifyPythonTelemetryInterfaces
+	if [[ ${xmls[*]} =~ "${subSystem}_Telemetry.xml" ]]; then
+    	verifyPythonTelemetryInterfaces
+	fi
     verifyPythonStateInterfaces
     if [[ ${xmls[*]} =~ "${subSystem}_Commands.xml" ]]; then
 		verifyPythonCommandInterfaces
