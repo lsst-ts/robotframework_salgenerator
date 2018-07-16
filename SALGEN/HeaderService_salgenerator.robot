@@ -241,8 +241,8 @@ Salgen HeaderService Java
     Should Contain    ${output}    SAL generator - V${SALVersion}
     Should Contain X Times    ${output}    javac : Done Publisher    1
     Should Contain X Times    ${output}    javac : Done Subscriber    1
-    Should Contain X Times    ${output}    javac : Done Commander/Controller    0
-    Should Contain X Times    ${output}    javac : Done Event/Logger    0
+    Should Contain X Times    ${output}    javac : Done Commander/Controller    1
+    Should Contain X Times    ${output}    javac : Done Event/Logger    1
     Directory Should Exist    ${SALWorkDir}/${subSystem}/java
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
