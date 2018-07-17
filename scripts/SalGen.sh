@@ -47,6 +47,7 @@ function verifyXMLDefinitions() {
 }
 
 function salgenValidate() {
+	echo ${stateArray[*]}
     echo "Salgen $subSystemUp Validate" >> $testSuite
     echo "    [Documentation]    Validate the $subSystemUp XML definitions." >> $testSuite
     echo "    [Tags]" >> $testSuite
@@ -65,9 +66,11 @@ function salgenValidate() {
 	for topic in "${telemetryArray[@]}"; do
 		echo "    File Should Exist    \${SALWorkDir}/idl-templates/\${subSystem}_${topic}.idl" >> $testSuite
 	done
-    for topic in "${stateArray[@]}"; do
-        echo "    File Should Exist    \${SALWorkDir}/idl-templates/\${subSystem}_command_${topic}.idl" >> $testSuite
-    done
+	if ! [ "$subSystem" == "efd" ]; then
+    	for topic in "${stateArray[@]}"; do
+        	echo "    File Should Exist    \${SALWorkDir}/idl-templates/\${subSystem}_command_${topic}.idl" >> $testSuite
+    	done
+	fi
     for topic in "${commandArray[@]}"; do
         echo "    File Should Exist    \${SALWorkDir}/idl-templates/\${subSystem}_command_${topic}.idl" >> $testSuite
     done
@@ -87,7 +90,9 @@ function salgenHTML() {
     echo "    Should Contain    \${output}    SAL generator - V\${SALVersion}" >> $testSuite
     echo "    Should Contain    \${output}    Generating telemetry stream definition editor html" >> $testSuite
     echo "    Should Contain    \${output}    Creating sal-generator-\${subSystem} form" >> $testSuite
-    echo "    Should Contain    \${output}    Added sal-generator-\${subSystem}.logevent to form" >> $testSuite
+	if ! [ "$subSystemUp" == "EFD" ]; then
+    	echo "    Should Contain    \${output}    Added sal-generator-\${subSystem}.logevent to form" >> $testSuite
+    fi
     echo "    Directory Should Exist    \${SALWorkDir}/html/salgenerator/\${subSystem}" >> $testSuite
     echo "    @{files}=    List Directory    \${SALWorkDir}/html/salgenerator/\${subSystem}    pattern=*\${subSystem}*" >> $testSuite
     echo "    Log Many    @{files}" >> $testSuite
@@ -336,7 +341,9 @@ function salgenLib() {
     echo "    Log Many    @{files}" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/lib/libsacpp_\${subSystem}_types.so" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/lib/libSAL_\${subSystem}.so" >> $testSuite
-	if ! [ "$subSystem" == "scheduler" ]; then    # The SALLV_* files are produced by the labview option. This is skipped for the scheduler.
+	if [ "$subSystem" == "scheduler" ] || [ "$subSystem" == "efd" ]; then
+		echo "The SALLV_* files are produced by the LabVIEW option. This is skipped for the Scheduler and EFD."
+	else
     	echo "    File Should Exist    \${SALWorkDir}/lib/SALLV_\${subSystem}.so" >> $testSuite
     fi
     echo "    File Should Exist    \${SALWorkDir}/lib/SALPY_\${subSystem}.so" >> $testSuite
@@ -382,7 +389,11 @@ function createTestSuite() {
 		verifyTelemetryDirectories
 		verifyCppTelemetryInterfaces
 	fi
-	verifyCppStateInterfaces
+	if [[ "$subSystem" == "efd" ]]; then
+		echo "Skipping EFD C++ Commands tests."
+	else
+		verifyCppStateInterfaces
+	fi
 	if [[ ${xmls[*]} =~ "${subSystem}_Commands.xml" ]]; then
 		verifyCppCommandInterfaces
 	fi
@@ -394,15 +405,21 @@ function createTestSuite() {
 	if [[ ${xmls[*]} =~ "${subSystem}_Telemetry.xml" ]]; then
     	verifyPythonTelemetryInterfaces
 	fi
-    verifyPythonStateInterfaces
+	if [[ "$subSystem" == "efd" ]]; then
+        echo "Skipping EFD Python Commands tests."
+    else
+        verifyPythonStateInterfaces
+	fi
     if [[ ${xmls[*]} =~ "${subSystem}_Commands.xml" ]]; then
 		verifyPythonCommandInterfaces
 	fi
 	if [[ ${xmls[*]} =~ "${subSystem}_Events.xml" ]]; then
 		verifyPythonEventInterfaces
 	fi
-	# Create LabVIEW interfaces.  NOTE: There are NO such scheduler interfaces.
-	if ! [ "$subSystem" == "scheduler" ]; then
+	# Create LabVIEW interfaces.  NOTE: There are NO such Scheduler or EFD interfaces.
+	if [ "$subSystem" == "scheduler" ] || [ "$subSystem" == "efd" ]; then
+		echo "Skipping LabVIEW step for the Scheduler and EFD."
+	else
 		salgenLabview
 	fi
 	# Create and verify Java interfaces.
