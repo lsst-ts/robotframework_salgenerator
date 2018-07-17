@@ -34,10 +34,6 @@ Salgen EFD Validate
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_Summary.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_standby.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_start.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_LargeFileObjectAvailable.idl
 
 Salgen EFD HTML
@@ -49,7 +45,6 @@ Salgen EFD HTML
     Should Contain    ${output}    SAL generator - V${SALVersion}
     Should Contain    ${output}    Generating telemetry stream definition editor html
     Should Contain    ${output}    Creating sal-generator-${subSystem} form
-    Should Contain    ${output}    Added sal-generator-${subSystem}.logevent to form
     Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
     @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}
@@ -93,18 +88,6 @@ Verify EFD C++ Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}_Summary/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_Summary/cpp/standalone/sacpp_${subSystem}_sub
 
-Verify EFD C++ State Command Interfaces
-    [Documentation]    Verify the C++ interfaces were properly created.
-    [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enable_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enable_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_disable_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_disable_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_standby_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_standby_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_start_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_start_controller
-
 Verify EFD C++ Event Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
@@ -134,18 +117,6 @@ Verify EFD Python Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Summary_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Summary_Subscriber.py
 
-Verify EFD Python State Command Interfaces
-    [Documentation]    Verify the C++ interfaces were properly created.
-    [Tags]    python
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_enable.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_enable.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_disable.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_disable.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_standby.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_standby.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_start.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_start.py
-
 Verify EFD Python Event Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
     [Tags]    python
@@ -153,21 +124,6 @@ Verify EFD Python Event Interfaces
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_LargeFileObjectAvailable.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_LargeFileObjectAvailable.py
-
-Salgen EFD LabVIEW
-    [Documentation]    Generate ${subSystem} low-level LabView interfaces.
-    [Tags]    labview
-    ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} labview
-    ${output}=    Read Until Prompt
-    Log    ${output}
-    Should Contain    ${output}    SAL generator - V${SALVersion}
-    Directory Should Exist    ${SALWorkDir}/${subSystem}/labview
-    @{files}=    List Directory    ${SALWorkDir}/${subSystem}/labview
-    Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/labview/SAL_${subSystem}_salShmMonitor.cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}/labview/SAL_${subSystem}_shmem.h
-    File Should Exist    ${SALWorkDir}/${subSystem}/labview/SALLV_${subSystem}.so
-    File Should Exist    ${SALWorkDir}/${subSystem}/labview/SALLV_${subSystem}_Monitor
 
 Salgen EFD Java
     [Documentation]    Generate Java wrapper.
@@ -198,7 +154,6 @@ Salgen EFD Lib
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/lib/libsacpp_${subSystem}_types.so
     File Should Exist    ${SALWorkDir}/lib/libSAL_${subSystem}.so
-    File Should Exist    ${SALWorkDir}/lib/SALLV_${subSystem}.so
     File Should Exist    ${SALWorkDir}/lib/SALPY_${subSystem}.so
 
 Salgen EFD Maven
