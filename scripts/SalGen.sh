@@ -47,7 +47,6 @@ function verifyXMLDefinitions() {
 }
 
 function salgenValidate() {
-	echo ${stateArray[*]}
     echo "Salgen $subSystemUp Validate" >> $testSuite
     echo "    [Documentation]    Validate the $subSystemUp XML definitions." >> $testSuite
     echo "    [Tags]" >> $testSuite
