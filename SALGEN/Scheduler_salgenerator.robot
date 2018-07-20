@@ -15,6 +15,8 @@ ${timeout}    1200s
 *** Test Cases ***
 Verify Scheduler XML Defintions exist
     [Tags]
+    File Should Exist    ${SALWorkDir}/scheduler_Commands.xml
+    File Should Exist    ${SALWorkDir}/scheduler_Events.xml
     File Should Exist    ${SALWorkDir}/scheduler_Telemetry.xml
 
 Salgen Scheduler Validate
@@ -32,13 +34,13 @@ Salgen Scheduler Validate
     Directory Should Exist    ${SALWorkDir}/idl-templates/validated
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_timeHandler.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_cloud.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_seeing.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_filterSwap.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_timestamp.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_loopTimeMs.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_nightSummary.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_predictedSchedule.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_surveyTopology.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_schedulerConfig.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_driverConfig.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_field.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_obsSiteConfig.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_telescopeConfig.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_rotatorConfig.idl
@@ -50,20 +52,42 @@ Salgen Scheduler Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_generalPropConfig.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_sequencePropConfig.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_observatoryState.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_target.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_observation.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_interestedProposal.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_parameters.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_Application.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_program.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_progress.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_rankingData.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_econstraints.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_iconstraints.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_timeHandler.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_bulkCloud.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_cloudMap.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_seeing.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_wind.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_temperature.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_skyBrightness.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_photometricQuality.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_avoidanceRegions.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_downtime.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_standby.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_start.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_exitControl.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_standby.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_start.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enterControl.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_appliedSettingsMatchStart.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_errorCode.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingVersions.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_summaryState.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_detailedState.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_internalCommand.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_heartbeat.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_loopTimeOutOfRange.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rejectedCommand.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingsApplied.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_validSettings.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_target.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_invalidateTarget.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_needFilterSwap.idl
 
 Salgen Scheduler HTML
     [Documentation]    Create web form interfaces.
@@ -78,6 +102,8 @@ Salgen Scheduler HTML
     Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
     @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/scheduler_Commands.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/scheduler_Events.html
     File Should Exist    ${SALWorkDir}/html/${subSystem}/scheduler_Telemetry.html
 
 Salgen Scheduler C++
@@ -89,13 +115,13 @@ Salgen Scheduler C++
     Should Not Contain    ${output}    *** DDS error in file
     Should Not Contain    ${output}    Error 1
     Should Contain    ${output}    SAL generator - V${SALVersion}
-    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_timeHandler.idl
-    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_cloud.idl
-    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_seeing.idl
-    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_filterSwap.idl
+    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_timestamp.idl
+    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_loopTimeMs.idl
+    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_nightSummary.idl
+    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_predictedSchedule.idl
+    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_surveyTopology.idl
     Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_schedulerConfig.idl
     Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_driverConfig.idl
-    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_field.idl
     Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_obsSiteConfig.idl
     Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_telescopeConfig.idl
     Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_rotatorConfig.idl
@@ -107,18 +133,20 @@ Salgen Scheduler C++
     Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_generalPropConfig.idl
     Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_sequencePropConfig.idl
     Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_observatoryState.idl
-    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_target.idl
     Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_observation.idl
     Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_interestedProposal.idl
-    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_parameters.idl
-    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_Application.idl
-    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_program.idl
-    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_progress.idl
-    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_rankingData.idl
-    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_econstraints.idl
-    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_iconstraints.idl
-    Should Contain X Times    ${output}    cpp : Done Publisher    28
-    Should Contain X Times    ${output}    cpp : Done Subscriber    28
+    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_timeHandler.idl
+    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_bulkCloud.idl
+    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_cloudMap.idl
+    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_seeing.idl
+    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_wind.idl
+    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_temperature.idl
+    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_skyBrightness.idl
+    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_photometricQuality.idl
+    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_avoidanceRegions.idl
+    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_downtime.idl
+    Should Contain X Times    ${output}    cpp : Done Publisher    30
+    Should Contain X Times    ${output}    cpp : Done Subscriber    30
     Should Contain X Times    ${output}    cpp : Done Commander    1
     Should Contain X Times    ${output}    cpp : Done Event/Logger    1
 
@@ -136,13 +164,13 @@ Verify Scheduler Telemetry directories
     [Tags]    cpp
     @{files}=    List Directory    ${SALWorkDir}    pattern=*${subSystem}*
     Log Many    @{files}
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_timeHandler
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_cloud
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_seeing
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_filterSwap
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_timestamp
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_loopTimeMs
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_nightSummary
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_predictedSchedule
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_surveyTopology
     Directory Should Exist    ${SALWorkDir}/${subSystem}_schedulerConfig
     Directory Should Exist    ${SALWorkDir}/${subSystem}_driverConfig
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_field
     Directory Should Exist    ${SALWorkDir}/${subSystem}_obsSiteConfig
     Directory Should Exist    ${SALWorkDir}/${subSystem}_telescopeConfig
     Directory Should Exist    ${SALWorkDir}/${subSystem}_rotatorConfig
@@ -154,34 +182,36 @@ Verify Scheduler Telemetry directories
     Directory Should Exist    ${SALWorkDir}/${subSystem}_generalPropConfig
     Directory Should Exist    ${SALWorkDir}/${subSystem}_sequencePropConfig
     Directory Should Exist    ${SALWorkDir}/${subSystem}_observatoryState
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_target
     Directory Should Exist    ${SALWorkDir}/${subSystem}_observation
     Directory Should Exist    ${SALWorkDir}/${subSystem}_interestedProposal
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_parameters
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_Application
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_program
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_progress
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_rankingData
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_econstraints
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_iconstraints
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_timeHandler
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_bulkCloud
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_cloudMap
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_seeing
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_wind
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_temperature
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_skyBrightness
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_photometricQuality
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_avoidanceRegions
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_downtime
 
 Verify Scheduler C++ Telemetry Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}_timeHandler/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_timeHandler/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_cloud/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_cloud/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_seeing/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_seeing/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_filterSwap/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_filterSwap/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_timestamp/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_timestamp/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_loopTimeMs/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_loopTimeMs/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_nightSummary/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_nightSummary/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_predictedSchedule/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_predictedSchedule/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_surveyTopology/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_surveyTopology/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_schedulerConfig/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_schedulerConfig/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_driverConfig/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_driverConfig/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_field/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_field/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_obsSiteConfig/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_obsSiteConfig/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_telescopeConfig/cpp/standalone/sacpp_${subSystem}_pub
@@ -204,26 +234,30 @@ Verify Scheduler C++ Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}_sequencePropConfig/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_observatoryState/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_observatoryState/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_target/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_target/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_observation/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_observation/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_interestedProposal/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_interestedProposal/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_parameters/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_parameters/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_Application/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_Application/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_program/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_program/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_progress/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_progress/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_rankingData/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_rankingData/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_econstraints/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_econstraints/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_iconstraints/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_iconstraints/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_timeHandler/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_timeHandler/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_bulkCloud/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_bulkCloud/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_cloudMap/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_cloudMap/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_seeing/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_seeing/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_wind/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_wind/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_temperature/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_temperature/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_skyBrightness/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_skyBrightness/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_photometricQuality/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_photometricQuality/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_avoidanceRegions/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_avoidanceRegions/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_downtime/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_downtime/cpp/standalone/sacpp_${subSystem}_sub
 
 Verify Scheduler C++ State Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -236,6 +270,54 @@ Verify Scheduler C++ State Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_standby_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_start_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_start_controller
+
+Verify Scheduler C++ Command Interfaces
+    [Documentation]    Verify the C++ interfaces were properly created.
+    [Tags]    cpp
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_disable_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_disable_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enable_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enable_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_exitControl_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_exitControl_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_standby_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_standby_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_start_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_start_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enterControl_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enterControl_controller
+
+Verify Scheduler C++ Event Interfaces
+    [Documentation]    Verify the C++ interfaces were properly created.
+    [Tags]    cpp
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_appliedSettingsMatchStart_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_appliedSettingsMatchStart_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_errorCode_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_errorCode_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingVersions_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingVersions_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_summaryState_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_summaryState_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_detailedState_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_detailedState_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_internalCommand_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_internalCommand_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_heartbeat_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_heartbeat_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_loopTimeOutOfRange_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_loopTimeOutOfRange_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_rejectedCommand_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_rejectedCommand_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsApplied_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsApplied_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_validSettings_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_validSettings_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_target_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_target_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_invalidateTarget_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_invalidateTarget_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_needFilterSwap_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_needFilterSwap_log
 
 Salgen Scheduler Python
     [Documentation]    Generate Python wrapper.
@@ -257,20 +339,20 @@ Verify Scheduler Python Telemetry Interfaces
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_timeHandler_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_timeHandler_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_cloud_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_cloud_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_seeing_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_seeing_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_filterSwap_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_filterSwap_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_timestamp_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_timestamp_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_loopTimeMs_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_loopTimeMs_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_nightSummary_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_nightSummary_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_predictedSchedule_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_predictedSchedule_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_surveyTopology_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_surveyTopology_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_schedulerConfig_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_schedulerConfig_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_driverConfig_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_driverConfig_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_field_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_field_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_obsSiteConfig_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_obsSiteConfig_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_telescopeConfig_Publisher.py
@@ -293,26 +375,30 @@ Verify Scheduler Python Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_sequencePropConfig_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_observatoryState_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_observatoryState_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_target_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_target_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_observation_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_observation_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_interestedProposal_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_interestedProposal_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_parameters_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_parameters_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Application_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Application_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_program_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_program_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_progress_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_progress_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_rankingData_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_rankingData_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_econstraints_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_econstraints_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_iconstraints_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_iconstraints_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_timeHandler_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_timeHandler_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_bulkCloud_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_bulkCloud_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_cloudMap_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_cloudMap_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_seeing_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_seeing_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_wind_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_wind_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_temperature_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_temperature_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_skyBrightness_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_skyBrightness_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_photometricQuality_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_photometricQuality_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_avoidanceRegions_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_avoidanceRegions_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_downtime_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_downtime_Subscriber.py
 
 Verify Scheduler Python State Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -326,6 +412,58 @@ Verify Scheduler Python State Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_start.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_start.py
 
+Verify Scheduler Python Command Interfaces
+    [Documentation]    Verify the Python interfaces were properly created.
+    [Tags]    python
+    @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
+    Log Many    @{files}
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_disable.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_disable.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_enable.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_enable.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_exitControl.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_exitControl.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_standby.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_standby.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_start.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_start.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_enterControl.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_enterControl.py
+
+Verify Scheduler Python Event Interfaces
+    [Documentation]    Verify the Python interfaces were properly created.
+    [Tags]    python
+    @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
+    Log Many    @{files}
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_appliedSettingsMatchStart.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_appliedSettingsMatchStart.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_errorCode.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_errorCode.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_settingVersions.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_settingVersions.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_summaryState.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_summaryState.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_detailedState.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_detailedState.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_internalCommand.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_internalCommand.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_heartbeat.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_heartbeat.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_loopTimeOutOfRange.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_loopTimeOutOfRange.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_rejectedCommand.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_rejectedCommand.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_settingsApplied.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_settingsApplied.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_validSettings.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_validSettings.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_target.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_target.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_invalidateTarget.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_invalidateTarget.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_needFilterSwap.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_needFilterSwap.py
+
 Salgen Scheduler Java
     [Documentation]    Generate Java wrapper.
     [Tags]    java
@@ -333,13 +471,13 @@ Salgen Scheduler Java
     ${output}=    Read Until Prompt
     Log    ${output}
     Should Contain    ${output}    SAL generator - V${SALVersion}
-    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_timeHandler.idl
-    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_cloud.idl
-    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_seeing.idl
-    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_filterSwap.idl
+    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_timestamp.idl
+    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_loopTimeMs.idl
+    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_nightSummary.idl
+    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_predictedSchedule.idl
+    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_surveyTopology.idl
     Should Contain    ${output}    Generating SAL Java code for ${subSystem}_schedulerConfig.idl
     Should Contain    ${output}    Generating SAL Java code for ${subSystem}_driverConfig.idl
-    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_field.idl
     Should Contain    ${output}    Generating SAL Java code for ${subSystem}_obsSiteConfig.idl
     Should Contain    ${output}    Generating SAL Java code for ${subSystem}_telescopeConfig.idl
     Should Contain    ${output}    Generating SAL Java code for ${subSystem}_rotatorConfig.idl
@@ -351,20 +489,22 @@ Salgen Scheduler Java
     Should Contain    ${output}    Generating SAL Java code for ${subSystem}_generalPropConfig.idl
     Should Contain    ${output}    Generating SAL Java code for ${subSystem}_sequencePropConfig.idl
     Should Contain    ${output}    Generating SAL Java code for ${subSystem}_observatoryState.idl
-    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_target.idl
     Should Contain    ${output}    Generating SAL Java code for ${subSystem}_observation.idl
     Should Contain    ${output}    Generating SAL Java code for ${subSystem}_interestedProposal.idl
-    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_parameters.idl
-    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_Application.idl
-    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_program.idl
-    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_progress.idl
-    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_rankingData.idl
-    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_econstraints.idl
-    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_iconstraints.idl
-    Should Contain X Times    ${output}    javac : Done Publisher    28
-    Should Contain X Times    ${output}    javac : Done Subscriber    28
-    Should Contain X Times    ${output}    javac : Done Commander/Controller    28
-    Should Contain X Times    ${output}    javac : Done Event/Logger    28
+    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_timeHandler.idl
+    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_bulkCloud.idl
+    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_cloudMap.idl
+    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_seeing.idl
+    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_wind.idl
+    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_temperature.idl
+    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_skyBrightness.idl
+    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_photometricQuality.idl
+    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_avoidanceRegions.idl
+    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_downtime.idl
+    Should Contain X Times    ${output}    javac : Done Publisher    30
+    Should Contain X Times    ${output}    javac : Done Subscriber    30
+    Should Contain X Times    ${output}    javac : Done Commander/Controller    30
+    Should Contain X Times    ${output}    javac : Done Event/Logger    30
     Directory Should Exist    ${SALWorkDir}/${subSystem}/java
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl

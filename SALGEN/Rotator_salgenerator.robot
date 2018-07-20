@@ -49,11 +49,15 @@ Salgen Rotator Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_trackStart.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_clearError.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_positionSet.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_moveConstantVelocity.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_velocitySet.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_interlock.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_trackLost.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_tracking.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_deviceError.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_inPosition.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingsApplied.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rejectedCommand.idl
 
 Salgen Rotator HTML
     [Documentation]    Create web form interfaces.
@@ -148,6 +152,10 @@ Verify Rotator C++ Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_clearError_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_positionSet_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_positionSet_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_moveConstantVelocity_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_moveConstantVelocity_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_velocitySet_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_velocitySet_controller
 
 Verify Rotator C++ Event Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -162,6 +170,10 @@ Verify Rotator C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_deviceError_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_inPosition_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_inPosition_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsApplied_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsApplied_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_rejectedCommand_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_rejectedCommand_log
 
 Salgen Rotator Python
     [Documentation]    Generate Python wrapper.
@@ -223,6 +235,10 @@ Verify Rotator Python Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_clearError.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_positionSet.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_positionSet.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_moveConstantVelocity.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_moveConstantVelocity.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_velocitySet.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_velocitySet.py
 
 Verify Rotator Python Event Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
@@ -239,6 +255,10 @@ Verify Rotator Python Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_deviceError.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_inPosition.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_inPosition.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_settingsApplied.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_settingsApplied.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_rejectedCommand.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_rejectedCommand.py
 
 Salgen Rotator LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
