@@ -190,7 +190,7 @@ Salgen ATCS Python
     Log    ${output}
     Should Contain    ${output}    SAL generator - V${SALVersion}
     Should Contain    ${output}    Generating Python SAL support for ${subSystem}
-    Should Contain    ${output}    Generating Boost.Python bindings
+    Should Contain    ${output}    Generating Python bindings
     Should Contain    ${output}    python : Done SALPY_${subSystem}.so
     Directory Should Exist    ${SALWorkDir}/${subSystem}/python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*

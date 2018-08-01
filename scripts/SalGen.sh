@@ -249,7 +249,7 @@ function salgenPython() {
     echo "    Log    \${output}" >> $testSuite
     echo "    Should Contain    \${output}    SAL generator - V\${SALVersion}" >> $testSuite
     echo "    Should Contain    \${output}    Generating Python SAL support for \${subSystem}" >> $testSuite
-    echo "    Should Contain    \${output}    Generating Boost.Python bindings" >> $testSuite
+    echo "    Should Contain    \${output}    Generating Python bindings" >> $testSuite
     echo "    Should Contain    \${output}    python : Done SALPY_\${subSystem}.so" >> $testSuite
     echo "    Directory Should Exist    \${SALWorkDir}/\${subSystem}/python" >> $testSuite
     echo "    @{files}=    List Directory    \${SALWorkDir}/\${subSystem}/python    pattern=*\${subSystem}*" >> $testSuite
