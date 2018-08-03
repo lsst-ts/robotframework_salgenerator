@@ -40,10 +40,6 @@ Salgen EEC Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_eecTelem.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_loopTimeMs.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_daySetPoint.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_standby.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_start.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_operatoMode.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_nightTimeMode.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
@@ -142,18 +138,6 @@ Verify EEC C++ Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}_daySetPoint/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_daySetPoint/cpp/standalone/sacpp_${subSystem}_sub
 
-Verify EEC C++ State Command Interfaces
-    [Documentation]    Verify the C++ interfaces were properly created.
-    [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enable_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enable_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_disable_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_disable_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_standby_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_standby_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_start_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_start_controller
-
 Verify EEC C++ Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
@@ -240,18 +224,6 @@ Verify EEC Python Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_loopTimeMs_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_daySetPoint_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_daySetPoint_Subscriber.py
-
-Verify EEC Python State Command Interfaces
-    [Documentation]    Verify the C++ interfaces were properly created.
-    [Tags]    python
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_enable.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_enable.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_disable.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_disable.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_standby.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_standby.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_start.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_start.py
 
 Verify EEC Python Command Interfaces
     [Documentation]    Verify the Python interfaces were properly created.

@@ -13,7 +13,6 @@ source $workDir/scripts/_common.sh
 arg=${1-all}
 arg="$(echo ${arg} |tr 'A-Z' 'a-z')"
 declare -a subSystemArray=($(subsystemArray))
-declare -a stateArray=($(stateArray))
 
 #  FUNCTIONS
 function createSettings() {
@@ -65,11 +64,6 @@ function salgenValidate() {
 	for topic in "${telemetryArray[@]}"; do
 		echo "    File Should Exist    \${SALWorkDir}/idl-templates/\${subSystem}_${topic}.idl" >> $testSuite
 	done
-	if ! [ "$subSystem" == "efd" ]; then
-    	for topic in "${stateArray[@]}"; do
-        	echo "    File Should Exist    \${SALWorkDir}/idl-templates/\${subSystem}_command_${topic}.idl" >> $testSuite
-    	done
-	fi
     for topic in "${commandArray[@]}"; do
         echo "    File Should Exist    \${SALWorkDir}/idl-templates/\${subSystem}_command_${topic}.idl" >> $testSuite
     done
@@ -159,17 +153,6 @@ function verifyCppTelemetryInterfaces() {
         echo "    File Should Exist    \${SALWorkDir}/\${subSystem}_${topic}/cpp/standalone/sacpp_\${subSystem}_pub" >> $testSuite
         echo "    File Should Exist    \${SALWorkDir}/\${subSystem}_${topic}/cpp/standalone/sacpp_\${subSystem}_sub" >> $testSuite
     done
-    echo "" >> $testSuite
-}
-
-function verifyCppStateInterfaces() {
-    echo "Verify $subSystemUp C++ State Command Interfaces" >> $testSuite
-    echo "    [Documentation]    Verify the C++ interfaces were properly created." >> $testSuite
-    echo "    [Tags]    cpp" >> $testSuite
-    for state in "${stateArray[@]}"; do
-		echo "    File Should Exist    \${SALWorkDir}/\${subSystem}/cpp/src/sacpp_\${subSystem}_${state}_commander" >> $testSuite
-        echo "    File Should Exist    \${SALWorkDir}/\${subSystem}/cpp/src/sacpp_\${subSystem}_${state}_controller" >> $testSuite
-	done
     echo "" >> $testSuite
 }
 
@@ -267,17 +250,6 @@ function verifyPythonTelemetryInterfaces() {
 	for topic in "${telemetryArray[@]}"; do
         echo "    File Should Exist    \${SALWorkDir}/\${subSystem}/python/\${subSystem}_${topic}_Publisher.py" >> $testSuite
         echo "    File Should Exist    \${SALWorkDir}/\${subSystem}/python/\${subSystem}_${topic}_Subscriber.py" >> $testSuite
-    done
-    echo "" >> $testSuite
-}
-
-function verifyPythonStateInterfaces() {
-    echo "Verify $subSystemUp Python State Command Interfaces" >> $testSuite
-    echo "    [Documentation]    Verify the C++ interfaces were properly created." >> $testSuite
-    echo "    [Tags]    python" >> $testSuite
-    for state in "${stateArray[@]}"; do
-        echo "    File Should Exist    \${SALWorkDir}/\${subSystem}/python/\${subSystem}_Commander_${state}.py" >> $testSuite
-        echo "    File Should Exist    \${SALWorkDir}/\${subSystem}/python/\${subSystem}_Controller_${state}.py" >> $testSuite
     done
     echo "" >> $testSuite
 }
@@ -388,11 +360,6 @@ function createTestSuite() {
 		verifyTelemetryDirectories
 		verifyCppTelemetryInterfaces
 	fi
-	if [[ "$subSystem" == "efd" ]]; then
-		echo "Skipping EFD C++ Commands tests."
-	else
-		verifyCppStateInterfaces
-	fi
 	if [[ ${xmls[*]} =~ "${subSystem}_Commands.xml" ]]; then
 		verifyCppCommandInterfaces
 	fi
@@ -403,11 +370,6 @@ function createTestSuite() {
     salgenPython
 	if [[ ${xmls[*]} =~ "${subSystem}_Telemetry.xml" ]]; then
     	verifyPythonTelemetryInterfaces
-	fi
-	if [[ "$subSystem" == "efd" ]]; then
-        echo "Skipping EFD Python Commands tests."
-    else
-        verifyPythonStateInterfaces
 	fi
     if [[ ${xmls[*]} =~ "${subSystem}_Commands.xml" ]]; then
 		verifyPythonCommandInterfaces

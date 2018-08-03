@@ -50,10 +50,6 @@ Salgen M2MS Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_SystemStatus.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_RawTelemetry.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_ActuatorLimitSwitches.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_standby.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_start.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_ApplyBendingMode.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_ApplyForce.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_SetCorrectionMode.idl
@@ -178,18 +174,6 @@ Verify M2MS C++ Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}_ActuatorLimitSwitches/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_ActuatorLimitSwitches/cpp/standalone/sacpp_${subSystem}_sub
 
-Verify M2MS C++ State Command Interfaces
-    [Documentation]    Verify the C++ interfaces were properly created.
-    [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enable_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enable_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_disable_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_disable_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_standby_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_standby_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_start_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_start_controller
-
 Verify M2MS C++ Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
@@ -268,18 +252,6 @@ Verify M2MS Python Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_RawTelemetry_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_ActuatorLimitSwitches_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_ActuatorLimitSwitches_Subscriber.py
-
-Verify M2MS Python State Command Interfaces
-    [Documentation]    Verify the C++ interfaces were properly created.
-    [Tags]    python
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_enable.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_enable.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_disable.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_disable.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_standby.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_standby.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_start.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_start.py
 
 Verify M2MS Python Command Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
