@@ -36,13 +36,14 @@ Salgen TcsOFC Validate
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_timestamp.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_loopTimeMs.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_degreeOfFreedom.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_exitControl.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_standby.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_start.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enterControl.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_readShwfsFile.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_readWfsFile.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_appliedSettingsMatchStart.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_errorCode.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingVersions.idl
@@ -53,6 +54,7 @@ Salgen TcsOFC Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_loopTimeOutOfRange.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rejectedCommand.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_noEnoughZernikeTerm.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_degreeOfFreedom.idl
 
 Salgen TcsOFC HTML
     [Documentation]    Create web form interfaces.
@@ -82,9 +84,8 @@ Salgen TcsOFC C++
     Should Contain    ${output}    SAL generator - V${SALVersion}
     Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_timestamp.idl
     Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_loopTimeMs.idl
-    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_degreeOfFreedom.idl
-    Should Contain X Times    ${output}    cpp : Done Publisher    3
-    Should Contain X Times    ${output}    cpp : Done Subscriber    3
+    Should Contain X Times    ${output}    cpp : Done Publisher    2
+    Should Contain X Times    ${output}    cpp : Done Subscriber    2
     Should Contain X Times    ${output}    cpp : Done Commander    1
     Should Contain X Times    ${output}    cpp : Done Event/Logger    1
 
@@ -104,7 +105,6 @@ Verify TcsOFC Telemetry directories
     Log Many    @{files}
     Directory Should Exist    ${SALWorkDir}/${subSystem}_timestamp
     Directory Should Exist    ${SALWorkDir}/${subSystem}_loopTimeMs
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_degreeOfFreedom
 
 Verify TcsOFC C++ Telemetry Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -113,8 +113,6 @@ Verify TcsOFC C++ Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}_timestamp/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_loopTimeMs/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_loopTimeMs/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_degreeOfFreedom/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_degreeOfFreedom/cpp/standalone/sacpp_${subSystem}_sub
 
 Verify TcsOFC C++ Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -131,6 +129,10 @@ Verify TcsOFC C++ Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_start_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enterControl_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enterControl_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_readShwfsFile_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_readShwfsFile_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_readWfsFile_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_readWfsFile_controller
 
 Verify TcsOFC C++ Event Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -155,6 +157,8 @@ Verify TcsOFC C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_rejectedCommand_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_noEnoughZernikeTerm_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_noEnoughZernikeTerm_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_degreeOfFreedom_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_degreeOfFreedom_log
 
 Salgen TcsOFC Python
     [Documentation]    Generate Python wrapper.
@@ -180,8 +184,6 @@ Verify TcsOFC Python Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_timestamp_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_loopTimeMs_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_loopTimeMs_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_degreeOfFreedom_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_degreeOfFreedom_Subscriber.py
 
 Verify TcsOFC Python Command Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
@@ -200,6 +202,10 @@ Verify TcsOFC Python Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_start.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_enterControl.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_enterControl.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_readShwfsFile.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_readShwfsFile.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_readWfsFile.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_readWfsFile.py
 
 Verify TcsOFC Python Event Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
@@ -226,6 +232,8 @@ Verify TcsOFC Python Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_rejectedCommand.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_noEnoughZernikeTerm.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_noEnoughZernikeTerm.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_degreeOfFreedom.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_degreeOfFreedom.py
 
 Salgen TcsOFC LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
@@ -251,11 +259,10 @@ Salgen TcsOFC Java
     Should Contain    ${output}    SAL generator - V${SALVersion}
     Should Contain    ${output}    Generating SAL Java code for ${subSystem}_timestamp.idl
     Should Contain    ${output}    Generating SAL Java code for ${subSystem}_loopTimeMs.idl
-    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_degreeOfFreedom.idl
-    Should Contain X Times    ${output}    javac : Done Publisher    3
-    Should Contain X Times    ${output}    javac : Done Subscriber    3
-    Should Contain X Times    ${output}    javac : Done Commander/Controller    3
-    Should Contain X Times    ${output}    javac : Done Event/Logger    3
+    Should Contain X Times    ${output}    javac : Done Publisher    2
+    Should Contain X Times    ${output}    javac : Done Subscriber    2
+    Should Contain X Times    ${output}    javac : Done Commander/Controller    2
+    Should Contain X Times    ${output}    javac : Done Event/Logger    2
     Directory Should Exist    ${SALWorkDir}/${subSystem}/java
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl

@@ -36,10 +36,6 @@ Salgen TcsWEP Validate
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_timestamp.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_loopTimeMs.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_wavefrontError.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_comcamTargetWfsList.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_famTargetWfsList.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_normalTargetWfsList.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_exitControl.idl
@@ -55,8 +51,14 @@ Salgen TcsWEP Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_heartbeat.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_loopTimeOutOfRange.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rejectedCommand.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_wavefrontErrorCalculated.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_noEnoughWfsNum.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_wavefrontError.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_normalTargetWfsList.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_comcamTargetWfsList.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_famTargetWfsList.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_sensorPssnList.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_simParamList.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_imageReady.idl
 
 Salgen TcsWEP HTML
     [Documentation]    Create web form interfaces.
@@ -86,12 +88,8 @@ Salgen TcsWEP C++
     Should Contain    ${output}    SAL generator - V${SALVersion}
     Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_timestamp.idl
     Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_loopTimeMs.idl
-    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_wavefrontError.idl
-    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_comcamTargetWfsList.idl
-    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_famTargetWfsList.idl
-    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_normalTargetWfsList.idl
-    Should Contain X Times    ${output}    cpp : Done Publisher    6
-    Should Contain X Times    ${output}    cpp : Done Subscriber    6
+    Should Contain X Times    ${output}    cpp : Done Publisher    2
+    Should Contain X Times    ${output}    cpp : Done Subscriber    2
     Should Contain X Times    ${output}    cpp : Done Commander    1
     Should Contain X Times    ${output}    cpp : Done Event/Logger    1
 
@@ -111,10 +109,6 @@ Verify TcsWEP Telemetry directories
     Log Many    @{files}
     Directory Should Exist    ${SALWorkDir}/${subSystem}_timestamp
     Directory Should Exist    ${SALWorkDir}/${subSystem}_loopTimeMs
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_wavefrontError
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_comcamTargetWfsList
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_famTargetWfsList
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_normalTargetWfsList
 
 Verify TcsWEP C++ Telemetry Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -123,14 +117,6 @@ Verify TcsWEP C++ Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}_timestamp/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_loopTimeMs/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_loopTimeMs/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_wavefrontError/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_wavefrontError/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_comcamTargetWfsList/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_comcamTargetWfsList/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_famTargetWfsList/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_famTargetWfsList/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_normalTargetWfsList/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_normalTargetWfsList/cpp/standalone/sacpp_${subSystem}_sub
 
 Verify TcsWEP C++ Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -169,10 +155,22 @@ Verify TcsWEP C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_loopTimeOutOfRange_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_rejectedCommand_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_rejectedCommand_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_wavefrontErrorCalculated_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_wavefrontErrorCalculated_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_noEnoughWfsNum_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_noEnoughWfsNum_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_wavefrontError_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_wavefrontError_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_normalTargetWfsList_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_normalTargetWfsList_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_comcamTargetWfsList_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_comcamTargetWfsList_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_famTargetWfsList_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_famTargetWfsList_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_sensorPssnList_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_sensorPssnList_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_simParamList_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_simParamList_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_imageReady_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_imageReady_log
 
 Salgen TcsWEP Python
     [Documentation]    Generate Python wrapper.
@@ -198,14 +196,6 @@ Verify TcsWEP Python Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_timestamp_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_loopTimeMs_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_loopTimeMs_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_wavefrontError_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_wavefrontError_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_comcamTargetWfsList_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_comcamTargetWfsList_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_famTargetWfsList_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_famTargetWfsList_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_normalTargetWfsList_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_normalTargetWfsList_Subscriber.py
 
 Verify TcsWEP Python Command Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
@@ -248,10 +238,22 @@ Verify TcsWEP Python Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_loopTimeOutOfRange.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_rejectedCommand.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_rejectedCommand.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_wavefrontErrorCalculated.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_wavefrontErrorCalculated.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_noEnoughWfsNum.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_noEnoughWfsNum.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_wavefrontError.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_wavefrontError.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_normalTargetWfsList.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_normalTargetWfsList.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_comcamTargetWfsList.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_comcamTargetWfsList.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_famTargetWfsList.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_famTargetWfsList.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_sensorPssnList.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_sensorPssnList.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_simParamList.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_simParamList.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_imageReady.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_imageReady.py
 
 Salgen TcsWEP LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
@@ -277,14 +279,10 @@ Salgen TcsWEP Java
     Should Contain    ${output}    SAL generator - V${SALVersion}
     Should Contain    ${output}    Generating SAL Java code for ${subSystem}_timestamp.idl
     Should Contain    ${output}    Generating SAL Java code for ${subSystem}_loopTimeMs.idl
-    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_wavefrontError.idl
-    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_comcamTargetWfsList.idl
-    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_famTargetWfsList.idl
-    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_normalTargetWfsList.idl
-    Should Contain X Times    ${output}    javac : Done Publisher    6
-    Should Contain X Times    ${output}    javac : Done Subscriber    6
-    Should Contain X Times    ${output}    javac : Done Commander/Controller    6
-    Should Contain X Times    ${output}    javac : Done Event/Logger    6
+    Should Contain X Times    ${output}    javac : Done Publisher    2
+    Should Contain X Times    ${output}    javac : Done Subscriber    2
+    Should Contain X Times    ${output}    javac : Done Commander/Controller    2
+    Should Contain X Times    ${output}    javac : Done Event/Logger    2
     Directory Should Exist    ${SALWorkDir}/${subSystem}/java
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
