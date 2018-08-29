@@ -34,22 +34,22 @@ Salgen Camera Validate
     Directory Should Exist    ${SALWorkDir}/idl-templates/validated
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_Shutter.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_Prot.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_Filter.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_Heartbeat.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_WAS.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_CCS.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_Cluster_Encoder.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_Cyro.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_Purge.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_WDS.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_GDS.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_SDS.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_GAS.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_PCMS.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_SAS.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_Cold.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_shutter.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_prot.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_filter.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_heartbeat.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_was.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_ccs.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_clusterEncoder.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_cyro.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_purge.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_wds.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_gds.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_sds.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_gas.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_pcms.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_sas.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_cold.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_discardRows.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setValue.idl
@@ -73,13 +73,13 @@ Salgen Camera Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_endReadout.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_endTakeImage.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_imageReadinessDetailedState.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_SettingVersions.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingVersions.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_startSetFilter.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_startUnloadFilter.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_notReadyToTakeImage.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_startShutterClose.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_AppliedSettingsMatchStart.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_ErrorCode.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_appliedSettingsMatchStart.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_errorCode.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_endInitializeGuider.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_endShutterClose.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_endOfImageTelemetry.idl
@@ -96,16 +96,15 @@ Salgen Camera Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_endLoadFilter.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_endShutterOpen.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_startIntegration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_SummaryState.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_summaryState.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_endInitializeImage.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_SettingsApplied.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingsApplied.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_endSetFilter.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_startShutterOpen.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_raftsDetailedState.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_availableFilters.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_startReadout.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_startRotateCarousel.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_imageReadoutParameters.idl
 
 Salgen Camera HTML
     [Documentation]    Create web form interfaces.
@@ -133,22 +132,22 @@ Salgen Camera C++
     Should Not Contain    ${output}    *** DDS error in file
     Should Not Contain    ${output}    Error 1
     Should Contain    ${output}    SAL generator - V${SALVersion}
-    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_Shutter.idl
-    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_Prot.idl
-    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_Filter.idl
-    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_Heartbeat.idl
-    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_WAS.idl
-    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_CCS.idl
-    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_Cluster_Encoder.idl
-    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_Cyro.idl
-    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_Purge.idl
-    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_WDS.idl
-    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_GDS.idl
-    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_SDS.idl
-    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_GAS.idl
-    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_PCMS.idl
-    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_SAS.idl
-    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_Cold.idl
+    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_shutter.idl
+    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_prot.idl
+    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_filter.idl
+    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_heartbeat.idl
+    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_was.idl
+    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_ccs.idl
+    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_clusterEncoder.idl
+    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_cyro.idl
+    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_purge.idl
+    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_wds.idl
+    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_gds.idl
+    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_sds.idl
+    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_gas.idl
+    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_pcms.idl
+    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_sas.idl
+    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_cold.idl
     Should Contain X Times    ${output}    cpp : Done Publisher    16
     Should Contain X Times    ${output}    cpp : Done Subscriber    16
     Should Contain X Times    ${output}    cpp : Done Commander    1
@@ -168,58 +167,58 @@ Verify Camera Telemetry directories
     [Tags]    cpp
     @{files}=    List Directory    ${SALWorkDir}    pattern=*${subSystem}*
     Log Many    @{files}
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_Shutter
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_Prot
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_Filter
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_Heartbeat
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_WAS
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_CCS
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_Cluster_Encoder
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_Cyro
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_Purge
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_WDS
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_GDS
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_SDS
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_GAS
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_PCMS
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_SAS
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_Cold
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_shutter
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_prot
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_filter
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_heartbeat
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_was
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_ccs
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_clusterEncoder
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_cyro
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_purge
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_wds
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_gds
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_sds
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_gas
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_pcms
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_sas
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_cold
 
 Verify Camera C++ Telemetry Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}_Shutter/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_Shutter/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_Prot/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_Prot/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_Filter/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_Filter/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_Heartbeat/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_Heartbeat/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_WAS/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_WAS/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_CCS/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_CCS/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_Cluster_Encoder/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_Cluster_Encoder/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_Cyro/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_Cyro/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_Purge/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_Purge/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_WDS/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_WDS/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_GDS/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_GDS/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_SDS/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_SDS/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_GAS/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_GAS/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_PCMS/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_PCMS/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_SAS/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_SAS/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_Cold/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_Cold/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_shutter/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_shutter/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_prot/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_prot/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_filter/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_filter/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_heartbeat/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_heartbeat/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_was/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_was/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_ccs/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_ccs/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_clusterEncoder/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_clusterEncoder/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_cyro/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_cyro/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_purge/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_purge/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_wds/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_wds/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_gds/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_gds/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_sds/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_sds/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_gas/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_gas/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_pcms/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_pcms/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_sas/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_sas/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_cold/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_cold/cpp/standalone/sacpp_${subSystem}_sub
 
 Verify Camera C++ Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -274,8 +273,8 @@ Verify Camera C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_endTakeImage_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_imageReadinessDetailedState_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_imageReadinessDetailedState_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_SettingVersions_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_SettingVersions_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingVersions_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingVersions_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_startSetFilter_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_startSetFilter_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_startUnloadFilter_send
@@ -284,10 +283,10 @@ Verify Camera C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_notReadyToTakeImage_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_startShutterClose_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_startShutterClose_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_AppliedSettingsMatchStart_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_AppliedSettingsMatchStart_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_ErrorCode_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_ErrorCode_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_appliedSettingsMatchStart_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_appliedSettingsMatchStart_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_errorCode_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_errorCode_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_endInitializeGuider_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_endInitializeGuider_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_endShutterClose_send
@@ -320,12 +319,12 @@ Verify Camera C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_endShutterOpen_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_startIntegration_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_startIntegration_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_SummaryState_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_SummaryState_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_summaryState_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_summaryState_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_endInitializeImage_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_endInitializeImage_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_SettingsApplied_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_SettingsApplied_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsApplied_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsApplied_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_endSetFilter_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_endSetFilter_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_startShutterOpen_send
@@ -338,8 +337,6 @@ Verify Camera C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_startReadout_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_startRotateCarousel_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_startRotateCarousel_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_imageReadoutParameters_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_imageReadoutParameters_log
 
 Salgen Camera Python
     [Documentation]    Generate Python wrapper.
@@ -361,38 +358,38 @@ Verify Camera Python Telemetry Interfaces
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Shutter_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Shutter_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Prot_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Prot_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Filter_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Filter_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Heartbeat_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Heartbeat_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_WAS_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_WAS_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_CCS_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_CCS_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Cluster_Encoder_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Cluster_Encoder_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Cyro_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Cyro_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Purge_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Purge_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_WDS_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_WDS_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_GDS_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_GDS_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_SDS_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_SDS_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_GAS_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_GAS_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_PCMS_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_PCMS_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_SAS_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_SAS_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Cold_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Cold_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_shutter_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_shutter_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_prot_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_prot_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_filter_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_filter_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_heartbeat_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_heartbeat_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_was_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_was_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_ccs_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_ccs_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_clusterEncoder_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_clusterEncoder_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_cyro_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_cyro_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_purge_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_purge_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_wds_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_wds_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_gds_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_gds_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_sds_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_sds_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_gas_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_gas_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_pcms_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_pcms_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_sas_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_sas_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_cold_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_cold_Subscriber.py
 
 Verify Camera Python Command Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
@@ -451,8 +448,8 @@ Verify Camera Python Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_endTakeImage.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_imageReadinessDetailedState.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_imageReadinessDetailedState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_SettingVersions.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_SettingVersions.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_settingVersions.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_settingVersions.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_startSetFilter.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_startSetFilter.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_startUnloadFilter.py
@@ -461,10 +458,10 @@ Verify Camera Python Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_notReadyToTakeImage.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_startShutterClose.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_startShutterClose.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_AppliedSettingsMatchStart.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_AppliedSettingsMatchStart.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_ErrorCode.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_ErrorCode.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_appliedSettingsMatchStart.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_appliedSettingsMatchStart.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_errorCode.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_errorCode.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_endInitializeGuider.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_endInitializeGuider.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_endShutterClose.py
@@ -497,12 +494,12 @@ Verify Camera Python Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_endShutterOpen.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_startIntegration.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_startIntegration.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_SummaryState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_SummaryState.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_summaryState.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_summaryState.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_endInitializeImage.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_endInitializeImage.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_SettingsApplied.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_SettingsApplied.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_settingsApplied.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_settingsApplied.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_endSetFilter.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_endSetFilter.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_startShutterOpen.py
@@ -515,8 +512,6 @@ Verify Camera Python Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_startReadout.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_startRotateCarousel.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_startRotateCarousel.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_imageReadoutParameters.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_imageReadoutParameters.py
 
 Salgen Camera LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
@@ -540,22 +535,22 @@ Salgen Camera Java
     ${output}=    Read Until Prompt
     Log    ${output}
     Should Contain    ${output}    SAL generator - V${SALVersion}
-    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_Shutter.idl
-    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_Prot.idl
-    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_Filter.idl
-    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_Heartbeat.idl
-    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_WAS.idl
-    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_CCS.idl
-    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_Cluster_Encoder.idl
-    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_Cyro.idl
-    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_Purge.idl
-    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_WDS.idl
-    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_GDS.idl
-    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_SDS.idl
-    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_GAS.idl
-    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_PCMS.idl
-    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_SAS.idl
-    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_Cold.idl
+    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_shutter.idl
+    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_prot.idl
+    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_filter.idl
+    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_heartbeat.idl
+    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_was.idl
+    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_ccs.idl
+    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_clusterEncoder.idl
+    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_cyro.idl
+    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_purge.idl
+    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_wds.idl
+    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_gds.idl
+    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_sds.idl
+    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_gas.idl
+    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_pcms.idl
+    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_sas.idl
+    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_cold.idl
     Should Contain X Times    ${output}    javac : Done Publisher    16
     Should Contain X Times    ${output}    javac : Done Subscriber    16
     Should Contain X Times    ${output}    javac : Done Commander/Controller    16
