@@ -125,6 +125,8 @@ function getEntity() {
 		echo "summitFacility"
 	elif [ "$entity" == "calibrationelectrometer" ]; then
 		echo "calibrationElectrometer"
+	elif [ "$entity" == "catchuparchiver" ]; then
+		echo "catchupArchiver"
 	elif [ "$entity" == "promptprocessing" ]; then
 		echo "promptprocessing"
 	elif [ "$entity" == "mtmount" ]; then
