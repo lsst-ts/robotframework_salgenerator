@@ -35,6 +35,7 @@ SALGEN/Rotator_salgenerator.robot
 SALGEN/SEDSpectrometer_salgenerator.robot
 SALGEN/Scheduler_salgenerator.robot
 SALGEN/Sequencer_salgenerator.robot
+SALGEN/Spectrograph_salgenerator.robot
 SALGEN/SummitFacility_salgenerator.robot
 SALGEN/TCS_salgenerator.robot
 SALGEN/TcsOFC_salgenerator.robot

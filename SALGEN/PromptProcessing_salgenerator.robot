@@ -15,9 +15,9 @@ ${timeout}    1200s
 *** Test Cases ***
 Verify PromptProcessing XML Defintions exist
     [Tags]
+    File Should Exist    ${SALWorkDir}/PromptProcessing_Telemetry.xml
     File Should Exist    ${SALWorkDir}/promptprocessing_Commands.xml
     File Should Exist    ${SALWorkDir}/promptprocessing_Events.xml
-    File Should Exist    ${SALWorkDir}/promptprocessing_Telemetry.xml
 
 Salgen PromptProcessing Validate
     [Documentation]    Validate the PromptProcessing XML definitions.
@@ -66,9 +66,9 @@ Salgen PromptProcessing HTML
     Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
     @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/PromptProcessing_Telemetry.html
     File Should Exist    ${SALWorkDir}/html/${subSystem}/promptprocessing_Commands.html
     File Should Exist    ${SALWorkDir}/html/${subSystem}/promptprocessing_Events.html
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/promptprocessing_Telemetry.html
 
 Salgen PromptProcessing C++
     [Documentation]    Generate C++ wrapper.
@@ -94,18 +94,6 @@ Verify C++ Directories
     Directory Should Exist    ${SALWorkDir}/idl-templates/validated/sal
     @{files}=    List Directory    ${SALWorkDir}/idl-templates/validated/sal    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/idl-templates/validated/sal/sal_${subSystem}.idl
-
-Verify PromptProcessing Telemetry directories
-    [Tags]    cpp
-    @{files}=    List Directory    ${SALWorkDir}    pattern=*${subSystem}*
-    Log Many    @{files}
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_promptProcessing_SequencerHeartbeat
-
-Verify PromptProcessing C++ Telemetry Interfaces
-    [Documentation]    Verify the C++ interfaces were properly created.
-    [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}_promptProcessing_SequencerHeartbeat/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_promptProcessing_SequencerHeartbeat/cpp/standalone/sacpp_${subSystem}_sub
 
 Verify PromptProcessing C++ Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -163,14 +151,6 @@ Salgen PromptProcessing Python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/SALPY_${subSystem}.so
-
-Verify PromptProcessing Python Telemetry Interfaces
-    [Documentation]    Verify the Python interfaces were properly created.
-    [Tags]    python
-    @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
-    Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_promptProcessing_SequencerHeartbeat_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_promptProcessing_SequencerHeartbeat_Subscriber.py
 
 Verify PromptProcessing Python Command Interfaces
     [Documentation]    Verify the Python interfaces were properly created.

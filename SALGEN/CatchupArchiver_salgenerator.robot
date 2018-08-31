@@ -9,7 +9,7 @@ Resource    ../Global_Vars.robot
 Resource    ../common.robot
 
 *** Variables ***
-${subSystem}    catchuparchiver
+${subSystem}    catchupArchiver
 ${timeout}    1200s
 
 *** Test Cases ***
@@ -34,7 +34,7 @@ Salgen CatchupArchiver Validate
     Directory Should Exist    ${SALWorkDir}/idl-templates/validated
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_catchupArchiver_sequencerHeartbeat.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_sequencerHeartbeat.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_catchupArchiver_command_enterControl.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_catchupArchiver_command_standby.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_catchupArchiver_command_abort.idl
@@ -79,7 +79,7 @@ Salgen CatchupArchiver C++
     Should Not Contain    ${output}    *** DDS error in file
     Should Not Contain    ${output}    Error 1
     Should Contain    ${output}    SAL generator - V${SALVersion}
-    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_catchupArchiver_sequencerHeartbeat.idl
+    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_sequencerHeartbeat.idl
     Should Contain X Times    ${output}    cpp : Done Publisher    1
     Should Contain X Times    ${output}    cpp : Done Subscriber    1
     Should Contain X Times    ${output}    cpp : Done Commander    1
@@ -99,13 +99,13 @@ Verify CatchupArchiver Telemetry directories
     [Tags]    cpp
     @{files}=    List Directory    ${SALWorkDir}    pattern=*${subSystem}*
     Log Many    @{files}
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_catchupArchiver_sequencerHeartbeat
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_sequencerHeartbeat
 
 Verify CatchupArchiver C++ Telemetry Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}_catchupArchiver_sequencerHeartbeat/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_catchupArchiver_sequencerHeartbeat/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_sequencerHeartbeat/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_sequencerHeartbeat/cpp/standalone/sacpp_${subSystem}_sub
 
 Verify CatchupArchiver C++ Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -169,8 +169,8 @@ Verify CatchupArchiver Python Telemetry Interfaces
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_catchupArchiver_sequencerHeartbeat_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_catchupArchiver_sequencerHeartbeat_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_sequencerHeartbeat_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_sequencerHeartbeat_Subscriber.py
 
 Verify CatchupArchiver Python Command Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
@@ -240,7 +240,7 @@ Salgen CatchupArchiver Java
     ${output}=    Read Until Prompt
     Log    ${output}
     Should Contain    ${output}    SAL generator - V${SALVersion}
-    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_catchupArchiver_sequencerHeartbeat.idl
+    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_sequencerHeartbeat.idl
     Should Contain X Times    ${output}    javac : Done Publisher    1
     Should Contain X Times    ${output}    javac : Done Subscriber    1
     Should Contain X Times    ${output}    javac : Done Commander/Controller    1

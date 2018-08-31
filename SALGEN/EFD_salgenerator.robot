@@ -34,7 +34,7 @@ Salgen EFD Validate
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_Summary.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_LargeFileObjectAvailable.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_largeFileObjectAvailable.idl
 
 Salgen EFD HTML
     [Documentation]    Create web form interfaces.
@@ -91,8 +91,8 @@ Verify EFD C++ Telemetry Interfaces
 Verify EFD C++ Event Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_LargeFileObjectAvailable_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_LargeFileObjectAvailable_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_largeFileObjectAvailable_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_largeFileObjectAvailable_log
 
 Salgen EFD Python
     [Documentation]    Generate Python wrapper.
@@ -122,8 +122,8 @@ Verify EFD Python Event Interfaces
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_LargeFileObjectAvailable.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_LargeFileObjectAvailable.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_largeFileObjectAvailable.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_largeFileObjectAvailable.py
 
 Salgen EFD Java
     [Documentation]    Generate Java wrapper.
