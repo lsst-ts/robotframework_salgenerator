@@ -44,7 +44,7 @@ function clearTestSuites() {
 }
 
 function subsystemArray() {
-	echo "archiver atArchiver atcamera atcs atHeaderService atMonochromator atScheduler calibrationElectrometer camera catchuparchiver dome domeADB domeAPS domeLouvers domeLWS domeMONCS domeTHCS eec efd headerService hexapod m1m3 m2ms MTMount ocs promptprocessing rotator scheduler sedSpectrometer sequencer Spectrograph summitFacility tcs tcsOfc tcsWEP vms"
+	echo "archiver atArchiver atcamera atcs atHeaderService atMonochromator atScheduler calibrationElectrometer camera catchupArchiver dome domeADB domeAPS domeLouvers domeLWS domeMONCS domeTHCS eec efd headerService hexapod m1m3 m2ms MTMount ocs promptprocessing rotator scheduler sedSpectrometer sequencer Spectrograph summitFacility tcs tcsOfc tcsWEP vms"
 }
 
 function stateArray() {
@@ -195,6 +195,8 @@ function checkIfSkipped() {
         skipped="TSS-2803"
 	elif [[ ("$subsystem" == "atScheduler") ]]; then
         skipped="TSS-2610"
+	elif [[ ("$subsystem" == "catchupArchiver") ]]; then
+        skipped="TSS-3006"
 	elif [[ ("$subsystem" == "scheduler") ]]; then
         skipped="TSS-1789"
 	else
