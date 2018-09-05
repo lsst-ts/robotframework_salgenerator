@@ -191,8 +191,6 @@ function checkIfSkipped() {
 		skipped="TSS-2618"
 	elif [[ ("$subsystem" == "promptprocessing") ]]; then
 		skipped="TSS-2605"
-	elif [[ ("$subsystem" == "summitFacility") ]]; then
-        skipped="TSS-2803"
 	elif [[ ("$subsystem" == "atScheduler") ]]; then
         skipped="TSS-2610"
 	elif [[ ("$subsystem" == "catchupArchiver") ]]; then
