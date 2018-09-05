@@ -155,7 +155,16 @@ Salgen M1M3 HTML
     Should Contain    ${output}    SAL generator - V${SALVersion}
     Should Contain    ${output}    Generating telemetry stream definition editor html
     Should Contain    ${output}    Creating sal-generator-${subSystem} form
-    Should Contain    ${output}    Added sal-generator-${subSystem}.logevent to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.ForceActuatorData to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.InclinometerData to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.OuterLoopData to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.AccelerometerData to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.HardpointActuatorData to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.IMSData to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.GyroData to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.PowerSupplyData to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.PIDData to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.HardpointMonitorData to form
     Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
     @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}

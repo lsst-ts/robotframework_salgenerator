@@ -69,7 +69,22 @@ Salgen M2MS HTML
     Should Contain    ${output}    SAL generator - V${SALVersion}
     Should Contain    ${output}    Generating telemetry stream definition editor html
     Should Contain    ${output}    Creating sal-generator-${subSystem} form
-    Should Contain    ${output}    Added sal-generator-${subSystem}.logevent to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.MirrorPositionMeasured to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.AxialForcesMeasured to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.TangentForcesMeasured to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.ZenithAngleMeasured to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.AxialActuatorAbsolutePositionSteps to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.TangentActuatorAbsolutePositionSteps to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.AxialActuatorPositionAbsoluteEncoderPositionMeasured to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.TangentActuatorPositionAbsoluteEncoderPositionMeasured to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.PowerStatus to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.TemperaturesMeasured to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.RawDisplacement to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.StepVectorUpdate to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.TargetForces to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.SystemStatus to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.RawTelemetry to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.ActuatorLimitSwitches to form
     Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
     @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}

@@ -84,7 +84,9 @@ function salgenHTML() {
     echo "    Should Contain    \${output}    Generating telemetry stream definition editor html" >> $testSuite
     echo "    Should Contain    \${output}    Creating sal-generator-\${subSystem} form" >> $testSuite
 	if ! [ "$subSystemUp" == "EFD" ]; then
-    	echo "    Should Contain    \${output}    Added sal-generator-\${subSystem}.logevent to form" >> $testSuite
+    	for topic in "${telemetryArray[@]}"; do
+			echo "    Should Contain    \${output}    Added sal-generator-\${subSystem}.$topic to form" >> $testSuite
+		done
     fi
     echo "    Directory Should Exist    \${SALWorkDir}/html/salgenerator/\${subSystem}" >> $testSuite
     echo "    @{files}=    List Directory    \${SALWorkDir}/html/salgenerator/\${subSystem}    pattern=*\${subSystem}*" >> $testSuite

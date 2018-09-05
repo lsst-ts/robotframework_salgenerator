@@ -70,7 +70,20 @@ Salgen MTMount HTML
     Should Contain    ${output}    SAL generator - V${SALVersion}
     Should Contain    ${output}    Generating telemetry stream definition editor html
     Should Contain    ${output}    Creating sal-generator-${subSystem} form
-    Should Contain    ${output}    Added sal-generator-${subSystem}.logevent to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.Az to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.Alt to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.Az_CW to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.Az_OSS to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.Alt_OSS to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.Az_TC to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.Alt_TC to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.Bal to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.MC to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.Cam_CW to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.Cab_TC to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.DP_1 to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.DP_2 to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.MotionParameters to form
     Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
     @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}

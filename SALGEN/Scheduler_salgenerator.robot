@@ -94,7 +94,36 @@ Salgen Scheduler HTML
     Should Contain    ${output}    SAL generator - V${SALVersion}
     Should Contain    ${output}    Generating telemetry stream definition editor html
     Should Contain    ${output}    Creating sal-generator-${subSystem} form
-    Should Contain    ${output}    Added sal-generator-${subSystem}.logevent to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.timestamp to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.loopTimeMs to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.nightSummary to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.predictedSchedule to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.surveyTopology to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.schedulerConfig to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.driverConfig to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.obsSiteConfig to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.telescopeConfig to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.rotatorConfig to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.domeConfig to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.cameraConfig to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.slewConfig to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.opticsLoopCorrConfig to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.parkConfig to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.generalPropConfig to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.sequencePropConfig to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.observatoryState to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.observation to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.interestedProposal to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.timeHandler to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.bulkCloud to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.cloudMap to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.seeing to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.wind to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.temperature to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.skyBrightness to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.photometricQuality to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.avoidanceRegions to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.downtime to form
     Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
     @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}

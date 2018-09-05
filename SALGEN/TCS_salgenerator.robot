@@ -76,7 +76,22 @@ Salgen TCS HTML
     Should Contain    ${output}    SAL generator - V${SALVersion}
     Should Contain    ${output}    Generating telemetry stream definition editor html
     Should Contain    ${output}    Creating sal-generator-${subSystem} form
-    Should Contain    ${output}    Added sal-generator-${subSystem}.logevent to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.kernel_PointingModel to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.AOCS to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.kernel_TimeKeeper to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.kernel_Site to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.kernel_Target to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.kernel_PointingControl to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.kernel_TrackRefSys to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.ZEMAX to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.kernel_PointingLog to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.kernel_DawdleFilter to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.kernel_OpticsVt to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.WEP to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.kernel_TrackingTarget to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.kernel_FK5Target to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.LoopTime_ms to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.Timestamp to form
     Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
     @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}

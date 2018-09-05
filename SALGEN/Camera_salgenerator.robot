@@ -115,7 +115,22 @@ Salgen Camera HTML
     Should Contain    ${output}    SAL generator - V${SALVersion}
     Should Contain    ${output}    Generating telemetry stream definition editor html
     Should Contain    ${output}    Creating sal-generator-${subSystem} form
-    Should Contain    ${output}    Added sal-generator-${subSystem}.logevent to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.shutter to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.prot to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.filter to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.heartbeat to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.was to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.ccs to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.clusterEncoder to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.cyro to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.purge to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.wds to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.gds to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.sds to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.gas to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.pcms to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.sas to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.cold to form
     Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
     @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}
