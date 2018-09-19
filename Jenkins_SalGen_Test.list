@@ -10,7 +10,6 @@ rbtsal/SALGEN/Archiver_salgenerator.robot
 rbtsal/SALGEN/AtArchiver_salgenerator.robot
 rbtsal/SALGEN/AtCamera_salgenerator.robot
 rbtsal/SALGEN/AtHeaderService_salgenerator.robot
-rbtsal/SALGEN/AtMCS_salgenerator.robot
 rbtsal/SALGEN/AtMonochromator_salgenerator.robot
 rbtsal/SALGEN/AtScheduler_salgenerator.robot
 rbtsal/SALGEN/AtSpectrograph_salgenerator.robot

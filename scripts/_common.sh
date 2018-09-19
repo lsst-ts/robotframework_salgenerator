@@ -44,7 +44,7 @@ function clearTestSuites() {
 }
 
 function subsystemArray() {
-	echo "archiver atArchiver atcamera atcs AtDome atHeaderService AtMCS atMonochromator AtPneumatics atScheduler AtSpectrograph AtWhiteLight AtWhiteLightChiller calibrationElectrometer camera catchupArchiver dome domeADB domeAPS domeLouvers domeLWS domeMONCS domeTHCS eec efd headerService hexapod LinearStage m1m3 m2ms MTMount ocs promptprocessing rotator scheduler sedSpectrometer sequencer summitFacility tcs tcsOfc tcsWEP vms"
+	echo "archiver atArchiver atcamera atcs AtDome atHeaderService atMonochromator atScheduler AtSpectrograph calibrationElectrometer camera catchupArchiver dome domeADB domeAPS domeLouvers domeLWS domeMONCS domeTHCS eec efd headerService hexapod LinearStage m1m3 m2ms MTMount ocs promptprocessing rotator scheduler sedSpectrometer sequencer summitFacility tcs tcsOfc tcsWEP vms"
 }
 
 function stateArray() {
