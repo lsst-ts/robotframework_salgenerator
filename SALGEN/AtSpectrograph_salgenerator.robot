@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation    This suite builds the various interfaces for the Spectrograph.
+Documentation    This suite builds the various interfaces for the AtSpectrograph.
 Force Tags    salgen    
 Suite Setup    Run Keywords    Log Many    ${Host}    ${subSystem}    ${timeout}
 ...    AND    Create Session    SALGEN
@@ -9,18 +9,18 @@ Resource    ../Global_Vars.robot
 Resource    ../common.robot
 
 *** Variables ***
-${subSystem}    Spectrograph
+${subSystem}    AtSpectrograph
 ${timeout}    1200s
 
 *** Test Cases ***
-Verify Spectrograph XML Defintions exist
+Verify AtSpectrograph XML Defintions exist
     [Tags]
-    File Should Exist    ${SALWorkDir}/Spectrograph_Commands.xml
-    File Should Exist    ${SALWorkDir}/Spectrograph_Events.xml
-    File Should Exist    ${SALWorkDir}/Spectrograph_Telemetry.xml
+    File Should Exist    ${SALWorkDir}/AtSpectrograph_Commands.xml
+    File Should Exist    ${SALWorkDir}/AtSpectrograph_Events.xml
+    File Should Exist    ${SALWorkDir}/AtSpectrograph_Telemetry.xml
 
-Salgen Spectrograph Validate
-    [Documentation]    Validate the Spectrograph XML definitions.
+Salgen AtSpectrograph Validate
+    [Documentation]    Validate the AtSpectrograph XML definitions.
     [Tags]
     ${input}=    Write    cd ${SALWorkDir}
     ${output}=    Read Until Prompt
@@ -62,8 +62,10 @@ Salgen Spectrograph Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_reportedDisperserPosition.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_disperserInPosition.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_linearStageInPosition.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fwState.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_gwState.idl
 
-Salgen Spectrograph HTML
+Salgen AtSpectrograph HTML
     [Documentation]    Create web form interfaces.
     [Tags]
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} html
@@ -77,11 +79,11 @@ Salgen Spectrograph HTML
     Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
     @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/Spectrograph_Commands.html
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/Spectrograph_Events.html
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/Spectrograph_Telemetry.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/AtSpectrograph_Commands.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/AtSpectrograph_Events.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/AtSpectrograph_Telemetry.html
 
-Salgen Spectrograph C++
+Salgen AtSpectrograph C++
     [Documentation]    Generate C++ wrapper.
     [Tags]    cpp
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} sal cpp
@@ -107,14 +109,14 @@ Verify C++ Directories
     @{files}=    List Directory    ${SALWorkDir}/idl-templates/validated/sal    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/idl-templates/validated/sal/sal_${subSystem}.idl
 
-Verify Spectrograph Telemetry directories
+Verify AtSpectrograph Telemetry directories
     [Tags]    cpp
     @{files}=    List Directory    ${SALWorkDir}    pattern=*${subSystem}*
     Log Many    @{files}
     Directory Should Exist    ${SALWorkDir}/${subSystem}_timestamp
     Directory Should Exist    ${SALWorkDir}/${subSystem}_loopTime
 
-Verify Spectrograph C++ Telemetry Interfaces
+Verify AtSpectrograph C++ Telemetry Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
     File Should Exist    ${SALWorkDir}/${subSystem}_timestamp/cpp/standalone/sacpp_${subSystem}_pub
@@ -122,7 +124,7 @@ Verify Spectrograph C++ Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}_loopTime/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_loopTime/cpp/standalone/sacpp_${subSystem}_sub
 
-Verify Spectrograph C++ Command Interfaces
+Verify AtSpectrograph C++ Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_disable_commander
@@ -148,7 +150,7 @@ Verify Spectrograph C++ Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_stopAllAxis_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_stopAllAxis_controller
 
-Verify Spectrograph C++ Event Interfaces
+Verify AtSpectrograph C++ Event Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_appliedSettingsMatchStart_send
@@ -181,8 +183,12 @@ Verify Spectrograph C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_disperserInPosition_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_linearStageInPosition_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_linearStageInPosition_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_fwState_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_fwState_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_gwState_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_gwState_log
 
-Salgen Spectrograph Python
+Salgen AtSpectrograph Python
     [Documentation]    Generate Python wrapper.
     [Tags]    python
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} sal python
@@ -197,7 +203,7 @@ Salgen Spectrograph Python
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/SALPY_${subSystem}.so
 
-Verify Spectrograph Python Telemetry Interfaces
+Verify AtSpectrograph Python Telemetry Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
@@ -207,7 +213,7 @@ Verify Spectrograph Python Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_loopTime_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_loopTime_Subscriber.py
 
-Verify Spectrograph Python Command Interfaces
+Verify AtSpectrograph Python Command Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
@@ -235,7 +241,7 @@ Verify Spectrograph Python Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_stopAllAxis.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_stopAllAxis.py
 
-Verify Spectrograph Python Event Interfaces
+Verify AtSpectrograph Python Event Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
@@ -270,8 +276,12 @@ Verify Spectrograph Python Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_disperserInPosition.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_linearStageInPosition.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_linearStageInPosition.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_fwState.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_fwState.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_gwState.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_gwState.py
 
-Salgen Spectrograph LabVIEW
+Salgen AtSpectrograph LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
     [Tags]    labview
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} labview
@@ -286,7 +296,7 @@ Salgen Spectrograph LabVIEW
     File Should Exist    ${SALWorkDir}/${subSystem}/labview/SALLV_${subSystem}.so
     File Should Exist    ${SALWorkDir}/${subSystem}/labview/SALLV_${subSystem}_Monitor
 
-Salgen Spectrograph Java
+Salgen AtSpectrograph Java
     [Documentation]    Generate Java wrapper.
     [Tags]    java
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} sal java
@@ -303,7 +313,7 @@ Salgen Spectrograph Java
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
 
-Salgen Spectrograph Lib
+Salgen AtSpectrograph Lib
     [Documentation]    Generate the SAL shared library for ${subSystem}
     [Tags]    
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} lib
@@ -319,7 +329,7 @@ Salgen Spectrograph Lib
     File Should Exist    ${SALWorkDir}/lib/SALLV_${subSystem}.so
     File Should Exist    ${SALWorkDir}/lib/SALPY_${subSystem}.so
 
-Salgen Spectrograph Maven
+Salgen AtSpectrograph Maven
     [Documentation]    Generate the Maven repository.
     [Tags]    java
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} maven

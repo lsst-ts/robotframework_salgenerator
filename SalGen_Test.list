@@ -10,8 +10,10 @@ SALGEN/Archiver_salgenerator.robot
 SALGEN/AtArchiver_salgenerator.robot
 SALGEN/AtCamera_salgenerator.robot
 SALGEN/AtHeaderService_salgenerator.robot
+SALGEN/AtMCS_salgenerator.robot
 SALGEN/AtMonochromator_salgenerator.robot
 SALGEN/AtScheduler_salgenerator.robot
+SALGEN/AtSpectrograph_salgenerator.robot
 SALGEN/CalibrationElectrometer_salgenerator.robot
 SALGEN/Camera_salgenerator.robot
 SALGEN/CatchupArchiver_salgenerator.robot
@@ -35,7 +37,6 @@ SALGEN/Rotator_salgenerator.robot
 SALGEN/SEDSpectrometer_salgenerator.robot
 SALGEN/Scheduler_salgenerator.robot
 SALGEN/Sequencer_salgenerator.robot
-SALGEN/Spectrograph_salgenerator.robot
 SALGEN/SummitFacility_salgenerator.robot
 SALGEN/TCS_salgenerator.robot
 SALGEN/TcsOFC_salgenerator.robot
