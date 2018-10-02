@@ -69,7 +69,7 @@ Salgen TCS Validate
 
 Salgen TCS HTML
     [Documentation]    Create web form interfaces.
-    [Tags]
+    [Tags]    html    TSS-3079
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} html
     ${output}=    Read Until Prompt
     Log    ${output}

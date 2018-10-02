@@ -27,6 +27,7 @@ rbtsal/SALGEN/EEC_salgenerator.robot
 rbtsal/SALGEN/EFD_salgenerator.robot
 rbtsal/SALGEN/HeaderService_salgenerator.robot
 rbtsal/SALGEN/Hexapod_salgenerator.robot
+rbtsal/SALGEN/LinearStage_salgenerator.robot
 rbtsal/SALGEN/M1M3_salgenerator.robot
 rbtsal/SALGEN/M2MS_salgenerator.robot
 rbtsal/SALGEN/MTMount_salgenerator.robot

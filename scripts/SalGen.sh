@@ -74,9 +74,10 @@ function salgenValidate() {
 }
 
 function salgenHTML() {
+	skipped=$(checkIfSkipped "html")
     echo "Salgen $subSystemUp HTML" >> $testSuite
     echo "    [Documentation]    Create web form interfaces." >> $testSuite
-    echo "    [Tags]" >> $testSuite
+    echo "    [Tags]    html    $skipped" >> $testSuite
     echo "    \${input}=    Write    \${SALHome}/scripts/salgenerator \${subSystem} html" >> $testSuite
     echo "    \${output}=    Read Until Prompt" >> $testSuite
     echo "    Log    \${output}" >> $testSuite

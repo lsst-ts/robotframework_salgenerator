@@ -27,6 +27,7 @@ SALGEN/EEC_salgenerator.robot
 SALGEN/EFD_salgenerator.robot
 SALGEN/HeaderService_salgenerator.robot
 SALGEN/Hexapod_salgenerator.robot
+SALGEN/LinearStage_salgenerator.robot
 SALGEN/M1M3_salgenerator.robot
 SALGEN/M2MS_salgenerator.robot
 SALGEN/MTMount_salgenerator.robot

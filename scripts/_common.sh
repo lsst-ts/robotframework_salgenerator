@@ -207,9 +207,13 @@ function checkIfSkipped() {
         skipped="TSS-3006"
 	elif [[ ("$subsystem" == "scheduler") ]]; then
         skipped="TSS-1789"
+	elif [[ ("$subsystem" == "AtDome") ]]; then
+        skipped="TSS-3055"
+	elif [[ ("$subsystem" == "html") ]]; then
+		skipped="TSS-3079"
 	else
 		skipped=""
 	fi
-	echo $skipped
+	echo -e $skipped
 }
 
