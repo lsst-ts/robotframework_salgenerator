@@ -42,3 +42,8 @@ Verify SAL Version file contents
     ${output}=    Read Until Prompt
     Log    ${output}
     Should Contain    ${output}    set SALVERSION ${SALVersion}
+
+Verify SAL CSC list exists
+	[Tags]    smoke
+	Comment    Verify the list of SAL CSCs exists.
+    File Should Exist    ${SALWorkDir}/SALSubsystems.xml
