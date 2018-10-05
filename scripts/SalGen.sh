@@ -39,6 +39,7 @@ function createVariables() {
 function verifyXMLDefinitions() {
     echo "Verify $subSystemUp XML Defintions exist" >> $testSuite
     echo "    [Tags]" >> $testSuite
+	echo "    Comment    Verify the CSC XML definition files exist." >> $testSuite
 	for file in "${xmls[@]}"; do
 		echo "    File Should Exist    \${SALWorkDir}/$file" >> $testSuite
 	done
@@ -400,6 +401,7 @@ function createTestSuite() {
 
 #  MAIN
 subSystem=$(getEntity $arg)
+#echo $subSystem
 if [ "$arg" == "all" ]; then
 	for subSystem in "${subSystemArray[@]}"; do
 		createTestSuite $subSystem
