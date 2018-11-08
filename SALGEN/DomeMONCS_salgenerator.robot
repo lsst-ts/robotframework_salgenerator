@@ -28,7 +28,7 @@ Salgen DomeMONCS Validate
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} validate
     ${output}=    Read Until Prompt
     Log    ${output}
-    Should Contain    ${output}    SAL generator - V${SALVersion}
+    Should Contain    ${output}    SAL generator - ${SALVersion}
     Should Contain    ${output}    Processing ${subSystem}
     Should Contain    ${output}    Completed ${subSystem} validation
     Directory Should Exist    ${SALWorkDir}/idl-templates
@@ -48,7 +48,7 @@ Salgen DomeMONCS HTML
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} html
     ${output}=    Read Until Prompt
     Log    ${output}
-    Should Contain    ${output}    SAL generator - V${SALVersion}
+    Should Contain    ${output}    SAL generator - ${SALVersion}
     Should Contain    ${output}    Generating telemetry stream definition editor html
     Should Contain    ${output}    Creating sal-generator-${subSystem} form
     Should Contain    ${output}    Added sal-generator-${subSystem}.status to form
@@ -67,7 +67,7 @@ Salgen DomeMONCS C++
     Log    ${output}
     Should Not Contain    ${output}    *** DDS error in file
     Should Not Contain    ${output}    Error 1
-    Should Contain    ${output}    SAL generator - V${SALVersion}
+    Should Contain    ${output}    SAL generator - ${SALVersion}
     Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_status.idl
     Should Contain X Times    ${output}    cpp : Done Publisher    1
     Should Contain X Times    ${output}    cpp : Done Subscriber    1
@@ -120,7 +120,7 @@ Salgen DomeMONCS Python
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} sal python
     ${output}=    Read Until Prompt
     Log    ${output}
-    Should Contain    ${output}    SAL generator - V${SALVersion}
+    Should Contain    ${output}    SAL generator - ${SALVersion}
     Should Contain    ${output}    Generating Python SAL support for ${subSystem}
     Should Contain    ${output}    Generating Python bindings
     Should Contain    ${output}    python : Done SALPY_${subSystem}.so
@@ -165,7 +165,7 @@ Salgen DomeMONCS LabVIEW
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} labview
     ${output}=    Read Until Prompt
     Log    ${output}
-    Should Contain    ${output}    SAL generator - V${SALVersion}
+    Should Contain    ${output}    SAL generator - ${SALVersion}
     Directory Should Exist    ${SALWorkDir}/${subSystem}/labview
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/labview
     Log Many    @{files}
@@ -180,7 +180,7 @@ Salgen DomeMONCS Java
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} sal java
     ${output}=    Read Until Prompt
     Log    ${output}
-    Should Contain    ${output}    SAL generator - V${SALVersion}
+    Should Contain    ${output}    SAL generator - ${SALVersion}
     Should Contain    ${output}    Generating SAL Java code for ${subSystem}_status.idl
     Should Contain X Times    ${output}    javac : Done Publisher    1
     Should Contain X Times    ${output}    javac : Done Subscriber    1
@@ -196,7 +196,7 @@ Salgen DomeMONCS Lib
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} lib
     ${output}=    Read Until Prompt
     Log    ${output}
-    Should Contain    ${output}    SAL generator - V${SALVersion}
+    Should Contain    ${output}    SAL generator - ${SALVersion}
     Should Contain    ${output}    Building shared library for ${subSystem} subsystem
     Directory Should Exist    ${SALWorkDir}/lib
     @{files}=    List Directory    ${SALWorkDir}/lib
@@ -212,7 +212,7 @@ Salgen DomeMONCS Maven
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} maven
     ${output}=    Read Until Prompt
     Log    ${output}
-    Should Contain    ${output}    SAL generator - V${SALVersion}
+    Should Contain    ${output}    SAL generator - ${SALVersion}
     Should Contain    ${output}    Running maven install
     Should Contain    ${output}    [INFO] Building sal_${subSystem} ${SALVersion}
     Should Contain X Times    ${output}    [INFO] BUILD SUCCESS    1

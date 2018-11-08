@@ -55,7 +55,7 @@ function salgenValidate() {
     echo "    \${input}=    Write    \${SALHome}/scripts/salgenerator \${subSystem} validate" >> $testSuite
     echo "    \${output}=    Read Until Prompt" >> $testSuite
     echo "    Log    \${output}" >> $testSuite
-    echo "    Should Contain    \${output}    SAL generator - V\${SALVersion}" >> $testSuite
+    echo "    Should Contain    \${output}    SAL generator - \${SALVersion}" >> $testSuite
     echo "    Should Contain    \${output}    Processing \${subSystem}" >> $testSuite
     echo "    Should Contain    \${output}    Completed \${subSystem} validation" >> $testSuite
     echo "    Directory Should Exist    \${SALWorkDir}/idl-templates" >> $testSuite
@@ -82,7 +82,7 @@ function salgenHTML() {
     echo "    \${input}=    Write    \${SALHome}/scripts/salgenerator \${subSystem} html" >> $testSuite
     echo "    \${output}=    Read Until Prompt" >> $testSuite
     echo "    Log    \${output}" >> $testSuite
-    echo "    Should Contain    \${output}    SAL generator - V\${SALVersion}" >> $testSuite
+    echo "    Should Contain    \${output}    SAL generator - \${SALVersion}" >> $testSuite
     echo "    Should Contain    \${output}    Generating telemetry stream definition editor html" >> $testSuite
     echo "    Should Contain    \${output}    Creating sal-generator-\${subSystem} form" >> $testSuite
 	if ! [ "$subSystemUp" == "EFD" ]; then
@@ -109,7 +109,7 @@ function salgenCPP {
     echo "    Log    \${output}" >> $testSuite
     echo "    Should Not Contain    \${output}    *** DDS error in file" >> $testSuite
     echo "    Should Not Contain    \${output}    Error 1" >> $testSuite
-    echo "    Should Contain    \${output}    SAL generator - V\${SALVersion}" >> $testSuite
+    echo "    Should Contain    \${output}    SAL generator - \${SALVersion}" >> $testSuite
 	for topic in "${telemetryArray[@]}"; do
 		echo "    Should Contain    \${output}    Generating SAL CPP code for \${subSystem}_${topic}.idl" >> $testSuite
 	done
@@ -189,7 +189,7 @@ function salgenJava() {
     echo "    \${input}=    Write    \${SALHome}/scripts/salgenerator \${subSystem} sal java" >> $testSuite
     echo "    \${output}=    Read Until Prompt" >> $testSuite
     echo "    Log    \${output}" >> $testSuite
-    echo "    Should Contain    \${output}    SAL generator - V\${SALVersion}" >> $testSuite
+    echo "    Should Contain    \${output}    SAL generator - \${SALVersion}" >> $testSuite
 	for topic in "${telemetryArray[@]}"; do
         echo "    Should Contain    \${output}    Generating SAL Java code for \${subSystem}_${topic}.idl" >> $testSuite
     done
@@ -217,7 +217,7 @@ function salgenMaven() {
     echo "    \${input}=    Write    \${SALHome}/scripts/salgenerator \${subSystem} maven" >> $testSuite
     echo "    \${output}=    Read Until Prompt" >> $testSuite
     echo "    Log    \${output}" >> $testSuite
-    echo "    Should Contain    \${output}    SAL generator - V\${SALVersion}" >> $testSuite
+    echo "    Should Contain    \${output}    SAL generator - \${SALVersion}" >> $testSuite
     echo "    Should Contain    \${output}    Running maven install" >> $testSuite
     echo "    Should Contain    \${output}    [INFO] Building sal_\${subSystem} \${SALVersion}" >> $testSuite
     echo "    Should Contain X Times    \${output}    [INFO] BUILD SUCCESS    1" >> $testSuite
@@ -234,7 +234,7 @@ function salgenPython() {
     echo "    \${input}=    Write    \${SALHome}/scripts/salgenerator \${subSystem} sal python" >> $testSuite
     echo "    \${output}=    Read Until Prompt" >> $testSuite
     echo "    Log    \${output}" >> $testSuite
-    echo "    Should Contain    \${output}    SAL generator - V\${SALVersion}" >> $testSuite
+    echo "    Should Contain    \${output}    SAL generator - \${SALVersion}" >> $testSuite
     echo "    Should Contain    \${output}    Generating Python SAL support for \${subSystem}" >> $testSuite
     echo "    Should Contain    \${output}    Generating Python bindings" >> $testSuite
     echo "    Should Contain    \${output}    python : Done SALPY_\${subSystem}.so" >> $testSuite
@@ -291,7 +291,7 @@ function salgenLabview() {
     echo "    \${input}=    Write    \${SALHome}/scripts/salgenerator \${subSystem} labview" >> $testSuite
     echo "    \${output}=    Read Until Prompt" >> $testSuite
     echo "    Log    \${output}" >> $testSuite
-    echo "    Should Contain    \${output}    SAL generator - V\${SALVersion}" >> $testSuite
+    echo "    Should Contain    \${output}    SAL generator - \${SALVersion}" >> $testSuite
     echo "    Directory Should Exist    \${SALWorkDir}/\${subSystem}/labview" >> $testSuite
     echo "    @{files}=    List Directory    \${SALWorkDir}/\${subSystem}/labview" >> $testSuite
     echo "    Log Many    @{files}" >> $testSuite
@@ -309,7 +309,7 @@ function salgenLib() {
     echo "    \${input}=    Write    \${SALHome}/scripts/salgenerator \${subSystem} lib" >> $testSuite
     echo "    \${output}=    Read Until Prompt" >> $testSuite
     echo "    Log    \${output}" >> $testSuite
-    echo "    Should Contain    \${output}    SAL generator - V\${SALVersion}" >> $testSuite
+    echo "    Should Contain    \${output}    SAL generator - \${SALVersion}" >> $testSuite
     echo "    Should Contain    \${output}    Building shared library for \${subSystem} subsystem" >> $testSuite
 	echo "    Directory Should Exist    \${SALWorkDir}/lib" >> $testSuite
     echo "    @{files}=    List Directory    \${SALWorkDir}/lib" >> $testSuite
