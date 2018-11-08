@@ -30,7 +30,6 @@ rbtsal/SALGEN/EFD_salgenerator.robot
 rbtsal/SALGEN/Electrometer_salgenerator.robot
 rbtsal/SALGEN/FiberSpectrograph_salgenerator.robot
 rbtsal/SALGEN/Hexapod_salgenerator.robot
-rbtsal/SALGEN/Laser_salgenerator.robot
 rbtsal/SALGEN/LinearStage_salgenerator.robot
 rbtsal/SALGEN/MTArchiver_salgenerator.robot
 rbtsal/SALGEN/MTCamera_salgenerator.robot

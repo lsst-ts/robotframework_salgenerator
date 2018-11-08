@@ -30,7 +30,6 @@ SALGEN/EFD_salgenerator.robot
 SALGEN/Electrometer_salgenerator.robot
 SALGEN/FiberSpectrograph_salgenerator.robot
 SALGEN/Hexapod_salgenerator.robot
-SALGEN/Laser_salgenerator.robot
 SALGEN/LinearStage_salgenerator.robot
 SALGEN/MTArchiver_salgenerator.robot
 SALGEN/MTCamera_salgenerator.robot

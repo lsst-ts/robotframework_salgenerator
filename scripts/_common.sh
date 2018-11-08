@@ -44,7 +44,7 @@ function clearTestSuites() {
 }
 
 function subsystemArray() {
-	echo "ATArchiver ATCamera ATDome ATHeaderService ATMCS ATMonochromator ATPneumatics ATSpectrograph ATTCS ATThermoelectricCooler ATWhiteLight CatchupArchiver CBP Dome DomeADB DomeAPS DomeLouvers DomeLWS DomeMONCS DomeTHCS EEC EFD Electrometer FiberSpectrograph Hexapod Laser LinearStage MTArchiver MTCamera MTHeaderService MTM1M3 MTM2 MTMount MTOFC MTWEP OCS PromptProcessing Rotator Scheduler Sequencer SummitFacility MTTCS Test TunableLaser MTVMS"
+	echo "ATArchiver ATCamera ATDome ATHeaderService ATMCS ATMonochromator ATPneumatics ATSpectrograph ATTCS ATThermoelectricCooler ATWhiteLight CatchupArchiver CBP Dome DomeADB DomeAPS DomeLouvers DomeLWS DomeMONCS DomeTHCS EEC EFD Electrometer FiberSpectrograph Hexapod LinearStage MTArchiver MTCamera MTHeaderService MTM1M3 MTM2 MTMount MTOFC MTWEP OCS PromptProcessing Rotator Scheduler Sequencer SummitFacility MTTCS Test TunableLaser MTVMS"
 }
 
 function stateArray() {
