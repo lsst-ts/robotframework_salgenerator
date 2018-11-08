@@ -24,7 +24,7 @@ echo "--name JenkinsSalGen" >> $argfile
 echo "--output SALGENERATOR" >> $argfile
 echo "" >> $argfile
 echo "# List of test suites" >> $argfile
-echo "rbtsal/Version.robot" >> $argfile
+echo "rbtsal/SAL_Tests.robot" >> $argfile
 
 # Find test suites and add them to the argument file.
 ls -1 $HOME/trunk/robotframework_salgenerator/SALGEN |sed 's/^/rbtsal\/SALGEN\//' >> $argfile

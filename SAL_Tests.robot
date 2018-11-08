@@ -1,6 +1,5 @@
 *** Settings ***
 Documentation    This verifies the version of SAL installed on the remote host.
-Force Tags    version
 Suite Setup    Log Many    ${SALVersion}    ${OpenspliceVersion}    ${OpenspliceDate}
 Suite Teardown    Close All Connections
 Library    SSHLibrary
@@ -12,7 +11,7 @@ ${timeout}    10s
 *** Test Cases ***
 Verify SAL Version
     [Documentation]    Connect to the SAL host.
-    [Tags]    smoke
+    [Tags]    smoke    version
     Comment    Connect to host.
     Open Connection    host=${Host}    alias=VER    timeout=${timeout}    prompt=${Prompt}
     Comment    Login.
@@ -24,7 +23,7 @@ Verify SAL Version
 
 Verify OpenSplice Version
 	[Documentation]    Verify the OpenSplice version and date.
-	[Tags]    smoke
+	[Tags]    smoke    version
 	Log    ${versionData}
 	Log Many    ${OpenspliceRelease}    ${OpenspliceVersion}    ${OpenspliceDate}
 	Should Contain    ${versionData}    ${OpenspliceRelease}
@@ -32,12 +31,12 @@ Verify OpenSplice Version
 	Should Contain    ${versionData}    Date ${OpenspliceDate}
 
 Verify SAL Version file exists
-    [Tags]    smoke
+    [Tags]    smoke    version
 	Log    ${SALInstall}/lsstsal/scripts/sal_version.tcl
     File Should Exist    ${SALInstall}/lsstsal/scripts/sal_version.tcl
 
 Verify SAL Version file contents
-    [Tags]    smoke
+    [Tags]    smoke    version
     Write    cat ${SALInstall}/lsstsal/scripts/sal_version.tcl
     ${output}=    Read Until Prompt
     Log    ${output}
@@ -47,3 +46,17 @@ Verify SAL CSC list exists
 	[Tags]    smoke
 	Comment    Verify the list of SAL CSCs exists.
     File Should Exist    ${SALWorkDir}/SALSubsystems.xml
+
+Verify SAL CSC list exists
+    [Tags]    smoke
+    Comment    Verify the SAL Generic topics definition file exists.
+    File Should Exist    ${SALWorkDir}/SALGenerics.xml
+
+Verify State Enumeration Definition
+    [Documentation]    Verify the State Enumeration definition within the SAL.
+    [Tags]    smoke
+    Comment    Verify Generic Events file.
+    File Should Exist    ${SALInstall}/lsstsal/scripts/generateGenericEvents.tcl 
+    Comment    Verify Generic Events file contains the State Enumeration definition.
+    ${content}=    Execute Command    grep -m 1 "<Enumeration>" ${SALInstall}/lsstsal/scripts/generateGenericEvents.tcl
+    Should Contain    ${content}    <Enumeration>DisabledState,EnabledState,FaultState,OfflineState,StandbyState</Enumeration>

@@ -4,7 +4,7 @@
 --output SALGENERATOR
 
 # List of test suites
-rbtsal/Version.robot
+rbtsal/SAL_Tests.robot
 rbtsal/SALGEN/ATArchiver_salgenerator.robot
 rbtsal/SALGEN/ATCamera_salgenerator.robot
 rbtsal/SALGEN/ATDome_salgenerator.robot
