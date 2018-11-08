@@ -9,15 +9,16 @@ Resource    ../Global_Vars.robot
 Resource    ../common.robot
 
 *** Variables ***
-${subSystem}    rotator
+${subSystem}    Rotator
 ${timeout}    1200s
 
 *** Test Cases ***
 Verify Rotator XML Defintions exist
     [Tags]
-    File Should Exist    ${SALWorkDir}/rotator_Commands.xml
-    File Should Exist    ${SALWorkDir}/rotator_Events.xml
-    File Should Exist    ${SALWorkDir}/rotator_Telemetry.xml
+    Comment    Verify the CSC XML definition files exist.
+    File Should Exist    ${SALWorkDir}/Rotator_Commands.xml
+    File Should Exist    ${SALWorkDir}/Rotator_Events.xml
+    File Should Exist    ${SALWorkDir}/Rotator_Telemetry.xml
 
 Salgen Rotator Validate
     [Documentation]    Validate the Rotator XML definitions.
@@ -71,9 +72,9 @@ Salgen Rotator HTML
     Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
     @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/rotator_Commands.html
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/rotator_Events.html
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/rotator_Telemetry.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/Rotator_Commands.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/Rotator_Events.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/Rotator_Telemetry.html
 
 Salgen Rotator C++
     [Documentation]    Generate C++ wrapper.

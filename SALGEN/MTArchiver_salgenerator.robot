@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation    This suite builds the various interfaces for the SummitFacility.
+Documentation    This suite builds the various interfaces for the MTArchiver.
 Force Tags    salgen    
 Suite Setup    Run Keywords    Log Many    ${Host}    ${subSystem}    ${timeout}
 ...    AND    Create Session    SALGEN
@@ -9,18 +9,18 @@ Resource    ../Global_Vars.robot
 Resource    ../common.robot
 
 *** Variables ***
-${subSystem}    SummitFacility
+${subSystem}    MTArchiver
 ${timeout}    1200s
 
 *** Test Cases ***
-Verify SummitFacility XML Defintions exist
+Verify MTArchiver XML Defintions exist
     [Tags]
     Comment    Verify the CSC XML definition files exist.
-    File Should Exist    ${SALWorkDir}/SummitFacility_Events.xml
-    File Should Exist    ${SALWorkDir}/SummitFacility_Telemetry.xml
+    File Should Exist    ${SALWorkDir}/MTArchiver_Events.xml
+    File Should Exist    ${SALWorkDir}/MTArchiver_Telemetry.xml
 
-Salgen SummitFacility Validate
-    [Documentation]    Validate the SummitFacility XML definitions.
+Salgen MTArchiver Validate
+    [Documentation]    Validate the MTArchiver XML definitions.
     [Tags]
     ${input}=    Write    cd ${SALWorkDir}
     ${output}=    Read Until Prompt
@@ -34,14 +34,13 @@ Salgen SummitFacility Validate
     Directory Should Exist    ${SALWorkDir}/idl-templates/validated
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_timestamp.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_loopTime.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_internalCommand.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_heartbeat.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_loopTimeOutOfRange.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rejectedCommand.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_sequencerHeartbeat.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_mtArchiverEntityShutdown.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_mtArchiverEntityStartup.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_mtArchiverEntitySummaryState.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingsApplied.idl
 
-Salgen SummitFacility HTML
+Salgen MTArchiver HTML
     [Documentation]    Create web form interfaces.
     [Tags]    html    TSS-3079
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} html
@@ -50,15 +49,14 @@ Salgen SummitFacility HTML
     Should Contain    ${output}    SAL generator - V${SALVersion}
     Should Contain    ${output}    Generating telemetry stream definition editor html
     Should Contain    ${output}    Creating sal-generator-${subSystem} form
-    Should Contain    ${output}    Added sal-generator-${subSystem}.timestamp to form
-    Should Contain    ${output}    Added sal-generator-${subSystem}.loopTime to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.sequencerHeartbeat to form
     Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
     @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/SummitFacility_Events.html
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/SummitFacility_Telemetry.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/MTArchiver_Events.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/MTArchiver_Telemetry.html
 
-Salgen SummitFacility C++
+Salgen MTArchiver C++
     [Documentation]    Generate C++ wrapper.
     [Tags]    cpp
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} sal cpp
@@ -67,10 +65,9 @@ Salgen SummitFacility C++
     Should Not Contain    ${output}    *** DDS error in file
     Should Not Contain    ${output}    Error 1
     Should Contain    ${output}    SAL generator - V${SALVersion}
-    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_timestamp.idl
-    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_loopTime.idl
-    Should Contain X Times    ${output}    cpp : Done Publisher    2
-    Should Contain X Times    ${output}    cpp : Done Subscriber    2
+    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_sequencerHeartbeat.idl
+    Should Contain X Times    ${output}    cpp : Done Publisher    1
+    Should Contain X Times    ${output}    cpp : Done Subscriber    1
     Should Contain X Times    ${output}    cpp : Done Commander    1
     Should Contain X Times    ${output}    cpp : Done Event/Logger    1
 
@@ -84,34 +81,31 @@ Verify C++ Directories
     @{files}=    List Directory    ${SALWorkDir}/idl-templates/validated/sal    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/idl-templates/validated/sal/sal_${subSystem}.idl
 
-Verify SummitFacility Telemetry directories
+Verify MTArchiver Telemetry directories
     [Tags]    cpp
     @{files}=    List Directory    ${SALWorkDir}    pattern=*${subSystem}*
     Log Many    @{files}
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_timestamp
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_loopTime
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_sequencerHeartbeat
 
-Verify SummitFacility C++ Telemetry Interfaces
+Verify MTArchiver C++ Telemetry Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}_timestamp/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_timestamp/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_loopTime/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_loopTime/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_sequencerHeartbeat/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_sequencerHeartbeat/cpp/standalone/sacpp_${subSystem}_sub
 
-Verify SummitFacility C++ Event Interfaces
+Verify MTArchiver C++ Event Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_internalCommand_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_internalCommand_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_heartbeat_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_heartbeat_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_loopTimeOutOfRange_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_loopTimeOutOfRange_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_rejectedCommand_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_rejectedCommand_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_mtArchiverEntityShutdown_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_mtArchiverEntityShutdown_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_mtArchiverEntityStartup_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_mtArchiverEntityStartup_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_mtArchiverEntitySummaryState_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_mtArchiverEntitySummaryState_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsApplied_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsApplied_log
 
-Salgen SummitFacility Python
+Salgen MTArchiver Python
     [Documentation]    Generate Python wrapper.
     [Tags]    python
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} sal python
@@ -126,31 +120,29 @@ Salgen SummitFacility Python
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/SALPY_${subSystem}.so
 
-Verify SummitFacility Python Telemetry Interfaces
+Verify MTArchiver Python Telemetry Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_timestamp_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_timestamp_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_loopTime_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_loopTime_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_sequencerHeartbeat_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_sequencerHeartbeat_Subscriber.py
 
-Verify SummitFacility Python Event Interfaces
+Verify MTArchiver Python Event Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_internalCommand.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_internalCommand.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_heartbeat.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_heartbeat.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_loopTimeOutOfRange.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_loopTimeOutOfRange.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_rejectedCommand.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_rejectedCommand.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_mtArchiverEntityShutdown.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_mtArchiverEntityShutdown.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_mtArchiverEntityStartup.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_mtArchiverEntityStartup.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_mtArchiverEntitySummaryState.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_mtArchiverEntitySummaryState.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_settingsApplied.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_settingsApplied.py
 
-Salgen SummitFacility LabVIEW
+Salgen MTArchiver LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
     [Tags]    labview
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} labview
@@ -165,24 +157,23 @@ Salgen SummitFacility LabVIEW
     File Should Exist    ${SALWorkDir}/${subSystem}/labview/SALLV_${subSystem}.so
     File Should Exist    ${SALWorkDir}/${subSystem}/labview/SALLV_${subSystem}_Monitor
 
-Salgen SummitFacility Java
+Salgen MTArchiver Java
     [Documentation]    Generate Java wrapper.
     [Tags]    java
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} sal java
     ${output}=    Read Until Prompt
     Log    ${output}
     Should Contain    ${output}    SAL generator - V${SALVersion}
-    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_timestamp.idl
-    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_loopTime.idl
-    Should Contain X Times    ${output}    javac : Done Publisher    2
-    Should Contain X Times    ${output}    javac : Done Subscriber    2
-    Should Contain X Times    ${output}    javac : Done Commander/Controller    2
-    Should Contain X Times    ${output}    javac : Done Event/Logger    2
+    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_sequencerHeartbeat.idl
+    Should Contain X Times    ${output}    javac : Done Publisher    1
+    Should Contain X Times    ${output}    javac : Done Subscriber    1
+    Should Contain X Times    ${output}    javac : Done Commander/Controller    1
+    Should Contain X Times    ${output}    javac : Done Event/Logger    1
     Directory Should Exist    ${SALWorkDir}/${subSystem}/java
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
 
-Salgen SummitFacility Lib
+Salgen MTArchiver Lib
     [Documentation]    Generate the SAL shared library for ${subSystem}
     [Tags]    
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} lib
@@ -198,7 +189,7 @@ Salgen SummitFacility Lib
     File Should Exist    ${SALWorkDir}/lib/SALLV_${subSystem}.so
     File Should Exist    ${SALWorkDir}/lib/SALPY_${subSystem}.so
 
-Salgen SummitFacility Maven
+Salgen MTArchiver Maven
     [Documentation]    Generate the Maven repository.
     [Tags]    java
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} maven

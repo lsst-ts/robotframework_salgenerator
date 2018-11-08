@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation    This suite builds the various interfaces for the HeaderService.
+Documentation    This suite builds the various interfaces for the ATWhiteLight.
 Force Tags    salgen    
 Suite Setup    Run Keywords    Log Many    ${Host}    ${subSystem}    ${timeout}
 ...    AND    Create Session    SALGEN
@@ -9,17 +9,19 @@ Resource    ../Global_Vars.robot
 Resource    ../common.robot
 
 *** Variables ***
-${subSystem}    headerService
+${subSystem}    ATWhiteLight
 ${timeout}    1200s
 
 *** Test Cases ***
-Verify HeaderService XML Defintions exist
+Verify ATWhiteLight XML Defintions exist
     [Tags]
-    File Should Exist    ${SALWorkDir}/headerService_Commands.xml
-    File Should Exist    ${SALWorkDir}/headerService_Events.xml
+    Comment    Verify the CSC XML definition files exist.
+    File Should Exist    ${SALWorkDir}/ATWhiteLight_Commands.xml
+    File Should Exist    ${SALWorkDir}/ATWhiteLight_Events.xml
+    File Should Exist    ${SALWorkDir}/ATWhiteLight_Telemetry.xml
 
-Salgen HeaderService Validate
-    [Documentation]    Validate the HeaderService XML definitions.
+Salgen ATWhiteLight Validate
+    [Documentation]    Validate the ATWhiteLight XML definitions.
     [Tags]
     ${input}=    Write    cd ${SALWorkDir}
     ${output}=    Read Until Prompt
@@ -33,23 +35,17 @@ Salgen HeaderService Validate
     Directory Should Exist    ${SALWorkDir}/idl-templates/validated
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_exitControl.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_standby.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_start.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enterControl.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_appliedSettingsMatchStart.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_errorCode.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingVersions.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_summaryState.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_detailedState.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_timestamp.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_loopTime.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_powerLightOn.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_powerLightOff.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setLightPower.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_heartbeat.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_loopTimeOutOfRange.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rejectedCommand.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_largeFileObjectAvailable.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingsApplied.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_whiteLightStatus.idl
 
-Salgen HeaderService HTML
+Salgen ATWhiteLight HTML
     [Documentation]    Create web form interfaces.
     [Tags]    html    TSS-3079
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} html
@@ -58,13 +54,16 @@ Salgen HeaderService HTML
     Should Contain    ${output}    SAL generator - V${SALVersion}
     Should Contain    ${output}    Generating telemetry stream definition editor html
     Should Contain    ${output}    Creating sal-generator-${subSystem} form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.timestamp to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.loopTime to form
     Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
     @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/headerService_Commands.html
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/headerService_Events.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/ATWhiteLight_Commands.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/ATWhiteLight_Events.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/ATWhiteLight_Telemetry.html
 
-Salgen HeaderService C++
+Salgen ATWhiteLight C++
     [Documentation]    Generate C++ wrapper.
     [Tags]    cpp
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} sal cpp
@@ -73,8 +72,10 @@ Salgen HeaderService C++
     Should Not Contain    ${output}    *** DDS error in file
     Should Not Contain    ${output}    Error 1
     Should Contain    ${output}    SAL generator - V${SALVersion}
-    Should Contain X Times    ${output}    cpp : Done Publisher    1
-    Should Contain X Times    ${output}    cpp : Done Subscriber    1
+    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_timestamp.idl
+    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_loopTime.idl
+    Should Contain X Times    ${output}    cpp : Done Publisher    2
+    Should Contain X Times    ${output}    cpp : Done Subscriber    2
     Should Contain X Times    ${output}    cpp : Done Commander    1
     Should Contain X Times    ${output}    cpp : Done Event/Logger    1
 
@@ -88,45 +89,44 @@ Verify C++ Directories
     @{files}=    List Directory    ${SALWorkDir}/idl-templates/validated/sal    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/idl-templates/validated/sal/sal_${subSystem}.idl
 
-Verify HeaderService C++ Command Interfaces
-    [Documentation]    Verify the C++ interfaces were properly created.
+Verify ATWhiteLight Telemetry directories
     [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_disable_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_disable_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enable_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enable_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_exitControl_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_exitControl_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_standby_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_standby_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_start_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_start_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enterControl_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enterControl_controller
+    @{files}=    List Directory    ${SALWorkDir}    pattern=*${subSystem}*
+    Log Many    @{files}
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_timestamp
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_loopTime
 
-Verify HeaderService C++ Event Interfaces
+Verify ATWhiteLight C++ Telemetry Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_appliedSettingsMatchStart_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_appliedSettingsMatchStart_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_errorCode_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_errorCode_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingVersions_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingVersions_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_summaryState_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_summaryState_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_detailedState_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_detailedState_log
+    File Should Exist    ${SALWorkDir}/${subSystem}_timestamp/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_timestamp/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_loopTime/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_loopTime/cpp/standalone/sacpp_${subSystem}_sub
+
+Verify ATWhiteLight C++ Command Interfaces
+    [Documentation]    Verify the C++ interfaces were properly created.
+    [Tags]    cpp
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_powerLightOn_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_powerLightOn_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_powerLightOff_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_powerLightOff_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setLightPower_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setLightPower_controller
+
+Verify ATWhiteLight C++ Event Interfaces
+    [Documentation]    Verify the C++ interfaces were properly created.
+    [Tags]    cpp
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_heartbeat_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_heartbeat_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_loopTimeOutOfRange_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_loopTimeOutOfRange_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_rejectedCommand_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_rejectedCommand_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_largeFileObjectAvailable_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_largeFileObjectAvailable_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsApplied_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsApplied_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_whiteLightStatus_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_whiteLightStatus_log
 
-Salgen HeaderService Python
+Salgen ATWhiteLight Python
     [Documentation]    Generate Python wrapper.
     [Tags]    python
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} sal python
@@ -141,49 +141,43 @@ Salgen HeaderService Python
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/SALPY_${subSystem}.so
 
-Verify HeaderService Python Command Interfaces
+Verify ATWhiteLight Python Telemetry Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_disable.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_disable.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_enable.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_enable.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_exitControl.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_exitControl.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_standby.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_standby.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_start.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_start.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_enterControl.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_enterControl.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_timestamp_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_timestamp_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_loopTime_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_loopTime_Subscriber.py
 
-Verify HeaderService Python Event Interfaces
+Verify ATWhiteLight Python Command Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_appliedSettingsMatchStart.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_appliedSettingsMatchStart.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_errorCode.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_errorCode.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_settingVersions.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_settingVersions.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_summaryState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_summaryState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_detailedState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_detailedState.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_powerLightOn.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_powerLightOn.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_powerLightOff.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_powerLightOff.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_setLightPower.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setLightPower.py
+
+Verify ATWhiteLight Python Event Interfaces
+    [Documentation]    Verify the Python interfaces were properly created.
+    [Tags]    python
+    @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
+    Log Many    @{files}
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_heartbeat.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_heartbeat.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_loopTimeOutOfRange.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_loopTimeOutOfRange.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_rejectedCommand.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_rejectedCommand.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_largeFileObjectAvailable.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_largeFileObjectAvailable.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_settingsApplied.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_settingsApplied.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_whiteLightStatus.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_whiteLightStatus.py
 
-Salgen HeaderService LabVIEW
+Salgen ATWhiteLight LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
     [Tags]    labview
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} labview
@@ -198,22 +192,24 @@ Salgen HeaderService LabVIEW
     File Should Exist    ${SALWorkDir}/${subSystem}/labview/SALLV_${subSystem}.so
     File Should Exist    ${SALWorkDir}/${subSystem}/labview/SALLV_${subSystem}_Monitor
 
-Salgen HeaderService Java
+Salgen ATWhiteLight Java
     [Documentation]    Generate Java wrapper.
     [Tags]    java
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} sal java
     ${output}=    Read Until Prompt
     Log    ${output}
     Should Contain    ${output}    SAL generator - V${SALVersion}
-    Should Contain X Times    ${output}    javac : Done Publisher    1
-    Should Contain X Times    ${output}    javac : Done Subscriber    1
-    Should Contain X Times    ${output}    javac : Done Commander/Controller    1
-    Should Contain X Times    ${output}    javac : Done Event/Logger    1
+    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_timestamp.idl
+    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_loopTime.idl
+    Should Contain X Times    ${output}    javac : Done Publisher    2
+    Should Contain X Times    ${output}    javac : Done Subscriber    2
+    Should Contain X Times    ${output}    javac : Done Commander/Controller    2
+    Should Contain X Times    ${output}    javac : Done Event/Logger    2
     Directory Should Exist    ${SALWorkDir}/${subSystem}/java
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
 
-Salgen HeaderService Lib
+Salgen ATWhiteLight Lib
     [Documentation]    Generate the SAL shared library for ${subSystem}
     [Tags]    
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} lib
@@ -229,7 +225,7 @@ Salgen HeaderService Lib
     File Should Exist    ${SALWorkDir}/lib/SALLV_${subSystem}.so
     File Should Exist    ${SALWorkDir}/lib/SALPY_${subSystem}.so
 
-Salgen HeaderService Maven
+Salgen ATWhiteLight Maven
     [Documentation]    Generate the Maven repository.
     [Tags]    java
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} maven

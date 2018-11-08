@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation    This suite builds the various interfaces for the SummitFacility.
+Documentation    This suite builds the various interfaces for the MTWEP.
 Force Tags    salgen    
 Suite Setup    Run Keywords    Log Many    ${Host}    ${subSystem}    ${timeout}
 ...    AND    Create Session    SALGEN
@@ -9,18 +9,18 @@ Resource    ../Global_Vars.robot
 Resource    ../common.robot
 
 *** Variables ***
-${subSystem}    SummitFacility
+${subSystem}    MTWEP
 ${timeout}    1200s
 
 *** Test Cases ***
-Verify SummitFacility XML Defintions exist
+Verify MTWEP XML Defintions exist
     [Tags]
     Comment    Verify the CSC XML definition files exist.
-    File Should Exist    ${SALWorkDir}/SummitFacility_Events.xml
-    File Should Exist    ${SALWorkDir}/SummitFacility_Telemetry.xml
+    File Should Exist    ${SALWorkDir}/MTWEP_Events.xml
+    File Should Exist    ${SALWorkDir}/MTWEP_Telemetry.xml
 
-Salgen SummitFacility Validate
-    [Documentation]    Validate the SummitFacility XML definitions.
+Salgen MTWEP Validate
+    [Documentation]    Validate the MTWEP XML definitions.
     [Tags]
     ${input}=    Write    cd ${SALWorkDir}
     ${output}=    Read Until Prompt
@@ -35,13 +35,21 @@ Salgen SummitFacility Validate
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_timestamp.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_loopTime.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_loopTimeMs.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_internalCommand.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_heartbeat.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_loopTimeOutOfRange.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rejectedCommand.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_noEnoughWfsNum.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_wavefrontError.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_normalTargetWfsList.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_comcamTargetWfsList.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_famTargetWfsList.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_sensorPssnList.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_simParamList.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_imageReady.idl
 
-Salgen SummitFacility HTML
+Salgen MTWEP HTML
     [Documentation]    Create web form interfaces.
     [Tags]    html    TSS-3079
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} html
@@ -51,14 +59,14 @@ Salgen SummitFacility HTML
     Should Contain    ${output}    Generating telemetry stream definition editor html
     Should Contain    ${output}    Creating sal-generator-${subSystem} form
     Should Contain    ${output}    Added sal-generator-${subSystem}.timestamp to form
-    Should Contain    ${output}    Added sal-generator-${subSystem}.loopTime to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.loopTimeMs to form
     Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
     @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/SummitFacility_Events.html
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/SummitFacility_Telemetry.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/MTWEP_Events.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/MTWEP_Telemetry.html
 
-Salgen SummitFacility C++
+Salgen MTWEP C++
     [Documentation]    Generate C++ wrapper.
     [Tags]    cpp
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} sal cpp
@@ -68,7 +76,7 @@ Salgen SummitFacility C++
     Should Not Contain    ${output}    Error 1
     Should Contain    ${output}    SAL generator - V${SALVersion}
     Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_timestamp.idl
-    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_loopTime.idl
+    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_loopTimeMs.idl
     Should Contain X Times    ${output}    cpp : Done Publisher    2
     Should Contain X Times    ${output}    cpp : Done Subscriber    2
     Should Contain X Times    ${output}    cpp : Done Commander    1
@@ -84,22 +92,22 @@ Verify C++ Directories
     @{files}=    List Directory    ${SALWorkDir}/idl-templates/validated/sal    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/idl-templates/validated/sal/sal_${subSystem}.idl
 
-Verify SummitFacility Telemetry directories
+Verify MTWEP Telemetry directories
     [Tags]    cpp
     @{files}=    List Directory    ${SALWorkDir}    pattern=*${subSystem}*
     Log Many    @{files}
     Directory Should Exist    ${SALWorkDir}/${subSystem}_timestamp
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_loopTime
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_loopTimeMs
 
-Verify SummitFacility C++ Telemetry Interfaces
+Verify MTWEP C++ Telemetry Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
     File Should Exist    ${SALWorkDir}/${subSystem}_timestamp/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_timestamp/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_loopTime/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_loopTime/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_loopTimeMs/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_loopTimeMs/cpp/standalone/sacpp_${subSystem}_sub
 
-Verify SummitFacility C++ Event Interfaces
+Verify MTWEP C++ Event Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_internalCommand_send
@@ -110,8 +118,24 @@ Verify SummitFacility C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_loopTimeOutOfRange_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_rejectedCommand_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_rejectedCommand_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_noEnoughWfsNum_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_noEnoughWfsNum_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_wavefrontError_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_wavefrontError_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_normalTargetWfsList_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_normalTargetWfsList_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_comcamTargetWfsList_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_comcamTargetWfsList_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_famTargetWfsList_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_famTargetWfsList_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_sensorPssnList_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_sensorPssnList_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_simParamList_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_simParamList_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_imageReady_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_imageReady_log
 
-Salgen SummitFacility Python
+Salgen MTWEP Python
     [Documentation]    Generate Python wrapper.
     [Tags]    python
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} sal python
@@ -126,17 +150,17 @@ Salgen SummitFacility Python
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/SALPY_${subSystem}.so
 
-Verify SummitFacility Python Telemetry Interfaces
+Verify MTWEP Python Telemetry Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_timestamp_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_timestamp_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_loopTime_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_loopTime_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_loopTimeMs_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_loopTimeMs_Subscriber.py
 
-Verify SummitFacility Python Event Interfaces
+Verify MTWEP Python Event Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
@@ -149,8 +173,24 @@ Verify SummitFacility Python Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_loopTimeOutOfRange.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_rejectedCommand.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_rejectedCommand.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_noEnoughWfsNum.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_noEnoughWfsNum.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_wavefrontError.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_wavefrontError.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_normalTargetWfsList.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_normalTargetWfsList.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_comcamTargetWfsList.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_comcamTargetWfsList.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_famTargetWfsList.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_famTargetWfsList.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_sensorPssnList.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_sensorPssnList.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_simParamList.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_simParamList.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_imageReady.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_imageReady.py
 
-Salgen SummitFacility LabVIEW
+Salgen MTWEP LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
     [Tags]    labview
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} labview
@@ -165,7 +205,7 @@ Salgen SummitFacility LabVIEW
     File Should Exist    ${SALWorkDir}/${subSystem}/labview/SALLV_${subSystem}.so
     File Should Exist    ${SALWorkDir}/${subSystem}/labview/SALLV_${subSystem}_Monitor
 
-Salgen SummitFacility Java
+Salgen MTWEP Java
     [Documentation]    Generate Java wrapper.
     [Tags]    java
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} sal java
@@ -173,7 +213,7 @@ Salgen SummitFacility Java
     Log    ${output}
     Should Contain    ${output}    SAL generator - V${SALVersion}
     Should Contain    ${output}    Generating SAL Java code for ${subSystem}_timestamp.idl
-    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_loopTime.idl
+    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_loopTimeMs.idl
     Should Contain X Times    ${output}    javac : Done Publisher    2
     Should Contain X Times    ${output}    javac : Done Subscriber    2
     Should Contain X Times    ${output}    javac : Done Commander/Controller    2
@@ -182,7 +222,7 @@ Salgen SummitFacility Java
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
 
-Salgen SummitFacility Lib
+Salgen MTWEP Lib
     [Documentation]    Generate the SAL shared library for ${subSystem}
     [Tags]    
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} lib
@@ -198,7 +238,7 @@ Salgen SummitFacility Lib
     File Should Exist    ${SALWorkDir}/lib/SALLV_${subSystem}.so
     File Should Exist    ${SALWorkDir}/lib/SALPY_${subSystem}.so
 
-Salgen SummitFacility Maven
+Salgen MTWEP Maven
     [Documentation]    Generate the Maven repository.
     [Tags]    java
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} maven

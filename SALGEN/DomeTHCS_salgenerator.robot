@@ -9,15 +9,16 @@ Resource    ../Global_Vars.robot
 Resource    ../common.robot
 
 *** Variables ***
-${subSystem}    domeTHCS
+${subSystem}    DomeTHCS
 ${timeout}    1200s
 
 *** Test Cases ***
 Verify DomeTHCS XML Defintions exist
     [Tags]
-    File Should Exist    ${SALWorkDir}/domeTHCS_Commands.xml
-    File Should Exist    ${SALWorkDir}/domeTHCS_Events.xml
-    File Should Exist    ${SALWorkDir}/domeTHCS_Telemetry.xml
+    Comment    Verify the CSC XML definition files exist.
+    File Should Exist    ${SALWorkDir}/DomeTHCS_Commands.xml
+    File Should Exist    ${SALWorkDir}/DomeTHCS_Events.xml
+    File Should Exist    ${SALWorkDir}/DomeTHCS_Telemetry.xml
 
 Salgen DomeTHCS Validate
     [Documentation]    Validate the DomeTHCS XML definitions.
@@ -35,12 +36,12 @@ Salgen DomeTHCS Validate
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_status.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_Echo.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_StateChanged.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_MovementEnabled.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_MovementPrevented.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_EchoResponse.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_SubsystemError.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_echo.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_stateChanged.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_movementEnabled.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_movementPrevented.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_echoResponse.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_subsystemError.idl
 
 Salgen DomeTHCS HTML
     [Documentation]    Create web form interfaces.
@@ -55,9 +56,9 @@ Salgen DomeTHCS HTML
     Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
     @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/domeTHCS_Commands.html
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/domeTHCS_Events.html
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/domeTHCS_Telemetry.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/DomeTHCS_Commands.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/DomeTHCS_Events.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/DomeTHCS_Telemetry.html
 
 Salgen DomeTHCS C++
     [Documentation]    Generate C++ wrapper.
@@ -99,22 +100,22 @@ Verify DomeTHCS C++ Telemetry Interfaces
 Verify DomeTHCS C++ Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_Echo_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_Echo_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_echo_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_echo_controller
 
 Verify DomeTHCS C++ Event Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_StateChanged_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_StateChanged_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_MovementEnabled_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_MovementEnabled_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_MovementPrevented_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_MovementPrevented_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_EchoResponse_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_EchoResponse_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_SubsystemError_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_SubsystemError_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_stateChanged_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_stateChanged_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_movementEnabled_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_movementEnabled_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_movementPrevented_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_movementPrevented_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_echoResponse_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_echoResponse_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_subsystemError_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_subsystemError_log
 
 Salgen DomeTHCS Python
     [Documentation]    Generate Python wrapper.
@@ -144,24 +145,24 @@ Verify DomeTHCS Python Command Interfaces
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_Echo.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_Echo.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_echo.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_echo.py
 
 Verify DomeTHCS Python Event Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_StateChanged.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_StateChanged.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_MovementEnabled.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_MovementEnabled.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_MovementPrevented.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_MovementPrevented.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_EchoResponse.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_EchoResponse.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_SubsystemError.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_SubsystemError.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_stateChanged.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_stateChanged.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_movementEnabled.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_movementEnabled.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_movementPrevented.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_movementPrevented.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_echoResponse.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_echoResponse.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_subsystemError.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_subsystemError.py
 
 Salgen DomeTHCS LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.

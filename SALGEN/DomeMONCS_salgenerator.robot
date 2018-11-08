@@ -9,15 +9,16 @@ Resource    ../Global_Vars.robot
 Resource    ../common.robot
 
 *** Variables ***
-${subSystem}    domeMONCS
+${subSystem}    DomeMONCS
 ${timeout}    1200s
 
 *** Test Cases ***
 Verify DomeMONCS XML Defintions exist
     [Tags]
-    File Should Exist    ${SALWorkDir}/domeMONCS_Commands.xml
-    File Should Exist    ${SALWorkDir}/domeMONCS_Events.xml
-    File Should Exist    ${SALWorkDir}/domeMONCS_Telemetry.xml
+    Comment    Verify the CSC XML definition files exist.
+    File Should Exist    ${SALWorkDir}/DomeMONCS_Commands.xml
+    File Should Exist    ${SALWorkDir}/DomeMONCS_Events.xml
+    File Should Exist    ${SALWorkDir}/DomeMONCS_Telemetry.xml
 
 Salgen DomeMONCS Validate
     [Documentation]    Validate the DomeMONCS XML definitions.
@@ -35,11 +36,11 @@ Salgen DomeMONCS Validate
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_status.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_Echo.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_StateChanged.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_EchoResponse.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_SubsystemError.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_Interlock.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_echo.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_stateChanged.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_echoResponse.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_subsystemError.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_interlock.idl
 
 Salgen DomeMONCS HTML
     [Documentation]    Create web form interfaces.
@@ -54,9 +55,9 @@ Salgen DomeMONCS HTML
     Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
     @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/domeMONCS_Commands.html
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/domeMONCS_Events.html
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/domeMONCS_Telemetry.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/DomeMONCS_Commands.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/DomeMONCS_Events.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/DomeMONCS_Telemetry.html
 
 Salgen DomeMONCS C++
     [Documentation]    Generate C++ wrapper.
@@ -98,20 +99,20 @@ Verify DomeMONCS C++ Telemetry Interfaces
 Verify DomeMONCS C++ Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_Echo_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_Echo_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_echo_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_echo_controller
 
 Verify DomeMONCS C++ Event Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_StateChanged_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_StateChanged_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_EchoResponse_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_EchoResponse_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_SubsystemError_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_SubsystemError_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_Interlock_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_Interlock_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_stateChanged_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_stateChanged_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_echoResponse_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_echoResponse_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_subsystemError_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_subsystemError_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_interlock_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_interlock_log
 
 Salgen DomeMONCS Python
     [Documentation]    Generate Python wrapper.
@@ -141,22 +142,22 @@ Verify DomeMONCS Python Command Interfaces
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_Echo.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_Echo.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_echo.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_echo.py
 
 Verify DomeMONCS Python Event Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_StateChanged.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_StateChanged.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_EchoResponse.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_EchoResponse.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_SubsystemError.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_SubsystemError.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_Interlock.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_Interlock.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_stateChanged.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_stateChanged.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_echoResponse.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_echoResponse.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_subsystemError.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_subsystemError.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_interlock.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_interlock.py
 
 Salgen DomeMONCS LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.

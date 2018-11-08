@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation    This suite builds the various interfaces for the CalibrationElectrometer.
+Documentation    This suite builds the various interfaces for the Electrometer.
 Force Tags    salgen    
 Suite Setup    Run Keywords    Log Many    ${Host}    ${subSystem}    ${timeout}
 ...    AND    Create Session    SALGEN
@@ -9,18 +9,18 @@ Resource    ../Global_Vars.robot
 Resource    ../common.robot
 
 *** Variables ***
-${subSystem}    calibrationElectrometer
+${subSystem}    Electrometer
 ${timeout}    1200s
 
 *** Test Cases ***
-Verify CalibrationElectrometer XML Defintions exist
+Verify Electrometer XML Defintions exist
     [Tags]
-    File Should Exist    ${SALWorkDir}/calibrationElectrometer_Commands.xml
-    File Should Exist    ${SALWorkDir}/calibrationElectrometer_Events.xml
-    File Should Exist    ${SALWorkDir}/calibrationElectrometer_Telemetry.xml
+    Comment    Verify the CSC XML definition files exist.
+    File Should Exist    ${SALWorkDir}/Electrometer_Commands.xml
+    File Should Exist    ${SALWorkDir}/Electrometer_Events.xml
 
-Salgen CalibrationElectrometer Validate
-    [Documentation]    Validate the CalibrationElectrometer XML definitions.
+Salgen Electrometer Validate
+    [Documentation]    Validate the Electrometer XML definitions.
     [Tags]
     ${input}=    Write    cd ${SALWorkDir}
     ${output}=    Read Until Prompt
@@ -34,43 +34,26 @@ Salgen CalibrationElectrometer Validate
     Directory Should Exist    ${SALWorkDir}/idl-templates/validated
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_loopTime.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_timestamp.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_performZeroCalib.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_power.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setDigitalFilter.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setIntegrationTime.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setMode.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setRange.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_standby.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_start.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_startScan.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_startScanDt.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_startScanReachIntensity.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_stopScan.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_exitControl.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_appliedSettingsMatchStart.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_detailedState.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_digitalFilterChange.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_errorCode.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_heartbeat.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_integrationTime.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_intensity.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_internalCommand.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_largeFileObjectAvailable.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_loopTimeOutOfRange.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_measureRange.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_measureType.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_readingOutOfLimit.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rejectedCommand.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingsAppliedReadSets.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingsAppliedSerConf.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingVersions.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_summaryState.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_deviceErrorCode.idl
 
-Salgen CalibrationElectrometer HTML
+Salgen Electrometer HTML
     [Documentation]    Create web form interfaces.
     [Tags]    html    TSS-3079
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} html
@@ -79,16 +62,13 @@ Salgen CalibrationElectrometer HTML
     Should Contain    ${output}    SAL generator - V${SALVersion}
     Should Contain    ${output}    Generating telemetry stream definition editor html
     Should Contain    ${output}    Creating sal-generator-${subSystem} form
-    Should Contain    ${output}    Added sal-generator-${subSystem}.loopTime to form
-    Should Contain    ${output}    Added sal-generator-${subSystem}.timestamp to form
     Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
     @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/calibrationElectrometer_Commands.html
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/calibrationElectrometer_Events.html
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/calibrationElectrometer_Telemetry.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/Electrometer_Commands.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/Electrometer_Events.html
 
-Salgen CalibrationElectrometer C++
+Salgen Electrometer C++
     [Documentation]    Generate C++ wrapper.
     [Tags]    cpp
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} sal cpp
@@ -97,10 +77,8 @@ Salgen CalibrationElectrometer C++
     Should Not Contain    ${output}    *** DDS error in file
     Should Not Contain    ${output}    Error 1
     Should Contain    ${output}    SAL generator - V${SALVersion}
-    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_loopTime.idl
-    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_timestamp.idl
-    Should Contain X Times    ${output}    cpp : Done Publisher    2
-    Should Contain X Times    ${output}    cpp : Done Subscriber    2
+    Should Contain X Times    ${output}    cpp : Done Publisher    1
+    Should Contain X Times    ${output}    cpp : Done Subscriber    1
     Should Contain X Times    ${output}    cpp : Done Commander    1
     Should Contain X Times    ${output}    cpp : Done Event/Logger    1
 
@@ -114,32 +92,11 @@ Verify C++ Directories
     @{files}=    List Directory    ${SALWorkDir}/idl-templates/validated/sal    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/idl-templates/validated/sal/sal_${subSystem}.idl
 
-Verify CalibrationElectrometer Telemetry directories
-    [Tags]    cpp
-    @{files}=    List Directory    ${SALWorkDir}    pattern=*${subSystem}*
-    Log Many    @{files}
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_loopTime
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_timestamp
-
-Verify CalibrationElectrometer C++ Telemetry Interfaces
+Verify Electrometer C++ Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}_loopTime/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_loopTime/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_timestamp/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_timestamp/cpp/standalone/sacpp_${subSystem}_sub
-
-Verify CalibrationElectrometer C++ Command Interfaces
-    [Documentation]    Verify the C++ interfaces were properly created.
-    [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_disable_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_disable_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enable_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enable_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_performZeroCalib_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_performZeroCalib_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_power_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_power_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setDigitalFilter_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setDigitalFilter_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setIntegrationTime_commander
@@ -148,62 +105,38 @@ Verify CalibrationElectrometer C++ Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setMode_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setRange_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setRange_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_standby_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_standby_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_start_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_start_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_startScan_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_startScan_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_startScanDt_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_startScanDt_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_startScanReachIntensity_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_startScanReachIntensity_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_stopScan_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_stopScan_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_exitControl_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_exitControl_controller
 
-Verify CalibrationElectrometer C++ Event Interfaces
+Verify Electrometer C++ Event Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_appliedSettingsMatchStart_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_appliedSettingsMatchStart_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_detailedState_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_detailedState_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_digitalFilterChange_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_digitalFilterChange_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_errorCode_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_errorCode_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_heartbeat_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_heartbeat_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_integrationTime_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_integrationTime_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_intensity_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_intensity_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_internalCommand_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_internalCommand_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_largeFileObjectAvailable_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_largeFileObjectAvailable_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_loopTimeOutOfRange_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_loopTimeOutOfRange_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_measureRange_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_measureRange_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_measureType_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_measureType_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_readingOutOfLimit_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_readingOutOfLimit_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_rejectedCommand_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_rejectedCommand_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsAppliedReadSets_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsAppliedReadSets_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsAppliedSerConf_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsAppliedSerConf_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingVersions_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingVersions_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_summaryState_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_summaryState_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_deviceErrorCode_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_deviceErrorCode_log
 
-Salgen CalibrationElectrometer Python
+Salgen Electrometer Python
     [Documentation]    Generate Python wrapper.
     [Tags]    python
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} sal python
@@ -218,29 +151,13 @@ Salgen CalibrationElectrometer Python
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/SALPY_${subSystem}.so
 
-Verify CalibrationElectrometer Python Telemetry Interfaces
+Verify Electrometer Python Command Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_loopTime_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_loopTime_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_timestamp_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_timestamp_Subscriber.py
-
-Verify CalibrationElectrometer Python Command Interfaces
-    [Documentation]    Verify the Python interfaces were properly created.
-    [Tags]    python
-    @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
-    Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_disable.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_disable.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_enable.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_enable.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_performZeroCalib.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_performZeroCalib.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_power.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_power.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_setDigitalFilter.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setDigitalFilter.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_setIntegrationTime.py
@@ -249,64 +166,40 @@ Verify CalibrationElectrometer Python Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setMode.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_setRange.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setRange.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_standby.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_standby.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_start.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_start.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_startScan.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_startScan.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_startScanDt.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_startScanDt.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_startScanReachIntensity.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_startScanReachIntensity.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_stopScan.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_stopScan.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_exitControl.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_exitControl.py
 
-Verify CalibrationElectrometer Python Event Interfaces
+Verify Electrometer Python Event Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_appliedSettingsMatchStart.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_appliedSettingsMatchStart.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_detailedState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_detailedState.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_digitalFilterChange.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_digitalFilterChange.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_errorCode.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_errorCode.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_heartbeat.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_heartbeat.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_integrationTime.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_integrationTime.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_intensity.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_intensity.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_internalCommand.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_internalCommand.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_largeFileObjectAvailable.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_largeFileObjectAvailable.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_loopTimeOutOfRange.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_loopTimeOutOfRange.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_measureRange.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_measureRange.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_measureType.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_measureType.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_readingOutOfLimit.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_readingOutOfLimit.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_rejectedCommand.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_rejectedCommand.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_settingsAppliedReadSets.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_settingsAppliedReadSets.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_settingsAppliedSerConf.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_settingsAppliedSerConf.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_settingVersions.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_settingVersions.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_summaryState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_summaryState.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_deviceErrorCode.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_deviceErrorCode.py
 
-Salgen CalibrationElectrometer LabVIEW
+Salgen Electrometer LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
     [Tags]    labview
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} labview
@@ -321,24 +214,22 @@ Salgen CalibrationElectrometer LabVIEW
     File Should Exist    ${SALWorkDir}/${subSystem}/labview/SALLV_${subSystem}.so
     File Should Exist    ${SALWorkDir}/${subSystem}/labview/SALLV_${subSystem}_Monitor
 
-Salgen CalibrationElectrometer Java
+Salgen Electrometer Java
     [Documentation]    Generate Java wrapper.
     [Tags]    java
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} sal java
     ${output}=    Read Until Prompt
     Log    ${output}
     Should Contain    ${output}    SAL generator - V${SALVersion}
-    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_loopTime.idl
-    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_timestamp.idl
-    Should Contain X Times    ${output}    javac : Done Publisher    2
-    Should Contain X Times    ${output}    javac : Done Subscriber    2
-    Should Contain X Times    ${output}    javac : Done Commander/Controller    2
-    Should Contain X Times    ${output}    javac : Done Event/Logger    2
+    Should Contain X Times    ${output}    javac : Done Publisher    1
+    Should Contain X Times    ${output}    javac : Done Subscriber    1
+    Should Contain X Times    ${output}    javac : Done Commander/Controller    1
+    Should Contain X Times    ${output}    javac : Done Event/Logger    1
     Directory Should Exist    ${SALWorkDir}/${subSystem}/java
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
 
-Salgen CalibrationElectrometer Lib
+Salgen Electrometer Lib
     [Documentation]    Generate the SAL shared library for ${subSystem}
     [Tags]    
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} lib
@@ -354,7 +245,7 @@ Salgen CalibrationElectrometer Lib
     File Should Exist    ${SALWorkDir}/lib/SALLV_${subSystem}.so
     File Should Exist    ${SALWorkDir}/lib/SALPY_${subSystem}.so
 
-Salgen CalibrationElectrometer Maven
+Salgen Electrometer Maven
     [Documentation]    Generate the Maven repository.
     [Tags]    java
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} maven

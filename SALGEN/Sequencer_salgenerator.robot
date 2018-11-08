@@ -9,15 +9,16 @@ Resource    ../Global_Vars.robot
 Resource    ../common.robot
 
 *** Variables ***
-${subSystem}    sequencer
+${subSystem}    Sequencer
 ${timeout}    1200s
 
 *** Test Cases ***
 Verify Sequencer XML Defintions exist
     [Tags]
-    File Should Exist    ${SALWorkDir}/sequencer_Commands.xml
-    File Should Exist    ${SALWorkDir}/sequencer_Events.xml
-    File Should Exist    ${SALWorkDir}/sequencer_Telemetry.xml
+    Comment    Verify the CSC XML definition files exist.
+    File Should Exist    ${SALWorkDir}/Sequencer_Commands.xml
+    File Should Exist    ${SALWorkDir}/Sequencer_Events.xml
+    File Should Exist    ${SALWorkDir}/Sequencer_Telemetry.xml
 
 Salgen Sequencer Validate
     [Documentation]    Validate the Sequencer XML definitions.
@@ -34,7 +35,7 @@ Salgen Sequencer Validate
     Directory Should Exist    ${SALWorkDir}/idl-templates/validated
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_SequencerHeartbeat.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_sequencerHeartbeat.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_sequence.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_script.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_sequencerEntitySummaryState.idl
@@ -58,13 +59,13 @@ Salgen Sequencer HTML
     Should Contain    ${output}    SAL generator - V${SALVersion}
     Should Contain    ${output}    Generating telemetry stream definition editor html
     Should Contain    ${output}    Creating sal-generator-${subSystem} form
-    Should Contain    ${output}    Added sal-generator-${subSystem}.SequencerHeartbeat to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.sequencerHeartbeat to form
     Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
     @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/sequencer_Commands.html
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/sequencer_Events.html
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/sequencer_Telemetry.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/Sequencer_Commands.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/Sequencer_Events.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/Sequencer_Telemetry.html
 
 Salgen Sequencer C++
     [Documentation]    Generate C++ wrapper.
@@ -75,7 +76,7 @@ Salgen Sequencer C++
     Should Not Contain    ${output}    *** DDS error in file
     Should Not Contain    ${output}    Error 1
     Should Contain    ${output}    SAL generator - V${SALVersion}
-    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_SequencerHeartbeat.idl
+    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_sequencerHeartbeat.idl
     Should Contain X Times    ${output}    cpp : Done Publisher    1
     Should Contain X Times    ${output}    cpp : Done Subscriber    1
     Should Contain X Times    ${output}    cpp : Done Commander    1
@@ -95,13 +96,13 @@ Verify Sequencer Telemetry directories
     [Tags]    cpp
     @{files}=    List Directory    ${SALWorkDir}    pattern=*${subSystem}*
     Log Many    @{files}
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_SequencerHeartbeat
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_sequencerHeartbeat
 
 Verify Sequencer C++ Telemetry Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}_SequencerHeartbeat/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_SequencerHeartbeat/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_sequencerHeartbeat/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_sequencerHeartbeat/cpp/standalone/sacpp_${subSystem}_sub
 
 Verify Sequencer C++ Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -157,8 +158,8 @@ Verify Sequencer Python Telemetry Interfaces
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_SequencerHeartbeat_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_SequencerHeartbeat_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_sequencerHeartbeat_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_sequencerHeartbeat_Subscriber.py
 
 Verify Sequencer Python Command Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
@@ -220,7 +221,7 @@ Salgen Sequencer Java
     ${output}=    Read Until Prompt
     Log    ${output}
     Should Contain    ${output}    SAL generator - V${SALVersion}
-    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_SequencerHeartbeat.idl
+    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_sequencerHeartbeat.idl
     Should Contain X Times    ${output}    javac : Done Publisher    1
     Should Contain X Times    ${output}    javac : Done Subscriber    1
     Should Contain X Times    ${output}    javac : Done Commander/Controller    1

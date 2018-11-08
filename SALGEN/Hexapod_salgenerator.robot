@@ -9,15 +9,16 @@ Resource    ../Global_Vars.robot
 Resource    ../common.robot
 
 *** Variables ***
-${subSystem}    hexapod
+${subSystem}    Hexapod
 ${timeout}    1200s
 
 *** Test Cases ***
 Verify Hexapod XML Defintions exist
     [Tags]
-    File Should Exist    ${SALWorkDir}/hexapod_Commands.xml
-    File Should Exist    ${SALWorkDir}/hexapod_Events.xml
-    File Should Exist    ${SALWorkDir}/hexapod_Telemetry.xml
+    Comment    Verify the CSC XML definition files exist.
+    File Should Exist    ${SALWorkDir}/Hexapod_Commands.xml
+    File Should Exist    ${SALWorkDir}/Hexapod_Events.xml
+    File Should Exist    ${SALWorkDir}/Hexapod_Telemetry.xml
 
 Salgen Hexapod Validate
     [Documentation]    Validate the Hexapod XML definitions.
@@ -72,9 +73,9 @@ Salgen Hexapod HTML
     Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
     @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/hexapod_Commands.html
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/hexapod_Events.html
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/hexapod_Telemetry.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/Hexapod_Commands.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/Hexapod_Events.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/Hexapod_Telemetry.html
 
 Salgen Hexapod C++
     [Documentation]    Generate C++ wrapper.

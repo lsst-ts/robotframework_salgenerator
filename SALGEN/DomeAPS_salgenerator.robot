@@ -9,15 +9,16 @@ Resource    ../Global_Vars.robot
 Resource    ../common.robot
 
 *** Variables ***
-${subSystem}    domeAPS
+${subSystem}    DomeAPS
 ${timeout}    1200s
 
 *** Test Cases ***
 Verify DomeAPS XML Defintions exist
     [Tags]
-    File Should Exist    ${SALWorkDir}/domeAPS_Commands.xml
-    File Should Exist    ${SALWorkDir}/domeAPS_Events.xml
-    File Should Exist    ${SALWorkDir}/domeAPS_Telemetry.xml
+    Comment    Verify the CSC XML definition files exist.
+    File Should Exist    ${SALWorkDir}/DomeAPS_Commands.xml
+    File Should Exist    ${SALWorkDir}/DomeAPS_Events.xml
+    File Should Exist    ${SALWorkDir}/DomeAPS_Telemetry.xml
 
 Salgen DomeAPS Validate
     [Documentation]    Validate the DomeAPS XML definitions.
@@ -35,29 +36,28 @@ Salgen DomeAPS Validate
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_status.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_Close.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_Open.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_Echo.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_StateChanged.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_DriveEnabled.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_DriveDisabled.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_DriveReady.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_DriveOverTemp.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_DriveFault.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_MovementEnabled.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_MovementPrevented.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_LockingPinEngaged.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_LockingPinDisengaged.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_LockingPinHomed.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_LockingPinFloating.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_CentralLockingPinEngaged.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_CentralLockingPinDisengaged.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_CentralLockingPinHomed.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_CentralLockingPinFloating.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_BrakeEngaged.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_BrakeDisengaged.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_EchoResponse.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_APSSubsystemError.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_close.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_open.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_echo.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_stateChanged.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_driveEnabled.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_driveDisabled.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_driveReady.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_driveFault.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_movementEnabled.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_movementPrevented.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_lockingPinEngaged.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_lockingPinDisengaged.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_lockingPinFloating.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_centralLockingPinEngaged.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_lockingPinHomed.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_centralLockingPinDisengaged.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_centralLockingPinHomed.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_centralLockingPinFloating.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_brakeEngaged.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_brakeDisengaged.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_echoResponse.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_apsSubsystemError.idl
 
 Salgen DomeAPS HTML
     [Documentation]    Create web form interfaces.
@@ -72,9 +72,9 @@ Salgen DomeAPS HTML
     Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
     @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/domeAPS_Commands.html
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/domeAPS_Events.html
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/domeAPS_Telemetry.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/DomeAPS_Commands.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/DomeAPS_Events.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/DomeAPS_Telemetry.html
 
 Salgen DomeAPS C++
     [Documentation]    Generate C++ wrapper.
@@ -116,56 +116,54 @@ Verify DomeAPS C++ Telemetry Interfaces
 Verify DomeAPS C++ Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_Close_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_Close_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_Open_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_Open_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_Echo_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_Echo_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_close_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_close_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_open_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_open_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_echo_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_echo_controller
 
 Verify DomeAPS C++ Event Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_StateChanged_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_StateChanged_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_DriveEnabled_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_DriveEnabled_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_DriveDisabled_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_DriveDisabled_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_DriveReady_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_DriveReady_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_DriveOverTemp_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_DriveOverTemp_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_DriveFault_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_DriveFault_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_MovementEnabled_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_MovementEnabled_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_MovementPrevented_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_MovementPrevented_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_LockingPinEngaged_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_LockingPinEngaged_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_LockingPinDisengaged_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_LockingPinDisengaged_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_LockingPinHomed_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_LockingPinHomed_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_LockingPinFloating_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_LockingPinFloating_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_CentralLockingPinEngaged_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_CentralLockingPinEngaged_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_CentralLockingPinDisengaged_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_CentralLockingPinDisengaged_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_CentralLockingPinHomed_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_CentralLockingPinHomed_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_CentralLockingPinFloating_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_CentralLockingPinFloating_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_BrakeEngaged_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_BrakeEngaged_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_BrakeDisengaged_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_BrakeDisengaged_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_EchoResponse_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_EchoResponse_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_APSSubsystemError_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_APSSubsystemError_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_stateChanged_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_stateChanged_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_driveEnabled_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_driveEnabled_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_driveDisabled_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_driveDisabled_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_driveReady_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_driveReady_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_driveFault_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_driveFault_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_movementEnabled_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_movementEnabled_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_movementPrevented_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_movementPrevented_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_lockingPinEngaged_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_lockingPinEngaged_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_lockingPinDisengaged_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_lockingPinDisengaged_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_lockingPinFloating_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_lockingPinFloating_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_centralLockingPinEngaged_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_centralLockingPinEngaged_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_lockingPinHomed_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_lockingPinHomed_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_centralLockingPinDisengaged_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_centralLockingPinDisengaged_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_centralLockingPinHomed_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_centralLockingPinHomed_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_centralLockingPinFloating_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_centralLockingPinFloating_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_brakeEngaged_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_brakeEngaged_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_brakeDisengaged_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_brakeDisengaged_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_echoResponse_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_echoResponse_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_apsSubsystemError_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_apsSubsystemError_log
 
 Salgen DomeAPS Python
     [Documentation]    Generate Python wrapper.
@@ -195,58 +193,56 @@ Verify DomeAPS Python Command Interfaces
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_Close.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_Close.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_Open.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_Open.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_Echo.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_Echo.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_close.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_close.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_open.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_open.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_echo.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_echo.py
 
 Verify DomeAPS Python Event Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_StateChanged.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_StateChanged.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_DriveEnabled.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_DriveEnabled.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_DriveDisabled.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_DriveDisabled.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_DriveReady.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_DriveReady.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_DriveOverTemp.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_DriveOverTemp.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_DriveFault.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_DriveFault.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_MovementEnabled.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_MovementEnabled.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_MovementPrevented.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_MovementPrevented.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_LockingPinEngaged.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_LockingPinEngaged.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_LockingPinDisengaged.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_LockingPinDisengaged.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_LockingPinHomed.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_LockingPinHomed.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_LockingPinFloating.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_LockingPinFloating.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_CentralLockingPinEngaged.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_CentralLockingPinEngaged.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_CentralLockingPinDisengaged.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_CentralLockingPinDisengaged.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_CentralLockingPinHomed.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_CentralLockingPinHomed.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_CentralLockingPinFloating.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_CentralLockingPinFloating.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_BrakeEngaged.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_BrakeEngaged.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_BrakeDisengaged.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_BrakeDisengaged.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_EchoResponse.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_EchoResponse.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_APSSubsystemError.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_APSSubsystemError.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_stateChanged.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_stateChanged.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_driveEnabled.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_driveEnabled.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_driveDisabled.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_driveDisabled.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_driveReady.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_driveReady.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_driveFault.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_driveFault.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_movementEnabled.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_movementEnabled.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_movementPrevented.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_movementPrevented.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_lockingPinEngaged.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_lockingPinEngaged.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_lockingPinDisengaged.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_lockingPinDisengaged.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_lockingPinFloating.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_lockingPinFloating.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_centralLockingPinEngaged.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_centralLockingPinEngaged.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_lockingPinHomed.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_lockingPinHomed.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_centralLockingPinDisengaged.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_centralLockingPinDisengaged.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_centralLockingPinHomed.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_centralLockingPinHomed.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_centralLockingPinFloating.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_centralLockingPinFloating.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_brakeEngaged.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_brakeEngaged.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_brakeDisengaged.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_brakeDisengaged.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_echoResponse.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_echoResponse.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_apsSubsystemError.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_apsSubsystemError.py
 
 Salgen DomeAPS LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.

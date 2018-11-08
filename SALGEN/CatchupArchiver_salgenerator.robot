@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation    This suite builds the various interfaces for the CatchupArchiver.
-Force Tags    salgen    TSS-3006
+Force Tags    salgen    
 Suite Setup    Run Keywords    Log Many    ${Host}    ${subSystem}    ${timeout}
 ...    AND    Create Session    SALGEN
 Suite Teardown    Close All Connections
@@ -9,15 +9,15 @@ Resource    ../Global_Vars.robot
 Resource    ../common.robot
 
 *** Variables ***
-${subSystem}    catchupArchiver
+${subSystem}    CatchupArchiver
 ${timeout}    1200s
 
 *** Test Cases ***
 Verify CatchupArchiver XML Defintions exist
     [Tags]
-    File Should Exist    ${SALWorkDir}/catchuparchiver_Commands.xml
-    File Should Exist    ${SALWorkDir}/catchuparchiver_Events.xml
-    File Should Exist    ${SALWorkDir}/catchuparchiver_Telemetry.xml
+    Comment    Verify the CSC XML definition files exist.
+    File Should Exist    ${SALWorkDir}/CatchupArchiver_Events.xml
+    File Should Exist    ${SALWorkDir}/CatchupArchiver_Telemetry.xml
 
 Salgen CatchupArchiver Validate
     [Documentation]    Validate the CatchupArchiver XML definitions.
@@ -35,6 +35,10 @@ Salgen CatchupArchiver Validate
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_sequencerHeartbeat.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_catchuparchiverEntityStartup.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingsApplied.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_catchuparchiverEntitySummaryState.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_catchuparchiverEntityShutdown.idl
 
 Salgen CatchupArchiver HTML
     [Documentation]    Create web form interfaces.
@@ -49,9 +53,8 @@ Salgen CatchupArchiver HTML
     Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
     @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/catchuparchiver_Commands.html
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/catchuparchiver_Events.html
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/catchuparchiver_Telemetry.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/CatchupArchiver_Events.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/CatchupArchiver_Telemetry.html
 
 Salgen CatchupArchiver C++
     [Documentation]    Generate C++ wrapper.
@@ -78,6 +81,30 @@ Verify C++ Directories
     @{files}=    List Directory    ${SALWorkDir}/idl-templates/validated/sal    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/idl-templates/validated/sal/sal_${subSystem}.idl
 
+Verify CatchupArchiver Telemetry directories
+    [Tags]    cpp
+    @{files}=    List Directory    ${SALWorkDir}    pattern=*${subSystem}*
+    Log Many    @{files}
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_sequencerHeartbeat
+
+Verify CatchupArchiver C++ Telemetry Interfaces
+    [Documentation]    Verify the C++ interfaces were properly created.
+    [Tags]    cpp
+    File Should Exist    ${SALWorkDir}/${subSystem}_sequencerHeartbeat/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_sequencerHeartbeat/cpp/standalone/sacpp_${subSystem}_sub
+
+Verify CatchupArchiver C++ Event Interfaces
+    [Documentation]    Verify the C++ interfaces were properly created.
+    [Tags]    cpp
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_catchuparchiverEntityStartup_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_catchuparchiverEntityStartup_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsApplied_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsApplied_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_catchuparchiverEntitySummaryState_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_catchuparchiverEntitySummaryState_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_catchuparchiverEntityShutdown_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_catchuparchiverEntityShutdown_log
+
 Salgen CatchupArchiver Python
     [Documentation]    Generate Python wrapper.
     [Tags]    python
@@ -92,6 +119,28 @@ Salgen CatchupArchiver Python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/SALPY_${subSystem}.so
+
+Verify CatchupArchiver Python Telemetry Interfaces
+    [Documentation]    Verify the Python interfaces were properly created.
+    [Tags]    python
+    @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
+    Log Many    @{files}
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_sequencerHeartbeat_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_sequencerHeartbeat_Subscriber.py
+
+Verify CatchupArchiver Python Event Interfaces
+    [Documentation]    Verify the Python interfaces were properly created.
+    [Tags]    python
+    @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
+    Log Many    @{files}
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_catchuparchiverEntityStartup.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_catchuparchiverEntityStartup.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_settingsApplied.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_settingsApplied.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_catchuparchiverEntitySummaryState.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_catchuparchiverEntitySummaryState.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_catchuparchiverEntityShutdown.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_catchuparchiverEntityShutdown.py
 
 Salgen CatchupArchiver LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.

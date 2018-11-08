@@ -9,14 +9,15 @@ Resource    ../Global_Vars.robot
 Resource    ../common.robot
 
 *** Variables ***
-${subSystem}    efd
+${subSystem}    EFD
 ${timeout}    1200s
 
 *** Test Cases ***
 Verify EFD XML Defintions exist
     [Tags]
-    File Should Exist    ${SALWorkDir}/efd_Events.xml
-    File Should Exist    ${SALWorkDir}/efd_Telemetry.xml
+    Comment    Verify the CSC XML definition files exist.
+    File Should Exist    ${SALWorkDir}/EFD_Events.xml
+    File Should Exist    ${SALWorkDir}/EFD_Telemetry.xml
 
 Salgen EFD Validate
     [Documentation]    Validate the EFD XML definitions.
@@ -48,8 +49,8 @@ Salgen EFD HTML
     Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
     @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/efd_Events.html
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/efd_Telemetry.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/EFD_Events.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/EFD_Telemetry.html
 
 Salgen EFD C++
     [Documentation]    Generate C++ wrapper.
@@ -125,6 +126,21 @@ Verify EFD Python Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_largeFileObjectAvailable.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_largeFileObjectAvailable.py
 
+Salgen EFD LabVIEW
+    [Documentation]    Generate ${subSystem} low-level LabView interfaces.
+    [Tags]    labview
+    ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} labview
+    ${output}=    Read Until Prompt
+    Log    ${output}
+    Should Contain    ${output}    SAL generator - V${SALVersion}
+    Directory Should Exist    ${SALWorkDir}/${subSystem}/labview
+    @{files}=    List Directory    ${SALWorkDir}/${subSystem}/labview
+    Log Many    @{files}
+    File Should Exist    ${SALWorkDir}/${subSystem}/labview/SAL_${subSystem}_salShmMonitor.cpp
+    File Should Exist    ${SALWorkDir}/${subSystem}/labview/SAL_${subSystem}_shmem.h
+    File Should Exist    ${SALWorkDir}/${subSystem}/labview/SALLV_${subSystem}.so
+    File Should Exist    ${SALWorkDir}/${subSystem}/labview/SALLV_${subSystem}_Monitor
+
 Salgen EFD Java
     [Documentation]    Generate Java wrapper.
     [Tags]    java
@@ -154,6 +170,7 @@ Salgen EFD Lib
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/lib/libsacpp_${subSystem}_types.so
     File Should Exist    ${SALWorkDir}/lib/libSAL_${subSystem}.so
+    File Should Exist    ${SALWorkDir}/lib/SALLV_${subSystem}.so
     File Should Exist    ${SALWorkDir}/lib/SALPY_${subSystem}.so
 
 Salgen EFD Maven

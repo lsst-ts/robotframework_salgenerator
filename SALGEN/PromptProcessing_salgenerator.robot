@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation    This suite builds the various interfaces for the PromptProcessing.
-Force Tags    salgen    TSS-2605
+Force Tags    salgen    
 Suite Setup    Run Keywords    Log Many    ${Host}    ${subSystem}    ${timeout}
 ...    AND    Create Session    SALGEN
 Suite Teardown    Close All Connections
@@ -9,15 +9,15 @@ Resource    ../Global_Vars.robot
 Resource    ../common.robot
 
 *** Variables ***
-${subSystem}    promptprocessing
+${subSystem}    PromptProcessing
 ${timeout}    1200s
 
 *** Test Cases ***
 Verify PromptProcessing XML Defintions exist
     [Tags]
+    Comment    Verify the CSC XML definition files exist.
+    File Should Exist    ${SALWorkDir}/PromptProcessing_Events.xml
     File Should Exist    ${SALWorkDir}/PromptProcessing_Telemetry.xml
-    File Should Exist    ${SALWorkDir}/promptprocessing_Commands.xml
-    File Should Exist    ${SALWorkDir}/promptprocessing_Events.xml
 
 Salgen PromptProcessing Validate
     [Documentation]    Validate the PromptProcessing XML definitions.
@@ -34,24 +34,10 @@ Salgen PromptProcessing Validate
     Directory Should Exist    ${SALWorkDir}/idl-templates/validated
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_promptProcessing_SequencerHeartbeat.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_promptProcessing_command_start.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_promptProcessing_command_enable.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_promptProcessing_command_disable.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_promptProcessing_command_standby.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_promptProcessing_command_enterControl.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_promptProcessing_command_exitControl.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_promptProcessing_command_setValue.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_promptProcessing_command_abort.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_promptProcessing_logevent_ErrorCode.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_promptProcessing_logevent_SettingVersions.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_promptProcessing_logevent_AppliedSettingsMatchStart.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_promptProcessing_logevent_SettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_promptProcessing_logevent_DetailedState.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_promptProcessing_logevent_SummaryState.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_promptProcessing_logevent_promptprocessingEntitySummaryState.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_promptProcessing_logevent_promptprocessingEntityStartup.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_promptProcessing_logevent_promptprocessingEntityShutdown.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_sequencerHeartbeat.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_PromptProceessing_logevent_promptProceessingEntitySummaryState.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_PromptProceessing_logevent_promptProceessingEntityStartup.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_PromptProceessing_logevent_promptProceessingEntityShutdown.idl
 
 Salgen PromptProcessing HTML
     [Documentation]    Create web form interfaces.
@@ -62,13 +48,12 @@ Salgen PromptProcessing HTML
     Should Contain    ${output}    SAL generator - V${SALVersion}
     Should Contain    ${output}    Generating telemetry stream definition editor html
     Should Contain    ${output}    Creating sal-generator-${subSystem} form
-    Should Contain    ${output}    Added sal-generator-${subSystem}.promptProcessing_SequencerHeartbeat to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.sequencerHeartbeat to form
     Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
     @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/PromptProcessing_Events.html
     File Should Exist    ${SALWorkDir}/html/${subSystem}/PromptProcessing_Telemetry.html
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/promptprocessing_Commands.html
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/promptprocessing_Events.html
 
 Salgen PromptProcessing C++
     [Documentation]    Generate C++ wrapper.
@@ -79,7 +64,7 @@ Salgen PromptProcessing C++
     Should Not Contain    ${output}    *** DDS error in file
     Should Not Contain    ${output}    Error 1
     Should Contain    ${output}    SAL generator - V${SALVersion}
-    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_promptProcessing_SequencerHeartbeat.idl
+    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_sequencerHeartbeat.idl
     Should Contain X Times    ${output}    cpp : Done Publisher    1
     Should Contain X Times    ${output}    cpp : Done Subscriber    1
     Should Contain X Times    ${output}    cpp : Done Commander    1
@@ -95,47 +80,27 @@ Verify C++ Directories
     @{files}=    List Directory    ${SALWorkDir}/idl-templates/validated/sal    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/idl-templates/validated/sal/sal_${subSystem}.idl
 
-Verify PromptProcessing C++ Command Interfaces
+Verify PromptProcessing Telemetry directories
+    [Tags]    cpp
+    @{files}=    List Directory    ${SALWorkDir}    pattern=*${subSystem}*
+    Log Many    @{files}
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_sequencerHeartbeat
+
+Verify PromptProcessing C++ Telemetry Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_promptProcessing_command_start_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_promptProcessing_command_start_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_promptProcessing_command_enable_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_promptProcessing_command_enable_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_promptProcessing_command_disable_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_promptProcessing_command_disable_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_promptProcessing_command_standby_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_promptProcessing_command_standby_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_promptProcessing_command_enterControl_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_promptProcessing_command_enterControl_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_promptProcessing_command_exitControl_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_promptProcessing_command_exitControl_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_promptProcessing_command_setValue_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_promptProcessing_command_setValue_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_promptProcessing_command_abort_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_promptProcessing_command_abort_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}_sequencerHeartbeat/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_sequencerHeartbeat/cpp/standalone/sacpp_${subSystem}_sub
 
 Verify PromptProcessing C++ Event Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_promptProcessing_logevent_ErrorCode_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_promptProcessing_logevent_ErrorCode_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_promptProcessing_logevent_SettingVersions_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_promptProcessing_logevent_SettingVersions_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_promptProcessing_logevent_AppliedSettingsMatchStart_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_promptProcessing_logevent_AppliedSettingsMatchStart_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_promptProcessing_logevent_SettingsApplied_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_promptProcessing_logevent_SettingsApplied_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_promptProcessing_logevent_DetailedState_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_promptProcessing_logevent_DetailedState_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_promptProcessing_logevent_SummaryState_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_promptProcessing_logevent_SummaryState_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_promptProcessing_logevent_promptprocessingEntitySummaryState_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_promptProcessing_logevent_promptprocessingEntitySummaryState_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_promptProcessing_logevent_promptprocessingEntityStartup_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_promptProcessing_logevent_promptprocessingEntityStartup_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_promptProcessing_logevent_promptprocessingEntityShutdown_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_promptProcessing_logevent_promptprocessingEntityShutdown_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_PromptProceessing_logevent_promptProceessingEntitySummaryState_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_PromptProceessing_logevent_promptProceessingEntitySummaryState_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_PromptProceessing_logevent_promptProceessingEntityStartup_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_PromptProceessing_logevent_promptProceessingEntityStartup_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_PromptProceessing_logevent_promptProceessingEntityShutdown_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_PromptProceessing_logevent_promptProceessingEntityShutdown_log
 
 Salgen PromptProcessing Python
     [Documentation]    Generate Python wrapper.
@@ -152,51 +117,25 @@ Salgen PromptProcessing Python
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/SALPY_${subSystem}.so
 
-Verify PromptProcessing Python Command Interfaces
+Verify PromptProcessing Python Telemetry Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_promptProcessing_command_start.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_promptProcessing_command_start.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_promptProcessing_command_enable.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_promptProcessing_command_enable.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_promptProcessing_command_disable.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_promptProcessing_command_disable.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_promptProcessing_command_standby.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_promptProcessing_command_standby.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_promptProcessing_command_enterControl.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_promptProcessing_command_enterControl.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_promptProcessing_command_exitControl.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_promptProcessing_command_exitControl.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_promptProcessing_command_setValue.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_promptProcessing_command_setValue.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_promptProcessing_command_abort.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_promptProcessing_command_abort.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_sequencerHeartbeat_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_sequencerHeartbeat_Subscriber.py
 
 Verify PromptProcessing Python Event Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_promptProcessing_logevent_ErrorCode.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_promptProcessing_logevent_ErrorCode.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_promptProcessing_logevent_SettingVersions.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_promptProcessing_logevent_SettingVersions.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_promptProcessing_logevent_AppliedSettingsMatchStart.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_promptProcessing_logevent_AppliedSettingsMatchStart.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_promptProcessing_logevent_SettingsApplied.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_promptProcessing_logevent_SettingsApplied.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_promptProcessing_logevent_DetailedState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_promptProcessing_logevent_DetailedState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_promptProcessing_logevent_SummaryState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_promptProcessing_logevent_SummaryState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_promptProcessing_logevent_promptprocessingEntitySummaryState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_promptProcessing_logevent_promptprocessingEntitySummaryState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_promptProcessing_logevent_promptprocessingEntityStartup.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_promptProcessing_logevent_promptprocessingEntityStartup.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_promptProcessing_logevent_promptprocessingEntityShutdown.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_promptProcessing_logevent_promptprocessingEntityShutdown.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_PromptProceessing_logevent_promptProceessingEntitySummaryState.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_PromptProceessing_logevent_promptProceessingEntitySummaryState.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_PromptProceessing_logevent_promptProceessingEntityStartup.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_PromptProceessing_logevent_promptProceessingEntityStartup.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_PromptProceessing_logevent_promptProceessingEntityShutdown.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_PromptProceessing_logevent_promptProceessingEntityShutdown.py
 
 Salgen PromptProcessing LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
@@ -220,7 +159,7 @@ Salgen PromptProcessing Java
     ${output}=    Read Until Prompt
     Log    ${output}
     Should Contain    ${output}    SAL generator - V${SALVersion}
-    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_promptProcessing_SequencerHeartbeat.idl
+    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_sequencerHeartbeat.idl
     Should Contain X Times    ${output}    javac : Done Publisher    1
     Should Contain X Times    ${output}    javac : Done Subscriber    1
     Should Contain X Times    ${output}    javac : Done Commander/Controller    1

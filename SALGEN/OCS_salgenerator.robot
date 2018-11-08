@@ -9,15 +9,16 @@ Resource    ../Global_Vars.robot
 Resource    ../common.robot
 
 *** Variables ***
-${subSystem}    ocs
+${subSystem}    OCS
 ${timeout}    1200s
 
 *** Test Cases ***
 Verify OCS XML Defintions exist
     [Tags]
-    File Should Exist    ${SALWorkDir}/ocs_Commands.xml
-    File Should Exist    ${SALWorkDir}/ocs_Events.xml
-    File Should Exist    ${SALWorkDir}/ocs_Telemetry.xml
+    Comment    Verify the CSC XML definition files exist.
+    File Should Exist    ${SALWorkDir}/OCS_Commands.xml
+    File Should Exist    ${SALWorkDir}/OCS_Events.xml
+    File Should Exist    ${SALWorkDir}/OCS_Telemetry.xml
 
 Salgen OCS Validate
     [Documentation]    Validate the OCS XML definitions.
@@ -34,20 +35,20 @@ Salgen OCS Validate
     Directory Should Exist    ${SALWorkDir}/idl-templates/validated
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_SequencerHeartbeat.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_oCSSequencerHeartbeat.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_sequence.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_script.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_ocsEntitySummaryState.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_ocsEntityStartup.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_ocsEntityShutdown.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_ocsCommandIssued.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_ocsCommandStatus.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_ocsCurrentScript.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_ocsNextScript.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_ocsScriptStart.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_ocsScriptEnd.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_ocsScriptError.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_ocsScriptEntititesInUse.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_oCSEntitySummaryState.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_oCSEntityStartup.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_oCSEntityShutdown.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_oCSCommandIssued.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_oCSCommandStatus.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_oCSCurrentScript.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_oCSNextScript.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_oCSScriptStart.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_oCSScriptEnd.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_oCSScriptError.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_oCSScriptEntititesInUse.idl
 
 Salgen OCS HTML
     [Documentation]    Create web form interfaces.
@@ -58,13 +59,13 @@ Salgen OCS HTML
     Should Contain    ${output}    SAL generator - V${SALVersion}
     Should Contain    ${output}    Generating telemetry stream definition editor html
     Should Contain    ${output}    Creating sal-generator-${subSystem} form
-    Should Contain    ${output}    Added sal-generator-${subSystem}.SequencerHeartbeat to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.oCSSequencerHeartbeat to form
     Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
     @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/ocs_Commands.html
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/ocs_Events.html
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/ocs_Telemetry.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/OCS_Commands.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/OCS_Events.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/OCS_Telemetry.html
 
 Salgen OCS C++
     [Documentation]    Generate C++ wrapper.
@@ -75,7 +76,7 @@ Salgen OCS C++
     Should Not Contain    ${output}    *** DDS error in file
     Should Not Contain    ${output}    Error 1
     Should Contain    ${output}    SAL generator - V${SALVersion}
-    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_SequencerHeartbeat.idl
+    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_oCSSequencerHeartbeat.idl
     Should Contain X Times    ${output}    cpp : Done Publisher    1
     Should Contain X Times    ${output}    cpp : Done Subscriber    1
     Should Contain X Times    ${output}    cpp : Done Commander    1
@@ -95,13 +96,13 @@ Verify OCS Telemetry directories
     [Tags]    cpp
     @{files}=    List Directory    ${SALWorkDir}    pattern=*${subSystem}*
     Log Many    @{files}
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_SequencerHeartbeat
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_oCSSequencerHeartbeat
 
 Verify OCS C++ Telemetry Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}_SequencerHeartbeat/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_SequencerHeartbeat/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_oCSSequencerHeartbeat/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_oCSSequencerHeartbeat/cpp/standalone/sacpp_${subSystem}_sub
 
 Verify OCS C++ Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -114,28 +115,28 @@ Verify OCS C++ Command Interfaces
 Verify OCS C++ Event Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_ocsEntitySummaryState_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_ocsEntitySummaryState_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_ocsEntityStartup_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_ocsEntityStartup_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_ocsEntityShutdown_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_ocsEntityShutdown_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_ocsCommandIssued_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_ocsCommandIssued_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_ocsCommandStatus_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_ocsCommandStatus_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_ocsCurrentScript_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_ocsCurrentScript_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_ocsNextScript_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_ocsNextScript_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_ocsScriptStart_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_ocsScriptStart_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_ocsScriptEnd_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_ocsScriptEnd_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_ocsScriptError_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_ocsScriptError_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_ocsScriptEntititesInUse_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_ocsScriptEntititesInUse_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_oCSEntitySummaryState_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_oCSEntitySummaryState_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_oCSEntityStartup_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_oCSEntityStartup_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_oCSEntityShutdown_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_oCSEntityShutdown_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_oCSCommandIssued_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_oCSCommandIssued_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_oCSCommandStatus_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_oCSCommandStatus_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_oCSCurrentScript_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_oCSCurrentScript_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_oCSNextScript_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_oCSNextScript_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_oCSScriptStart_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_oCSScriptStart_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_oCSScriptEnd_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_oCSScriptEnd_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_oCSScriptError_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_oCSScriptError_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_oCSScriptEntititesInUse_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_oCSScriptEntititesInUse_log
 
 Salgen OCS Python
     [Documentation]    Generate Python wrapper.
@@ -157,8 +158,8 @@ Verify OCS Python Telemetry Interfaces
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_SequencerHeartbeat_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_SequencerHeartbeat_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_oCSSequencerHeartbeat_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_oCSSequencerHeartbeat_Subscriber.py
 
 Verify OCS Python Command Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
@@ -175,28 +176,28 @@ Verify OCS Python Event Interfaces
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_ocsEntitySummaryState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_ocsEntitySummaryState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_ocsEntityStartup.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_ocsEntityStartup.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_ocsEntityShutdown.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_ocsEntityShutdown.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_ocsCommandIssued.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_ocsCommandIssued.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_ocsCommandStatus.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_ocsCommandStatus.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_ocsCurrentScript.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_ocsCurrentScript.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_ocsNextScript.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_ocsNextScript.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_ocsScriptStart.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_ocsScriptStart.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_ocsScriptEnd.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_ocsScriptEnd.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_ocsScriptError.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_ocsScriptError.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_ocsScriptEntititesInUse.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_ocsScriptEntititesInUse.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_oCSEntitySummaryState.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_oCSEntitySummaryState.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_oCSEntityStartup.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_oCSEntityStartup.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_oCSEntityShutdown.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_oCSEntityShutdown.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_oCSCommandIssued.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_oCSCommandIssued.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_oCSCommandStatus.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_oCSCommandStatus.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_oCSCurrentScript.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_oCSCurrentScript.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_oCSNextScript.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_oCSNextScript.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_oCSScriptStart.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_oCSScriptStart.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_oCSScriptEnd.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_oCSScriptEnd.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_oCSScriptError.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_oCSScriptError.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_oCSScriptEntititesInUse.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_oCSScriptEntititesInUse.py
 
 Salgen OCS LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
@@ -220,7 +221,7 @@ Salgen OCS Java
     ${output}=    Read Until Prompt
     Log    ${output}
     Should Contain    ${output}    SAL generator - V${SALVersion}
-    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_SequencerHeartbeat.idl
+    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_oCSSequencerHeartbeat.idl
     Should Contain X Times    ${output}    javac : Done Publisher    1
     Should Contain X Times    ${output}    javac : Done Subscriber    1
     Should Contain X Times    ${output}    javac : Done Commander/Controller    1
