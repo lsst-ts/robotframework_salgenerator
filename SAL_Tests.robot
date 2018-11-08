@@ -47,7 +47,7 @@ Verify SAL CSC list exists
 	Comment    Verify the list of SAL CSCs exists.
     File Should Exist    ${SALWorkDir}/SALSubsystems.xml
 
-Verify SAL CSC list exists
+Verify SAL Generics defintion exists
     [Tags]    smoke
     Comment    Verify the SAL Generic topics definition file exists.
     File Should Exist    ${SALWorkDir}/SALGenerics.xml
