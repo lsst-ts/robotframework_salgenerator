@@ -17,7 +17,6 @@ Verify LinearStage XML Defintions exist
     [Tags]
     Comment    Verify the CSC XML definition files exist.
     File Should Exist    ${SALWorkDir}/LinearStage_Commands.xml
-    File Should Exist    ${SALWorkDir}/LinearStage_Events.xml
     File Should Exist    ${SALWorkDir}/LinearStage_Telemetry.xml
 
 Salgen LinearStage Validate
@@ -36,17 +35,10 @@ Salgen LinearStage Validate
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_position.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_getPosition.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_moveRelative.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_moveAbsolute.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_getHome.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_stop.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_getHome.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_moveAbsolute.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_moveRelative.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_getPosition.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_stop.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_summaryState.idl
 
 Salgen LinearStage HTML
     [Documentation]    Create web form interfaces.
@@ -62,7 +54,6 @@ Salgen LinearStage HTML
     @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/html/${subSystem}/LinearStage_Commands.html
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/LinearStage_Events.html
     File Should Exist    ${SALWorkDir}/html/${subSystem}/LinearStage_Telemetry.html
 
 Salgen LinearStage C++
@@ -105,8 +96,6 @@ Verify LinearStage C++ Telemetry Interfaces
 Verify LinearStage C++ Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_getPosition_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_getPosition_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_moveRelative_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_moveRelative_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_moveAbsolute_commander
@@ -115,22 +104,6 @@ Verify LinearStage C++ Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_getHome_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_stop_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_stop_controller
-
-Verify LinearStage C++ Event Interfaces
-    [Documentation]    Verify the C++ interfaces were properly created.
-    [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_getHome_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_getHome_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_moveAbsolute_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_moveAbsolute_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_moveRelative_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_moveRelative_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_getPosition_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_getPosition_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_stop_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_stop_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_summaryState_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_summaryState_log
 
 Salgen LinearStage Python
     [Documentation]    Generate Python wrapper.
@@ -160,8 +133,6 @@ Verify LinearStage Python Command Interfaces
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_getPosition.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_getPosition.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_moveRelative.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_moveRelative.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_moveAbsolute.py
@@ -170,24 +141,6 @@ Verify LinearStage Python Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_getHome.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_stop.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_stop.py
-
-Verify LinearStage Python Event Interfaces
-    [Documentation]    Verify the Python interfaces were properly created.
-    [Tags]    python
-    @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
-    Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_getHome.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_getHome.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_moveAbsolute.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_moveAbsolute.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_moveRelative.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_moveRelative.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_getPosition.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_getPosition.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_stop.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_stop.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_summaryState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_summaryState.py
 
 Salgen LinearStage LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
