@@ -182,11 +182,10 @@ function verifyCppEventInterfaces() {
 }
 
 function salgenJava() {
-	skipped=$(checkIfSkipped "javaMTMount")
-	echo $skipped
+	skipped=$(checkIfSkipped $subSystem "java")
     echo "Salgen $subSystemUp Java" >> $testSuite
     echo "    [Documentation]    Generate Java wrapper." >> $testSuite
-    echo "    [Tags]    java    $skipped" >> $testSuite
+    echo "    [Tags]    java$skipped" >> $testSuite
     echo "    \${input}=    Write    \${SALHome}/scripts/salgenerator \${subSystem} sal java" >> $testSuite
     echo "    \${output}=    Read Until Prompt" >> $testSuite
     echo "    Log    \${output}" >> $testSuite
@@ -212,10 +211,10 @@ function salgenJava() {
 }
 
 function salgenMaven() {
-	skipped=$(checkIfSkipped "javaMTMount")
+	skipped=$(checkIfSkipped $subSystem "java")
     echo "Salgen $subSystemUp Maven" >> $testSuite
     echo "    [Documentation]    Generate the Maven repository." >> $testSuite
-    echo "    [Tags]    java    $skipped" >> $testSuite
+    echo "    [Tags]    java$skipped" >> $testSuite
     echo "    \${input}=    Write    \${SALHome}/scripts/salgenerator \${subSystem} maven" >> $testSuite
     echo "    \${output}=    Read Until Prompt" >> $testSuite
     echo "    Log    \${output}" >> $testSuite

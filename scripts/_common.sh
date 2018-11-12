@@ -94,10 +94,8 @@ function generateArgument() {
 function checkIfSkipped() {
 	subsystem=$1
 	topic=$2
-	if [[ ("$subsystem" == "PromptProcessing") ]]; then
-		skipped="TSS-2605"
-	elif [[ ("$subsystem" == "javaMTMount") ]]; then
-        skipped="TSS-3318    skipped"
+	if [[ ("$subsystem" == "MTMount") && ("$topic" == "java") ]]; then
+        skipped="    TSS-3318    skipped"
 	elif [[ ("$subsystem" == "html") ]]; then
 		skipped="TSS-3079"
 	else
