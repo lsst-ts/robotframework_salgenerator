@@ -94,25 +94,15 @@ function generateArgument() {
 function checkIfSkipped() {
 	subsystem=$1
 	topic=$2
-	if [[ ("$subsystem" == "m1m3") ]]; then
-		skipped="TSS-2617"
-	elif [[ ("$subsystem" == "vms") ]]; then
-		skipped="TSS-2618"
-	elif [[ ("$subsystem" == "promptprocessing") ]]; then
+	if [[ ("$subsystem" == "PromptProcessing") ]]; then
 		skipped="TSS-2605"
-	elif [[ ("$subsystem" == "atScheduler") ]]; then
-        skipped="TSS-2610"
-	elif [[ ("$subsystem" == "catchupArchiver") ]]; then
-        skipped="TSS-3006"
-	elif [[ ("$subsystem" == "scheduler") ]]; then
-        skipped="TSS-1789"
-	elif [[ ("$subsystem" == "AtDome") ]]; then
-        skipped="TSS-3055"
+	elif [[ ("$subsystem" == "javaMTMount") ]]; then
+        skipped="TSS-3318    skipped"
 	elif [[ ("$subsystem" == "html") ]]; then
 		skipped="TSS-3079"
 	else
 		skipped=""
 	fi
-	echo -e $skipped
+	echo -e "$skipped"
 }
 
