@@ -44,6 +44,7 @@ Salgen ATThermoelectricCooler Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setTemperature.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_powerChillerOn.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_powerChillerOff.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_detailedState.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_internalCommand.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_heartbeat.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_loopTimeOutOfRange.idl
@@ -144,6 +145,8 @@ Verify ATThermoelectricCooler C++ Command Interfaces
 Verify ATThermoelectricCooler C++ Event Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_detailedState_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_detailedState_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_internalCommand_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_internalCommand_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_heartbeat_send
@@ -209,6 +212,8 @@ Verify ATThermoelectricCooler Python Event Interfaces
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_detailedState.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_detailedState.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_internalCommand.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_internalCommand.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_heartbeat.py

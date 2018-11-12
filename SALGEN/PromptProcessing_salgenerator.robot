@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation    This suite builds the various interfaces for the PromptProcessing.
-Force Tags    salgen    
+Force Tags    salgen    TSS-2605
 Suite Setup    Run Keywords    Log Many    ${Host}    ${subSystem}    ${timeout}
 ...    AND    Create Session    SALGEN
 Suite Teardown    Close All Connections
@@ -35,9 +35,9 @@ Salgen PromptProcessing Validate
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_sequencerHeartbeat.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_PromptProceessing_logevent_promptProceessingEntitySummaryState.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_PromptProceessing_logevent_promptProceessingEntityStartup.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_PromptProceessing_logevent_promptProceessingEntityShutdown.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_PromptProceessing_entitySummaryState.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_PromptProceessing_entityStartup.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_PromptProceessing_entityShutdown.idl
 
 Salgen PromptProcessing HTML
     [Documentation]    Create web form interfaces.
@@ -95,12 +95,12 @@ Verify PromptProcessing C++ Telemetry Interfaces
 Verify PromptProcessing C++ Event Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_PromptProceessing_logevent_promptProceessingEntitySummaryState_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_PromptProceessing_logevent_promptProceessingEntitySummaryState_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_PromptProceessing_logevent_promptProceessingEntityStartup_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_PromptProceessing_logevent_promptProceessingEntityStartup_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_PromptProceessing_logevent_promptProceessingEntityShutdown_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_PromptProceessing_logevent_promptProceessingEntityShutdown_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_PromptProceessing_entitySummaryState_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_PromptProceessing_entitySummaryState_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_PromptProceessing_entityStartup_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_PromptProceessing_entityStartup_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_PromptProceessing_entityShutdown_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_PromptProceessing_entityShutdown_log
 
 Salgen PromptProcessing Python
     [Documentation]    Generate Python wrapper.
@@ -130,12 +130,12 @@ Verify PromptProcessing Python Event Interfaces
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_PromptProceessing_logevent_promptProceessingEntitySummaryState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_PromptProceessing_logevent_promptProceessingEntitySummaryState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_PromptProceessing_logevent_promptProceessingEntityStartup.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_PromptProceessing_logevent_promptProceessingEntityStartup.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_PromptProceessing_logevent_promptProceessingEntityShutdown.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_PromptProceessing_logevent_promptProceessingEntityShutdown.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_PromptProceessing_entitySummaryState.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_PromptProceessing_entitySummaryState.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_PromptProceessing_entityStartup.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_PromptProceessing_entityStartup.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_PromptProceessing_entityShutdown.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_PromptProceessing_entityShutdown.py
 
 Salgen PromptProcessing LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.

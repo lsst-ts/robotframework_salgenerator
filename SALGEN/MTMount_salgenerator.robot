@@ -427,7 +427,7 @@ Salgen MTMount LabVIEW
 
 Salgen MTMount Java
     [Documentation]    Generate Java wrapper.
-    [Tags]    java
+    [Tags]    java    TSS-3318    skipped
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} sal java
     ${output}=    Read Until Prompt
     Log    ${output}
@@ -486,7 +486,7 @@ Salgen MTMount Lib
 
 Salgen MTMount Maven
     [Documentation]    Generate the Maven repository.
-    [Tags]    java
+    [Tags]    java    TSS-3318    skipped
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} maven
     ${output}=    Read Until Prompt
     Log    ${output}

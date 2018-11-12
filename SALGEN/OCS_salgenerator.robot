@@ -35,7 +35,7 @@ Salgen OCS Validate
     Directory Should Exist    ${SALWorkDir}/idl-templates/validated
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_oCSSequencerHeartbeat.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_sequencerHeartbeat.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_sequence.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_script.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_oCSEntitySummaryState.idl
@@ -59,7 +59,7 @@ Salgen OCS HTML
     Should Contain    ${output}    SAL generator - ${SALVersion}
     Should Contain    ${output}    Generating telemetry stream definition editor html
     Should Contain    ${output}    Creating sal-generator-${subSystem} form
-    Should Contain    ${output}    Added sal-generator-${subSystem}.oCSSequencerHeartbeat to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.sequencerHeartbeat to form
     Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
     @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}
@@ -76,7 +76,7 @@ Salgen OCS C++
     Should Not Contain    ${output}    *** DDS error in file
     Should Not Contain    ${output}    Error 1
     Should Contain    ${output}    SAL generator - ${SALVersion}
-    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_oCSSequencerHeartbeat.idl
+    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_sequencerHeartbeat.idl
     Should Contain X Times    ${output}    cpp : Done Publisher    1
     Should Contain X Times    ${output}    cpp : Done Subscriber    1
     Should Contain X Times    ${output}    cpp : Done Commander    1
@@ -96,13 +96,13 @@ Verify OCS Telemetry directories
     [Tags]    cpp
     @{files}=    List Directory    ${SALWorkDir}    pattern=*${subSystem}*
     Log Many    @{files}
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_oCSSequencerHeartbeat
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_sequencerHeartbeat
 
 Verify OCS C++ Telemetry Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}_oCSSequencerHeartbeat/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_oCSSequencerHeartbeat/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_sequencerHeartbeat/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_sequencerHeartbeat/cpp/standalone/sacpp_${subSystem}_sub
 
 Verify OCS C++ Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -158,8 +158,8 @@ Verify OCS Python Telemetry Interfaces
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_oCSSequencerHeartbeat_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_oCSSequencerHeartbeat_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_sequencerHeartbeat_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_sequencerHeartbeat_Subscriber.py
 
 Verify OCS Python Command Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
@@ -221,7 +221,7 @@ Salgen OCS Java
     ${output}=    Read Until Prompt
     Log    ${output}
     Should Contain    ${output}    SAL generator - ${SALVersion}
-    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_oCSSequencerHeartbeat.idl
+    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_sequencerHeartbeat.idl
     Should Contain X Times    ${output}    javac : Done Publisher    1
     Should Contain X Times    ${output}    javac : Done Subscriber    1
     Should Contain X Times    ${output}    javac : Done Commander/Controller    1
