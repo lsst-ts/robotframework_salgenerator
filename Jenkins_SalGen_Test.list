@@ -45,6 +45,8 @@ rbtsal/SALGEN/OCS_salgenerator.robot
 rbtsal/SALGEN/PromptProcessing_salgenerator.robot
 rbtsal/SALGEN/Rotator_salgenerator.robot
 rbtsal/SALGEN/Scheduler_salgenerator.robot
+rbtsal/SALGEN/ScriptQueue_salgenerator.robot
+rbtsal/SALGEN/Script_salgenerator.robot
 rbtsal/SALGEN/Sequencer_salgenerator.robot
 rbtsal/SALGEN/SummitFacility_salgenerator.robot
 rbtsal/SALGEN/Test_salgenerator.robot
