@@ -5,6 +5,7 @@ ${ContInt}       		false
 ${UserName}      		saluser
 ${PassWord}      		${EMPTY}
 ${KeyFile}       		${EMPTY}
+${PythonVersion}		Python 3.6.5
 ${SALInstall}    		/opt/sal
 ${SALHome}       		${SalInstall}/lsstsal
 ${SALWorkDir}    		${SalInstall}/test
