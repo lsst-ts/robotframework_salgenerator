@@ -55,7 +55,7 @@ Salgen Electrometer Validate
 
 Salgen Electrometer HTML
     [Documentation]    Create web form interfaces.
-    [Tags]    html    TSS-3079
+    [Tags]    html    
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} html
     ${output}=    Read Until Prompt
     Log    ${output}

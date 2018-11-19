@@ -34,23 +34,24 @@ Salgen ScriptQueue Validate
     Directory Should Exist    ${SALWorkDir}/idl-templates/validated
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_standby.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_start.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_exitControl.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_showAvailableScripts.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_showQueue.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_showScript.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_showScriptInfo.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_pause.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_resume.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_add.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_move.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_remove.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_requeue.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_stopScripts.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_heartbeat.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_availableScripts.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_script.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_queue.idl
 
 Salgen ScriptQueue HTML
     [Documentation]    Create web form interfaces.
-    [Tags]    html    TSS-3079
+    [Tags]    html    
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} html
     ${output}=    Read Until Prompt
     Log    ${output}
@@ -90,12 +91,22 @@ Verify C++ Directories
 Verify ScriptQueue C++ Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_standby_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_standby_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_start_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_start_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enable_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enable_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_exitControl_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_exitControl_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_disable_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_disable_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_showAvailableScripts_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_showAvailableScripts_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_showQueue_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_showQueue_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_showScript_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_showScript_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_showScriptInfo_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_showScriptInfo_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_pause_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_pause_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_resume_commander
@@ -104,22 +115,14 @@ Verify ScriptQueue C++ Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_add_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_move_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_move_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_remove_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_remove_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_requeue_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_requeue_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_stopScripts_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_stopScripts_controller
 
 Verify ScriptQueue C++ Event Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_heartbeat_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_heartbeat_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_availableScripts_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_availableScripts_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_script_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_script_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_queue_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_queue_log
 
 Salgen ScriptQueue Python
     [Documentation]    Generate Python wrapper.
@@ -141,12 +144,22 @@ Verify ScriptQueue Python Command Interfaces
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_standby.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_standby.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_start.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_start.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_enable.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_enable.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_exitControl.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_exitControl.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_disable.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_disable.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_showAvailableScripts.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_showAvailableScripts.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_showQueue.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_showQueue.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_showScript.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_showScript.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_showScriptInfo.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_showScriptInfo.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_pause.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_pause.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_resume.py
@@ -155,24 +168,16 @@ Verify ScriptQueue Python Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_add.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_move.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_move.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_remove.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_remove.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_requeue.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_requeue.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_stopScripts.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_stopScripts.py
 
 Verify ScriptQueue Python Event Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_heartbeat.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_heartbeat.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_availableScripts.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_availableScripts.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_script.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_script.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_queue.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_queue.py
 
 Salgen ScriptQueue LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.

@@ -40,16 +40,10 @@ Salgen Script Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setLogging.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setCheckpoints.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_stop.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_heartbeat.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_checkpoints.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_logMessage.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_description.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_metadata.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_state.idl
 
 Salgen Script HTML
     [Documentation]    Create web form interfaces.
-    [Tags]    html    TSS-3079
+    [Tags]    html    
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} html
     ${output}=    Read Until Prompt
     Log    ${output}
@@ -105,18 +99,6 @@ Verify Script C++ Command Interfaces
 Verify Script C++ Event Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_heartbeat_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_heartbeat_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_checkpoints_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_checkpoints_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_logMessage_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_logMessage_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_description_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_description_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_metadata_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_metadata_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_state_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_state_log
 
 Salgen Script Python
     [Documentation]    Generate Python wrapper.
@@ -156,18 +138,6 @@ Verify Script Python Event Interfaces
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_heartbeat.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_heartbeat.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_checkpoints.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_checkpoints.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_logMessage.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_logMessage.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_description.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_description.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_metadata.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_metadata.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_state.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_state.py
 
 Salgen Script LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
