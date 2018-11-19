@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation    This verifies the version of SAL installed on the remote host.
-Suite Setup    Log Many    ${SALVersion}    ${OpenspliceVersion}    ${OpenspliceDate}
+Suite Setup    Run Keywords    Log Many    ${SALVersion}    ${OpenspliceVersion}    ${OpenspliceDate}    AND    Open Connection    host=${Host}    alias=VER    timeout=${timeout}    prompt=${Prompt}
 Suite Teardown    Close All Connections
 Library    SSHLibrary
 Resource    Global_Vars.robot
@@ -10,16 +10,23 @@ ${timeout}    10s
 
 *** Test Cases ***
 Verify SAL Version
-    [Documentation]    Connect to the SAL host.
+    [Documentation]    Verify the SAL version is correct.
     [Tags]    smoke    version
-    Comment    Connect to host.
-    Open Connection    host=${Host}    alias=VER    timeout=${timeout}    prompt=${Prompt}
     Comment    Login.
     Log    ${ContInt}
     ${output}=    Login With Public Key    ${UserName}    keyfile=${KeyFile}    password=${PassWord}
 	Set Suite Variable    ${versionData}    ${output}
+	Comment    Verify SAL version.
 	Should Contain    ${versionData}    SAL development environment is configured
 	Should Contain    ${versionData}    LSST middleware toolset environment v${SALVersion} is configured
+
+Verify Python Version
+    [Documentation]    Verify the system Python version is 3.6.
+	[Tags]    smoke    version
+	Comment    Verify Python version.
+	${stdout}    ${stderr}=    Execute Command    python --version    return_stderr=True
+	Log Many    ${stdout}    ${stderr}
+	Should Match    ${stdout}    ${PythonVersion}
 
 Verify OpenSplice Version
 	[Documentation]    Verify the OpenSplice version and date.
