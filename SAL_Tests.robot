@@ -26,6 +26,7 @@ Verify Python Version
 	Comment    Verify Python version.
 	${stdout}    ${stderr}=    Execute Command    which python 2>&1    return_stderr=True
 	${stdout}    ${stderr}=    Execute Command    /home/jenkins-slave/ws/ts_sal/venv/bin/python --version 2>&1   return_stderr=True
+	${stdout}    ${stderr}=    Execute Command    /home/jenkins-slave/ws/ts_sal/venv/bin/python3.6 --version 2>&1   return_stderr=True
 	${stdout}    ${stderr}=    Execute Command    python --version 2>&1   return_stderr=True
 	Log Many    ${stdout}    ${stderr}
 	Should Match    ${stdout}    ${PythonVersion}
