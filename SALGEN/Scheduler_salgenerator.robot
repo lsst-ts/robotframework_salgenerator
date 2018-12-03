@@ -16,6 +16,9 @@ ${timeout}    1200s
 Verify Scheduler XML Defintions exist
     [Tags]
     Comment    Verify the CSC XML definition files exist.
+    ${stdout}    ${stderr}=    Execute Command    ls ${SALWorkDir}/Scheduler_*.xml     return_stderr=True
+    Should Not Contain    ${stderr}    No such file or directory    msg="Scheduler has no XML defintions"    values=False
+    Should Not Be Empty    ${stdout}
     File Should Exist    ${SALWorkDir}/Scheduler_Events.xml
     File Should Exist    ${SALWorkDir}/Scheduler_Telemetry.xml
 

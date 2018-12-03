@@ -16,6 +16,9 @@ ${timeout}    1200s
 Verify MTWEP XML Defintions exist
     [Tags]
     Comment    Verify the CSC XML definition files exist.
+    ${stdout}    ${stderr}=    Execute Command    ls ${SALWorkDir}/MTWEP_*.xml     return_stderr=True
+    Should Not Contain    ${stderr}    No such file or directory    msg="MTWEP has no XML defintions"    values=False
+    Should Not Be Empty    ${stdout}
     File Should Exist    ${SALWorkDir}/MTWEP_Events.xml
     File Should Exist    ${SALWorkDir}/MTWEP_Telemetry.xml
 

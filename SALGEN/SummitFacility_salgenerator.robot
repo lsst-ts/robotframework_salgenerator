@@ -16,6 +16,9 @@ ${timeout}    1200s
 Verify SummitFacility XML Defintions exist
     [Tags]
     Comment    Verify the CSC XML definition files exist.
+    ${stdout}    ${stderr}=    Execute Command    ls ${SALWorkDir}/SummitFacility_*.xml     return_stderr=True
+    Should Not Contain    ${stderr}    No such file or directory    msg="SummitFacility has no XML defintions"    values=False
+    Should Not Be Empty    ${stdout}
     File Should Exist    ${SALWorkDir}/SummitFacility_Events.xml
     File Should Exist    ${SALWorkDir}/SummitFacility_Telemetry.xml
 

@@ -16,6 +16,9 @@ ${timeout}    1200s
 Verify ATPneumatics XML Defintions exist
     [Tags]
     Comment    Verify the CSC XML definition files exist.
+    ${stdout}    ${stderr}=    Execute Command    ls ${SALWorkDir}/ATPneumatics_*.xml     return_stderr=True
+    Should Not Contain    ${stderr}    No such file or directory    msg="ATPneumatics has no XML defintions"    values=False
+    Should Not Be Empty    ${stdout}
     File Should Exist    ${SALWorkDir}/ATPneumatics_Commands.xml
     File Should Exist    ${SALWorkDir}/ATPneumatics_Events.xml
     File Should Exist    ${SALWorkDir}/ATPneumatics_Telemetry.xml

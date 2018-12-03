@@ -16,6 +16,9 @@ ${timeout}    1200s
 Verify ATDome XML Defintions exist
     [Tags]
     Comment    Verify the CSC XML definition files exist.
+    ${stdout}    ${stderr}=    Execute Command    ls ${SALWorkDir}/ATDome_*.xml     return_stderr=True
+    Should Not Contain    ${stderr}    No such file or directory    msg="ATDome has no XML defintions"    values=False
+    Should Not Be Empty    ${stdout}
     File Should Exist    ${SALWorkDir}/ATDome_Commands.xml
     File Should Exist    ${SALWorkDir}/ATDome_Events.xml
     File Should Exist    ${SALWorkDir}/ATDome_Telemetry.xml

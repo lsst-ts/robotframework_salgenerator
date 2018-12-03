@@ -16,6 +16,11 @@ ${timeout}    1200s
 Verify MTGuider XML Defintions exist
     [Tags]
     Comment    Verify the CSC XML definition files exist.
+    ${stdout}    ${stderr}=    Execute Command    ls ${SALWorkDir}/MTGuider_*.xml     return_stderr=True
+    Should Not Contain    ${stderr}    No such file or directory    msg="MTGuider has no XML defintions"    values=False
+    Should Not Be Empty    ${stdout}
+    File Should Exist    ${SALWorkDir}/MTGuider_Events.xml
+    File Should Exist    ${SALWorkDir}/MTGuider_Telemetry.xml
 
 Salgen MTGuider Validate
     [Documentation]    Validate the MTGuider XML definitions.
@@ -32,6 +37,13 @@ Salgen MTGuider Validate
     Directory Should Exist    ${SALWorkDir}/idl-templates/validated
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_timestamp.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_loopTime.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_detailedState.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_internalCommand.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_heartbeat.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_loopTimeOutOfRange.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rejectedCommand.idl
 
 Salgen MTGuider HTML
     [Documentation]    Create web form interfaces.
@@ -42,9 +54,13 @@ Salgen MTGuider HTML
     Should Contain    ${output}    SAL generator - ${SALVersion}
     Should Contain    ${output}    Generating telemetry stream definition editor html
     Should Contain    ${output}    Creating sal-generator-${subSystem} form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.timestamp to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.loopTime to form
     Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
     @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/MTGuider_Events.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/MTGuider_Telemetry.html
 
 Salgen MTGuider C++
     [Documentation]    Generate C++ wrapper.
@@ -55,8 +71,10 @@ Salgen MTGuider C++
     Should Not Contain    ${output}    *** DDS error in file
     Should Not Contain    ${output}    Error 1
     Should Contain    ${output}    SAL generator - ${SALVersion}
-    Should Contain X Times    ${output}    cpp : Done Publisher    1
-    Should Contain X Times    ${output}    cpp : Done Subscriber    1
+    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_timestamp.idl
+    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_loopTime.idl
+    Should Contain X Times    ${output}    cpp : Done Publisher    2
+    Should Contain X Times    ${output}    cpp : Done Subscriber    2
     Should Contain X Times    ${output}    cpp : Done Commander    1
     Should Contain X Times    ${output}    cpp : Done Event/Logger    1
 
@@ -69,6 +87,35 @@ Verify C++ Directories
     Directory Should Exist    ${SALWorkDir}/idl-templates/validated/sal
     @{files}=    List Directory    ${SALWorkDir}/idl-templates/validated/sal    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/idl-templates/validated/sal/sal_${subSystem}.idl
+
+Verify MTGuider Telemetry directories
+    [Tags]    cpp
+    @{files}=    List Directory    ${SALWorkDir}    pattern=*${subSystem}*
+    Log Many    @{files}
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_timestamp
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_loopTime
+
+Verify MTGuider C++ Telemetry Interfaces
+    [Documentation]    Verify the C++ interfaces were properly created.
+    [Tags]    cpp
+    File Should Exist    ${SALWorkDir}/${subSystem}_timestamp/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_timestamp/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_loopTime/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_loopTime/cpp/standalone/sacpp_${subSystem}_sub
+
+Verify MTGuider C++ Event Interfaces
+    [Documentation]    Verify the C++ interfaces were properly created.
+    [Tags]    cpp
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_detailedState_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_detailedState_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_internalCommand_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_internalCommand_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_heartbeat_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_heartbeat_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_loopTimeOutOfRange_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_loopTimeOutOfRange_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_rejectedCommand_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_rejectedCommand_log
 
 Salgen MTGuider Python
     [Documentation]    Generate Python wrapper.
@@ -84,6 +131,32 @@ Salgen MTGuider Python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/SALPY_${subSystem}.so
+
+Verify MTGuider Python Telemetry Interfaces
+    [Documentation]    Verify the Python interfaces were properly created.
+    [Tags]    python
+    @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
+    Log Many    @{files}
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_timestamp_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_timestamp_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_loopTime_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_loopTime_Subscriber.py
+
+Verify MTGuider Python Event Interfaces
+    [Documentation]    Verify the Python interfaces were properly created.
+    [Tags]    python
+    @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
+    Log Many    @{files}
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_detailedState.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_detailedState.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_internalCommand.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_internalCommand.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_heartbeat.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_heartbeat.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_loopTimeOutOfRange.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_loopTimeOutOfRange.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_rejectedCommand.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_rejectedCommand.py
 
 Salgen MTGuider LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
@@ -107,10 +180,12 @@ Salgen MTGuider Java
     ${output}=    Read Until Prompt
     Log    ${output}
     Should Contain    ${output}    SAL generator - ${SALVersion}
-    Should Contain X Times    ${output}    javac : Done Publisher    1
-    Should Contain X Times    ${output}    javac : Done Subscriber    1
-    Should Contain X Times    ${output}    javac : Done Commander/Controller    1
-    Should Contain X Times    ${output}    javac : Done Event/Logger    1
+    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_timestamp.idl
+    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_loopTime.idl
+    Should Contain X Times    ${output}    javac : Done Publisher    2
+    Should Contain X Times    ${output}    javac : Done Subscriber    2
+    Should Contain X Times    ${output}    javac : Done Commander/Controller    2
+    Should Contain X Times    ${output}    javac : Done Event/Logger    2
     Directory Should Exist    ${SALWorkDir}/${subSystem}/java
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl

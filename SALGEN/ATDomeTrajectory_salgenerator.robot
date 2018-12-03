@@ -16,6 +16,10 @@ ${timeout}    1200s
 Verify ATDomeTrajectory XML Defintions exist
     [Tags]
     Comment    Verify the CSC XML definition files exist.
+    ${stdout}    ${stderr}=    Execute Command    ls ${SALWorkDir}/ATDomeTrajectory_*.xml     return_stderr=True
+    Should Not Contain    ${stderr}    No such file or directory    msg="ATDomeTrajectory has no XML defintions"    values=False
+    Should Not Be Empty    ${stdout}
+    File Should Exist    ${SALWorkDir}/ATDomeTrajectory_Events.xml
 
 Salgen ATDomeTrajectory Validate
     [Documentation]    Validate the ATDomeTrajectory XML definitions.
@@ -32,6 +36,8 @@ Salgen ATDomeTrajectory Validate
     Directory Should Exist    ${SALWorkDir}/idl-templates/validated
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_detailedState.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_heartbeat.idl
 
 Salgen ATDomeTrajectory HTML
     [Documentation]    Create web form interfaces.
@@ -45,6 +51,7 @@ Salgen ATDomeTrajectory HTML
     Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
     @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/ATDomeTrajectory_Events.html
 
 Salgen ATDomeTrajectory C++
     [Documentation]    Generate C++ wrapper.
@@ -70,6 +77,14 @@ Verify C++ Directories
     @{files}=    List Directory    ${SALWorkDir}/idl-templates/validated/sal    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/idl-templates/validated/sal/sal_${subSystem}.idl
 
+Verify ATDomeTrajectory C++ Event Interfaces
+    [Documentation]    Verify the C++ interfaces were properly created.
+    [Tags]    cpp
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_detailedState_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_detailedState_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_heartbeat_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_heartbeat_log
+
 Salgen ATDomeTrajectory Python
     [Documentation]    Generate Python wrapper.
     [Tags]    python
@@ -84,6 +99,16 @@ Salgen ATDomeTrajectory Python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/SALPY_${subSystem}.so
+
+Verify ATDomeTrajectory Python Event Interfaces
+    [Documentation]    Verify the Python interfaces were properly created.
+    [Tags]    python
+    @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
+    Log Many    @{files}
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_detailedState.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_detailedState.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_heartbeat.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_heartbeat.py
 
 Salgen ATDomeTrajectory LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.

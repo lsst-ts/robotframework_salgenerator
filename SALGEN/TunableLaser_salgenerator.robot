@@ -16,6 +16,9 @@ ${timeout}    1200s
 Verify TunableLaser XML Defintions exist
     [Tags]
     Comment    Verify the CSC XML definition files exist.
+    ${stdout}    ${stderr}=    Execute Command    ls ${SALWorkDir}/TunableLaser_*.xml     return_stderr=True
+    Should Not Contain    ${stderr}    No such file or directory    msg="TunableLaser has no XML defintions"    values=False
+    Should Not Be Empty    ${stdout}
     File Should Exist    ${SALWorkDir}/TunableLaser_Commands.xml
     File Should Exist    ${SALWorkDir}/TunableLaser_Events.xml
     File Should Exist    ${SALWorkDir}/TunableLaser_Telemetry.xml

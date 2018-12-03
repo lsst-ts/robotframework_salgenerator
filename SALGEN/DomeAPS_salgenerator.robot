@@ -16,6 +16,9 @@ ${timeout}    1200s
 Verify DomeAPS XML Defintions exist
     [Tags]
     Comment    Verify the CSC XML definition files exist.
+    ${stdout}    ${stderr}=    Execute Command    ls ${SALWorkDir}/DomeAPS_*.xml     return_stderr=True
+    Should Not Contain    ${stderr}    No such file or directory    msg="DomeAPS has no XML defintions"    values=False
+    Should Not Be Empty    ${stdout}
     File Should Exist    ${SALWorkDir}/DomeAPS_Commands.xml
     File Should Exist    ${SALWorkDir}/DomeAPS_Events.xml
     File Should Exist    ${SALWorkDir}/DomeAPS_Telemetry.xml

@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation    This suite builds the various interfaces for the LOVE.
+Documentation    This suite builds the various interfaces for the MTEEC.
 Force Tags    salgen    
 Suite Setup    Run Keywords    Log Many    ${Host}    ${subSystem}    ${timeout}
 ...    AND    Create Session    SALGEN
@@ -9,16 +9,21 @@ Resource    ../Global_Vars.robot
 Resource    ../common.robot
 
 *** Variables ***
-${subSystem}    LOVE
+${subSystem}    MTEEC
 ${timeout}    1200s
 
 *** Test Cases ***
-Verify LOVE XML Defintions exist
+Verify MTEEC XML Defintions exist
     [Tags]
     Comment    Verify the CSC XML definition files exist.
+    ${stdout}    ${stderr}=    Execute Command    ls ${SALWorkDir}/MTEEC_*.xml     return_stderr=True
+    Should Not Contain    ${stderr}    No such file or directory    msg="MTEEC has no XML defintions"    values=False
+    Should Not Be Empty    ${stdout}
+    File Should Exist    ${SALWorkDir}/MTEEC_Commands.xml
+    File Should Exist    ${SALWorkDir}/MTEEC_Events.xml
 
-Salgen LOVE Validate
-    [Documentation]    Validate the LOVE XML definitions.
+Salgen MTEEC Validate
+    [Documentation]    Validate the MTEEC XML definitions.
     [Tags]
     ${input}=    Write    cd ${SALWorkDir}
     ${output}=    Read Until Prompt
@@ -32,8 +37,14 @@ Salgen LOVE Validate
     Directory Should Exist    ${SALWorkDir}/idl-templates/validated
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setToDayTime.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setToNightTime.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disableControl.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_applyTemperatureSetpoint.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_detailedState.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_heartbeat.idl
 
-Salgen LOVE HTML
+Salgen MTEEC HTML
     [Documentation]    Create web form interfaces.
     [Tags]    html    
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} html
@@ -45,8 +56,10 @@ Salgen LOVE HTML
     Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
     @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/MTEEC_Commands.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/MTEEC_Events.html
 
-Salgen LOVE C++
+Salgen MTEEC C++
     [Documentation]    Generate C++ wrapper.
     [Tags]    cpp
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} sal cpp
@@ -70,7 +83,27 @@ Verify C++ Directories
     @{files}=    List Directory    ${SALWorkDir}/idl-templates/validated/sal    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/idl-templates/validated/sal/sal_${subSystem}.idl
 
-Salgen LOVE Python
+Verify MTEEC C++ Command Interfaces
+    [Documentation]    Verify the C++ interfaces were properly created.
+    [Tags]    cpp
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setToDayTime_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setToDayTime_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setToNightTime_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setToNightTime_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_disableControl_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_disableControl_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_applyTemperatureSetpoint_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_applyTemperatureSetpoint_controller
+
+Verify MTEEC C++ Event Interfaces
+    [Documentation]    Verify the C++ interfaces were properly created.
+    [Tags]    cpp
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_detailedState_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_detailedState_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_heartbeat_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_heartbeat_log
+
+Salgen MTEEC Python
     [Documentation]    Generate Python wrapper.
     [Tags]    python
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} sal python
@@ -85,7 +118,31 @@ Salgen LOVE Python
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/SALPY_${subSystem}.so
 
-Salgen LOVE LabVIEW
+Verify MTEEC Python Command Interfaces
+    [Documentation]    Verify the Python interfaces were properly created.
+    [Tags]    python
+    @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
+    Log Many    @{files}
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_setToDayTime.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setToDayTime.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_setToNightTime.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setToNightTime.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_disableControl.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_disableControl.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_applyTemperatureSetpoint.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_applyTemperatureSetpoint.py
+
+Verify MTEEC Python Event Interfaces
+    [Documentation]    Verify the Python interfaces were properly created.
+    [Tags]    python
+    @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
+    Log Many    @{files}
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_detailedState.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_detailedState.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_heartbeat.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_heartbeat.py
+
+Salgen MTEEC LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
     [Tags]    labview
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} labview
@@ -100,7 +157,7 @@ Salgen LOVE LabVIEW
     File Should Exist    ${SALWorkDir}/${subSystem}/labview/SALLV_${subSystem}.so
     File Should Exist    ${SALWorkDir}/${subSystem}/labview/SALLV_${subSystem}_Monitor
 
-Salgen LOVE Java
+Salgen MTEEC Java
     [Documentation]    Generate Java wrapper.
     [Tags]    java
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} sal java
@@ -115,7 +172,7 @@ Salgen LOVE Java
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
 
-Salgen LOVE Lib
+Salgen MTEEC Lib
     [Documentation]    Generate the SAL shared library for ${subSystem}
     [Tags]    
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} lib
@@ -131,7 +188,7 @@ Salgen LOVE Lib
     File Should Exist    ${SALWorkDir}/lib/SALLV_${subSystem}.so
     File Should Exist    ${SALWorkDir}/lib/SALPY_${subSystem}.so
 
-Salgen LOVE Maven
+Salgen MTEEC Maven
     [Documentation]    Generate the Maven repository.
     [Tags]    java
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} maven

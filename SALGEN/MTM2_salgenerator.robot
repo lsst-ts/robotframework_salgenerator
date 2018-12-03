@@ -16,6 +16,9 @@ ${timeout}    1200s
 Verify MTM2 XML Defintions exist
     [Tags]
     Comment    Verify the CSC XML definition files exist.
+    ${stdout}    ${stderr}=    Execute Command    ls ${SALWorkDir}/MTM2_*.xml     return_stderr=True
+    Should Not Contain    ${stderr}    No such file or directory    msg="MTM2 has no XML defintions"    values=False
+    Should Not Be Empty    ${stdout}
     File Should Exist    ${SALWorkDir}/MTM2_Commands.xml
     File Should Exist    ${SALWorkDir}/MTM2_Events.xml
     File Should Exist    ${SALWorkDir}/MTM2_Telemetry.xml

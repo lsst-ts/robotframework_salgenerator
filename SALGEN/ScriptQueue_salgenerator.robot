@@ -16,6 +16,9 @@ ${timeout}    1200s
 Verify ScriptQueue XML Defintions exist
     [Tags]
     Comment    Verify the CSC XML definition files exist.
+    ${stdout}    ${stderr}=    Execute Command    ls ${SALWorkDir}/ScriptQueue_*.xml     return_stderr=True
+    Should Not Contain    ${stderr}    No such file or directory    msg="ScriptQueue has no XML defintions"    values=False
+    Should Not Be Empty    ${stdout}
     File Should Exist    ${SALWorkDir}/ScriptQueue_Commands.xml
     File Should Exist    ${SALWorkDir}/ScriptQueue_Events.xml
 
