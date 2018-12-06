@@ -45,6 +45,7 @@ Salgen DIMM Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_heartbeat.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_loopTimeOutOfRange.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_dimmMeasurement.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_dimmData.idl
 
 Salgen DIMM HTML
     [Documentation]    Create web form interfaces.
@@ -122,6 +123,8 @@ Verify DIMM C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_loopTimeOutOfRange_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_dimmMeasurement_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_dimmMeasurement_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_dimmData_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_dimmData_log
 
 Salgen DIMM Python
     [Documentation]    Generate Python wrapper.
@@ -165,6 +168,8 @@ Verify DIMM Python Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_loopTimeOutOfRange.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_dimmMeasurement.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_dimmMeasurement.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_dimmData.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_dimmData.py
 
 Salgen DIMM LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
