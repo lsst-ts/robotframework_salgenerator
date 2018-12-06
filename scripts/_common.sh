@@ -96,6 +96,8 @@ function checkIfSkipped() {
 	topic=$2
 	if [[ ("$subsystem" == "MTMount") && ("$topic" == "java") ]]; then
         skipped="    TSS-3318    skipped"
+	elif [[ ("$subsystem" == "MTM1M3") ]]; then
+		skipped="TSS-3342    skipped"
 	else
 		skipped=""
 	fi

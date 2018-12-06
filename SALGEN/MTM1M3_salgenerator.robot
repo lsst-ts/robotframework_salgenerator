@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation    This suite builds the various interfaces for the MTM1M3.
-Force Tags    salgen    
+Force Tags    salgen    TSS-3342    skipped
 Suite Setup    Run Keywords    Log Many    ${Host}    ${subSystem}    ${timeout}
 ...    AND    Create Session    SALGEN
 Suite Teardown    Close All Connections
@@ -37,6 +37,7 @@ Salgen MTM1M3 Validate
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_accelerometerData.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_forceActuatorData.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_forceActuatorPressure.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_gyroData.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_hardpointActuatorData.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_hardpointMonitorData.idl
@@ -44,8 +45,7 @@ Salgen MTM1M3 Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_inclinometerData.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_outerLoopData.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_pidData.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_powerSupplyData.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_thermalScannerData.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_powerData.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_abortRaiseM1M3.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_applyAberrationForces.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_applyAberrationForcesByBendingModes.idl
@@ -58,8 +58,8 @@ Salgen MTM1M3 Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_clearOffsetForces.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disableHardpointChase.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disableHardpointCorrections.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enableHardpointCorrections.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enableHardpointChase.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enableHardpointCorrections.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enterEngineering.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_exitEngineering.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_lowerM1M3.idl
@@ -69,7 +69,6 @@ Salgen MTM1M3 Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_programILC.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_raiseM1M3.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_resetPID.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setThermalSetpoint.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_shutdown.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_stopHardpointMotion.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_testAir.idl
@@ -94,19 +93,23 @@ Salgen MTM1M3 Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_appliedCylinderForces.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_appliedElevationForces.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_appliedForces.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_appliedHardpointSteps.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_appliedOffsetForces.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_appliedStaticForces.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_appliedThermalForces.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_appliedVelocityForces.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_cellLightStatus.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_cellLightWarning.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_commandRejectionWarning.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_detailedState.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_displacementSensorWarning.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_forceActuatorForceWarning.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_forceActuatorInfo.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_forceActuatorBackupCalibrationInfo.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_forceActuatorILCInfo.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_forceActuatorIdInfo.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_forceActuatorMainCalibrationInfo.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_forceActuatorMezzanineCalibrationInfo.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_forceActuatorPositionInfo.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_forceActuatorState.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_forceActuatorWarning.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_forceSetpointWarning.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_gyroWarning.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_hardpointActuatorInfo.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_hardpointActuatorState.idl
@@ -114,14 +117,13 @@ Salgen MTM1M3 Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_hardpointMonitorInfo.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_hardpointMonitorState.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_hardpointMonitorWarning.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_ilcWarning.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_inclinometerSensorWarning.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_interlockStatus.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_interlockWarning.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_modbusResponse.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_modbusWarning.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_pidInfo.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_powerStatus.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_powerSupplyStatus.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_powerWarning.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rejectedAberrationForces.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rejectedAccelerationForces.idl
@@ -135,7 +137,6 @@ Salgen MTM1M3 Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rejectedStaticForces.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rejectedThermalForces.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rejectedVelocityForces.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingsApplied.idl
 
 Salgen MTM1M3 HTML
     [Documentation]    Create web form interfaces.
@@ -148,6 +149,7 @@ Salgen MTM1M3 HTML
     Should Contain    ${output}    Creating sal-generator-${subSystem} form
     Should Contain    ${output}    Added sal-generator-${subSystem}.accelerometerData to form
     Should Contain    ${output}    Added sal-generator-${subSystem}.forceActuatorData to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.forceActuatorPressure to form
     Should Contain    ${output}    Added sal-generator-${subSystem}.gyroData to form
     Should Contain    ${output}    Added sal-generator-${subSystem}.hardpointActuatorData to form
     Should Contain    ${output}    Added sal-generator-${subSystem}.hardpointMonitorData to form
@@ -155,8 +157,7 @@ Salgen MTM1M3 HTML
     Should Contain    ${output}    Added sal-generator-${subSystem}.inclinometerData to form
     Should Contain    ${output}    Added sal-generator-${subSystem}.outerLoopData to form
     Should Contain    ${output}    Added sal-generator-${subSystem}.pidData to form
-    Should Contain    ${output}    Added sal-generator-${subSystem}.powerSupplyData to form
-    Should Contain    ${output}    Added sal-generator-${subSystem}.thermalScannerData to form
+    Should Contain    ${output}    Added sal-generator-${subSystem}.powerData to form
     Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
     @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}
@@ -175,6 +176,7 @@ Salgen MTM1M3 C++
     Should Contain    ${output}    SAL generator - ${SALVersion}
     Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_accelerometerData.idl
     Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_forceActuatorData.idl
+    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_forceActuatorPressure.idl
     Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_gyroData.idl
     Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_hardpointActuatorData.idl
     Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_hardpointMonitorData.idl
@@ -182,8 +184,7 @@ Salgen MTM1M3 C++
     Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_inclinometerData.idl
     Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_outerLoopData.idl
     Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_pidData.idl
-    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_powerSupplyData.idl
-    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_thermalScannerData.idl
+    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_powerData.idl
     Should Contain X Times    ${output}    cpp : Done Publisher    11
     Should Contain X Times    ${output}    cpp : Done Subscriber    11
     Should Contain X Times    ${output}    cpp : Done Commander    1
@@ -205,6 +206,7 @@ Verify MTM1M3 Telemetry directories
     Log Many    @{files}
     Directory Should Exist    ${SALWorkDir}/${subSystem}_accelerometerData
     Directory Should Exist    ${SALWorkDir}/${subSystem}_forceActuatorData
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_forceActuatorPressure
     Directory Should Exist    ${SALWorkDir}/${subSystem}_gyroData
     Directory Should Exist    ${SALWorkDir}/${subSystem}_hardpointActuatorData
     Directory Should Exist    ${SALWorkDir}/${subSystem}_hardpointMonitorData
@@ -212,8 +214,7 @@ Verify MTM1M3 Telemetry directories
     Directory Should Exist    ${SALWorkDir}/${subSystem}_inclinometerData
     Directory Should Exist    ${SALWorkDir}/${subSystem}_outerLoopData
     Directory Should Exist    ${SALWorkDir}/${subSystem}_pidData
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_powerSupplyData
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_thermalScannerData
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_powerData
 
 Verify MTM1M3 C++ Telemetry Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -222,6 +223,8 @@ Verify MTM1M3 C++ Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}_accelerometerData/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_forceActuatorData/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_forceActuatorData/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_forceActuatorPressure/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_forceActuatorPressure/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_gyroData/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_gyroData/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_hardpointActuatorData/cpp/standalone/sacpp_${subSystem}_pub
@@ -236,10 +239,8 @@ Verify MTM1M3 C++ Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}_outerLoopData/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_pidData/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_pidData/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_powerSupplyData/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_powerSupplyData/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_thermalScannerData/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_thermalScannerData/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_powerData/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_powerData/cpp/standalone/sacpp_${subSystem}_sub
 
 Verify MTM1M3 C++ Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -268,10 +269,10 @@ Verify MTM1M3 C++ Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_disableHardpointChase_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_disableHardpointCorrections_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_disableHardpointCorrections_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enableHardpointCorrections_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enableHardpointCorrections_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enableHardpointChase_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enableHardpointChase_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enableHardpointCorrections_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enableHardpointCorrections_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enterEngineering_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enterEngineering_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_exitEngineering_commander
@@ -290,8 +291,6 @@ Verify MTM1M3 C++ Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_raiseM1M3_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_resetPID_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_resetPID_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setThermalSetpoint_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setThermalSetpoint_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_shutdown_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_shutdown_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_stopHardpointMotion_commander
@@ -344,6 +343,8 @@ Verify MTM1M3 C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_appliedElevationForces_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_appliedForces_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_appliedForces_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_appliedHardpointSteps_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_appliedHardpointSteps_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_appliedOffsetForces_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_appliedOffsetForces_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_appliedStaticForces_send
@@ -356,20 +357,26 @@ Verify MTM1M3 C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_cellLightStatus_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_cellLightWarning_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_cellLightWarning_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_commandRejectionWarning_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_commandRejectionWarning_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_detailedState_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_detailedState_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_displacementSensorWarning_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_displacementSensorWarning_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_forceActuatorForceWarning_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_forceActuatorForceWarning_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_forceActuatorInfo_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_forceActuatorInfo_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_forceActuatorBackupCalibrationInfo_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_forceActuatorBackupCalibrationInfo_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_forceActuatorILCInfo_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_forceActuatorILCInfo_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_forceActuatorIdInfo_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_forceActuatorIdInfo_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_forceActuatorMainCalibrationInfo_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_forceActuatorMainCalibrationInfo_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_forceActuatorMezzanineCalibrationInfo_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_forceActuatorMezzanineCalibrationInfo_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_forceActuatorPositionInfo_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_forceActuatorPositionInfo_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_forceActuatorState_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_forceActuatorState_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_forceActuatorWarning_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_forceActuatorWarning_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_forceSetpointWarning_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_forceSetpointWarning_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_gyroWarning_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_gyroWarning_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_hardpointActuatorInfo_send
@@ -384,8 +391,6 @@ Verify MTM1M3 C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_hardpointMonitorState_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_hardpointMonitorWarning_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_hardpointMonitorWarning_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_ilcWarning_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_ilcWarning_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_inclinometerSensorWarning_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_inclinometerSensorWarning_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_interlockStatus_send
@@ -394,12 +399,12 @@ Verify MTM1M3 C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_interlockWarning_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_modbusResponse_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_modbusResponse_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_modbusWarning_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_modbusWarning_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_pidInfo_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_pidInfo_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_powerStatus_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_powerStatus_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_powerSupplyStatus_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_powerSupplyStatus_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_powerWarning_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_powerWarning_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_rejectedAberrationForces_send
@@ -426,8 +431,6 @@ Verify MTM1M3 C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_rejectedThermalForces_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_rejectedVelocityForces_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_rejectedVelocityForces_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsApplied_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsApplied_log
 
 Salgen MTM1M3 Python
     [Documentation]    Generate Python wrapper.
@@ -453,6 +456,8 @@ Verify MTM1M3 Python Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_accelerometerData_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_forceActuatorData_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_forceActuatorData_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_forceActuatorPressure_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_forceActuatorPressure_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_gyroData_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_gyroData_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_hardpointActuatorData_Publisher.py
@@ -467,10 +472,8 @@ Verify MTM1M3 Python Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_outerLoopData_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_pidData_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_pidData_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_powerSupplyData_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_powerSupplyData_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_thermalScannerData_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_thermalScannerData_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_powerData_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_powerData_Subscriber.py
 
 Verify MTM1M3 Python Command Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
@@ -501,10 +504,10 @@ Verify MTM1M3 Python Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_disableHardpointChase.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_disableHardpointCorrections.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_disableHardpointCorrections.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_enableHardpointCorrections.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_enableHardpointCorrections.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_enableHardpointChase.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_enableHardpointChase.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_enableHardpointCorrections.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_enableHardpointCorrections.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_enterEngineering.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_enterEngineering.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_exitEngineering.py
@@ -523,8 +526,6 @@ Verify MTM1M3 Python Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_raiseM1M3.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_resetPID.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_resetPID.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_setThermalSetpoint.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setThermalSetpoint.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_shutdown.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_shutdown.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_stopHardpointMotion.py
@@ -579,6 +580,8 @@ Verify MTM1M3 Python Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_appliedElevationForces.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_appliedForces.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_appliedForces.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_appliedHardpointSteps.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_appliedHardpointSteps.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_appliedOffsetForces.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_appliedOffsetForces.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_appliedStaticForces.py
@@ -591,20 +594,26 @@ Verify MTM1M3 Python Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_cellLightStatus.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_cellLightWarning.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_cellLightWarning.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_commandRejectionWarning.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_commandRejectionWarning.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_detailedState.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_detailedState.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_displacementSensorWarning.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_displacementSensorWarning.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_forceActuatorForceWarning.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_forceActuatorForceWarning.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_forceActuatorInfo.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_forceActuatorInfo.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_forceActuatorBackupCalibrationInfo.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_forceActuatorBackupCalibrationInfo.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_forceActuatorILCInfo.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_forceActuatorILCInfo.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_forceActuatorIdInfo.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_forceActuatorIdInfo.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_forceActuatorMainCalibrationInfo.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_forceActuatorMainCalibrationInfo.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_forceActuatorMezzanineCalibrationInfo.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_forceActuatorMezzanineCalibrationInfo.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_forceActuatorPositionInfo.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_forceActuatorPositionInfo.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_forceActuatorState.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_forceActuatorState.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_forceActuatorWarning.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_forceActuatorWarning.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_forceSetpointWarning.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_forceSetpointWarning.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_gyroWarning.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_gyroWarning.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_hardpointActuatorInfo.py
@@ -619,8 +628,6 @@ Verify MTM1M3 Python Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_hardpointMonitorState.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_hardpointMonitorWarning.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_hardpointMonitorWarning.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_ilcWarning.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_ilcWarning.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_inclinometerSensorWarning.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_inclinometerSensorWarning.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_interlockStatus.py
@@ -629,12 +636,12 @@ Verify MTM1M3 Python Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_interlockWarning.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_modbusResponse.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_modbusResponse.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_modbusWarning.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_modbusWarning.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_pidInfo.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_pidInfo.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_powerStatus.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_powerStatus.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_powerSupplyStatus.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_powerSupplyStatus.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_powerWarning.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_powerWarning.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_rejectedAberrationForces.py
@@ -661,8 +668,6 @@ Verify MTM1M3 Python Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_rejectedThermalForces.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_rejectedVelocityForces.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_rejectedVelocityForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_settingsApplied.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_settingsApplied.py
 
 Salgen MTM1M3 LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
@@ -681,13 +686,14 @@ Salgen MTM1M3 LabVIEW
 
 Salgen MTM1M3 Java
     [Documentation]    Generate Java wrapper.
-    [Tags]    java
+    [Tags]    javaTSS-3342    skipped
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} sal java
     ${output}=    Read Until Prompt
     Log    ${output}
     Should Contain    ${output}    SAL generator - ${SALVersion}
     Should Contain    ${output}    Generating SAL Java code for ${subSystem}_accelerometerData.idl
     Should Contain    ${output}    Generating SAL Java code for ${subSystem}_forceActuatorData.idl
+    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_forceActuatorPressure.idl
     Should Contain    ${output}    Generating SAL Java code for ${subSystem}_gyroData.idl
     Should Contain    ${output}    Generating SAL Java code for ${subSystem}_hardpointActuatorData.idl
     Should Contain    ${output}    Generating SAL Java code for ${subSystem}_hardpointMonitorData.idl
@@ -695,8 +701,7 @@ Salgen MTM1M3 Java
     Should Contain    ${output}    Generating SAL Java code for ${subSystem}_inclinometerData.idl
     Should Contain    ${output}    Generating SAL Java code for ${subSystem}_outerLoopData.idl
     Should Contain    ${output}    Generating SAL Java code for ${subSystem}_pidData.idl
-    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_powerSupplyData.idl
-    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_thermalScannerData.idl
+    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_powerData.idl
     Should Contain X Times    ${output}    javac : Done Publisher    11
     Should Contain X Times    ${output}    javac : Done Subscriber    11
     Should Contain X Times    ${output}    javac : Done Commander/Controller    11
@@ -723,7 +728,7 @@ Salgen MTM1M3 Lib
 
 Salgen MTM1M3 Maven
     [Documentation]    Generate the Maven repository.
-    [Tags]    java
+    [Tags]    javaTSS-3342    skipped
     ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} maven
     ${output}=    Read Until Prompt
     Log    ${output}
