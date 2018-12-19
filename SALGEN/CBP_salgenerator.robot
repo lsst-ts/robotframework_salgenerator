@@ -16,6 +16,9 @@ ${timeout}    1200s
 Verify CBP XML Defintions exist
     [Tags]
     Comment    Verify the CSC XML definition files exist.
+    ${stdout}    ${stderr}=    Execute Command    ls ${SALWorkDir}/CBP_*.xml     return_stderr=True
+    Should Not Contain    ${stderr}    No such file or directory    msg="CBP has no XML defintions"    values=False
+    Should Not Be Empty    ${stdout}
     File Should Exist    ${SALWorkDir}/CBP_Commands.xml
     File Should Exist    ${SALWorkDir}/CBP_Telemetry.xml
 

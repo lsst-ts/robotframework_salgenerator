@@ -5,10 +5,16 @@
 
 # List of test suites
 SAL_Tests.robot
+SALGEN/ATAOS_salgenerator.robot
 SALGEN/ATArchiver_salgenerator.robot
+SALGEN/ATBuilding_salgenerator.robot
+SALGEN/ATCalCS_salgenerator.robot
 SALGEN/ATCamera_salgenerator.robot
+SALGEN/ATDomeTrajectory_salgenerator.robot
 SALGEN/ATDome_salgenerator.robot
+SALGEN/ATEEC_salgenerator.robot
 SALGEN/ATHeaderService_salgenerator.robot
+SALGEN/ATHexapod_salgenerator.robot
 SALGEN/ATMCS_salgenerator.robot
 SALGEN/ATMonochromator_salgenerator.robot
 SALGEN/ATPneumatics_salgenerator.robot
@@ -18,6 +24,7 @@ SALGEN/ATThermoelectricCooler_salgenerator.robot
 SALGEN/ATWhiteLight_salgenerator.robot
 SALGEN/CBP_salgenerator.robot
 SALGEN/CatchupArchiver_salgenerator.robot
+SALGEN/DIMM_salgenerator.robot
 SALGEN/DomeADB_salgenerator.robot
 SALGEN/DomeAPS_salgenerator.robot
 SALGEN/DomeLWS_salgenerator.robot
@@ -25,15 +32,23 @@ SALGEN/DomeLouvers_salgenerator.robot
 SALGEN/DomeMONCS_salgenerator.robot
 SALGEN/DomeTHCS_salgenerator.robot
 SALGEN/Dome_salgenerator.robot
-SALGEN/EEC_salgenerator.robot
+SALGEN/EAS_salgenerator.robot
+SALGEN/EFDTransformationServer_salgenerator.robot
 SALGEN/EFD_salgenerator.robot
 SALGEN/Electrometer_salgenerator.robot
 SALGEN/FiberSpectrograph_salgenerator.robot
+SALGEN/HVAC_salgenerator.robot
 SALGEN/Hexapod_salgenerator.robot
+SALGEN/IOTA_salgenerator.robot
 SALGEN/LinearStage_salgenerator.robot
 SALGEN/MTArchiver_salgenerator.robot
+SALGEN/MTCalCS_salgenerator.robot
 SALGEN/MTCamera_salgenerator.robot
+SALGEN/MTDomeTrajectory_salgenerator.robot
+SALGEN/MTEEC_salgenerator.robot
+SALGEN/MTGuider_salgenerator.robot
 SALGEN/MTHeaderService_salgenerator.robot
+SALGEN/MTLaserTracker_salgenerator.robot
 SALGEN/MTM1M3_salgenerator.robot
 SALGEN/MTM2_salgenerator.robot
 SALGEN/MTMount_salgenerator.robot
@@ -42,6 +57,7 @@ SALGEN/MTTCS_salgenerator.robot
 SALGEN/MTVMS_salgenerator.robot
 SALGEN/MTWEP_salgenerator.robot
 SALGEN/OCS_salgenerator.robot
+SALGEN/PointingComponent_salgenerator.robot
 SALGEN/PromptProcessing_salgenerator.robot
 SALGEN/Rotator_salgenerator.robot
 SALGEN/Scheduler_salgenerator.robot

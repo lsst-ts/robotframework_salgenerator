@@ -16,6 +16,9 @@ ${timeout}    1200s
 Verify ATWhiteLight XML Defintions exist
     [Tags]
     Comment    Verify the CSC XML definition files exist.
+    ${stdout}    ${stderr}=    Execute Command    ls ${SALWorkDir}/ATWhiteLight_*.xml     return_stderr=True
+    Should Not Contain    ${stderr}    No such file or directory    msg="ATWhiteLight has no XML defintions"    values=False
+    Should Not Be Empty    ${stdout}
     File Should Exist    ${SALWorkDir}/ATWhiteLight_Commands.xml
     File Should Exist    ${SALWorkDir}/ATWhiteLight_Events.xml
     File Should Exist    ${SALWorkDir}/ATWhiteLight_Telemetry.xml

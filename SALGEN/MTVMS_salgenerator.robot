@@ -16,6 +16,9 @@ ${timeout}    1200s
 Verify MTVMS XML Defintions exist
     [Tags]
     Comment    Verify the CSC XML definition files exist.
+    ${stdout}    ${stderr}=    Execute Command    ls ${SALWorkDir}/MTVMS_*.xml     return_stderr=True
+    Should Not Contain    ${stderr}    No such file or directory    msg="MTVMS has no XML defintions"    values=False
+    Should Not Be Empty    ${stdout}
     File Should Exist    ${SALWorkDir}/MTVMS_Commands.xml
     File Should Exist    ${SALWorkDir}/MTVMS_Events.xml
     File Should Exist    ${SALWorkDir}/MTVMS_Telemetry.xml

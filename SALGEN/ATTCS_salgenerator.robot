@@ -16,6 +16,9 @@ ${timeout}    1200s
 Verify ATTCS XML Defintions exist
     [Tags]
     Comment    Verify the CSC XML definition files exist.
+    ${stdout}    ${stderr}=    Execute Command    ls ${SALWorkDir}/ATTCS_*.xml     return_stderr=True
+    Should Not Contain    ${stderr}    No such file or directory    msg="ATTCS has no XML defintions"    values=False
+    Should Not Be Empty    ${stdout}
     File Should Exist    ${SALWorkDir}/ATTCS_Commands.xml
     File Should Exist    ${SALWorkDir}/ATTCS_Events.xml
     File Should Exist    ${SALWorkDir}/ATTCS_Telemetry.xml

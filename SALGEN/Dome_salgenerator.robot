@@ -16,6 +16,9 @@ ${timeout}    1200s
 Verify Dome XML Defintions exist
     [Tags]
     Comment    Verify the CSC XML definition files exist.
+    ${stdout}    ${stderr}=    Execute Command    ls ${SALWorkDir}/Dome_*.xml     return_stderr=True
+    Should Not Contain    ${stderr}    No such file or directory    msg="Dome has no XML defintions"    values=False
+    Should Not Be Empty    ${stdout}
     File Should Exist    ${SALWorkDir}/Dome_Commands.xml
     File Should Exist    ${SALWorkDir}/Dome_Events.xml
     File Should Exist    ${SALWorkDir}/Dome_Telemetry.xml

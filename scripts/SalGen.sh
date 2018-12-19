@@ -39,6 +39,9 @@ function verifyXMLDefinitions() {
     echo "Verify $subSystemUp XML Defintions exist" >> $testSuite
     echo "    [Tags]" >> $testSuite
 	echo "    Comment    Verify the CSC XML definition files exist." >> $testSuite
+	echo "    \${stdout}    \${stderr}=    Execute Command    ls \${SALWorkDir}/${subSystemUp}_*.xml     return_stderr=True" >> $testSuite
+	echo "    Should Not Contain    \${stderr}    No such file or directory    msg=\"${subSystemUp} has no XML defintions\"    values=False" >> $testSuite
+	echo "    Should Not Be Empty    \${stdout}" >> $testSuite
 	for file in "${xmls[@]}"; do
 		echo "    File Should Exist    \${SALWorkDir}/$file" >> $testSuite
 	done

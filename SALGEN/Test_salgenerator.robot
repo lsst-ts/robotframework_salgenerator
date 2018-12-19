@@ -16,6 +16,9 @@ ${timeout}    1200s
 Verify Test XML Defintions exist
     [Tags]
     Comment    Verify the CSC XML definition files exist.
+    ${stdout}    ${stderr}=    Execute Command    ls ${SALWorkDir}/Test_*.xml     return_stderr=True
+    Should Not Contain    ${stderr}    No such file or directory    msg="Test has no XML defintions"    values=False
+    Should Not Be Empty    ${stdout}
     File Should Exist    ${SALWorkDir}/Test_Commands.xml
     File Should Exist    ${SALWorkDir}/Test_Events.xml
     File Should Exist    ${SALWorkDir}/Test_Telemetry.xml
@@ -39,11 +42,13 @@ Salgen Test Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_arrays.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setScalars.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setArrays.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setLogging.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_fault.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_wait.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_heartbeat.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_scalars.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_arrays.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_logMessage.idl
 
 Salgen Test HTML
     [Documentation]    Create web form interfaces.
@@ -111,6 +116,8 @@ Verify Test C++ Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setScalars_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setArrays_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setArrays_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setLogging_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setLogging_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_fault_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_fault_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_wait_commander
@@ -125,6 +132,8 @@ Verify Test C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_scalars_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_arrays_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_arrays_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_logMessage_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_logMessage_log
 
 Salgen Test Python
     [Documentation]    Generate Python wrapper.
@@ -160,6 +169,8 @@ Verify Test Python Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setScalars.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_setArrays.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setArrays.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_setLogging.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setLogging.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_fault.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_fault.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_wait.py
@@ -176,6 +187,8 @@ Verify Test Python Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_scalars.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_arrays.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_arrays.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_logMessage.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_logMessage.py
 
 Salgen Test LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
