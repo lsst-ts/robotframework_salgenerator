@@ -41,8 +41,7 @@ Verify SAL Version file exists
 
 Verify SAL Version file contents
     [Tags]    smoke    version
-    Write    cat ${SALInstall}/lsstsal/scripts/sal_version.tcl
-    ${output}=    Read Until Prompt
+    ${output}=    Run    cat ${SALInstall}/lsstsal/scripts/sal_version.tcl
     Log    ${output}
     Should Contain    ${output}    set SALVERSION ${SALVersion}
 
