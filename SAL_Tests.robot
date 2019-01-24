@@ -61,5 +61,5 @@ Verify State Enumeration Definition
     Comment    Verify Generic Events file.
     File Should Exist    ${SALInstall}/lsstsal/scripts/generateGenericEvents.tcl 
     Comment    Verify Generic Events file contains the State Enumeration definition.
-    ${content}=    Execute Command    grep -m 1 "<Enumeration>" ${SALInstall}/lsstsal/scripts/generateGenericEvents.tcl
+    ${content}=    Run    grep -m 1 "<Enumeration>" ${SALInstall}/lsstsal/scripts/generateGenericEvents.tcl
     Should Contain    ${content}    <Enumeration>DisabledState,EnabledState,FaultState,OfflineState,StandbyState</Enumeration>
