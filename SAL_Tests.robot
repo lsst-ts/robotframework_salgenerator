@@ -21,7 +21,7 @@ Verify Python Version
     [Documentation]    Verify the system Python version is 3.6.
 	[Tags]    smoke    version
 	Comment    Verify Python version.
-	${stdout}=    Run    python --version 2>&1
+	${stdout}=    Run    python3 --version 2>&1
 	Log    ${stdout}
 	Should Match    ${stdout}    ${PythonVersion}
 
