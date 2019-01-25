@@ -13,6 +13,8 @@ Verify SAL Version
     [Tags]    smoke    version
     ${output}=    Run    source $LSST_SDK_INSTALL/setup.env
 	Set Suite Variable    ${versionData}    ${output}
+	${output}=    Run    printenv
+	Log    ${output}
 	${output}=    Run    echo $SAL_DIR $LSST_DDS_DOMAIN $LSST_SDK_INSTALL
 	Comment    Verify SAL version.
 	Should Contain    ${versionData}    SAL development environment is configured
