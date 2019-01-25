@@ -24,6 +24,7 @@ Salgen ATArchiver Validate
     [Documentation]    Validate the ATArchiver XML definitions.
     [Tags]
     ${output}=    Run    cd ${SALWorkDir}
+    ${output}=    Run    pwd
     ${output}=    Run    ${SALHome}/scripts/salgenerator ${subSystem} validate
     Log    ${output}
     Should Contain    ${output}    SAL generator - ${SALVersion}
