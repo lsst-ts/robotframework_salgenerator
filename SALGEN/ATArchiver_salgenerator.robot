@@ -25,6 +25,7 @@ Salgen ATArchiver Validate
     [Tags]
     ${output}=    Run    cd ${SALWorkDir}
     ${output}=    Run    pwd
+	${output}=    Run    echo $SAL_DIR $LSST_DDS_DOMAIN $LSST_SDK_INSTALL
     ${output}=    Run    ${SALHome}/scripts/salgenerator ${subSystem} validate
     Log    ${output}
     Should Contain    ${output}    SAL generator - ${SALVersion}
