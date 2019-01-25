@@ -4,7 +4,6 @@ Force Tags    salgen
 Suite Setup    Log Many    ${Host}    ${subSystem}    ${timeout}
 Library    OperatingSystem
 Resource    ../Global_Vars.robot
-Resource    ../common.robot
 
 *** Variables ***
 ${subSystem}    ATArchiver
