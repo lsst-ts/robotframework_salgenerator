@@ -13,7 +13,7 @@ ${timeout}    1200s
 Verify ATArchiver XML Defintions exist
     [Tags]
     Comment    Verify the CSC XML definition files exist.
-    ${stdout}    Run    ls ${SALWorkDir}/ATArchiver_*.xml 2>&1
+    ${stdout}    Run    ls -la ${SALWorkDir}/ATArchiver_*.xml 2>&1
     Should Not Contain    ${stdout}    No such file or directory    msg="ATArchiver has no XML defintions"    values=False
     Should Not Be Empty    ${stdout}
     File Should Exist    ${SALWorkDir}/ATArchiver_Commands.xml
@@ -23,9 +23,6 @@ Verify ATArchiver XML Defintions exist
 Salgen ATArchiver Validate
     [Documentation]    Validate the ATArchiver XML definitions.
     [Tags]
-    ${output}=    Run    cd ${SALWorkDir}
-    ${output}=    Run    pwd
-	${output}=    Run    echo $SAL_DIR $LSST_DDS_DOMAIN $LSST_SDK_INSTALL
     ${output}=    Run    ${SALHome}/scripts/salgenerator ${subSystem} validate
     Log    ${output}
     Should Contain    ${output}    SAL generator - ${SALVersion}
