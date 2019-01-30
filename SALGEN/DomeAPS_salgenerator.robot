@@ -1,12 +1,9 @@
 *** Settings ***
 Documentation    This suite builds the various interfaces for the DomeAPS.
 Force Tags    salgen    
-Suite Setup    Run Keywords    Log Many    ${Host}    ${subSystem}    ${timeout}
-...    AND    Create Session    SALGEN
-Suite Teardown    Close All Connections
-Library    SSHLibrary
-Resource    ../Global_Vars.robot
-Resource    ../common.robot
+Suite Setup    Log Many    ${Host}    ${subSystem}    ${timeout}
+Library    OperatingSystem
+Resource    ../Global_Vars.resource
 
 *** Variables ***
 ${subSystem}    DomeAPS
@@ -16,8 +13,8 @@ ${timeout}    1200s
 Verify DomeAPS XML Defintions exist
     [Tags]
     Comment    Verify the CSC XML definition files exist.
-    ${stdout}    ${stderr}=    Execute Command    ls ${SALWorkDir}/DomeAPS_*.xml     return_stderr=True
-    Should Not Contain    ${stderr}    No such file or directory    msg="DomeAPS has no XML defintions"    values=False
+    ${stdout}    Run    ls ${SALWorkDir}/DomeAPS_*.xml 2>&1
+    Should Not Contain    ${stdout}    No such file or directory    msg="DomeAPS has no XML defintions"    values=False
     Should Not Be Empty    ${stdout}
     File Should Exist    ${SALWorkDir}/DomeAPS_Commands.xml
     File Should Exist    ${SALWorkDir}/DomeAPS_Events.xml
@@ -26,10 +23,8 @@ Verify DomeAPS XML Defintions exist
 Salgen DomeAPS Validate
     [Documentation]    Validate the DomeAPS XML definitions.
     [Tags]
-    ${input}=    Write    cd ${SALWorkDir}
-    ${output}=    Read Until Prompt
-    ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} validate
-    ${output}=    Read Until Prompt
+    ${output}=    Run    cd ${SALWorkDir}
+    ${output}=    Run    ${SALHome}/scripts/salgenerator ${subSystem} validate
     Log    ${output}
     Should Contain    ${output}    SAL generator - ${SALVersion}
     Should Contain    ${output}    Processing ${subSystem}
@@ -65,8 +60,7 @@ Salgen DomeAPS Validate
 Salgen DomeAPS HTML
     [Documentation]    Create web form interfaces.
     [Tags]    html    
-    ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} html
-    ${output}=    Read Until Prompt
+    ${output}=    Run    ${SALHome}/scripts/salgenerator ${subSystem} html
     Log    ${output}
     Should Contain    ${output}    SAL generator - ${SALVersion}
     Should Contain    ${output}    Generating telemetry stream definition editor html
@@ -82,8 +76,7 @@ Salgen DomeAPS HTML
 Salgen DomeAPS C++
     [Documentation]    Generate C++ wrapper.
     [Tags]    cpp
-    ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} sal cpp
-    ${output}=    Read Until Prompt
+    ${output}=    Run    ${SALHome}/scripts/salgenerator ${subSystem} sal cpp
     Log    ${output}
     Should Not Contain    ${output}    *** DDS error in file
     Should Not Contain    ${output}    Error 1
@@ -171,8 +164,7 @@ Verify DomeAPS C++ Event Interfaces
 Salgen DomeAPS Python
     [Documentation]    Generate Python wrapper.
     [Tags]    python
-    ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} sal python
-    ${output}=    Read Until Prompt
+    ${output}=    Run    ${SALHome}/scripts/salgenerator ${subSystem} sal python
     Log    ${output}
     Should Contain    ${output}    SAL generator - ${SALVersion}
     Should Contain    ${output}    Generating Python SAL support for ${subSystem}
@@ -250,8 +242,7 @@ Verify DomeAPS Python Event Interfaces
 Salgen DomeAPS LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
     [Tags]    labview
-    ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} labview
-    ${output}=    Read Until Prompt
+    ${output}=    Run    ${SALHome}/scripts/salgenerator ${subSystem} labview
     Log    ${output}
     Should Contain    ${output}    SAL generator - ${SALVersion}
     Directory Should Exist    ${SALWorkDir}/${subSystem}/labview
@@ -265,8 +256,7 @@ Salgen DomeAPS LabVIEW
 Salgen DomeAPS Java
     [Documentation]    Generate Java wrapper.
     [Tags]    java
-    ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} sal java
-    ${output}=    Read Until Prompt
+    ${output}=    Run    ${SALHome}/scripts/salgenerator ${subSystem} sal java
     Log    ${output}
     Should Contain    ${output}    SAL generator - ${SALVersion}
     Should Contain    ${output}    Generating SAL Java code for ${subSystem}_status.idl
@@ -281,8 +271,7 @@ Salgen DomeAPS Java
 Salgen DomeAPS Lib
     [Documentation]    Generate the SAL shared library for ${subSystem}
     [Tags]    
-    ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} lib
-    ${output}=    Read Until Prompt
+    ${output}=    Run    ${SALHome}/scripts/salgenerator ${subSystem} lib
     Log    ${output}
     Should Contain    ${output}    SAL generator - ${SALVersion}
     Should Contain    ${output}    Building shared library for ${subSystem} subsystem
@@ -297,8 +286,7 @@ Salgen DomeAPS Lib
 Salgen DomeAPS Maven
     [Documentation]    Generate the Maven repository.
     [Tags]    java
-    ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} maven
-    ${output}=    Read Until Prompt
+    ${output}=    Run    ${SALHome}/scripts/salgenerator ${subSystem} maven
     Log    ${output}
     Should Contain    ${output}    SAL generator - ${SALVersion}
     Should Contain    ${output}    Running maven install

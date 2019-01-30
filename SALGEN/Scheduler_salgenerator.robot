@@ -1,12 +1,9 @@
 *** Settings ***
 Documentation    This suite builds the various interfaces for the Scheduler.
 Force Tags    salgen    
-Suite Setup    Run Keywords    Log Many    ${Host}    ${subSystem}    ${timeout}
-...    AND    Create Session    SALGEN
-Suite Teardown    Close All Connections
-Library    SSHLibrary
-Resource    ../Global_Vars.robot
-Resource    ../common.robot
+Suite Setup    Log Many    ${Host}    ${subSystem}    ${timeout}
+Library    OperatingSystem
+Resource    ../Global_Vars.resource
 
 *** Variables ***
 ${subSystem}    Scheduler
@@ -16,8 +13,8 @@ ${timeout}    1200s
 Verify Scheduler XML Defintions exist
     [Tags]
     Comment    Verify the CSC XML definition files exist.
-    ${stdout}    ${stderr}=    Execute Command    ls ${SALWorkDir}/Scheduler_*.xml     return_stderr=True
-    Should Not Contain    ${stderr}    No such file or directory    msg="Scheduler has no XML defintions"    values=False
+    ${stdout}    Run    ls ${SALWorkDir}/Scheduler_*.xml 2>&1
+    Should Not Contain    ${stdout}    No such file or directory    msg="Scheduler has no XML defintions"    values=False
     Should Not Be Empty    ${stdout}
     File Should Exist    ${SALWorkDir}/Scheduler_Events.xml
     File Should Exist    ${SALWorkDir}/Scheduler_Telemetry.xml
@@ -25,10 +22,8 @@ Verify Scheduler XML Defintions exist
 Salgen Scheduler Validate
     [Documentation]    Validate the Scheduler XML definitions.
     [Tags]
-    ${input}=    Write    cd ${SALWorkDir}
-    ${output}=    Read Until Prompt
-    ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} validate
-    ${output}=    Read Until Prompt
+    ${output}=    Run    cd ${SALWorkDir}
+    ${output}=    Run    ${SALHome}/scripts/salgenerator ${subSystem} validate
     Log    ${output}
     Should Contain    ${output}    SAL generator - ${SALVersion}
     Should Contain    ${output}    Processing ${subSystem}
@@ -79,8 +74,7 @@ Salgen Scheduler Validate
 Salgen Scheduler HTML
     [Documentation]    Create web form interfaces.
     [Tags]    html    
-    ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} html
-    ${output}=    Read Until Prompt
+    ${output}=    Run    ${SALHome}/scripts/salgenerator ${subSystem} html
     Log    ${output}
     Should Contain    ${output}    SAL generator - ${SALVersion}
     Should Contain    ${output}    Generating telemetry stream definition editor html
@@ -124,8 +118,7 @@ Salgen Scheduler HTML
 Salgen Scheduler C++
     [Documentation]    Generate C++ wrapper.
     [Tags]    cpp
-    ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} sal cpp
-    ${output}=    Read Until Prompt
+    ${output}=    Run    ${SALHome}/scripts/salgenerator ${subSystem} sal cpp
     Log    ${output}
     Should Not Contain    ${output}    *** DDS error in file
     Should Not Contain    ${output}    Error 1
@@ -297,8 +290,7 @@ Verify Scheduler C++ Event Interfaces
 Salgen Scheduler Python
     [Documentation]    Generate Python wrapper.
     [Tags]    python
-    ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} sal python
-    ${output}=    Read Until Prompt
+    ${output}=    Run    ${SALHome}/scripts/salgenerator ${subSystem} sal python
     Log    ${output}
     Should Contain    ${output}    SAL generator - ${SALVersion}
     Should Contain    ${output}    Generating Python SAL support for ${subSystem}
@@ -400,8 +392,7 @@ Verify Scheduler Python Event Interfaces
 Salgen Scheduler LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
     [Tags]    labview
-    ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} labview
-    ${output}=    Read Until Prompt
+    ${output}=    Run    ${SALHome}/scripts/salgenerator ${subSystem} labview
     Log    ${output}
     Should Contain    ${output}    SAL generator - ${SALVersion}
     Directory Should Exist    ${SALWorkDir}/${subSystem}/labview
@@ -415,8 +406,7 @@ Salgen Scheduler LabVIEW
 Salgen Scheduler Java
     [Documentation]    Generate Java wrapper.
     [Tags]    java
-    ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} sal java
-    ${output}=    Read Until Prompt
+    ${output}=    Run    ${SALHome}/scripts/salgenerator ${subSystem} sal java
     Log    ${output}
     Should Contain    ${output}    SAL generator - ${SALVersion}
     Should Contain    ${output}    Generating SAL Java code for ${subSystem}_timestamp.idl
@@ -460,8 +450,7 @@ Salgen Scheduler Java
 Salgen Scheduler Lib
     [Documentation]    Generate the SAL shared library for ${subSystem}
     [Tags]    
-    ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} lib
-    ${output}=    Read Until Prompt
+    ${output}=    Run    ${SALHome}/scripts/salgenerator ${subSystem} lib
     Log    ${output}
     Should Contain    ${output}    SAL generator - ${SALVersion}
     Should Contain    ${output}    Building shared library for ${subSystem} subsystem
@@ -476,8 +465,7 @@ Salgen Scheduler Lib
 Salgen Scheduler Maven
     [Documentation]    Generate the Maven repository.
     [Tags]    java
-    ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} maven
-    ${output}=    Read Until Prompt
+    ${output}=    Run    ${SALHome}/scripts/salgenerator ${subSystem} maven
     Log    ${output}
     Should Contain    ${output}    SAL generator - ${SALVersion}
     Should Contain    ${output}    Running maven install

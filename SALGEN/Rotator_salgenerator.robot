@@ -1,12 +1,9 @@
 *** Settings ***
 Documentation    This suite builds the various interfaces for the Rotator.
 Force Tags    salgen    
-Suite Setup    Run Keywords    Log Many    ${Host}    ${subSystem}    ${timeout}
-...    AND    Create Session    SALGEN
-Suite Teardown    Close All Connections
-Library    SSHLibrary
-Resource    ../Global_Vars.robot
-Resource    ../common.robot
+Suite Setup    Log Many    ${Host}    ${subSystem}    ${timeout}
+Library    OperatingSystem
+Resource    ../Global_Vars.resource
 
 *** Variables ***
 ${subSystem}    Rotator
@@ -16,8 +13,8 @@ ${timeout}    1200s
 Verify Rotator XML Defintions exist
     [Tags]
     Comment    Verify the CSC XML definition files exist.
-    ${stdout}    ${stderr}=    Execute Command    ls ${SALWorkDir}/Rotator_*.xml     return_stderr=True
-    Should Not Contain    ${stderr}    No such file or directory    msg="Rotator has no XML defintions"    values=False
+    ${stdout}    Run    ls ${SALWorkDir}/Rotator_*.xml 2>&1
+    Should Not Contain    ${stdout}    No such file or directory    msg="Rotator has no XML defintions"    values=False
     Should Not Be Empty    ${stdout}
     File Should Exist    ${SALWorkDir}/Rotator_Commands.xml
     File Should Exist    ${SALWorkDir}/Rotator_Events.xml
@@ -26,10 +23,8 @@ Verify Rotator XML Defintions exist
 Salgen Rotator Validate
     [Documentation]    Validate the Rotator XML definitions.
     [Tags]
-    ${input}=    Write    cd ${SALWorkDir}
-    ${output}=    Read Until Prompt
-    ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} validate
-    ${output}=    Read Until Prompt
+    ${output}=    Run    cd ${SALWorkDir}
+    ${output}=    Run    ${SALHome}/scripts/salgenerator ${subSystem} validate
     Log    ${output}
     Should Contain    ${output}    SAL generator - ${SALVersion}
     Should Contain    ${output}    Processing ${subSystem}
@@ -63,8 +58,7 @@ Salgen Rotator Validate
 Salgen Rotator HTML
     [Documentation]    Create web form interfaces.
     [Tags]    html    
-    ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} html
-    ${output}=    Read Until Prompt
+    ${output}=    Run    ${SALHome}/scripts/salgenerator ${subSystem} html
     Log    ${output}
     Should Contain    ${output}    SAL generator - ${SALVersion}
     Should Contain    ${output}    Generating telemetry stream definition editor html
@@ -82,8 +76,7 @@ Salgen Rotator HTML
 Salgen Rotator C++
     [Documentation]    Generate C++ wrapper.
     [Tags]    cpp
-    ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} sal cpp
-    ${output}=    Read Until Prompt
+    ${output}=    Run    ${SALHome}/scripts/salgenerator ${subSystem} sal cpp
     Log    ${output}
     Should Not Contain    ${output}    *** DDS error in file
     Should Not Contain    ${output}    Error 1
@@ -171,8 +164,7 @@ Verify Rotator C++ Event Interfaces
 Salgen Rotator Python
     [Documentation]    Generate Python wrapper.
     [Tags]    python
-    ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} sal python
-    ${output}=    Read Until Prompt
+    ${output}=    Run    ${SALHome}/scripts/salgenerator ${subSystem} sal python
     Log    ${output}
     Should Contain    ${output}    SAL generator - ${SALVersion}
     Should Contain    ${output}    Generating Python SAL support for ${subSystem}
@@ -246,8 +238,7 @@ Verify Rotator Python Event Interfaces
 Salgen Rotator LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
     [Tags]    labview
-    ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} labview
-    ${output}=    Read Until Prompt
+    ${output}=    Run    ${SALHome}/scripts/salgenerator ${subSystem} labview
     Log    ${output}
     Should Contain    ${output}    SAL generator - ${SALVersion}
     Directory Should Exist    ${SALWorkDir}/${subSystem}/labview
@@ -261,8 +252,7 @@ Salgen Rotator LabVIEW
 Salgen Rotator Java
     [Documentation]    Generate Java wrapper.
     [Tags]    java
-    ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} sal java
-    ${output}=    Read Until Prompt
+    ${output}=    Run    ${SALHome}/scripts/salgenerator ${subSystem} sal java
     Log    ${output}
     Should Contain    ${output}    SAL generator - ${SALVersion}
     Should Contain    ${output}    Generating SAL Java code for ${subSystem}_Electrical.idl
@@ -279,8 +269,7 @@ Salgen Rotator Java
 Salgen Rotator Lib
     [Documentation]    Generate the SAL shared library for ${subSystem}
     [Tags]    
-    ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} lib
-    ${output}=    Read Until Prompt
+    ${output}=    Run    ${SALHome}/scripts/salgenerator ${subSystem} lib
     Log    ${output}
     Should Contain    ${output}    SAL generator - ${SALVersion}
     Should Contain    ${output}    Building shared library for ${subSystem} subsystem
@@ -295,8 +284,7 @@ Salgen Rotator Lib
 Salgen Rotator Maven
     [Documentation]    Generate the Maven repository.
     [Tags]    java
-    ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} maven
-    ${output}=    Read Until Prompt
+    ${output}=    Run    ${SALHome}/scripts/salgenerator ${subSystem} maven
     Log    ${output}
     Should Contain    ${output}    SAL generator - ${SALVersion}
     Should Contain    ${output}    Running maven install

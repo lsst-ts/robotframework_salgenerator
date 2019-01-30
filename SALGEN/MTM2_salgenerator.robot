@@ -1,12 +1,9 @@
 *** Settings ***
 Documentation    This suite builds the various interfaces for the MTM2.
 Force Tags    salgen    
-Suite Setup    Run Keywords    Log Many    ${Host}    ${subSystem}    ${timeout}
-...    AND    Create Session    SALGEN
-Suite Teardown    Close All Connections
-Library    SSHLibrary
-Resource    ../Global_Vars.robot
-Resource    ../common.robot
+Suite Setup    Log Many    ${Host}    ${subSystem}    ${timeout}
+Library    OperatingSystem
+Resource    ../Global_Vars.resource
 
 *** Variables ***
 ${subSystem}    MTM2
@@ -16,8 +13,8 @@ ${timeout}    1200s
 Verify MTM2 XML Defintions exist
     [Tags]
     Comment    Verify the CSC XML definition files exist.
-    ${stdout}    ${stderr}=    Execute Command    ls ${SALWorkDir}/MTM2_*.xml     return_stderr=True
-    Should Not Contain    ${stderr}    No such file or directory    msg="MTM2 has no XML defintions"    values=False
+    ${stdout}    Run    ls ${SALWorkDir}/MTM2_*.xml 2>&1
+    Should Not Contain    ${stdout}    No such file or directory    msg="MTM2 has no XML defintions"    values=False
     Should Not Be Empty    ${stdout}
     File Should Exist    ${SALWorkDir}/MTM2_Commands.xml
     File Should Exist    ${SALWorkDir}/MTM2_Events.xml
@@ -26,10 +23,8 @@ Verify MTM2 XML Defintions exist
 Salgen MTM2 Validate
     [Documentation]    Validate the MTM2 XML definitions.
     [Tags]
-    ${input}=    Write    cd ${SALWorkDir}
-    ${output}=    Read Until Prompt
-    ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} validate
-    ${output}=    Read Until Prompt
+    ${output}=    Run    cd ${SALWorkDir}
+    ${output}=    Run    ${SALHome}/scripts/salgenerator ${subSystem} validate
     Log    ${output}
     Should Contain    ${output}    SAL generator - ${SALVersion}
     Should Contain    ${output}    Processing ${subSystem}
@@ -65,8 +60,7 @@ Salgen MTM2 Validate
 Salgen MTM2 HTML
     [Documentation]    Create web form interfaces.
     [Tags]    html    
-    ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} html
-    ${output}=    Read Until Prompt
+    ${output}=    Run    ${SALHome}/scripts/salgenerator ${subSystem} html
     Log    ${output}
     Should Contain    ${output}    SAL generator - ${SALVersion}
     Should Contain    ${output}    Generating telemetry stream definition editor html
@@ -97,8 +91,7 @@ Salgen MTM2 HTML
 Salgen MTM2 C++
     [Documentation]    Generate C++ wrapper.
     [Tags]    cpp
-    ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} sal cpp
-    ${output}=    Read Until Prompt
+    ${output}=    Run    ${SALHome}/scripts/salgenerator ${subSystem} sal cpp
     Log    ${output}
     Should Not Contain    ${output}    *** DDS error in file
     Should Not Contain    ${output}    Error 1
@@ -216,8 +209,7 @@ Verify MTM2 C++ Event Interfaces
 Salgen MTM2 Python
     [Documentation]    Generate Python wrapper.
     [Tags]    python
-    ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} sal python
-    ${output}=    Read Until Prompt
+    ${output}=    Run    ${SALHome}/scripts/salgenerator ${subSystem} sal python
     Log    ${output}
     Should Contain    ${output}    SAL generator - ${SALVersion}
     Should Contain    ${output}    Generating Python SAL support for ${subSystem}
@@ -295,8 +287,7 @@ Verify MTM2 Python Event Interfaces
 Salgen MTM2 LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
     [Tags]    labview
-    ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} labview
-    ${output}=    Read Until Prompt
+    ${output}=    Run    ${SALHome}/scripts/salgenerator ${subSystem} labview
     Log    ${output}
     Should Contain    ${output}    SAL generator - ${SALVersion}
     Directory Should Exist    ${SALWorkDir}/${subSystem}/labview
@@ -310,8 +301,7 @@ Salgen MTM2 LabVIEW
 Salgen MTM2 Java
     [Documentation]    Generate Java wrapper.
     [Tags]    java
-    ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} sal java
-    ${output}=    Read Until Prompt
+    ${output}=    Run    ${SALHome}/scripts/salgenerator ${subSystem} sal java
     Log    ${output}
     Should Contain    ${output}    SAL generator - ${SALVersion}
     Should Contain    ${output}    Generating SAL Java code for ${subSystem}_mirrorPositionMeasured.idl
@@ -341,8 +331,7 @@ Salgen MTM2 Java
 Salgen MTM2 Lib
     [Documentation]    Generate the SAL shared library for ${subSystem}
     [Tags]    
-    ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} lib
-    ${output}=    Read Until Prompt
+    ${output}=    Run    ${SALHome}/scripts/salgenerator ${subSystem} lib
     Log    ${output}
     Should Contain    ${output}    SAL generator - ${SALVersion}
     Should Contain    ${output}    Building shared library for ${subSystem} subsystem
@@ -357,8 +346,7 @@ Salgen MTM2 Lib
 Salgen MTM2 Maven
     [Documentation]    Generate the Maven repository.
     [Tags]    java
-    ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} maven
-    ${output}=    Read Until Prompt
+    ${output}=    Run    ${SALHome}/scripts/salgenerator ${subSystem} maven
     Log    ${output}
     Should Contain    ${output}    SAL generator - ${SALVersion}
     Should Contain    ${output}    Running maven install

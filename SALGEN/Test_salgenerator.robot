@@ -1,12 +1,9 @@
 *** Settings ***
 Documentation    This suite builds the various interfaces for the Test.
 Force Tags    salgen    
-Suite Setup    Run Keywords    Log Many    ${Host}    ${subSystem}    ${timeout}
-...    AND    Create Session    SALGEN
-Suite Teardown    Close All Connections
-Library    SSHLibrary
-Resource    ../Global_Vars.robot
-Resource    ../common.robot
+Suite Setup    Log Many    ${Host}    ${subSystem}    ${timeout}
+Library    OperatingSystem
+Resource    ../Global_Vars.resource
 
 *** Variables ***
 ${subSystem}    Test
@@ -16,8 +13,8 @@ ${timeout}    1200s
 Verify Test XML Defintions exist
     [Tags]
     Comment    Verify the CSC XML definition files exist.
-    ${stdout}    ${stderr}=    Execute Command    ls ${SALWorkDir}/Test_*.xml     return_stderr=True
-    Should Not Contain    ${stderr}    No such file or directory    msg="Test has no XML defintions"    values=False
+    ${stdout}    Run    ls ${SALWorkDir}/Test_*.xml 2>&1
+    Should Not Contain    ${stdout}    No such file or directory    msg="Test has no XML defintions"    values=False
     Should Not Be Empty    ${stdout}
     File Should Exist    ${SALWorkDir}/Test_Commands.xml
     File Should Exist    ${SALWorkDir}/Test_Events.xml
@@ -26,10 +23,8 @@ Verify Test XML Defintions exist
 Salgen Test Validate
     [Documentation]    Validate the Test XML definitions.
     [Tags]
-    ${input}=    Write    cd ${SALWorkDir}
-    ${output}=    Read Until Prompt
-    ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} validate
-    ${output}=    Read Until Prompt
+    ${output}=    Run    cd ${SALWorkDir}
+    ${output}=    Run    ${SALHome}/scripts/salgenerator ${subSystem} validate
     Log    ${output}
     Should Contain    ${output}    SAL generator - ${SALVersion}
     Should Contain    ${output}    Processing ${subSystem}
@@ -42,19 +37,16 @@ Salgen Test Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_arrays.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setScalars.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setArrays.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setLogging.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_fault.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_wait.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_heartbeat.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_scalars.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_arrays.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_logMessage.idl
 
 Salgen Test HTML
     [Documentation]    Create web form interfaces.
     [Tags]    html    
-    ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} html
-    ${output}=    Read Until Prompt
+    ${output}=    Run    ${SALHome}/scripts/salgenerator ${subSystem} html
     Log    ${output}
     Should Contain    ${output}    SAL generator - ${SALVersion}
     Should Contain    ${output}    Generating telemetry stream definition editor html
@@ -71,8 +63,7 @@ Salgen Test HTML
 Salgen Test C++
     [Documentation]    Generate C++ wrapper.
     [Tags]    cpp
-    ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} sal cpp
-    ${output}=    Read Until Prompt
+    ${output}=    Run    ${SALHome}/scripts/salgenerator ${subSystem} sal cpp
     Log    ${output}
     Should Not Contain    ${output}    *** DDS error in file
     Should Not Contain    ${output}    Error 1
@@ -116,8 +107,6 @@ Verify Test C++ Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setScalars_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setArrays_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setArrays_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setLogging_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setLogging_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_fault_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_fault_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_wait_commander
@@ -132,14 +121,11 @@ Verify Test C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_scalars_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_arrays_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_arrays_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_logMessage_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_logMessage_log
 
 Salgen Test Python
     [Documentation]    Generate Python wrapper.
     [Tags]    python
-    ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} sal python
-    ${output}=    Read Until Prompt
+    ${output}=    Run    ${SALHome}/scripts/salgenerator ${subSystem} sal python
     Log    ${output}
     Should Contain    ${output}    SAL generator - ${SALVersion}
     Should Contain    ${output}    Generating Python SAL support for ${subSystem}
@@ -169,8 +155,6 @@ Verify Test Python Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setScalars.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_setArrays.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setArrays.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_setLogging.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setLogging.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_fault.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_fault.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_wait.py
@@ -187,14 +171,11 @@ Verify Test Python Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_scalars.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_arrays.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_arrays.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_logMessage.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_logMessage.py
 
 Salgen Test LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
     [Tags]    labview
-    ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} labview
-    ${output}=    Read Until Prompt
+    ${output}=    Run    ${SALHome}/scripts/salgenerator ${subSystem} labview
     Log    ${output}
     Should Contain    ${output}    SAL generator - ${SALVersion}
     Directory Should Exist    ${SALWorkDir}/${subSystem}/labview
@@ -208,8 +189,7 @@ Salgen Test LabVIEW
 Salgen Test Java
     [Documentation]    Generate Java wrapper.
     [Tags]    java
-    ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} sal java
-    ${output}=    Read Until Prompt
+    ${output}=    Run    ${SALHome}/scripts/salgenerator ${subSystem} sal java
     Log    ${output}
     Should Contain    ${output}    SAL generator - ${SALVersion}
     Should Contain    ${output}    Generating SAL Java code for ${subSystem}_scalars.idl
@@ -225,8 +205,7 @@ Salgen Test Java
 Salgen Test Lib
     [Documentation]    Generate the SAL shared library for ${subSystem}
     [Tags]    
-    ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} lib
-    ${output}=    Read Until Prompt
+    ${output}=    Run    ${SALHome}/scripts/salgenerator ${subSystem} lib
     Log    ${output}
     Should Contain    ${output}    SAL generator - ${SALVersion}
     Should Contain    ${output}    Building shared library for ${subSystem} subsystem
@@ -241,8 +220,7 @@ Salgen Test Lib
 Salgen Test Maven
     [Documentation]    Generate the Maven repository.
     [Tags]    java
-    ${input}=    Write    ${SALHome}/scripts/salgenerator ${subSystem} maven
-    ${output}=    Read Until Prompt
+    ${output}=    Run    ${SALHome}/scripts/salgenerator ${subSystem} maven
     Log    ${output}
     Should Contain    ${output}    SAL generator - ${SALVersion}
     Should Contain    ${output}    Running maven install

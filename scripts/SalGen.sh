@@ -18,12 +18,9 @@ function createSettings() {
     echo "*** Settings ***" >> $testSuite
     echo "Documentation    This suite builds the various interfaces for the $subSystemUp." >> $testSuite
 	echo "Force Tags    salgen    $skipped" >> $testSuite
-	echo "Suite Setup    Run Keywords    Log Many    \${Host}    \${subSystem}    \${timeout}" >> $testSuite
-	echo "...    AND    Create Session    SALGEN" >> $testSuite
-    echo "Suite Teardown    Close All Connections" >> $testSuite
-    echo "Library    SSHLibrary" >> $testSuite
-    echo "Resource    ../Global_Vars.robot" >> $testSuite
-    echo "Resource    ../common.robot" >> $testSuite
+	echo "Suite Setup    Log Many    \${Host}    \${subSystem}    \${timeout}" >> $testSuite
+    echo "Library    OperatingSystem" >> $testSuite
+    echo "Resource    ../Global_Vars.resource" >> $testSuite
 	echo "" >> $testSuite
 }
 
@@ -39,8 +36,8 @@ function verifyXMLDefinitions() {
     echo "Verify $subSystemUp XML Defintions exist" >> $testSuite
     echo "    [Tags]" >> $testSuite
 	echo "    Comment    Verify the CSC XML definition files exist." >> $testSuite
-	echo "    \${stdout}    \${stderr}=    Execute Command    ls \${SALWorkDir}/${subSystemUp}_*.xml     return_stderr=True" >> $testSuite
-	echo "    Should Not Contain    \${stderr}    No such file or directory    msg=\"${subSystemUp} has no XML defintions\"    values=False" >> $testSuite
+	echo "    \${stdout}    Run    ls \${SALWorkDir}/${subSystemUp}_*.xml 2>&1" >> $testSuite
+	echo "    Should Not Contain    \${stdout}    No such file or directory    msg=\"${subSystemUp} has no XML defintions\"    values=False" >> $testSuite
 	echo "    Should Not Be Empty    \${stdout}" >> $testSuite
 	for file in "${xmls[@]}"; do
 		echo "    File Should Exist    \${SALWorkDir}/$file" >> $testSuite
@@ -52,10 +49,8 @@ function salgenValidate() {
     echo "Salgen $subSystemUp Validate" >> $testSuite
     echo "    [Documentation]    Validate the $subSystemUp XML definitions." >> $testSuite
     echo "    [Tags]" >> $testSuite
-    echo "    \${input}=    Write    cd \${SALWorkDir}" >> $testSuite
-    echo "    \${output}=    Read Until Prompt" >> $testSuite
-    echo "    \${input}=    Write    \${SALHome}/scripts/salgenerator \${subSystem} validate" >> $testSuite
-    echo "    \${output}=    Read Until Prompt" >> $testSuite
+    echo "    \${output}=    Run    cd \${SALWorkDir}" >> $testSuite
+    echo "    \${output}=    Run    \${SALHome}/scripts/salgenerator \${subSystem} validate" >> $testSuite
     echo "    Log    \${output}" >> $testSuite
     echo "    Should Contain    \${output}    SAL generator - \${SALVersion}" >> $testSuite
     echo "    Should Contain    \${output}    Processing \${subSystem}" >> $testSuite
@@ -81,8 +76,7 @@ function salgenHTML() {
     echo "Salgen $subSystemUp HTML" >> $testSuite
     echo "    [Documentation]    Create web form interfaces." >> $testSuite
     echo "    [Tags]    html    $skipped" >> $testSuite
-    echo "    \${input}=    Write    \${SALHome}/scripts/salgenerator \${subSystem} html" >> $testSuite
-    echo "    \${output}=    Read Until Prompt" >> $testSuite
+    echo "    \${output}=    Run    \${SALHome}/scripts/salgenerator \${subSystem} html" >> $testSuite
     echo "    Log    \${output}" >> $testSuite
     echo "    Should Contain    \${output}    SAL generator - \${SALVersion}" >> $testSuite
     echo "    Should Contain    \${output}    Generating telemetry stream definition editor html" >> $testSuite
@@ -106,8 +100,7 @@ function salgenCPP {
     echo "Salgen $subSystemUp C++" >> $testSuite
     echo "    [Documentation]    Generate C++ wrapper." >> $testSuite
     echo "    [Tags]    cpp" >> $testSuite
-    echo "    \${input}=    Write    \${SALHome}/scripts/salgenerator \${subSystem} sal cpp" >> $testSuite
-    echo "    \${output}=    Read Until Prompt" >> $testSuite
+    echo "    \${output}=    Run    \${SALHome}/scripts/salgenerator \${subSystem} sal cpp" >> $testSuite
     echo "    Log    \${output}" >> $testSuite
     echo "    Should Not Contain    \${output}    *** DDS error in file" >> $testSuite
     echo "    Should Not Contain    \${output}    Error 1" >> $testSuite
@@ -189,8 +182,7 @@ function salgenJava() {
     echo "Salgen $subSystemUp Java" >> $testSuite
     echo "    [Documentation]    Generate Java wrapper." >> $testSuite
     echo "    [Tags]    java$skipped" >> $testSuite
-    echo "    \${input}=    Write    \${SALHome}/scripts/salgenerator \${subSystem} sal java" >> $testSuite
-    echo "    \${output}=    Read Until Prompt" >> $testSuite
+    echo "    \${output}=    Run    \${SALHome}/scripts/salgenerator \${subSystem} sal java" >> $testSuite
     echo "    Log    \${output}" >> $testSuite
     echo "    Should Contain    \${output}    SAL generator - \${SALVersion}" >> $testSuite
 	for topic in "${telemetryArray[@]}"; do
@@ -218,8 +210,7 @@ function salgenMaven() {
     echo "Salgen $subSystemUp Maven" >> $testSuite
     echo "    [Documentation]    Generate the Maven repository." >> $testSuite
     echo "    [Tags]    java$skipped" >> $testSuite
-    echo "    \${input}=    Write    \${SALHome}/scripts/salgenerator \${subSystem} maven" >> $testSuite
-    echo "    \${output}=    Read Until Prompt" >> $testSuite
+    echo "    \${output}=    Run    \${SALHome}/scripts/salgenerator \${subSystem} maven" >> $testSuite
     echo "    Log    \${output}" >> $testSuite
     echo "    Should Contain    \${output}    SAL generator - \${SALVersion}" >> $testSuite
     echo "    Should Contain    \${output}    Running maven install" >> $testSuite
@@ -235,8 +226,7 @@ function salgenPython() {
     echo "Salgen $subSystemUp Python" >> $testSuite
     echo "    [Documentation]    Generate Python wrapper." >> $testSuite
     echo "    [Tags]    python" >> $testSuite
-    echo "    \${input}=    Write    \${SALHome}/scripts/salgenerator \${subSystem} sal python" >> $testSuite
-    echo "    \${output}=    Read Until Prompt" >> $testSuite
+    echo "    \${output}=    Run    \${SALHome}/scripts/salgenerator \${subSystem} sal python" >> $testSuite
     echo "    Log    \${output}" >> $testSuite
     echo "    Should Contain    \${output}    SAL generator - \${SALVersion}" >> $testSuite
     echo "    Should Contain    \${output}    Generating Python SAL support for \${subSystem}" >> $testSuite
@@ -292,8 +282,7 @@ function salgenLabview() {
     echo "Salgen $subSystemUp LabVIEW" >> $testSuite
     echo "    [Documentation]    Generate \${subSystem} low-level LabView interfaces." >> $testSuite
     echo "    [Tags]    labview" >> $testSuite
-    echo "    \${input}=    Write    \${SALHome}/scripts/salgenerator \${subSystem} labview" >> $testSuite
-    echo "    \${output}=    Read Until Prompt" >> $testSuite
+    echo "    \${output}=    Run    \${SALHome}/scripts/salgenerator \${subSystem} labview" >> $testSuite
     echo "    Log    \${output}" >> $testSuite
     echo "    Should Contain    \${output}    SAL generator - \${SALVersion}" >> $testSuite
     echo "    Directory Should Exist    \${SALWorkDir}/\${subSystem}/labview" >> $testSuite
@@ -310,8 +299,7 @@ function salgenLib() {
 	echo "Salgen $subSystemUp Lib" >> $testSuite
     echo "    [Documentation]    Generate the SAL shared library for \${subSystem}" >> $testSuite
 	echo "    [Tags]    " >> $testSuite
-    echo "    \${input}=    Write    \${SALHome}/scripts/salgenerator \${subSystem} lib" >> $testSuite
-    echo "    \${output}=    Read Until Prompt" >> $testSuite
+    echo "    \${output}=    Run    \${SALHome}/scripts/salgenerator \${subSystem} lib" >> $testSuite
     echo "    Log    \${output}" >> $testSuite
     echo "    Should Contain    \${output}    SAL generator - \${SALVersion}" >> $testSuite
     echo "    Should Contain    \${output}    Building shared library for \${subSystem} subsystem" >> $testSuite
