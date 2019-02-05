@@ -20,6 +20,7 @@ function createSettings() {
 	echo "Force Tags    salgen    $skipped" >> $testSuite
 	echo "Suite Setup    Log Many    \${Host}    \${subSystem}    \${timeout}" >> $testSuite
     echo "Library    OperatingSystem" >> $testSuite
+    echo "Library    Process" >> $testSuite
     echo "Resource    ../Global_Vars.resource" >> $testSuite
 	echo "" >> $testSuite
 }
@@ -36,9 +37,10 @@ function verifyXMLDefinitions() {
     echo "Verify $subSystemUp XML Defintions exist" >> $testSuite
     echo "    [Tags]" >> $testSuite
 	echo "    Comment    Verify the CSC XML definition files exist." >> $testSuite
-	echo "    \${stdout}    Run    ls \${SALWorkDir}/${subSystemUp}_*.xml 2>&1" >> $testSuite
-	echo "    Should Not Contain    \${stdout}    No such file or directory    msg=\"${subSystemUp} has no XML defintions\"    values=False" >> $testSuite
-	echo "    Should Not Be Empty    \${stdout}" >> $testSuite
+	echo "    \${output}    Run Process    ls     \${SALWorkDir}/${subSystemUp}_*.xml    shell=True" >> $testSuite
+	echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
+	echo "    Should Not Contain    \${output.stderr}    No such file or directory    msg=\"${subSystemUp} has no XML defintions\"    values=False" >> $testSuite
+	echo "    Should Not Be Empty    \${output.stdout}" >> $testSuite
 	for file in "${xmls[@]}"; do
 		echo "    File Should Exist    \${SALWorkDir}/$file" >> $testSuite
 	done
@@ -49,12 +51,12 @@ function salgenValidate() {
     echo "Salgen $subSystemUp Validate" >> $testSuite
     echo "    [Documentation]    Validate the $subSystemUp XML definitions." >> $testSuite
     echo "    [Tags]" >> $testSuite
-    echo "    \${output}=    Run    cd \${SALWorkDir}" >> $testSuite
-    echo "    \${output}=    Run    \${SALHome}/scripts/salgenerator \${subSystem} validate" >> $testSuite
-    echo "    Log    \${output}" >> $testSuite
-    echo "    Should Contain    \${output}    SAL generator - \${SALVersion}" >> $testSuite
-    echo "    Should Contain    \${output}    Processing \${subSystem}" >> $testSuite
-    echo "    Should Contain    \${output}    Completed \${subSystem} validation" >> $testSuite
+    echo "    \${output}=    Run Process    \${SALHome}/scripts/salgenerator    \${subSystem}    validate    \
+shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}stdout.txt    stderr=\${EXECDIR}\${/}stderr.txt" >> $testSuite
+    echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
+    echo "    Should Contain    \${output.stdout}    SAL generator - \${SALVersion}" >> $testSuite
+    echo "    Should Contain    \${output.stdout}    Processing \${subSystem}" >> $testSuite
+    echo "    Should Contain    \${output.stdout}    Completed \${subSystem} validation" >> $testSuite
     echo "    Directory Should Exist    \${SALWorkDir}/idl-templates" >> $testSuite
     echo "    Directory Should Exist    \${SALWorkDir}/idl-templates/validated" >> $testSuite
     echo "    @{files}=    List Directory    \${SALWorkDir}/idl-templates    pattern=*\${subSystem}*" >> $testSuite
@@ -76,14 +78,15 @@ function salgenHTML() {
     echo "Salgen $subSystemUp HTML" >> $testSuite
     echo "    [Documentation]    Create web form interfaces." >> $testSuite
     echo "    [Tags]    html    $skipped" >> $testSuite
-    echo "    \${output}=    Run    \${SALHome}/scripts/salgenerator \${subSystem} html" >> $testSuite
-    echo "    Log    \${output}" >> $testSuite
-    echo "    Should Contain    \${output}    SAL generator - \${SALVersion}" >> $testSuite
-    echo "    Should Contain    \${output}    Generating telemetry stream definition editor html" >> $testSuite
-    echo "    Should Contain    \${output}    Creating sal-generator-\${subSystem} form" >> $testSuite
+    echo "    \${output}=    Run Process    \${SALHome}/scripts/salgenerator    \${subSystem}    html    \
+shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}stdout.txt    stderr=\${EXECDIR}\${/}stderr.txt" >> $testSuite
+    echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
+    echo "    Should Contain    \${output.stdout}    SAL generator - \${SALVersion}" >> $testSuite
+    echo "    Should Contain    \${output.stdout}    Generating telemetry stream definition editor html" >> $testSuite
+    echo "    Should Contain    \${output.stdout}    Creating sal-generator-\${subSystem} form" >> $testSuite
 	if ! [ "$subSystemUp" == "EFD" ]; then
     	for topic in "${telemetryArray[@]}"; do
-			echo "    Should Contain    \${output}    Added sal-generator-\${subSystem}.$topic to form" >> $testSuite
+			echo "    Should Contain    \${output.stdout}    Added sal-generator-\${subSystem}.$topic to form" >> $testSuite
 		done
     fi
     echo "    Directory Should Exist    \${SALWorkDir}/html/salgenerator/\${subSystem}" >> $testSuite
@@ -100,23 +103,24 @@ function salgenCPP {
     echo "Salgen $subSystemUp C++" >> $testSuite
     echo "    [Documentation]    Generate C++ wrapper." >> $testSuite
     echo "    [Tags]    cpp" >> $testSuite
-    echo "    \${output}=    Run    \${SALHome}/scripts/salgenerator \${subSystem} sal cpp" >> $testSuite
-    echo "    Log    \${output}" >> $testSuite
-    echo "    Should Not Contain    \${output}    *** DDS error in file" >> $testSuite
-    echo "    Should Not Contain    \${output}    Error 1" >> $testSuite
-    echo "    Should Contain    \${output}    SAL generator - \${SALVersion}" >> $testSuite
+    echo "    \${output}=    Run Process    \${SALHome}/scripts/salgenerator    \${subSystem}    sal    cpp   \
+shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}stdout.txt    stderr=\${EXECDIR}\${/}stderr.txt" >> $testSuite
+    echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
+    echo "    Should Not Contain    \${output.stdout}    *** DDS error in file" >> $testSuite
+    echo "    Should Not Contain    \${output.stdout}    Error 1" >> $testSuite
+    echo "    Should Contain    \${output.stdout}    SAL generator - \${SALVersion}" >> $testSuite
 	for topic in "${telemetryArray[@]}"; do
-		echo "    Should Contain    \${output}    Generating SAL CPP code for \${subSystem}_${topic}.idl" >> $testSuite
+		echo "    Should Contain    \${output.stdout}    Generating SAL CPP code for \${subSystem}_${topic}.idl" >> $testSuite
 	done
     if [ ${#telemetryArray[@]} -eq 0 ]; then
-		echo "    Should Contain X Times    \${output}    cpp : Done Publisher    1" >> $testSuite
-    	echo "    Should Contain X Times    \${output}    cpp : Done Subscriber    1" >> $testSuite
+		echo "    Should Contain X Times    \${output.stdout}    cpp : Done Publisher    1" >> $testSuite
+    	echo "    Should Contain X Times    \${output.stdout}    cpp : Done Subscriber    1" >> $testSuite
 	else
-		echo "    Should Contain X Times    \${output}    cpp : Done Publisher    ${#telemetryArray[@]}" >> $testSuite
-    	echo "    Should Contain X Times    \${output}    cpp : Done Subscriber    ${#telemetryArray[@]}" >> $testSuite
+		echo "    Should Contain X Times    \${output.stdout}    cpp : Done Publisher    ${#telemetryArray[@]}" >> $testSuite
+    	echo "    Should Contain X Times    \${output.stdout}    cpp : Done Subscriber    ${#telemetryArray[@]}" >> $testSuite
 	fi
-    echo "    Should Contain X Times    \${output}    cpp : Done Commander    1" >> $testSuite
-    echo "    Should Contain X Times    \${output}    cpp : Done Event/Logger    1" >> $testSuite
+    echo "    Should Contain X Times    \${output.stdout}    cpp : Done Commander    1" >> $testSuite
+    echo "    Should Contain X Times    \${output.stdout}    cpp : Done Event/Logger    1" >> $testSuite
     echo "" >> $testSuite
 }
 
@@ -182,22 +186,23 @@ function salgenJava() {
     echo "Salgen $subSystemUp Java" >> $testSuite
     echo "    [Documentation]    Generate Java wrapper." >> $testSuite
     echo "    [Tags]    java$skipped" >> $testSuite
-    echo "    \${output}=    Run    \${SALHome}/scripts/salgenerator \${subSystem} sal java" >> $testSuite
-    echo "    Log    \${output}" >> $testSuite
-    echo "    Should Contain    \${output}    SAL generator - \${SALVersion}" >> $testSuite
+    echo "    \${output}=    Run Process    \${SALHome}/scripts/salgenerator    \${subSystem}    sal    java    \
+shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}stdout.txt    stderr=\${EXECDIR}\${/}stderr.txt" >> $testSuite
+    echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
+    echo "    Should Contain    \${output.stdout}    SAL generator - \${SALVersion}" >> $testSuite
 	for topic in "${telemetryArray[@]}"; do
-        echo "    Should Contain    \${output}    Generating SAL Java code for \${subSystem}_${topic}.idl" >> $testSuite
+        echo "    Should Contain    \${output.stdout}    Generating SAL Java code for \${subSystem}_${topic}.idl" >> $testSuite
     done
 	if [ ${#telemetryArray[@]} -eq 0 ]; then
-        echo "    Should Contain X Times    \${output}    javac : Done Publisher    1" >> $testSuite
-        echo "    Should Contain X Times    \${output}    javac : Done Subscriber    1" >> $testSuite
-    	echo "    Should Contain X Times    \${output}    javac : Done Commander/Controller    1" >> $testSuite
-    	echo "    Should Contain X Times    \${output}    javac : Done Event/Logger    1" >> $testSuite
+        echo "    Should Contain X Times    \${output.stdout}    javac : Done Publisher    1" >> $testSuite
+        echo "    Should Contain X Times    \${output.stdout}    javac : Done Subscriber    1" >> $testSuite
+    	echo "    Should Contain X Times    \${output.stdout}    javac : Done Commander/Controller    1" >> $testSuite
+    	echo "    Should Contain X Times    \${output.stdout}    javac : Done Event/Logger    1" >> $testSuite
     else
-        echo "    Should Contain X Times    \${output}    javac : Done Publisher    ${#telemetryArray[@]}" >> $testSuite
-        echo "    Should Contain X Times    \${output}    javac : Done Subscriber    ${#telemetryArray[@]}" >> $testSuite
-    	echo "    Should Contain X Times    \${output}    javac : Done Commander/Controller    ${#telemetryArray[@]}" >> $testSuite
-    	echo "    Should Contain X Times    \${output}    javac : Done Event/Logger    ${#telemetryArray[@]}" >> $testSuite
+        echo "    Should Contain X Times    \${output.stdout}    javac : Done Publisher    ${#telemetryArray[@]}" >> $testSuite
+        echo "    Should Contain X Times    \${output.stdout}    javac : Done Subscriber    ${#telemetryArray[@]}" >> $testSuite
+    	echo "    Should Contain X Times    \${output.stdout}    javac : Done Commander/Controller    ${#telemetryArray[@]}" >> $testSuite
+    	echo "    Should Contain X Times    \${output.stdout}    javac : Done Event/Logger    ${#telemetryArray[@]}" >> $testSuite
     fi
     echo "    Directory Should Exist    \${SALWorkDir}/\${subSystem}/java" >> $testSuite
     echo "    @{files}=    List Directory    \${SALWorkDir}/\${subSystem}/java    pattern=*\${subSystem}*" >> $testSuite
@@ -210,13 +215,14 @@ function salgenMaven() {
     echo "Salgen $subSystemUp Maven" >> $testSuite
     echo "    [Documentation]    Generate the Maven repository." >> $testSuite
     echo "    [Tags]    java$skipped" >> $testSuite
-    echo "    \${output}=    Run    \${SALHome}/scripts/salgenerator \${subSystem} maven" >> $testSuite
-    echo "    Log    \${output}" >> $testSuite
-    echo "    Should Contain    \${output}    SAL generator - \${SALVersion}" >> $testSuite
-    echo "    Should Contain    \${output}    Running maven install" >> $testSuite
-    echo "    Should Contain    \${output}    [INFO] Building sal_\${subSystem} \${SALVersion}" >> $testSuite
-    echo "    Should Contain X Times    \${output}    [INFO] BUILD SUCCESS    1" >> $testSuite
-    echo "    Should Contain X Times    \${output}    [INFO] Finished at:    1" >> $testSuite
+    echo "    \${output}=    Run Process    \${SALHome}/scripts/salgenerator    \${subSystem}    maven    \
+shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}stdout.txt    stderr=\${EXECDIR}\${/}stderr.txt" >> $testSuite
+    echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
+    echo "    Should Contain    \${output.stdout}    SAL generator - \${SALVersion}" >> $testSuite
+    echo "    Should Contain    \${output.stdout}    Running maven install" >> $testSuite
+    echo "    Should Contain    \${output.stdout}    [INFO] Building sal_\${subSystem} \${SALVersion}" >> $testSuite
+    echo "    Should Contain X Times    \${output.stdout}    [INFO] BUILD SUCCESS    1" >> $testSuite
+    echo "    Should Contain X Times    \${output.stdout}    [INFO] Finished at:    1" >> $testSuite
     echo "    @{files}=    List Directory    \${SALWorkDir}/maven" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/maven/\${subSystem}_\${SALVersion}/pom.xml" >> $testSuite
     echo "" >> $testSuite
@@ -226,12 +232,13 @@ function salgenPython() {
     echo "Salgen $subSystemUp Python" >> $testSuite
     echo "    [Documentation]    Generate Python wrapper." >> $testSuite
     echo "    [Tags]    python" >> $testSuite
-    echo "    \${output}=    Run    \${SALHome}/scripts/salgenerator \${subSystem} sal python" >> $testSuite
-    echo "    Log    \${output}" >> $testSuite
-    echo "    Should Contain    \${output}    SAL generator - \${SALVersion}" >> $testSuite
-    echo "    Should Contain    \${output}    Generating Python SAL support for \${subSystem}" >> $testSuite
-    echo "    Should Contain    \${output}    Generating Python bindings" >> $testSuite
-    echo "    Should Contain    \${output}    python : Done SALPY_\${subSystem}.so" >> $testSuite
+    echo "    \${output}=    Run Process    \${SALHome}/scripts/salgenerator    \${subSystem}    sal    python    \
+shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}stdout.txt    stderr=\${EXECDIR}\${/}stderr.txt" >> $testSuite
+    echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
+    echo "    Should Contain    \${output.stdout}    SAL generator - \${SALVersion}" >> $testSuite
+    echo "    Should Contain    \${output.stdout}    Generating Python SAL support for \${subSystem}" >> $testSuite
+    echo "    Should Contain    \${output.stdout}    Generating Python bindings" >> $testSuite
+    echo "    Should Contain    \${output.stdout}    python : Done SALPY_\${subSystem}.so" >> $testSuite
     echo "    Directory Should Exist    \${SALWorkDir}/\${subSystem}/python" >> $testSuite
     echo "    @{files}=    List Directory    \${SALWorkDir}/\${subSystem}/python    pattern=*\${subSystem}*" >> $testSuite
     echo "    Log Many    @{files}" >> $testSuite
@@ -282,9 +289,10 @@ function salgenLabview() {
     echo "Salgen $subSystemUp LabVIEW" >> $testSuite
     echo "    [Documentation]    Generate \${subSystem} low-level LabView interfaces." >> $testSuite
     echo "    [Tags]    labview" >> $testSuite
-    echo "    \${output}=    Run    \${SALHome}/scripts/salgenerator \${subSystem} labview" >> $testSuite
-    echo "    Log    \${output}" >> $testSuite
-    echo "    Should Contain    \${output}    SAL generator - \${SALVersion}" >> $testSuite
+    echo "    \${output}=    Run Process    \${SALHome}/scripts/salgenerator    \${subSystem}    labview    \
+shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}stdout.txt    stderr=\${EXECDIR}\${/}stderr.txt" >> $testSuite
+    echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
+    echo "    Should Contain    \${output.stdout}    SAL generator - \${SALVersion}" >> $testSuite
     echo "    Directory Should Exist    \${SALWorkDir}/\${subSystem}/labview" >> $testSuite
     echo "    @{files}=    List Directory    \${SALWorkDir}/\${subSystem}/labview" >> $testSuite
     echo "    Log Many    @{files}" >> $testSuite
@@ -299,10 +307,11 @@ function salgenLib() {
 	echo "Salgen $subSystemUp Lib" >> $testSuite
     echo "    [Documentation]    Generate the SAL shared library for \${subSystem}" >> $testSuite
 	echo "    [Tags]    " >> $testSuite
-    echo "    \${output}=    Run    \${SALHome}/scripts/salgenerator \${subSystem} lib" >> $testSuite
-    echo "    Log    \${output}" >> $testSuite
-    echo "    Should Contain    \${output}    SAL generator - \${SALVersion}" >> $testSuite
-    echo "    Should Contain    \${output}    Building shared library for \${subSystem} subsystem" >> $testSuite
+    echo "    \${output}=    Run Process    \${SALHome}/scripts/salgenerator    \${subSystem}    lib    \
+shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}stdout.txt    stderr=\${EXECDIR}\${/}stderr.txt" >> $testSuite
+    echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
+    echo "    Should Contain    \${output.stdout}    SAL generator - \${SALVersion}" >> $testSuite
+    echo "    Should Contain    \${output.stdout}    Building shared library for \${subSystem} subsystem" >> $testSuite
 	echo "    Directory Should Exist    \${SALWorkDir}/lib" >> $testSuite
     echo "    @{files}=    List Directory    \${SALWorkDir}/lib" >> $testSuite
     echo "    Log Many    @{files}" >> $testSuite

@@ -3,6 +3,7 @@ Documentation    This suite builds the various interfaces for the ATHexapod.
 Force Tags    salgen    
 Suite Setup    Log Many    ${Host}    ${subSystem}    ${timeout}
 Library    OperatingSystem
+Library    Process
 Resource    ../Global_Vars.resource
 
 *** Variables ***
@@ -13,9 +14,10 @@ ${timeout}    1200s
 Verify ATHexapod XML Defintions exist
     [Tags]
     Comment    Verify the CSC XML definition files exist.
-    ${stdout}    Run    ls ${SALWorkDir}/ATHexapod_*.xml 2>&1
-    Should Not Contain    ${stdout}    No such file or directory    msg="ATHexapod has no XML defintions"    values=False
-    Should Not Be Empty    ${stdout}
+    ${output}    Run Process    ls     ${SALWorkDir}/ATHexapod_*.xml    shell=True
+    Log Many    ${output.stdout}    ${output.stderr}
+    Should Not Contain    ${output.stderr}    No such file or directory    msg="ATHexapod has no XML defintions"    values=False
+    Should Not Be Empty    ${output.stdout}
     File Should Exist    ${SALWorkDir}/ATHexapod_Commands.xml
     File Should Exist    ${SALWorkDir}/ATHexapod_Events.xml
     File Should Exist    ${SALWorkDir}/ATHexapod_Telemetry.xml
@@ -23,51 +25,41 @@ Verify ATHexapod XML Defintions exist
 Salgen ATHexapod Validate
     [Documentation]    Validate the ATHexapod XML definitions.
     [Tags]
-    ${output}=    Run    cd ${SALWorkDir}
-    ${output}=    Run    ${SALHome}/scripts/salgenerator ${subSystem} validate
-    Log    ${output}
-    Should Contain    ${output}    SAL generator - ${SALVersion}
-    Should Contain    ${output}    Processing ${subSystem}
-    Should Contain    ${output}    Completed ${subSystem} validation
+    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    validate    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
+    Log Many    ${output.stdout}    ${output.stderr}
+    Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
+    Should Contain    ${output.stdout}    Processing ${subSystem}
+    Should Contain    ${output.stdout}    Completed ${subSystem} validation
     Directory Should Exist    ${SALWorkDir}/idl-templates
     Directory Should Exist    ${SALWorkDir}/idl-templates/validated
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_actuatorPositions.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_positionStatus.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_timestamp.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_loopTime.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_applyPositionLimits.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_moveToPosition.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setMaxSpeeds.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setMaxSystemSpeeds.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_applyPositionOffset.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_stopAllAxes.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_pivot.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_inPosition.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_heartbeat.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_loopTimeOutOfRange.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_internalCommand.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_detailedState.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rejectedCommand.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingsAppliedPositions.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_deviceError.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingsAppliedPositionLimits.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingsAppliedVelocities.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingsAppliedPivot.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_positionUpdate.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingsAppliedTcp.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingsAppliedLoop.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingsAppliedHexapodHeartbeat.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_readyForCommand.idl
 
 Salgen ATHexapod HTML
     [Documentation]    Create web form interfaces.
     [Tags]    html    
-    ${output}=    Run    ${SALHome}/scripts/salgenerator ${subSystem} html
-    Log    ${output}
-    Should Contain    ${output}    SAL generator - ${SALVersion}
-    Should Contain    ${output}    Generating telemetry stream definition editor html
-    Should Contain    ${output}    Creating sal-generator-${subSystem} form
-    Should Contain    ${output}    Added sal-generator-${subSystem}.actuatorPositions to form
-    Should Contain    ${output}    Added sal-generator-${subSystem}.positionStatus to form
-    Should Contain    ${output}    Added sal-generator-${subSystem}.timestamp to form
-    Should Contain    ${output}    Added sal-generator-${subSystem}.loopTime to form
+    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    html    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
+    Log Many    ${output.stdout}    ${output.stderr}
+    Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
+    Should Contain    ${output.stdout}    Generating telemetry stream definition editor html
+    Should Contain    ${output.stdout}    Creating sal-generator-${subSystem} form
+    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.positionStatus to form
     Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
     @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}
@@ -78,19 +70,16 @@ Salgen ATHexapod HTML
 Salgen ATHexapod C++
     [Documentation]    Generate C++ wrapper.
     [Tags]    cpp
-    ${output}=    Run    ${SALHome}/scripts/salgenerator ${subSystem} sal cpp
-    Log    ${output}
-    Should Not Contain    ${output}    *** DDS error in file
-    Should Not Contain    ${output}    Error 1
-    Should Contain    ${output}    SAL generator - ${SALVersion}
-    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_actuatorPositions.idl
-    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_positionStatus.idl
-    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_timestamp.idl
-    Should Contain    ${output}    Generating SAL CPP code for ${subSystem}_loopTime.idl
-    Should Contain X Times    ${output}    cpp : Done Publisher    4
-    Should Contain X Times    ${output}    cpp : Done Subscriber    4
-    Should Contain X Times    ${output}    cpp : Done Commander    1
-    Should Contain X Times    ${output}    cpp : Done Event/Logger    1
+    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    sal    cpp   shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
+    Log Many    ${output.stdout}    ${output.stderr}
+    Should Not Contain    ${output.stdout}    *** DDS error in file
+    Should Not Contain    ${output.stdout}    Error 1
+    Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_positionStatus.idl
+    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    1
+    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    1
+    Should Contain X Times    ${output.stdout}    cpp : Done Commander    1
+    Should Contain X Times    ${output.stdout}    cpp : Done Event/Logger    1
 
 Verify C++ Directories
     [Documentation]    Ensure expected C++ directories and files.
@@ -106,22 +95,13 @@ Verify ATHexapod Telemetry directories
     [Tags]    cpp
     @{files}=    List Directory    ${SALWorkDir}    pattern=*${subSystem}*
     Log Many    @{files}
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_actuatorPositions
     Directory Should Exist    ${SALWorkDir}/${subSystem}_positionStatus
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_timestamp
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_loopTime
 
 Verify ATHexapod C++ Telemetry Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}_actuatorPositions/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_actuatorPositions/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_positionStatus/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_positionStatus/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_timestamp/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_timestamp/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_loopTime/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_loopTime/cpp/standalone/sacpp_${subSystem}_sub
 
 Verify ATHexapod C++ Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -130,8 +110,8 @@ Verify ATHexapod C++ Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_applyPositionLimits_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_moveToPosition_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_moveToPosition_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setMaxSpeeds_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setMaxSpeeds_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setMaxSystemSpeeds_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setMaxSystemSpeeds_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_applyPositionOffset_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_applyPositionOffset_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_stopAllAxes_commander
@@ -146,36 +126,30 @@ Verify ATHexapod C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_inPosition_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_heartbeat_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_heartbeat_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_loopTimeOutOfRange_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_loopTimeOutOfRange_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_internalCommand_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_internalCommand_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_detailedState_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_detailedState_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_rejectedCommand_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_rejectedCommand_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsAppliedPositions_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsAppliedPositions_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_deviceError_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_deviceError_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsAppliedPositionLimits_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsAppliedPositionLimits_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsAppliedVelocities_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsAppliedVelocities_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsAppliedPivot_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsAppliedPivot_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_positionUpdate_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_positionUpdate_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsAppliedTcp_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsAppliedTcp_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsAppliedLoop_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsAppliedLoop_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsAppliedHexapodHeartbeat_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsAppliedHexapodHeartbeat_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_readyForCommand_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_readyForCommand_log
 
 Salgen ATHexapod Python
     [Documentation]    Generate Python wrapper.
     [Tags]    python
-    ${output}=    Run    ${SALHome}/scripts/salgenerator ${subSystem} sal python
-    Log    ${output}
-    Should Contain    ${output}    SAL generator - ${SALVersion}
-    Should Contain    ${output}    Generating Python SAL support for ${subSystem}
-    Should Contain    ${output}    Generating Python bindings
-    Should Contain    ${output}    python : Done SALPY_${subSystem}.so
+    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    sal    python    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
+    Log Many    ${output.stdout}    ${output.stderr}
+    Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
+    Should Contain    ${output.stdout}    Generating Python SAL support for ${subSystem}
+    Should Contain    ${output.stdout}    Generating Python bindings
+    Should Contain    ${output.stdout}    python : Done SALPY_${subSystem}.so
     Directory Should Exist    ${SALWorkDir}/${subSystem}/python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
@@ -186,14 +160,8 @@ Verify ATHexapod Python Telemetry Interfaces
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_actuatorPositions_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_actuatorPositions_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_positionStatus_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_positionStatus_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_timestamp_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_timestamp_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_loopTime_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_loopTime_Subscriber.py
 
 Verify ATHexapod Python Command Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
@@ -204,8 +172,8 @@ Verify ATHexapod Python Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_applyPositionLimits.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_moveToPosition.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_moveToPosition.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_setMaxSpeeds.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setMaxSpeeds.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_setMaxSystemSpeeds.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setMaxSystemSpeeds.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_applyPositionOffset.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_applyPositionOffset.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_stopAllAxes.py
@@ -222,33 +190,27 @@ Verify ATHexapod Python Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_inPosition.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_heartbeat.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_heartbeat.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_loopTimeOutOfRange.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_loopTimeOutOfRange.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_internalCommand.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_internalCommand.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_detailedState.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_detailedState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_rejectedCommand.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_rejectedCommand.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_settingsAppliedPositions.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_settingsAppliedPositions.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_deviceError.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_deviceError.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_settingsAppliedPositionLimits.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_settingsAppliedPositionLimits.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_settingsAppliedVelocities.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_settingsAppliedVelocities.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_settingsAppliedPivot.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_settingsAppliedPivot.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_positionUpdate.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_positionUpdate.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_settingsAppliedTcp.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_settingsAppliedTcp.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_settingsAppliedLoop.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_settingsAppliedLoop.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_settingsAppliedHexapodHeartbeat.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_settingsAppliedHexapodHeartbeat.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_readyForCommand.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_readyForCommand.py
 
 Salgen ATHexapod LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
     [Tags]    labview
-    ${output}=    Run    ${SALHome}/scripts/salgenerator ${subSystem} labview
-    Log    ${output}
-    Should Contain    ${output}    SAL generator - ${SALVersion}
+    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    labview    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
+    Log Many    ${output.stdout}    ${output.stderr}
+    Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Directory Should Exist    ${SALWorkDir}/${subSystem}/labview
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/labview
     Log Many    @{files}
@@ -260,17 +222,14 @@ Salgen ATHexapod LabVIEW
 Salgen ATHexapod Java
     [Documentation]    Generate Java wrapper.
     [Tags]    java
-    ${output}=    Run    ${SALHome}/scripts/salgenerator ${subSystem} sal java
-    Log    ${output}
-    Should Contain    ${output}    SAL generator - ${SALVersion}
-    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_actuatorPositions.idl
-    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_positionStatus.idl
-    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_timestamp.idl
-    Should Contain    ${output}    Generating SAL Java code for ${subSystem}_loopTime.idl
-    Should Contain X Times    ${output}    javac : Done Publisher    4
-    Should Contain X Times    ${output}    javac : Done Subscriber    4
-    Should Contain X Times    ${output}    javac : Done Commander/Controller    4
-    Should Contain X Times    ${output}    javac : Done Event/Logger    4
+    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    sal    java    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
+    Log Many    ${output.stdout}    ${output.stderr}
+    Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_positionStatus.idl
+    Should Contain X Times    ${output.stdout}    javac : Done Publisher    1
+    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    1
+    Should Contain X Times    ${output.stdout}    javac : Done Commander/Controller    1
+    Should Contain X Times    ${output.stdout}    javac : Done Event/Logger    1
     Directory Should Exist    ${SALWorkDir}/${subSystem}/java
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
@@ -278,10 +237,10 @@ Salgen ATHexapod Java
 Salgen ATHexapod Lib
     [Documentation]    Generate the SAL shared library for ${subSystem}
     [Tags]    
-    ${output}=    Run    ${SALHome}/scripts/salgenerator ${subSystem} lib
-    Log    ${output}
-    Should Contain    ${output}    SAL generator - ${SALVersion}
-    Should Contain    ${output}    Building shared library for ${subSystem} subsystem
+    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    lib    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
+    Log Many    ${output.stdout}    ${output.stderr}
+    Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
+    Should Contain    ${output.stdout}    Building shared library for ${subSystem} subsystem
     Directory Should Exist    ${SALWorkDir}/lib
     @{files}=    List Directory    ${SALWorkDir}/lib
     Log Many    @{files}
@@ -293,13 +252,13 @@ Salgen ATHexapod Lib
 Salgen ATHexapod Maven
     [Documentation]    Generate the Maven repository.
     [Tags]    java
-    ${output}=    Run    ${SALHome}/scripts/salgenerator ${subSystem} maven
-    Log    ${output}
-    Should Contain    ${output}    SAL generator - ${SALVersion}
-    Should Contain    ${output}    Running maven install
-    Should Contain    ${output}    [INFO] Building sal_${subSystem} ${SALVersion}
-    Should Contain X Times    ${output}    [INFO] BUILD SUCCESS    1
-    Should Contain X Times    ${output}    [INFO] Finished at:    1
+    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    maven    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
+    Log Many    ${output.stdout}    ${output.stderr}
+    Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
+    Should Contain    ${output.stdout}    Running maven install
+    Should Contain    ${output.stdout}    [INFO] Building sal_${subSystem} ${SALVersion}
+    Should Contain X Times    ${output.stdout}    [INFO] BUILD SUCCESS    1
+    Should Contain X Times    ${output.stdout}    [INFO] Finished at:    1
     @{files}=    List Directory    ${SALWorkDir}/maven
     File Should Exist    ${SALWorkDir}/maven/${subSystem}_${SALVersion}/pom.xml
 

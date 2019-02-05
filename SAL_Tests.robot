@@ -2,7 +2,8 @@
 Documentation    This verifies the version of SAL installed on the remote host.
 Suite Setup    Log Many    ${SALVersion}    ${OpenspliceVersion}    ${OpenspliceDate}
 Library		OperatingSystem
-Resource    Global_Vars.robot
+Library		Process
+Resource    Global_Vars.resource
 
 *** Variables ***
 ${timeout}    10s
@@ -11,28 +12,29 @@ ${timeout}    10s
 Verify SAL Version
     [Documentation]    Verify the SAL version is correct.
     [Tags]    smoke    version
-    ${output}=    Run    source $LSST_SDK_INSTALL/setup.env
+    ${output}=    Run Process    source    ${SALInstall}${/}setup.env    shell=True
 	Set Suite Variable    ${versionData}    ${output}
 	Comment    Verify SAL version.
-	Should Contain    ${versionData}    SAL development environment is configured
-	Should Contain    ${versionData}    LSST middleware toolset environment v${SALVersion} is configured
+	Log Many    ${versionData.stdout}    ${versionData.stderr}    ${versionData.rc}
+	Should Contain    ${versionData.stdout}    SAL development environment is configured
+	Should Contain    ${versionData.stdout}    LSST middleware toolset environment v${SALVersion} is configured
 
 Verify Python Version
     [Documentation]    Verify the system Python version is 3.6.
 	[Tags]    smoke    version
 	Comment    Verify Python version.
-	${stdout}=    Run    python3.6 --version
-	Log    ${stdout}
-	Should Match    ${stdout}    ${PythonVersion}
+	${stdout}=    Run Process    python3.6     --version
+	Log    ${stdout.stdout}
+	Should Match    ${stdout.stdout}    ${PythonVersion}
 
 Verify OpenSplice Version
 	[Documentation]    Verify the OpenSplice version and date.
 	[Tags]    smoke    version
-	Log    ${versionData}
+	Log    ${versionData.stdout}
 	Log Many    ${OpenspliceRelease}    ${OpenspliceVersion}    ${OpenspliceDate}
-	Should Contain    ${versionData}    ${OpenspliceRelease}
-	Should Contain    ${versionData}    ${OpenspliceVersion} For x86_64.linux
-	Should Contain    ${versionData}    Date ${OpenspliceDate}
+	Should Contain    ${versionData.stdout}    ${OpenspliceRelease}
+	Should Contain    ${versionData.stdout}    ${OpenspliceVersion} For x86_64.linux
+	Should Contain    ${versionData.stdout}    Date ${OpenspliceDate}
 
 Verify SAL Version file exists
     [Tags]    smoke    version
