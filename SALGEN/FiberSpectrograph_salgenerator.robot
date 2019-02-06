@@ -24,7 +24,7 @@ Verify FiberSpectrograph XML Defintions exist
 
 Salgen FiberSpectrograph Validate
     [Documentation]    Validate the FiberSpectrograph XML definitions.
-    [Tags]
+    [Tags]    validate
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    validate    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
@@ -137,7 +137,7 @@ Verify FiberSpectrograph C++ Event Interfaces
 
 Salgen FiberSpectrograph Python
     [Documentation]    Generate Python wrapper.
-    [Tags]    python
+    [Tags]    python    DM-17459
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    sal    python    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
@@ -193,7 +193,7 @@ Verify FiberSpectrograph Python Event Interfaces
 
 Salgen FiberSpectrograph LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
-    [Tags]    labview
+    [Tags]    labview    DM-17459
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    labview    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
@@ -224,7 +224,7 @@ Salgen FiberSpectrograph Java
 
 Salgen FiberSpectrograph Lib
     [Documentation]    Generate the SAL shared library for ${subSystem}
-    [Tags]    
+    [Tags]    lib    DM-17459
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    lib    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}

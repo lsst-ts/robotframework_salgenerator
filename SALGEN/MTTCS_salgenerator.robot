@@ -24,7 +24,7 @@ Verify MTTCS XML Defintions exist
 
 Salgen MTTCS Validate
     [Documentation]    Validate the MTTCS XML definitions.
-    [Tags]
+    [Tags]    validate
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    validate    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
@@ -236,7 +236,7 @@ Verify MTTCS C++ Event Interfaces
 
 Salgen MTTCS Python
     [Documentation]    Generate Python wrapper.
-    [Tags]    python
+    [Tags]    python    DM-17459
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    sal    python    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
@@ -332,7 +332,7 @@ Verify MTTCS Python Event Interfaces
 
 Salgen MTTCS LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
-    [Tags]    labview
+    [Tags]    labview    DM-17459
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    labview    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
@@ -376,7 +376,7 @@ Salgen MTTCS Java
 
 Salgen MTTCS Lib
     [Documentation]    Generate the SAL shared library for ${subSystem}
-    [Tags]    
+    [Tags]    lib    DM-17459
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    lib    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}

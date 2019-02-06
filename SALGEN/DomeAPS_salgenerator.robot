@@ -24,7 +24,7 @@ Verify DomeAPS XML Defintions exist
 
 Salgen DomeAPS Validate
     [Documentation]    Validate the DomeAPS XML definitions.
-    [Tags]
+    [Tags]    validate
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    validate    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
@@ -164,7 +164,7 @@ Verify DomeAPS C++ Event Interfaces
 
 Salgen DomeAPS Python
     [Documentation]    Generate Python wrapper.
-    [Tags]    python
+    [Tags]    python    DM-17459
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    sal    python    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
@@ -242,7 +242,7 @@ Verify DomeAPS Python Event Interfaces
 
 Salgen DomeAPS LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
-    [Tags]    labview
+    [Tags]    labview    DM-17459
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    labview    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
@@ -271,7 +271,7 @@ Salgen DomeAPS Java
 
 Salgen DomeAPS Lib
     [Documentation]    Generate the SAL shared library for ${subSystem}
-    [Tags]    
+    [Tags]    lib    DM-17459
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    lib    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}

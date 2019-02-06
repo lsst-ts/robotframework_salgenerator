@@ -48,9 +48,10 @@ function verifyXMLDefinitions() {
 }
 
 function salgenValidate() {
+	skipped=$(checkIfSkipped "validate")
     echo "Salgen $subSystemUp Validate" >> $testSuite
     echo "    [Documentation]    Validate the $subSystemUp XML definitions." >> $testSuite
-    echo "    [Tags]" >> $testSuite
+    echo "    [Tags]    validate$skipped" >> $testSuite
     echo "    \${output}=    Run Process    \${SALHome}/scripts/salgenerator    \${subSystem}    validate    \
 shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}stdout.txt    stderr=\${EXECDIR}\${/}stderr.txt" >> $testSuite
     echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
@@ -229,9 +230,10 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}stdout.txt    stderr=
 }
 
 function salgenPython() {
+	skipped=$(checkIfSkipped $subSystem "python")
     echo "Salgen $subSystemUp Python" >> $testSuite
     echo "    [Documentation]    Generate Python wrapper." >> $testSuite
-    echo "    [Tags]    python" >> $testSuite
+    echo "    [Tags]    python$skipped" >> $testSuite
     echo "    \${output}=    Run Process    \${SALHome}/scripts/salgenerator    \${subSystem}    sal    python    \
 shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}stdout.txt    stderr=\${EXECDIR}\${/}stderr.txt" >> $testSuite
     echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
@@ -286,9 +288,10 @@ function verifyPythonEventInterfaces() {
 }
 
 function salgenLabview() {
+	skipped=$(checkIfSkipped $subSystem "labview")
     echo "Salgen $subSystemUp LabVIEW" >> $testSuite
     echo "    [Documentation]    Generate \${subSystem} low-level LabView interfaces." >> $testSuite
-    echo "    [Tags]    labview" >> $testSuite
+    echo "    [Tags]    labview$skipped" >> $testSuite
     echo "    \${output}=    Run Process    \${SALHome}/scripts/salgenerator    \${subSystem}    labview    \
 shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}stdout.txt    stderr=\${EXECDIR}\${/}stderr.txt" >> $testSuite
     echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
@@ -304,9 +307,10 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}stdout.txt    stderr=
 }
 
 function salgenLib() {
+	skipped=$(checkIfSkipped $subSystem "lib")
 	echo "Salgen $subSystemUp Lib" >> $testSuite
     echo "    [Documentation]    Generate the SAL shared library for \${subSystem}" >> $testSuite
-	echo "    [Tags]    " >> $testSuite
+	echo "    [Tags]    lib$skipped" >> $testSuite
     echo "    \${output}=    Run Process    \${SALHome}/scripts/salgenerator    \${subSystem}    lib    \
 shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}stdout.txt    stderr=\${EXECDIR}\${/}stderr.txt" >> $testSuite
     echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
