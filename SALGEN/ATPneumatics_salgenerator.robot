@@ -52,7 +52,6 @@ Salgen ATPneumatics Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_m1CloseAirValve.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_m1OpenAirValve.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_closeM1CellVents.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_heartbeat.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_m1CoverLimitSwitches.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_m1VentsLimitSwitches.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_powerStatus.idl
@@ -170,8 +169,6 @@ Verify ATPneumatics C++ Command Interfaces
 Verify ATPneumatics C++ Event Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_heartbeat_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_heartbeat_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_m1CoverLimitSwitches_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_m1CoverLimitSwitches_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_m1VentsLimitSwitches_send
@@ -268,8 +265,6 @@ Verify ATPneumatics Python Event Interfaces
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_heartbeat.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_heartbeat.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_m1CoverLimitSwitches.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_m1CoverLimitSwitches.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_m1VentsLimitSwitches.py
