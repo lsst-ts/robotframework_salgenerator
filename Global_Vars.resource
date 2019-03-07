@@ -1,4 +1,5 @@
 *** Settings ***
+Variables				variables.py
 
 *** Variables ***
 ${ContInt}       		false
