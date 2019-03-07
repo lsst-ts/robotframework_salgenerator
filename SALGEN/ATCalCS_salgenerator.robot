@@ -207,6 +207,7 @@ Salgen ATCalCS Lib
 Salgen ATCalCS RPM
     [Documentation]    Generate the SAL library RPM for ${subSystem}
     [Tags]    rpm
+	Log    ${DIST}
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    rpm    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Not Contain    ${output.stdout}    ERROR : Asset required for rpm
