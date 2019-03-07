@@ -19,6 +19,7 @@ Verify LinearStage XML Defintions exist
     Should Not Contain    ${output.stderr}    No such file or directory    msg="LinearStage has no XML defintions"    values=False
     Should Not Be Empty    ${output.stdout}
     File Should Exist    ${SALWorkDir}/LinearStage_Commands.xml
+    File Should Exist    ${SALWorkDir}/LinearStage_Events.xml
     File Should Exist    ${SALWorkDir}/LinearStage_Telemetry.xml
 
 Salgen LinearStage Validate
@@ -38,6 +39,8 @@ Salgen LinearStage Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_moveAbsolute.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_getHome.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_stop.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_detailedState.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_heartbeat.idl
 
 Salgen LinearStage HTML
     [Documentation]    Create web form interfaces.
@@ -52,7 +55,9 @@ Salgen LinearStage HTML
     @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/html/${subSystem}/LinearStage_Commands.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/LinearStage_Events.html
     File Should Exist    ${SALWorkDir}/html/${subSystem}/LinearStage_Telemetry.html
+    File Should Exist    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
 
 Salgen LinearStage C++
     [Documentation]    Generate C++ wrapper.
@@ -102,9 +107,17 @@ Verify LinearStage C++ Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_stop_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_stop_controller
 
+Verify LinearStage C++ Event Interfaces
+    [Documentation]    Verify the C++ interfaces were properly created.
+    [Tags]    cpp
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_detailedState_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_detailedState_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_heartbeat_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_heartbeat_log
+
 Salgen LinearStage Python
     [Documentation]    Generate Python wrapper.
-    [Tags]    python    DM-17459
+    [Tags]    python
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    sal    python    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
@@ -138,9 +151,19 @@ Verify LinearStage Python Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_stop.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_stop.py
 
+Verify LinearStage Python Event Interfaces
+    [Documentation]    Verify the Python interfaces were properly created.
+    [Tags]    python
+    @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
+    Log Many    @{files}
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_detailedState.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_detailedState.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_heartbeat.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_heartbeat.py
+
 Salgen LinearStage LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
-    [Tags]    labview    DM-17459
+    [Tags]    labview
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    labview    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
@@ -166,10 +189,13 @@ Salgen LinearStage Java
     Directory Should Exist    ${SALWorkDir}/${subSystem}/java
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
+    File Should Exist    ${SALWorkDir}/${subSystem}/java/saj_${subSystem}_types.jar
+    File Should Exist    ${SALWorkDir}/${subSystem}/java/src/saj_${subSystem}_cmdctl.jar
+    File Should Exist    ${SALWorkDir}/${subSystem}/java/src/saj_${subSystem}_event.jar
 
 Salgen LinearStage Lib
     [Documentation]    Generate the SAL shared library for ${subSystem}
-    [Tags]    lib    DM-17459
+    [Tags]    lib
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    lib    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
@@ -181,6 +207,33 @@ Salgen LinearStage Lib
     File Should Exist    ${SALWorkDir}/lib/libSAL_${subSystem}.so
     File Should Exist    ${SALWorkDir}/lib/SALLV_${subSystem}.so
     File Should Exist    ${SALWorkDir}/lib/SALPY_${subSystem}.so
+    File Should Exist    ${SALWorkDir}/lib/libsacpp_${subSystem}_types.so
+    File Should Exist    ${SALWorkDir}/lib/libSAL_${subSystem}.so
+    File Should Exist    ${SALWorkDir}/lib/saj_${subSystem}_types.jar
+    File Should Exist    ${SALWorkDir}/lib/SALLV_${subSystem}.so
+
+Salgen LinearStage RPM
+    [Documentation]    Generate the SAL library RPM for ${subSystem}
+    [Tags]    rpm
+    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    rpm    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
+    Log Many    ${output.stdout}    ${output.stderr}
+    Should Not Contain    ${output.stdout}    ERROR : Asset required for rpm
+    Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
+    Should Contain    ${output.stdout}    Building runtime RPM for ${subSystem} subsystem
+    Directory Should Exist    ${SALWorkDir}/rpmbuild
+    Directory Should Exist    ${SALWorkDir}/rpmbuild/BUILD
+    Directory Should Exist    ${SALWorkDir}/rpmbuild/BUILDROOT
+    Directory Should Exist    ${SALWorkDir}/rpmbuild/RPMS
+    Directory Should Exist    ${SALWorkDir}/rpmbuild/SOURCES
+    Directory Should Exist    ${SALWorkDir}/rpmbuild/SPECS
+    Directory Should Exist    ${SALWorkDir}/rpmbuild/SRPMS
+    Directory Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/
+    @{files}=    List Directory    ${SALWorkDir}/rpmbuild/RPMS/x86_64/
+    Log Many    @{files}
+    File Should Exist    ${SALWorkDir}/rpmbuild/SPECS/ts_sal_${subSystem}.spec
+    File Should Exist    ${SALWorkDir}/rpmbuild/SOURCES/${subSystem}-${SALVersion}.tgz
+    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}-${SALVersion}-1.el7.centos.x86_64.rpm
+    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}-debuginfo-${SALVersion}-1.el7.centos.x86_64.rpm
 
 Salgen LinearStage Maven
     [Documentation]    Generate the Maven repository.

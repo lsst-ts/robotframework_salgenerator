@@ -53,6 +53,7 @@ Salgen CatchupArchiver HTML
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/html/${subSystem}/CatchupArchiver_Events.html
     File Should Exist    ${SALWorkDir}/html/${subSystem}/CatchupArchiver_Telemetry.html
+    File Should Exist    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
 
 Salgen CatchupArchiver C++
     [Documentation]    Generate C++ wrapper.
@@ -104,7 +105,7 @@ Verify CatchupArchiver C++ Event Interfaces
 
 Salgen CatchupArchiver Python
     [Documentation]    Generate Python wrapper.
-    [Tags]    python    DM-17459
+    [Tags]    python
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    sal    python    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
@@ -140,7 +141,7 @@ Verify CatchupArchiver Python Event Interfaces
 
 Salgen CatchupArchiver LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
-    [Tags]    labview    DM-17459
+    [Tags]    labview
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    labview    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
@@ -166,10 +167,13 @@ Salgen CatchupArchiver Java
     Directory Should Exist    ${SALWorkDir}/${subSystem}/java
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
+    File Should Exist    ${SALWorkDir}/${subSystem}/java/saj_${subSystem}_types.jar
+    File Should Exist    ${SALWorkDir}/${subSystem}/java/src/saj_${subSystem}_cmdctl.jar
+    File Should Exist    ${SALWorkDir}/${subSystem}/java/src/saj_${subSystem}_event.jar
 
 Salgen CatchupArchiver Lib
     [Documentation]    Generate the SAL shared library for ${subSystem}
-    [Tags]    lib    DM-17459
+    [Tags]    lib
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    lib    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
@@ -181,6 +185,33 @@ Salgen CatchupArchiver Lib
     File Should Exist    ${SALWorkDir}/lib/libSAL_${subSystem}.so
     File Should Exist    ${SALWorkDir}/lib/SALLV_${subSystem}.so
     File Should Exist    ${SALWorkDir}/lib/SALPY_${subSystem}.so
+    File Should Exist    ${SALWorkDir}/lib/libsacpp_${subSystem}_types.so
+    File Should Exist    ${SALWorkDir}/lib/libSAL_${subSystem}.so
+    File Should Exist    ${SALWorkDir}/lib/saj_${subSystem}_types.jar
+    File Should Exist    ${SALWorkDir}/lib/SALLV_${subSystem}.so
+
+Salgen CatchupArchiver RPM
+    [Documentation]    Generate the SAL library RPM for ${subSystem}
+    [Tags]    rpm
+    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    rpm    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
+    Log Many    ${output.stdout}    ${output.stderr}
+    Should Not Contain    ${output.stdout}    ERROR : Asset required for rpm
+    Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
+    Should Contain    ${output.stdout}    Building runtime RPM for ${subSystem} subsystem
+    Directory Should Exist    ${SALWorkDir}/rpmbuild
+    Directory Should Exist    ${SALWorkDir}/rpmbuild/BUILD
+    Directory Should Exist    ${SALWorkDir}/rpmbuild/BUILDROOT
+    Directory Should Exist    ${SALWorkDir}/rpmbuild/RPMS
+    Directory Should Exist    ${SALWorkDir}/rpmbuild/SOURCES
+    Directory Should Exist    ${SALWorkDir}/rpmbuild/SPECS
+    Directory Should Exist    ${SALWorkDir}/rpmbuild/SRPMS
+    Directory Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/
+    @{files}=    List Directory    ${SALWorkDir}/rpmbuild/RPMS/x86_64/
+    Log Many    @{files}
+    File Should Exist    ${SALWorkDir}/rpmbuild/SPECS/ts_sal_${subSystem}.spec
+    File Should Exist    ${SALWorkDir}/rpmbuild/SOURCES/${subSystem}-${SALVersion}.tgz
+    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}-${SALVersion}-1.el7.centos.x86_64.rpm
+    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}-debuginfo-${SALVersion}-1.el7.centos.x86_64.rpm
 
 Salgen CatchupArchiver Maven
     [Documentation]    Generate the Maven repository.

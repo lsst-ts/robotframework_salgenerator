@@ -38,6 +38,7 @@ Salgen DomeLouvers Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setPosition.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_echo.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_stateChanged.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_detailedState.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_driveEnabled.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_driveDisabled.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_driveReady.idl
@@ -63,6 +64,7 @@ Salgen DomeLouvers HTML
     File Should Exist    ${SALWorkDir}/html/${subSystem}/DomeLouvers_Commands.html
     File Should Exist    ${SALWorkDir}/html/${subSystem}/DomeLouvers_Events.html
     File Should Exist    ${SALWorkDir}/html/${subSystem}/DomeLouvers_Telemetry.html
+    File Should Exist    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
 
 Salgen DomeLouvers C++
     [Documentation]    Generate C++ wrapper.
@@ -113,6 +115,8 @@ Verify DomeLouvers C++ Event Interfaces
     [Tags]    cpp
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_stateChanged_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_stateChanged_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_detailedState_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_detailedState_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_driveEnabled_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_driveEnabled_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_driveDisabled_send
@@ -134,7 +138,7 @@ Verify DomeLouvers C++ Event Interfaces
 
 Salgen DomeLouvers Python
     [Documentation]    Generate Python wrapper.
-    [Tags]    python    DM-17459
+    [Tags]    python
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    sal    python    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
@@ -171,6 +175,8 @@ Verify DomeLouvers Python Event Interfaces
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_stateChanged.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_stateChanged.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_detailedState.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_detailedState.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_driveEnabled.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_driveEnabled.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_driveDisabled.py
@@ -192,7 +198,7 @@ Verify DomeLouvers Python Event Interfaces
 
 Salgen DomeLouvers LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
-    [Tags]    labview    DM-17459
+    [Tags]    labview
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    labview    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
@@ -218,10 +224,13 @@ Salgen DomeLouvers Java
     Directory Should Exist    ${SALWorkDir}/${subSystem}/java
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
+    File Should Exist    ${SALWorkDir}/${subSystem}/java/saj_${subSystem}_types.jar
+    File Should Exist    ${SALWorkDir}/${subSystem}/java/src/saj_${subSystem}_cmdctl.jar
+    File Should Exist    ${SALWorkDir}/${subSystem}/java/src/saj_${subSystem}_event.jar
 
 Salgen DomeLouvers Lib
     [Documentation]    Generate the SAL shared library for ${subSystem}
-    [Tags]    lib    DM-17459
+    [Tags]    lib
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    lib    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
@@ -233,6 +242,33 @@ Salgen DomeLouvers Lib
     File Should Exist    ${SALWorkDir}/lib/libSAL_${subSystem}.so
     File Should Exist    ${SALWorkDir}/lib/SALLV_${subSystem}.so
     File Should Exist    ${SALWorkDir}/lib/SALPY_${subSystem}.so
+    File Should Exist    ${SALWorkDir}/lib/libsacpp_${subSystem}_types.so
+    File Should Exist    ${SALWorkDir}/lib/libSAL_${subSystem}.so
+    File Should Exist    ${SALWorkDir}/lib/saj_${subSystem}_types.jar
+    File Should Exist    ${SALWorkDir}/lib/SALLV_${subSystem}.so
+
+Salgen DomeLouvers RPM
+    [Documentation]    Generate the SAL library RPM for ${subSystem}
+    [Tags]    rpm
+    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    rpm    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
+    Log Many    ${output.stdout}    ${output.stderr}
+    Should Not Contain    ${output.stdout}    ERROR : Asset required for rpm
+    Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
+    Should Contain    ${output.stdout}    Building runtime RPM for ${subSystem} subsystem
+    Directory Should Exist    ${SALWorkDir}/rpmbuild
+    Directory Should Exist    ${SALWorkDir}/rpmbuild/BUILD
+    Directory Should Exist    ${SALWorkDir}/rpmbuild/BUILDROOT
+    Directory Should Exist    ${SALWorkDir}/rpmbuild/RPMS
+    Directory Should Exist    ${SALWorkDir}/rpmbuild/SOURCES
+    Directory Should Exist    ${SALWorkDir}/rpmbuild/SPECS
+    Directory Should Exist    ${SALWorkDir}/rpmbuild/SRPMS
+    Directory Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/
+    @{files}=    List Directory    ${SALWorkDir}/rpmbuild/RPMS/x86_64/
+    Log Many    @{files}
+    File Should Exist    ${SALWorkDir}/rpmbuild/SPECS/ts_sal_${subSystem}.spec
+    File Should Exist    ${SALWorkDir}/rpmbuild/SOURCES/${subSystem}-${SALVersion}.tgz
+    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}-${SALVersion}-1.el7.centos.x86_64.rpm
+    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}-debuginfo-${SALVersion}-1.el7.centos.x86_64.rpm
 
 Salgen DomeLouvers Maven
     [Documentation]    Generate the Maven repository.
