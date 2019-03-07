@@ -98,8 +98,6 @@ function checkIfSkipped() {
         skipped="    TSS-3318    skipped"
 	elif [[ ("$subsystem" == "MTM1M3") ]]; then
 		skipped="    TSS-3342    skipped"
-	elif [[ ("$topic" == "python") || ("$topic" == "labview") || ("$topic" == "lib") ]]; then
-		skipped="    DM-17459"
 	else
 		skipped=""
 	fi

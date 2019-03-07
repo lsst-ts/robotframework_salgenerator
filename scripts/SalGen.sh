@@ -97,6 +97,7 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}stdout.txt    stderr=
 		file=$(echo $file |sed "s/xml/html/")
         echo "    File Should Exist    \${SALWorkDir}/html/\${subSystem}/$file" >> $testSuite
     done
+	echo "    File Should Exist    \${SALWorkDir}/idl-templates/validated/\${subSystem}_revCodes.tcl" >> $testSuite
     echo "" >> $testSuite
 }
 
@@ -208,6 +209,9 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}stdout.txt    stderr=
     echo "    Directory Should Exist    \${SALWorkDir}/\${subSystem}/java" >> $testSuite
     echo "    @{files}=    List Directory    \${SALWorkDir}/\${subSystem}/java    pattern=*\${subSystem}*" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/\${subSystem}/java/sal_\${subSystem}.idl" >> $testSuite
+    echo "    File Should Exist    \${SALWorkDir}/\${subSystem}/java/saj_\${subSystem}_types.jar" >> $testSuite
+    echo "    File Should Exist    \${SALWorkDir}/\${subSystem}/java/src/saj_\${subSystem}_cmdctl.jar" >> $testSuite
+    echo "    File Should Exist    \${SALWorkDir}/\${subSystem}/java/src/saj_\${subSystem}_events.jar" >> $testSuite
     echo "" >> $testSuite
 }
 
@@ -327,6 +331,34 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}stdout.txt    stderr=
     	echo "    File Should Exist    \${SALWorkDir}/lib/SALLV_\${subSystem}.so" >> $testSuite
     fi
     echo "    File Should Exist    \${SALWorkDir}/lib/SALPY_\${subSystem}.so" >> $testSuite
+    echo "    File Should Exist    \${SALWorkDir}/lib/libsacpp_\${subSystem}_types.so" >> $testSuite
+    echo "    File Should Exist    \${SALWorkDir}/lib/libSAL_\${subSystem}.so" >> $testSuite
+    echo "    File Should Exist    \${SALWorkDir}/lib/saj_\${subSystem}_types.jar" >> $testSuite
+    echo "    File Should Exist    \${SALWorkDir}/lib/" >> $testSuite
+    echo "" >> $testSuite
+}
+
+function salgenRPM() {
+    skipped=$(checkIfSkipped $subSystem "rpm")
+    echo "Salgen $subSystemUp RPM" >> $testSuite
+    echo "    [Documentation]    Generate the SAL library RPM for \${subSystem}" >> $testSuite
+    echo "    [Tags]    rpm$skipped" >> $testSuite
+    echo "    \${output}=    Run Process    \${SALHome}/scripts/salgenerator    \${subSystem}    rpm    \
+shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}stdout.txt    stderr=\${EXECDIR}\${/}stderr.txt" >> $testSuite
+    echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
+	echo "    Should Not Contain    \${output.stdout}    ERROR : Asset required for rpm" >> $testSuite
+	echo "    Should Contain    \${output.stdout}    SAL generator - \${SALVersion}" >> $testSuite
+    echo "    Directory Should Exist    \${SALWorkDir}/rpmbuild" >> $testSuite
+    echo "    Directory Should Exist    \${SALWorkDir}/rpmbuild/BUILD" >> $testSuite
+    echo "    Directory Should Exist    \${SALWorkDir}/rpmbuild/BUILDROOT" >> $testSuite
+    echo "    Directory Should Exist    \${SALWorkDir}/rpmbuild/RPMS" >> $testSuite
+    echo "    Directory Should Exist    \${SALWorkDir}/rpmbuild/SOURCES" >> $testSuite
+    echo "    Directory Should Exist    \${SALWorkDir}/rpmbuild/SPECS" >> $testSuite
+    echo "    Directory Should Exist    \${SALWorkDir}/rpmbuild/SRPMS" >> $testSuite
+    echo "    @{files}=    List Directory    \${SALWorkDir}/rpmbuild/RPMS" >> $testSuite
+    echo "    Log Many    @{files}" >> $testSuite
+	echo "    File Should Exist    \${SALWorkDir}/rpmbuild/SPECS/ts_sal_\${subSystem}.spec" >> $testSuite
+	echo "    File Should Exist    \${SALWorkDir}/rpmbuild/SOURCES/\${subSystem}-\${SALVersion}.tgz" >> $testSuite
     echo "" >> $testSuite
 }
 
@@ -394,8 +426,10 @@ function createTestSuite() {
 	fi
 	# Create and verify Java interfaces.
 	salgenJava
-	# Move/Generate the share libraries.
+	# Move/Generate the SAL libraries.
 	salgenLib
+	# Generate the as-built SAL libraries RPM.
+	salgenRPM
 	# Run the Maven tests.
     salgenMaven
 	# Indicate completion of the test suite.
