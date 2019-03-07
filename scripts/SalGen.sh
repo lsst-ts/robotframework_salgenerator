@@ -211,7 +211,7 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}stdout.txt    stderr=
     echo "    File Should Exist    \${SALWorkDir}/\${subSystem}/java/sal_\${subSystem}.idl" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/\${subSystem}/java/saj_\${subSystem}_types.jar" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/\${subSystem}/java/src/saj_\${subSystem}_cmdctl.jar" >> $testSuite
-    echo "    File Should Exist    \${SALWorkDir}/\${subSystem}/java/src/saj_\${subSystem}_events.jar" >> $testSuite
+    echo "    File Should Exist    \${SALWorkDir}/\${subSystem}/java/src/saj_\${subSystem}_event.jar" >> $testSuite
     echo "" >> $testSuite
 }
 
@@ -334,7 +334,7 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}stdout.txt    stderr=
     echo "    File Should Exist    \${SALWorkDir}/lib/libsacpp_\${subSystem}_types.so" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/lib/libSAL_\${subSystem}.so" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/lib/saj_\${subSystem}_types.jar" >> $testSuite
-    echo "    File Should Exist    \${SALWorkDir}/lib/" >> $testSuite
+    echo "    File Should Exist    \${SALWorkDir}/lib/SALLV_\${subSystem}.so" >> $testSuite
     echo "" >> $testSuite
 }
 
@@ -348,6 +348,7 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}stdout.txt    stderr=
     echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
 	echo "    Should Not Contain    \${output.stdout}    ERROR : Asset required for rpm" >> $testSuite
 	echo "    Should Contain    \${output.stdout}    SAL generator - \${SALVersion}" >> $testSuite
+	echo "    Should Contain    \${output.stdout}    Building runtime RPM for \${subSystem} subsystem" >> $testSuite
     echo "    Directory Should Exist    \${SALWorkDir}/rpmbuild" >> $testSuite
     echo "    Directory Should Exist    \${SALWorkDir}/rpmbuild/BUILD" >> $testSuite
     echo "    Directory Should Exist    \${SALWorkDir}/rpmbuild/BUILDROOT" >> $testSuite
@@ -355,10 +356,13 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}stdout.txt    stderr=
     echo "    Directory Should Exist    \${SALWorkDir}/rpmbuild/SOURCES" >> $testSuite
     echo "    Directory Should Exist    \${SALWorkDir}/rpmbuild/SPECS" >> $testSuite
     echo "    Directory Should Exist    \${SALWorkDir}/rpmbuild/SRPMS" >> $testSuite
-    echo "    @{files}=    List Directory    \${SALWorkDir}/rpmbuild/RPMS" >> $testSuite
+    echo "    Directory Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/" >> $testSuite
+    echo "    @{files}=    List Directory    \${SALWorkDir}/rpmbuild/RPMS/x86_64/" >> $testSuite
     echo "    Log Many    @{files}" >> $testSuite
 	echo "    File Should Exist    \${SALWorkDir}/rpmbuild/SPECS/ts_sal_\${subSystem}.spec" >> $testSuite
 	echo "    File Should Exist    \${SALWorkDir}/rpmbuild/SOURCES/\${subSystem}-\${SALVersion}.tgz" >> $testSuite
+    echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/\${subSystem}-\${SALVersion}-1.el7.centos.x86_64.rpm" >> $testSuite
+    echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/\${subSystem}-debuginfo-\${SALVersion}-1.el7.centos.x86_64.rpm" >> $testSuite
     echo "" >> $testSuite
 }
 
