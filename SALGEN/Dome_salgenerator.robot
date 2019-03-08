@@ -43,7 +43,6 @@ Salgen Dome Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_openShutter.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_stopShutter.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_stateChanged.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_detailedState.idl
 
 Salgen Dome HTML
     [Documentation]    Create web form interfaces.
@@ -121,8 +120,6 @@ Verify Dome C++ Event Interfaces
     [Tags]    cpp
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_stateChanged_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_stateChanged_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_detailedState_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_detailedState_log
 
 Salgen Dome Python
     [Documentation]    Generate Python wrapper.
@@ -173,8 +170,6 @@ Verify Dome Python Event Interfaces
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_stateChanged.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_stateChanged.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_detailedState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_detailedState.py
 
 Salgen Dome LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
