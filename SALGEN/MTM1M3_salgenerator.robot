@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation    This suite builds the various interfaces for the MTM1M3.
-Force Tags    salgen        TSS-3342    skipped
+Force Tags    salgen    
 Suite Setup    Log Many    ${Host}    ${subSystem}    ${timeout}
 Library    OperatingSystem
 Library    Process
@@ -432,7 +432,7 @@ Verify MTM1M3 C++ Event Interfaces
 
 Salgen MTM1M3 Python
     [Documentation]    Generate Python wrapper.
-    [Tags]    python    TSS-3342    skipped
+    [Tags]    python
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    sal    python    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
@@ -668,7 +668,7 @@ Verify MTM1M3 Python Event Interfaces
 
 Salgen MTM1M3 LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
-    [Tags]    labview    TSS-3342    skipped
+    [Tags]    labview
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    labview    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
@@ -682,7 +682,7 @@ Salgen MTM1M3 LabVIEW
 
 Salgen MTM1M3 Java
     [Documentation]    Generate Java wrapper.
-    [Tags]    java    TSS-3342    skipped
+    [Tags]    java
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    sal    java    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
@@ -710,13 +710,13 @@ Salgen MTM1M3 Java
 
 Salgen MTM1M3 Lib
     [Documentation]    Generate the SAL shared library for ${subSystem}
-    [Tags]    lib    TSS-3342    skipped
+    [Tags]    lib
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    lib    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Building shared library for ${subSystem} subsystem
     Directory Should Exist    ${SALWorkDir}/lib
-    @{files}=    List Directory    ${SALWorkDir}/lib
+    @{files}=    List Directory    ${SALWorkDir}/lib    pattern=*${subSystem}*
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/lib/libsacpp_${subSystem}_types.so
     File Should Exist    ${SALWorkDir}/lib/libSAL_${subSystem}.so
@@ -729,7 +729,7 @@ Salgen MTM1M3 Lib
 
 Salgen MTM1M3 RPM
     [Documentation]    Generate the SAL library RPM for ${subSystem}
-    [Tags]    rpm    TSS-3342    skipped
+    [Tags]    rpm
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    rpm    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Not Contain    ${output.stdout}    ERROR : Asset required for rpm
@@ -752,7 +752,7 @@ Salgen MTM1M3 RPM
 
 Salgen MTM1M3 Maven
     [Documentation]    Generate the Maven repository.
-    [Tags]    java    TSS-3342    skipped
+    [Tags]    java
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    maven    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}

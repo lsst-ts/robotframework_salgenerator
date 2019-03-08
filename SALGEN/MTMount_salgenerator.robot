@@ -423,7 +423,7 @@ Salgen MTMount LabVIEW
 
 Salgen MTMount Java
     [Documentation]    Generate Java wrapper.
-    [Tags]    java    TSS-3318    skipped
+    [Tags]    java    DM-18229    skipped
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    sal    java    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
@@ -474,7 +474,7 @@ Salgen MTMount Lib
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Building shared library for ${subSystem} subsystem
     Directory Should Exist    ${SALWorkDir}/lib
-    @{files}=    List Directory    ${SALWorkDir}/lib
+    @{files}=    List Directory    ${SALWorkDir}/lib    pattern=*${subSystem}*
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/lib/libsacpp_${subSystem}_types.so
     File Should Exist    ${SALWorkDir}/lib/libSAL_${subSystem}.so
@@ -510,7 +510,7 @@ Salgen MTMount RPM
 
 Salgen MTMount Maven
     [Documentation]    Generate the Maven repository.
-    [Tags]    java    TSS-3318    skipped
+    [Tags]    java    DM-18229    skipped
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    maven    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}

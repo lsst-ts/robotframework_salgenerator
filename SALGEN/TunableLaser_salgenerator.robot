@@ -41,6 +41,9 @@ Salgen TunableLaser Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_clearFaultState.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_changeWavelength.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_laserInstabilityFlag.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_detailedState.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_heartbeat.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_wavelengthChanged.idl
 
 Salgen TunableLaser HTML
     [Documentation]    Create web form interfaces.
@@ -117,6 +120,12 @@ Verify TunableLaser C++ Event Interfaces
     [Tags]    cpp
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_laserInstabilityFlag_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_laserInstabilityFlag_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_detailedState_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_detailedState_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_heartbeat_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_heartbeat_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_wavelengthChanged_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_wavelengthChanged_log
 
 Salgen TunableLaser Python
     [Documentation]    Generate Python wrapper.
@@ -163,6 +172,12 @@ Verify TunableLaser Python Event Interfaces
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_laserInstabilityFlag.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_laserInstabilityFlag.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_detailedState.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_detailedState.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_heartbeat.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_heartbeat.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_wavelengthChanged.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_wavelengthChanged.py
 
 Salgen TunableLaser LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
@@ -205,7 +220,7 @@ Salgen TunableLaser Lib
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Building shared library for ${subSystem} subsystem
     Directory Should Exist    ${SALWorkDir}/lib
-    @{files}=    List Directory    ${SALWorkDir}/lib
+    @{files}=    List Directory    ${SALWorkDir}/lib    pattern=*${subSystem}*
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/lib/libsacpp_${subSystem}_types.so
     File Should Exist    ${SALWorkDir}/lib/libSAL_${subSystem}.so

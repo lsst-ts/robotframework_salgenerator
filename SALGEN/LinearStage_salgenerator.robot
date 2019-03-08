@@ -19,6 +19,7 @@ Verify LinearStage XML Defintions exist
     Should Not Contain    ${output.stderr}    No such file or directory    msg="LinearStage has no XML defintions"    values=False
     Should Not Be Empty    ${output.stdout}
     File Should Exist    ${SALWorkDir}/LinearStage_Commands.xml
+    File Should Exist    ${SALWorkDir}/LinearStage_Events.xml
     File Should Exist    ${SALWorkDir}/LinearStage_Telemetry.xml
 
 Salgen LinearStage Validate
@@ -38,6 +39,8 @@ Salgen LinearStage Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_moveAbsolute.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_getHome.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_stop.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_detailedState.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_heartbeat.idl
 
 Salgen LinearStage HTML
     [Documentation]    Create web form interfaces.
@@ -52,6 +55,7 @@ Salgen LinearStage HTML
     @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/html/${subSystem}/LinearStage_Commands.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/LinearStage_Events.html
     File Should Exist    ${SALWorkDir}/html/${subSystem}/LinearStage_Telemetry.html
     File Should Exist    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
 
@@ -103,6 +107,14 @@ Verify LinearStage C++ Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_stop_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_stop_controller
 
+Verify LinearStage C++ Event Interfaces
+    [Documentation]    Verify the C++ interfaces were properly created.
+    [Tags]    cpp
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_detailedState_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_detailedState_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_heartbeat_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_heartbeat_log
+
 Salgen LinearStage Python
     [Documentation]    Generate Python wrapper.
     [Tags]    python
@@ -138,6 +150,16 @@ Verify LinearStage Python Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_getHome.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_stop.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_stop.py
+
+Verify LinearStage Python Event Interfaces
+    [Documentation]    Verify the Python interfaces were properly created.
+    [Tags]    python
+    @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
+    Log Many    @{files}
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_detailedState.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_detailedState.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_heartbeat.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_heartbeat.py
 
 Salgen LinearStage LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
@@ -179,7 +201,7 @@ Salgen LinearStage Lib
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Building shared library for ${subSystem} subsystem
     Directory Should Exist    ${SALWorkDir}/lib
-    @{files}=    List Directory    ${SALWorkDir}/lib
+    @{files}=    List Directory    ${SALWorkDir}/lib    pattern=*${subSystem}*
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/lib/libsacpp_${subSystem}_types.so
     File Should Exist    ${SALWorkDir}/lib/libSAL_${subSystem}.so
