@@ -24,7 +24,8 @@ echo "--name SalGen" >> $argfile
 echo "--output SALGENERATOR" >> $argfile
 echo "" >> $argfile
 echo "# List of test suites" >> $argfile
-echo "SAL_Tests.robot" >> $argfile
 
 # Find test suites and add them to the argument file.
+echo "SAL_Tests.robot" >> $argfile
 ls -1 $HOME/trunk/robotframework_salgenerator/SALGEN |sed 's/^/SALGEN\//' >> $argfile
+echo "SAL_Unit_Tests.robot" >> $argfile 
