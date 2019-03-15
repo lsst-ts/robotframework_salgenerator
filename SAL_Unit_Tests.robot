@@ -12,7 +12,8 @@ ${timeout}    10s
 Verify Python Unit Tests
     [Documentation]    Run the SAL PyTest unit tests.
     [Tags]    smoke
-	${output}=    Run Process    pytest    -n 4    tests/*.py    shell=True    cwd=${SALInstall}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
+	${output}=    Run Process    pytest    tests/*.py    shell=True    cwd=${SALInstall}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
+	Log Many    ${output.stdout}    ${output.stderr}
 	Should Contain    ${output.stdout}    test session starts
 	Should Contain    ${output.stdout}    collected 19 items
 	Should Contain    ${output.stdout}    tests/test_lsst_dds_domain.py
