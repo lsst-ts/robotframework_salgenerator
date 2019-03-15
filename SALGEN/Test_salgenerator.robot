@@ -83,32 +83,32 @@ Verify Test revCodes File
     [Documentation]    Ensure the <CSC_Name>_revCodes.tcl file contains 1 revcode per topic.
     [Tags]    html    
     ${output}=    Log File    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_command_setScalars) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_command_setArrays) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_command_fault) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_command_wait) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_command_abort) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_command_enable) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_command_disable) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_command_standby) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_command_exitControl) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_command_start) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_command_enterControl) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_command_setLogLevel) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_command_setSimulationMode) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_command_setValue) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_logevent_heartbeat) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_logevent_scalars) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_logevent_arrays) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_logevent_settingVersions) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_logevent_errorCode) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_logevent_summaryState) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_logevent_appliedSettingsMatchStart) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_logevent_logLevel) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_logevent_logMessage) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_logevent_simulationMode) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_scalars) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_arrays) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setScalars\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setArrays\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_fault\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_wait\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_abort\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_enable\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_disable\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_standby\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_exitControl\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_start\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_enterControl\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setLogLevel\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setSimulationMode\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setValue\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_heartbeat\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_scalars\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_arrays\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_settingVersions\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_errorCode\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_summaryState\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_appliedSettingsMatchStart\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_logLevel\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_logMessage\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_simulationMode\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_scalars\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_arrays\\) [a-z0-9]{8,}
 
 Salgen Test C++
     [Documentation]    Generate C++ wrapper.
