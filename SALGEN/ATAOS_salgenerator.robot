@@ -91,41 +91,42 @@ Verify ATAOS revCodes File
     [Documentation]    Ensure the <CSC_Name>_revCodes.tcl file contains 1 revcode per topic.
     [Tags]    html    
     ${output}=    Log File    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_enableCorrection) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_disableCorrection) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_applyCorrection) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_applyFocusOffset) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_setFocus) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_abort) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_enable) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_disable) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_standby) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_exitControl) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_start) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_enterControl) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_setLogLevel) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_setSimulationMode) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_setValue) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_heartbeat) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_detailedState) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_correctionEnabled) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_newFocusValue) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_m1CorrectionStarted) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_m1CorrectionCompleted) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_m2CorrectionStarted) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_m2CorrectionCompleted) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_hexapodCorrectionStarted) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_hexapodCorrectionCompleted) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_focusCorrectionStarted) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_focusCorrectionCompleted) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_settingVersions) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_errorCode) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_summaryState) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_appliedSettingsMatchStart) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_logLevel) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_logMessage) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_simulationMode) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE(${subSystem}_timestamp) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_enableCorrection\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_disableCorrection\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_applyCorrection\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_applyFocusOffset\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setFocus\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_abort\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_enable\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_disable\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_standby\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_exitControl\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_start\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_enterControl\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setLogLevel\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setSimulationMode\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setValue\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_heartbeat\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_detailedState\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_correctionEnabled\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_newFocusValue\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_m1CorrectionStarted\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_m1CorrectionCompleted\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_m2CorrectionStarted\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_m2CorrectionCompleted\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_hexapodCorrectionStarted\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_hexapodCorrectionCompleted\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focusCorrectionStarted\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focusCorrectionCompleted\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_settingVersions\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_errorCode\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_summaryState\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_appliedSettingsMatchStart\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_logLevel\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_logMessage\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_simulationMode\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_timestamp\\) [a-z0-9]{8,}
+
 Salgen ATAOS C++
     [Documentation]    Generate C++ wrapper.
     [Tags]    cpp
