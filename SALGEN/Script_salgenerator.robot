@@ -39,6 +39,16 @@ Salgen Script Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setLogLevel.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setCheckpoints.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_stop.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_abort.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_standby.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_exitControl.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_start.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enterControl.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setLogLevel.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setSimulationMode.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setValue.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_heartbeat.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_checkpoints.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_logLevel.idl
@@ -46,6 +56,13 @@ Salgen Script Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_description.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_metadata.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_state.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingVersions.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_errorCode.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_summaryState.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_appliedSettingsMatchStart.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_logLevel.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_logMessage.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_simulationMode.idl
 
 Salgen Script HTML
     [Documentation]    Create web form interfaces.
@@ -62,6 +79,40 @@ Salgen Script HTML
     File Should Exist    ${SALWorkDir}/html/${subSystem}/Script_Events.html
     File Should Exist    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
 
+Verify Script revCodes File
+    [Documentation]    Ensure the <CSC_Name>_revCodes.tcl file contains 1 revcode per topic.
+    [Tags]    html    
+    ${output}=    Log File    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
+    Should Match Regexp    ${output}    set REVCODE(${subSystem}_configure) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE(${subSystem}_run) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE(${subSystem}_resume) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE(${subSystem}_setLogLevel) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE(${subSystem}_setCheckpoints) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE(${subSystem}_stop) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE(${subSystem}_abort) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE(${subSystem}_enable) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE(${subSystem}_disable) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE(${subSystem}_standby) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE(${subSystem}_exitControl) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE(${subSystem}_start) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE(${subSystem}_enterControl) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE(${subSystem}_setLogLevel) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE(${subSystem}_setSimulationMode) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE(${subSystem}_setValue) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE(${subSystem}_heartbeat) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE(${subSystem}_checkpoints) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE(${subSystem}_logLevel) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE(${subSystem}_logMessage) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE(${subSystem}_description) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE(${subSystem}_metadata) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE(${subSystem}_state) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE(${subSystem}_settingVersions) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE(${subSystem}_errorCode) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE(${subSystem}_summaryState) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE(${subSystem}_appliedSettingsMatchStart) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE(${subSystem}_logLevel) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE(${subSystem}_logMessage) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE(${subSystem}_simulationMode) [a-z0-9]{8,}
 Salgen Script C++
     [Documentation]    Generate C++ wrapper.
     [Tags]    cpp
@@ -76,7 +127,7 @@ Salgen Script C++
     Should Contain X Times    ${output.stdout}    cpp : Done Event/Logger    1
 
 Verify C++ Directories
-    [Documentation]    Ensure expected C++ directories and files.
+    [Documentation]    Ensure expected C++ directories and files are created.
     [Tags]    cpp
     Directory Should Exist    ${SALWorkDir}/${subSystem}/cpp
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/cpp    pattern=*${subSystem}*
@@ -100,6 +151,26 @@ Verify Script C++ Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setCheckpoints_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_stop_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_stop_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_abort_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_abort_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enable_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enable_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_disable_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_disable_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_standby_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_standby_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_exitControl_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_exitControl_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_start_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_start_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enterControl_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enterControl_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setLogLevel_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setLogLevel_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setSimulationMode_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setSimulationMode_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setValue_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setValue_controller
 
 Verify Script C++ Event Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -118,6 +189,20 @@ Verify Script C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_metadata_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_state_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_state_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingVersions_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingVersions_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_errorCode_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_errorCode_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_summaryState_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_summaryState_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_appliedSettingsMatchStart_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_appliedSettingsMatchStart_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_logLevel_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_logLevel_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_logMessage_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_logMessage_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_simulationMode_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_simulationMode_log
 
 Salgen Script Python
     [Documentation]    Generate Python wrapper.
@@ -150,6 +235,26 @@ Verify Script Python Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setCheckpoints.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_stop.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_stop.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_abort.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_abort.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_enable.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_enable.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_disable.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_disable.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_standby.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_standby.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_exitControl.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_exitControl.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_start.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_start.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_enterControl.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_enterControl.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_setLogLevel.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setLogLevel.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_setSimulationMode.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setSimulationMode.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_setValue.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setValue.py
 
 Verify Script Python Event Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
@@ -170,6 +275,20 @@ Verify Script Python Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_metadata.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_state.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_state.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_settingVersions.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_settingVersions.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_errorCode.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_errorCode.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_summaryState.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_summaryState.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_appliedSettingsMatchStart.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_appliedSettingsMatchStart.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_logLevel.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_logLevel.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_logMessage.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_logMessage.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_simulationMode.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_simulationMode.py
 
 Salgen Script LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
@@ -204,7 +323,7 @@ Salgen Script Java
 
 Salgen Script Lib
     [Documentation]    Generate the SAL shared library for ${subSystem}
-    [Tags]    lib
+    [Tags]    lib    DM-18229
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    lib    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
@@ -223,7 +342,7 @@ Salgen Script Lib
 
 Salgen Script RPM
     [Documentation]    Generate the SAL library RPM for ${subSystem}
-    [Tags]    rpm
+    [Tags]    rpm    DM-18229
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    rpm    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Not Contain    ${output.stdout}    ERROR : Asset required for rpm

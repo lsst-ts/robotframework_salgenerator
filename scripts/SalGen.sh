@@ -101,6 +101,23 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}stdout.txt    stderr=
     echo "" >> $testSuite
 }
 
+function revCodeDefinition() {
+	skipped=$(checkIfSkipped "html")
+    echo "Verify $subSystemUp revCodes File" >> $testSuite
+    echo "    [Documentation]    Ensure the <CSC_Name>_revCodes.tcl file contains 1 revcode per topic." >> $testSuite
+    echo "    [Tags]    html    $skipped" >> $testSuite
+	echo "    \${output}=    Log File    \${SALWorkDir}/idl-templates/validated/\${subSystem}_revCodes.tcl" >> $testSuite
+	for topic in "${commandArray[@]}"; do
+		echo "    Should Match Regexp    \${output}    set REVCODE(\${subSystem}_$topic) [a-z0-9]{8,}" >> $testSuite
+    done
+	for topic in "${eventArray[@]}"; do
+        echo "    Should Match Regexp    \${output}    set REVCODE(\${subSystem}_$topic) [a-z0-9]{8,}" >> $testSuite
+    done
+	for topic in "${telemetryArray[@]}"; do
+        echo "    Should Match Regexp    \${output}    set REVCODE(\${subSystem}_$topic) [a-z0-9]{8,}" >> $testSuite
+	done
+}
+
 function salgenCPP {
     echo "Salgen $subSystemUp C++" >> $testSuite
     echo "    [Documentation]    Generate C++ wrapper." >> $testSuite
@@ -128,7 +145,7 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}stdout.txt    stderr=
 
 function verifyCppDirectories() {
 	echo "Verify C++ Directories" >> $testSuite
-    echo "    [Documentation]    Ensure expected C++ directories and files." >> $testSuite
+    echo "    [Documentation]    Ensure expected C++ directories and files are created." >> $testSuite
     echo "    [Tags]    cpp" >> $testSuite
     echo "    Directory Should Exist    \${SALWorkDir}/\${subSystem}/cpp" >> $testSuite
     echo "    @{files}=    List Directory    \${SALWorkDir}/\${subSystem}/cpp    pattern=*\${subSystem}*" >> $testSuite
@@ -398,6 +415,7 @@ function createTestSuite() {
     verifyXMLDefinitions
 	salgenValidate
 	salgenHTML
+	revCodeDefinition
 	# Create and verify C++ interfaces.
 	salgenCPP
 	verifyCppDirectories
