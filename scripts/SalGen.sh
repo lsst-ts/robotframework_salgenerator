@@ -108,14 +108,15 @@ function revCodeDefinition() {
     echo "    [Tags]    html    $skipped" >> $testSuite
 	echo "    \${output}=    Log File    \${SALWorkDir}/idl-templates/validated/\${subSystem}_revCodes.tcl" >> $testSuite
 	for topic in "${commandArray[@]}"; do
-		echo "    Should Match Regexp    \${output}    set REVCODE(\${subSystem}_$topic) [a-z0-9]{8,}" >> $testSuite
+		echo "    Should Match Regexp    \${output}    set REVCODE(\${subSystem}_command_$topic) [a-z0-9]{8,}" >> $testSuite
     done
 	for topic in "${eventArray[@]}"; do
-        echo "    Should Match Regexp    \${output}    set REVCODE(\${subSystem}_$topic) [a-z0-9]{8,}" >> $testSuite
+        echo "    Should Match Regexp    \${output}    set REVCODE(\${subSystem}_logevent_$topic) [a-z0-9]{8,}" >> $testSuite
     done
 	for topic in "${telemetryArray[@]}"; do
         echo "    Should Match Regexp    \${output}    set REVCODE(\${subSystem}_$topic) [a-z0-9]{8,}" >> $testSuite
 	done
+	echo "" >> $testSuite
 }
 
 function salgenCPP {
