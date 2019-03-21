@@ -93,7 +93,7 @@ Salgen Rotator HTML
     File Should Exist    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
 
 Verify Rotator revCodes File
-    [Documentation]    Ensure the <CSC_Name>_revCodes.tcl file contains 1 revcode per topic.
+    [Documentation]    Ensure Rotator_revCodes.tcl contains 1 revcode per topic.
     [Tags]    html    
     ${output}=    Log File    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_configureAcceleration\\) [a-z0-9]{8,}

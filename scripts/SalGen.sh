@@ -104,7 +104,7 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}stdout.txt    stderr=
 function revCodeDefinition() {
 	skipped=$(checkIfSkipped "html")
     echo "Verify $subSystemUp revCodes File" >> $testSuite
-    echo "    [Documentation]    Ensure the <CSC_Name>_revCodes.tcl file contains 1 revcode per topic." >> $testSuite
+    echo "    [Documentation]    Ensure ${subSystemUp}_revCodes.tcl contains 1 revcode per topic." >> $testSuite
     echo "    [Tags]    html    $skipped" >> $testSuite
 	echo "    \${output}=    Log File    \${SALWorkDir}/idl-templates/validated/\${subSystem}_revCodes.tcl" >> $testSuite
 	for topic in "${commandArray[@]}"; do

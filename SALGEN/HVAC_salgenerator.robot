@@ -78,7 +78,7 @@ Salgen HVAC HTML
     File Should Exist    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
 
 Verify HVAC revCodes File
-    [Documentation]    Ensure the <CSC_Name>_revCodes.tcl file contains 1 revcode per topic.
+    [Documentation]    Ensure HVAC_revCodes.tcl contains 1 revcode per topic.
     [Tags]    html    
     ${output}=    Log File    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setHvacConfiguration\\) [a-z0-9]{8,}

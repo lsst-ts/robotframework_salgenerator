@@ -92,7 +92,7 @@ Salgen ATThermoelectricCooler HTML
     File Should Exist    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
 
 Verify ATThermoelectricCooler revCodes File
-    [Documentation]    Ensure the <CSC_Name>_revCodes.tcl file contains 1 revcode per topic.
+    [Documentation]    Ensure ATThermoelectricCooler_revCodes.tcl contains 1 revcode per topic.
     [Tags]    html    
     ${output}=    Log File    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setTemperature\\) [a-z0-9]{8,}

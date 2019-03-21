@@ -144,7 +144,7 @@ Salgen MTCamera HTML
     File Should Exist    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
 
 Verify MTCamera revCodes File
-    [Documentation]    Ensure the <CSC_Name>_revCodes.tcl file contains 1 revcode per topic.
+    [Documentation]    Ensure MTCamera_revCodes.tcl contains 1 revcode per topic.
     [Tags]    html    
     ${output}=    Log File    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_discardRows\\) [a-z0-9]{8,}
