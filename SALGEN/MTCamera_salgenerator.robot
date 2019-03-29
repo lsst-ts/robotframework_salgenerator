@@ -681,7 +681,7 @@ Salgen MTCamera Java
 
 Salgen MTCamera Lib
     [Documentation]    Generate the SAL shared library for ${subSystem}
-    [Tags]    lib    DM-18229
+    [Tags]    lib
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    lib    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
@@ -700,7 +700,7 @@ Salgen MTCamera Lib
 
 Salgen MTCamera RPM
     [Documentation]    Generate the SAL library RPM for ${subSystem}
-    [Tags]    rpm    DM-18229
+    [Tags]    rpm
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    rpm    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Not Contain    ${output.stdout}    ERROR : Asset required for rpm
