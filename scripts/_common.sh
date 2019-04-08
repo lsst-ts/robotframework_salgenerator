@@ -100,7 +100,7 @@ function generateArgument() {
 function checkIfSkipped() {
 	subsystem=$1
 	topic=$2
-	if [[ ("$subsystem" == "MTMount") && ("$topic" == "java") || ("$topic" == "lib") || ("$topic" == "rpm") ]]; then
+	if [[ ("$subsystem" == "MTMount") && (("$topic" == "java") || ("$topic" == "lib") || ("$topic" == "rpm")) ]]; then
         skipped="    DM-18229"
 	else
 		skipped=""
