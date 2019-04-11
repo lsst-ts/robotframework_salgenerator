@@ -36,8 +36,11 @@ Salgen ATWhiteLight Validate
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_timestamp.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_loopTime.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_bulbHours.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_bulbWattHours.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_powerLightOn.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_powerLightOff.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_emergencyPowerLightOff.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setLightPower.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_abort.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
@@ -71,6 +74,8 @@ Salgen ATWhiteLight HTML
     Should Contain    ${output.stdout}    Creating sal-generator-${subSystem} form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.timestamp to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.loopTime to form
+    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.bulbHours to form
+    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.bulbWattHours to form
     Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
     @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}
@@ -85,6 +90,7 @@ Verify ATWhiteLight revCodes File
     ${output}=    Log File    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_powerLightOn\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_powerLightOff\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_emergencyPowerLightOff\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setLightPower\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_abort\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_enable\\) [a-z0-9]{8,}
@@ -109,6 +115,8 @@ Verify ATWhiteLight revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_simulationMode\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_timestamp\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_loopTime\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_bulbHours\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_bulbWattHours\\) [a-z0-9]{8,}
 
 Salgen ATWhiteLight C++
     [Documentation]    Generate C++ wrapper.
@@ -120,8 +128,10 @@ Salgen ATWhiteLight C++
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_timestamp.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_loopTime.idl
-    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    2
-    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    2
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_bulbHours.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_bulbWattHours.idl
+    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    4
+    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    4
     Should Contain X Times    ${output.stdout}    cpp : Done Commander    1
     Should Contain X Times    ${output.stdout}    cpp : Done Event/Logger    1
 
@@ -141,6 +151,8 @@ Verify ATWhiteLight Telemetry directories
     Log Many    @{files}
     Directory Should Exist    ${SALWorkDir}/${subSystem}_timestamp
     Directory Should Exist    ${SALWorkDir}/${subSystem}_loopTime
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_bulbHours
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_bulbWattHours
 
 Verify ATWhiteLight C++ Telemetry Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -149,6 +161,10 @@ Verify ATWhiteLight C++ Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}_timestamp/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_loopTime/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_loopTime/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_bulbHours/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_bulbHours/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_bulbWattHours/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_bulbWattHours/cpp/standalone/sacpp_${subSystem}_sub
 
 Verify ATWhiteLight C++ Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -157,6 +173,8 @@ Verify ATWhiteLight C++ Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_powerLightOn_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_powerLightOff_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_powerLightOff_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_emergencyPowerLightOff_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_emergencyPowerLightOff_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setLightPower_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setLightPower_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_abort_commander
@@ -229,6 +247,10 @@ Verify ATWhiteLight Python Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_timestamp_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_loopTime_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_loopTime_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_bulbHours_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_bulbHours_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_bulbWattHours_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_bulbWattHours_Subscriber.py
 
 Verify ATWhiteLight Python Command Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
@@ -239,6 +261,8 @@ Verify ATWhiteLight Python Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_powerLightOn.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_powerLightOff.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_powerLightOff.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_emergencyPowerLightOff.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_emergencyPowerLightOff.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_setLightPower.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setLightPower.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_abort.py
@@ -312,10 +336,12 @@ Salgen ATWhiteLight Java
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_timestamp.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_loopTime.idl
-    Should Contain X Times    ${output.stdout}    javac : Done Publisher    2
-    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    2
-    Should Contain X Times    ${output.stdout}    javac : Done Commander/Controller    2
-    Should Contain X Times    ${output.stdout}    javac : Done Event/Logger    2
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_bulbHours.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_bulbWattHours.idl
+    Should Contain X Times    ${output.stdout}    javac : Done Publisher    4
+    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    4
+    Should Contain X Times    ${output.stdout}    javac : Done Commander/Controller    4
+    Should Contain X Times    ${output.stdout}    javac : Done Event/Logger    4
     Directory Should Exist    ${SALWorkDir}/${subSystem}/java
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl

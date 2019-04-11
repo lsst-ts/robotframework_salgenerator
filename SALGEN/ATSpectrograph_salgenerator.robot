@@ -62,8 +62,11 @@ Salgen ATSpectrograph Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_reportedDisperserPosition.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_disperserInPosition.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_linearStageInPosition.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_reportedLinearStagePosition.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_lsState.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fwState.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_gwState.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingsApplied.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingVersions.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_errorCode.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_summaryState.idl
@@ -120,8 +123,11 @@ Verify ATSpectrograph revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_reportedDisperserPosition\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_disperserInPosition\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_linearStageInPosition\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_reportedLinearStagePosition\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_lsState\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fwState\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_gwState\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_settingsApplied\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_settingVersions\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_errorCode\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_summaryState\\) [a-z0-9]{8,}
@@ -231,10 +237,16 @@ Verify ATSpectrograph C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_disperserInPosition_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_linearStageInPosition_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_linearStageInPosition_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_reportedLinearStagePosition_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_reportedLinearStagePosition_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_lsState_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_lsState_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_fwState_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_fwState_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_gwState_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_gwState_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsApplied_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsApplied_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingVersions_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingVersions_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_errorCode_send
@@ -337,10 +349,16 @@ Verify ATSpectrograph Python Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_disperserInPosition.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_linearStageInPosition.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_linearStageInPosition.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_reportedLinearStagePosition.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_reportedLinearStagePosition.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_lsState.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_lsState.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_fwState.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_fwState.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_gwState.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_gwState.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_settingsApplied.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_settingsApplied.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_settingVersions.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_settingVersions.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_errorCode.py

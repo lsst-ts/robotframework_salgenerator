@@ -41,6 +41,10 @@ Salgen MTMount Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_Azimuth_Drives.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_Azimuth_Drives_Thermal.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_OSS.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_OSS2.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_OSS4.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_OSS5.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_OSS6.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_Main_Power_Supply.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_Encoder_EIB.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_Balancing_Drives.idl
@@ -107,6 +111,10 @@ Salgen MTMount HTML
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.Azimuth_Drives to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.Azimuth_Drives_Thermal to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.OSS to form
+    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.OSS2 to form
+    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.OSS4 to form
+    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.OSS5 to form
+    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.OSS6 to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.Main_Power_Supply to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.Encoder_EIB to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.Balancing_Drives to form
@@ -176,6 +184,10 @@ Verify MTMount revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_Azimuth_Drives\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_Azimuth_Drives_Thermal\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_OSS\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_OSS2\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_OSS4\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_OSS5\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_OSS6\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_Main_Power_Supply\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_Encoder_EIB\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_Balancing_Drives\\) [a-z0-9]{8,}
@@ -213,6 +225,10 @@ Salgen MTMount C++
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_Azimuth_Drives.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_Azimuth_Drives_Thermal.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_OSS.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_OSS2.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_OSS4.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_OSS5.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_OSS6.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_Main_Power_Supply.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_Encoder_EIB.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_Balancing_Drives.idl
@@ -234,8 +250,8 @@ Salgen MTMount C++
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_Dynalene_Cooling.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_General_Purpose_Glycol_Water.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_Safety_System.idl
-    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    28
-    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    28
+    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    32
+    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    32
     Should Contain X Times    ${output.stdout}    cpp : Done Commander    1
     Should Contain X Times    ${output.stdout}    cpp : Done Event/Logger    1
 
@@ -260,6 +276,10 @@ Verify MTMount Telemetry directories
     Directory Should Exist    ${SALWorkDir}/${subSystem}_Azimuth_Drives
     Directory Should Exist    ${SALWorkDir}/${subSystem}_Azimuth_Drives_Thermal
     Directory Should Exist    ${SALWorkDir}/${subSystem}_OSS
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_OSS2
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_OSS4
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_OSS5
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_OSS6
     Directory Should Exist    ${SALWorkDir}/${subSystem}_Main_Power_Supply
     Directory Should Exist    ${SALWorkDir}/${subSystem}_Encoder_EIB
     Directory Should Exist    ${SALWorkDir}/${subSystem}_Balancing_Drives
@@ -299,6 +319,14 @@ Verify MTMount C++ Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}_Azimuth_Drives_Thermal/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_OSS/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_OSS/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_OSS2/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_OSS2/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_OSS4/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_OSS4/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_OSS5/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_OSS5/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_OSS6/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_OSS6/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_Main_Power_Supply/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_Main_Power_Supply/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_Encoder_EIB/cpp/standalone/sacpp_${subSystem}_pub
@@ -441,6 +469,14 @@ Verify MTMount Python Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Azimuth_Drives_Thermal_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_OSS_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_OSS_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_OSS2_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_OSS2_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_OSS4_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_OSS4_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_OSS5_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_OSS5_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_OSS6_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_OSS6_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Main_Power_Supply_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Main_Power_Supply_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Encoder_EIB_Publisher.py
@@ -581,6 +617,10 @@ Salgen MTMount Java
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_Azimuth_Drives.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_Azimuth_Drives_Thermal.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_OSS.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_OSS2.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_OSS4.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_OSS5.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_OSS6.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_Main_Power_Supply.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_Encoder_EIB.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_Balancing_Drives.idl
@@ -602,10 +642,10 @@ Salgen MTMount Java
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_Dynalene_Cooling.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_General_Purpose_Glycol_Water.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_Safety_System.idl
-    Should Contain X Times    ${output.stdout}    javac : Done Publisher    28
-    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    28
-    Should Contain X Times    ${output.stdout}    javac : Done Commander/Controller    28
-    Should Contain X Times    ${output.stdout}    javac : Done Event/Logger    28
+    Should Contain X Times    ${output.stdout}    javac : Done Publisher    32
+    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    32
+    Should Contain X Times    ${output.stdout}    javac : Done Commander/Controller    32
+    Should Contain X Times    ${output.stdout}    javac : Done Event/Logger    32
     Directory Should Exist    ${SALWorkDir}/${subSystem}/java
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
