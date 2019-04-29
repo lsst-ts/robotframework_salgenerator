@@ -36,6 +36,7 @@ SALGEN/EAS_salgenerator.robot
 SALGEN/EFDTransformationServer_salgenerator.robot
 SALGEN/EFD_salgenerator.robot
 SALGEN/Electrometer_salgenerator.robot
+SALGEN/Environment_salgenerator.robot
 SALGEN/FiberSpectrograph_salgenerator.robot
 SALGEN/HVAC_salgenerator.robot
 SALGEN/Hexapod_salgenerator.robot
