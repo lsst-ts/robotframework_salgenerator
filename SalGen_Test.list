@@ -50,6 +50,7 @@ SALGEN/MTEEC_salgenerator.robot
 SALGEN/MTGuider_salgenerator.robot
 SALGEN/MTHeaderService_salgenerator.robot
 SALGEN/MTLaserTracker_salgenerator.robot
+SALGEN/MTM1M3TS_salgenerator.robot
 SALGEN/MTM1M3_salgenerator.robot
 SALGEN/MTM2_salgenerator.robot
 SALGEN/MTMount_salgenerator.robot
