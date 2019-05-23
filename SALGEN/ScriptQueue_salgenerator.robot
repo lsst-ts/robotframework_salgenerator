@@ -3,7 +3,6 @@ Documentation    This suite builds the various interfaces for the ScriptQueue.
 Force Tags    salgen    
 Suite Setup    Log Many    ${Host}    ${subSystem}    ${timeout}
 Library    OperatingSystem
-Library    String
 Library    Process
 Resource    ../Global_Vars.resource
 
@@ -351,7 +350,6 @@ Salgen ScriptQueue Lib
 Salgen ScriptQueue RPM
     [Documentation]    Generate the SAL library RPM for ${subSystem}
     [Tags]    rpm
-    ${major}    ${minor}=    Split String    ${SALVersion}    .
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    rpm    version\=${SALVersion}-${Build_Number}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     @{files}=    List Directory    /tmp/

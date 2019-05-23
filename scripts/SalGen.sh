@@ -20,7 +20,6 @@ function createSettings() {
 	echo "Force Tags    salgen    $skipped" >> $testSuite
 	echo "Suite Setup    Log Many    \${Host}    \${subSystem}    \${timeout}" >> $testSuite
     echo "Library    OperatingSystem" >> $testSuite
-    echo "Library    String" >> $testSuite
     echo "Library    Process" >> $testSuite
     echo "Resource    ../Global_Vars.resource" >> $testSuite
 	echo "" >> $testSuite
@@ -362,7 +361,6 @@ function salgenRPM() {
     echo "Salgen $subSystemUp RPM" >> $testSuite
     echo "    [Documentation]    Generate the SAL library RPM for \${subSystem}" >> $testSuite
     echo "    [Tags]    rpm$skipped" >> $testSuite
-	echo "    \${major}    \${minor}=    Split String    \${SALVersion}    ." >> $testSuite
     echo "    \${output}=    Run Process    \${SALHome}/scripts/salgenerator    \${subSystem}    rpm    version\\=\${SALVersion}-\${Build_Number}    \
 shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}stdout.txt    stderr=\${EXECDIR}\${/}stderr.txt" >> $testSuite
     echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
