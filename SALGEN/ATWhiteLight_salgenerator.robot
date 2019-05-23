@@ -3,6 +3,7 @@ Documentation    This suite builds the various interfaces for the ATWhiteLight.
 Force Tags    salgen    
 Suite Setup    Log Many    ${Host}    ${subSystem}    ${timeout}
 Library    OperatingSystem
+Library    String
 Library    Process
 Resource    ../Global_Vars.resource
 
@@ -42,6 +43,9 @@ Salgen ATWhiteLight Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_powerLightOff.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_emergencyPowerLightOff.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setLightPower.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setChillerTemperature.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_powerChillerOn.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_powerChillerOff.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_abort.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
@@ -92,6 +96,9 @@ Verify ATWhiteLight revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_powerLightOff\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_emergencyPowerLightOff\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setLightPower\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setChillerTemperature\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_powerChillerOn\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_powerChillerOff\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_abort\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_enable\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_disable\\) [a-z0-9]{8,}
@@ -177,6 +184,12 @@ Verify ATWhiteLight C++ Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_emergencyPowerLightOff_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setLightPower_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setLightPower_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setChillerTemperature_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setChillerTemperature_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_powerChillerOn_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_powerChillerOn_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_powerChillerOff_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_powerChillerOff_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_abort_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_abort_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enable_commander
@@ -265,6 +278,12 @@ Verify ATWhiteLight Python Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_emergencyPowerLightOff.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_setLightPower.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setLightPower.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_setChillerTemperature.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setChillerTemperature.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_powerChillerOn.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_powerChillerOn.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_powerChillerOff.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_powerChillerOff.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_abort.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_abort.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_enable.py
@@ -371,12 +390,13 @@ Salgen ATWhiteLight Lib
 Salgen ATWhiteLight RPM
     [Documentation]    Generate the SAL library RPM for ${subSystem}
     [Tags]    rpm
-    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    rpm    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
+    ${major}    ${minor}=    Split String    ${SALVersion}    .
+    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    rpm    version\=${SALVersion}-${Build_Number}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     @{files}=    List Directory    /tmp/
     Log File    /tmp/makerpm.log
     Should Not Contain    ${output.stdout}    ERROR : Asset required for rpm
-    Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
+    Should Contain    ${output.stdout}    SAL generator - ${SALVersion}-${Build_Number}
     Should Contain    ${output.stdout}    Building runtime RPM for ${subSystem} subsystem
     Directory Should Exist    ${SALWorkDir}/rpmbuild
     Directory Should Exist    ${SALWorkDir}/rpmbuild/BUILD
@@ -390,10 +410,10 @@ Salgen ATWhiteLight RPM
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/rpmbuild/SPECS/ts_sal_${subSystem}.spec
     File Should Exist    ${SALWorkDir}/rpmbuild/SOURCES/${subSystem}-${SALVersion}.tgz
-    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}-${SALVersion}-${XMLVersion}${DIST}.x86_64.rpm
-    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}-debuginfo-${SALVersion}-${XMLVersion}${DIST}.x86_64.rpm
-    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}_test-${SALVersion}-${XMLVersion}${DIST}.x86_64.rpm
-    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}_test-debuginfo-${SALVersion}-${XMLVersion}${DIST}.x86_64.rpm
+    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}-${SALVersion}-${Build_Number}-${XMLVersion}${DIST}.x86_64.rpm
+    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}-debuginfo-${SALVersion}-${Build_Number}-${XMLVersion}${DIST}.x86_64.rpm
+    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}_test-${SALVersion}-${Build_Number}-${XMLVersion}${DIST}.x86_64.rpm
+    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}_test-debuginfo-${SALVersion}-${Build_Number}-${XMLVersion}${DIST}.x86_64.rpm
 
 Salgen ATWhiteLight Maven
     [Documentation]    Generate the Maven repository.
