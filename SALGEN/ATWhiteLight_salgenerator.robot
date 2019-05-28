@@ -38,10 +38,19 @@ Salgen ATWhiteLight Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_loopTime.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_bulbHours.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_bulbWattHours.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_chillerFansSpeed.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_chillerUpTime.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_chillerTempSensors.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_chillerProcessFlow.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_chillerTECBankCurrent.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_chillerTEDriveLevel.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_powerLightOn.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_powerLightOff.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_emergencyPowerLightOff.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setLightPower.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setChillerTemperature.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_startCooling.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_stopCooling.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_abort.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
@@ -56,6 +65,8 @@ Salgen ATWhiteLight Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_loopTimeOutOfRange.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rejectedCommand.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_whiteLightStatus.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_chillerWarning.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_chillerTempReached.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingVersions.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_errorCode.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_summaryState.idl
@@ -76,6 +87,12 @@ Salgen ATWhiteLight HTML
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.loopTime to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.bulbHours to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.bulbWattHours to form
+    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.chillerFansSpeed to form
+    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.chillerUpTime to form
+    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.chillerTempSensors to form
+    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.chillerProcessFlow to form
+    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.chillerTECBankCurrent to form
+    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.chillerTEDriveLevel to form
     Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
     @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}
@@ -92,6 +109,9 @@ Verify ATWhiteLight revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_powerLightOff\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_emergencyPowerLightOff\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setLightPower\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setChillerTemperature\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_startCooling\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_stopCooling\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_abort\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_enable\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_disable\\) [a-z0-9]{8,}
@@ -106,6 +126,8 @@ Verify ATWhiteLight revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_loopTimeOutOfRange\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rejectedCommand\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_whiteLightStatus\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_chillerWarning\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_chillerTempReached\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_settingVersions\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_errorCode\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_summaryState\\) [a-z0-9]{8,}
@@ -117,6 +139,12 @@ Verify ATWhiteLight revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_loopTime\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_bulbHours\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_bulbWattHours\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_chillerFansSpeed\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_chillerUpTime\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_chillerTempSensors\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_chillerProcessFlow\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_chillerTECBankCurrent\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_chillerTEDriveLevel\\) [a-z0-9]{8,}
 
 Salgen ATWhiteLight C++
     [Documentation]    Generate C++ wrapper.
@@ -130,8 +158,14 @@ Salgen ATWhiteLight C++
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_loopTime.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_bulbHours.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_bulbWattHours.idl
-    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    4
-    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    4
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_chillerFansSpeed.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_chillerUpTime.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_chillerTempSensors.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_chillerProcessFlow.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_chillerTECBankCurrent.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_chillerTEDriveLevel.idl
+    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    10
+    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    10
     Should Contain X Times    ${output.stdout}    cpp : Done Commander    1
     Should Contain X Times    ${output.stdout}    cpp : Done Event/Logger    1
 
@@ -153,6 +187,12 @@ Verify ATWhiteLight Telemetry directories
     Directory Should Exist    ${SALWorkDir}/${subSystem}_loopTime
     Directory Should Exist    ${SALWorkDir}/${subSystem}_bulbHours
     Directory Should Exist    ${SALWorkDir}/${subSystem}_bulbWattHours
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_chillerFansSpeed
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_chillerUpTime
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_chillerTempSensors
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_chillerProcessFlow
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_chillerTECBankCurrent
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_chillerTEDriveLevel
 
 Verify ATWhiteLight C++ Telemetry Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -165,6 +205,18 @@ Verify ATWhiteLight C++ Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}_bulbHours/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_bulbWattHours/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_bulbWattHours/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_chillerFansSpeed/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_chillerFansSpeed/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_chillerUpTime/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_chillerUpTime/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_chillerTempSensors/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_chillerTempSensors/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_chillerProcessFlow/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_chillerProcessFlow/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_chillerTECBankCurrent/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_chillerTECBankCurrent/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_chillerTEDriveLevel/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_chillerTEDriveLevel/cpp/standalone/sacpp_${subSystem}_sub
 
 Verify ATWhiteLight C++ Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -177,6 +229,12 @@ Verify ATWhiteLight C++ Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_emergencyPowerLightOff_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setLightPower_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setLightPower_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setChillerTemperature_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setChillerTemperature_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_startCooling_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_startCooling_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_stopCooling_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_stopCooling_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_abort_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_abort_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enable_commander
@@ -209,6 +267,10 @@ Verify ATWhiteLight C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_rejectedCommand_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_whiteLightStatus_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_whiteLightStatus_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_chillerWarning_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_chillerWarning_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_chillerTempReached_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_chillerTempReached_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingVersions_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingVersions_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_errorCode_send
@@ -251,6 +313,18 @@ Verify ATWhiteLight Python Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_bulbHours_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_bulbWattHours_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_bulbWattHours_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_chillerFansSpeed_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_chillerFansSpeed_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_chillerUpTime_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_chillerUpTime_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_chillerTempSensors_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_chillerTempSensors_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_chillerProcessFlow_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_chillerProcessFlow_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_chillerTECBankCurrent_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_chillerTECBankCurrent_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_chillerTEDriveLevel_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_chillerTEDriveLevel_Subscriber.py
 
 Verify ATWhiteLight Python Command Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
@@ -265,6 +339,12 @@ Verify ATWhiteLight Python Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_emergencyPowerLightOff.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_setLightPower.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setLightPower.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_setChillerTemperature.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setChillerTemperature.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_startCooling.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_startCooling.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_stopCooling.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_stopCooling.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_abort.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_abort.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_enable.py
@@ -299,6 +379,10 @@ Verify ATWhiteLight Python Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_rejectedCommand.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_whiteLightStatus.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_whiteLightStatus.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_chillerWarning.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_chillerWarning.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_chillerTempReached.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_chillerTempReached.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_settingVersions.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_settingVersions.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_errorCode.py
@@ -338,10 +422,16 @@ Salgen ATWhiteLight Java
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_loopTime.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_bulbHours.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_bulbWattHours.idl
-    Should Contain X Times    ${output.stdout}    javac : Done Publisher    4
-    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    4
-    Should Contain X Times    ${output.stdout}    javac : Done Commander/Controller    4
-    Should Contain X Times    ${output.stdout}    javac : Done Event/Logger    4
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_chillerFansSpeed.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_chillerUpTime.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_chillerTempSensors.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_chillerProcessFlow.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_chillerTECBankCurrent.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_chillerTEDriveLevel.idl
+    Should Contain X Times    ${output.stdout}    javac : Done Publisher    10
+    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    10
+    Should Contain X Times    ${output.stdout}    javac : Done Commander/Controller    10
+    Should Contain X Times    ${output.stdout}    javac : Done Event/Logger    10
     Directory Should Exist    ${SALWorkDir}/${subSystem}/java
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
