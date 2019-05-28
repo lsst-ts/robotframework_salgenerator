@@ -361,13 +361,13 @@ function salgenRPM() {
     echo "Salgen $subSystemUp RPM" >> $testSuite
     echo "    [Documentation]    Generate the SAL library RPM for \${subSystem}" >> $testSuite
     echo "    [Tags]    rpm$skipped" >> $testSuite
-    echo "    \${output}=    Run Process    \${SALHome}/scripts/salgenerator    \${subSystem}    rpm    version\\=\${SALVersion}_\${Build_Number}    \
+    echo "    \${output}=    Run Process    \${SALHome}/scripts/salgenerator    \${subSystem}    rpm    version\\=\${SALVersion}\${Build_Number}    \
 shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}stdout.txt    stderr=\${EXECDIR}\${/}stderr.txt" >> $testSuite
     echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
     echo "    @{files}=    List Directory    /tmp/" >> $testSuite
 	echo "    Log File    /tmp/makerpm.log" >> $testSuite
 	echo "    Should Not Contain    \${output.stdout}    ERROR : Asset required for rpm" >> $testSuite
-	echo "    Should Contain    \${output.stdout}    SAL generator - \${SALVersion}_\${Build_Number}" >> $testSuite
+	echo "    Should Contain    \${output.stdout}    SAL generator - \${SALVersion}\${Build_Number}" >> $testSuite
 	echo "    Should Contain    \${output.stdout}    Building runtime RPM for \${subSystem} subsystem" >> $testSuite
     echo "    Directory Should Exist    \${SALWorkDir}/rpmbuild" >> $testSuite
     echo "    Directory Should Exist    \${SALWorkDir}/rpmbuild/BUILD" >> $testSuite
@@ -380,11 +380,11 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}stdout.txt    stderr=
     echo "    @{files}=    List Directory    \${SALWorkDir}/rpmbuild/RPMS/x86_64/" >> $testSuite
     echo "    Log Many    @{files}" >> $testSuite
 	echo "    File Should Exist    \${SALWorkDir}/rpmbuild/SPECS/ts_sal_\${subSystem}.spec" >> $testSuite
-	echo "    File Should Exist    \${SALWorkDir}/rpmbuild/SOURCES/\${subSystem}-\${SALVersion}_\${Build_Number}.tgz" >> $testSuite
-    echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/\${subSystem}-\${SALVersion}_\${Build_Number}-\${XMLVersion}\${DIST}.x86_64.rpm" >> $testSuite
-    echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/\${subSystem}-debuginfo-\${SALVersion}_\${Build_Number}-\${XMLVersion}\${DIST}.x86_64.rpm" >> $testSuite
-    echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/\${subSystem}_test-\${SALVersion}_\${Build_Number}-\${XMLVersion}\${DIST}.x86_64.rpm" >> $testSuite
-    echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/\${subSystem}_test-debuginfo-\${SALVersion}_\${Build_Number}-\${XMLVersion}\${DIST}.x86_64.rpm" >> $testSuite
+	echo "    File Should Exist    \${SALWorkDir}/rpmbuild/SOURCES/\${subSystem}-\${SALVersion}\${Build_Number}.tgz" >> $testSuite
+    echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/\${subSystem}-\${SALVersion}\${Build_Number}-\${XMLVersion}\${DIST}.x86_64.rpm" >> $testSuite
+    echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/\${subSystem}-debuginfo-\${SALVersion}\${Build_Number}-\${XMLVersion}\${DIST}.x86_64.rpm" >> $testSuite
+    echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/\${subSystem}_test-\${SALVersion}\${Build_Number}-\${XMLVersion}\${DIST}.x86_64.rpm" >> $testSuite
+    echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/\${subSystem}_test-debuginfo-\${SALVersion}\${Build_Number}-\${XMLVersion}\${DIST}.x86_64.rpm" >> $testSuite
     echo "" >> $testSuite
 }
 
