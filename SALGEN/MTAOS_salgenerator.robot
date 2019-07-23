@@ -36,14 +36,13 @@ Salgen MTAOS Validate
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_wepDuration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_ofcDuration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_measureAlignment.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_issueAlignmentCorrection.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_resetWavefrontCorrection.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_issueWavefrontCorrection.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_processCalibrationProducts.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_processWavefrontError.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_processIntraExtraWavefrontError.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_processShWavefrontError.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_processCmosWavefrontError.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_abort.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
@@ -59,14 +58,14 @@ Salgen MTAOS Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rejectedWavefrontError.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_degreeOfFreedom.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rejectedDegreeOfFreedom.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_m2HexapodCorrection.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rejectedM2HexapodCorrection.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_cameraHexapodCorrection.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rejectedCameraHexapodCorrection.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_m1m3Correction.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rejectedM1M3Correction.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_m2Correction.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rejectedM2Correction.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_m2HexapodCorrection.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rejectedM2HexapodCorrection.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_wepWarning.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_ofcWarning.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingVersions.idl
@@ -99,14 +98,13 @@ Verify MTAOS revCodes File
     [Documentation]    Ensure MTAOS_revCodes.tcl contains 1 revcode per topic.
     [Tags]    html    
     ${output}=    Log File    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_measureAlignment\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_issueAlignmentCorrection\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_resetWavefrontCorrection\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_issueWavefrontCorrection\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_processCalibrationProducts\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_processWavefrontError\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_processIntraExtraWavefrontError\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_processShWavefrontError\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_processCmosWavefrontError\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_abort\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_enable\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_disable\\) [a-z0-9]{8,}
@@ -122,14 +120,14 @@ Verify MTAOS revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rejectedWavefrontError\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_degreeOfFreedom\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rejectedDegreeOfFreedom\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_m2HexapodCorrection\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rejectedM2HexapodCorrection\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_cameraHexapodCorrection\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rejectedCameraHexapodCorrection\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_m1m3Correction\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rejectedM1M3Correction\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_m2Correction\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rejectedM2Correction\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_m2HexapodCorrection\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rejectedM2HexapodCorrection\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_wepWarning\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_ofcWarning\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_settingVersions\\) [a-z0-9]{8,}
@@ -185,10 +183,6 @@ Verify MTAOS C++ Telemetry Interfaces
 Verify MTAOS C++ Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_measureAlignment_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_measureAlignment_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_issueAlignmentCorrection_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_issueAlignmentCorrection_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_resetWavefrontCorrection_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_resetWavefrontCorrection_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_issueWavefrontCorrection_commander
@@ -201,6 +195,8 @@ Verify MTAOS C++ Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_processIntraExtraWavefrontError_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_processShWavefrontError_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_processShWavefrontError_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_processCmosWavefrontError_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_processCmosWavefrontError_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_abort_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_abort_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enable_commander
@@ -235,6 +231,10 @@ Verify MTAOS C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_degreeOfFreedom_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_rejectedDegreeOfFreedom_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_rejectedDegreeOfFreedom_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_m2HexapodCorrection_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_m2HexapodCorrection_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_rejectedM2HexapodCorrection_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_rejectedM2HexapodCorrection_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_cameraHexapodCorrection_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_cameraHexapodCorrection_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_rejectedCameraHexapodCorrection_send
@@ -247,10 +247,6 @@ Verify MTAOS C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_m2Correction_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_rejectedM2Correction_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_rejectedM2Correction_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_m2HexapodCorrection_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_m2HexapodCorrection_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_rejectedM2HexapodCorrection_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_rejectedM2HexapodCorrection_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_wepWarning_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_wepWarning_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_ofcWarning_send
@@ -299,10 +295,6 @@ Verify MTAOS Python Command Interfaces
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_measureAlignment.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_measureAlignment.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_issueAlignmentCorrection.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_issueAlignmentCorrection.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_resetWavefrontCorrection.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_resetWavefrontCorrection.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_issueWavefrontCorrection.py
@@ -315,6 +307,8 @@ Verify MTAOS Python Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_processIntraExtraWavefrontError.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_processShWavefrontError.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_processShWavefrontError.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_processCmosWavefrontError.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_processCmosWavefrontError.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_abort.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_abort.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_enable.py
@@ -351,6 +345,10 @@ Verify MTAOS Python Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_degreeOfFreedom.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_rejectedDegreeOfFreedom.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_rejectedDegreeOfFreedom.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_m2HexapodCorrection.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_m2HexapodCorrection.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_rejectedM2HexapodCorrection.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_rejectedM2HexapodCorrection.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_cameraHexapodCorrection.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_cameraHexapodCorrection.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_rejectedCameraHexapodCorrection.py
@@ -363,10 +361,6 @@ Verify MTAOS Python Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_m2Correction.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_rejectedM2Correction.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_rejectedM2Correction.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_m2HexapodCorrection.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_m2HexapodCorrection.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_rejectedM2HexapodCorrection.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_rejectedM2HexapodCorrection.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_wepWarning.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_wepWarning.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_ofcWarning.py
