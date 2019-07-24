@@ -34,6 +34,7 @@ Salgen ScriptQueue Validate
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_showAvailableScripts.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_showSchema.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_showQueue.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_showScript.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_pause.idl
@@ -54,6 +55,7 @@ Salgen ScriptQueue Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setValue.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_heartbeat.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_availableScripts.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_configSchema.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_script.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_queue.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rootDirectories.idl
@@ -85,6 +87,7 @@ Verify ScriptQueue revCodes File
     [Tags]    html    
     ${output}=    Log File    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_showAvailableScripts\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_showSchema\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_showQueue\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_showScript\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_pause\\) [a-z0-9]{8,}
@@ -105,6 +108,7 @@ Verify ScriptQueue revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setValue\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_heartbeat\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_availableScripts\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_configSchema\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_script\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_queue\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rootDirectories\\) [a-z0-9]{8,}
@@ -144,6 +148,8 @@ Verify ScriptQueue C++ Command Interfaces
     [Tags]    cpp
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_showAvailableScripts_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_showAvailableScripts_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_showSchema_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_showSchema_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_showQueue_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_showQueue_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_showScript_commander
@@ -188,6 +194,8 @@ Verify ScriptQueue C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_heartbeat_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_availableScripts_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_availableScripts_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_configSchema_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_configSchema_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_script_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_script_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_queue_send
@@ -230,6 +238,8 @@ Verify ScriptQueue Python Command Interfaces
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_showAvailableScripts.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_showAvailableScripts.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_showSchema.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_showSchema.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_showQueue.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_showQueue.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_showScript.py
@@ -276,6 +286,8 @@ Verify ScriptQueue Python Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_heartbeat.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_availableScripts.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_availableScripts.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_configSchema.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_configSchema.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_script.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_script.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_queue.py
@@ -370,9 +382,7 @@ Salgen ScriptQueue RPM
     File Should Exist    ${SALWorkDir}/rpmbuild/SPECS/ts_sal_${subSystem}.spec
     File Should Exist    ${SALWorkDir}/rpmbuild/SOURCES/${subSystem}-${SALVersion}${Build_Number}.tgz
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}-${SALVersion}${Build_Number}-${XMLVersion}${DIST}.x86_64.rpm
-    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}-debuginfo-${SALVersion}${Build_Number}-${XMLVersion}${DIST}.x86_64.rpm
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}_test-${SALVersion}${Build_Number}-${XMLVersion}${DIST}.x86_64.rpm
-    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}_test-debuginfo-${SALVersion}${Build_Number}-${XMLVersion}${DIST}.x86_64.rpm
 
 Salgen ScriptQueue Maven
     [Documentation]    Generate the Maven repository.

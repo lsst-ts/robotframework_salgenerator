@@ -38,6 +38,7 @@ Salgen ATCamera Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_wreb.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_bonnShutter.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_wrebPower.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vacuum.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_discardRows.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_startImage.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disableCalibration.idl
@@ -80,6 +81,7 @@ Salgen ATCamera Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingsApplied.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_bonnShutterSettingsApplied.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_wrebSettingsApplied.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_softwareVersionsSettingsApplied.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingVersions.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_errorCode.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_summaryState.idl
@@ -100,6 +102,7 @@ Salgen ATCamera HTML
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.wreb to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.bonnShutter to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.wrebPower to form
+    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.vacuum to form
     Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
     @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}
@@ -154,6 +157,7 @@ Verify ATCamera revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_settingsApplied\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_bonnShutterSettingsApplied\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_wrebSettingsApplied\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_softwareVersionsSettingsApplied\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_settingVersions\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_errorCode\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_summaryState\\) [a-z0-9]{8,}
@@ -165,6 +169,7 @@ Verify ATCamera revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_wreb\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_bonnShutter\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_wrebPower\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vacuum\\) [a-z0-9]{8,}
 
 Salgen ATCamera C++
     [Documentation]    Generate C++ wrapper.
@@ -178,8 +183,9 @@ Salgen ATCamera C++
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_wreb.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_bonnShutter.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_wrebPower.idl
-    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    4
-    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    4
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_vacuum.idl
+    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    5
+    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    5
     Should Contain X Times    ${output.stdout}    cpp : Done Commander    1
     Should Contain X Times    ${output.stdout}    cpp : Done Event/Logger    1
 
@@ -201,6 +207,7 @@ Verify ATCamera Telemetry directories
     Directory Should Exist    ${SALWorkDir}/${subSystem}_wreb
     Directory Should Exist    ${SALWorkDir}/${subSystem}_bonnShutter
     Directory Should Exist    ${SALWorkDir}/${subSystem}_wrebPower
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_vacuum
 
 Verify ATCamera C++ Telemetry Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -213,6 +220,8 @@ Verify ATCamera C++ Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}_bonnShutter/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_wrebPower/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_wrebPower/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_vacuum/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_vacuum/cpp/standalone/sacpp_${subSystem}_sub
 
 Verify ATCamera C++ Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -305,6 +314,8 @@ Verify ATCamera C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_bonnShutterSettingsApplied_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_wrebSettingsApplied_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_wrebSettingsApplied_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_softwareVersionsSettingsApplied_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_softwareVersionsSettingsApplied_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingVersions_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingVersions_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_errorCode_send
@@ -347,6 +358,8 @@ Verify ATCamera Python Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_bonnShutter_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_wrebPower_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_wrebPower_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_vacuum_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_vacuum_Subscriber.py
 
 Verify ATCamera Python Command Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
@@ -443,6 +456,8 @@ Verify ATCamera Python Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_bonnShutterSettingsApplied.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_wrebSettingsApplied.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_wrebSettingsApplied.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_softwareVersionsSettingsApplied.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_softwareVersionsSettingsApplied.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_settingVersions.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_settingVersions.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_errorCode.py
@@ -482,10 +497,11 @@ Salgen ATCamera Java
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_wreb.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_bonnShutter.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_wrebPower.idl
-    Should Contain X Times    ${output.stdout}    javac : Done Publisher    4
-    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    4
-    Should Contain X Times    ${output.stdout}    javac : Done Commander/Controller    4
-    Should Contain X Times    ${output.stdout}    javac : Done Event/Logger    4
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuum.idl
+    Should Contain X Times    ${output.stdout}    javac : Done Publisher    5
+    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    5
+    Should Contain X Times    ${output.stdout}    javac : Done Commander/Controller    5
+    Should Contain X Times    ${output.stdout}    javac : Done Event/Logger    5
     Directory Should Exist    ${SALWorkDir}/${subSystem}/java
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
@@ -535,9 +551,7 @@ Salgen ATCamera RPM
     File Should Exist    ${SALWorkDir}/rpmbuild/SPECS/ts_sal_${subSystem}.spec
     File Should Exist    ${SALWorkDir}/rpmbuild/SOURCES/${subSystem}-${SALVersion}${Build_Number}.tgz
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}-${SALVersion}${Build_Number}-${XMLVersion}${DIST}.x86_64.rpm
-    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}-debuginfo-${SALVersion}${Build_Number}-${XMLVersion}${DIST}.x86_64.rpm
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}_test-${SALVersion}${Build_Number}-${XMLVersion}${DIST}.x86_64.rpm
-    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}_test-debuginfo-${SALVersion}${Build_Number}-${XMLVersion}${DIST}.x86_64.rpm
 
 Salgen ATCamera Maven
     [Documentation]    Generate the Maven repository.
