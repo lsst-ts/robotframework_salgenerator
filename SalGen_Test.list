@@ -8,11 +8,9 @@ SAL_Tests.robot
 SALGEN/ATAOS_salgenerator.robot
 SALGEN/ATArchiver_salgenerator.robot
 SALGEN/ATBuilding_salgenerator.robot
-SALGEN/ATCalCS_salgenerator.robot
 SALGEN/ATCamera_salgenerator.robot
 SALGEN/ATDomeTrajectory_salgenerator.robot
 SALGEN/ATDome_salgenerator.robot
-SALGEN/ATEEC_salgenerator.robot
 SALGEN/ATHeaderService_salgenerator.robot
 SALGEN/ATHexapod_salgenerator.robot
 SALGEN/ATMCS_salgenerator.robot
@@ -21,7 +19,6 @@ SALGEN/ATPneumatics_salgenerator.robot
 SALGEN/ATPtg_salgenerator.robot
 SALGEN/ATSpectrograph_salgenerator.robot
 SALGEN/ATTCS_salgenerator.robot
-SALGEN/ATThermoelectricCooler_salgenerator.robot
 SALGEN/ATWhiteLight_salgenerator.robot
 SALGEN/CBP_salgenerator.robot
 SALGEN/CatchupArchiver_salgenerator.robot
@@ -40,7 +37,6 @@ SALGEN/IOTA_salgenerator.robot
 SALGEN/LinearStage_salgenerator.robot
 SALGEN/MTAOS_salgenerator.robot
 SALGEN/MTArchiver_salgenerator.robot
-SALGEN/MTCalCS_salgenerator.robot
 SALGEN/MTCamera_salgenerator.robot
 SALGEN/MTDomeTrajectory_salgenerator.robot
 SALGEN/MTEEC_salgenerator.robot
@@ -61,7 +57,6 @@ SALGEN/Rotator_salgenerator.robot
 SALGEN/Scheduler_salgenerator.robot
 SALGEN/ScriptQueue_salgenerator.robot
 SALGEN/Script_salgenerator.robot
-SALGEN/Sequencer_salgenerator.robot
 SALGEN/SummitFacility_salgenerator.robot
 SALGEN/Test_salgenerator.robot
 SALGEN/TunableLaser_salgenerator.robot
