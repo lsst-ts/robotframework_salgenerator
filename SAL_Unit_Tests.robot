@@ -20,3 +20,11 @@ Verify Python Unit Tests
 	Should Contain    ${output.stdout}    tests/test_lsst_dds_domain.py
 	Should Contain    ${output.stdout}    tests/test_sal.py
 	Should Contain    ${output.stdout}    23 passed
+
+Verify Java Camera Unit Tests
+	[Documentation]    Run the Java Camera unit tests.
+    [Tags]    smoke
+	${output}=    Run Process    mvn test   shell=True    cwd=${SALInstall}${/}camera-tests    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
+	Log Many    ${output.stdout}    ${output.stderr}
+	Should Not Contain    ${output.stdout}    BUILD FAILURE
+	Should Not Contain    ${output.stdout}    [ERROR]
