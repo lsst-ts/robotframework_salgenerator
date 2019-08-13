@@ -36,8 +36,8 @@ Salgen ATWhiteLight Validate
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_timestamp.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_loopTime.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_bulbHours.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_bulbWattHours.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_bulbhour.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_bulbWatthour.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_chillerFansSpeed.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_chillerUpTime.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_chillerTempSensors.idl
@@ -85,8 +85,8 @@ Salgen ATWhiteLight HTML
     Should Contain    ${output.stdout}    Creating sal-generator-${subSystem} form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.timestamp to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.loopTime to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.bulbHours to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.bulbWattHours to form
+    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.bulbhour to form
+    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.bulbWatthour to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.chillerFansSpeed to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.chillerUpTime to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.chillerTempSensors to form
@@ -137,8 +137,8 @@ Verify ATWhiteLight revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_simulationMode\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_timestamp\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_loopTime\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_bulbHours\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_bulbWattHours\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_bulbhour\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_bulbWatthour\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_chillerFansSpeed\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_chillerUpTime\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_chillerTempSensors\\) [a-z0-9]{8,}
@@ -156,8 +156,8 @@ Salgen ATWhiteLight C++
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_timestamp.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_loopTime.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_bulbHours.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_bulbWattHours.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_bulbhour.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_bulbWatthour.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_chillerFansSpeed.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_chillerUpTime.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_chillerTempSensors.idl
@@ -185,8 +185,8 @@ Verify ATWhiteLight Telemetry directories
     Log Many    @{files}
     Directory Should Exist    ${SALWorkDir}/${subSystem}_timestamp
     Directory Should Exist    ${SALWorkDir}/${subSystem}_loopTime
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_bulbHours
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_bulbWattHours
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_bulbhour
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_bulbWatthour
     Directory Should Exist    ${SALWorkDir}/${subSystem}_chillerFansSpeed
     Directory Should Exist    ${SALWorkDir}/${subSystem}_chillerUpTime
     Directory Should Exist    ${SALWorkDir}/${subSystem}_chillerTempSensors
@@ -201,10 +201,10 @@ Verify ATWhiteLight C++ Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}_timestamp/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_loopTime/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_loopTime/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_bulbHours/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_bulbHours/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_bulbWattHours/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_bulbWattHours/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_bulbhour/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_bulbhour/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_bulbWatthour/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_bulbWatthour/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_chillerFansSpeed/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_chillerFansSpeed/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_chillerUpTime/cpp/standalone/sacpp_${subSystem}_pub
@@ -309,10 +309,10 @@ Verify ATWhiteLight Python Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_timestamp_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_loopTime_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_loopTime_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_bulbHours_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_bulbHours_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_bulbWattHours_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_bulbWattHours_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_bulbhour_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_bulbhour_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_bulbWatthour_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_bulbWatthour_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_chillerFansSpeed_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_chillerFansSpeed_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_chillerUpTime_Publisher.py
@@ -420,8 +420,8 @@ Salgen ATWhiteLight Java
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_timestamp.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_loopTime.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_bulbHours.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_bulbWattHours.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_bulbhour.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_bulbWatthour.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_chillerFansSpeed.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_chillerUpTime.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_chillerTempSensors.idl

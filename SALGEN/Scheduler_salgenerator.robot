@@ -34,7 +34,6 @@ Salgen Scheduler Validate
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_timestamp.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_loopTimeMs.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_nightSummary.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_predictedSchedule.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_surveyTopology.idl
@@ -63,10 +62,7 @@ Salgen Scheduler Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_photometricQuality.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_avoidanceRegions.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_downtime.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_internalCommand.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_heartbeat.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_loopTimeOutOfRange.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rejectedCommand.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingsApplied.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_target.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_invalidateTarget.idl
@@ -88,7 +84,6 @@ Salgen Scheduler HTML
     Should Contain    ${output.stdout}    Generating telemetry stream definition editor html
     Should Contain    ${output.stdout}    Creating sal-generator-${subSystem} form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.timestamp to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.loopTimeMs to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.nightSummary to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.predictedSchedule to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.surveyTopology to form
@@ -128,10 +123,7 @@ Verify Scheduler revCodes File
     [Documentation]    Ensure Scheduler_revCodes.tcl contains 1 revcode per topic.
     [Tags]    html    
     ${output}=    Log File    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_internalCommand\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_heartbeat\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_loopTimeOutOfRange\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rejectedCommand\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_settingsApplied\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_target\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_invalidateTarget\\) [a-z0-9]{8,}
@@ -144,7 +136,6 @@ Verify Scheduler revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_logMessage\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_simulationMode\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_timestamp\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_loopTimeMs\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_nightSummary\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_predictedSchedule\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_surveyTopology\\) [a-z0-9]{8,}
@@ -183,7 +174,6 @@ Salgen Scheduler C++
     Should Not Contain    ${output.stdout}    Error 1
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_timestamp.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_loopTimeMs.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_nightSummary.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_predictedSchedule.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_surveyTopology.idl
@@ -212,8 +202,8 @@ Salgen Scheduler C++
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_photometricQuality.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_avoidanceRegions.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_downtime.idl
-    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    30
-    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    30
+    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    29
+    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    29
     Should Contain X Times    ${output.stdout}    cpp : Done Commander    1
     Should Contain X Times    ${output.stdout}    cpp : Done Event/Logger    1
 
@@ -232,7 +222,6 @@ Verify Scheduler Telemetry directories
     @{files}=    List Directory    ${SALWorkDir}    pattern=*${subSystem}*
     Log Many    @{files}
     Directory Should Exist    ${SALWorkDir}/${subSystem}_timestamp
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_loopTimeMs
     Directory Should Exist    ${SALWorkDir}/${subSystem}_nightSummary
     Directory Should Exist    ${SALWorkDir}/${subSystem}_predictedSchedule
     Directory Should Exist    ${SALWorkDir}/${subSystem}_surveyTopology
@@ -267,8 +256,6 @@ Verify Scheduler C++ Telemetry Interfaces
     [Tags]    cpp
     File Should Exist    ${SALWorkDir}/${subSystem}_timestamp/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_timestamp/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_loopTimeMs/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_loopTimeMs/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_nightSummary/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_nightSummary/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_predictedSchedule/cpp/standalone/sacpp_${subSystem}_pub
@@ -329,14 +316,8 @@ Verify Scheduler C++ Telemetry Interfaces
 Verify Scheduler C++ Event Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_internalCommand_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_internalCommand_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_heartbeat_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_heartbeat_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_loopTimeOutOfRange_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_loopTimeOutOfRange_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_rejectedCommand_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_rejectedCommand_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsApplied_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsApplied_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_target_send
@@ -381,8 +362,6 @@ Verify Scheduler Python Telemetry Interfaces
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_timestamp_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_timestamp_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_loopTimeMs_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_loopTimeMs_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_nightSummary_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_nightSummary_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_predictedSchedule_Publisher.py
@@ -445,14 +424,8 @@ Verify Scheduler Python Event Interfaces
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_internalCommand.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_internalCommand.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_heartbeat.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_heartbeat.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_loopTimeOutOfRange.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_loopTimeOutOfRange.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_rejectedCommand.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_rejectedCommand.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_settingsApplied.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_settingsApplied.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_target.py
@@ -497,7 +470,6 @@ Salgen Scheduler Java
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_timestamp.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_loopTimeMs.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_nightSummary.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_predictedSchedule.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_surveyTopology.idl
@@ -526,10 +498,10 @@ Salgen Scheduler Java
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_photometricQuality.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_avoidanceRegions.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_downtime.idl
-    Should Contain X Times    ${output.stdout}    javac : Done Publisher    30
-    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    30
-    Should Contain X Times    ${output.stdout}    javac : Done Commander/Controller    30
-    Should Contain X Times    ${output.stdout}    javac : Done Event/Logger    30
+    Should Contain X Times    ${output.stdout}    javac : Done Publisher    29
+    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    29
+    Should Contain X Times    ${output.stdout}    javac : Done Commander/Controller    29
+    Should Contain X Times    ${output.stdout}    javac : Done Event/Logger    29
     Directory Should Exist    ${SALWorkDir}/${subSystem}/java
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
