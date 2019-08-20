@@ -352,14 +352,11 @@ Salgen ATHexapod Java
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_positionStatus.idl
     Should Contain X Times    ${output.stdout}    javac : Done Publisher    1
     Should Contain X Times    ${output.stdout}    javac : Done Subscriber    1
-    Should Contain X Times    ${output.stdout}    javac : Done Commander/Controller    1
-    Should Contain X Times    ${output.stdout}    javac : Done Event/Logger    1
     Directory Should Exist    ${SALWorkDir}/${subSystem}/java
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
     File Should Exist    ${SALWorkDir}/${subSystem}/java/saj_${subSystem}_types.jar
-    File Should Exist    ${SALWorkDir}/${subSystem}/java/src/saj_${subSystem}_cmdctl.jar
-    File Should Exist    ${SALWorkDir}/${subSystem}/java/src/saj_${subSystem}_event.jar
+    File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
 
 Salgen ATHexapod Lib
     [Documentation]    Generate the SAL shared library for ${subSystem}

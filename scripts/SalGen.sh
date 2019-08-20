@@ -216,20 +216,15 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}stdout.txt    stderr=
 	if [ ${#telemetryArray[@]} -eq 0 ]; then
         echo "    Should Contain X Times    \${output.stdout}    javac : Done Publisher    1" >> $testSuite
         echo "    Should Contain X Times    \${output.stdout}    javac : Done Subscriber    1" >> $testSuite
-    	echo "    Should Contain X Times    \${output.stdout}    javac : Done Commander/Controller    1" >> $testSuite
-    	echo "    Should Contain X Times    \${output.stdout}    javac : Done Event/Logger    1" >> $testSuite
     else
         echo "    Should Contain X Times    \${output.stdout}    javac : Done Publisher    ${#telemetryArray[@]}" >> $testSuite
         echo "    Should Contain X Times    \${output.stdout}    javac : Done Subscriber    ${#telemetryArray[@]}" >> $testSuite
-    	echo "    Should Contain X Times    \${output.stdout}    javac : Done Commander/Controller    ${#telemetryArray[@]}" >> $testSuite
-    	echo "    Should Contain X Times    \${output.stdout}    javac : Done Event/Logger    ${#telemetryArray[@]}" >> $testSuite
     fi
     echo "    Directory Should Exist    \${SALWorkDir}/\${subSystem}/java" >> $testSuite
     echo "    @{files}=    List Directory    \${SALWorkDir}/\${subSystem}/java    pattern=*\${subSystem}*" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/\${subSystem}/java/sal_\${subSystem}.idl" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/\${subSystem}/java/saj_\${subSystem}_types.jar" >> $testSuite
-    echo "    File Should Exist    \${SALWorkDir}/\${subSystem}/java/src/saj_\${subSystem}_cmdctl.jar" >> $testSuite
-    echo "    File Should Exist    \${SALWorkDir}/\${subSystem}/java/src/saj_\${subSystem}_event.jar" >> $testSuite
+    echo "    File Should Exist    \${SALWorkDir}/\${subSystem}/java/sal_\${subSystem}.idl" >> $testSuite
     echo "" >> $testSuite
 }
 

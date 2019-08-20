@@ -460,14 +460,11 @@ Salgen ATPneumatics Java
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_loadCell.idl
     Should Contain X Times    ${output.stdout}    javac : Done Publisher    4
     Should Contain X Times    ${output.stdout}    javac : Done Subscriber    4
-    Should Contain X Times    ${output.stdout}    javac : Done Commander/Controller    4
-    Should Contain X Times    ${output.stdout}    javac : Done Event/Logger    4
     Directory Should Exist    ${SALWorkDir}/${subSystem}/java
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
     File Should Exist    ${SALWorkDir}/${subSystem}/java/saj_${subSystem}_types.jar
-    File Should Exist    ${SALWorkDir}/${subSystem}/java/src/saj_${subSystem}_cmdctl.jar
-    File Should Exist    ${SALWorkDir}/${subSystem}/java/src/saj_${subSystem}_event.jar
+    File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
 
 Salgen ATPneumatics Lib
     [Documentation]    Generate the SAL shared library for ${subSystem}

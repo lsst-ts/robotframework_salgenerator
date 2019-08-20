@@ -390,14 +390,11 @@ Salgen Rotator Java
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_Motors.idl
     Should Contain X Times    ${output.stdout}    javac : Done Publisher    3
     Should Contain X Times    ${output.stdout}    javac : Done Subscriber    3
-    Should Contain X Times    ${output.stdout}    javac : Done Commander/Controller    3
-    Should Contain X Times    ${output.stdout}    javac : Done Event/Logger    3
     Directory Should Exist    ${SALWorkDir}/${subSystem}/java
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
     File Should Exist    ${SALWorkDir}/${subSystem}/java/saj_${subSystem}_types.jar
-    File Should Exist    ${SALWorkDir}/${subSystem}/java/src/saj_${subSystem}_cmdctl.jar
-    File Should Exist    ${SALWorkDir}/${subSystem}/java/src/saj_${subSystem}_event.jar
+    File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
 
 Salgen Rotator Lib
     [Documentation]    Generate the SAL shared library for ${subSystem}
