@@ -19,7 +19,7 @@ Verify Python Unit Tests
 	Should Contain    ${output.stdout}    collected 28 items
 	Should Contain    ${output.stdout}    tests/test_lsst_dds_domain.py
 	Should Contain    ${output.stdout}    tests/test_sal.py
-	Should Contain    ${output.stdout}    23 passed
+	Should Contain    ${output.stdout}    24 passed
 
 Verify Java Camera Unit Tests
 	[Documentation]    Run the Java Camera unit tests.
