@@ -36,16 +36,26 @@ Verify OpenSplice Version
 	Should Contain    ${versionData.stdout}    ${OpenspliceVersion} For x86_64.linux
 	Should Contain    ${versionData.stdout}    Date ${OpenspliceDate}
 
+Verify XML Version
+	[Tags]    smoke    version
+    File Should Exist    ${SALInstall}/test/VERSION
+	${output}=    Get File    ${SALInstall}/test/VERSION
+	Log    ${output}
+	Should Contain    ${output}    ${XMLVersion}
+
 Verify SAL Version file exists
     [Tags]    smoke    version
-	Log    ${SALInstall}/lsstsal/scripts/sal_version.tcl
+    File Should Exist    ${SALInstall}/VERSION
     File Should Exist    ${SALInstall}/lsstsal/scripts/sal_version.tcl
 
 Verify SAL Version file contents
     [Tags]    smoke    version
-    ${output}=    Run    cat ${SALInstall}/lsstsal/scripts/sal_version.tcl
+    ${output}=    Get File    ${SALInstall}/VERSION
     Log    ${output}
-    Should Contain    ${output}    set SALVERSION ${SALVersion}
+    Should Contain    ${output}    ${SALVersion}
+    ${output}=    Get File    ${SALInstall}/lsstsal/scripts/sal_version.tcl
+    Log    ${output}
+    Should Contain    ${output}    set SALVERSION [exec cat $env(LSST_SDK_INSTALL)${/}VERSION]
 
 Verify SAL CSC list exists
 	[Tags]    smoke
