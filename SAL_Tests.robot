@@ -67,6 +67,12 @@ Verify SAL Generics defintion exists
     Comment    Verify the SAL Generic topics definition file exists.
     File Should Exist    ${SALWorkDir}/SALGenerics.xml
 
+Verify DDS QoS Settings file exists
+    [Tags]    smoke
+    Comment    Verify the DDS Quality of Service settings XML file exists.
+	File Should Exist    ${SALWorkDir}/DDS_DefaultQoS_All.xml
+	File Should Exist    ${SALInstall}/lsstsal/scripts/DDS_DefaultQoS_All.xml
+
 Verify State Enumeration Definition
     [Documentation]    Verify the State Enumeration definition within the SAL.
     [Tags]    smoke
