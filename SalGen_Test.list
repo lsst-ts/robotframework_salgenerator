@@ -35,6 +35,7 @@ SALGEN/GenericCamera_salgenerator.robot
 SALGEN/HVAC_salgenerator.robot
 SALGEN/Hexapod_salgenerator.robot
 SALGEN/IOTA_salgenerator.robot
+SALGEN/LOVE_salgenerator.robot
 SALGEN/LinearStage_salgenerator.robot
 SALGEN/MTAOS_salgenerator.robot
 SALGEN/MTArchiver_salgenerator.robot
