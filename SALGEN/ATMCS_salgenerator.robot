@@ -34,11 +34,14 @@ Salgen ATMCS Validate
     Directory Should Exist    ${SALWorkDir}/idl-templates/validated
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_mountEncoders.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_trajectory.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_mount_AzEl_Encoders.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_mount_Nasmyth_Encoders.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_torqueDemand.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_measuredTorque.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_measuredMotorVelocity.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_mountMotorEncoders.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_nasymth_m3_mountMotorEncoders.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_azEl_mountMotorEncoders.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_startTracking.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_trackTarget.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setInstrumentPort.idl
@@ -58,6 +61,7 @@ Salgen ATMCS Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_atMountState.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_m3State.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_m3PortSelected.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_positionLimits.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_target.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_elevationInPosition.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_azimuthInPosition.idl
@@ -105,11 +109,14 @@ Salgen ATMCS HTML
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Generating telemetry stream definition editor html
     Should Contain    ${output.stdout}    Creating sal-generator-${subSystem} form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.mountEncoders to form
+    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.trajectory to form
+    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.mount_AzEl_Encoders to form
+    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.mount_Nasmyth_Encoders to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.torqueDemand to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.measuredTorque to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.measuredMotorVelocity to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.mountMotorEncoders to form
+    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.nasymth_m3_mountMotorEncoders to form
+    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.azEl_mountMotorEncoders to form
     Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
     @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}
@@ -141,6 +148,7 @@ Verify ATMCS revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_atMountState\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_m3State\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_m3PortSelected\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_positionLimits\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_target\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_elevationInPosition\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_azimuthInPosition\\) [a-z0-9]{8,}
@@ -179,11 +187,14 @@ Verify ATMCS revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_logLevel\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_logMessage\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_simulationMode\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_mountEncoders\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_trajectory\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_mount_AzEl_Encoders\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_mount_Nasmyth_Encoders\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_torqueDemand\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_measuredTorque\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_measuredMotorVelocity\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_mountMotorEncoders\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_nasymth_m3_mountMotorEncoders\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_azEl_mountMotorEncoders\\) [a-z0-9]{8,}
 
 Salgen ATMCS C++
     [Documentation]    Generate C++ wrapper.
@@ -193,13 +204,16 @@ Salgen ATMCS C++
     Should Not Contain    ${output.stdout}    *** DDS error in file
     Should Not Contain    ${output.stdout}    Error 1
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_mountEncoders.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_trajectory.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_mount_AzEl_Encoders.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_mount_Nasmyth_Encoders.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_torqueDemand.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_measuredTorque.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_measuredMotorVelocity.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_mountMotorEncoders.idl
-    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    5
-    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    5
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_nasymth_m3_mountMotorEncoders.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_azEl_mountMotorEncoders.idl
+    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    8
+    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    8
     Should Contain X Times    ${output.stdout}    cpp : Done Commander    1
     Should Contain X Times    ${output.stdout}    cpp : Done Event/Logger    1
 
@@ -217,25 +231,34 @@ Verify ATMCS Telemetry directories
     [Tags]    cpp
     @{files}=    List Directory    ${SALWorkDir}    pattern=*${subSystem}*
     Log Many    @{files}
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_mountEncoders
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_trajectory
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_mount_AzEl_Encoders
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_mount_Nasmyth_Encoders
     Directory Should Exist    ${SALWorkDir}/${subSystem}_torqueDemand
     Directory Should Exist    ${SALWorkDir}/${subSystem}_measuredTorque
     Directory Should Exist    ${SALWorkDir}/${subSystem}_measuredMotorVelocity
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_mountMotorEncoders
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_nasymth_m3_mountMotorEncoders
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_azEl_mountMotorEncoders
 
 Verify ATMCS C++ Telemetry Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}_mountEncoders/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_mountEncoders/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_trajectory/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_trajectory/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_mount_AzEl_Encoders/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_mount_AzEl_Encoders/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_mount_Nasmyth_Encoders/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_mount_Nasmyth_Encoders/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_torqueDemand/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_torqueDemand/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_measuredTorque/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_measuredTorque/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_measuredMotorVelocity/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_measuredMotorVelocity/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_mountMotorEncoders/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_mountMotorEncoders/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_nasymth_m3_mountMotorEncoders/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_nasymth_m3_mountMotorEncoders/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_azEl_mountMotorEncoders/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_azEl_mountMotorEncoders/cpp/standalone/sacpp_${subSystem}_sub
 
 Verify ATMCS C++ Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -282,6 +305,8 @@ Verify ATMCS C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_m3State_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_m3PortSelected_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_m3PortSelected_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_positionLimits_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_positionLimits_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_target_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_target_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_elevationInPosition_send
@@ -378,16 +403,22 @@ Verify ATMCS Python Telemetry Interfaces
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_mountEncoders_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_mountEncoders_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_trajectory_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_trajectory_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_mount_AzEl_Encoders_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_mount_AzEl_Encoders_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_mount_Nasmyth_Encoders_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_mount_Nasmyth_Encoders_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_torqueDemand_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_torqueDemand_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_measuredTorque_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_measuredTorque_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_measuredMotorVelocity_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_measuredMotorVelocity_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_mountMotorEncoders_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_mountMotorEncoders_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_nasymth_m3_mountMotorEncoders_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_nasymth_m3_mountMotorEncoders_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_azEl_mountMotorEncoders_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_azEl_mountMotorEncoders_Subscriber.py
 
 Verify ATMCS Python Command Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
@@ -438,6 +469,8 @@ Verify ATMCS Python Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_m3State.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_m3PortSelected.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_m3PortSelected.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_positionLimits.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_positionLimits.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_target.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_target.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_elevationInPosition.py
@@ -535,13 +568,16 @@ Salgen ATMCS Java
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    sal    java    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_mountEncoders.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_trajectory.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_mount_AzEl_Encoders.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_mount_Nasmyth_Encoders.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_torqueDemand.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_measuredTorque.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_measuredMotorVelocity.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_mountMotorEncoders.idl
-    Should Contain X Times    ${output.stdout}    javac : Done Publisher    5
-    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    5
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_nasymth_m3_mountMotorEncoders.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_azEl_mountMotorEncoders.idl
+    Should Contain X Times    ${output.stdout}    javac : Done Publisher    8
+    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    8
     Directory Should Exist    ${SALWorkDir}/${subSystem}/java
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl

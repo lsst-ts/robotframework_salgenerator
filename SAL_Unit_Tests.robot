@@ -28,3 +28,4 @@ Verify Java Camera Unit Tests
 	Log Many    ${output.stdout}    ${output.stderr}
 	Should Not Contain    ${output.stdout}    BUILD FAILURE
 	Should Not Contain    ${output.stdout}    [ERROR]
+	Should Contain    ${output.stdout}    [INFO] BUILD SUCCESS
