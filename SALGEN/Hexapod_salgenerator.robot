@@ -50,6 +50,7 @@ Salgen Hexapod Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_configureAzimuthRawLUT.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_configureTemperatureRawLUT.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_moveLUT.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_stop.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_abort.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
@@ -110,6 +111,7 @@ Verify Hexapod revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_configureAzimuthRawLUT\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_configureTemperatureRawLUT\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_moveLUT\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_stop\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_abort\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_enable\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_disable\\) [a-z0-9]{8,}
@@ -210,6 +212,8 @@ Verify Hexapod C++ Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_configureTemperatureRawLUT_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_moveLUT_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_moveLUT_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_stop_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_stop_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_abort_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_abort_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enable_commander
@@ -318,6 +322,8 @@ Verify Hexapod Python Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_configureTemperatureRawLUT.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_moveLUT.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_moveLUT.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_stop.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_stop.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_abort.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_abort.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_enable.py

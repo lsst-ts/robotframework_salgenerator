@@ -47,6 +47,7 @@ Salgen Rotator Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_positionSet.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_moveConstantVelocity.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_velocitySet.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_stop.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_abort.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
@@ -106,6 +107,7 @@ Verify Rotator revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_positionSet\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_moveConstantVelocity\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_velocitySet\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_stop\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_abort\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_enable\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_disable\\) [a-z0-9]{8,}
@@ -202,6 +204,8 @@ Verify Rotator C++ Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_moveConstantVelocity_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_velocitySet_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_velocitySet_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_stop_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_stop_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_abort_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_abort_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enable_commander
@@ -308,6 +312,8 @@ Verify Rotator Python Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_moveConstantVelocity.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_velocitySet.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_velocitySet.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_stop.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_stop.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_abort.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_abort.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_enable.py

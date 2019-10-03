@@ -43,6 +43,7 @@ Salgen ATPtg Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_timeAndDate.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_mountStatus.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_nextTimesToLimits.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_skyEnvironment.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_pointCloseFile.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_poriginAbsorb.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_guideClear.idl
@@ -146,6 +147,7 @@ Salgen ATPtg HTML
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.timeAndDate to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.mountStatus to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.nextTimesToLimits to form
+    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.skyEnvironment to form
     Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
     @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}
@@ -252,6 +254,7 @@ Verify ATPtg revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_timeAndDate\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_mountStatus\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_nextTimesToLimits\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_skyEnvironment\\) [a-z0-9]{8,}
 
 Salgen ATPtg C++
     [Documentation]    Generate C++ wrapper.
@@ -270,8 +273,9 @@ Salgen ATPtg C++
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_timeAndDate.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_mountStatus.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_nextTimesToLimits.idl
-    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    9
-    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    9
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_skyEnvironment.idl
+    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    10
+    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    10
     Should Contain X Times    ${output.stdout}    cpp : Done Commander    1
     Should Contain X Times    ${output.stdout}    cpp : Done Event/Logger    1
 
@@ -298,6 +302,7 @@ Verify ATPtg Telemetry directories
     Directory Should Exist    ${SALWorkDir}/${subSystem}_timeAndDate
     Directory Should Exist    ${SALWorkDir}/${subSystem}_mountStatus
     Directory Should Exist    ${SALWorkDir}/${subSystem}_nextTimesToLimits
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_skyEnvironment
 
 Verify ATPtg C++ Telemetry Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -320,6 +325,8 @@ Verify ATPtg C++ Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}_mountStatus/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_nextTimesToLimits/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_nextTimesToLimits/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_skyEnvironment/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_skyEnvironment/cpp/standalone/sacpp_${subSystem}_sub
 
 Verify ATPtg C++ Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -536,6 +543,8 @@ Verify ATPtg Python Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_mountStatus_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_nextTimesToLimits_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_nextTimesToLimits_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_skyEnvironment_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_skyEnvironment_Subscriber.py
 
 Verify ATPtg Python Command Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
@@ -748,8 +757,9 @@ Salgen ATPtg Java
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_timeAndDate.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_mountStatus.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_nextTimesToLimits.idl
-    Should Contain X Times    ${output.stdout}    javac : Done Publisher    9
-    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    9
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_skyEnvironment.idl
+    Should Contain X Times    ${output.stdout}    javac : Done Publisher    10
+    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    10
     Directory Should Exist    ${SALWorkDir}/${subSystem}/java
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl

@@ -57,7 +57,6 @@ Salgen MTCamera Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enableCalibration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_initImage.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_endImage.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setFilter.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_clear.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_takeImages.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_abort.idl
@@ -154,7 +153,6 @@ Verify MTCamera revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_enableCalibration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_initImage\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_endImage\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setFilter\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_clear\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_takeImages\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_abort\\) [a-z0-9]{8,}
@@ -337,8 +335,6 @@ Verify MTCamera C++ Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_initImage_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_endImage_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_endImage_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setFilter_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setFilter_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_clear_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_clear_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_takeImages_commander
@@ -519,8 +515,6 @@ Verify MTCamera Python Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_initImage.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_endImage.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_endImage.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_setFilter.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setFilter.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_clear.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_clear.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_takeImages.py
