@@ -35,7 +35,6 @@ Salgen PromptProcessing Validate
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_sequencerHeartbeat.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_entitySummaryState.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingsApplied.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_entityStartup.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_entityShutdown.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingVersions.idl
@@ -69,7 +68,6 @@ Verify PromptProcessing revCodes File
     [Tags]    html    
     ${output}=    Log File    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_entitySummaryState\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_settingsApplied\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_entityStartup\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_entityShutdown\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_settingVersions\\) [a-z0-9]{8,}
@@ -124,8 +122,6 @@ Verify PromptProcessing C++ Event Interfaces
     [Tags]    cpp
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_entitySummaryState_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_entitySummaryState_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsApplied_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsApplied_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_entityStartup_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_entityStartup_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_entityShutdown_send
@@ -178,8 +174,6 @@ Verify PromptProcessing Python Event Interfaces
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_entitySummaryState.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_entitySummaryState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_settingsApplied.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_settingsApplied.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_entityStartup.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_entityStartup.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_entityShutdown.py

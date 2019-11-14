@@ -46,7 +46,6 @@ Salgen ATArchiver Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setLogLevel.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setSimulationMode.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setValue.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingsApplied.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_processingStatus.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingVersions.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_errorCode.idl
@@ -90,7 +89,6 @@ Verify ATArchiver revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setLogLevel\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setSimulationMode\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setValue\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_settingsApplied\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_processingStatus\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_settingVersions\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_errorCode\\) [a-z0-9]{8,}
@@ -168,8 +166,6 @@ Verify ATArchiver C++ Command Interfaces
 Verify ATArchiver C++ Event Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsApplied_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsApplied_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_processingStatus_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_processingStatus_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingVersions_send
@@ -246,8 +242,6 @@ Verify ATArchiver Python Event Interfaces
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_settingsApplied.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_settingsApplied.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_processingStatus.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_processingStatus.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_settingVersions.py

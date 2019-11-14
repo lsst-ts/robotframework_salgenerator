@@ -37,7 +37,6 @@ Salgen MTArchiver Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_mtArchiverEntityShutdown.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_mtArchiverEntityStartup.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_mtArchiverEntitySummaryState.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingsApplied.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingVersions.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_errorCode.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_summaryState.idl
@@ -71,7 +70,6 @@ Verify MTArchiver revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_mtArchiverEntityShutdown\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_mtArchiverEntityStartup\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_mtArchiverEntitySummaryState\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_settingsApplied\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_settingVersions\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_errorCode\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_summaryState\\) [a-z0-9]{8,}
@@ -128,8 +126,6 @@ Verify MTArchiver C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_mtArchiverEntityStartup_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_mtArchiverEntitySummaryState_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_mtArchiverEntitySummaryState_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsApplied_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsApplied_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingVersions_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingVersions_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_errorCode_send
@@ -182,8 +178,6 @@ Verify MTArchiver Python Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_mtArchiverEntityStartup.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_mtArchiverEntitySummaryState.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_mtArchiverEntitySummaryState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_settingsApplied.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_settingsApplied.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_settingVersions.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_settingVersions.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_errorCode.py

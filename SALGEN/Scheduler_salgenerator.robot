@@ -62,7 +62,7 @@ Salgen Scheduler Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_photometricQuality.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_avoidanceRegions.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_downtime.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingsApplied.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_dependenciesVersions.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_target.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_invalidateTarget.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_needFilterSwap.idl
@@ -124,7 +124,7 @@ Verify Scheduler revCodes File
     [Documentation]    Ensure Scheduler_revCodes.tcl contains 1 revcode per topic.
     [Tags]    html    
     ${output}=    Log File    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_settingsApplied\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_dependenciesVersions\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_target\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_invalidateTarget\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_needFilterSwap\\) [a-z0-9]{8,}
@@ -318,8 +318,8 @@ Verify Scheduler C++ Telemetry Interfaces
 Verify Scheduler C++ Event Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsApplied_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsApplied_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_dependenciesVersions_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_dependenciesVersions_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_target_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_target_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_invalidateTarget_send
@@ -428,8 +428,8 @@ Verify Scheduler Python Event Interfaces
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_settingsApplied.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_settingsApplied.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_dependenciesVersions.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_dependenciesVersions.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_target.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_target.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_invalidateTarget.py

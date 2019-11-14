@@ -33,7 +33,7 @@ Salgen EFD Validate
     Directory Should Exist    ${SALWorkDir}/idl-templates/validated
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_Summary.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_summary.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_largeFileObjectAvailable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingVersions.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_errorCode.idl
@@ -74,7 +74,7 @@ Verify EFD revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_simulationMode\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_softwareVersions\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_heartbeat\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_Summary\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_summary\\) [a-z0-9]{8,}
 
 Salgen EFD C++
     [Documentation]    Generate C++ wrapper.
@@ -84,7 +84,7 @@ Salgen EFD C++
     Should Not Contain    ${output.stdout}    *** DDS error in file
     Should Not Contain    ${output.stdout}    Error 1
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_Summary.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_summary.idl
     Should Contain X Times    ${output.stdout}    cpp : Done Publisher    1
     Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    1
     Should Contain X Times    ${output.stdout}    cpp : Done Commander    1
@@ -104,13 +104,13 @@ Verify EFD Telemetry directories
     [Tags]    cpp
     @{files}=    List Directory    ${SALWorkDir}    pattern=*${subSystem}*
     Log Many    @{files}
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_Summary
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_summary
 
 Verify EFD C++ Telemetry Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}_Summary/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_Summary/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_summary/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_summary/cpp/standalone/sacpp_${subSystem}_sub
 
 Verify EFD C++ Event Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -155,8 +155,8 @@ Verify EFD Python Telemetry Interfaces
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Summary_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Summary_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_summary_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_summary_Subscriber.py
 
 Verify EFD Python Event Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
@@ -204,7 +204,7 @@ Salgen EFD Java
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    sal    java    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_Summary.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_summary.idl
     Should Contain X Times    ${output.stdout}    javac : Done Publisher    1
     Should Contain X Times    ${output.stdout}    javac : Done Subscriber    1
     Directory Should Exist    ${SALWorkDir}/${subSystem}/java

@@ -34,7 +34,6 @@ Salgen ATCamera Validate
     Directory Should Exist    ${SALWorkDir}/idl-templates/validated
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_heartbeat.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_wreb.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_bonnShutter.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_wrebPower.idl
@@ -100,7 +99,6 @@ Salgen ATCamera HTML
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Generating telemetry stream definition editor html
     Should Contain    ${output.stdout}    Creating sal-generator-${subSystem} form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.heartbeat to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.wreb to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.bonnShutter to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.wrebPower to form
@@ -169,7 +167,6 @@ Verify ATCamera revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_simulationMode\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_softwareVersions\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_heartbeat\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_heartbeat\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_wreb\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_bonnShutter\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_wrebPower\\) [a-z0-9]{8,}
@@ -183,13 +180,12 @@ Salgen ATCamera C++
     Should Not Contain    ${output.stdout}    *** DDS error in file
     Should Not Contain    ${output.stdout}    Error 1
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_heartbeat.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_wreb.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_bonnShutter.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_wrebPower.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_vacuum.idl
-    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    5
-    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    5
+    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    4
+    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    4
     Should Contain X Times    ${output.stdout}    cpp : Done Commander    1
     Should Contain X Times    ${output.stdout}    cpp : Done Event/Logger    1
 
@@ -207,7 +203,6 @@ Verify ATCamera Telemetry directories
     [Tags]    cpp
     @{files}=    List Directory    ${SALWorkDir}    pattern=*${subSystem}*
     Log Many    @{files}
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_heartbeat
     Directory Should Exist    ${SALWorkDir}/${subSystem}_wreb
     Directory Should Exist    ${SALWorkDir}/${subSystem}_bonnShutter
     Directory Should Exist    ${SALWorkDir}/${subSystem}_wrebPower
@@ -216,8 +211,6 @@ Verify ATCamera Telemetry directories
 Verify ATCamera C++ Telemetry Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}_heartbeat/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_heartbeat/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_wreb/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_wreb/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_bonnShutter/cpp/standalone/sacpp_${subSystem}_pub
@@ -358,8 +351,6 @@ Verify ATCamera Python Telemetry Interfaces
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_heartbeat_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_heartbeat_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_wreb_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_wreb_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_bonnShutter_Publisher.py
@@ -505,13 +496,12 @@ Salgen ATCamera Java
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    sal    java    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_heartbeat.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_wreb.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_bonnShutter.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_wrebPower.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuum.idl
-    Should Contain X Times    ${output.stdout}    javac : Done Publisher    5
-    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    5
+    Should Contain X Times    ${output.stdout}    javac : Done Publisher    4
+    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    4
     Directory Should Exist    ${SALWorkDir}/${subSystem}/java
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
