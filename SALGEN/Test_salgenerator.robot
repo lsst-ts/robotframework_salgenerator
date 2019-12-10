@@ -72,6 +72,7 @@ Salgen Test HTML
     Should Contain    ${output.stdout}    Creating sal-generator-${subSystem} form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.scalars to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.arrays to form
+    @{items}=    List Directory    ${SALWorkDir}/html/salgenerator
     Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
     @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}
