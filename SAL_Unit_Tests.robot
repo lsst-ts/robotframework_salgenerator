@@ -16,10 +16,10 @@ Verify Python Unit Tests
 	Log Many    ${output.stdout}    ${output.stderr}
 	Should Not Contain    ${output.stdout}    FAILURES
 	Should Contain    ${output.stdout}    test session starts
-	Should Contain    ${output.stdout}    collected 28 items
+	Should Contain    ${output.stdout}    collected 30 items
 	Should Contain    ${output.stdout}    tests/test_lsst_dds_domain.py
 	Should Contain    ${output.stdout}    tests/test_sal.py
-	Should Contain    ${output.stdout}    24 passed
+	Should Contain    ${output.stdout}    30 passed
 
 Verify Java Camera Unit Tests
 	[Documentation]    Run the Java Camera unit tests.
