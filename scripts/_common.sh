@@ -50,7 +50,19 @@ function clearTestSuites() {
 }
 
 function subsystemArray() {
-	echo "ATAOS ATArchiver ATBuilding ATCamera ATDome ATDomeTrajectory ATHeaderService ATHexapod ATMCS ATMonochromator ATPneumatics ATPtg ATSpectrograph ATTCS ATWhiteLight CBP CatchupArchiver DIMM Dome DSM EAS EFD EFDTransformationServer Electrometer Environment FiberSpectrograph GenericCamera HVAC Hexapod IOTA LOVE LinearStage MTAOS MTArchiver MTCamera MTDomeTrajectory MTEEC MTGuider MTHeaderService MTLaserTracker MTM1M3 MTM1M3TS MTM2 MTMount MTPtg MTTCS MTVMS OCS PointingComponent PromptProcessing Rotator Scheduler Script ScriptQueue SummitFacility Test TunableLaser Watcher"
+    echo "ATAOS ATArchiver ATBuilding ATCamera ATDome
+    ATDomeTrajectory ATHeaderService ATHexapod ATMCS
+    ATMonochromator ATPneumatics ATPtg ATSpectrograph ATTCS
+    ATWhiteLight CCArchiver CCCamera CCHeaderService CatchupArchiver
+    CBP DIMM Dome
+    DSM EAS EFD EFDTransformationServer Electrometer Environment
+    FiberSpectrograph GenericCamera IOTA Hexapod HVAC
+    LinearStage LOVE MTAOS MTArchiver MTCamera
+    MTDomeTrajectory MTEEC MTGuider MTHeaderService
+    MTLaserTracker MTM1M3 MTM1M3TS MTM2 MTMount MTPtg MTTCS
+    MTVMS PointingComponent PromptProcessing Rotator
+    Scheduler Script ScriptQueue SummitFacility Test
+    TunableLaser Watcher"
 }
 
 function stateArray() {
