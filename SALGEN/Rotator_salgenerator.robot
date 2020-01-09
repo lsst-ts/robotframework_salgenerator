@@ -34,29 +34,23 @@ Salgen Rotator Validate
     Directory Should Exist    ${SALWorkDir}/idl-templates/validated
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_Electrical.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_Application.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_Motors.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_electrical.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_motors.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_configureAcceleration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_configureVelocity.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_move.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_track.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_test.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_trackStart.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_clearError.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_positionSet.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_moveConstantVelocity.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_velocitySet.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_stop.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_controllerState.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_connected.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_interlock.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_trackLost.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_target.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_tracking.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_deviceError.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_inPosition.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rejectedCommand.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_configuration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_commandableByDDS.idl
 
 Salgen Rotator HTML
@@ -67,9 +61,9 @@ Salgen Rotator HTML
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Generating telemetry stream definition editor html
     Should Contain    ${output.stdout}    Creating sal-generator-${subSystem} form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.Electrical to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.Application to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.Motors to form
+    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.electrical to form
+    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.motors to form
     @{items}=    List Directory    ${SALWorkDir}/html
     Directory Should Exist    ${SALWorkDir}/html/${subSystem}
     @{files}=    List Files In Directory    ${SALWorkDir}/html/${subSystem}    pattern=*${subSystem}*
@@ -87,26 +81,20 @@ Verify Rotator revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_configureVelocity\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_move\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_track\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_test\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_trackStart\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_clearError\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_positionSet\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_moveConstantVelocity\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_velocitySet\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_stop\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_controllerState\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_connected\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_interlock\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_trackLost\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_target\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_tracking\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_deviceError\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_inPosition\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_settingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rejectedCommand\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_configuration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_commandableByDDS\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_Electrical\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_Application\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_Motors\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_electrical\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_motors\\) [a-z0-9]{8,}
 
 Salgen Rotator C++
     [Documentation]    Generate C++ wrapper.
@@ -116,9 +104,9 @@ Salgen Rotator C++
     Should Not Contain    ${output.stdout}    *** DDS error in file
     Should Not Contain    ${output.stdout}    Error 1
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_Electrical.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_Application.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_Motors.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_electrical.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_motors.idl
     Should Contain X Times    ${output.stdout}    cpp : Done Publisher    3
     Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    3
     Should Contain X Times    ${output.stdout}    cpp : Done Commander    1
@@ -138,19 +126,19 @@ Verify Rotator Telemetry directories
     [Tags]    cpp
     @{files}=    List Directory    ${SALWorkDir}    pattern=*${subSystem}*
     Log Many    @{files}
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_Electrical
     Directory Should Exist    ${SALWorkDir}/${subSystem}_Application
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_Motors
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_electrical
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_motors
 
 Verify Rotator C++ Telemetry Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}_Electrical/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_Electrical/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_Application/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_Application/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_Motors/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_Motors/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_electrical/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_electrical/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_motors/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_motors/cpp/standalone/sacpp_${subSystem}_sub
 
 Verify Rotator C++ Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -163,18 +151,10 @@ Verify Rotator C++ Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_move_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_track_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_track_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_test_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_test_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_trackStart_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_trackStart_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_clearError_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_clearError_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_positionSet_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_positionSet_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_moveConstantVelocity_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_moveConstantVelocity_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_velocitySet_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_velocitySet_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_stop_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_stop_controller
 
@@ -187,18 +167,14 @@ Verify Rotator C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_connected_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_interlock_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_interlock_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_trackLost_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_trackLost_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_target_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_target_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_tracking_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_tracking_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_deviceError_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_deviceError_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_inPosition_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_inPosition_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsApplied_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsApplied_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_rejectedCommand_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_rejectedCommand_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_configuration_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_configuration_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_commandableByDDS_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_commandableByDDS_log
 
@@ -221,12 +197,12 @@ Verify Rotator Python Telemetry Interfaces
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Electrical_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Electrical_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Application_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Application_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Motors_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Motors_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_electrical_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_electrical_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_motors_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_motors_Subscriber.py
 
 Verify Rotator Python Command Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
@@ -241,18 +217,10 @@ Verify Rotator Python Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_move.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_track.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_track.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_test.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_test.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_trackStart.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_trackStart.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_clearError.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_clearError.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_positionSet.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_positionSet.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_moveConstantVelocity.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_moveConstantVelocity.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_velocitySet.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_velocitySet.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_stop.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_stop.py
 
@@ -267,18 +235,14 @@ Verify Rotator Python Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_connected.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_interlock.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_interlock.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_trackLost.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_trackLost.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_target.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_target.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_tracking.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_tracking.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_deviceError.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_deviceError.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_inPosition.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_inPosition.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_settingsApplied.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_settingsApplied.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_rejectedCommand.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_rejectedCommand.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_configuration.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_configuration.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_commandableByDDS.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_commandableByDDS.py
 
@@ -302,9 +266,9 @@ Salgen Rotator Java
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    sal    java    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_Electrical.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_Application.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_Motors.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_electrical.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_motors.idl
     Should Contain X Times    ${output.stdout}    javac : Done Publisher    3
     Should Contain X Times    ${output.stdout}    javac : Done Subscriber    3
     Directory Should Exist    ${SALWorkDir}/${subSystem}/java

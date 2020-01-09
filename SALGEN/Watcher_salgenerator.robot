@@ -36,6 +36,7 @@ Salgen Watcher Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_acknowledge.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_mute.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_showAlarms.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_unacknowledge.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_unmute.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_alarm.idl
 
@@ -62,6 +63,7 @@ Verify Watcher revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_acknowledge\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_mute\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_showAlarms\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_unacknowledge\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_unmute\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_alarm\\) [a-z0-9]{8,}
 
@@ -96,6 +98,8 @@ Verify Watcher C++ Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_mute_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_showAlarms_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_showAlarms_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_unacknowledge_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_unacknowledge_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_unmute_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_unmute_controller
 
@@ -130,6 +134,8 @@ Verify Watcher Python Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_mute.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_showAlarms.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_showAlarms.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_unacknowledge.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_unacknowledge.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_unmute.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_unmute.py
 

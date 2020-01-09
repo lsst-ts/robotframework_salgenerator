@@ -20,7 +20,6 @@ Verify ATArchiver XML Defintions exist
     Should Not Be Empty    ${output.stdout}
     File Should Exist    ${SALWorkDir}/ATArchiver_Commands.xml
     File Should Exist    ${SALWorkDir}/ATArchiver_Events.xml
-    File Should Exist    ${SALWorkDir}/ATArchiver_Telemetry.xml
 
 Salgen ATArchiver Validate
     [Documentation]    Validate the ATArchiver XML definitions.
@@ -34,7 +33,6 @@ Salgen ATArchiver Validate
     Directory Should Exist    ${SALWorkDir}/idl-templates/validated
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_sequencerHeartbeat.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_resetFromFault.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_imageRetrievalForArchiving.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_imageInOODS.idl
@@ -47,14 +45,12 @@ Salgen ATArchiver HTML
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Generating telemetry stream definition editor html
     Should Contain    ${output.stdout}    Creating sal-generator-${subSystem} form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.sequencerHeartbeat to form
     @{items}=    List Directory    ${SALWorkDir}/html
     Directory Should Exist    ${SALWorkDir}/html/${subSystem}
     @{files}=    List Files In Directory    ${SALWorkDir}/html/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/html/${subSystem}/ATArchiver_Commands.html
     File Should Exist    ${SALWorkDir}/html/${subSystem}/ATArchiver_Events.html
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/ATArchiver_Telemetry.html
     File Should Exist    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
 
 Verify ATArchiver revCodes File
@@ -64,7 +60,6 @@ Verify ATArchiver revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_resetFromFault\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_imageRetrievalForArchiving\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_imageInOODS\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_sequencerHeartbeat\\) [a-z0-9]{8,}
 
 Salgen ATArchiver C++
     [Documentation]    Generate C++ wrapper.
@@ -74,9 +69,7 @@ Salgen ATArchiver C++
     Should Not Contain    ${output.stdout}    *** DDS error in file
     Should Not Contain    ${output.stdout}    Error 1
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_sequencerHeartbeat.idl
-    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    1
-    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    1
+    Should Contain    ${output.stdout}    WARNING : No Telemetry definitions found for ${subSystem}
     Should Contain X Times    ${output.stdout}    cpp : Done Commander    1
     Should Contain X Times    ${output.stdout}    cpp : Done Event/Logger    1
 
@@ -89,18 +82,6 @@ Verify C++ Directories
     Directory Should Exist    ${SALWorkDir}/idl-templates/validated/sal
     @{files}=    List Directory    ${SALWorkDir}/idl-templates/validated/sal    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/idl-templates/validated/sal/sal_${subSystem}.idl
-
-Verify ATArchiver Telemetry directories
-    [Tags]    cpp
-    @{files}=    List Directory    ${SALWorkDir}    pattern=*${subSystem}*
-    Log Many    @{files}
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_sequencerHeartbeat
-
-Verify ATArchiver C++ Telemetry Interfaces
-    [Documentation]    Verify the C++ interfaces were properly created.
-    [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}_sequencerHeartbeat/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_sequencerHeartbeat/cpp/standalone/sacpp_${subSystem}_sub
 
 Verify ATArchiver C++ Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -129,14 +110,6 @@ Salgen ATArchiver Python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/SALPY_${subSystem}.so
-
-Verify ATArchiver Python Telemetry Interfaces
-    [Documentation]    Verify the Python interfaces were properly created.
-    [Tags]    python
-    @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
-    Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_sequencerHeartbeat_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_sequencerHeartbeat_Subscriber.py
 
 Verify ATArchiver Python Command Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
@@ -176,9 +149,7 @@ Salgen ATArchiver Java
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    sal    java    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_sequencerHeartbeat.idl
-    Should Contain X Times    ${output.stdout}    javac : Done Publisher    1
-    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    1
+    Should Contain    ${output.stdout}    WARNING : No Telemetry definitions found for ${subSystem}
     Directory Should Exist    ${SALWorkDir}/${subSystem}/java
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl

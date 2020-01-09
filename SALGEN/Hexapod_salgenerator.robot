@@ -34,30 +34,25 @@ Salgen Hexapod Validate
     Directory Should Exist    ${SALWorkDir}/idl-templates/validated
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_Actuators.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_Application.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_Electrical.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_actuators.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_application.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_electrical.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_clearError.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_configureAcceleration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_configureLimits.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_configureElevationRawLUT.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_move.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_positionSet.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_moveLUT.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_configureVelocity.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_offset.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_offsetLUT.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_pivot.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_clearError.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_test.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_configureAzimuthRawLUT.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_configureTemperatureRawLUT.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_moveLUT.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_stop.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_controllerState.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_connected.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_interlock.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_actuatorInPosition.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_inPosition.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_deviceError.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rejectedCommand.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_configuration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_commandableByDDS.idl
 
 Salgen Hexapod HTML
@@ -68,9 +63,9 @@ Salgen Hexapod HTML
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Generating telemetry stream definition editor html
     Should Contain    ${output.stdout}    Creating sal-generator-${subSystem} form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.Actuators to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.Application to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.Electrical to form
+    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.actuators to form
+    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.application to form
+    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.electrical to form
     @{items}=    List Directory    ${SALWorkDir}/html
     Directory Should Exist    ${SALWorkDir}/html/${subSystem}
     @{files}=    List Files In Directory    ${SALWorkDir}/html/${subSystem}    pattern=*${subSystem}*
@@ -84,31 +79,26 @@ Verify Hexapod revCodes File
     [Documentation]    Ensure Hexapod_revCodes.tcl contains 1 revcode per topic.
     [Tags]    html    
     ${output}=    Log File    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_clearError\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_configureAcceleration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_configureLimits\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_configureElevationRawLUT\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_move\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_positionSet\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_moveLUT\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_configureVelocity\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_offset\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_offsetLUT\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_pivot\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_clearError\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_test\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_configureAzimuthRawLUT\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_configureTemperatureRawLUT\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_moveLUT\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_stop\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_controllerState\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_connected\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_interlock\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_actuatorInPosition\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_inPosition\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_deviceError\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_settingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rejectedCommand\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_configuration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_commandableByDDS\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_Actuators\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_Application\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_Electrical\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_actuators\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_application\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_electrical\\) [a-z0-9]{8,}
 
 Salgen Hexapod C++
     [Documentation]    Generate C++ wrapper.
@@ -118,9 +108,9 @@ Salgen Hexapod C++
     Should Not Contain    ${output.stdout}    *** DDS error in file
     Should Not Contain    ${output.stdout}    Error 1
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_Actuators.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_Application.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_Electrical.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_actuators.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_application.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_electrical.idl
     Should Contain X Times    ${output.stdout}    cpp : Done Publisher    3
     Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    3
     Should Contain X Times    ${output.stdout}    cpp : Done Commander    1
@@ -140,49 +130,41 @@ Verify Hexapod Telemetry directories
     [Tags]    cpp
     @{files}=    List Directory    ${SALWorkDir}    pattern=*${subSystem}*
     Log Many    @{files}
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_Actuators
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_Application
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_Electrical
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_actuators
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_application
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_electrical
 
 Verify Hexapod C++ Telemetry Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}_Actuators/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_Actuators/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_Application/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_Application/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_Electrical/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_Electrical/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_actuators/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_actuators/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_application/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_application/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_electrical/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_electrical/cpp/standalone/sacpp_${subSystem}_sub
 
 Verify Hexapod C++ Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_clearError_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_clearError_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_configureAcceleration_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_configureAcceleration_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_configureLimits_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_configureLimits_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_configureElevationRawLUT_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_configureElevationRawLUT_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_move_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_move_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_positionSet_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_positionSet_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_moveLUT_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_moveLUT_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_configureVelocity_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_configureVelocity_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_offset_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_offset_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_offsetLUT_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_offsetLUT_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_pivot_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_pivot_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_clearError_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_clearError_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_test_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_test_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_configureAzimuthRawLUT_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_configureAzimuthRawLUT_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_configureTemperatureRawLUT_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_configureTemperatureRawLUT_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_moveLUT_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_moveLUT_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_stop_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_stop_controller
 
@@ -195,14 +177,12 @@ Verify Hexapod C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_connected_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_interlock_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_interlock_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_actuatorInPosition_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_actuatorInPosition_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_inPosition_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_inPosition_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_deviceError_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_deviceError_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsApplied_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsApplied_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_rejectedCommand_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_rejectedCommand_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_configuration_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_configuration_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_commandableByDDS_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_commandableByDDS_log
 
@@ -225,44 +205,36 @@ Verify Hexapod Python Telemetry Interfaces
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Actuators_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Actuators_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Application_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Application_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Electrical_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Electrical_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_actuators_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_actuators_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_application_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_application_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_electrical_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_electrical_Subscriber.py
 
 Verify Hexapod Python Command Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_clearError.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_clearError.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_configureAcceleration.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_configureAcceleration.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_configureLimits.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_configureLimits.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_configureElevationRawLUT.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_configureElevationRawLUT.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_move.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_move.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_positionSet.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_positionSet.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_moveLUT.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_moveLUT.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_configureVelocity.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_configureVelocity.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_offset.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_offset.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_offsetLUT.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_offsetLUT.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_pivot.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_pivot.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_clearError.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_clearError.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_test.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_test.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_configureAzimuthRawLUT.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_configureAzimuthRawLUT.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_configureTemperatureRawLUT.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_configureTemperatureRawLUT.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_moveLUT.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_moveLUT.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_stop.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_stop.py
 
@@ -277,14 +249,12 @@ Verify Hexapod Python Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_connected.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_interlock.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_interlock.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_actuatorInPosition.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_actuatorInPosition.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_inPosition.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_inPosition.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_deviceError.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_deviceError.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_settingsApplied.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_settingsApplied.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_rejectedCommand.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_rejectedCommand.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_configuration.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_configuration.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_commandableByDDS.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_commandableByDDS.py
 
@@ -308,9 +278,9 @@ Salgen Hexapod Java
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    sal    java    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_Actuators.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_Application.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_Electrical.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_actuators.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_application.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_electrical.idl
     Should Contain X Times    ${output.stdout}    javac : Done Publisher    3
     Should Contain X Times    ${output.stdout}    javac : Done Subscriber    3
     Directory Should Exist    ${SALWorkDir}/${subSystem}/java
