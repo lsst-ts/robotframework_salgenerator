@@ -66,9 +66,9 @@ Salgen Hexapod HTML
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.actuators to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.application to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.electrical to form
-    @{items}=    List Directory    ${SALWorkDir}/html
-    Directory Should Exist    ${SALWorkDir}/html/${subSystem}
-    @{files}=    List Files In Directory    ${SALWorkDir}/html/${subSystem}    pattern=*${subSystem}*
+    @{items}=    List Directory    ${SALWorkDir}/html/salgenerator
+    Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
+    @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/html/${subSystem}/Hexapod_Commands.html
     File Should Exist    ${SALWorkDir}/html/${subSystem}/Hexapod_Events.html

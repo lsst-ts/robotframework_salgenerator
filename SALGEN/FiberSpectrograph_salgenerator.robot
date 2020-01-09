@@ -50,9 +50,9 @@ Salgen FiberSpectrograph HTML
     Should Contain    ${output.stdout}    Generating telemetry stream definition editor html
     Should Contain    ${output.stdout}    Creating sal-generator-${subSystem} form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.temperature to form
-    @{items}=    List Directory    ${SALWorkDir}/html
-    Directory Should Exist    ${SALWorkDir}/html/${subSystem}
-    @{files}=    List Files In Directory    ${SALWorkDir}/html/${subSystem}    pattern=*${subSystem}*
+    @{items}=    List Directory    ${SALWorkDir}/html/salgenerator
+    Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
+    @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/html/${subSystem}/FiberSpectrograph_Commands.html
     File Should Exist    ${SALWorkDir}/html/${subSystem}/FiberSpectrograph_Events.html

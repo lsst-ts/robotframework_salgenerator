@@ -53,9 +53,9 @@ Salgen MTVMS HTML
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.tma to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.m2 to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.cameraRotator to form
-    @{items}=    List Directory    ${SALWorkDir}/html
-    Directory Should Exist    ${SALWorkDir}/html/${subSystem}
-    @{files}=    List Files In Directory    ${SALWorkDir}/html/${subSystem}    pattern=*${subSystem}*
+    @{items}=    List Directory    ${SALWorkDir}/html/salgenerator
+    Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
+    @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/html/${subSystem}/MTVMS_Commands.html
     File Should Exist    ${SALWorkDir}/html/${subSystem}/MTVMS_Events.html

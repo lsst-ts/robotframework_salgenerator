@@ -87,9 +87,9 @@ Salgen Dome HTML
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.DomeLWS_status to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.DomeMONCS_status to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.DomeTHCS_status to form
-    @{items}=    List Directory    ${SALWorkDir}/html
-    Directory Should Exist    ${SALWorkDir}/html/${subSystem}
-    @{files}=    List Files In Directory    ${SALWorkDir}/html/${subSystem}    pattern=*${subSystem}*
+    @{items}=    List Directory    ${SALWorkDir}/html/salgenerator
+    Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
+    @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/html/${subSystem}/Dome_Commands.html
     File Should Exist    ${SALWorkDir}/html/${subSystem}/Dome_Events.html

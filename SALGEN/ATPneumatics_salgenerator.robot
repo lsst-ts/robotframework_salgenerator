@@ -78,9 +78,9 @@ Salgen ATPneumatics HTML
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.m2AirPressure to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.mainAirSourcePressure to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.loadCell to form
-    @{items}=    List Directory    ${SALWorkDir}/html
-    Directory Should Exist    ${SALWorkDir}/html/${subSystem}
-    @{files}=    List Files In Directory    ${SALWorkDir}/html/${subSystem}    pattern=*${subSystem}*
+    @{items}=    List Directory    ${SALWorkDir}/html/salgenerator
+    Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
+    @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/html/${subSystem}/ATPneumatics_Commands.html
     File Should Exist    ${SALWorkDir}/html/${subSystem}/ATPneumatics_Events.html

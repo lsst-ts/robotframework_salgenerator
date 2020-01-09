@@ -60,9 +60,9 @@ Salgen CBP HTML
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.altitude to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.focus to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.parked to form
-    @{items}=    List Directory    ${SALWorkDir}/html
-    Directory Should Exist    ${SALWorkDir}/html/${subSystem}
-    @{files}=    List Files In Directory    ${SALWorkDir}/html/${subSystem}    pattern=*${subSystem}*
+    @{items}=    List Directory    ${SALWorkDir}/html/salgenerator
+    Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
+    @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/html/${subSystem}/CBP_Commands.html
     File Should Exist    ${SALWorkDir}/html/${subSystem}/CBP_Telemetry.html
