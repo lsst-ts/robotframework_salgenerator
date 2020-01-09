@@ -12,20 +12,18 @@ ${timeout}    10s
 Verify Python Unit Tests
     [Documentation]    Run the SAL PyTest unit tests.
     [Tags]    smoke
-	${output}=    Run Process    pytest    tests/*.py    shell=True    cwd=${SALInstall}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
-	Log Many    ${output.stdout}    ${output.stderr}
-	Should Not Contain    ${output.stdout}    FAILURES
-	Should Contain    ${output.stdout}    test session starts
-	Should Contain    ${output.stdout}    collected 30 items
-	Should Contain    ${output.stdout}    tests/test_lsst_dds_domain.py
-	Should Contain    ${output.stdout}    tests/test_sal.py
-	Should Contain    ${output.stdout}    30 passed
+    ${output}=    Run Process    pytest    tests/*.py    shell=True    cwd=${SALInstall}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
+    Log Many    ${output.stdout}    ${output.stderr}
+    Should Not Contain    ${output.stdout}    FAILURES
+    Should Contain    ${output.stdout}    test session starts
+    Should Contain    ${output.stdout}    tests/test_lsst_dds_domain.py
+    Should Contain    ${output.stdout}    tests/test_sal.py
 
 Verify Java Camera Unit Tests
-	[Documentation]    Run the Java Camera unit tests.
+    [Documentation]    Run the Java Camera unit tests.
     [Tags]    smoke
-	${output}=    Run Process    mvn test   shell=True    cwd=${SALInstall}${/}camera-tests    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
-	Log Many    ${output.stdout}    ${output.stderr}
-	Should Not Contain    ${output.stdout}    BUILD FAILURE
-	Should Not Contain    ${output.stdout}    [ERROR]
-	Should Contain    ${output.stdout}    [INFO] BUILD SUCCESS
+    ${output}=    Run Process    mvn test   shell=True    cwd=${SALInstall}${/}camera-tests    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
+    Log Many    ${output.stdout}    ${output.stderr}
+    Should Not Contain    ${output.stdout}    BUILD FAILURE
+    Should Not Contain    ${output.stdout}    [ERROR]
+    Should Contain    ${output.stdout}    [INFO] BUILD SUCCESS
