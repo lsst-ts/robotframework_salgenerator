@@ -21,6 +21,9 @@ SALGEN/ATSpectrograph_salgenerator.robot
 SALGEN/ATTCS_salgenerator.robot
 SALGEN/ATWhiteLight_salgenerator.robot
 SALGEN/CBP_salgenerator.robot
+SALGEN/CCArchiver_salgenerator.robot
+SALGEN/CCCamera_salgenerator.robot
+SALGEN/CCHeaderService_salgenerator.robot
 SALGEN/CatchupArchiver_salgenerator.robot
 SALGEN/DIMM_salgenerator.robot
 SALGEN/DSM_salgenerator.robot
@@ -38,6 +41,7 @@ SALGEN/IOTA_salgenerator.robot
 SALGEN/LOVE_salgenerator.robot
 SALGEN/LinearStage_salgenerator.robot
 SALGEN/MTAOS_salgenerator.robot
+SALGEN/MTAlignment_salgenerator.robot
 SALGEN/MTArchiver_salgenerator.robot
 SALGEN/MTCamera_salgenerator.robot
 SALGEN/MTDomeTrajectory_salgenerator.robot
@@ -52,7 +56,6 @@ SALGEN/MTMount_salgenerator.robot
 SALGEN/MTPtg_salgenerator.robot
 SALGEN/MTTCS_salgenerator.robot
 SALGEN/MTVMS_salgenerator.robot
-SALGEN/OCS_salgenerator.robot
 SALGEN/PointingComponent_salgenerator.robot
 SALGEN/PromptProcessing_salgenerator.robot
 SALGEN/Rotator_salgenerator.robot
