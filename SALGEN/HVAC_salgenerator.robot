@@ -34,10 +34,23 @@ Salgen HVAC Validate
     Directory Should Exist    ${SALWorkDir}/idl-templates/validated
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_lowerAHUStatus.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_lowerChillerStatus.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_whiteRoomAHU.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setHvacConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_lsstBarraoblPiso01BarraoblTccGuionP1GuionSalaGuionMaquinas.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_lsstBarraoblPiso05BarraoblTccGuionP5GuionPir.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_lsstBarraoblPiso04BarraoblTccGuionP4GuionVex.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_lsstBarraoblPiso01BarraoblChiller01.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_lsstBarraoblPiso02BarraoblCrack01.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_lsstBarraoblPiso02BarraoblFancoil01.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_lsstBarraoblPiso05BarraoblManejadoraBarraoblLower_01.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_lsstBarraoblPiso04BarraoblManejadoraBarraoblSblanca.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_lsstBarraoblPiso04BarraoblManejadoraBarraoblSlimpia.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_lsstBarraoblPiso01BarraoblTccGuionP1GuionSalaGuionMaquinas.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_lsstBarraoblPiso05BarraoblTccGuionP5GuionPir.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_lsstBarraoblPiso04BarraoblTccGuionP4GuionVex.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_lsstBarraoblPiso01BarraoblChiller01.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_lsstBarraoblPiso02BarraoblCrack01.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_lsstBarraoblPiso02BarraoblFancoil01.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_lsstBarraoblPiso05BarraoblManejadoraBarraoblLower_01.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_lsstBarraoblPiso04BarraoblManejadoraBarraoblSblanca.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_detailedState.idl
 
 Salgen HVAC HTML
@@ -48,9 +61,15 @@ Salgen HVAC HTML
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Generating telemetry stream definition editor html
     Should Contain    ${output.stdout}    Creating sal-generator-${subSystem} form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.lowerAHUStatus to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.lowerChillerStatus to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.whiteRoomAHU to form
+    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.lsstBarraoblPiso01BarraoblTccGuionP1GuionSalaGuionMaquinas to form
+    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.lsstBarraoblPiso05BarraoblTccGuionP5GuionPir to form
+    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.lsstBarraoblPiso04BarraoblTccGuionP4GuionVex to form
+    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.lsstBarraoblPiso01BarraoblChiller01 to form
+    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.lsstBarraoblPiso02BarraoblCrack01 to form
+    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.lsstBarraoblPiso02BarraoblFancoil01 to form
+    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.lsstBarraoblPiso05BarraoblManejadoraBarraoblLower_01 to form
+    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.lsstBarraoblPiso04BarraoblManejadoraBarraoblSblanca to form
+    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.lsstBarraoblPiso04BarraoblManejadoraBarraoblSlimpia to form
     @{items}=    List Directory    ${SALWorkDir}/html
     Directory Should Exist    ${SALWorkDir}/html/${subSystem}
     @{files}=    List Files In Directory    ${SALWorkDir}/html/${subSystem}    pattern=*${subSystem}*
@@ -64,11 +83,24 @@ Verify HVAC revCodes File
     [Documentation]    Ensure HVAC_revCodes.tcl contains 1 revcode per topic.
     [Tags]    html    
     ${output}=    Log File    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setHvacConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_lsstBarraoblPiso01BarraoblTccGuionP1GuionSalaGuionMaquinas\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_lsstBarraoblPiso05BarraoblTccGuionP5GuionPir\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_lsstBarraoblPiso04BarraoblTccGuionP4GuionVex\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_lsstBarraoblPiso01BarraoblChiller01\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_lsstBarraoblPiso02BarraoblCrack01\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_lsstBarraoblPiso02BarraoblFancoil01\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_lsstBarraoblPiso05BarraoblManejadoraBarraoblLower_01\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_lsstBarraoblPiso04BarraoblManejadoraBarraoblSblanca\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_detailedState\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_lowerAHUStatus\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_lowerChillerStatus\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_whiteRoomAHU\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_lsstBarraoblPiso01BarraoblTccGuionP1GuionSalaGuionMaquinas\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_lsstBarraoblPiso05BarraoblTccGuionP5GuionPir\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_lsstBarraoblPiso04BarraoblTccGuionP4GuionVex\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_lsstBarraoblPiso01BarraoblChiller01\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_lsstBarraoblPiso02BarraoblCrack01\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_lsstBarraoblPiso02BarraoblFancoil01\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_lsstBarraoblPiso05BarraoblManejadoraBarraoblLower_01\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_lsstBarraoblPiso04BarraoblManejadoraBarraoblSblanca\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_lsstBarraoblPiso04BarraoblManejadoraBarraoblSlimpia\\) [a-z0-9]{8,}
 
 Salgen HVAC C++
     [Documentation]    Generate C++ wrapper.
@@ -78,11 +110,17 @@ Salgen HVAC C++
     Should Not Contain    ${output.stdout}    *** DDS error in file
     Should Not Contain    ${output.stdout}    Error 1
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_lowerAHUStatus.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_lowerChillerStatus.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_whiteRoomAHU.idl
-    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    3
-    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    3
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_lsstBarraoblPiso01BarraoblTccGuionP1GuionSalaGuionMaquinas.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_lsstBarraoblPiso05BarraoblTccGuionP5GuionPir.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_lsstBarraoblPiso04BarraoblTccGuionP4GuionVex.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_lsstBarraoblPiso01BarraoblChiller01.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_lsstBarraoblPiso02BarraoblCrack01.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_lsstBarraoblPiso02BarraoblFancoil01.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_lsstBarraoblPiso05BarraoblManejadoraBarraoblLower_01.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_lsstBarraoblPiso04BarraoblManejadoraBarraoblSblanca.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_lsstBarraoblPiso04BarraoblManejadoraBarraoblSlimpia.idl
+    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    9
+    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    9
     Should Contain X Times    ${output.stdout}    cpp : Done Commander    1
     Should Contain X Times    ${output.stdout}    cpp : Done Event/Logger    1
 
@@ -100,25 +138,57 @@ Verify HVAC Telemetry directories
     [Tags]    cpp
     @{files}=    List Directory    ${SALWorkDir}    pattern=*${subSystem}*
     Log Many    @{files}
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_lowerAHUStatus
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_lowerChillerStatus
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_whiteRoomAHU
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso01BarraoblTccGuionP1GuionSalaGuionMaquinas
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso05BarraoblTccGuionP5GuionPir
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso04BarraoblTccGuionP4GuionVex
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso01BarraoblChiller01
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso02BarraoblCrack01
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso02BarraoblFancoil01
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso05BarraoblManejadoraBarraoblLower_01
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso04BarraoblManejadoraBarraoblSblanca
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso04BarraoblManejadoraBarraoblSlimpia
 
 Verify HVAC C++ Telemetry Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}_lowerAHUStatus/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_lowerAHUStatus/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_lowerChillerStatus/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_lowerChillerStatus/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_whiteRoomAHU/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_whiteRoomAHU/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso01BarraoblTccGuionP1GuionSalaGuionMaquinas/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso01BarraoblTccGuionP1GuionSalaGuionMaquinas/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso05BarraoblTccGuionP5GuionPir/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso05BarraoblTccGuionP5GuionPir/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso04BarraoblTccGuionP4GuionVex/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso04BarraoblTccGuionP4GuionVex/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso01BarraoblChiller01/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso01BarraoblChiller01/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso02BarraoblCrack01/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso02BarraoblCrack01/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso02BarraoblFancoil01/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso02BarraoblFancoil01/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso05BarraoblManejadoraBarraoblLower_01/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso05BarraoblManejadoraBarraoblLower_01/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso04BarraoblManejadoraBarraoblSblanca/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso04BarraoblManejadoraBarraoblSblanca/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso04BarraoblManejadoraBarraoblSlimpia/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso04BarraoblManejadoraBarraoblSlimpia/cpp/standalone/sacpp_${subSystem}_sub
 
 Verify HVAC C++ Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setHvacConfiguration_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setHvacConfiguration_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_lsstBarraoblPiso01BarraoblTccGuionP1GuionSalaGuionMaquinas_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_lsstBarraoblPiso01BarraoblTccGuionP1GuionSalaGuionMaquinas_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_lsstBarraoblPiso05BarraoblTccGuionP5GuionPir_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_lsstBarraoblPiso05BarraoblTccGuionP5GuionPir_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_lsstBarraoblPiso04BarraoblTccGuionP4GuionVex_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_lsstBarraoblPiso04BarraoblTccGuionP4GuionVex_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_lsstBarraoblPiso01BarraoblChiller01_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_lsstBarraoblPiso01BarraoblChiller01_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_lsstBarraoblPiso02BarraoblCrack01_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_lsstBarraoblPiso02BarraoblCrack01_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_lsstBarraoblPiso02BarraoblFancoil01_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_lsstBarraoblPiso02BarraoblFancoil01_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_lsstBarraoblPiso05BarraoblManejadoraBarraoblLower_01_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_lsstBarraoblPiso05BarraoblManejadoraBarraoblLower_01_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_lsstBarraoblPiso04BarraoblManejadoraBarraoblSblanca_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_lsstBarraoblPiso04BarraoblManejadoraBarraoblSblanca_controller
 
 Verify HVAC C++ Event Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -145,20 +215,46 @@ Verify HVAC Python Telemetry Interfaces
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_lowerAHUStatus_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_lowerAHUStatus_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_lowerChillerStatus_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_lowerChillerStatus_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_whiteRoomAHU_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_whiteRoomAHU_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_lsstBarraoblPiso01BarraoblTccGuionP1GuionSalaGuionMaquinas_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_lsstBarraoblPiso01BarraoblTccGuionP1GuionSalaGuionMaquinas_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_lsstBarraoblPiso05BarraoblTccGuionP5GuionPir_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_lsstBarraoblPiso05BarraoblTccGuionP5GuionPir_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_lsstBarraoblPiso04BarraoblTccGuionP4GuionVex_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_lsstBarraoblPiso04BarraoblTccGuionP4GuionVex_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_lsstBarraoblPiso01BarraoblChiller01_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_lsstBarraoblPiso01BarraoblChiller01_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_lsstBarraoblPiso02BarraoblCrack01_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_lsstBarraoblPiso02BarraoblCrack01_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_lsstBarraoblPiso02BarraoblFancoil01_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_lsstBarraoblPiso02BarraoblFancoil01_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_lsstBarraoblPiso05BarraoblManejadoraBarraoblLower_01_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_lsstBarraoblPiso05BarraoblManejadoraBarraoblLower_01_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_lsstBarraoblPiso04BarraoblManejadoraBarraoblSblanca_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_lsstBarraoblPiso04BarraoblManejadoraBarraoblSblanca_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_lsstBarraoblPiso04BarraoblManejadoraBarraoblSlimpia_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_lsstBarraoblPiso04BarraoblManejadoraBarraoblSlimpia_Subscriber.py
 
 Verify HVAC Python Command Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_setHvacConfiguration.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setHvacConfiguration.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_lsstBarraoblPiso01BarraoblTccGuionP1GuionSalaGuionMaquinas.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_lsstBarraoblPiso01BarraoblTccGuionP1GuionSalaGuionMaquinas.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_lsstBarraoblPiso05BarraoblTccGuionP5GuionPir.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_lsstBarraoblPiso05BarraoblTccGuionP5GuionPir.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_lsstBarraoblPiso04BarraoblTccGuionP4GuionVex.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_lsstBarraoblPiso04BarraoblTccGuionP4GuionVex.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_lsstBarraoblPiso01BarraoblChiller01.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_lsstBarraoblPiso01BarraoblChiller01.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_lsstBarraoblPiso02BarraoblCrack01.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_lsstBarraoblPiso02BarraoblCrack01.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_lsstBarraoblPiso02BarraoblFancoil01.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_lsstBarraoblPiso02BarraoblFancoil01.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_lsstBarraoblPiso05BarraoblManejadoraBarraoblLower_01.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_lsstBarraoblPiso05BarraoblManejadoraBarraoblLower_01.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_lsstBarraoblPiso04BarraoblManejadoraBarraoblSblanca.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_lsstBarraoblPiso04BarraoblManejadoraBarraoblSblanca.py
 
 Verify HVAC Python Event Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
@@ -188,11 +284,17 @@ Salgen HVAC Java
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    sal    java    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_lowerAHUStatus.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_lowerChillerStatus.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_whiteRoomAHU.idl
-    Should Contain X Times    ${output.stdout}    javac : Done Publisher    3
-    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    3
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_lsstBarraoblPiso01BarraoblTccGuionP1GuionSalaGuionMaquinas.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_lsstBarraoblPiso05BarraoblTccGuionP5GuionPir.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_lsstBarraoblPiso04BarraoblTccGuionP4GuionVex.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_lsstBarraoblPiso01BarraoblChiller01.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_lsstBarraoblPiso02BarraoblCrack01.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_lsstBarraoblPiso02BarraoblFancoil01.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_lsstBarraoblPiso05BarraoblManejadoraBarraoblLower_01.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_lsstBarraoblPiso04BarraoblManejadoraBarraoblSblanca.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_lsstBarraoblPiso04BarraoblManejadoraBarraoblSlimpia.idl
+    Should Contain X Times    ${output.stdout}    javac : Done Publisher    9
+    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    9
     Directory Should Exist    ${SALWorkDir}/${subSystem}/java
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl

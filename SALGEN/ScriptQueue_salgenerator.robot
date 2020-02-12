@@ -45,6 +45,8 @@ Salgen ScriptQueue Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_stopScripts.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_availableScripts.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_configSchema.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_nextVisit.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_nextVisitCanceled.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_script.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_queue.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rootDirectories.idl
@@ -81,6 +83,8 @@ Verify ScriptQueue revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_stopScripts\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_availableScripts\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_configSchema\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_nextVisit\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_nextVisitCanceled\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_script\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_queue\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rootDirectories\\) [a-z0-9]{8,}
@@ -138,6 +142,10 @@ Verify ScriptQueue C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_availableScripts_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_configSchema_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_configSchema_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_nextVisit_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_nextVisit_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_nextVisitCanceled_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_nextVisitCanceled_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_script_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_script_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_queue_send
@@ -194,6 +202,10 @@ Verify ScriptQueue Python Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_availableScripts.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_configSchema.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_configSchema.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_nextVisit.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_nextVisit.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_nextVisitCanceled.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_nextVisitCanceled.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_script.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_script.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_queue.py
