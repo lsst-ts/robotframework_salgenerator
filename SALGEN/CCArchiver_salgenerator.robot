@@ -45,9 +45,9 @@ Salgen CCArchiver HTML
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Generating telemetry stream definition editor html
     Should Contain    ${output.stdout}    Creating sal-generator-${subSystem} form
-    @{items}=    List Directory    ${SALWorkDir}/html/salgenerator
-    Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
-    @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
+    @{items}=    List Directory    ${SALWorkDir}/html
+    Directory Should Exist    ${SALWorkDir}/html/${subSystem}
+    @{files}=    List Files In Directory    ${SALWorkDir}/html/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/html/${subSystem}/CCArchiver_Commands.html
     File Should Exist    ${SALWorkDir}/html/${subSystem}/CCArchiver_Events.html

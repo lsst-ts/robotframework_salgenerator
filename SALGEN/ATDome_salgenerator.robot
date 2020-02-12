@@ -51,6 +51,8 @@ Salgen ATDome Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_azimuthInPosition.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_shutterInPosition.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_allAxesInPosition.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_doorEncoderExtremes.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_lastAzimuthGoTo.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_emergencyStop.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_scbLink.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingsAppliedDomeController.idl
@@ -94,6 +96,8 @@ Verify ATDome revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_azimuthInPosition\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_shutterInPosition\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_allAxesInPosition\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_doorEncoderExtremes\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_lastAzimuthGoTo\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_emergencyStop\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_scbLink\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_settingsAppliedDomeController\\) [a-z0-9]{8,}
@@ -175,6 +179,10 @@ Verify ATDome C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_shutterInPosition_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_allAxesInPosition_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_allAxesInPosition_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_doorEncoderExtremes_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_doorEncoderExtremes_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_lastAzimuthGoTo_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_lastAzimuthGoTo_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_emergencyStop_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_emergencyStop_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_scbLink_send
@@ -249,6 +257,10 @@ Verify ATDome Python Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_shutterInPosition.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_allAxesInPosition.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_allAxesInPosition.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_doorEncoderExtremes.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_doorEncoderExtremes.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_lastAzimuthGoTo.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_lastAzimuthGoTo.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_emergencyStop.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_emergencyStop.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_scbLink.py

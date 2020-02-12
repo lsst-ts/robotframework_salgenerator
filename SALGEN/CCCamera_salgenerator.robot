@@ -35,15 +35,20 @@ Salgen CCCamera Validate
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_filterChanger.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vacuumTurboPump.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vacuumIonPump.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vacuumCryoTelColdPlate1.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vacuumCryoTelColdPlate2.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vacuumCryoTelCryoPlate.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vacuumPressureGauge.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_bonnShutter.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vacuumPowerDistributionUnit.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vacuumStatus.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_rebpower_R22.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_rebpower_RebPS.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vacuum_VQMonitor.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vacuum_IonPumps.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vacuum_Turbo.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vacuum_Cryo.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vacuum_Cold2.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vacuum_Cold1.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_quadbox_PDU_24VC.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_quadbox_PDU_24VD.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_quadbox_BFR.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_quadbox_PDU_5V.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_quadbox_PDU_48V.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_discardRows.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_startImage.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disableCalibration.idl
@@ -96,18 +101,23 @@ Salgen CCCamera HTML
     Should Contain    ${output.stdout}    Generating telemetry stream definition editor html
     Should Contain    ${output.stdout}    Creating sal-generator-${subSystem} form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.filterChanger to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.vacuumTurboPump to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.vacuumIonPump to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.vacuumCryoTelColdPlate1 to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.vacuumCryoTelColdPlate2 to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.vacuumCryoTelCryoPlate to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.vacuumPressureGauge to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.bonnShutter to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.vacuumPowerDistributionUnit to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.vacuumStatus to form
-    @{items}=    List Directory    ${SALWorkDir}/html/salgenerator
-    Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
-    @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
+    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.rebpower_R22 to form
+    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.rebpower_RebPS to form
+    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.vacuum_VQMonitor to form
+    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.vacuum_IonPumps to form
+    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.vacuum_Turbo to form
+    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.vacuum_Cryo to form
+    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.vacuum_Cold2 to form
+    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.vacuum_Cold1 to form
+    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.quadbox_PDU_24VC to form
+    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.quadbox_PDU_24VD to form
+    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.quadbox_BFR to form
+    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.quadbox_PDU_5V to form
+    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.quadbox_PDU_48V to form
+    @{items}=    List Directory    ${SALWorkDir}/html
+    Directory Should Exist    ${SALWorkDir}/html/${subSystem}
+    @{files}=    List Files In Directory    ${SALWorkDir}/html/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/html/${subSystem}/CCCamera_Commands.html
     File Should Exist    ${SALWorkDir}/html/${subSystem}/CCCamera_Events.html
@@ -161,15 +171,20 @@ Verify CCCamera revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_startRotateCarousel\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_imageReadoutParameters\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_filterChanger\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vacuumTurboPump\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vacuumIonPump\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vacuumCryoTelColdPlate1\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vacuumCryoTelColdPlate2\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vacuumCryoTelCryoPlate\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vacuumPressureGauge\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_bonnShutter\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vacuumPowerDistributionUnit\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vacuumStatus\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_rebpower_R22\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_rebpower_RebPS\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vacuum_VQMonitor\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vacuum_IonPumps\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vacuum_Turbo\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vacuum_Cryo\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vacuum_Cold2\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vacuum_Cold1\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_quadbox_PDU_24VC\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_quadbox_PDU_24VD\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_quadbox_BFR\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_quadbox_PDU_5V\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_quadbox_PDU_48V\\) [a-z0-9]{8,}
 
 Salgen CCCamera C++
     [Documentation]    Generate C++ wrapper.
@@ -180,17 +195,22 @@ Salgen CCCamera C++
     Should Not Contain    ${output.stdout}    Error 1
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_filterChanger.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_vacuumTurboPump.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_vacuumIonPump.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_vacuumCryoTelColdPlate1.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_vacuumCryoTelColdPlate2.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_vacuumCryoTelCryoPlate.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_vacuumPressureGauge.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_bonnShutter.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_vacuumPowerDistributionUnit.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_vacuumStatus.idl
-    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    10
-    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    10
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_rebpower_R22.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_rebpower_RebPS.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_vacuum_VQMonitor.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_vacuum_IonPumps.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_vacuum_Turbo.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_vacuum_Cryo.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_vacuum_Cold2.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_vacuum_Cold1.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_quadbox_PDU_24VC.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_quadbox_PDU_24VD.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_quadbox_BFR.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_quadbox_PDU_5V.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_quadbox_PDU_48V.idl
+    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    15
+    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    15
     Should Contain X Times    ${output.stdout}    cpp : Done Commander    1
     Should Contain X Times    ${output.stdout}    cpp : Done Event/Logger    1
 
@@ -209,39 +229,54 @@ Verify CCCamera Telemetry directories
     @{files}=    List Directory    ${SALWorkDir}    pattern=*${subSystem}*
     Log Many    @{files}
     Directory Should Exist    ${SALWorkDir}/${subSystem}_filterChanger
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_vacuumTurboPump
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_vacuumIonPump
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_vacuumCryoTelColdPlate1
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_vacuumCryoTelColdPlate2
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_vacuumCryoTelCryoPlate
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_vacuumPressureGauge
     Directory Should Exist    ${SALWorkDir}/${subSystem}_bonnShutter
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_vacuumPowerDistributionUnit
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_vacuumStatus
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_rebpower_R22
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_rebpower_RebPS
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_vacuum_VQMonitor
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_vacuum_IonPumps
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_vacuum_Turbo
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_vacuum_Cryo
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_vacuum_Cold2
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_vacuum_Cold1
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_quadbox_PDU_24VC
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_quadbox_PDU_24VD
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_quadbox_BFR
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_quadbox_PDU_5V
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_quadbox_PDU_48V
 
 Verify CCCamera C++ Telemetry Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
     File Should Exist    ${SALWorkDir}/${subSystem}_filterChanger/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_filterChanger/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_vacuumTurboPump/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_vacuumTurboPump/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_vacuumIonPump/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_vacuumIonPump/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_vacuumCryoTelColdPlate1/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_vacuumCryoTelColdPlate1/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_vacuumCryoTelColdPlate2/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_vacuumCryoTelColdPlate2/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_vacuumCryoTelCryoPlate/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_vacuumCryoTelCryoPlate/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_vacuumPressureGauge/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_vacuumPressureGauge/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_bonnShutter/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_bonnShutter/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_vacuumPowerDistributionUnit/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_vacuumPowerDistributionUnit/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_vacuumStatus/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_vacuumStatus/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_rebpower_R22/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_rebpower_R22/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_rebpower_RebPS/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_rebpower_RebPS/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_vacuum_VQMonitor/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_vacuum_VQMonitor/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_vacuum_IonPumps/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_vacuum_IonPumps/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_vacuum_Turbo/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_vacuum_Turbo/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_vacuum_Cryo/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_vacuum_Cryo/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_vacuum_Cold2/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_vacuum_Cold2/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_vacuum_Cold1/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_vacuum_Cold1/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_quadbox_PDU_24VC/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_quadbox_PDU_24VC/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_quadbox_PDU_24VD/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_quadbox_PDU_24VD/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_quadbox_BFR/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_quadbox_BFR/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_quadbox_PDU_5V/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_quadbox_PDU_5V/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_quadbox_PDU_48V/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_quadbox_PDU_48V/cpp/standalone/sacpp_${subSystem}_sub
 
 Verify CCCamera C++ Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -356,24 +391,34 @@ Verify CCCamera Python Telemetry Interfaces
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_filterChanger_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_filterChanger_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_vacuumTurboPump_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_vacuumTurboPump_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_vacuumIonPump_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_vacuumIonPump_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_vacuumCryoTelColdPlate1_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_vacuumCryoTelColdPlate1_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_vacuumCryoTelColdPlate2_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_vacuumCryoTelColdPlate2_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_vacuumCryoTelCryoPlate_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_vacuumCryoTelCryoPlate_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_vacuumPressureGauge_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_vacuumPressureGauge_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_bonnShutter_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_bonnShutter_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_vacuumPowerDistributionUnit_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_vacuumPowerDistributionUnit_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_vacuumStatus_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_vacuumStatus_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_rebpower_R22_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_rebpower_R22_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_rebpower_RebPS_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_rebpower_RebPS_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_vacuum_VQMonitor_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_vacuum_VQMonitor_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_vacuum_IonPumps_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_vacuum_IonPumps_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_vacuum_Turbo_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_vacuum_Turbo_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_vacuum_Cryo_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_vacuum_Cryo_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_vacuum_Cold2_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_vacuum_Cold2_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_vacuum_Cold1_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_vacuum_Cold1_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_quadbox_PDU_24VC_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_quadbox_PDU_24VC_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_quadbox_PDU_24VD_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_quadbox_PDU_24VD_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_quadbox_BFR_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_quadbox_BFR_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_quadbox_PDU_5V_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_quadbox_PDU_5V_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_quadbox_PDU_48V_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_quadbox_PDU_48V_Subscriber.py
 
 Verify CCCamera Python Command Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
@@ -492,17 +537,22 @@ Salgen CCCamera Java
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_filterChanger.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuumTurboPump.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuumIonPump.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuumCryoTelColdPlate1.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuumCryoTelColdPlate2.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuumCryoTelCryoPlate.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuumPressureGauge.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_bonnShutter.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuumPowerDistributionUnit.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuumStatus.idl
-    Should Contain X Times    ${output.stdout}    javac : Done Publisher    10
-    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    10
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_rebpower_R22.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_rebpower_RebPS.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuum_VQMonitor.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuum_IonPumps.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuum_Turbo.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuum_Cryo.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuum_Cold2.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuum_Cold1.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_quadbox_PDU_24VC.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_quadbox_PDU_24VD.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_quadbox_BFR.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_quadbox_PDU_5V.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_quadbox_PDU_48V.idl
+    Should Contain X Times    ${output.stdout}    javac : Done Publisher    15
+    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    15
     Directory Should Exist    ${SALWorkDir}/${subSystem}/java
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl

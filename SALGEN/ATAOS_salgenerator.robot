@@ -39,6 +39,9 @@ Salgen ATAOS Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disableCorrection.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_applyCorrection.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_applyFocusOffset.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_applyAxisOffset.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_offset.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_resetOffset.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setFocus.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_detailedState.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_correctionEnabled.idl
@@ -51,6 +54,7 @@ Salgen ATAOS Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_hexapodCorrectionCompleted.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focusCorrectionStarted.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focusCorrectionCompleted.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_correctionOffsets.idl
 
 Salgen ATAOS HTML
     [Documentation]    Create web form interfaces.
@@ -78,6 +82,9 @@ Verify ATAOS revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_disableCorrection\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_applyCorrection\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_applyFocusOffset\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_applyAxisOffset\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_offset\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_resetOffset\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setFocus\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_detailedState\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_correctionEnabled\\) [a-z0-9]{8,}
@@ -90,6 +97,7 @@ Verify ATAOS revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_hexapodCorrectionCompleted\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focusCorrectionStarted\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focusCorrectionCompleted\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_correctionOffsets\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_timestamp\\) [a-z0-9]{8,}
 
 Salgen ATAOS C++
@@ -139,6 +147,12 @@ Verify ATAOS C++ Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_applyCorrection_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_applyFocusOffset_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_applyFocusOffset_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_applyAxisOffset_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_applyAxisOffset_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_offset_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_offset_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_resetOffset_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_resetOffset_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setFocus_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setFocus_controller
 
@@ -167,6 +181,8 @@ Verify ATAOS C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_focusCorrectionStarted_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_focusCorrectionCompleted_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_focusCorrectionCompleted_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_correctionOffsets_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_correctionOffsets_log
 
 Salgen ATAOS Python
     [Documentation]    Generate Python wrapper.
@@ -203,6 +219,12 @@ Verify ATAOS Python Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_applyCorrection.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_applyFocusOffset.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_applyFocusOffset.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_applyAxisOffset.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_applyAxisOffset.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_offset.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_offset.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_resetOffset.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_resetOffset.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_setFocus.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setFocus.py
 
@@ -233,6 +255,8 @@ Verify ATAOS Python Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_focusCorrectionStarted.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_focusCorrectionCompleted.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_focusCorrectionCompleted.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_correctionOffsets.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_correctionOffsets.py
 
 Salgen ATAOS LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
