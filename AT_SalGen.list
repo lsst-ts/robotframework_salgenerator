@@ -4,7 +4,6 @@
 --output SALGENERATOR
 
 # List of test suites
-SAL_Tests.robot
 SALGEN/ATAOS_salgenerator.robot
 SALGEN/ATArchiver_salgenerator.robot
 SALGEN/ATBuilding_salgenerator.robot
