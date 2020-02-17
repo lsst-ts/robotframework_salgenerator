@@ -1,7 +1,7 @@
 ###  Test Suite list ###
 #  Change the title of the test results
---name SalGen
---output SALGENERATOR
+--name MainTel
+--output MAINTEL
 
 # List of test suites
 SALGEN/CBP_salgenerator.robot
