@@ -36,7 +36,7 @@ function createVariables() {
 function cleanupOutputs() {
     echo "Cleanup stdout and stderr Files" >> $testSuite
     echo "    [Tags]" >> $testSuite
-    echo "    Remove Files    \${EXECDIR}\${/}\${subSystem}__stdout.txt    \${EXECDIR}\${/}\${subSystem}_stderr.txt" >> $testSuite
+    echo "    Remove Files    \${EXECDIR}\${/}\${subSystem}_stdout.txt    \${EXECDIR}\${/}\${subSystem}_stderr.txt" >> $testSuite
     echo "" >> $testSuite
 }
 

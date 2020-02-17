@@ -11,10 +11,6 @@ ${subSystem}    Test
 ${timeout}    1200s
 
 *** Test Cases ***
-Cleanup Old stdout and stderr Files
-    [Tags]
-    Remove Files    ${EXECDIR}${/}*_stdout.txt    ${EXECDIR}${/}*_stderr.txt
-
 Verify Test XML Defintions exist
     [Tags]
     Comment    Verify the CSC XML definition files exist.
@@ -274,4 +270,8 @@ Salgen Test Maven
     Should Contain X Times    ${output.stdout}    [INFO] Finished at:    1
     @{files}=    List Directory    ${SALWorkDir}/maven
     File Should Exist    ${SALWorkDir}/maven/${subSystem}_${SALVersion}/pom.xml
+
+Cleanup stdout and stderr Files
+    [Tags]
+    Remove Files    ${EXECDIR}${/}${subSystem}_stdout.txt    ${EXECDIR}${/}${subSystem}_stderr.txt
 
