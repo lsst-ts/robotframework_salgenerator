@@ -1,0 +1,10 @@
+###  Test Suite list ###
+#  Change the title of the test results
+--name SalGen
+--output SALGENERATOR
+
+# List of test suites
+SAL_Tests.robot
+SALGEN/Script_salgenerator.robot
+SALGEN/Test_salgenerator.robot
+SAL_Unit_Tests.robot

@@ -5,21 +5,6 @@
 
 # List of test suites
 SAL_Tests.robot
-SALGEN/ATAOS_salgenerator.robot
-SALGEN/ATArchiver_salgenerator.robot
-SALGEN/ATBuilding_salgenerator.robot
-SALGEN/ATCamera_salgenerator.robot
-SALGEN/ATDomeTrajectory_salgenerator.robot
-SALGEN/ATDome_salgenerator.robot
-SALGEN/ATHeaderService_salgenerator.robot
-SALGEN/ATHexapod_salgenerator.robot
-SALGEN/ATMCS_salgenerator.robot
-SALGEN/ATMonochromator_salgenerator.robot
-SALGEN/ATPneumatics_salgenerator.robot
-SALGEN/ATPtg_salgenerator.robot
-SALGEN/ATSpectrograph_salgenerator.robot
-SALGEN/ATTCS_salgenerator.robot
-SALGEN/ATWhiteLight_salgenerator.robot
 SALGEN/CBP_salgenerator.robot
 SALGEN/CCArchiver_salgenerator.robot
 SALGEN/CCCamera_salgenerator.robot
