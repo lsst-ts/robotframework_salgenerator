@@ -33,10 +33,10 @@ function createVariables() {
     echo "" >> $testSuite
 }
 
-function cleanupOldOutputs() {
-    echo "Cleanup Old stdout and stderr Files" >> $testSuite
+function cleanupOutputs() {
+    echo "Cleanup stdout and stderr Files" >> $testSuite
     echo "    [Tags]" >> $testSuite
-    echo "    Remove Files    \${EXECDIR}\${/}*_stdout.txt    \${EXECDIR}\${/}*_stderr.txt" >> $testSuite
+    echo "    Remove Files    \${EXECDIR}\${/}\${subSystem}__stdout.txt    \${EXECDIR}\${/}\${subSystem}_stderr.txt" >> $testSuite
     echo "" >> $testSuite
 }
 
@@ -419,7 +419,6 @@ function createTestSuite() {
     createSettings
     createVariables $subSystem
     echo "*** Test Cases ***" >> $testSuite
-    cleanupOldOutputs
     verifyXMLDefinitions
     salgenValidate
     salgenHTML
@@ -463,6 +462,7 @@ function createTestSuite() {
     # Run the Maven tests.
     salgenMaven
     # Indicate completion of the test suite.
+    cleanupOutputs
     echo Done with test suite.
     echo ""
 }
