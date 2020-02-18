@@ -31,7 +31,6 @@ SALGEN/MTTCS_salgenerator.robot
 SALGEN/MTVMS_salgenerator.robot
 SALGEN/PointingComponent_salgenerator.robot
 SALGEN/Rotator_salgenerator.robot
-SALGEN/Scheduler_salgenerator.robot
 SALGEN/ScriptQueue_salgenerator.robot
 SALGEN/SummitFacility_salgenerator.robot
 SALGEN/Watcher_salgenerator.robot
