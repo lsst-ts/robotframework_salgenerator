@@ -60,8 +60,10 @@ SALGEN/PointingComponent_salgenerator.robot
 SALGEN/PromptProcessing_salgenerator.robot
 SALGEN/Rotator_salgenerator.robot
 SALGEN/Scheduler_salgenerator.robot
+SALGEN/Script_salgenerator.robot
 SALGEN/ScriptQueue_salgenerator.robot
 SALGEN/SummitFacility_salgenerator.robot
+SALGEN/Test_salgenerator.robot
 SALGEN/TunableLaser_salgenerator.robot
 SALGEN/Watcher_salgenerator.robot
 SAL_Unit_Tests.robot
