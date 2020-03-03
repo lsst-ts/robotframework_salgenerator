@@ -14,6 +14,7 @@ node {
         sh 'mkdir RPMs'
         sh 'mkdir SAL'
         sh 'mkdir XML'
+        sh 'mkdir IDL'
         sh 'mkdir rbtsalgen'
         sh 'mkdir Reports'
     }
@@ -28,6 +29,7 @@ node {
                 // Get some code from a GitHub repository
                 checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/develop']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'SAL']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/ts_sal']]]
                 checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/develop']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'XML']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/ts_xml']]]
+                checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/develop']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'IDL']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/ts_idl']]]
                 checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/sal_v4_1']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'rbtsalgen']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/robotframework_salgenerator']]]
             }
             stage('Define SAL and XML version variables') {
@@ -42,6 +44,10 @@ node {
                 sh label: 'SAL Generics', script: '#!/bin/bash \n' + 'cp -v ${WORKSPACE}/XML/sal_interfaces/SALGenerics.xml SAL/test'
                 sh label: 'XML Version', script: '#!/bin/bash \n' + 'cp -v ${WORKSPACE}/XML/VERSION SAL/test'
                 sh label: 'DDS QoS settings', script: '#!/bin/bash \n' + 'cp -v ${WORKSPACE}/SAL/lsstsal/scripts/DDS_DefaultQoS_All.xml SAL/test'
+            }
+            stage('Install IDL and XML python libraries') {
+                sh label: 'IDL library', script: '#!/bin/bash \n' + 'cd IDL && pip install -e .'
+                sh label: 'XML library', script: '#!/bin/bash \n' + 'cd XML && pip install -e .'
             }
             stage('Validate') {
                 // Validate the SAL/XML state using Test/Script CSCs
