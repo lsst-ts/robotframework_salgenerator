@@ -46,8 +46,8 @@ node {
                 sh label: 'DDS QoS settings', script: '#!/bin/bash \n' + 'cp -v ${WORKSPACE}/SAL/lsstsal/scripts/DDS_DefaultQoS_All.xml SAL/test'
             }
             stage('Install IDL and XML python libraries') {
-                sh label: 'IDL library', script: '#!/bin/bash \n' + 'cd IDL && pip install -e .'
-                sh label: 'XML library', script: '#!/bin/bash \n' + 'cd XML && pip install -e .'
+                sh label: 'IDL library', script: '#!/bin/bash \n' + 'cd IDL && pip install .'
+                sh label: 'XML library', script: '#!/bin/bash \n' + 'cd XML && pip install .'
             }
             stage('Validate') {
                 // Validate the SAL/XML state using Test/Script CSCs
