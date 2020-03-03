@@ -1,11 +1,9 @@
 node {
-    def XML_Version = readFile("${WORKSPACE}/XML/VERSION").trim()
-    def SAL_Version = readFile("${WORKSPACE}/SAL/VERSION").trim()
+    def XML_Version = "not_yet_set"
+    def SAL_Version = "not_yet_set"
     def _python_version="3.6.8"
     def _user="appuser"
     def _home="/home/" + _user
-    println("The SAL version: " + SAL_Version);
-    println("The XML version: " + XML_Version);
     println("The container user: " + _user);
     println("The container user home dir: " + _home);
     
@@ -31,6 +29,12 @@ node {
                 checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/develop']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'SAL']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/ts_sal']]]
                 checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/develop']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'XML']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/ts_xml']]]
                 checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/sal_v4_1']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'rbtsalgen']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/robotframework_salgenerator']]]
+            }
+            stage('Define SAL and XML version variables') {
+                SAL_Version = readFile("${WORKSPACE}/SAL/VERSION").trim()
+                XML_Version = readFile("${WORKSPACE}/XML/VERSION").trim()
+                echo "The SAL version: " + SAL_Version
+                echo "The XML version: " + XML_Version
             }
             stage('Copy XML files') {
                 sh label: 'XML files', script: '#!/bin/bash \n' + 'cp -v ${WORKSPACE}/XML/sal_interfaces/*/*.xml SAL/test'
