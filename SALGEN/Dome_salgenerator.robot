@@ -35,12 +35,12 @@ Salgen Dome Validate
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_summary.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_DomeADB_status.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_DomeAPS_status.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_DomeLouvers_status.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_DomeLWS_status.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_DomeMONCS_status.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_DomeTHCS_status.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_domeADB_status.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_domeAPS_status.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_domeLouvers_status.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_domeLWS_status.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_domeMONCS_status.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_domeTHCS_status.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_crawlAz.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_crawlEl.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_moveAz.idl
@@ -81,15 +81,15 @@ Salgen Dome HTML
     Should Contain    ${output.stdout}    Generating telemetry stream definition editor html
     Should Contain    ${output.stdout}    Creating sal-generator-${subSystem} form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.summary to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.DomeADB_status to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.DomeAPS_status to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.DomeLouvers_status to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.DomeLWS_status to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.DomeMONCS_status to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.DomeTHCS_status to form
-    @{items}=    List Directory    ${SALWorkDir}/html/salgenerator
-    Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
-    @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
+    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.domeADB_status to form
+    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.domeAPS_status to form
+    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.domeLouvers_status to form
+    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.domeLWS_status to form
+    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.domeMONCS_status to form
+    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.domeTHCS_status to form
+    @{items}=    List Directory    ${SALWorkDir}/html
+    Directory Should Exist    ${SALWorkDir}/html/${subSystem}
+    @{files}=    List Files In Directory    ${SALWorkDir}/html/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/html/${subSystem}/Dome_Commands.html
     File Should Exist    ${SALWorkDir}/html/${subSystem}/Dome_Events.html
@@ -131,12 +131,12 @@ Verify Dome revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_sealStatusChange\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_interlockAlarm\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_summary\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_DomeADB_status\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_DomeAPS_status\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_DomeLouvers_status\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_DomeLWS_status\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_DomeMONCS_status\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_DomeTHCS_status\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_domeADB_status\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_domeAPS_status\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_domeLouvers_status\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_domeLWS_status\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_domeMONCS_status\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_domeTHCS_status\\) [a-z0-9]{8,}
 
 Salgen Dome C++
     [Documentation]    Generate C++ wrapper.
@@ -147,12 +147,12 @@ Salgen Dome C++
     Should Not Contain    ${output.stdout}    Error 1
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_summary.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_DomeADB_status.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_DomeAPS_status.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_DomeLouvers_status.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_DomeLWS_status.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_DomeMONCS_status.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_DomeTHCS_status.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_domeADB_status.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_domeAPS_status.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_domeLouvers_status.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_domeLWS_status.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_domeMONCS_status.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_domeTHCS_status.idl
     Should Contain X Times    ${output.stdout}    cpp : Done Publisher    7
     Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    7
     Should Contain X Times    ${output.stdout}    cpp : Done Commander    1
@@ -173,30 +173,30 @@ Verify Dome Telemetry directories
     @{files}=    List Directory    ${SALWorkDir}    pattern=*${subSystem}*
     Log Many    @{files}
     Directory Should Exist    ${SALWorkDir}/${subSystem}_summary
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_DomeADB_status
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_DomeAPS_status
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_DomeLouvers_status
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_DomeLWS_status
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_DomeMONCS_status
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_DomeTHCS_status
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_domeADB_status
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_domeAPS_status
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_domeLouvers_status
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_domeLWS_status
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_domeMONCS_status
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_domeTHCS_status
 
 Verify Dome C++ Telemetry Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
     File Should Exist    ${SALWorkDir}/${subSystem}_summary/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_summary/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_DomeADB_status/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_DomeADB_status/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_DomeAPS_status/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_DomeAPS_status/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_DomeLouvers_status/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_DomeLouvers_status/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_DomeLWS_status/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_DomeLWS_status/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_DomeMONCS_status/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_DomeMONCS_status/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_DomeTHCS_status/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_DomeTHCS_status/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_domeADB_status/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_domeADB_status/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_domeAPS_status/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_domeAPS_status/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_domeLouvers_status/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_domeLouvers_status/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_domeLWS_status/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_domeLWS_status/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_domeMONCS_status/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_domeMONCS_status/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_domeTHCS_status/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_domeTHCS_status/cpp/standalone/sacpp_${subSystem}_sub
 
 Verify Dome C++ Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -287,18 +287,18 @@ Verify Dome Python Telemetry Interfaces
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_summary_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_summary_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_DomeADB_status_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_DomeADB_status_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_DomeAPS_status_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_DomeAPS_status_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_DomeLouvers_status_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_DomeLouvers_status_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_DomeLWS_status_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_DomeLWS_status_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_DomeMONCS_status_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_DomeMONCS_status_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_DomeTHCS_status_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_DomeTHCS_status_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_domeADB_status_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_domeADB_status_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_domeAPS_status_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_domeAPS_status_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_domeLouvers_status_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_domeLouvers_status_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_domeLWS_status_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_domeLWS_status_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_domeMONCS_status_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_domeMONCS_status_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_domeTHCS_status_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_domeTHCS_status_Subscriber.py
 
 Verify Dome Python Command Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
@@ -393,12 +393,12 @@ Salgen Dome Java
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_summary.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_DomeADB_status.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_DomeAPS_status.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_DomeLouvers_status.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_DomeLWS_status.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_DomeMONCS_status.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_DomeTHCS_status.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_domeADB_status.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_domeAPS_status.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_domeLouvers_status.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_domeLWS_status.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_domeMONCS_status.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_domeTHCS_status.idl
     Should Contain X Times    ${output.stdout}    javac : Done Publisher    7
     Should Contain X Times    ${output.stdout}    javac : Done Subscriber    7
     Directory Should Exist    ${SALWorkDir}/${subSystem}/java
