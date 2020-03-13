@@ -41,7 +41,7 @@ Salgen MTM1M3 Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_hardpointActuatorData.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_imsData.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_gyroData.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_powerData.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_powerSupplyData.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_pidData.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_hardpointMonitorData.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_raiseM1M3.idl
@@ -152,7 +152,7 @@ Salgen MTM1M3 HTML
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.hardpointActuatorData to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.imsData to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.gyroData to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.powerData to form
+    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.powerSupplyData to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.pidData to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.hardpointMonitorData to form
     @{items}=    List Directory    ${SALWorkDir}/html
@@ -267,7 +267,7 @@ Verify MTM1M3 revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_hardpointActuatorData\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_imsData\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_gyroData\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_powerData\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_powerSupplyData\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_pidData\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_hardpointMonitorData\\) [a-z0-9]{8,}
 
@@ -286,7 +286,7 @@ Salgen MTM1M3 C++
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_hardpointActuatorData.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_imsData.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_gyroData.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_powerData.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_powerSupplyData.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_pidData.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_hardpointMonitorData.idl
     Should Contain X Times    ${output.stdout}    cpp : Done Publisher    10
@@ -315,7 +315,7 @@ Verify MTM1M3 Telemetry directories
     Directory Should Exist    ${SALWorkDir}/${subSystem}_hardpointActuatorData
     Directory Should Exist    ${SALWorkDir}/${subSystem}_imsData
     Directory Should Exist    ${SALWorkDir}/${subSystem}_gyroData
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_powerData
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_powerSupplyData
     Directory Should Exist    ${SALWorkDir}/${subSystem}_pidData
     Directory Should Exist    ${SALWorkDir}/${subSystem}_hardpointMonitorData
 
@@ -336,8 +336,8 @@ Verify MTM1M3 C++ Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}_imsData/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_gyroData/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_gyroData/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_powerData/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_powerData/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_powerSupplyData/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_powerSupplyData/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_pidData/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_pidData/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_hardpointMonitorData/cpp/standalone/sacpp_${subSystem}_pub
@@ -568,8 +568,8 @@ Verify MTM1M3 Python Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_imsData_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_gyroData_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_gyroData_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_powerData_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_powerData_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_powerSupplyData_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_powerSupplyData_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_pidData_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_pidData_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_hardpointMonitorData_Publisher.py
@@ -798,7 +798,7 @@ Salgen MTM1M3 Java
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_hardpointActuatorData.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_imsData.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_gyroData.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_powerData.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_powerSupplyData.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_pidData.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_hardpointMonitorData.idl
     Should Contain X Times    ${output.stdout}    javac : Done Publisher    10

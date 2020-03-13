@@ -39,9 +39,8 @@ Salgen MTAlignment Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_measurePoint.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_laserPower.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_healthCheck.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_loopTimeOutOfRange.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rejectedCommand.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_offsetsPublish.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_positionPublish.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_t2saError.idl
 
 Salgen MTAlignment HTML
@@ -70,9 +69,8 @@ Verify MTAlignment revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_measurePoint\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_laserPower\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_healthCheck\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_loopTimeOutOfRange\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rejectedCommand\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_offsetsPublish\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_positionPublish\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_t2saError\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_trackertemp\\) [a-z0-9]{8,}
 
@@ -127,12 +125,10 @@ Verify MTAlignment C++ Command Interfaces
 Verify MTAlignment C++ Event Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_loopTimeOutOfRange_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_loopTimeOutOfRange_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_rejectedCommand_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_rejectedCommand_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_offsetsPublish_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_offsetsPublish_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_positionPublish_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_positionPublish_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_t2saError_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_t2saError_log
 
@@ -177,12 +173,10 @@ Verify MTAlignment Python Event Interfaces
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_loopTimeOutOfRange.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_loopTimeOutOfRange.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_rejectedCommand.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_rejectedCommand.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_offsetsPublish.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_offsetsPublish.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_positionPublish.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_positionPublish.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_t2saError.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_t2saError.py
 
