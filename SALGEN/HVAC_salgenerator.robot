@@ -25,7 +25,7 @@ Verify HVAC XML Defintions exist
 Salgen HVAC Validate
     [Documentation]    Validate the HVAC XML definitions.
     [Tags]    validate
-    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    validate    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
+    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    validate    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Processing ${subSystem}
@@ -40,7 +40,7 @@ Salgen HVAC Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_lsstBarraoblPiso01BarraoblChiller01.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_lsstBarraoblPiso02BarraoblCrack01.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_lsstBarraoblPiso02BarraoblFancoil01.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_lsstBarraoblPiso05BarraoblManejadoraBarraoblLower_01.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_lsstBarraoblPiso05BarraoblManejadoraBarraoblLower01.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_lsstBarraoblPiso04BarraoblManejadoraBarraoblSblanca.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_lsstBarraoblPiso04BarraoblManejadoraBarraoblSlimpia.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_lsstBarraoblPiso01BarraoblTccGuionP1GuionSalaGuionMaquinas.idl
@@ -56,7 +56,7 @@ Salgen HVAC Validate
 Salgen HVAC HTML
     [Documentation]    Create web form interfaces.
     [Tags]    html    
-    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    html    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
+    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    html    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Generating telemetry stream definition editor html
@@ -67,12 +67,12 @@ Salgen HVAC HTML
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.lsstBarraoblPiso01BarraoblChiller01 to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.lsstBarraoblPiso02BarraoblCrack01 to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.lsstBarraoblPiso02BarraoblFancoil01 to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.lsstBarraoblPiso05BarraoblManejadoraBarraoblLower_01 to form
+    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.lsstBarraoblPiso05BarraoblManejadoraBarraoblLower01 to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.lsstBarraoblPiso04BarraoblManejadoraBarraoblSblanca to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.lsstBarraoblPiso04BarraoblManejadoraBarraoblSlimpia to form
-    @{items}=    List Directory    ${SALWorkDir}/html
-    Directory Should Exist    ${SALWorkDir}/html/${subSystem}
-    @{files}=    List Files In Directory    ${SALWorkDir}/html/${subSystem}    pattern=*${subSystem}*
+    @{items}=    List Directory    ${SALWorkDir}/html/salgenerator
+    Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
+    @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/html/${subSystem}/HVAC_Commands.html
     File Should Exist    ${SALWorkDir}/html/${subSystem}/HVAC_Events.html
@@ -98,14 +98,14 @@ Verify HVAC revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_lsstBarraoblPiso01BarraoblChiller01\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_lsstBarraoblPiso02BarraoblCrack01\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_lsstBarraoblPiso02BarraoblFancoil01\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_lsstBarraoblPiso05BarraoblManejadoraBarraoblLower_01\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_lsstBarraoblPiso05BarraoblManejadoraBarraoblLower01\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_lsstBarraoblPiso04BarraoblManejadoraBarraoblSblanca\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_lsstBarraoblPiso04BarraoblManejadoraBarraoblSlimpia\\) [a-z0-9]{8,}
 
 Salgen HVAC C++
     [Documentation]    Generate C++ wrapper.
     [Tags]    cpp
-    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    sal    cpp   shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
+    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    sal    cpp   shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Not Contain    ${output.stdout}    *** DDS error in file
     Should Not Contain    ${output.stdout}    Error 1
@@ -116,7 +116,7 @@ Salgen HVAC C++
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_lsstBarraoblPiso01BarraoblChiller01.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_lsstBarraoblPiso02BarraoblCrack01.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_lsstBarraoblPiso02BarraoblFancoil01.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_lsstBarraoblPiso05BarraoblManejadoraBarraoblLower_01.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_lsstBarraoblPiso05BarraoblManejadoraBarraoblLower01.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_lsstBarraoblPiso04BarraoblManejadoraBarraoblSblanca.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_lsstBarraoblPiso04BarraoblManejadoraBarraoblSlimpia.idl
     Should Contain X Times    ${output.stdout}    cpp : Done Publisher    9
@@ -144,7 +144,7 @@ Verify HVAC Telemetry directories
     Directory Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso01BarraoblChiller01
     Directory Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso02BarraoblCrack01
     Directory Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso02BarraoblFancoil01
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso05BarraoblManejadoraBarraoblLower_01
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso05BarraoblManejadoraBarraoblLower01
     Directory Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso04BarraoblManejadoraBarraoblSblanca
     Directory Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso04BarraoblManejadoraBarraoblSlimpia
 
@@ -163,8 +163,8 @@ Verify HVAC C++ Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso02BarraoblCrack01/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso02BarraoblFancoil01/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso02BarraoblFancoil01/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso05BarraoblManejadoraBarraoblLower_01/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso05BarraoblManejadoraBarraoblLower_01/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso05BarraoblManejadoraBarraoblLower01/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso05BarraoblManejadoraBarraoblLower01/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso04BarraoblManejadoraBarraoblSblanca/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso04BarraoblManejadoraBarraoblSblanca/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso04BarraoblManejadoraBarraoblSlimpia/cpp/standalone/sacpp_${subSystem}_pub
@@ -199,7 +199,7 @@ Verify HVAC C++ Event Interfaces
 Salgen HVAC Python
     [Documentation]    Generate Python wrapper.
     [Tags]    python
-    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    sal    python    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
+    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    sal    python    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Generating Python SAL support for ${subSystem}
@@ -227,8 +227,8 @@ Verify HVAC Python Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_lsstBarraoblPiso02BarraoblCrack01_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_lsstBarraoblPiso02BarraoblFancoil01_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_lsstBarraoblPiso02BarraoblFancoil01_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_lsstBarraoblPiso05BarraoblManejadoraBarraoblLower_01_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_lsstBarraoblPiso05BarraoblManejadoraBarraoblLower_01_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_lsstBarraoblPiso05BarraoblManejadoraBarraoblLower01_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_lsstBarraoblPiso05BarraoblManejadoraBarraoblLower01_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_lsstBarraoblPiso04BarraoblManejadoraBarraoblSblanca_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_lsstBarraoblPiso04BarraoblManejadoraBarraoblSblanca_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_lsstBarraoblPiso04BarraoblManejadoraBarraoblSlimpia_Publisher.py
@@ -281,7 +281,7 @@ Salgen HVAC LabVIEW
 Salgen HVAC Java
     [Documentation]    Generate Java wrapper.
     [Tags]    java
-    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    sal    java    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
+    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    sal    java    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_lsstBarraoblPiso01BarraoblTccGuionP1GuionSalaGuionMaquinas.idl
@@ -290,7 +290,7 @@ Salgen HVAC Java
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_lsstBarraoblPiso01BarraoblChiller01.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_lsstBarraoblPiso02BarraoblCrack01.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_lsstBarraoblPiso02BarraoblFancoil01.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_lsstBarraoblPiso05BarraoblManejadoraBarraoblLower_01.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_lsstBarraoblPiso05BarraoblManejadoraBarraoblLower01.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_lsstBarraoblPiso04BarraoblManejadoraBarraoblSblanca.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_lsstBarraoblPiso04BarraoblManejadoraBarraoblSlimpia.idl
     Should Contain X Times    ${output.stdout}    javac : Done Publisher    9
@@ -304,7 +304,7 @@ Salgen HVAC Java
 Salgen HVAC Lib
     [Documentation]    Generate the SAL shared library for ${subSystem}
     [Tags]    lib
-    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    lib    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
+    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    lib    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Building shared library for ${subSystem} subsystem
@@ -323,7 +323,7 @@ Salgen HVAC Lib
 Salgen HVAC RPM
     [Documentation]    Generate the SAL library RPM for ${subSystem}
     [Tags]    rpm
-    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    rpm    version\=${SALVersion}${Build_Number}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
+    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    rpm    version\=${SALVersion}${Build_Number}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     @{files}=    List Directory    /tmp/
     Log File    /tmp/makerpm.log
@@ -349,7 +349,7 @@ Salgen HVAC RPM
 Salgen HVAC Maven
     [Documentation]    Generate the Maven repository.
     [Tags]    java
-    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    maven    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
+    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    maven    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Running maven install
@@ -358,4 +358,8 @@ Salgen HVAC Maven
     Should Contain X Times    ${output.stdout}    [INFO] Finished at:    1
     @{files}=    List Directory    ${SALWorkDir}/maven
     File Should Exist    ${SALWorkDir}/maven/${subSystem}_${SALVersion}/pom.xml
+
+Cleanup stdout and stderr Files
+    [Tags]
+    Remove Files    ${EXECDIR}${/}${subSystem}_stdout.txt    ${EXECDIR}${/}${subSystem}_stderr.txt
 
