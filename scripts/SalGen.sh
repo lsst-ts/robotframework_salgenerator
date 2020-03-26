@@ -40,7 +40,6 @@ function cleanupOutputs() {
     echo "" >> $testSuite
 }
 
-
 function verifyXMLDefinitions() {
     echo "Verify $subSystemUp XML Defintions exist" >> $testSuite
     echo "    [Tags]" >> $testSuite
@@ -319,7 +318,7 @@ function salgenLabview() {
     echo "    [Documentation]    Generate \${subSystem} low-level LabView interfaces." >> $testSuite
     echo "    [Tags]    labview$skipped" >> $testSuite
     echo "    \${output}=    Run Process    \${SALHome}/scripts/salgenerator    \${subSystem}    labview    \
-shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}stdout.txt    stderr=\${EXECDIR}\${/}stderr.txt" >> $testSuite
+shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.txt    stderr=\${EXECDIR}\${/}\${subSystem}_stderr.txt" >> $testSuite
     echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
     echo "    Should Contain    \${output.stdout}    SAL generator - \${SALVersion}" >> $testSuite
     echo "    Directory Should Exist    \${SALWorkDir}/\${subSystem}/labview" >> $testSuite
@@ -464,10 +463,10 @@ function createTestSuite() {
 	salgenRPM
 	# Run the Maven tests.
     salgenMaven
-	# Indicate completion of the test suite.
-	cleanupOutputs
-	echo Done with test suite.
-	echo ""
+    # Indicate completion of the test suite.
+    cleanupOutputs
+    echo Done with test suite.
+    echo ""
 }
 
 
