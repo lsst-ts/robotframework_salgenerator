@@ -370,7 +370,12 @@ function salgenRPM() {
 shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.txt    stderr=\${EXECDIR}\${/}\${subSystem}_stderr.txt" >> $testSuite
     echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
     echo "    @{files}=    List Directory    /tmp/" >> $testSuite
+    echo "    File Should Exist    /tmp/makerpm.log" >> $testSuite
+    echo "    File Should Exist    /tmp/makerpm_\${subSystem}.log" >> $testSuite
+    echo "    File Should Exist    /tmp/makerpm_\${subSystem}_test.log" >> $testSuite
     echo "    Log File    /tmp/makerpm.log" >> $testSuite
+    echo "    Log File    /tmp/makerpm_\${subSystem}.log" >> $testSuite
+    echo "    Log File    /tmp/makerpm_\${subSystem}_test.log" >> $testSuite
     echo "    Should Not Contain    \${output.stdout}    ERROR : Asset required for rpm" >> $testSuite
     echo "    Should Contain    \${output.stdout}    SAL generator - \${SALVersion}\${Build_Number}" >> $testSuite
     echo "    Should Contain    \${output.stdout}    Building runtime RPM for \${subSystem} subsystem" >> $testSuite
@@ -389,8 +394,6 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_utils-\${SALVersion}\${Build_Number}-1.x86_64.rpm" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/\${subSystem}-\${SALVersion}\${Build_Number}-\${XMLVersion}\${DIST}.x86_64.rpm" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/\${subSystem}_test-\${SALVersion}\${Build_Number}-\${XMLVersion}\${DIST}.x86_64.rpm" >> $testSuite
-    #echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/\${subSystem}-debuginfo-\${SALVersion}\${Build_Number}-\${XMLVersion}\${DIST}.x86_64.rpm" >> $testSuite
-    #echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/\${subSystem}_test-debuginfo-\${SALVersion}\${Build_Number}-\${XMLVersion}\${DIST}.x86_64.rpm" >> $testSuite
     echo "" >> $testSuite
 }
 
