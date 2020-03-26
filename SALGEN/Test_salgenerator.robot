@@ -60,10 +60,10 @@ Salgen Test HTML
     Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
     @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/Test_scalars-metadata.html
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/Test_scalars-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/Test_arrays-metadata.html
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/Test_arrays-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/Test_scalars-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/Test_scalars-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/Test_arrays-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/Test_arrays-streamdef.html
     File Should Exist    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
 
 Verify Test revCodes File

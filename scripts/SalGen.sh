@@ -105,8 +105,8 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
         echo "    @{files}=    List Directory    \${SALWorkDir}/html/salgenerator/\${subSystem}    pattern=*\${subSystem}*" >> $testSuite
         echo "    Log Many    @{files}" >> $testSuite
         for topic in "${telemetryArray[@]}"; do
-            echo "    File Should Exist    \${SALWorkDir}/html/\${subSystem}/${subSystemUp}_${topic}-metadata.html" >> $testSuite
-            echo "    File Should Exist    \${SALWorkDir}/html/\${subSystem}/${subSystemUp}_${topic}-streamdef.html" >> $testSuite
+            echo "    File Should Exist    \${SALWorkDir}/html/salgenerator/\${subSystem}/${subSystemUp}_${topic}-metadata.html" >> $testSuite
+            echo "    File Should Exist    \${SALWorkDir}/html/salgenerator/\${subSystem}/${subSystemUp}_${topic}-streamdef.html" >> $testSuite
         done
     fi
     echo "    File Should Exist    \${SALWorkDir}/idl-templates/validated/\${subSystem}_revCodes.tcl" >> $testSuite
