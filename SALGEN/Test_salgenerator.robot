@@ -55,6 +55,10 @@ Salgen Test HTML
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.arrays to form
     @{items}=    List Directory    ${SALWorkDir}/html/salgenerator
     Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/Test_scalars-metadata.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/Test_scalars-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/Test_arrays-metadata.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/Test_arrays-streamdef.html
     @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/html/${subSystem}/Test_Commands.html

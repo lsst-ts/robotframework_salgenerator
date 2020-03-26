@@ -92,13 +92,17 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     echo "    Should Contain    \${output.stdout}    SAL generator - \${SALVersion}" >> $testSuite
     echo "    Should Contain    \${output.stdout}    Generating telemetry stream definition editor html" >> $testSuite
     echo "    Should Contain    \${output.stdout}    Creating sal-generator-\${subSystem} form" >> $testSuite
-	if ! [ "$subSystemUp" == "EFD" ]; then
+	if [ ! -z "${#telemetryArray[@]}" ]; then
     	for topic in "${telemetryArray[@]}"; do
 			echo "    Should Contain    \${output.stdout}    Added sal-generator-\${subSystem}.$topic to form" >> $testSuite
 		done
-    fi
-    echo "    @{items}=    List Directory    \${SALWorkDir}/html/salgenerator" >> $testSuite
-    echo "    Directory Should Exist    \${SALWorkDir}/html/salgenerator/\${subSystem}" >> $testSuite
+    	echo "    @{items}=    List Directory    \${SALWorkDir}/html/salgenerator" >> $testSuite
+    	echo "    Directory Should Exist    \${SALWorkDir}/html/salgenerator/\${subSystem}" >> $testSuite
+    	for topic in "${telemetryArray[@]}"; do
+        	echo "    File Should Exist    \${SALWorkDir}/html/\${subSystem}/${subSystemUp}_${topic}-metadata.html" >> $testSuite
+        	echo "    File Should Exist    \${SALWorkDir}/html/\${subSystem}/${subSystemUp}_${topic}-streamdef.html" >> $testSuite
+		done
+	fi
     echo "    @{files}=    List Directory    \${SALWorkDir}/html/salgenerator/\${subSystem}    pattern=*\${subSystem}*" >> $testSuite
     echo "    Log Many    @{files}" >> $testSuite
 	for file in "${xmls[@]}"; do
