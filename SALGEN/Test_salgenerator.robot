@@ -51,19 +51,19 @@ Salgen Test HTML
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Generating telemetry stream definition editor html
     Should Contain    ${output.stdout}    Creating sal-generator-${subSystem} form
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/Test_Commands.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/Test_Events.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/Test_Telemetry.html
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.scalars to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.arrays to form
     @{items}=    List Directory    ${SALWorkDir}/html/salgenerator
     Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
+    @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
+    Log Many    @{files}
     File Should Exist    ${SALWorkDir}/html/${subSystem}/Test_scalars-metadata.html
     File Should Exist    ${SALWorkDir}/html/${subSystem}/Test_scalars-streamdef.html
     File Should Exist    ${SALWorkDir}/html/${subSystem}/Test_arrays-metadata.html
     File Should Exist    ${SALWorkDir}/html/${subSystem}/Test_arrays-streamdef.html
-    @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
-    Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/Test_Commands.html
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/Test_Events.html
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/Test_Telemetry.html
     File Should Exist    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
 
 Verify Test revCodes File

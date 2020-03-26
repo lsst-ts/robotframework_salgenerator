@@ -17,16 +17,16 @@ declare -a subSystemArray=($(subsystemArray))
 function createSettings() {
     echo "*** Settings ***" >> $testSuite
     echo "Documentation    This suite builds the various interfaces for the $subSystemUp." >> $testSuite
-	echo "Force Tags    salgen    $skipped" >> $testSuite
-	echo "Suite Setup    Log Many    \${Host}    \${subSystem}    \${timeout}" >> $testSuite
+    echo "Force Tags    salgen    $skipped" >> $testSuite
+    echo "Suite Setup    Log Many    \${Host}    \${subSystem}    \${timeout}" >> $testSuite
     echo "Library    OperatingSystem" >> $testSuite
     echo "Library    Process" >> $testSuite
     echo "Resource    ../Global_Vars.resource" >> $testSuite
-	echo "" >> $testSuite
+    echo "" >> $testSuite
 }
 
 function createVariables() {
-	entity=$(getEntity $1)
+    entity=$(getEntity $1)
     echo "*** Variables ***" >> $testSuite
     echo "\${subSystem}    $entity" >> $testSuite
     echo "\${timeout}    1200s" >> $testSuite
@@ -43,19 +43,19 @@ function cleanupOutputs() {
 function verifyXMLDefinitions() {
     echo "Verify $subSystemUp XML Defintions exist" >> $testSuite
     echo "    [Tags]" >> $testSuite
-	echo "    Comment    Verify the CSC XML definition files exist." >> $testSuite
-	echo "    \${output}    Run Process    ls     \${SALWorkDir}/${subSystemUp}_*.xml    shell=True" >> $testSuite
-	echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
-	echo "    Should Not Contain    \${output.stderr}    No such file or directory    msg=\"${subSystemUp} has no XML defintions\"    values=False" >> $testSuite
-	echo "    Should Not Be Empty    \${output.stdout}" >> $testSuite
-	for file in "${xmls[@]}"; do
-		echo "    File Should Exist    \${SALWorkDir}/$file" >> $testSuite
-	done
+    echo "    Comment    Verify the CSC XML definition files exist." >> $testSuite
+    echo "    \${output}    Run Process    ls     \${SALWorkDir}/${subSystemUp}_*.xml    shell=True" >> $testSuite
+    echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
+    echo "    Should Not Contain    \${output.stderr}    No such file or directory    msg=\"${subSystemUp} has no XML defintions\"    values=False" >> $testSuite
+    echo "    Should Not Be Empty    \${output.stdout}" >> $testSuite
+    for file in "${xmls[@]}"; do
+        echo "    File Should Exist    \${SALWorkDir}/$file" >> $testSuite
+    done
     echo "" >> $testSuite
 }
 
 function salgenValidate() {
-	skipped=$(checkIfSkipped "validate")
+    skipped=$(checkIfSkipped "validate")
     echo "Salgen $subSystemUp Validate" >> $testSuite
     echo "    [Documentation]    Validate the $subSystemUp XML definitions." >> $testSuite
     echo "    [Tags]    validate$skipped" >> $testSuite
@@ -69,9 +69,9 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     echo "    Directory Should Exist    \${SALWorkDir}/idl-templates/validated" >> $testSuite
     echo "    @{files}=    List Directory    \${SALWorkDir}/idl-templates    pattern=*\${subSystem}*" >> $testSuite
     echo "    Log Many    @{files}" >> $testSuite
-	for topic in "${telemetryArray[@]}"; do
-		echo "    File Should Exist    \${SALWorkDir}/idl-templates/\${subSystem}_${topic}.idl" >> $testSuite
-	done
+    for topic in "${telemetryArray[@]}"; do
+        echo "    File Should Exist    \${SALWorkDir}/idl-templates/\${subSystem}_${topic}.idl" >> $testSuite
+    done
     for topic in "${commandArray[@]}"; do
         echo "    File Should Exist    \${SALWorkDir}/idl-templates/\${subSystem}_command_${topic}.idl" >> $testSuite
     done
@@ -82,7 +82,7 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
 }
 
 function salgenHTML() {
-	skipped=$(checkIfSkipped "html")
+    skipped=$(checkIfSkipped "html")
     echo "Salgen $subSystemUp HTML" >> $testSuite
     echo "    [Documentation]    Create web form interfaces." >> $testSuite
     echo "    [Tags]    html    $skipped" >> $testSuite
@@ -92,43 +92,43 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     echo "    Should Contain    \${output.stdout}    SAL generator - \${SALVersion}" >> $testSuite
     echo "    Should Contain    \${output.stdout}    Generating telemetry stream definition editor html" >> $testSuite
     echo "    Should Contain    \${output.stdout}    Creating sal-generator-\${subSystem} form" >> $testSuite
-	if [ ! -z "${#telemetryArray[@]}" ]; then
-    	for topic in "${telemetryArray[@]}"; do
-			echo "    Should Contain    \${output.stdout}    Added sal-generator-\${subSystem}.$topic to form" >> $testSuite
-		done
-    	echo "    @{items}=    List Directory    \${SALWorkDir}/html/salgenerator" >> $testSuite
-    	echo "    Directory Should Exist    \${SALWorkDir}/html/salgenerator/\${subSystem}" >> $testSuite
-    	for topic in "${telemetryArray[@]}"; do
-        	echo "    File Should Exist    \${SALWorkDir}/html/\${subSystem}/${subSystemUp}_${topic}-metadata.html" >> $testSuite
-        	echo "    File Should Exist    \${SALWorkDir}/html/\${subSystem}/${subSystemUp}_${topic}-streamdef.html" >> $testSuite
-		done
-	fi
-    echo "    @{files}=    List Directory    \${SALWorkDir}/html/salgenerator/\${subSystem}    pattern=*\${subSystem}*" >> $testSuite
-    echo "    Log Many    @{files}" >> $testSuite
-	for file in "${xmls[@]}"; do
-		file=$(echo $file |sed "s/xml/html/")
+    for file in "${xmls[@]}"; do
+        file=$(echo $file |sed "s/xml/html/")
         echo "    File Should Exist    \${SALWorkDir}/html/\${subSystem}/$file" >> $testSuite
     done
-	echo "    File Should Exist    \${SALWorkDir}/idl-templates/validated/\${subSystem}_revCodes.tcl" >> $testSuite
+    if [ ! -z "${#telemetryArray[@]}" ]; then
+        for topic in "${telemetryArray[@]}"; do
+            echo "    Should Contain    \${output.stdout}    Added sal-generator-\${subSystem}.$topic to form" >> $testSuite
+        done
+        echo "    @{items}=    List Directory    \${SALWorkDir}/html/salgenerator" >> $testSuite
+        echo "    Directory Should Exist    \${SALWorkDir}/html/salgenerator/\${subSystem}" >> $testSuite
+        echo "    @{files}=    List Directory    \${SALWorkDir}/html/salgenerator/\${subSystem}    pattern=*\${subSystem}*" >> $testSuite
+        echo "    Log Many    @{files}" >> $testSuite
+        for topic in "${telemetryArray[@]}"; do
+            echo "    File Should Exist    \${SALWorkDir}/html/\${subSystem}/${subSystemUp}_${topic}-metadata.html" >> $testSuite
+            echo "    File Should Exist    \${SALWorkDir}/html/\${subSystem}/${subSystemUp}_${topic}-streamdef.html" >> $testSuite
+        done
+    fi
+    echo "    File Should Exist    \${SALWorkDir}/idl-templates/validated/\${subSystem}_revCodes.tcl" >> $testSuite
     echo "" >> $testSuite
 }
 
 function revCodeDefinition() {
-	skipped=$(checkIfSkipped "html")
+    skipped=$(checkIfSkipped "html")
     echo "Verify $subSystemUp revCodes File" >> $testSuite
     echo "    [Documentation]    Ensure ${subSystemUp}_revCodes.tcl contains 1 revcode per topic." >> $testSuite
     echo "    [Tags]    html    $skipped" >> $testSuite
-	echo "    \${output}=    Log File    \${SALWorkDir}/idl-templates/validated/\${subSystem}_revCodes.tcl" >> $testSuite
-	for topic in "${commandArray[@]}"; do
-		echo "    Should Match Regexp    \${output}    set REVCODE\\\(\${subSystem}_command_$topic\\\) [a-z0-9]{8,}" >> $testSuite
+    echo "    \${output}=    Log File    \${SALWorkDir}/idl-templates/validated/\${subSystem}_revCodes.tcl" >> $testSuite
+    for topic in "${commandArray[@]}"; do
+        echo "    Should Match Regexp    \${output}    set REVCODE\\\(\${subSystem}_command_$topic\\\) [a-z0-9]{8,}" >> $testSuite
     done
-	for topic in "${eventArray[@]}"; do
+    for topic in "${eventArray[@]}"; do
         echo "    Should Match Regexp    \${output}    set REVCODE\\\(\${subSystem}_logevent_$topic\\\) [a-z0-9]{8,}" >> $testSuite
     done
-	for topic in "${telemetryArray[@]}"; do
+    for topic in "${telemetryArray[@]}"; do
         echo "    Should Match Regexp    \${output}    set REVCODE\\\(\${subSystem}_$topic\\\) [a-z0-9]{8,}" >> $testSuite
-	done
-	echo "" >> $testSuite
+    done
+    echo "" >> $testSuite
 }
 
 function salgenCPP {
@@ -141,23 +141,22 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     echo "    Should Not Contain    \${output.stdout}    *** DDS error in file" >> $testSuite
     echo "    Should Not Contain    \${output.stdout}    Error 1" >> $testSuite
     echo "    Should Contain    \${output.stdout}    SAL generator - \${SALVersion}" >> $testSuite
-	for topic in "${telemetryArray[@]}"; do
-		echo "    Should Contain    \${output.stdout}    Generating SAL CPP code for \${subSystem}_${topic}.idl" >> $testSuite
-	done
+    for topic in "${telemetryArray[@]}"; do
+        echo "    Should Contain    \${output.stdout}    Generating SAL CPP code for \${subSystem}_${topic}.idl" >> $testSuite
+    done
     if [ ${#telemetryArray[@]} -eq 0 ]; then
-		echo "    Should Contain X Times    \${output.stdout}    cpp : Done Publisher    1" >> $testSuite
-    	echo "    Should Contain X Times    \${output.stdout}    cpp : Done Subscriber    1" >> $testSuite
-	else
-		echo "    Should Contain X Times    \${output.stdout}    cpp : Done Publisher    ${#telemetryArray[@]}" >> $testSuite
-    	echo "    Should Contain X Times    \${output.stdout}    cpp : Done Subscriber    ${#telemetryArray[@]}" >> $testSuite
-	fi
+        echo "    Should Contain    \${output.stdout}    WARNING : No Telemetry definitions found for \${subSystem}" >> $testSuite
+    else
+        echo "    Should Contain X Times    \${output.stdout}    cpp : Done Publisher    ${#telemetryArray[@]}" >> $testSuite
+        echo "    Should Contain X Times    \${output.stdout}    cpp : Done Subscriber    ${#telemetryArray[@]}" >> $testSuite
+    fi
     echo "    Should Contain X Times    \${output.stdout}    cpp : Done Commander    1" >> $testSuite
     echo "    Should Contain X Times    \${output.stdout}    cpp : Done Event/Logger    1" >> $testSuite
     echo "" >> $testSuite
 }
 
 function verifyCppDirectories() {
-	echo "Verify C++ Directories" >> $testSuite
+    echo "Verify C++ Directories" >> $testSuite
     echo "    [Documentation]    Ensure expected C++ directories and files are created." >> $testSuite
     echo "    [Tags]    cpp" >> $testSuite
     echo "    Directory Should Exist    \${SALWorkDir}/\${subSystem}/cpp" >> $testSuite
@@ -174,9 +173,9 @@ function verifyTelemetryDirectories() {
     echo "    [Tags]    cpp" >> $testSuite
     echo "    @{files}=    List Directory    \${SALWorkDir}    pattern=*\${subSystem}*" >> $testSuite
     echo "    Log Many    @{files}" >> $testSuite
-	for topic in "${telemetryArray[@]}"; do
-		echo "    Directory Should Exist    \${SALWorkDir}/\${subSystem}_${topic}" >> $testSuite
-	done
+    for topic in "${telemetryArray[@]}"; do
+        echo "    Directory Should Exist    \${SALWorkDir}/\${subSystem}_${topic}" >> $testSuite
+    done
     echo "" >> $testSuite
 }
 
@@ -214,7 +213,7 @@ function verifyCppEventInterfaces() {
 }
 
 function salgenJava() {
-	skipped=$(checkIfSkipped $subSystem "java")
+    skipped=$(checkIfSkipped $subSystem "java")
     echo "Salgen $subSystemUp Java" >> $testSuite
     echo "    [Documentation]    Generate Java wrapper." >> $testSuite
     echo "    [Tags]    java$skipped" >> $testSuite
@@ -222,12 +221,11 @@ function salgenJava() {
 shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.txt    stderr=\${EXECDIR}\${/}\${subSystem}_stderr.txt" >> $testSuite
     echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
     echo "    Should Contain    \${output.stdout}    SAL generator - \${SALVersion}" >> $testSuite
-	for topic in "${telemetryArray[@]}"; do
+    for topic in "${telemetryArray[@]}"; do
         echo "    Should Contain    \${output.stdout}    Generating SAL Java code for \${subSystem}_${topic}.idl" >> $testSuite
     done
-	if [ ${#telemetryArray[@]} -eq 0 ]; then
-        echo "    Should Contain X Times    \${output.stdout}    javac : Done Publisher    1" >> $testSuite
-        echo "    Should Contain X Times    \${output.stdout}    javac : Done Subscriber    1" >> $testSuite
+    if [ ${#telemetryArray[@]} -eq 0 ]; then
+        echo "    Should Contain    \${output.stdout}    WARNING : No Telemetry definitions found for \${subSystem}" >> $testSuite
     else
         echo "    Should Contain X Times    \${output.stdout}    javac : Done Publisher    ${#telemetryArray[@]}" >> $testSuite
         echo "    Should Contain X Times    \${output.stdout}    javac : Done Subscriber    ${#telemetryArray[@]}" >> $testSuite
@@ -241,7 +239,7 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
 }
 
 function salgenMaven() {
-	skipped=$(checkIfSkipped $subSystem "java")
+    skipped=$(checkIfSkipped $subSystem "java")
     echo "Salgen $subSystemUp Maven" >> $testSuite
     echo "    [Documentation]    Generate the Maven repository." >> $testSuite
     echo "    [Tags]    java$skipped" >> $testSuite
@@ -259,7 +257,7 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
 }
 
 function salgenPython() {
-	skipped=$(checkIfSkipped $subSystem "python")
+    skipped=$(checkIfSkipped $subSystem "python")
     echo "Salgen $subSystemUp Python" >> $testSuite
     echo "    [Documentation]    Generate Python wrapper." >> $testSuite
     echo "    [Tags]    python$skipped" >> $testSuite
@@ -283,7 +281,7 @@ function verifyPythonTelemetryInterfaces() {
     echo "    [Tags]    python" >> $testSuite
     echo "    @{files}=    List Directory    \${SALWorkDir}/\${subSystem}/python    pattern=*\${subSystem}*" >> $testSuite
     echo "    Log Many    @{files}" >> $testSuite
-	for topic in "${telemetryArray[@]}"; do
+    for topic in "${telemetryArray[@]}"; do
         echo "    File Should Exist    \${SALWorkDir}/\${subSystem}/python/\${subSystem}_${topic}_Publisher.py" >> $testSuite
         echo "    File Should Exist    \${SALWorkDir}/\${subSystem}/python/\${subSystem}_${topic}_Subscriber.py" >> $testSuite
     done
@@ -317,7 +315,7 @@ function verifyPythonEventInterfaces() {
 }
 
 function salgenLabview() {
-	skipped=$(checkIfSkipped $subSystem "labview")
+    skipped=$(checkIfSkipped $subSystem "labview")
     echo "Salgen $subSystemUp LabVIEW" >> $testSuite
     echo "    [Documentation]    Generate \${subSystem} low-level LabView interfaces." >> $testSuite
     echo "    [Tags]    labview$skipped" >> $testSuite
@@ -336,24 +334,24 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
 }
 
 function salgenLib() {
-	skipped=$(checkIfSkipped $subSystem "lib")
-	echo "Salgen $subSystemUp Lib" >> $testSuite
+    skipped=$(checkIfSkipped $subSystem "lib")
+    echo "Salgen $subSystemUp Lib" >> $testSuite
     echo "    [Documentation]    Generate the SAL shared library for \${subSystem}" >> $testSuite
-	echo "    [Tags]    lib$skipped" >> $testSuite
+    echo "    [Tags]    lib$skipped" >> $testSuite
     echo "    \${output}=    Run Process    \${SALHome}/scripts/salgenerator    \${subSystem}    lib    \
 shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.txt    stderr=\${EXECDIR}\${/}\${subSystem}_stderr.txt" >> $testSuite
     echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
     echo "    Should Contain    \${output.stdout}    SAL generator - \${SALVersion}" >> $testSuite
     echo "    Should Contain    \${output.stdout}    Building shared library for \${subSystem} subsystem" >> $testSuite
-	echo "    Directory Should Exist    \${SALWorkDir}/lib" >> $testSuite
+    echo "    Directory Should Exist    \${SALWorkDir}/lib" >> $testSuite
     echo "    @{files}=    List Directory    \${SALWorkDir}/lib    pattern=*\${subSystem}*" >> $testSuite
     echo "    Log Many    @{files}" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/lib/libsacpp_\${subSystem}_types.so" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/lib/libSAL_\${subSystem}.so" >> $testSuite
-	if [ "$subSystem" == "scheduler" ] || [ "$subSystem" == "efd" ]; then
-		echo "The SALLV_* files are produced by the LabVIEW option. This is skipped for the Scheduler and EFD."
-	else
-    	echo "    File Should Exist    \${SALWorkDir}/lib/SALLV_\${subSystem}.so" >> $testSuite
+    if [ "$subSystem" == "scheduler" ] || [ "$subSystem" == "efd" ]; then
+        echo "The SALLV_* files are produced by the LabVIEW option. This is skipped for the Scheduler and EFD."
+    else
+        echo "    File Should Exist    \${SALWorkDir}/lib/SALLV_\${subSystem}.so" >> $testSuite
     fi
     echo "    File Should Exist    \${SALWorkDir}/lib/SALPY_\${subSystem}.so" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/lib/libsacpp_\${subSystem}_types.so" >> $testSuite
@@ -372,10 +370,10 @@ function salgenRPM() {
 shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.txt    stderr=\${EXECDIR}\${/}\${subSystem}_stderr.txt" >> $testSuite
     echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
     echo "    @{files}=    List Directory    /tmp/" >> $testSuite
-	echo "    Log File    /tmp/makerpm.log" >> $testSuite
-	echo "    Should Not Contain    \${output.stdout}    ERROR : Asset required for rpm" >> $testSuite
-	echo "    Should Contain    \${output.stdout}    SAL generator - \${SALVersion}\${Build_Number}" >> $testSuite
-	echo "    Should Contain    \${output.stdout}    Building runtime RPM for \${subSystem} subsystem" >> $testSuite
+    echo "    Log File    /tmp/makerpm.log" >> $testSuite
+    echo "    Should Not Contain    \${output.stdout}    ERROR : Asset required for rpm" >> $testSuite
+    echo "    Should Contain    \${output.stdout}    SAL generator - \${SALVersion}\${Build_Number}" >> $testSuite
+    echo "    Should Contain    \${output.stdout}    Building runtime RPM for \${subSystem} subsystem" >> $testSuite
     echo "    Directory Should Exist    \${SALWorkDir}/rpmbuild" >> $testSuite
     echo "    Directory Should Exist    \${SALWorkDir}/rpmbuild/BUILD" >> $testSuite
     echo "    Directory Should Exist    \${SALWorkDir}/rpmbuild/BUILDROOT" >> $testSuite
@@ -386,8 +384,8 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     echo "    Directory Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/" >> $testSuite
     echo "    @{files}=    List Directory    \${SALWorkDir}/rpmbuild/RPMS/x86_64/" >> $testSuite
     echo "    Log Many    @{files}" >> $testSuite
-	echo "    File Should Exist    \${SALWorkDir}/rpmbuild/SPECS/ts_sal_\${subSystem}.spec" >> $testSuite
-	echo "    File Should Exist    \${SALWorkDir}/rpmbuild/SOURCES/\${subSystem}-\${SALVersion}\${Build_Number}.tgz" >> $testSuite
+    echo "    File Should Exist    \${SALWorkDir}/rpmbuild/SPECS/ts_sal_\${subSystem}.spec" >> $testSuite
+    echo "    File Should Exist    \${SALWorkDir}/rpmbuild/SOURCES/\${subSystem}-\${SALVersion}\${Build_Number}.tgz" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_utils-\${SALVersion}\${Build_Number}-1.x86_64.rpm" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/\${subSystem}-\${SALVersion}\${Build_Number}-\${XMLVersion}\${DIST}.x86_64.rpm" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/\${subSystem}_test-\${SALVersion}\${Build_Number}-\${XMLVersion}\${DIST}.x86_64.rpm" >> $testSuite
@@ -397,75 +395,75 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
 }
 
 function createTestSuite() {
-	subSystem=$1
+    subSystem=$1
 
-	#  Define test suite name
-	subSystemUp=$(capitializeSubsystem $subSystem)
-	testSuite=$workDir/SALGEN/${subSystemUp}_salgenerator.robot
-		
-	#  Check to see if the TestSuite exists then, if it does, delete it.
-	clearTestSuites $subSystem "SALGEN" 
-		
-	# Get XML topic definitions.  Not all subsystems have all types of topics.
-	declare -a xmls=($(ls $HOME/trunk/ts_xml/sal_interfaces/$subSystem))
-	# Declare topic arrays
-	declare -a telemetryArray=($(getTelemetryTopics $subSystem))
-	if [[ ${xmls[*]} =~ "${subSystem}_Commands.xml" ]]; then
-		declare -a commandArray=($(getCommandTopics $subSystem))
-	fi
-	if [[ ${xmls[*]} =~ "${subSystem}_Events.xml" ]]; then
-		declare -a eventArray=($(getEventTopics $subSystem))
-	fi
+    #  Define test suite name
+    subSystemUp=$(capitializeSubsystem $subSystem)
+    testSuite=$workDir/SALGEN/${subSystemUp}_salgenerator.robot
+        
+    #  Check to see if the TestSuite exists then, if it does, delete it.
+    clearTestSuites $subSystem "SALGEN" 
+        
+    # Get XML topic definitions.  Not all subsystems have all types of topics.
+    declare -a xmls=($(ls $HOME/trunk/ts_xml/sal_interfaces/$subSystem))
+    # Declare topic arrays
+    declare -a telemetryArray=($(getTelemetryTopics $subSystem))
+    if [[ ${xmls[*]} =~ "${subSystem}_Commands.xml" ]]; then
+        declare -a commandArray=($(getCommandTopics $subSystem))
+    fi
+    if [[ ${xmls[*]} =~ "${subSystem}_Events.xml" ]]; then
+        declare -a eventArray=($(getEventTopics $subSystem))
+    fi
 
     #  Check if test suite should be skipped.
     skipped=$(checkIfSkipped $subSystem $topic)
 
-	#  Create test suite.
-	echo Creating $testSuite
-	createSettings
-	createVariables $subSystem
-	echo "*** Test Cases ***" >> $testSuite
+    #  Create test suite.
+    echo Creating $testSuite
+    createSettings
+    createVariables $subSystem
+    echo "*** Test Cases ***" >> $testSuite
     verifyXMLDefinitions
-	salgenValidate
-	salgenHTML
-	revCodeDefinition
-	# Create and verify C++ interfaces.
-	salgenCPP
-	verifyCppDirectories
-	if [[ ${xmls[*]} =~ "${subSystem}_Telemetry.xml" ]]; then
-		verifyTelemetryDirectories
-		verifyCppTelemetryInterfaces
-	fi
-	if [[ ${xmls[*]} =~ "${subSystem}_Commands.xml" ]]; then
-		verifyCppCommandInterfaces
-	fi
-	if [[ ${xmls[*]} =~ "${subSystem}_Events.xml" ]]; then
-		verifyCppEventInterfaces
+    salgenValidate
+    salgenHTML
+    revCodeDefinition
+    # Create and verify C++ interfaces.
+    salgenCPP
+    verifyCppDirectories
+    if [[ ${xmls[*]} =~ "${subSystem}_Telemetry.xml" ]]; then
+        verifyTelemetryDirectories
+        verifyCppTelemetryInterfaces
     fi
-	# Create and verify Python interfaces.
-    salgenPython
-	if [[ ${xmls[*]} =~ "${subSystem}_Telemetry.xml" ]]; then
-    	verifyPythonTelemetryInterfaces
-	fi
     if [[ ${xmls[*]} =~ "${subSystem}_Commands.xml" ]]; then
-		verifyPythonCommandInterfaces
-	fi
-	if [[ ${xmls[*]} =~ "${subSystem}_Events.xml" ]]; then
-		verifyPythonEventInterfaces
-	fi
-	# Create LabVIEW interfaces.  NOTE: There are NO such Scheduler or EFD interfaces.
-	if [ "$subSystem" == "scheduler" ] || [ "$subSystem" == "efd" ]; then
-		echo "Skipping LabVIEW step for the Scheduler and EFD."
-	else
-		salgenLabview
-	fi
-	# Create and verify Java interfaces.
-	salgenJava
-	# Move/Generate the SAL libraries.
-	salgenLib
-	# Generate the as-built SAL libraries RPM.
-	salgenRPM
-	# Run the Maven tests.
+        verifyCppCommandInterfaces
+    fi
+    if [[ ${xmls[*]} =~ "${subSystem}_Events.xml" ]]; then
+        verifyCppEventInterfaces
+    fi
+    # Create and verify Python interfaces.
+    salgenPython
+    if [[ ${xmls[*]} =~ "${subSystem}_Telemetry.xml" ]]; then
+        verifyPythonTelemetryInterfaces
+    fi
+    if [[ ${xmls[*]} =~ "${subSystem}_Commands.xml" ]]; then
+        verifyPythonCommandInterfaces
+    fi
+    if [[ ${xmls[*]} =~ "${subSystem}_Events.xml" ]]; then
+        verifyPythonEventInterfaces
+    fi
+    # Create LabVIEW interfaces.  NOTE: There are NO such Scheduler or EFD interfaces.
+    if [ "$subSystem" == "scheduler" ] || [ "$subSystem" == "efd" ]; then
+        echo "Skipping LabVIEW step for the Scheduler and EFD."
+    else
+        salgenLabview
+    fi
+    # Create and verify Java interfaces.
+    salgenJava
+    # Move/Generate the SAL libraries.
+    salgenLib
+    # Generate the as-built SAL libraries RPM.
+    salgenRPM
+    # Run the Maven tests.
     salgenMaven
     # Indicate completion of the test suite.
     cleanupOutputs
@@ -478,14 +476,14 @@ function createTestSuite() {
 subSystem=$(getEntity $arg)
 #echo $subSystem
 if [ "$arg" == "all" ]; then
-	for subSystem in "${subSystemArray[@]}"; do
-		createTestSuite $subSystem
-	done
-	echo COMPLETED ALL test suites for ALL subsystems.
+    for subSystem in "${subSystemArray[@]}"; do
+        createTestSuite $subSystem
+    done
+    echo COMPLETED ALL test suites for ALL subsystems.
 elif [[ ${subSystemArray[*]} =~ $subSystem ]]; then
     createTestSuite $subSystem
-	echo COMPLETED all test suites for the $subSystem.
+    echo COMPLETED all test suites for the $subSystem.
 else
-	echo USAGE - Argument must be one of: ${subSystemArray[*]} OR all.
+    echo USAGE - Argument must be one of: ${subSystemArray[*]} OR all.
 fi
 
