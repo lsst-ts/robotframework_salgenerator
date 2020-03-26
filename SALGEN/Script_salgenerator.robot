@@ -58,10 +58,6 @@ Salgen Script HTML
     Should Contain    ${output.stdout}    Creating sal-generator-${subSystem} form
     File Should Exist    ${SALWorkDir}/html/${subSystem}/Script_Commands.html
     File Should Exist    ${SALWorkDir}/html/${subSystem}/Script_Events.html
-    @{items}=    List Directory    ${SALWorkDir}/html/salgenerator
-    Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
-    @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
-    Log Many    @{files}
     File Should Exist    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
 
 Verify Script revCodes File

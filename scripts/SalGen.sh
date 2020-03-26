@@ -96,7 +96,7 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
         file=$(echo $file |sed "s/xml/html/")
         echo "    File Should Exist    \${SALWorkDir}/html/\${subSystem}/$file" >> $testSuite
     done
-    if [ ! -z "${#telemetryArray[@]}" ]; then
+    if [ "${#telemetryArray[@]}" -gt "0" ]; then
         for topic in "${telemetryArray[@]}"; do
             echo "    Should Contain    \${output.stdout}    Added sal-generator-\${subSystem}.$topic to form" >> $testSuite
         done
