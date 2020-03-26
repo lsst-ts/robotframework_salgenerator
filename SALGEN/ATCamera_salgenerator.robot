@@ -80,6 +80,9 @@ Salgen ATCamera HTML
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Generating telemetry stream definition editor html
     Should Contain    ${output.stdout}    Creating sal-generator-${subSystem} form
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/ATCamera_Commands.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/ATCamera_Events.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/ATCamera_Telemetry.html
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.wreb to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.bonnShutter to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.wrebPower to form
@@ -88,9 +91,14 @@ Salgen ATCamera HTML
     Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
     @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/ATCamera_Commands.html
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/ATCamera_Events.html
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/ATCamera_Telemetry.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATCamera_wreb-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATCamera_wreb-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATCamera_bonnShutter-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATCamera_bonnShutter-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATCamera_wrebPower-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATCamera_wrebPower-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATCamera_vacuum-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATCamera_vacuum-streamdef.html
     File Should Exist    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
 
 Verify ATCamera revCodes File
@@ -420,7 +428,12 @@ Salgen ATCamera RPM
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    rpm    version\=${SALVersion}${Build_Number}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     @{files}=    List Directory    /tmp/
+    File Should Exist    /tmp/makerpm.log
+    File Should Exist    /tmp/makerpm_${subSystem}.log
+    File Should Exist    /tmp/makerpm_${subSystem}_test.log
     Log File    /tmp/makerpm.log
+    Log File    /tmp/makerpm_${subSystem}.log
+    Log File    /tmp/makerpm_${subSystem}_test.log
     Should Not Contain    ${output.stdout}    ERROR : Asset required for rpm
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}${Build_Number}
     Should Contain    ${output.stdout}    Building runtime RPM for ${subSystem} subsystem

@@ -71,6 +71,9 @@ Salgen ATWhiteLight HTML
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Generating telemetry stream definition editor html
     Should Contain    ${output.stdout}    Creating sal-generator-${subSystem} form
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/ATWhiteLight_Commands.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/ATWhiteLight_Events.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/ATWhiteLight_Telemetry.html
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.timestamp to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.loopTime to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.bulbhour to form
@@ -85,9 +88,26 @@ Salgen ATWhiteLight HTML
     Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
     @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/ATWhiteLight_Commands.html
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/ATWhiteLight_Events.html
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/ATWhiteLight_Telemetry.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATWhiteLight_timestamp-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATWhiteLight_timestamp-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATWhiteLight_loopTime-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATWhiteLight_loopTime-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATWhiteLight_bulbhour-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATWhiteLight_bulbhour-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATWhiteLight_bulbWatthour-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATWhiteLight_bulbWatthour-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATWhiteLight_chillerFansSpeed-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATWhiteLight_chillerFansSpeed-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATWhiteLight_chillerUpTime-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATWhiteLight_chillerUpTime-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATWhiteLight_chillerTempSensors-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATWhiteLight_chillerTempSensors-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATWhiteLight_chillerProcessFlow-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATWhiteLight_chillerProcessFlow-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATWhiteLight_chillerTECBankCurrent-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATWhiteLight_chillerTECBankCurrent-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATWhiteLight_chillerTEDriveLevel-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATWhiteLight_chillerTEDriveLevel-streamdef.html
     File Should Exist    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
 
 Verify ATWhiteLight revCodes File
@@ -390,7 +410,12 @@ Salgen ATWhiteLight RPM
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    rpm    version\=${SALVersion}${Build_Number}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     @{files}=    List Directory    /tmp/
+    File Should Exist    /tmp/makerpm.log
+    File Should Exist    /tmp/makerpm_${subSystem}.log
+    File Should Exist    /tmp/makerpm_${subSystem}_test.log
     Log File    /tmp/makerpm.log
+    Log File    /tmp/makerpm_${subSystem}.log
+    Log File    /tmp/makerpm_${subSystem}_test.log
     Should Not Contain    ${output.stdout}    ERROR : Asset required for rpm
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}${Build_Number}
     Should Contain    ${output.stdout}    Building runtime RPM for ${subSystem} subsystem

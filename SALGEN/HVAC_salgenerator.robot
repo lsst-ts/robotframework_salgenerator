@@ -61,6 +61,9 @@ Salgen HVAC HTML
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Generating telemetry stream definition editor html
     Should Contain    ${output.stdout}    Creating sal-generator-${subSystem} form
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/HVAC_Commands.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/HVAC_Events.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/HVAC_Telemetry.html
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.lsstBarraoblPiso01BarraoblTccGuionP1GuionSalaGuionMaquinas to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.lsstBarraoblPiso05BarraoblTccGuionP5GuionPir to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.lsstBarraoblPiso04BarraoblTccGuionP4GuionVex to form
@@ -74,9 +77,24 @@ Salgen HVAC HTML
     Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
     @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/HVAC_Commands.html
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/HVAC_Events.html
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/HVAC_Telemetry.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/HVAC_lsstBarraoblPiso01BarraoblTccGuionP1GuionSalaGuionMaquinas-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/HVAC_lsstBarraoblPiso01BarraoblTccGuionP1GuionSalaGuionMaquinas-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/HVAC_lsstBarraoblPiso05BarraoblTccGuionP5GuionPir-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/HVAC_lsstBarraoblPiso05BarraoblTccGuionP5GuionPir-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/HVAC_lsstBarraoblPiso04BarraoblTccGuionP4GuionVex-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/HVAC_lsstBarraoblPiso04BarraoblTccGuionP4GuionVex-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/HVAC_lsstBarraoblPiso01BarraoblChiller01-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/HVAC_lsstBarraoblPiso01BarraoblChiller01-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/HVAC_lsstBarraoblPiso02BarraoblCrack01-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/HVAC_lsstBarraoblPiso02BarraoblCrack01-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/HVAC_lsstBarraoblPiso02BarraoblFancoil01-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/HVAC_lsstBarraoblPiso02BarraoblFancoil01-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/HVAC_lsstBarraoblPiso05BarraoblManejadoraBarraoblLower01-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/HVAC_lsstBarraoblPiso05BarraoblManejadoraBarraoblLower01-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/HVAC_lsstBarraoblPiso04BarraoblManejadoraBarraoblSblanca-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/HVAC_lsstBarraoblPiso04BarraoblManejadoraBarraoblSblanca-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/HVAC_lsstBarraoblPiso04BarraoblManejadoraBarraoblSlimpia-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/HVAC_lsstBarraoblPiso04BarraoblManejadoraBarraoblSlimpia-streamdef.html
     File Should Exist    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
 
 Verify HVAC revCodes File
@@ -326,7 +344,12 @@ Salgen HVAC RPM
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    rpm    version\=${SALVersion}${Build_Number}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     @{files}=    List Directory    /tmp/
+    File Should Exist    /tmp/makerpm.log
+    File Should Exist    /tmp/makerpm_${subSystem}.log
+    File Should Exist    /tmp/makerpm_${subSystem}_test.log
     Log File    /tmp/makerpm.log
+    Log File    /tmp/makerpm_${subSystem}.log
+    Log File    /tmp/makerpm_${subSystem}_test.log
     Should Not Contain    ${output.stdout}    ERROR : Asset required for rpm
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}${Build_Number}
     Should Contain    ${output.stdout}    Building runtime RPM for ${subSystem} subsystem

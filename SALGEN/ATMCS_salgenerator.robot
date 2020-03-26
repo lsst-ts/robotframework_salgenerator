@@ -91,6 +91,9 @@ Salgen ATMCS HTML
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Generating telemetry stream definition editor html
     Should Contain    ${output.stdout}    Creating sal-generator-${subSystem} form
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/ATMCS_Commands.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/ATMCS_Events.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/ATMCS_Telemetry.html
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.trajectory to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.mount_AzEl_Encoders to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.mount_Nasmyth_Encoders to form
@@ -103,9 +106,22 @@ Salgen ATMCS HTML
     Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
     @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/ATMCS_Commands.html
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/ATMCS_Events.html
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/ATMCS_Telemetry.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATMCS_trajectory-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATMCS_trajectory-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATMCS_mount_AzEl_Encoders-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATMCS_mount_AzEl_Encoders-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATMCS_mount_Nasmyth_Encoders-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATMCS_mount_Nasmyth_Encoders-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATMCS_torqueDemand-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATMCS_torqueDemand-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATMCS_measuredTorque-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATMCS_measuredTorque-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATMCS_measuredMotorVelocity-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATMCS_measuredMotorVelocity-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATMCS_nasymth_m3_mountMotorEncoders-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATMCS_nasymth_m3_mountMotorEncoders-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATMCS_azEl_mountMotorEncoders-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATMCS_azEl_mountMotorEncoders-streamdef.html
     File Should Exist    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
 
 Verify ATMCS revCodes File
@@ -502,7 +518,12 @@ Salgen ATMCS RPM
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    rpm    version\=${SALVersion}${Build_Number}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     @{files}=    List Directory    /tmp/
+    File Should Exist    /tmp/makerpm.log
+    File Should Exist    /tmp/makerpm_${subSystem}.log
+    File Should Exist    /tmp/makerpm_${subSystem}_test.log
     Log File    /tmp/makerpm.log
+    Log File    /tmp/makerpm_${subSystem}.log
+    Log File    /tmp/makerpm_${subSystem}_test.log
     Should Not Contain    ${output.stdout}    ERROR : Asset required for rpm
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}${Build_Number}
     Should Contain    ${output.stdout}    Building runtime RPM for ${subSystem} subsystem

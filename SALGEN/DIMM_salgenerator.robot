@@ -50,6 +50,8 @@ Salgen DIMM HTML
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Generating telemetry stream definition editor html
     Should Contain    ${output.stdout}    Creating sal-generator-${subSystem} form
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/DIMM_Events.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/DIMM_Telemetry.html
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.timestamp to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.loopTime to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.status to form
@@ -57,8 +59,12 @@ Salgen DIMM HTML
     Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
     @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/DIMM_Events.html
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/DIMM_Telemetry.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/DIMM_timestamp-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/DIMM_timestamp-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/DIMM_loopTime-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/DIMM_loopTime-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/DIMM_status-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/DIMM_status-streamdef.html
     File Should Exist    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
 
 Verify DIMM revCodes File
@@ -230,7 +236,12 @@ Salgen DIMM RPM
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    rpm    version\=${SALVersion}${Build_Number}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     @{files}=    List Directory    /tmp/
+    File Should Exist    /tmp/makerpm.log
+    File Should Exist    /tmp/makerpm_${subSystem}.log
+    File Should Exist    /tmp/makerpm_${subSystem}_test.log
     Log File    /tmp/makerpm.log
+    Log File    /tmp/makerpm_${subSystem}.log
+    Log File    /tmp/makerpm_${subSystem}_test.log
     Should Not Contain    ${output.stdout}    ERROR : Asset required for rpm
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}${Build_Number}
     Should Contain    ${output.stdout}    Building runtime RPM for ${subSystem} subsystem

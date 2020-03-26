@@ -74,6 +74,9 @@ Salgen ATPneumatics HTML
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Generating telemetry stream definition editor html
     Should Contain    ${output.stdout}    Creating sal-generator-${subSystem} form
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/ATPneumatics_Commands.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/ATPneumatics_Events.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/ATPneumatics_Telemetry.html
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.m1AirPressure to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.m2AirPressure to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.mainAirSourcePressure to form
@@ -82,9 +85,14 @@ Salgen ATPneumatics HTML
     Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
     @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/ATPneumatics_Commands.html
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/ATPneumatics_Events.html
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/ATPneumatics_Telemetry.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATPneumatics_m1AirPressure-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATPneumatics_m1AirPressure-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATPneumatics_m2AirPressure-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATPneumatics_m2AirPressure-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATPneumatics_mainAirSourcePressure-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATPneumatics_mainAirSourcePressure-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATPneumatics_loadCell-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATPneumatics_loadCell-streamdef.html
     File Should Exist    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
 
 Verify ATPneumatics revCodes File
@@ -384,7 +392,12 @@ Salgen ATPneumatics RPM
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    rpm    version\=${SALVersion}${Build_Number}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     @{files}=    List Directory    /tmp/
+    File Should Exist    /tmp/makerpm.log
+    File Should Exist    /tmp/makerpm_${subSystem}.log
+    File Should Exist    /tmp/makerpm_${subSystem}_test.log
     Log File    /tmp/makerpm.log
+    Log File    /tmp/makerpm_${subSystem}.log
+    Log File    /tmp/makerpm_${subSystem}_test.log
     Should Not Contain    ${output.stdout}    ERROR : Asset required for rpm
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}${Build_Number}
     Should Contain    ${output.stdout}    Building runtime RPM for ${subSystem} subsystem

@@ -101,6 +101,9 @@ Salgen MTCamera HTML
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Generating telemetry stream definition editor html
     Should Contain    ${output.stdout}    Creating sal-generator-${subSystem} form
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/MTCamera_Commands.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/MTCamera_Events.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/MTCamera_Telemetry.html
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.shutter to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.prot to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.filter to form
@@ -121,9 +124,38 @@ Salgen MTCamera HTML
     Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
     @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/MTCamera_Commands.html
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/MTCamera_Events.html
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/MTCamera_Telemetry.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_shutter-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_shutter-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_prot-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_prot-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_filter-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_filter-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_heartbeat-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_heartbeat-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_was-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_was-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_ccs-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_ccs-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_clusterEncoder-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_clusterEncoder-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_cyro-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_cyro-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_purge-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_purge-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_wds-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_wds-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_gds-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_gds-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_sds-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_sds-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_gas-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_gas-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_pcms-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_pcms-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_sas-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_sas-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_cold-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_cold-streamdef.html
     File Should Exist    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
 
 Verify MTCamera revCodes File
@@ -594,7 +626,12 @@ Salgen MTCamera RPM
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    rpm    version\=${SALVersion}${Build_Number}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     @{files}=    List Directory    /tmp/
+    File Should Exist    /tmp/makerpm.log
+    File Should Exist    /tmp/makerpm_${subSystem}.log
+    File Should Exist    /tmp/makerpm_${subSystem}_test.log
     Log File    /tmp/makerpm.log
+    Log File    /tmp/makerpm_${subSystem}.log
+    Log File    /tmp/makerpm_${subSystem}_test.log
     Should Not Contain    ${output.stdout}    ERROR : Asset required for rpm
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}${Build_Number}
     Should Contain    ${output.stdout}    Building runtime RPM for ${subSystem} subsystem

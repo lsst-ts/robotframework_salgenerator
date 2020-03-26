@@ -67,15 +67,19 @@ Salgen ATMonochromator HTML
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Generating telemetry stream definition editor html
     Should Contain    ${output.stdout}    Creating sal-generator-${subSystem} form
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/ATMonochromator_Commands.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/ATMonochromator_Events.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/ATMonochromator_Telemetry.html
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.timestamp to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.loopTime to form
     @{items}=    List Directory    ${SALWorkDir}/html/salgenerator
     Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
     @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/ATMonochromator_Commands.html
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/ATMonochromator_Events.html
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/ATMonochromator_Telemetry.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATMonochromator_timestamp-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATMonochromator_timestamp-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATMonochromator_loopTime-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATMonochromator_loopTime-streamdef.html
     File Should Exist    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
 
 Verify ATMonochromator revCodes File
@@ -334,7 +338,12 @@ Salgen ATMonochromator RPM
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    rpm    version\=${SALVersion}${Build_Number}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     @{files}=    List Directory    /tmp/
+    File Should Exist    /tmp/makerpm.log
+    File Should Exist    /tmp/makerpm_${subSystem}.log
+    File Should Exist    /tmp/makerpm_${subSystem}_test.log
     Log File    /tmp/makerpm.log
+    Log File    /tmp/makerpm_${subSystem}.log
+    Log File    /tmp/makerpm_${subSystem}_test.log
     Should Not Contain    ${output.stdout}    ERROR : Asset required for rpm
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}${Build_Number}
     Should Contain    ${output.stdout}    Building runtime RPM for ${subSystem} subsystem

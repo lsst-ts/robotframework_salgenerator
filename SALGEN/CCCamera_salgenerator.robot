@@ -100,6 +100,9 @@ Salgen CCCamera HTML
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Generating telemetry stream definition editor html
     Should Contain    ${output.stdout}    Creating sal-generator-${subSystem} form
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/CCCamera_Commands.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/CCCamera_Events.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/CCCamera_Telemetry.html
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.filterChanger to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.bonnShutter to form
     Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.rebpower_R22 to form
@@ -119,9 +122,36 @@ Salgen CCCamera HTML
     Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
     @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/CCCamera_Commands.html
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/CCCamera_Events.html
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/CCCamera_Telemetry.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/CCCamera_filterChanger-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/CCCamera_filterChanger-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/CCCamera_bonnShutter-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/CCCamera_bonnShutter-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/CCCamera_rebpower_R22-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/CCCamera_rebpower_R22-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/CCCamera_rebpower_RebPS-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/CCCamera_rebpower_RebPS-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/CCCamera_vacuum_VQMonitor-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/CCCamera_vacuum_VQMonitor-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/CCCamera_vacuum_IonPumps-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/CCCamera_vacuum_IonPumps-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/CCCamera_vacuum_Turbo-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/CCCamera_vacuum_Turbo-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/CCCamera_vacuum_Cryo-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/CCCamera_vacuum_Cryo-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/CCCamera_vacuum_Cold2-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/CCCamera_vacuum_Cold2-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/CCCamera_vacuum_Cold1-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/CCCamera_vacuum_Cold1-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/CCCamera_quadbox_PDU_24VC-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/CCCamera_quadbox_PDU_24VC-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/CCCamera_quadbox_PDU_24VD-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/CCCamera_quadbox_PDU_24VD-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/CCCamera_quadbox_BFR-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/CCCamera_quadbox_BFR-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/CCCamera_quadbox_PDU_5V-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/CCCamera_quadbox_PDU_5V-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/CCCamera_quadbox_PDU_48V-metadata.html
+    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/CCCamera_quadbox_PDU_48V-streamdef.html
     File Should Exist    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
 
 Verify CCCamera revCodes File
@@ -584,7 +614,12 @@ Salgen CCCamera RPM
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    rpm    version\=${SALVersion}${Build_Number}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     @{files}=    List Directory    /tmp/
+    File Should Exist    /tmp/makerpm.log
+    File Should Exist    /tmp/makerpm_${subSystem}.log
+    File Should Exist    /tmp/makerpm_${subSystem}_test.log
     Log File    /tmp/makerpm.log
+    Log File    /tmp/makerpm_${subSystem}.log
+    Log File    /tmp/makerpm_${subSystem}_test.log
     Should Not Contain    ${output.stdout}    ERROR : Asset required for rpm
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}${Build_Number}
     Should Contain    ${output.stdout}    Building runtime RPM for ${subSystem} subsystem
