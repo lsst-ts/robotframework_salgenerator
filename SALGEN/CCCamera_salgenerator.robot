@@ -99,59 +99,17 @@ Salgen CCCamera HTML
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Generating telemetry stream definition editor html
-    Should Contain    ${output.stdout}    Creating sal-generator-${subSystem} form
+    Should Contain    ${output.stdout}    Generating Facility database table creation html
+    Should Contain    ${output.stdout}    Generating Subsystem simulation control html
+    @{files}=    List Directory    ${SALWorkDir}/html/${subSystem}
     File Should Exist    ${SALWorkDir}/html/${subSystem}/CCCamera_Commands.html
     File Should Exist    ${SALWorkDir}/html/${subSystem}/CCCamera_Events.html
     File Should Exist    ${SALWorkDir}/html/${subSystem}/CCCamera_Telemetry.html
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.filterChanger to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.bonnShutter to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.rebpower_R22 to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.rebpower_RebPS to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.vacuum_VQMonitor to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.vacuum_IonPumps to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.vacuum_Turbo to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.vacuum_Cryo to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.vacuum_Cold2 to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.vacuum_Cold1 to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.quadbox_PDU_24VC to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.quadbox_PDU_24VD to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.quadbox_BFR to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.quadbox_PDU_5V to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.quadbox_PDU_48V to form
-    @{items}=    List Directory    ${SALWorkDir}/html/salgenerator
-    Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
-    @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
+    @{files}=    List Directory    ${SALWorkDir}/html/dbsimulate    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/CCCamera_filterChanger-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/CCCamera_filterChanger-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/CCCamera_bonnShutter-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/CCCamera_bonnShutter-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/CCCamera_rebpower_R22-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/CCCamera_rebpower_R22-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/CCCamera_rebpower_RebPS-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/CCCamera_rebpower_RebPS-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/CCCamera_vacuum_VQMonitor-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/CCCamera_vacuum_VQMonitor-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/CCCamera_vacuum_IonPumps-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/CCCamera_vacuum_IonPumps-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/CCCamera_vacuum_Turbo-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/CCCamera_vacuum_Turbo-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/CCCamera_vacuum_Cryo-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/CCCamera_vacuum_Cryo-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/CCCamera_vacuum_Cold2-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/CCCamera_vacuum_Cold2-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/CCCamera_vacuum_Cold1-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/CCCamera_vacuum_Cold1-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/CCCamera_quadbox_PDU_24VC-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/CCCamera_quadbox_PDU_24VC-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/CCCamera_quadbox_PDU_24VD-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/CCCamera_quadbox_PDU_24VD-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/CCCamera_quadbox_BFR-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/CCCamera_quadbox_BFR-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/CCCamera_quadbox_PDU_5V-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/CCCamera_quadbox_PDU_5V-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/CCCamera_quadbox_PDU_48V-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/CCCamera_quadbox_PDU_48V-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-dbsimulate.html
+    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-dbsimulate-${subSystem}.html
+    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-simulate-${subSystem}.html
     File Should Exist    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
 
 Verify CCCamera revCodes File

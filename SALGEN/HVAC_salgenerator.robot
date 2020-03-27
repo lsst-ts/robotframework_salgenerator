@@ -60,41 +60,17 @@ Salgen HVAC HTML
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Generating telemetry stream definition editor html
-    Should Contain    ${output.stdout}    Creating sal-generator-${subSystem} form
+    Should Contain    ${output.stdout}    Generating Facility database table creation html
+    Should Contain    ${output.stdout}    Generating Subsystem simulation control html
+    @{files}=    List Directory    ${SALWorkDir}/html/${subSystem}
     File Should Exist    ${SALWorkDir}/html/${subSystem}/HVAC_Commands.html
     File Should Exist    ${SALWorkDir}/html/${subSystem}/HVAC_Events.html
     File Should Exist    ${SALWorkDir}/html/${subSystem}/HVAC_Telemetry.html
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.lsstBarraoblPiso01BarraoblTccGuionP1GuionSalaGuionMaquinas to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.lsstBarraoblPiso05BarraoblTccGuionP5GuionPir to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.lsstBarraoblPiso04BarraoblTccGuionP4GuionVex to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.lsstBarraoblPiso01BarraoblChiller01 to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.lsstBarraoblPiso02BarraoblCrack01 to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.lsstBarraoblPiso02BarraoblFancoil01 to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.lsstBarraoblPiso05BarraoblManejadoraBarraoblLower01 to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.lsstBarraoblPiso04BarraoblManejadoraBarraoblSblanca to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.lsstBarraoblPiso04BarraoblManejadoraBarraoblSlimpia to form
-    @{items}=    List Directory    ${SALWorkDir}/html/salgenerator
-    Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
-    @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
+    @{files}=    List Directory    ${SALWorkDir}/html/dbsimulate    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/HVAC_lsstBarraoblPiso01BarraoblTccGuionP1GuionSalaGuionMaquinas-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/HVAC_lsstBarraoblPiso01BarraoblTccGuionP1GuionSalaGuionMaquinas-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/HVAC_lsstBarraoblPiso05BarraoblTccGuionP5GuionPir-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/HVAC_lsstBarraoblPiso05BarraoblTccGuionP5GuionPir-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/HVAC_lsstBarraoblPiso04BarraoblTccGuionP4GuionVex-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/HVAC_lsstBarraoblPiso04BarraoblTccGuionP4GuionVex-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/HVAC_lsstBarraoblPiso01BarraoblChiller01-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/HVAC_lsstBarraoblPiso01BarraoblChiller01-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/HVAC_lsstBarraoblPiso02BarraoblCrack01-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/HVAC_lsstBarraoblPiso02BarraoblCrack01-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/HVAC_lsstBarraoblPiso02BarraoblFancoil01-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/HVAC_lsstBarraoblPiso02BarraoblFancoil01-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/HVAC_lsstBarraoblPiso05BarraoblManejadoraBarraoblLower01-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/HVAC_lsstBarraoblPiso05BarraoblManejadoraBarraoblLower01-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/HVAC_lsstBarraoblPiso04BarraoblManejadoraBarraoblSblanca-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/HVAC_lsstBarraoblPiso04BarraoblManejadoraBarraoblSblanca-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/HVAC_lsstBarraoblPiso04BarraoblManejadoraBarraoblSlimpia-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/HVAC_lsstBarraoblPiso04BarraoblManejadoraBarraoblSlimpia-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-dbsimulate.html
+    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-dbsimulate-${subSystem}.html
+    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-simulate-${subSystem}.html
     File Should Exist    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
 
 Verify HVAC revCodes File

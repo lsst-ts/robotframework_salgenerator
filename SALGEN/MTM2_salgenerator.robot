@@ -65,62 +65,17 @@ Salgen MTM2 HTML
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Generating telemetry stream definition editor html
-    Should Contain    ${output.stdout}    Creating sal-generator-${subSystem} form
+    Should Contain    ${output.stdout}    Generating Facility database table creation html
+    Should Contain    ${output.stdout}    Generating Subsystem simulation control html
+    @{files}=    List Directory    ${SALWorkDir}/html/${subSystem}
     File Should Exist    ${SALWorkDir}/html/${subSystem}/MTM2_Commands.html
     File Should Exist    ${SALWorkDir}/html/${subSystem}/MTM2_Events.html
     File Should Exist    ${SALWorkDir}/html/${subSystem}/MTM2_Telemetry.html
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.mirrorPositionMeasured to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.axialForcesMeasured to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.tangentForcesMeasured to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.zenithAngleMeasured to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.axialActuatorAbsolutePositionSteps to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.tangentActuatorAbsolutePositionSteps to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.axialActuatorPositionAbsoluteEncoderPositionMeasured to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.tangentActuatorPositionAbsoluteEncoderPositionMeasured to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.powerStatus to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.temperaturesMeasured to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.rawDisplacement to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.stepVectorUpdate to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.targetForces to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.systemStatus to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.rawTelemetry to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.actuatorLimitSwitches to form
-    @{items}=    List Directory    ${SALWorkDir}/html/salgenerator
-    Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
-    @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
+    @{files}=    List Directory    ${SALWorkDir}/html/dbsimulate    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTM2_mirrorPositionMeasured-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTM2_mirrorPositionMeasured-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTM2_axialForcesMeasured-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTM2_axialForcesMeasured-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTM2_tangentForcesMeasured-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTM2_tangentForcesMeasured-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTM2_zenithAngleMeasured-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTM2_zenithAngleMeasured-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTM2_axialActuatorAbsolutePositionSteps-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTM2_axialActuatorAbsolutePositionSteps-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTM2_tangentActuatorAbsolutePositionSteps-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTM2_tangentActuatorAbsolutePositionSteps-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTM2_axialActuatorPositionAbsoluteEncoderPositionMeasured-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTM2_axialActuatorPositionAbsoluteEncoderPositionMeasured-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTM2_tangentActuatorPositionAbsoluteEncoderPositionMeasured-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTM2_tangentActuatorPositionAbsoluteEncoderPositionMeasured-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTM2_powerStatus-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTM2_powerStatus-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTM2_temperaturesMeasured-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTM2_temperaturesMeasured-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTM2_rawDisplacement-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTM2_rawDisplacement-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTM2_stepVectorUpdate-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTM2_stepVectorUpdate-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTM2_targetForces-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTM2_targetForces-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTM2_systemStatus-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTM2_systemStatus-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTM2_rawTelemetry-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTM2_rawTelemetry-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTM2_actuatorLimitSwitches-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTM2_actuatorLimitSwitches-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-dbsimulate.html
+    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-dbsimulate-${subSystem}.html
+    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-simulate-${subSystem}.html
     File Should Exist    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
 
 Verify MTM2 revCodes File

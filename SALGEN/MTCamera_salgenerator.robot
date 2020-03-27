@@ -100,62 +100,17 @@ Salgen MTCamera HTML
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Generating telemetry stream definition editor html
-    Should Contain    ${output.stdout}    Creating sal-generator-${subSystem} form
+    Should Contain    ${output.stdout}    Generating Facility database table creation html
+    Should Contain    ${output.stdout}    Generating Subsystem simulation control html
+    @{files}=    List Directory    ${SALWorkDir}/html/${subSystem}
     File Should Exist    ${SALWorkDir}/html/${subSystem}/MTCamera_Commands.html
     File Should Exist    ${SALWorkDir}/html/${subSystem}/MTCamera_Events.html
     File Should Exist    ${SALWorkDir}/html/${subSystem}/MTCamera_Telemetry.html
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.shutter to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.prot to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.filter to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.heartbeat to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.was to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.ccs to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.clusterEncoder to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.cyro to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.purge to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.wds to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.gds to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.sds to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.gas to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.pcms to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.sas to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.cold to form
-    @{items}=    List Directory    ${SALWorkDir}/html/salgenerator
-    Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
-    @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
+    @{files}=    List Directory    ${SALWorkDir}/html/dbsimulate    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_shutter-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_shutter-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_prot-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_prot-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_filter-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_filter-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_heartbeat-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_heartbeat-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_was-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_was-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_ccs-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_ccs-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_clusterEncoder-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_clusterEncoder-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_cyro-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_cyro-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_purge-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_purge-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_wds-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_wds-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_gds-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_gds-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_sds-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_sds-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_gas-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_gas-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_pcms-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_pcms-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_sas-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_sas-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_cold-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTCamera_cold-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-dbsimulate.html
+    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-dbsimulate-${subSystem}.html
+    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-simulate-${subSystem}.html
     File Should Exist    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
 
 Verify MTCamera revCodes File

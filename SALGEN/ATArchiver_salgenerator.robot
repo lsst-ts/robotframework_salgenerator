@@ -44,9 +44,16 @@ Salgen ATArchiver HTML
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Generating telemetry stream definition editor html
-    Should Contain    ${output.stdout}    Creating sal-generator-${subSystem} form
+    Should Contain    ${output.stdout}    Generating Facility database table creation html
+    Should Contain    ${output.stdout}    Generating Subsystem simulation control html
+    @{files}=    List Directory    ${SALWorkDir}/html/${subSystem}
     File Should Exist    ${SALWorkDir}/html/${subSystem}/ATArchiver_Commands.html
     File Should Exist    ${SALWorkDir}/html/${subSystem}/ATArchiver_Events.html
+    @{files}=    List Directory    ${SALWorkDir}/html/dbsimulate    pattern=*${subSystem}*
+    Log Many    @{files}
+    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-dbsimulate.html
+    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-dbsimulate-${subSystem}.html
+    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-simulate-${subSystem}.html
     File Should Exist    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
 
 Verify ATArchiver revCodes File

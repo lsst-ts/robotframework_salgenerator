@@ -91,24 +91,18 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
     echo "    Should Contain    \${output.stdout}    SAL generator - \${SALVersion}" >> $testSuite
     echo "    Should Contain    \${output.stdout}    Generating telemetry stream definition editor html" >> $testSuite
-    echo "    Should Contain    \${output.stdout}    Creating sal-generator-\${subSystem} form" >> $testSuite
+    echo "    Should Contain    \${output.stdout}    Generating Facility database table creation html" >> $testSuite
+    echo "    Should Contain    \${output.stdout}    Generating Subsystem simulation control html" >> $testSuite
+    echo "    @{files}=    List Directory    \${SALWorkDir}/html/\${subSystem}" >> $testSuite
     for file in "${xmls[@]}"; do
         file=$(echo $file |sed "s/xml/html/")
         echo "    File Should Exist    \${SALWorkDir}/html/\${subSystem}/$file" >> $testSuite
     done
-    if [ "${#telemetryArray[@]}" -gt "0" ]; then
-        for topic in "${telemetryArray[@]}"; do
-            echo "    Should Contain    \${output.stdout}    Added sal-generator-\${subSystem}.$topic to form" >> $testSuite
-        done
-        echo "    @{items}=    List Directory    \${SALWorkDir}/html/salgenerator" >> $testSuite
-        echo "    Directory Should Exist    \${SALWorkDir}/html/salgenerator/\${subSystem}" >> $testSuite
-        echo "    @{files}=    List Directory    \${SALWorkDir}/html/salgenerator/\${subSystem}    pattern=*\${subSystem}*" >> $testSuite
-        echo "    Log Many    @{files}" >> $testSuite
-        for topic in "${telemetryArray[@]}"; do
-            echo "    File Should Exist    \${SALWorkDir}/html/salgenerator/\${subSystem}/${subSystemUp}_${topic}-metadata.html" >> $testSuite
-            echo "    File Should Exist    \${SALWorkDir}/html/salgenerator/\${subSystem}/${subSystemUp}_${topic}-streamdef.html" >> $testSuite
-        done
-    fi
+    echo "    @{files}=    List Directory    \${SALWorkDir}/html/dbsimulate    pattern=*\${subSystem}*" >> $testSuite
+    echo "    Log Many    @{files}" >> $testSuite
+    echo "    File Should Exist    \${SALWorkDir}/html/dbsimulate/index-dbsimulate.html" >> $testSuite
+    echo "    File Should Exist    \${SALWorkDir}/html/dbsimulate/index-dbsimulate-\${subSystem}.html" >> $testSuite
+    echo "    File Should Exist    \${SALWorkDir}/html/dbsimulate/index-simulate-\${subSystem}.html" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/idl-templates/validated/\${subSystem}_revCodes.tcl" >> $testSuite
     echo "" >> $testSuite
 }

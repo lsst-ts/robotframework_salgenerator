@@ -65,20 +65,17 @@ Salgen MTAOS HTML
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Generating telemetry stream definition editor html
-    Should Contain    ${output.stdout}    Creating sal-generator-${subSystem} form
+    Should Contain    ${output.stdout}    Generating Facility database table creation html
+    Should Contain    ${output.stdout}    Generating Subsystem simulation control html
+    @{files}=    List Directory    ${SALWorkDir}/html/${subSystem}
     File Should Exist    ${SALWorkDir}/html/${subSystem}/MTAOS_Commands.html
     File Should Exist    ${SALWorkDir}/html/${subSystem}/MTAOS_Events.html
     File Should Exist    ${SALWorkDir}/html/${subSystem}/MTAOS_Telemetry.html
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.wepDuration to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.ofcDuration to form
-    @{items}=    List Directory    ${SALWorkDir}/html/salgenerator
-    Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
-    @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
+    @{files}=    List Directory    ${SALWorkDir}/html/dbsimulate    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTAOS_wepDuration-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTAOS_wepDuration-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTAOS_ofcDuration-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTAOS_ofcDuration-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-dbsimulate.html
+    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-dbsimulate-${subSystem}.html
+    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-simulate-${subSystem}.html
     File Should Exist    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
 
 Verify MTAOS revCodes File

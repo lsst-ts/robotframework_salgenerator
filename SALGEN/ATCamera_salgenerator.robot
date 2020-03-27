@@ -79,26 +79,17 @@ Salgen ATCamera HTML
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Generating telemetry stream definition editor html
-    Should Contain    ${output.stdout}    Creating sal-generator-${subSystem} form
+    Should Contain    ${output.stdout}    Generating Facility database table creation html
+    Should Contain    ${output.stdout}    Generating Subsystem simulation control html
+    @{files}=    List Directory    ${SALWorkDir}/html/${subSystem}
     File Should Exist    ${SALWorkDir}/html/${subSystem}/ATCamera_Commands.html
     File Should Exist    ${SALWorkDir}/html/${subSystem}/ATCamera_Events.html
     File Should Exist    ${SALWorkDir}/html/${subSystem}/ATCamera_Telemetry.html
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.wreb to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.bonnShutter to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.wrebPower to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.vacuum to form
-    @{items}=    List Directory    ${SALWorkDir}/html/salgenerator
-    Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
-    @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
+    @{files}=    List Directory    ${SALWorkDir}/html/dbsimulate    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATCamera_wreb-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATCamera_wreb-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATCamera_bonnShutter-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATCamera_bonnShutter-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATCamera_wrebPower-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATCamera_wrebPower-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATCamera_vacuum-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATCamera_vacuum-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-dbsimulate.html
+    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-dbsimulate-${subSystem}.html
+    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-simulate-${subSystem}.html
     File Should Exist    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
 
 Verify ATCamera revCodes File

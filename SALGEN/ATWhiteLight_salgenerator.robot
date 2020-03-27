@@ -70,44 +70,17 @@ Salgen ATWhiteLight HTML
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Generating telemetry stream definition editor html
-    Should Contain    ${output.stdout}    Creating sal-generator-${subSystem} form
+    Should Contain    ${output.stdout}    Generating Facility database table creation html
+    Should Contain    ${output.stdout}    Generating Subsystem simulation control html
+    @{files}=    List Directory    ${SALWorkDir}/html/${subSystem}
     File Should Exist    ${SALWorkDir}/html/${subSystem}/ATWhiteLight_Commands.html
     File Should Exist    ${SALWorkDir}/html/${subSystem}/ATWhiteLight_Events.html
     File Should Exist    ${SALWorkDir}/html/${subSystem}/ATWhiteLight_Telemetry.html
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.timestamp to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.loopTime to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.bulbhour to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.bulbWatthour to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.chillerFansSpeed to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.chillerUpTime to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.chillerTempSensors to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.chillerProcessFlow to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.chillerTECBankCurrent to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.chillerTEDriveLevel to form
-    @{items}=    List Directory    ${SALWorkDir}/html/salgenerator
-    Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
-    @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
+    @{files}=    List Directory    ${SALWorkDir}/html/dbsimulate    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATWhiteLight_timestamp-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATWhiteLight_timestamp-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATWhiteLight_loopTime-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATWhiteLight_loopTime-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATWhiteLight_bulbhour-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATWhiteLight_bulbhour-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATWhiteLight_bulbWatthour-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATWhiteLight_bulbWatthour-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATWhiteLight_chillerFansSpeed-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATWhiteLight_chillerFansSpeed-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATWhiteLight_chillerUpTime-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATWhiteLight_chillerUpTime-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATWhiteLight_chillerTempSensors-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATWhiteLight_chillerTempSensors-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATWhiteLight_chillerProcessFlow-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATWhiteLight_chillerProcessFlow-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATWhiteLight_chillerTECBankCurrent-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATWhiteLight_chillerTECBankCurrent-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATWhiteLight_chillerTEDriveLevel-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATWhiteLight_chillerTEDriveLevel-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-dbsimulate.html
+    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-dbsimulate-${subSystem}.html
+    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-simulate-${subSystem}.html
     File Should Exist    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
 
 Verify ATWhiteLight revCodes File

@@ -73,26 +73,17 @@ Salgen ATPneumatics HTML
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Generating telemetry stream definition editor html
-    Should Contain    ${output.stdout}    Creating sal-generator-${subSystem} form
+    Should Contain    ${output.stdout}    Generating Facility database table creation html
+    Should Contain    ${output.stdout}    Generating Subsystem simulation control html
+    @{files}=    List Directory    ${SALWorkDir}/html/${subSystem}
     File Should Exist    ${SALWorkDir}/html/${subSystem}/ATPneumatics_Commands.html
     File Should Exist    ${SALWorkDir}/html/${subSystem}/ATPneumatics_Events.html
     File Should Exist    ${SALWorkDir}/html/${subSystem}/ATPneumatics_Telemetry.html
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.m1AirPressure to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.m2AirPressure to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.mainAirSourcePressure to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.loadCell to form
-    @{items}=    List Directory    ${SALWorkDir}/html/salgenerator
-    Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
-    @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
+    @{files}=    List Directory    ${SALWorkDir}/html/dbsimulate    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATPneumatics_m1AirPressure-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATPneumatics_m1AirPressure-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATPneumatics_m2AirPressure-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATPneumatics_m2AirPressure-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATPneumatics_mainAirSourcePressure-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATPneumatics_mainAirSourcePressure-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATPneumatics_loadCell-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATPneumatics_loadCell-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-dbsimulate.html
+    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-dbsimulate-${subSystem}.html
+    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-simulate-${subSystem}.html
     File Should Exist    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
 
 Verify ATPneumatics revCodes File

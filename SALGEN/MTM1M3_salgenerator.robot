@@ -144,44 +144,17 @@ Salgen MTM1M3 HTML
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Generating telemetry stream definition editor html
-    Should Contain    ${output.stdout}    Creating sal-generator-${subSystem} form
+    Should Contain    ${output.stdout}    Generating Facility database table creation html
+    Should Contain    ${output.stdout}    Generating Subsystem simulation control html
+    @{files}=    List Directory    ${SALWorkDir}/html/${subSystem}
     File Should Exist    ${SALWorkDir}/html/${subSystem}/MTM1M3_Commands.html
     File Should Exist    ${SALWorkDir}/html/${subSystem}/MTM1M3_Events.html
     File Should Exist    ${SALWorkDir}/html/${subSystem}/MTM1M3_Telemetry.html
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.forceActuatorData to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.inclinometerData to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.outerLoopData to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.accelerometerData to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.hardpointActuatorData to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.imsData to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.gyroData to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.powerSupplyData to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.pidData to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.hardpointMonitorData to form
-    @{items}=    List Directory    ${SALWorkDir}/html/salgenerator
-    Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
-    @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
+    @{files}=    List Directory    ${SALWorkDir}/html/dbsimulate    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTM1M3_forceActuatorData-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTM1M3_forceActuatorData-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTM1M3_inclinometerData-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTM1M3_inclinometerData-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTM1M3_outerLoopData-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTM1M3_outerLoopData-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTM1M3_accelerometerData-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTM1M3_accelerometerData-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTM1M3_hardpointActuatorData-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTM1M3_hardpointActuatorData-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTM1M3_imsData-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTM1M3_imsData-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTM1M3_gyroData-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTM1M3_gyroData-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTM1M3_powerSupplyData-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTM1M3_powerSupplyData-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTM1M3_pidData-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTM1M3_pidData-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTM1M3_hardpointMonitorData-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTM1M3_hardpointMonitorData-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-dbsimulate.html
+    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-dbsimulate-${subSystem}.html
+    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-simulate-${subSystem}.html
     File Should Exist    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
 
 Verify MTM1M3 revCodes File

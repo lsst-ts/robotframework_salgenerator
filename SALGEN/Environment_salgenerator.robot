@@ -52,48 +52,15 @@ Salgen Environment HTML
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Generating telemetry stream definition editor html
-    Should Contain    ${output.stdout}    Creating sal-generator-${subSystem} form
+    Should Contain    ${output.stdout}    Generating Facility database table creation html
+    Should Contain    ${output.stdout}    Generating Subsystem simulation control html
+    @{files}=    List Directory    ${SALWorkDir}/html/${subSystem}
     File Should Exist    ${SALWorkDir}/html/${subSystem}/Environment_Telemetry.html
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.weather to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.windDirection to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.windGustDirection to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.windSpeed to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.airTemperature to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.relativeHumidity to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.dewPoint to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.snowDepth to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.solarNetRadiation to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.airPressure to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.precipitation to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.soilTemperature to form
-    @{items}=    List Directory    ${SALWorkDir}/html/salgenerator
-    Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
-    @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
+    @{files}=    List Directory    ${SALWorkDir}/html/dbsimulate    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/Environment_weather-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/Environment_weather-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/Environment_windDirection-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/Environment_windDirection-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/Environment_windGustDirection-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/Environment_windGustDirection-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/Environment_windSpeed-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/Environment_windSpeed-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/Environment_airTemperature-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/Environment_airTemperature-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/Environment_relativeHumidity-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/Environment_relativeHumidity-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/Environment_dewPoint-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/Environment_dewPoint-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/Environment_snowDepth-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/Environment_snowDepth-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/Environment_solarNetRadiation-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/Environment_solarNetRadiation-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/Environment_airPressure-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/Environment_airPressure-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/Environment_precipitation-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/Environment_precipitation-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/Environment_soilTemperature-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/Environment_soilTemperature-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-dbsimulate.html
+    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-dbsimulate-${subSystem}.html
+    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-simulate-${subSystem}.html
     File Should Exist    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
 
 Verify Environment revCodes File

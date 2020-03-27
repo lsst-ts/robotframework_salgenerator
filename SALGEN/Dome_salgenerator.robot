@@ -79,35 +79,17 @@ Salgen Dome HTML
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Generating telemetry stream definition editor html
-    Should Contain    ${output.stdout}    Creating sal-generator-${subSystem} form
+    Should Contain    ${output.stdout}    Generating Facility database table creation html
+    Should Contain    ${output.stdout}    Generating Subsystem simulation control html
+    @{files}=    List Directory    ${SALWorkDir}/html/${subSystem}
     File Should Exist    ${SALWorkDir}/html/${subSystem}/Dome_Commands.html
     File Should Exist    ${SALWorkDir}/html/${subSystem}/Dome_Events.html
     File Should Exist    ${SALWorkDir}/html/${subSystem}/Dome_Telemetry.html
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.summary to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.domeADB_status to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.domeAPS_status to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.domeLouvers_status to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.domeLWS_status to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.domeMONCS_status to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.domeTHCS_status to form
-    @{items}=    List Directory    ${SALWorkDir}/html/salgenerator
-    Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
-    @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
+    @{files}=    List Directory    ${SALWorkDir}/html/dbsimulate    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/Dome_summary-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/Dome_summary-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/Dome_domeADB_status-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/Dome_domeADB_status-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/Dome_domeAPS_status-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/Dome_domeAPS_status-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/Dome_domeLouvers_status-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/Dome_domeLouvers_status-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/Dome_domeLWS_status-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/Dome_domeLWS_status-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/Dome_domeMONCS_status-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/Dome_domeMONCS_status-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/Dome_domeTHCS_status-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/Dome_domeTHCS_status-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-dbsimulate.html
+    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-dbsimulate-${subSystem}.html
+    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-simulate-${subSystem}.html
     File Should Exist    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
 
 Verify Dome revCodes File

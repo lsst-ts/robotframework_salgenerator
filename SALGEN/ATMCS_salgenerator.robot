@@ -90,38 +90,17 @@ Salgen ATMCS HTML
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Generating telemetry stream definition editor html
-    Should Contain    ${output.stdout}    Creating sal-generator-${subSystem} form
+    Should Contain    ${output.stdout}    Generating Facility database table creation html
+    Should Contain    ${output.stdout}    Generating Subsystem simulation control html
+    @{files}=    List Directory    ${SALWorkDir}/html/${subSystem}
     File Should Exist    ${SALWorkDir}/html/${subSystem}/ATMCS_Commands.html
     File Should Exist    ${SALWorkDir}/html/${subSystem}/ATMCS_Events.html
     File Should Exist    ${SALWorkDir}/html/${subSystem}/ATMCS_Telemetry.html
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.trajectory to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.mount_AzEl_Encoders to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.mount_Nasmyth_Encoders to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.torqueDemand to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.measuredTorque to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.measuredMotorVelocity to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.nasymth_m3_mountMotorEncoders to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.azEl_mountMotorEncoders to form
-    @{items}=    List Directory    ${SALWorkDir}/html/salgenerator
-    Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
-    @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
+    @{files}=    List Directory    ${SALWorkDir}/html/dbsimulate    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATMCS_trajectory-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATMCS_trajectory-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATMCS_mount_AzEl_Encoders-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATMCS_mount_AzEl_Encoders-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATMCS_mount_Nasmyth_Encoders-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATMCS_mount_Nasmyth_Encoders-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATMCS_torqueDemand-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATMCS_torqueDemand-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATMCS_measuredTorque-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATMCS_measuredTorque-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATMCS_measuredMotorVelocity-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATMCS_measuredMotorVelocity-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATMCS_nasymth_m3_mountMotorEncoders-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATMCS_nasymth_m3_mountMotorEncoders-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATMCS_azEl_mountMotorEncoders-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/ATMCS_azEl_mountMotorEncoders-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-dbsimulate.html
+    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-dbsimulate-${subSystem}.html
+    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-simulate-${subSystem}.html
     File Should Exist    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
 
 Verify ATMCS revCodes File

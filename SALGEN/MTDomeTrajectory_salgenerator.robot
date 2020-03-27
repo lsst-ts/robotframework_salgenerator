@@ -48,19 +48,16 @@ Salgen MTDomeTrajectory HTML
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Generating telemetry stream definition editor html
-    Should Contain    ${output.stdout}    Creating sal-generator-${subSystem} form
+    Should Contain    ${output.stdout}    Generating Facility database table creation html
+    Should Contain    ${output.stdout}    Generating Subsystem simulation control html
+    @{files}=    List Directory    ${SALWorkDir}/html/${subSystem}
     File Should Exist    ${SALWorkDir}/html/${subSystem}/MTDomeTrajectory_Events.html
     File Should Exist    ${SALWorkDir}/html/${subSystem}/MTDomeTrajectory_Telemetry.html
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.timestamp to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.loopTime to form
-    @{items}=    List Directory    ${SALWorkDir}/html/salgenerator
-    Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
-    @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
+    @{files}=    List Directory    ${SALWorkDir}/html/dbsimulate    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTDomeTrajectory_timestamp-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTDomeTrajectory_timestamp-streamdef.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTDomeTrajectory_loopTime-metadata.html
-    File Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}/MTDomeTrajectory_loopTime-streamdef.html
+    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-dbsimulate.html
+    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-dbsimulate-${subSystem}.html
+    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-simulate-${subSystem}.html
     File Should Exist    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
 
 Verify MTDomeTrajectory revCodes File
