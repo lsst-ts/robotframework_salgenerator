@@ -48,8 +48,8 @@ nosetests.xml
 coverage.xml
 *.cover
 .hypothesis/
-stdout.txt
-stderr.txt
+*stdout.txt
+*stderr.txt
 
 # Translations
 *.mo
