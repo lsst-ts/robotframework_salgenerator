@@ -65,30 +65,17 @@ Salgen MTM2 HTML
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Generating telemetry stream definition editor html
-    Should Contain    ${output.stdout}    Creating sal-generator-${subSystem} form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.mirrorPositionMeasured to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.axialForcesMeasured to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.tangentForcesMeasured to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.zenithAngleMeasured to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.axialActuatorAbsolutePositionSteps to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.tangentActuatorAbsolutePositionSteps to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.axialActuatorPositionAbsoluteEncoderPositionMeasured to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.tangentActuatorPositionAbsoluteEncoderPositionMeasured to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.powerStatus to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.temperaturesMeasured to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.rawDisplacement to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.stepVectorUpdate to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.targetForces to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.systemStatus to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.rawTelemetry to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.actuatorLimitSwitches to form
-    @{items}=    List Directory    ${SALWorkDir}/html/salgenerator
-    Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
-    @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
-    Log Many    @{files}
+    Should Contain    ${output.stdout}    Generating Facility database table creation html
+    Should Contain    ${output.stdout}    Generating Subsystem simulation control html
+    @{files}=    List Directory    ${SALWorkDir}/html/${subSystem}
     File Should Exist    ${SALWorkDir}/html/${subSystem}/MTM2_Commands.html
     File Should Exist    ${SALWorkDir}/html/${subSystem}/MTM2_Events.html
     File Should Exist    ${SALWorkDir}/html/${subSystem}/MTM2_Telemetry.html
+    @{files}=    List Directory    ${SALWorkDir}/html/dbsimulate    pattern=*${subSystem}*
+    Log Many    @{files}
+    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-dbsimulate.html
+    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-dbsimulate-${subSystem}.html
+    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-simulate-${subSystem}.html
     File Should Exist    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
 
 Verify MTM2 revCodes File
@@ -384,7 +371,12 @@ Salgen MTM2 RPM
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    rpm    version\=${SALVersion}${Build_Number}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     @{files}=    List Directory    /tmp/
+    File Should Exist    /tmp/makerpm.log
+    File Should Exist    /tmp/makerpm_${subSystem}.log
+    File Should Exist    /tmp/makerpm_${subSystem}_test.log
     Log File    /tmp/makerpm.log
+    Log File    /tmp/makerpm_${subSystem}.log
+    Log File    /tmp/makerpm_${subSystem}_test.log
     Should Not Contain    ${output.stdout}    ERROR : Asset required for rpm
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}${Build_Number}
     Should Contain    ${output.stdout}    Building runtime RPM for ${subSystem} subsystem

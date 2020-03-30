@@ -74,42 +74,16 @@ Salgen Scheduler HTML
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Generating telemetry stream definition editor html
-    Should Contain    ${output.stdout}    Creating sal-generator-${subSystem} form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.timestamp to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.nightSummary to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.predictedSchedule to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.surveyTopology to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.schedulerConfig to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.driverConfig to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.obsSiteConfig to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.telescopeConfig to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.rotatorConfig to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.domeConfig to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.cameraConfig to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.slewConfig to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.opticsLoopCorrConfig to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.parkConfig to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.generalPropConfig to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.sequencePropConfig to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.observatoryState to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.observation to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.interestedProposal to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.timeHandler to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.bulkCloud to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.cloudMap to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.seeing to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.wind to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.temperature to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.skyBrightness to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.photometricQuality to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.avoidanceRegions to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.downtime to form
-    @{items}=    List Directory    ${SALWorkDir}/html/salgenerator
-    Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
-    @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
-    Log Many    @{files}
+    Should Contain    ${output.stdout}    Generating Facility database table creation html
+    Should Contain    ${output.stdout}    Generating Subsystem simulation control html
+    @{files}=    List Directory    ${SALWorkDir}/html/${subSystem}
     File Should Exist    ${SALWorkDir}/html/${subSystem}/Scheduler_Events.html
     File Should Exist    ${SALWorkDir}/html/${subSystem}/Scheduler_Telemetry.html
+    @{files}=    List Directory    ${SALWorkDir}/html/dbsimulate    pattern=*${subSystem}*
+    Log Many    @{files}
+    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-dbsimulate.html
+    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-dbsimulate-${subSystem}.html
+    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-simulate-${subSystem}.html
     File Should Exist    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
 
 Verify Scheduler revCodes File
@@ -484,7 +458,12 @@ Salgen Scheduler RPM
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    rpm    version\=${SALVersion}${Build_Number}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     @{files}=    List Directory    /tmp/
+    File Should Exist    /tmp/makerpm.log
+    File Should Exist    /tmp/makerpm_${subSystem}.log
+    File Should Exist    /tmp/makerpm_${subSystem}_test.log
     Log File    /tmp/makerpm.log
+    Log File    /tmp/makerpm_${subSystem}.log
+    Log File    /tmp/makerpm_${subSystem}_test.log
     Should Not Contain    ${output.stdout}    ERROR : Asset required for rpm
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}${Build_Number}
     Should Contain    ${output.stdout}    Building runtime RPM for ${subSystem} subsystem

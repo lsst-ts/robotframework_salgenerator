@@ -70,24 +70,17 @@ Salgen ATWhiteLight HTML
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Generating telemetry stream definition editor html
-    Should Contain    ${output.stdout}    Creating sal-generator-${subSystem} form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.timestamp to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.loopTime to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.bulbhour to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.bulbWatthour to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.chillerFansSpeed to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.chillerUpTime to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.chillerTempSensors to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.chillerProcessFlow to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.chillerTECBankCurrent to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.chillerTEDriveLevel to form
-    @{items}=    List Directory    ${SALWorkDir}/html/salgenerator
-    Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
-    @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
-    Log Many    @{files}
+    Should Contain    ${output.stdout}    Generating Facility database table creation html
+    Should Contain    ${output.stdout}    Generating Subsystem simulation control html
+    @{files}=    List Directory    ${SALWorkDir}/html/${subSystem}
     File Should Exist    ${SALWorkDir}/html/${subSystem}/ATWhiteLight_Commands.html
     File Should Exist    ${SALWorkDir}/html/${subSystem}/ATWhiteLight_Events.html
     File Should Exist    ${SALWorkDir}/html/${subSystem}/ATWhiteLight_Telemetry.html
+    @{files}=    List Directory    ${SALWorkDir}/html/dbsimulate    pattern=*${subSystem}*
+    Log Many    @{files}
+    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-dbsimulate.html
+    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-dbsimulate-${subSystem}.html
+    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-simulate-${subSystem}.html
     File Should Exist    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
 
 Verify ATWhiteLight revCodes File
@@ -390,7 +383,12 @@ Salgen ATWhiteLight RPM
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    rpm    version\=${SALVersion}${Build_Number}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     @{files}=    List Directory    /tmp/
+    File Should Exist    /tmp/makerpm.log
+    File Should Exist    /tmp/makerpm_${subSystem}.log
+    File Should Exist    /tmp/makerpm_${subSystem}_test.log
     Log File    /tmp/makerpm.log
+    Log File    /tmp/makerpm_${subSystem}.log
+    Log File    /tmp/makerpm_${subSystem}_test.log
     Should Not Contain    ${output.stdout}    ERROR : Asset required for rpm
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}${Build_Number}
     Should Contain    ${output.stdout}    Building runtime RPM for ${subSystem} subsystem
