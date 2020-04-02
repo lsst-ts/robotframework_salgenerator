@@ -34,16 +34,14 @@ Salgen ATPtg Validate
     Directory Should Exist    ${SALWorkDir}/idl-templates/validated
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_prospectiveTargetStatus.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_nextTargetStatus.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_currentTimesToLimits.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_currentTargetStatus.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_guidingAndOffsets.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_prospectiveTimesToLimits.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_timeAndDate.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_mountStatus.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_nextTimesToLimits.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_skyEnvironment.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_namedAzEl.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_mount_positions.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_pointCloseFile.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_poriginAbsorb.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_guideClear.idl
@@ -69,7 +67,6 @@ Salgen ATPtg Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_offsetAzEl.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setAccessMode.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_azElTarget.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_copyTarget.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_planetTarget.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_pointNewFile.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_poriginClear.idl
@@ -97,7 +94,6 @@ Salgen ATPtg Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_iersOutOfDate.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_weatherDataApplied.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_currentDebugLevel.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_nextTarget.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_mountDataWarning.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_accessMode.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rotWrapWarning.idl
@@ -105,7 +101,6 @@ Salgen ATPtg Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_inPositionRot.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_inPositionAz.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_iers.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_prospectiveTarget.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_moonProximityWarning.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_trackPosting.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_ptgAzCurrentWrap.idl
@@ -161,7 +156,6 @@ Verify ATPtg revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_offsetAzEl\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setAccessMode\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_azElTarget\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_copyTarget\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_planetTarget\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_pointNewFile\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_poriginClear\\) [a-z0-9]{8,}
@@ -189,7 +183,6 @@ Verify ATPtg revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_iersOutOfDate\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_weatherDataApplied\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_currentDebugLevel\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_nextTarget\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_mountDataWarning\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_accessMode\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rotWrapWarning\\) [a-z0-9]{8,}
@@ -197,22 +190,19 @@ Verify ATPtg revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_inPositionRot\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_inPositionAz\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_iers\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_prospectiveTarget\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_moonProximityWarning\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_trackPosting\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_ptgAzCurrentWrap\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_ptgRotCurrentWrap\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_elLimitWarning\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_prospectiveTargetStatus\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_nextTargetStatus\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_currentTimesToLimits\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_currentTargetStatus\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_guidingAndOffsets\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_prospectiveTimesToLimits\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_timeAndDate\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_mountStatus\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_nextTimesToLimits\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_skyEnvironment\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_namedAzEl\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_mount_positions\\) [a-z0-9]{8,}
 
 Salgen ATPtg C++
     [Documentation]    Generate C++ wrapper.
@@ -222,18 +212,16 @@ Salgen ATPtg C++
     Should Not Contain    ${output.stdout}    *** DDS error in file
     Should Not Contain    ${output.stdout}    Error 1
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_prospectiveTargetStatus.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_nextTargetStatus.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_currentTimesToLimits.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_currentTargetStatus.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_guidingAndOffsets.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_prospectiveTimesToLimits.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_timeAndDate.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_mountStatus.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_nextTimesToLimits.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_skyEnvironment.idl
-    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    10
-    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    10
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_namedAzEl.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_mount_positions.idl
+    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    8
+    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    8
     Should Contain X Times    ${output.stdout}    cpp : Done Commander    1
     Should Contain X Times    ${output.stdout}    cpp : Done Event/Logger    1
 
@@ -251,40 +239,34 @@ Verify ATPtg Telemetry directories
     [Tags]    cpp
     @{files}=    List Directory    ${SALWorkDir}    pattern=*${subSystem}*
     Log Many    @{files}
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_prospectiveTargetStatus
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_nextTargetStatus
     Directory Should Exist    ${SALWorkDir}/${subSystem}_currentTimesToLimits
     Directory Should Exist    ${SALWorkDir}/${subSystem}_currentTargetStatus
     Directory Should Exist    ${SALWorkDir}/${subSystem}_guidingAndOffsets
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_prospectiveTimesToLimits
     Directory Should Exist    ${SALWorkDir}/${subSystem}_timeAndDate
     Directory Should Exist    ${SALWorkDir}/${subSystem}_mountStatus
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_nextTimesToLimits
     Directory Should Exist    ${SALWorkDir}/${subSystem}_skyEnvironment
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_namedAzEl
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_mount_positions
 
 Verify ATPtg C++ Telemetry Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}_prospectiveTargetStatus/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_prospectiveTargetStatus/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_nextTargetStatus/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_nextTargetStatus/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_currentTimesToLimits/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_currentTimesToLimits/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_currentTargetStatus/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_currentTargetStatus/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_guidingAndOffsets/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_guidingAndOffsets/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_prospectiveTimesToLimits/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_prospectiveTimesToLimits/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_timeAndDate/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_timeAndDate/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_mountStatus/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_mountStatus/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_nextTimesToLimits/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_nextTimesToLimits/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_skyEnvironment/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_skyEnvironment/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_namedAzEl/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_namedAzEl/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_mount_positions/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_mount_positions/cpp/standalone/sacpp_${subSystem}_sub
 
 Verify ATPtg C++ Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -339,8 +321,6 @@ Verify ATPtg C++ Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setAccessMode_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_azElTarget_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_azElTarget_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_copyTarget_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_copyTarget_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_planetTarget_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_planetTarget_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_pointNewFile_commander
@@ -399,8 +379,6 @@ Verify ATPtg C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_weatherDataApplied_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_currentDebugLevel_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_currentDebugLevel_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_nextTarget_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_nextTarget_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_mountDataWarning_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_mountDataWarning_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_accessMode_send
@@ -415,8 +393,6 @@ Verify ATPtg C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_inPositionAz_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_iers_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_iers_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_prospectiveTarget_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_prospectiveTarget_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_moonProximityWarning_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_moonProximityWarning_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_trackPosting_send
@@ -447,26 +423,22 @@ Verify ATPtg Python Telemetry Interfaces
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_prospectiveTargetStatus_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_prospectiveTargetStatus_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_nextTargetStatus_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_nextTargetStatus_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_currentTimesToLimits_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_currentTimesToLimits_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_currentTargetStatus_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_currentTargetStatus_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_guidingAndOffsets_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_guidingAndOffsets_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_prospectiveTimesToLimits_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_prospectiveTimesToLimits_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_timeAndDate_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_timeAndDate_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_mountStatus_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_mountStatus_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_nextTimesToLimits_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_nextTimesToLimits_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_skyEnvironment_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_skyEnvironment_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_namedAzEl_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_namedAzEl_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_mount_positions_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_mount_positions_Subscriber.py
 
 Verify ATPtg Python Command Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
@@ -523,8 +495,6 @@ Verify ATPtg Python Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setAccessMode.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_azElTarget.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_azElTarget.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_copyTarget.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_copyTarget.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_planetTarget.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_planetTarget.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_pointNewFile.py
@@ -585,8 +555,6 @@ Verify ATPtg Python Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_weatherDataApplied.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_currentDebugLevel.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_currentDebugLevel.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_nextTarget.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_nextTarget.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_mountDataWarning.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_mountDataWarning.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_accessMode.py
@@ -601,8 +569,6 @@ Verify ATPtg Python Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_inPositionAz.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_iers.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_iers.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_prospectiveTarget.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_prospectiveTarget.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_moonProximityWarning.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_moonProximityWarning.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_trackPosting.py
@@ -634,18 +600,16 @@ Salgen ATPtg Java
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    sal    java    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_prospectiveTargetStatus.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_nextTargetStatus.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_currentTimesToLimits.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_currentTargetStatus.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_guidingAndOffsets.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_prospectiveTimesToLimits.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_timeAndDate.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_mountStatus.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_nextTimesToLimits.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_skyEnvironment.idl
-    Should Contain X Times    ${output.stdout}    javac : Done Publisher    10
-    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    10
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_namedAzEl.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_mount_positions.idl
+    Should Contain X Times    ${output.stdout}    javac : Done Publisher    8
+    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    8
     Directory Should Exist    ${SALWorkDir}/${subSystem}/java
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
