@@ -34,7 +34,37 @@ Salgen MTMount Validate
     Directory Should Exist    ${SALWorkDir}/idl-templates/validated
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_Auxliary_Cabinet_Azimuth.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_General.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_Azimuth_Cable_Wrap.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_Azimuth.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_Azimuth_Drives.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_Azimuth_Drives_Thermal.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_OSS.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_OSS2.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_OSS4.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_OSS5.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_OSS6.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_Main_Power_Supply.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_Encoder_EIB.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_Balancing_Drives.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_Balancing.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_Elevation.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_Elevation_Drives.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_Locking_Pins.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_Camera_Cable_Wrap.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_Deployable_Platforms.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_Elevation_Drives_Thermal.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_Mirror_Cover.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_Mount_Control_Main_Cabinet.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_Top_End_Chiller.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_Mirror_Cover_Locks.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_Main_Power_Supply_Cabinet.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_Auxiliary_Boxes.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_Compressed_Air.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_Cooling.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_Dynalene_Cooling.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_General_Purpose_Glycol_Water.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_Safety_System.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_closeMirrorCover.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_configure.idl
@@ -44,7 +74,6 @@ Salgen MTMount Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_openMirrorCover.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_trackTarget.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_clearerror.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_stop.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_mountState.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_mountWarning.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_mountError.idl
@@ -57,16 +86,17 @@ Salgen MTMount HTML
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Generating telemetry stream definition editor html
-    Should Contain    ${output.stdout}    Creating sal-generator-${subSystem} form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.Camera_Cable_Wrap to form
-    Should Contain    ${output.stdout}    Added sal-generator-${subSystem}.Safety_System to form
-    @{items}=    List Directory    ${SALWorkDir}/html/salgenerator
-    Directory Should Exist    ${SALWorkDir}/html/salgenerator/${subSystem}
-    @{files}=    List Directory    ${SALWorkDir}/html/salgenerator/${subSystem}    pattern=*${subSystem}*
-    Log Many    @{files}
+    Should Contain    ${output.stdout}    Generating Facility database table creation html
+    Should Contain    ${output.stdout}    Generating Subsystem simulation control html
+    @{files}=    List Directory    ${SALWorkDir}/html/${subSystem}
     File Should Exist    ${SALWorkDir}/html/${subSystem}/MTMount_Commands.html
     File Should Exist    ${SALWorkDir}/html/${subSystem}/MTMount_Events.html
     File Should Exist    ${SALWorkDir}/html/${subSystem}/MTMount_Telemetry.html
+    @{files}=    List Directory    ${SALWorkDir}/html/dbsimulate    pattern=*${subSystem}*
+    Log Many    @{files}
+    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-dbsimulate.html
+    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-dbsimulate-${subSystem}.html
+    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-simulate-${subSystem}.html
     File Should Exist    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
 
 Verify MTMount revCodes File
@@ -81,12 +111,41 @@ Verify MTMount revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_openMirrorCover\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_trackTarget\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_clearerror\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_stop\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_mountState\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_mountWarning\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_mountError\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_mountInPosition\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_Auxliary_Cabinet_Azimuth\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_General\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_Azimuth_Cable_Wrap\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_Azimuth\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_Azimuth_Drives\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_Azimuth_Drives_Thermal\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_OSS\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_OSS2\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_OSS4\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_OSS5\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_OSS6\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_Main_Power_Supply\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_Encoder_EIB\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_Balancing_Drives\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_Balancing\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_Elevation\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_Elevation_Drives\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_Locking_Pins\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_Camera_Cable_Wrap\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_Deployable_Platforms\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_Elevation_Drives_Thermal\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_Mirror_Cover\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_Mount_Control_Main_Cabinet\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_Top_End_Chiller\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_Mirror_Cover_Locks\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_Main_Power_Supply_Cabinet\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_Auxiliary_Boxes\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_Compressed_Air\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_Cooling\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_Dynalene_Cooling\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_General_Purpose_Glycol_Water\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_Safety_System\\) [a-z0-9]{8,}
 
 Salgen MTMount C++
@@ -97,10 +156,40 @@ Salgen MTMount C++
     Should Not Contain    ${output.stdout}    *** DDS error in file
     Should Not Contain    ${output.stdout}    Error 1
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_Auxliary_Cabinet_Azimuth.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_General.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_Azimuth_Cable_Wrap.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_Azimuth.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_Azimuth_Drives.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_Azimuth_Drives_Thermal.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_OSS.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_OSS2.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_OSS4.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_OSS5.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_OSS6.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_Main_Power_Supply.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_Encoder_EIB.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_Balancing_Drives.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_Balancing.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_Elevation.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_Elevation_Drives.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_Locking_Pins.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_Camera_Cable_Wrap.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_Deployable_Platforms.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_Elevation_Drives_Thermal.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_Mirror_Cover.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_Mount_Control_Main_Cabinet.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_Top_End_Chiller.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_Mirror_Cover_Locks.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_Main_Power_Supply_Cabinet.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_Auxiliary_Boxes.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_Compressed_Air.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_Cooling.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_Dynalene_Cooling.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_General_Purpose_Glycol_Water.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_Safety_System.idl
-    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    2
-    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    2
+    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    32
+    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    32
     Should Contain X Times    ${output.stdout}    cpp : Done Commander    1
     Should Contain X Times    ${output.stdout}    cpp : Done Event/Logger    1
 
@@ -118,14 +207,104 @@ Verify MTMount Telemetry directories
     [Tags]    cpp
     @{files}=    List Directory    ${SALWorkDir}    pattern=*${subSystem}*
     Log Many    @{files}
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_Auxliary_Cabinet_Azimuth
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_General
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_Azimuth_Cable_Wrap
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_Azimuth
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_Azimuth_Drives
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_Azimuth_Drives_Thermal
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_OSS
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_OSS2
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_OSS4
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_OSS5
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_OSS6
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_Main_Power_Supply
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_Encoder_EIB
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_Balancing_Drives
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_Balancing
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_Elevation
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_Elevation_Drives
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_Locking_Pins
     Directory Should Exist    ${SALWorkDir}/${subSystem}_Camera_Cable_Wrap
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_Deployable_Platforms
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_Elevation_Drives_Thermal
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_Mirror_Cover
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_Mount_Control_Main_Cabinet
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_Top_End_Chiller
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_Mirror_Cover_Locks
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_Main_Power_Supply_Cabinet
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_Auxiliary_Boxes
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_Compressed_Air
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_Cooling
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_Dynalene_Cooling
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_General_Purpose_Glycol_Water
     Directory Should Exist    ${SALWorkDir}/${subSystem}_Safety_System
 
 Verify MTMount C++ Telemetry Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
+    File Should Exist    ${SALWorkDir}/${subSystem}_Auxliary_Cabinet_Azimuth/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_Auxliary_Cabinet_Azimuth/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_General/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_General/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_Azimuth_Cable_Wrap/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_Azimuth_Cable_Wrap/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_Azimuth/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_Azimuth/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_Azimuth_Drives/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_Azimuth_Drives/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_Azimuth_Drives_Thermal/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_Azimuth_Drives_Thermal/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_OSS/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_OSS/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_OSS2/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_OSS2/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_OSS4/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_OSS4/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_OSS5/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_OSS5/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_OSS6/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_OSS6/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_Main_Power_Supply/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_Main_Power_Supply/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_Encoder_EIB/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_Encoder_EIB/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_Balancing_Drives/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_Balancing_Drives/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_Balancing/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_Balancing/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_Elevation/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_Elevation/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_Elevation_Drives/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_Elevation_Drives/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_Locking_Pins/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_Locking_Pins/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_Camera_Cable_Wrap/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_Camera_Cable_Wrap/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_Deployable_Platforms/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_Deployable_Platforms/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_Elevation_Drives_Thermal/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_Elevation_Drives_Thermal/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_Mirror_Cover/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_Mirror_Cover/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_Mount_Control_Main_Cabinet/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_Mount_Control_Main_Cabinet/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_Top_End_Chiller/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_Top_End_Chiller/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_Mirror_Cover_Locks/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_Mirror_Cover_Locks/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_Main_Power_Supply_Cabinet/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_Main_Power_Supply_Cabinet/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_Auxiliary_Boxes/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_Auxiliary_Boxes/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_Compressed_Air/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_Compressed_Air/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_Cooling/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_Cooling/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_Dynalene_Cooling/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_Dynalene_Cooling/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_General_Purpose_Glycol_Water/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_General_Purpose_Glycol_Water/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_Safety_System/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_Safety_System/cpp/standalone/sacpp_${subSystem}_sub
 
@@ -148,8 +327,6 @@ Verify MTMount C++ Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_trackTarget_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_clearerror_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_clearerror_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_stop_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_stop_controller
 
 Verify MTMount C++ Event Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -182,8 +359,68 @@ Verify MTMount Python Telemetry Interfaces
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Auxliary_Cabinet_Azimuth_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Auxliary_Cabinet_Azimuth_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_General_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_General_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Azimuth_Cable_Wrap_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Azimuth_Cable_Wrap_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Azimuth_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Azimuth_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Azimuth_Drives_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Azimuth_Drives_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Azimuth_Drives_Thermal_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Azimuth_Drives_Thermal_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_OSS_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_OSS_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_OSS2_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_OSS2_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_OSS4_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_OSS4_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_OSS5_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_OSS5_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_OSS6_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_OSS6_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Main_Power_Supply_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Main_Power_Supply_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Encoder_EIB_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Encoder_EIB_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Balancing_Drives_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Balancing_Drives_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Balancing_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Balancing_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Elevation_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Elevation_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Elevation_Drives_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Elevation_Drives_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Locking_Pins_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Locking_Pins_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Camera_Cable_Wrap_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Camera_Cable_Wrap_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Deployable_Platforms_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Deployable_Platforms_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Elevation_Drives_Thermal_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Elevation_Drives_Thermal_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Mirror_Cover_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Mirror_Cover_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Mount_Control_Main_Cabinet_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Mount_Control_Main_Cabinet_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Top_End_Chiller_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Top_End_Chiller_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Mirror_Cover_Locks_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Mirror_Cover_Locks_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Main_Power_Supply_Cabinet_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Main_Power_Supply_Cabinet_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Auxiliary_Boxes_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Auxiliary_Boxes_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Compressed_Air_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Compressed_Air_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Cooling_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Cooling_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Dynalene_Cooling_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Dynalene_Cooling_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_General_Purpose_Glycol_Water_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_General_Purpose_Glycol_Water_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Safety_System_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Safety_System_Subscriber.py
 
@@ -208,8 +445,6 @@ Verify MTMount Python Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_trackTarget.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_clearerror.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_clearerror.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_stop.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_stop.py
 
 Verify MTMount Python Event Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
@@ -228,7 +463,7 @@ Verify MTMount Python Event Interfaces
 Salgen MTMount LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
     [Tags]    labview
-    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    labview    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
+    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    labview    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Directory Should Exist    ${SALWorkDir}/${subSystem}/labview
@@ -245,10 +480,40 @@ Salgen MTMount Java
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    sal    java    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_Auxliary_Cabinet_Azimuth.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_General.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_Azimuth_Cable_Wrap.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_Azimuth.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_Azimuth_Drives.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_Azimuth_Drives_Thermal.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_OSS.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_OSS2.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_OSS4.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_OSS5.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_OSS6.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_Main_Power_Supply.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_Encoder_EIB.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_Balancing_Drives.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_Balancing.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_Elevation.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_Elevation_Drives.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_Locking_Pins.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_Camera_Cable_Wrap.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_Deployable_Platforms.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_Elevation_Drives_Thermal.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_Mirror_Cover.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_Mount_Control_Main_Cabinet.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_Top_End_Chiller.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_Mirror_Cover_Locks.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_Main_Power_Supply_Cabinet.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_Auxiliary_Boxes.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_Compressed_Air.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_Cooling.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_Dynalene_Cooling.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_General_Purpose_Glycol_Water.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_Safety_System.idl
-    Should Contain X Times    ${output.stdout}    javac : Done Publisher    2
-    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    2
+    Should Contain X Times    ${output.stdout}    javac : Done Publisher    32
+    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    32
     Directory Should Exist    ${SALWorkDir}/${subSystem}/java
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
@@ -280,7 +545,12 @@ Salgen MTMount RPM
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    rpm    version\=${SALVersion}${Build_Number}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     @{files}=    List Directory    /tmp/
+    File Should Exist    /tmp/makerpm.log
+    File Should Exist    /tmp/makerpm_${subSystem}.log
+    File Should Exist    /tmp/makerpm_${subSystem}_test.log
     Log File    /tmp/makerpm.log
+    Log File    /tmp/makerpm_${subSystem}.log
+    Log File    /tmp/makerpm_${subSystem}_test.log
     Should Not Contain    ${output.stdout}    ERROR : Asset required for rpm
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}${Build_Number}
     Should Contain    ${output.stdout}    Building runtime RPM for ${subSystem} subsystem
