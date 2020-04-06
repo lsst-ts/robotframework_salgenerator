@@ -7,7 +7,7 @@ ${UserName}             saluser
 ${PassWord}             ${EMPTY}
 ${KeyFile}              ${EMPTY}
 ${PythonVersion}        Python 3.6.5
-${MavenVersion}         ${SALVersion}_${XMLVersion}-SNAPSHOT
+${MavenVersion}         -SNAPSHOT
 ${SALInstall}           /opt/sal
 ${SALHome}              ${SalInstall}/lsstsal
 ${SALWorkDir}           ${SalInstall}/test

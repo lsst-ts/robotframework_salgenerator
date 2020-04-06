@@ -200,15 +200,16 @@ Salgen LOVE RPM
 Salgen LOVE Maven
     [Documentation]    Generate the Maven repository.
     [Tags]    java
-    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    maven    version=${MavenVersion}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
+    ${maven}=    Set Variable    ${SAL_Version}_${XML_Version}${MavenVersion}
+    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    maven    version\=${maven}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
-    Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
+    Should Contain    ${output.stdout}    SAL generator - ${maven}
     Should Contain    ${output.stdout}    Running maven install
     Should Contain    ${output.stdout}    [INFO] Building sal_${subSystem} ${SALVersion}
     Should Contain X Times    ${output.stdout}    [INFO] BUILD SUCCESS    1
     Should Contain X Times    ${output.stdout}    [INFO] Finished at:    1
     @{files}=    List Directory    ${SALWorkDir}/maven
-    File Should Exist    ${SALWorkDir}/maven/${subSystem}_${SALVersion}/pom.xml
+    File Should Exist    ${SALWorkDir}/maven/${subSystem}_${maven}/pom.xml
 
 Cleanup stdout and stderr Files
     [Tags]
