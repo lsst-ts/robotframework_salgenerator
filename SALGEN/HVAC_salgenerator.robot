@@ -40,7 +40,7 @@ Salgen HVAC Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_lsstBarraoblPiso01BarraoblChiller01.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_lsstBarraoblPiso02BarraoblCrack01.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_lsstBarraoblPiso02BarraoblFancoil01.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_lsstBarraoblPiso05BarraoblManejadoraBarraoblLower01.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_lsstBarraoblPiso05BarraoblManejadoraBarraoblLower_01.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_lsstBarraoblPiso04BarraoblManejadoraBarraoblSblanca.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_lsstBarraoblPiso04BarraoblManejadoraBarraoblSlimpia.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_lsstBarraoblPiso01BarraoblTccGuionP1GuionSalaGuionMaquinas.idl
@@ -92,7 +92,7 @@ Verify HVAC revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_lsstBarraoblPiso01BarraoblChiller01\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_lsstBarraoblPiso02BarraoblCrack01\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_lsstBarraoblPiso02BarraoblFancoil01\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_lsstBarraoblPiso05BarraoblManejadoraBarraoblLower01\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_lsstBarraoblPiso05BarraoblManejadoraBarraoblLower_01\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_lsstBarraoblPiso04BarraoblManejadoraBarraoblSblanca\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_lsstBarraoblPiso04BarraoblManejadoraBarraoblSlimpia\\) [a-z0-9]{8,}
 
@@ -110,7 +110,7 @@ Salgen HVAC C++
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_lsstBarraoblPiso01BarraoblChiller01.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_lsstBarraoblPiso02BarraoblCrack01.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_lsstBarraoblPiso02BarraoblFancoil01.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_lsstBarraoblPiso05BarraoblManejadoraBarraoblLower01.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_lsstBarraoblPiso05BarraoblManejadoraBarraoblLower_01.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_lsstBarraoblPiso04BarraoblManejadoraBarraoblSblanca.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_lsstBarraoblPiso04BarraoblManejadoraBarraoblSlimpia.idl
     Should Contain X Times    ${output.stdout}    cpp : Done Publisher    9
@@ -138,7 +138,7 @@ Verify HVAC Telemetry directories
     Directory Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso01BarraoblChiller01
     Directory Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso02BarraoblCrack01
     Directory Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso02BarraoblFancoil01
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso05BarraoblManejadoraBarraoblLower01
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso05BarraoblManejadoraBarraoblLower_01
     Directory Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso04BarraoblManejadoraBarraoblSblanca
     Directory Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso04BarraoblManejadoraBarraoblSlimpia
 
@@ -157,8 +157,8 @@ Verify HVAC C++ Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso02BarraoblCrack01/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso02BarraoblFancoil01/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso02BarraoblFancoil01/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso05BarraoblManejadoraBarraoblLower01/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso05BarraoblManejadoraBarraoblLower01/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso05BarraoblManejadoraBarraoblLower_01/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso05BarraoblManejadoraBarraoblLower_01/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso04BarraoblManejadoraBarraoblSblanca/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso04BarraoblManejadoraBarraoblSblanca/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_lsstBarraoblPiso04BarraoblManejadoraBarraoblSlimpia/cpp/standalone/sacpp_${subSystem}_pub
@@ -221,8 +221,8 @@ Verify HVAC Python Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_lsstBarraoblPiso02BarraoblCrack01_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_lsstBarraoblPiso02BarraoblFancoil01_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_lsstBarraoblPiso02BarraoblFancoil01_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_lsstBarraoblPiso05BarraoblManejadoraBarraoblLower01_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_lsstBarraoblPiso05BarraoblManejadoraBarraoblLower01_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_lsstBarraoblPiso05BarraoblManejadoraBarraoblLower_01_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_lsstBarraoblPiso05BarraoblManejadoraBarraoblLower_01_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_lsstBarraoblPiso04BarraoblManejadoraBarraoblSblanca_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_lsstBarraoblPiso04BarraoblManejadoraBarraoblSblanca_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_lsstBarraoblPiso04BarraoblManejadoraBarraoblSlimpia_Publisher.py
@@ -284,7 +284,7 @@ Salgen HVAC Java
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_lsstBarraoblPiso01BarraoblChiller01.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_lsstBarraoblPiso02BarraoblCrack01.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_lsstBarraoblPiso02BarraoblFancoil01.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_lsstBarraoblPiso05BarraoblManejadoraBarraoblLower01.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_lsstBarraoblPiso05BarraoblManejadoraBarraoblLower_01.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_lsstBarraoblPiso04BarraoblManejadoraBarraoblSblanca.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_lsstBarraoblPiso04BarraoblManejadoraBarraoblSlimpia.idl
     Should Contain X Times    ${output.stdout}    javac : Done Publisher    9
