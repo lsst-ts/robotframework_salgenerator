@@ -237,16 +237,17 @@ function salgenMaven() {
     echo "Salgen $subSystemUp Maven" >> $testSuite
     echo "    [Documentation]    Generate the Maven repository." >> $testSuite
     echo "    [Tags]    java$skipped" >> $testSuite
-    echo "    \${output}=    Run Process    \${SALHome}/scripts/salgenerator    \${subSystem}    maven    \
+    echo "    \${maven}=    Set Variable    \${SAL_Version}_\${XML_Version}\${MavenVersion}" >> $testSuite
+    echo "    \${output}=    Run Process    \${SALHome}/scripts/salgenerator    \${subSystem}    maven    version\\=\${maven}    \
 shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.txt    stderr=\${EXECDIR}\${/}\${subSystem}_stderr.txt" >> $testSuite
     echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
-    echo "    Should Contain    \${output.stdout}    SAL generator - \${SALVersion}" >> $testSuite
+    echo "    Should Contain    \${output.stdout}    SAL generator - \${maven}" >> $testSuite
     echo "    Should Contain    \${output.stdout}    Running maven install" >> $testSuite
     echo "    Should Contain    \${output.stdout}    [INFO] Building sal_\${subSystem} \${SALVersion}" >> $testSuite
     echo "    Should Contain X Times    \${output.stdout}    [INFO] BUILD SUCCESS    1" >> $testSuite
     echo "    Should Contain X Times    \${output.stdout}    [INFO] Finished at:    1" >> $testSuite
     echo "    @{files}=    List Directory    \${SALWorkDir}/maven" >> $testSuite
-    echo "    File Should Exist    \${SALWorkDir}/maven/\${subSystem}_\${SALVersion}/pom.xml" >> $testSuite
+    echo "    File Should Exist    \${SALWorkDir}/maven/\${subSystem}_\${maven}/pom.xml" >> $testSuite
     echo "" >> $testSuite
 }
 
