@@ -126,6 +126,16 @@ node {
                 'rebot --nostatusrc --noncritical TSS* --noncritical DM* --outputdir ' + _home + '/Reports --name RPM_Generation -o rpm_output.xml -l rpm_log.html ' +
                 '-r rpm_report.html ${array[@]}'
             }
+            stage('Push Java artifacts') {
+                if (params.Push == 'true') {
+                    sh 'cd ' + _home + 'trunk/ts_sal/test/maven/ATCamera_' + MavenVersion
+                    sh 'mvn -DskipTests=true deploy'
+                    sh 'cd ' + _home + 'trunk/ts_sal/test/maven/CCCamera_' + MavenVersion
+                    sh 'mvn -DskipTests=true deploy'
+                    sh 'cd ' + _home + 'trunk/ts_sal/test/maven/MTCamera_' + MavenVersion
+                    sh 'mvn -DskipTests=true deploy'
+                }//If Push True
+            }//Java artifacts
             stage('Push RPMs to AWS S3 bucket') {
                 sh 'aws s3 cp ' + _home + '/trunk/ts_sal/test/rpmbuild/RPMS/x86_64/ s3://sal-objects/daily ' +
                     '--acl public-read --recursive --exclude "dbsimulate/*" --exclude "salgenerator/*"'
