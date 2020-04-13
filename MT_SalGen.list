@@ -8,6 +8,7 @@ SALGEN/Dome_salgenerator.robot
 SALGEN/EAS_salgenerator.robot
 SALGEN/EFDTransformationServer_salgenerator.robot
 SALGEN/Environment_salgenerator.robot
+SALGEN/ESS_salgenerator.robot
 SALGEN/HVAC_salgenerator.robot
 SALGEN/Hexapod_salgenerator.robot
 SALGEN/IOTA_salgenerator.robot
@@ -25,6 +26,7 @@ SALGEN/MTM2_salgenerator.robot
 SALGEN/MTMount_salgenerator.robot
 SALGEN/MTPtg_salgenerator.robot
 SALGEN/MTVMS_salgenerator.robot
+SALGEN/NewMTMount_salgenerator.robot
 SALGEN/Rotator_salgenerator.robot
 SALGEN/Scheduler_salgenerator.robot
 SALGEN/ScriptQueue_salgenerator.robot
