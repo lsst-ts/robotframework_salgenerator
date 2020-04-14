@@ -54,8 +54,8 @@ function subsystemArray() {
     ATDomeTrajectory ATHeaderService ATHexapod ATMCS
     ATMonochromator ATPneumatics ATPtg ATSpectrograph
     ATWhiteLight CCArchiver CCCamera CCHeaderService 
-	CatchupArchiver CBP DIMM Dome DSM
-    EAS EFDTransformationServer Electrometer Environment
+    CatchupArchiver CBP DIMM Dome DSM
+    EAS EFDTransformationServer Electrometer Environment ESS
     FiberSpectrograph GenericCamera IOTA Hexapod HVAC
     LinearStage LOVE MTAOS MTAlignment MTArchiver MTCamera
     MTDomeTrajectory MTEEC MTHeaderService
