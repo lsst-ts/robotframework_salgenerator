@@ -24,6 +24,7 @@ node {
         string(credentialsId: 'nexus_username', variable: 'nexus_username'),
         string(credentialsId: 'nexus_password', variable: 'nexus_passwd')]) {
             docker.image('lsstts/robotsal:python376').inside('-w ' + _home + ' -e AWS_ACCESS_KEY_ID=$aws_key_id -e AWS_SECRET_ACCESS_KEY=$aws_secret_key ' +
+                '-e NEXUS_USER=$nexus_username -e NEXUS_PASS=$nexus_passwd ' +
                 '-v ${WORKSPACE}/SAL:' + _home + '/trunk/ts_sal -v ${WORKSPACE}/rbtsalgen:' + _home + '/trunk/robotframework_salgenerator ' +
                 '-v ${WORKSPACE}/RPMs:/tmp -v ${WORKSPACE}/Reports:' + _home + '/Reports') {
             stage('Pull Git repos') {
@@ -127,14 +128,13 @@ node {
                 '-r rpm_report.html ${array[@]}'
             }
             stage('Push Java artifacts') {
-                if (params.Push == 'true') {
-                    sh 'cd ' + _home + 'trunk/ts_sal/test/maven/ATCamera_' + MavenVersion
-                    sh 'mvn -DskipTests=true deploy'
-                    sh 'cd ' + _home + 'trunk/ts_sal/test/maven/CCCamera_' + MavenVersion
-                    sh 'mvn -DskipTests=true deploy'
-                    sh 'cd ' + _home + 'trunk/ts_sal/test/maven/MTCamera_' + MavenVersion
-                    sh 'mvn -DskipTests=true deploy'
-                }//If Push True
+                sh label: 'Java Artifacts', script: '#!/bin/bash \n' + 
+                'cd ' + _home + '/trunk/ts_sal/test/maven/ATCamera_' + MavenVersion + ' \n' +
+                'mvn -DskipTests=true deploy \n' +
+                'cd ' + _home + '/trunk/ts_sal/test/maven/CCCamera_' + MavenVersion + ' \n' +
+                'mvn -DskipTests=true deploy \n' +
+                'cd ' + _home + '/trunk/ts_sal/test/maven/MTCamera_' + MavenVersion + ' \n' +
+                'mvn -DskipTests=true deploy'
             }//Java artifacts
             stage('Push RPMs to AWS S3 bucket') {
                 sh 'aws s3 cp ' + _home + '/trunk/ts_sal/test/rpmbuild/RPMS/x86_64/ s3://sal-objects/daily ' +
