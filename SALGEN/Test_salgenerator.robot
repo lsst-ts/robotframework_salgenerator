@@ -136,6 +136,16 @@ Verify Test C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_arrays_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_arrays_log
 
+Salgen Test IDL
+    [Documentation]    Generate the revCoded IDL for ${subSystem}
+    [Tags]    idl
+    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    sal    idl    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
+    Log Many    ${output.stdout}    ${output.stderr}
+    Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
+    Should Contain    ${output.stdout}    Completed ${subSystem} validation
+    @{files}=    List Directory    ${SALWorkDir}/idl-templates/validated/
+    Log Many    @{files}
+
 Salgen Test Python
     [Documentation]    Generate Python wrapper.
     [Tags]    python
