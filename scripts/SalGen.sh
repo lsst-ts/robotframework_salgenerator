@@ -440,6 +440,8 @@ function createTestSuite() {
     salgenValidate
     salgenHTML
     revCodeDefinition
+    # Create and verfiy the RevCoded IDL files.
+    salgenIDL
     # Create and verify C++ interfaces.
     salgenCPP
     verifyCppDirectories
@@ -453,8 +455,6 @@ function createTestSuite() {
     if [[ ${xmls[*]} =~ "${subSystem}_Events.xml" ]]; then
         verifyCppEventInterfaces
     fi
-    # Create and verfiy the RevCoded IDL files.
-    salgenIDL
     # Create and verify Python interfaces.
     salgenPython
     if [[ ${xmls[*]} =~ "${subSystem}_Telemetry.xml" ]]; then

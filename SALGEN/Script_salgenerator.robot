@@ -86,6 +86,16 @@ Verify Script revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_metadata\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_state\\) [a-z0-9]{8,}
 
+Salgen Script IDL
+    [Documentation]    Generate the revCoded IDL for ${subSystem}
+    [Tags]    idl
+    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    sal    idl    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
+    Log Many    ${output.stdout}    ${output.stderr}
+    Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
+    Should Contain    ${output.stdout}    Completed ${subSystem} validation
+    @{files}=    List Directory    ${SALWorkDir}/idl-templates/validated/
+    Log Many    @{files}
+
 Salgen Script C++
     [Documentation]    Generate C++ wrapper.
     [Tags]    cpp
@@ -143,16 +153,6 @@ Verify Script C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_metadata_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_state_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_state_log
-
-Salgen Script IDL
-    [Documentation]    Generate the revCoded IDL for ${subSystem}
-    [Tags]    idl
-    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    sal    idl    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
-    Log Many    ${output.stdout}    ${output.stderr}
-    Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
-    Should Contain    ${output.stdout}    Completed ${subSystem} validation
-    @{files}=    List Directory    ${SALWorkDir}/idl-templates/validated/
-    Log Many    @{files}
 
 Salgen Script Python
     [Documentation]    Generate Python wrapper.
