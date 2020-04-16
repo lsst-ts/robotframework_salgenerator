@@ -70,6 +70,16 @@ Verify MTM1M3TS revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_detailedState\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_thermalData\\) [a-z0-9]{8,}
 
+Salgen MTM1M3TS IDL
+    [Documentation]    Generate the revCoded IDL for ${subSystem}
+    [Tags]    idl
+    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    sal    idl    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
+    Log Many    ${output.stdout}    ${output.stderr}
+    Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
+    Should Contain    ${output.stdout}    Completed ${subSystem} validation
+    @{files}=    List Directory    ${SALWorkDir}/idl-templates/validated/
+    Log Many    @{files}
+
 Salgen MTM1M3TS C++
     [Documentation]    Generate C++ wrapper.
     [Tags]    cpp

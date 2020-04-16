@@ -392,6 +392,21 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     echo "" >> $testSuite
 }
 
+function salgenIDL() {
+    skipped=$(checkIfSkipped $subSystem "idl")
+    echo "Salgen $subSystemUp IDL" >> $testSuite
+    echo "    [Documentation]    Generate the revCoded IDL for \${subSystem}" >> $testSuite
+    echo "    [Tags]    idl$skipped" >> $testSuite
+    echo "    \${output}=    Run Process    \${SALHome}/scripts/salgenerator    \${subSystem}    sal    idl    \
+shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.txt    stderr=\${EXECDIR}\${/}\${subSystem}_stderr.txt" >> $testSuite
+    echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
+    echo "    Should Contain    \${output.stdout}    SAL generator - \${SALVersion}" >> $testSuite
+    echo "    Should Contain    \${output.stdout}    Completed \${subSystem} validation" >> $testSuite
+    echo "    @{files}=    List Directory    \${SALWorkDir}/idl-templates/validated/" >> $testSuite
+    echo "    Log Many    @{files}" >> $testSuite
+    echo "" >> $testSuite
+}
+
 function createTestSuite() {
     subSystem=$1
 
@@ -425,6 +440,8 @@ function createTestSuite() {
     salgenValidate
     salgenHTML
     revCodeDefinition
+    # Create and verfiy the RevCoded IDL files.
+    salgenIDL
     # Create and verify C++ interfaces.
     salgenCPP
     verifyCppDirectories
