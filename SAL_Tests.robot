@@ -20,7 +20,7 @@ Verify SAL Version
 	Should Contain    ${versionData.stdout}    LSST middleware toolset environment v${SALVersion} is configured
 
 Verify Python Version
-    [Documentation]    Verify the system Python version is 3.6.
+    [Documentation]    Verify the system Python version.
 	[Tags]    smoke    version
 	Comment    Verify Python version.
 	${stdout}=    Run Process    python3.7     --version
