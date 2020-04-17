@@ -131,6 +131,7 @@ Salgen Scheduler IDL
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Completed ${subSystem} validation
+    File Should Exist    ${SALWorkDir}/${subSystem}/sal_revCoded_${subSystem}.idl
     @{files}=    List Directory    ${SALWorkDir}/idl-templates/validated/
     Log Many    @{files}
 
