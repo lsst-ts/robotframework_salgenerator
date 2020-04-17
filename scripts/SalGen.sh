@@ -402,6 +402,7 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
     echo "    Should Contain    \${output.stdout}    SAL generator - \${SALVersion}" >> $testSuite
     echo "    Should Contain    \${output.stdout}    Completed \${subSystem} validation" >> $testSuite
+    echo "    File Should Exist    \${SALWorkDir}/\${subSystem}/sal_revCoded_\${subSystem}.idl" >> $testSuite
     echo "    @{files}=    List Directory    \${SALWorkDir}/idl-templates/validated/" >> $testSuite
     echo "    Log Many    @{files}" >> $testSuite
     echo "" >> $testSuite
