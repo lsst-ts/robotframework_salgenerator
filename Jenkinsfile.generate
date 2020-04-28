@@ -125,7 +125,8 @@ node {
                 '\t(( i++ ))\n' + 'done\n' + 
                 'echo ========= Generate the reports =========\n' +
                 'rebot --nostatusrc --noncritical TSS* --noncritical DM* --outputdir ' + _home + '/Reports --name RPM_Generation -o rpm_output.xml -l rpm_log.html ' +
-                '-r rpm_report.html ${array[@]}'
+                '-r rpm_report.html ${array[@]} \n' +
+                'echo Robot results complete'
             }
             stage('Push Java artifacts') {
                 sh label: 'Java Artifacts', script: '#!/bin/bash \n' + 
@@ -134,7 +135,8 @@ node {
                 'cd ' + _home + '/trunk/ts_sal/test/maven/CCCamera_' + SAL_Version + '_' + XML_Version + MavenVersion + ' \n' +
                 'mvn -DskipTests=true deploy \n' +
                 'cd ' + _home + '/trunk/ts_sal/test/maven/MTCamera_' + SAL_Version + '_' + XML_Version + MavenVersion + ' \n' +
-                'mvn -DskipTests=true deploy'
+                'mvn -DskipTests=true deploy \n' +
+                'echo Java push complete'
             }//Java artifacts
             stage('Push RPMs to AWS S3 bucket') {
                 sh 'aws s3 cp ' + _home + '/trunk/ts_sal/test/rpmbuild/RPMS/x86_64/ s3://sal-objects/daily ' +
@@ -150,16 +152,22 @@ node {
                 def array = RPM_LIST.split('\n')
                 println("Groovy variable: " + array)
                 if (array[0] == null) {
-	                // If no RPMs found, abort build and mark as failure.
-	                println("ERROR: No RPMs found with the given search parameters.")
+	            // If no RPMs found, abort build and mark as failure.
+	            println("ERROR: No RPMs found with the given search parameters.")
                 } else {
-	                // Iterate over RPMs and push to Nexus3 yum repo.
-	                for(file in array) {
-	                    sh 'echo "========= Downloading ' + file + ' from s3 bucket ========="'
+	            // Iterate over RPMs and push to Nexus3 yum repo.
+	            for(file in array) {
+                        sh 'echo "========= Downloading ' + file + ' from s3 bucket ========="'
                         sh 'aws s3 cp s3://sal-objects/daily/' + file + ' /tmp'
                         sh 'echo "=== Pushing RPM to Nexus3 yum repo ==="'
-                        sh 'curl -Ss -u $nexus_username:$nexus_passwd -T ${WORKSPACE}/RPMs/' + file + ' https://repo-nexus.lsst.org/nexus/repository/ts_yum/daily/';
+                        sh 'curl -Ss -u $nexus_username:$nexus_passwd -T ${WORKSPACE}/RPMs/' + file + ' https://repo-nexus.lsst.org/nexus/repository/ts_yum/daily/ \n' +
+                        sh 'echo CSC RPM push complete'
                     }//for
+                    sh 'echo "=== Push ts_sal_utils RPM to Nexus3 yum repo ==="'
+                    sh 'aws s3 cp s3://sal-objects/daily/ts_sal_utils-' + SAL_Version + '_' + ${BUILD_NUMBER} + '-1.x86_64.rpm /tmp'
+                    sh 'curl -Ss -u $nexus_username:$nexus_passwd -T ${WORKSPACE}/RPMs/ts_sal_utils-' + SAL_Version + '_' + ${BUILD_NUMBER} + '-1.x86_64.rpm' + 
+                        ' https://repo-nexus.lsst.org/nexus/repository/ts_yum/daily/ \n' +
+                    sh 'echo ts_sal_utils RPM push complete'
                 }//else    
             }//Push RPMs to Nexus3   
         }//lsstts/robotsal    
