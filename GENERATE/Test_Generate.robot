@@ -189,8 +189,8 @@ Verify Test Python Event Interfaces
 Verify Salgen Test Lib Build Step
     [Documentation]    Verify the SAL shared libraries for ${subSystem} made to the lib directory.
     [Tags]    lib
-    #Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
-    #Should Contain    ${output.stdout}    Building shared library for ${subSystem} subsystem
+    Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
+    Should Contain    ${output.stdout}    Building shared library for ${subSystem} subsystem
     Directory Should Exist    ${SALWorkDir}/lib
     @{files}=    List Directory    ${SALWorkDir}/lib    pattern=*${subSystem}*
     Log Many    @{files}
