@@ -64,7 +64,6 @@ Verify Salgen Script HTML Build Process
     @{files}=    List Directory    ${SALWorkDir}/html/${subSystem}
     File Should Exist    ${SALWorkDir}/html/${subSystem}/${subSystem}_Commands.html
     File Should Exist    ${SALWorkDir}/html/${subSystem}/${subSystem}_Events.html
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/${subSystem}_Telemetry.html
     @{files}=    List Directory    ${SALWorkDir}/html/dbsimulate    pattern=*${subSystem}*
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/html/dbsimulate/index-dbsimulate.html
