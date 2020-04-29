@@ -160,7 +160,7 @@ node {
                         sh 'echo "========= Downloading ' + file + ' from s3 bucket ========="'
                         sh 'aws s3 cp s3://sal-objects/daily/' + file + ' /tmp'
                         sh 'echo "=== Pushing RPM to Nexus3 yum repo ==="'
-                        sh 'curl -Ss -u $nexus_username:$nexus_passwd -T ${WORKSPACE}/RPMs/' + file + ' https://repo-nexus.lsst.org/nexus/repository/ts_yum/daily/ \n' +
+                        sh 'curl -Ss -u $nexus_username:$nexus_passwd -T ${WORKSPACE}/RPMs/' + file + ' https://repo-nexus.lsst.org/nexus/repository/ts_yum/daily/'
                         sh 'echo "=== CSC RPM push complete ==="'
                     }//for
                     sh 'echo "=== Push ts_sal_utils RPM to Nexus3 yum repo ==="'
