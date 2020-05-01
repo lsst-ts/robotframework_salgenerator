@@ -268,9 +268,9 @@ Salgen Script RPM
     File Should Exist    /tmp/makerpm-atmeta.log
     Log File    /tmp/makerpm_${subSystem}.log
     Log File    /tmp/makerpm_${subSystem}_test.log
-    Log File    /tmp/makerpm_utils.log
-    Log File    /tmp/makerpm_meta.log
-    Log File    /tmp/makerpm_atmeta.log
+    Log File    /tmp/makerpm-utils.log
+    Log File    /tmp/makerpm-meta.log
+    Log File    /tmp/makerpm-atmeta.log
     Should Not Contain    ${output.stdout}    ERROR : Asset required for rpm
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}${Build_Number}
     Should Contain    ${output.stdout}    Building runtime RPM for ${subSystem} subsystem

@@ -372,9 +372,9 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     echo "    File Should Exist    /tmp/makerpm-atmeta.log" >> $testSuite
     echo "    Log File    /tmp/makerpm_\${subSystem}.log" >> $testSuite
     echo "    Log File    /tmp/makerpm_\${subSystem}_test.log" >> $testSuite
-    echo "    Log File    /tmp/makerpm_utils.log" >> $testSuite
-    echo "    Log File    /tmp/makerpm_meta.log" >> $testSuite
-    echo "    Log File    /tmp/makerpm_atmeta.log" >> $testSuite
+    echo "    Log File    /tmp/makerpm-utils.log" >> $testSuite
+    echo "    Log File    /tmp/makerpm-meta.log" >> $testSuite
+    echo "    Log File    /tmp/makerpm-atmeta.log" >> $testSuite
     echo "    Should Not Contain    \${output.stdout}    ERROR : Asset required for rpm" >> $testSuite
     echo "    Should Contain    \${output.stdout}    SAL generator - \${SALVersion}\${Build_Number}" >> $testSuite
     echo "    Should Contain    \${output.stdout}    Building runtime RPM for \${subSystem} subsystem" >> $testSuite
