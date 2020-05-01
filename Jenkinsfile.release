@@ -234,7 +234,7 @@ node {
             stage('Push RPMs to Nexus3') {
                 if (Push == 'true') {
                     def RPM_LIST = sh (
-                        script: 'aws s3 ls s3://sal-objects/master/ |grep -v debuginfo |grep -v test |grep ' + SAL_Version + 
+                        script: 'aws s3 ls s3://sal-objects/master/ |grep -v debuginfo |grep ' + SAL_Version + 
                             ' |grep ' + XML_Version + ' |cut -c 32-',
                             returnStdout: true
                         ).trim()
@@ -248,7 +248,7 @@ node {
                         for(file in array) {
                             sh 'echo "========= Downloading ' + file + ' from s3 bucket ========="'
                             sh 'aws s3 cp s3://sal-objects/master/' + file + ' /tmp'
-                            sh 'echo "=== Pushing RPM to Nexus3 yum repo ==="'
+                            sh 'echo "=== Pushing ' + file + ' to Nexus3 yum repo ==="'
                             sh 'curl -Ss -u $nexus_username:$nexus_passwd -T ${WORKSPACE}/RPMs/' + file + ' https://repo-nexus.lsst.org/nexus/repository/ts_yum/releases/'
                             sh 'echo "=== CSC RPM push complete ==="'
                         }//for
