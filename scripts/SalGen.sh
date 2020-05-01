@@ -365,12 +365,14 @@ function salgenRPM() {
 shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.txt    stderr=\${EXECDIR}\${/}\${subSystem}_stderr.txt" >> $testSuite
     echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
     echo "    @{files}=    List Directory    /tmp/" >> $testSuite
-    echo "    File Should Exist    /tmp/makerpm.log" >> $testSuite
+    echo "    File Should Exist    /tmp/makerpm-runtime-\${subSystem}.log" >> $testSuite
     echo "    File Should Exist    /tmp/makerpm_\${subSystem}.log" >> $testSuite
     echo "    File Should Exist    /tmp/makerpm_\${subSystem}_test.log" >> $testSuite
-    echo "    Log File    /tmp/makerpm.log" >> $testSuite
     echo "    Log File    /tmp/makerpm_\${subSystem}.log" >> $testSuite
     echo "    Log File    /tmp/makerpm_\${subSystem}_test.log" >> $testSuite
+    echo "    Log File    /tmp/makerpm_utils.log" >> $testSuite
+    echo "    Log File    /tmp/makerpm_meta.log" >> $testSuite
+    echo "    Log File    /tmp/makerpm_atmeta.log" >> $testSuite
     echo "    Should Not Contain    \${output.stdout}    ERROR : Asset required for rpm" >> $testSuite
     echo "    Should Contain    \${output.stdout}    SAL generator - \${SALVersion}\${Build_Number}" >> $testSuite
     echo "    Should Contain    \${output.stdout}    Building runtime RPM for \${subSystem} subsystem" >> $testSuite
