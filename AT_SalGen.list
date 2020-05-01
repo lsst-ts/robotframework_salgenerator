@@ -14,6 +14,7 @@ SALGEN/ATHeaderService_salgenerator.robot
 SALGEN/ATHexapod_salgenerator.robot
 SALGEN/ATMCS_salgenerator.robot
 SALGEN/ATMonochromator_salgenerator.robot
+SALGEN/ATOODS_salgenerator.robot
 SALGEN/ATPneumatics_salgenerator.robot
 SALGEN/ATPtg_salgenerator.robot
 SALGEN/ATSpectrograph_salgenerator.robot
@@ -22,6 +23,7 @@ SALGEN/CBP_salgenerator.robot
 SALGEN/CCArchiver_salgenerator.robot
 SALGEN/CCCamera_salgenerator.robot
 SALGEN/CCHeaderService_salgenerator.robot
+SALGEN/CCOODS_salgenerator.robot
 SALGEN/CatchupArchiver_salgenerator.robot
 SALGEN/DIMM_salgenerator.robot
 SALGEN/DSM_salgenerator.robot

@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation    This suite builds the various interfaces for the ATHexapod.
+Documentation    This suite builds the various interfaces for the ATOODS.
 Force Tags    salgen    
 Suite Setup    Log Many    ${Host}    ${subSystem}    ${timeout}
 Library    OperatingSystem
@@ -7,23 +7,21 @@ Library    Process
 Resource    ../Global_Vars.resource
 
 *** Variables ***
-${subSystem}    ATHexapod
+${subSystem}    ATOODS
 ${timeout}    1200s
 
 *** Test Cases ***
-Verify ATHexapod XML Defintions exist
+Verify ATOODS XML Defintions exist
     [Tags]
     Comment    Verify the CSC XML definition files exist.
-    ${output}    Run Process    ls     ${SALWorkDir}/ATHexapod_*.xml    shell=True
+    ${output}    Run Process    ls     ${SALWorkDir}/ATOODS_*.xml    shell=True
     Log Many    ${output.stdout}    ${output.stderr}
-    Should Not Contain    ${output.stderr}    No such file or directory    msg="ATHexapod has no XML defintions"    values=False
+    Should Not Contain    ${output.stderr}    No such file or directory    msg="ATOODS has no XML defintions"    values=False
     Should Not Be Empty    ${output.stdout}
-    File Should Exist    ${SALWorkDir}/ATHexapod_Commands.xml
-    File Should Exist    ${SALWorkDir}/ATHexapod_Events.xml
-    File Should Exist    ${SALWorkDir}/ATHexapod_Telemetry.xml
+    File Should Exist    ${SALWorkDir}/ATOODS_Events.xml
 
-Salgen ATHexapod Validate
-    [Documentation]    Validate the ATHexapod XML definitions.
+Salgen ATOODS Validate
+    [Documentation]    Validate the ATOODS XML definitions.
     [Tags]    validate
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    validate    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
@@ -34,23 +32,9 @@ Salgen ATHexapod Validate
     Directory Should Exist    ${SALWorkDir}/idl-templates/validated
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_positionStatus.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_applyPositionLimits.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_moveToPosition.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setMaxSystemSpeeds.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_applyPositionOffset.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_stopAllAxes.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_pivot.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_inPosition.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_detailedState.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingsAppliedPositionLimits.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingsAppliedVelocities.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingsAppliedPivot.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_positionUpdate.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingsAppliedTcp.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_readyForCommand.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_imageInOODS.idl
 
-Salgen ATHexapod HTML
+Salgen ATOODS HTML
     [Documentation]    Create web form interfaces.
     [Tags]    html    
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    html    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
@@ -60,9 +44,7 @@ Salgen ATHexapod HTML
     Should Contain    ${output.stdout}    Generating Facility database table creation html
     Should Contain    ${output.stdout}    Generating Subsystem simulation control html
     @{files}=    List Directory    ${SALWorkDir}/html/${subSystem}
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/ATHexapod_Commands.html
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/ATHexapod_Events.html
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/ATHexapod_Telemetry.html
+    File Should Exist    ${SALWorkDir}/html/${subSystem}/ATOODS_Events.html
     @{files}=    List Directory    ${SALWorkDir}/html/dbsimulate    pattern=*${subSystem}*
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/html/dbsimulate/index-dbsimulate.html
@@ -70,27 +52,13 @@ Salgen ATHexapod HTML
     File Should Exist    ${SALWorkDir}/html/dbsimulate/index-simulate-${subSystem}.html
     File Should Exist    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
 
-Verify ATHexapod revCodes File
-    [Documentation]    Ensure ATHexapod_revCodes.tcl contains 1 revcode per topic.
+Verify ATOODS revCodes File
+    [Documentation]    Ensure ATOODS_revCodes.tcl contains 1 revcode per topic.
     [Tags]    html    
     ${output}=    Log File    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_applyPositionLimits\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_moveToPosition\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setMaxSystemSpeeds\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_applyPositionOffset\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_stopAllAxes\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_pivot\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_inPosition\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_detailedState\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_settingsAppliedPositionLimits\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_settingsAppliedVelocities\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_settingsAppliedPivot\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_positionUpdate\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_settingsAppliedTcp\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_readyForCommand\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_positionStatus\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_imageInOODS\\) [a-z0-9]{8,}
 
-Salgen ATHexapod IDL
+Salgen ATOODS IDL
     [Documentation]    Generate the revCoded IDL for ${subSystem}
     [Tags]    idl
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    sal    idl    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
@@ -101,7 +69,7 @@ Salgen ATHexapod IDL
     @{files}=    List Directory    ${SALWorkDir}/idl-templates/validated/
     Log Many    @{files}
 
-Salgen ATHexapod C++
+Salgen ATOODS C++
     [Documentation]    Generate C++ wrapper.
     [Tags]    cpp
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    sal    cpp   shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
@@ -109,9 +77,7 @@ Salgen ATHexapod C++
     Should Not Contain    ${output.stdout}    *** DDS error in file
     Should Not Contain    ${output.stdout}    Error 1
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_positionStatus.idl
-    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    1
-    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    1
+    Should Contain    ${output.stdout}    WARNING : No Telemetry definitions found for ${subSystem}
     Should Contain X Times    ${output.stdout}    cpp : Done Commander    1
     Should Contain X Times    ${output.stdout}    cpp : Done Event/Logger    1
 
@@ -125,55 +91,13 @@ Verify C++ Directories
     @{files}=    List Directory    ${SALWorkDir}/idl-templates/validated/sal    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/idl-templates/validated/sal/sal_${subSystem}.idl
 
-Verify ATHexapod Telemetry directories
-    [Tags]    cpp
-    @{files}=    List Directory    ${SALWorkDir}    pattern=*${subSystem}*
-    Log Many    @{files}
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_positionStatus
-
-Verify ATHexapod C++ Telemetry Interfaces
+Verify ATOODS C++ Event Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}_positionStatus/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_positionStatus/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_imageInOODS_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_imageInOODS_log
 
-Verify ATHexapod C++ Command Interfaces
-    [Documentation]    Verify the C++ interfaces were properly created.
-    [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_applyPositionLimits_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_applyPositionLimits_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_moveToPosition_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_moveToPosition_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setMaxSystemSpeeds_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setMaxSystemSpeeds_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_applyPositionOffset_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_applyPositionOffset_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_stopAllAxes_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_stopAllAxes_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_pivot_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_pivot_controller
-
-Verify ATHexapod C++ Event Interfaces
-    [Documentation]    Verify the C++ interfaces were properly created.
-    [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_inPosition_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_inPosition_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_detailedState_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_detailedState_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsAppliedPositionLimits_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsAppliedPositionLimits_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsAppliedVelocities_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsAppliedVelocities_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsAppliedPivot_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsAppliedPivot_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_positionUpdate_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_positionUpdate_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsAppliedTcp_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsAppliedTcp_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_readyForCommand_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_readyForCommand_log
-
-Salgen ATHexapod Python
+Salgen ATOODS Python
     [Documentation]    Generate Python wrapper.
     [Tags]    python
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    sal    python    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
@@ -187,55 +111,15 @@ Salgen ATHexapod Python
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/SALPY_${subSystem}.so
 
-Verify ATHexapod Python Telemetry Interfaces
+Verify ATOODS Python Event Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_positionStatus_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_positionStatus_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_imageInOODS.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_imageInOODS.py
 
-Verify ATHexapod Python Command Interfaces
-    [Documentation]    Verify the Python interfaces were properly created.
-    [Tags]    python
-    @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
-    Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_applyPositionLimits.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_applyPositionLimits.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_moveToPosition.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_moveToPosition.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_setMaxSystemSpeeds.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setMaxSystemSpeeds.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_applyPositionOffset.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_applyPositionOffset.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_stopAllAxes.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_stopAllAxes.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_pivot.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_pivot.py
-
-Verify ATHexapod Python Event Interfaces
-    [Documentation]    Verify the Python interfaces were properly created.
-    [Tags]    python
-    @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
-    Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_inPosition.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_inPosition.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_detailedState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_detailedState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_settingsAppliedPositionLimits.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_settingsAppliedPositionLimits.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_settingsAppliedVelocities.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_settingsAppliedVelocities.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_settingsAppliedPivot.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_settingsAppliedPivot.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_positionUpdate.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_positionUpdate.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_settingsAppliedTcp.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_settingsAppliedTcp.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_readyForCommand.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_readyForCommand.py
-
-Salgen ATHexapod LabVIEW
+Salgen ATOODS LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
     [Tags]    labview
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    labview    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
@@ -249,22 +133,20 @@ Salgen ATHexapod LabVIEW
     File Should Exist    ${SALWorkDir}/${subSystem}/labview/SALLV_${subSystem}.so
     File Should Exist    ${SALWorkDir}/${subSystem}/labview/SALLV_${subSystem}_Monitor
 
-Salgen ATHexapod Java
+Salgen ATOODS Java
     [Documentation]    Generate Java wrapper.
     [Tags]    java
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    sal    java    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_positionStatus.idl
-    Should Contain X Times    ${output.stdout}    javac : Done Publisher    1
-    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    1
+    Should Contain    ${output.stdout}    WARNING : No Telemetry definitions found for ${subSystem}
     Directory Should Exist    ${SALWorkDir}/${subSystem}/java
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
     File Should Exist    ${SALWorkDir}/${subSystem}/java/saj_${subSystem}_types.jar
     File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
 
-Salgen ATHexapod Lib
+Salgen ATOODS Lib
     [Documentation]    Generate the SAL shared library for ${subSystem}
     [Tags]    lib
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    lib    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
@@ -283,7 +165,7 @@ Salgen ATHexapod Lib
     File Should Exist    ${SALWorkDir}/lib/saj_${subSystem}_types.jar
     File Should Exist    ${SALWorkDir}/lib/SALLV_${subSystem}.so
 
-Salgen ATHexapod RPM
+Salgen ATOODS RPM
     [Documentation]    Generate the SAL library RPM for ${subSystem}
     [Tags]    rpm
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    rpm    version\=${SALVersion}${Build_Number}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
@@ -320,7 +202,7 @@ Salgen ATHexapod RPM
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}-${SALVersion}${Build_Number}-${XMLVersion}${DIST}.x86_64.rpm
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}_test-${SALVersion}${Build_Number}-${XMLVersion}${DIST}.x86_64.rpm
 
-Salgen ATHexapod Maven
+Salgen ATOODS Maven
     [Documentation]    Generate the Maven repository.
     [Tags]    java
     ${maven}=    Set Variable    ${SAL_Version}_${XML_Version}${MavenVersion}
