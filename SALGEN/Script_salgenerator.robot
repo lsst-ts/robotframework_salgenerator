@@ -261,9 +261,11 @@ Salgen Script RPM
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    rpm    version\=${SALVersion}${Build_Number}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     @{files}=    List Directory    /tmp/
-    File Should Exist    /tmp/makerpm-runtime-${subSystem}.log
     File Should Exist    /tmp/makerpm_${subSystem}.log
     File Should Exist    /tmp/makerpm_${subSystem}_test.log
+    File Should Exist    /tmp/makerpm-utils.log
+    File Should Exist    /tmp/makerpm-meta.log
+    File Should Exist    /tmp/makerpm-atmeta.log
     Log File    /tmp/makerpm_${subSystem}.log
     Log File    /tmp/makerpm_${subSystem}_test.log
     Log File    /tmp/makerpm_utils.log

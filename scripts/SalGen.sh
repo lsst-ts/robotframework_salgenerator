@@ -365,9 +365,11 @@ function salgenRPM() {
 shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.txt    stderr=\${EXECDIR}\${/}\${subSystem}_stderr.txt" >> $testSuite
     echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
     echo "    @{files}=    List Directory    /tmp/" >> $testSuite
-    echo "    File Should Exist    /tmp/makerpm-runtime-\${subSystem}.log" >> $testSuite
     echo "    File Should Exist    /tmp/makerpm_\${subSystem}.log" >> $testSuite
     echo "    File Should Exist    /tmp/makerpm_\${subSystem}_test.log" >> $testSuite
+    echo "    File Should Exist    /tmp/makerpm-utils.log" >> $testSuite
+    echo "    File Should Exist    /tmp/makerpm-meta.log" >> $testSuite
+    echo "    File Should Exist    /tmp/makerpm-atmeta.log" >> $testSuite
     echo "    Log File    /tmp/makerpm_\${subSystem}.log" >> $testSuite
     echo "    Log File    /tmp/makerpm_\${subSystem}_test.log" >> $testSuite
     echo "    Log File    /tmp/makerpm_utils.log" >> $testSuite
