@@ -164,8 +164,8 @@ node {
                         sh 'echo "=== CSC RPM push complete ==="'
                     }//for
                     sh 'echo "=== Push ts_sal_utils RPM to Nexus3 yum repo ==="'
-                    sh 'aws s3 cp s3://sal-objects/daily/ts_sal_utils-' + SAL_Version + '_' + ${BUILD_NUMBER} + '-1.x86_64.rpm /tmp'
-                    sh 'curl -Ss -u $nexus_username:$nexus_passwd -T ${WORKSPACE}/RPMs/ts_sal_utils-' + SAL_Version + '_' + ${BUILD_NUMBER} + '-1.x86_64.rpm' + 
+                    sh 'aws s3 cp s3://sal-objects/daily/ts_sal_utils-' + SAL_Version + '_${BUILD_NUMBER}-1.x86_64.rpm /tmp'
+                    sh 'curl -Ss -u $nexus_username:$nexus_passwd -T ${WORKSPACE}/RPMs/ts_sal_utils-' + SAL_Version + '_${BUILD_NUMBER}-1.x86_64.rpm' + 
                         ' https://repo-nexus.lsst.org/nexus/repository/ts_yum/daily/'
                     sh 'echo "=== ts_sal_utils RPM push complete ==="'
                 }//else    
