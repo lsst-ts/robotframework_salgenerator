@@ -127,7 +127,7 @@ function revCodeDefinition() {
 
 function salgenCPP {
     echo "Salgen $subSystemUp C++" >> $testSuite
-    echo "    [Documentation]    Generate C++ wrapper." >> $testSuite
+    echo "    [Documentation]    Generate C++ libraries." >> $testSuite
     echo "    [Tags]    cpp" >> $testSuite
     echo "    \${output}=    Run Process    \${SALHome}/scripts/salgenerator    \${subSystem}    sal    cpp   \
 shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.txt    stderr=\${EXECDIR}\${/}\${subSystem}_stderr.txt" >> $testSuite
@@ -209,7 +209,7 @@ function verifyCppEventInterfaces() {
 function salgenJava() {
     skipped=$(checkIfSkipped $subSystem "java")
     echo "Salgen $subSystemUp Java" >> $testSuite
-    echo "    [Documentation]    Generate Java wrapper." >> $testSuite
+    echo "    [Documentation]    Generate Java libraries." >> $testSuite
     echo "    [Tags]    java$skipped" >> $testSuite
     echo "    \${output}=    Run Process    \${SALHome}/scripts/salgenerator    \${subSystem}    sal    java    \
 shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.txt    stderr=\${EXECDIR}\${/}\${subSystem}_stderr.txt" >> $testSuite
@@ -254,7 +254,7 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
 function salgenPython() {
     skipped=$(checkIfSkipped $subSystem "python")
     echo "Salgen $subSystemUp Python" >> $testSuite
-    echo "    [Documentation]    Generate Python wrapper." >> $testSuite
+    echo "    [Documentation]    Generate Python libraries." >> $testSuite
     echo "    [Tags]    python$skipped" >> $testSuite
     echo "    \${output}=    Run Process    \${SALHome}/scripts/salgenerator    \${subSystem}    sal    python    \
 shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.txt    stderr=\${EXECDIR}\${/}\${subSystem}_stderr.txt" >> $testSuite
