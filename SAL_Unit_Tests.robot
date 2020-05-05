@@ -22,7 +22,7 @@ Verify Python Unit Tests
 Verify Java Camera Unit Tests
     [Documentation]    Run the Java Camera unit tests.
     [Tags]    smoke
-    ${output}=    Run Process    mvn test   shell=True    cwd=${SALInstall}${/}camera-tests    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
+    ${output}=    Run Process    mvn test   -B    shell=True    cwd=${SALInstall}${/}camera-tests    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Not Contain    ${output.stdout}    BUILD FAILURE
     Should Not Contain    ${output.stdout}    [ERROR]
