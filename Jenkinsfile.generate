@@ -43,28 +43,23 @@ node {
                 echo "The Maven version: " + MavenVersion
             }
             stage('Copy XML files') {
-                sh label: 'XML files', script: '#!/bin/bash \n' + 'cp -v ${WORKSPACE}/XML/sal_interfaces/*/*.xml SAL/test'
-                sh label: 'SAL Subsystems', script: '#!/bin/bash \n' + 'cp -v ${WORKSPACE}/XML/sal_interfaces/SALSubsystems.xml SAL/test'
-                sh label: 'SAL Generics', script: '#!/bin/bash \n' + 'cp -v ${WORKSPACE}/XML/sal_interfaces/SALGenerics.xml SAL/test'
-                sh label: 'XML Version', script: '#!/bin/bash \n' + 'cp -v ${WORKSPACE}/XML/VERSION SAL/test'
-                sh label: 'DDS QoS settings', script: '#!/bin/bash \n' + 'cp -v ${WORKSPACE}/SAL/lsstsal/scripts/DDS_DefaultQoS_All.xml SAL/test'
+                sh label: 'XML files', script: '#!/bin/bash -x\n' + 'cp -v ${WORKSPACE}/XML/sal_interfaces/*/*.xml SAL/test'
+                sh label: 'SAL Subsystems', script: '#!/bin/bash -x \n' + 'cp -v ${WORKSPACE}/XML/sal_interfaces/SALSubsystems.xml SAL/test'
+                sh label: 'SAL Generics', script: '#!/bin/bash -x \n' + 'cp -v ${WORKSPACE}/XML/sal_interfaces/SALGenerics.xml SAL/test'
+                sh label: 'XML Version', script: '#!/bin/bash -x \n' + 'cp -v ${WORKSPACE}/XML/VERSION SAL/test'
+                sh label: 'DDS QoS settings', script: '#!/bin/bash -x \n' + 'cp -v ${WORKSPACE}/SAL/lsstsal/scripts/DDS_DefaultQoS_All.xml SAL/test'
             }
             stage('Install IDL and XML python libraries') {
-                sh label: 'IDL library', script: '#!/bin/bash \n' + 'cd IDL && pip install --user .'
-                sh label: 'XML library', script: '#!/bin/bash \n' + 'cd XML && pip install --user .'
+                sh label: 'IDL library', script: '#!/bin/bash -x \n' + 'cd IDL && pip install --user .'
+                sh label: 'XML library', script: '#!/bin/bash -x \n' + 'cd XML && pip install --user .'
             }
             stage('Validate') {
                 // Validate the SAL/XML state using Test/Script CSCs
-                sh label: 'Validate', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' +
+                sh label: 'Validate', script: '#!/bin/bash -x \n' + 'source ' + _home + '/.bash_profile \n' +
                 'echo ========= Move to robotframework_salgenerator directory ========= \n' +
                 'echo cd ' + _home + '/trunk/robotframework_salgenerator \n' +
                 'cd ' + _home + '/trunk/robotframework_salgenerator \n' +
                 'pwd \n' +
-                'echo robot --variable ContInt:true -e skipped --noncritical TSS* --noncritical DM* --variable SALVersion:' + SAL_Version + ' ' + 
-                    '--variable SALInstall:' + _home + '/trunk/ts_sal --variable OpenspliceRelease:\'OpenSplice HDE Release\' '  + 
-                    '--variable OpenspliceVersion:6.9.181127OSS --variable OpenspliceDate:2018-11-28 --variable PythonVersion:\'Python ' + _python_version + '\' ' + 
-                    '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:_${BUILD_NUMBER} ' + 
-                    '--name Validate --output VALIDATE --outputdir ' + _home + '/Reports -A ' + _home + '/trunk/robotframework_salgenerator/Test_SalGen.list \n' +
                 'robot --variable ContInt:true -e skipped --noncritical TSS* --noncritical DM* --variable SALVersion:' + SAL_Version + ' ' +
                     '--variable SALInstall:' + _home + '/trunk/ts_sal --variable OpenspliceRelease:\'OpenSplice HDE Release\' ' + 
                     '--variable OpenspliceVersion:6.9.181127OSS --variable OpenspliceDate:2018-11-28 --variable PythonVersion:\'Python ' + _python_version + '\' ' +
@@ -76,17 +71,12 @@ node {
                 parallel (
                     'AuxTel': {
                         // Generate the AuxTel CSC RPMs
-                        sh label: 'AuxTel', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' +
+                        sh label: 'AuxTel', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' + 'set -x \n' +
                         'echo ========= Move to robotframework_salgenerator directory ========= \n' +
                         'echo cd ' + _home + '/trunk/robotframework_salgenerator \n' +
                         'cd ' + _home + '/trunk/robotframework_salgenerator \n' +
                         'pwd \n' +
                         'echo ========= Execute AuxTel salgenerator tests ========= \n' +
-                        'echo robot --variable ContInt:true -e skipped --noncritical TSS* --noncritical DM* --variable SALVersion:' + SAL_Version + ' ' +
-                            '--variable SALInstall:' + _home + '/trunk/ts_sal --variable OpenspliceRelease:\'OpenSplice HDE Release\' '  +
-                            '--variable OpenspliceVersion:6.9.181127OSS --variable OpenspliceDate:2018-11-28 --variable PythonVersion:\'Python ' + _python_version + '\' ' +
-                            '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:_${BUILD_NUMBER} ' +
-                            '--name AuxTel --output AUXTEL --outputdir ' + _home + '/Reports -A ' + _home + '/trunk/robotframework_salgenerator/AT_SalGen.list \n' +
                         'robot --variable ContInt:true -e skipped --noncritical TSS* --noncritical DM* --variable SALVersion:' + SAL_Version + ' ' +
                             '--variable SALInstall:' + _home + '/trunk/ts_sal --variable OpenspliceRelease:\'OpenSplice HDE Release\' ' +
                             '--variable OpenspliceVersion:6.9.181127OSS --variable OpenspliceDate:2018-11-28 --variable PythonVersion:\'Python ' + _python_version + '\' ' +
@@ -96,17 +86,12 @@ node {
                     },//AuxTel
                 'MainTel': {
                     // Generate the MainTel CSC RPMs
-                    sh label: 'MainTel', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' +
+                    sh label: 'MainTel', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' + 'set -x \n' +
                     'echo ========= Move to robotframework_salgenerator directory ========= \n' +
                     'echo cd ' + _home + '/trunk/robotframework_salgenerator \n' +
                     'cd ' + _home + '/trunk/robotframework_salgenerator \n' +
                     'pwd \n' +
                     'echo ========= Execute MainTel salgenerator tests ========= \n' +
-                    'echo robot --variable ContInt:true -e skipped --noncritical TSS* --noncritical DM* --variable SALVersion:' + SAL_Version + ' ' +
-                        '--variable SALInstall:' + _home + '/trunk/ts_sal --variable OpenspliceRelease:\'OpenSplice HDE Release\' '  +
-                        '--variable OpenspliceVersion:6.9.181127OSS --variable OpenspliceDate:2018-11-28 --variable PythonVersion:\'Python ' + _python_version + '\' ' +
-                        '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:_${BUILD_NUMBER} ' +
-                        '--name MainTel --output MAINTEL --outputdir ' + _home + '/Reports -A ' + _home + '/trunk/robotframework_salgenerator/MT_SalGen.list \n' +
                     'robot --variable ContInt:true -e skipped --noncritical TSS* --noncritical DM* --variable SALVersion:' + SAL_Version + ' ' +
                         '--variable SALInstall:' + _home + '/trunk/ts_sal --variable OpenspliceRelease:\'OpenSplice HDE Release\' ' +
                         '--variable OpenspliceVersion:6.9.181127OSS --variable OpenspliceDate:2018-11-28 --variable PythonVersion:\'Python ' + _python_version + '\' ' +
@@ -117,19 +102,19 @@ node {
                 )//parallel
             }//Generate_RPMs
             stage('Process Results') {
-                sh label: 'Results', script: '#!/bin/bash \n' + 'echo "# Check for output files."\n' +
+                sh label: 'Results', script: '#!/bin/bash -x \n' + 'echo "# Check for output files."\n' +
                 'declare -a outputs=(VALIDATE.xml AUXTEL.xml MAINTEL.xml)\n' + 'echo ${outputs[@]}\n' +
                 'i=0\n echo i=$i\n' + 'for item in "${outputs[@]}"; do\n' +
-                '\tif test -f ' + _home + '/Reports/$item; then array[$i]=' + _home + '/Reports/$item; else echo ' + 
+                '\tif test -f ' + _home + '/Reports/$item; then array[$i]=' + _home + '/Reports/$item; else echo ' +
                     _home + '/Reports/$item does not exist!; fi\n' +
-                '\t(( i++ ))\n' + 'done\n' + 
+                '\t(( i++ ))\n' + 'done\n' +
                 'echo ========= Generate the reports =========\n' +
                 'rebot --nostatusrc --noncritical TSS* --noncritical DM* --outputdir ' + _home + '/Reports --name RPM_Generation -o rpm_output.xml -l rpm_log.html ' +
                 '-r rpm_report.html ${array[@]} \n' +
                 'echo Robot results complete'
             }
             stage('Push Java artifacts') {
-                sh label: 'Java Artifacts', script: '#!/bin/bash \n' + 
+                sh label: 'Java Artifacts', script: '#!/bin/bash -x \n' + 
                 'cd ' + _home + '/trunk/ts_sal/test/maven/ATCamera_' + SAL_Version + '_' + XML_Version + MavenVersion + ' \n' +
                 'mvn -DskipTests=true deploy \n' +
                 'cd ' + _home + '/trunk/ts_sal/test/maven/CCCamera_' + SAL_Version + '_' + XML_Version + MavenVersion + ' \n' +
@@ -139,13 +124,13 @@ node {
                 'echo  "=== Java push complete ==="'
             }//Java artifacts
             stage('Push RPMs to AWS S3 bucket') {
-                sh 'aws s3 cp ' + _home + '/trunk/ts_sal/test/rpmbuild/RPMS/x86_64/ s3://sal-objects/daily ' +
+                sh label: 'Push RPMs to AWS', script: '#!/bin/bash -x', 'aws s3 cp ' + _home + '/trunk/ts_sal/test/rpmbuild/RPMS/x86_64/ s3://sal-objects/daily ' +
                     '--acl public-read --recursive --exclude "dbsimulate/*" --exclude "salgenerator/*"'
                 println('Pushed RPMs to S3 bucket')
             }
             stage('Push RPMs to Nexus3') {
                 def RPM_LIST = sh (
-                    script: 'aws s3 ls s3://sal-objects/daily/ |grep -v debuginfo |grep ' + SAL_Version + 
+                    sh label: 'Push RPMs to Nexus3', script: '#!/bin/bash -x\n' + 'aws s3 ls s3://sal-objects/daily/ |grep -v debuginfo |grep ' + SAL_Version + 
                         ' |grep ' + XML_Version + ' |grep _${BUILD_NUMBER}- |cut -c 32-',
                         returnStdout: true
                     ).trim()
@@ -157,15 +142,15 @@ node {
                 } else {
 	            // Iterate over RPMs and push to Nexus3 yum repo.
 	            for(file in array) {
-                        sh 'echo "========= Downloading ' + file + ' from s3 bucket ========="'
-                        sh 'aws s3 cp s3://sal-objects/daily/' + file + ' /tmp'
+                        sh 'echo "========= Downloading RPM from s3 bucket ========="'
+                        sh 'set -x ; aws s3 cp s3://sal-objects/daily/' + file + ' /tmp'
                         sh 'echo "=== Pushing RPM to Nexus3 yum repo ==="'
-                        sh 'curl -Ss -u $nexus_username:$nexus_passwd -T ${WORKSPACE}/RPMs/' + file + ' https://repo-nexus.lsst.org/nexus/repository/ts_yum/daily/'
+                        sh 'set -x ; curl -Ss -u $nexus_username:$nexus_passwd -T ${WORKSPACE}/RPMs/' + file + ' https://repo-nexus.lsst.org/nexus/repository/ts_yum/daily/'
                         sh 'echo "=== CSC RPM push complete ==="'
                     }//for
                     sh 'echo "=== Push ts_sal_utils RPM to Nexus3 yum repo ==="'
-                    sh 'aws s3 cp s3://sal-objects/daily/ts_sal_utils-' + SAL_Version + '_${BUILD_NUMBER}-1.x86_64.rpm /tmp'
-                    sh 'curl -Ss -u $nexus_username:$nexus_passwd -T ${WORKSPACE}/RPMs/ts_sal_utils-' + SAL_Version + '_${BUILD_NUMBER}-1.x86_64.rpm' + 
+                    sh 'set -x ; aws s3 cp s3://sal-objects/daily/ts_sal_utils-' + SAL_Version + '_${BUILD_NUMBER}-1.x86_64.rpm /tmp'
+                    sh 'set -x ; curl -Ss -u $nexus_username:$nexus_passwd -T ${WORKSPACE}/RPMs/ts_sal_utils-' + SAL_Version + '_${BUILD_NUMBER}-1.x86_64.rpm' + 
                         ' https://repo-nexus.lsst.org/nexus/repository/ts_yum/daily/'
                     sh 'echo "=== ts_sal_utils RPM push complete ==="'
                 }//else    
