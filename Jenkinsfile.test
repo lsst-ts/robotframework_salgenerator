@@ -52,9 +52,9 @@ pipeline {
         }//Git repos
         stage('Define SAL and XML version variables') {
             steps {
-                SAL_Version = readFile("${WORKSPACE}/SAL/VERSION").trim()
-                XML_Version = readFile("${WORKSPACE}/XML/VERSION").trim()
-                MavenVersion = '-SNAPSHOT'
+                def SAL_Version = readFile("${WORKSPACE}/SAL/VERSION").trim()
+                def XML_Version = readFile("${WORKSPACE}/XML/VERSION").trim()
+                def MavenVersion = '-SNAPSHOT'
                 echo "The SAL version: " + SAL_Version
                 echo "The XML version: " + XML_Version
                 echo "The Maven version: " + MavenVersion
@@ -87,7 +87,7 @@ pipeline {
                     '--variable SALInstall:' + _home + '/trunk/ts_sal --variable OpenspliceRelease:\'OpenSplice HDE Release\' ' + 
                     '--variable OpenspliceVersion:6.9.181127OSS --variable OpenspliceDate:2018-11-28 --variable PythonVersion:\'Python ' + _python_version + '\' ' +
                     '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:_${BUILD_NUMBER} ' + 
-                    '--name Validate --output VALIDATE --outputdir ' + _home + '/Reports -A ' + _home + '/trunk/robotframework_salgenerator/Test_SalGen.list'
+                    '--name Validate --output VALIDATE --outputdir ' + _home + '/Reports -A ' + _home + '/trunk/robotframework_salgenerator/Test_SalGen.list \n' +
                 'echo Validation complete'
             }
         }//Validate
