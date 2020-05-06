@@ -124,7 +124,8 @@ node {
                 'echo  "=== Java push complete ==="'
             }//Java artifacts
             stage('Push RPMs to AWS S3 bucket') {
-                sh label: 'Push RPMs to AWS', script: '#!/bin/bash -x', 'aws s3 cp ' + _home + '/trunk/ts_sal/test/rpmbuild/RPMS/x86_64/ s3://sal-objects/daily ' +
+                sh label: 'Push RPMs to AWS', script: '#!/bin/bash -x' + 
+                    'aws s3 cp ' + _home + '/trunk/ts_sal/test/rpmbuild/RPMS/x86_64/ s3://sal-objects/daily ' +
                     '--acl public-read --recursive --exclude "dbsimulate/*" --exclude "salgenerator/*"'
                 println('Pushed RPMs to S3 bucket')
             }
