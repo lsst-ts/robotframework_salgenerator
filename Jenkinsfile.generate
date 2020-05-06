@@ -130,10 +130,11 @@ node {
             }
             stage('Push RPMs to Nexus3') {
                 def RPM_LIST = sh (
-                    sh label: 'Push RPMs to Nexus3', script: '#!/bin/bash -x\n' + 'aws s3 ls s3://sal-objects/daily/ |grep -v debuginfo |grep ' + SAL_Version + 
-                        ' |grep ' + XML_Version + ' |grep _${BUILD_NUMBER}- |cut -c 32-',
-                        returnStdout: true
-                    ).trim()
+                    label: 'Push RPMs to Nexus3', script: '#!/bin/bash -x\n' + 
+                    'aws s3 ls s3://sal-objects/daily/ |grep -v debuginfo |grep ' + SAL_Version + 
+                    ' |grep ' + XML_Version + ' |grep _${BUILD_NUMBER}- |cut -c 32-',
+                    returnStdout: true
+                ).trim()
                 def array = RPM_LIST.split('\n')
                 println("Groovy variable: " + array)
                 if (array[0] == null) {
