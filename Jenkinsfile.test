@@ -56,7 +56,7 @@ pipeline {
                 XML_Version = readFile("${WORKSPACE}/XML/VERSION").trim()
                 if (env.BRANCH_NAME == 'develop') {
                     MavenVersion = '-SNAPSHOT'
-                else
+                } else {
                     MavenVersion = ''
                 }
             }
