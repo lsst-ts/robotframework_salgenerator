@@ -51,10 +51,16 @@ pipeline {
             }
         }//Git repos
         stage('Define SAL and XML version variables') {
+            script {
+                SAL_Version = readFile("${WORKSPACE}/SAL/VERSION").trim()
+                XML_Version = readFile("${WORKSPACE}/XML/VERSION").trim()
+                if (env.BRANCH_NAME == 'develop') {
+                    MavenVersion = '-SNAPSHOT'
+                else
+                    MavenVersion = ''
+                }
+            }
             steps {
-                def SAL_Version = readFile("${WORKSPACE}/SAL/VERSION").trim()
-                def XML_Version = readFile("${WORKSPACE}/XML/VERSION").trim()
-                def MavenVersion = '-SNAPSHOT'
                 echo "The SAL version: " + SAL_Version
                 echo "The XML version: " + XML_Version
                 echo "The Maven version: " + MavenVersion
