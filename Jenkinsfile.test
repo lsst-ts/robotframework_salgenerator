@@ -29,28 +29,6 @@ pipeline {
                 println("The container user home dir: " + _home);
             }
         }//Variables
-        stage('Cleanup') {
-            steps {
-                // Clean the workspace from the previous build
-                dir('Reports') {
-                    deleteDir()
-                }
-                dir('RPMs') {
-                    deleteDir()
-                }
-                dir('SAL') {
-                    deleteDir()
-                }
-                dir('XML') {
-                    deleteDir()
-                }    
-                dir('IDL') {
-                    deleteDir()
-                }
-                sh 'mkdir -p -m 777 RPMs'
-                sh 'mkdir -p -m 777 Reports'
-            }
-        }
         stage('Pull Git repos') {
             steps {
                 // Get some code from a GitHub repository
@@ -65,12 +43,13 @@ pipeline {
                 script {
                     SAL_Version = readFile("${WORKSPACE}/SAL/VERSION").trim()
                     XML_Version = readFile("${WORKSPACE}/XML/VERSION").trim()
-                    if (env.BRANCH_NAME == 'develop') {
-                        MavenVersion = '-SNAPSHOT'
-                    } else {
+                    if ("${GIT_BRANCH}" == 'master') {
                         MavenVersion = ''
+                    } else {
+                        MavenVersion = '-SNAPSHOT'
                     }
                 }
+                echo "The Branch Name: ${GIT_BRANCH}"
                 echo "The SAL version: " + SAL_Version
                 echo "The XML version: " + XML_Version
                 echo "The Maven version: " + MavenVersion
@@ -104,7 +83,7 @@ pipeline {
                     '--variable OpenspliceVersion:6.9.181127OSS --variable OpenspliceDate:2018-11-28 --variable PythonVersion:\'Python ' + _python_version + '\' ' +
                     '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:_${BUILD_NUMBER} ' + 
                     '--name Validate --output VALIDATE --outputdir ' + _home + '/Reports -A ' + _home + '/trunk/robotframework_salgenerator/Test_SalGen.list \n' +
-                'echo Validation complete'
+                'if [ $? == 0 ]; then echo Validation complete; else exit $?; fi'
             }
         }//Validate
     }//stages
