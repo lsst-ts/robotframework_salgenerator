@@ -32,7 +32,6 @@ pipeline {
         stage('Cleanup') {
             steps {
                 // Clean the workspace from the previous build
-                cleanWs()
                 sh 'mkdir RPMs'
                 sh 'mkdir SAL'
                 sh 'mkdir XML'
