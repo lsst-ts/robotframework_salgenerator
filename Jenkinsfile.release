@@ -201,7 +201,8 @@ node {
             stage('Push RPMs to Nexus3') {
                 if (Push == 'true') {
                     def RPM_LIST = sh (
-                        sh label: 'Push RPMs to Nexus3', script: '#!/bin/bash -x\n' + 'aws s3 ls s3://sal-objects/master/ |grep -v debuginfo |grep ' + SAL_Version + 
+                        sh label: 'Push RPMs to Nexus3', script: '#!/bin/bash -x\n' + 
+                            'aws s3 ls s3://sal-objects/master/ |grep -v debuginfo |grep ' + SAL_Version + 
                             ' |grep ' + XML_Version + ' |cut -c 32-',
                             returnStdout: true
                         ).trim()
