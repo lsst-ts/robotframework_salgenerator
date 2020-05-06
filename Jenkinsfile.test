@@ -32,12 +32,23 @@ pipeline {
         stage('Cleanup') {
             steps {
                 // Clean the workspace from the previous build
-                sh 'mkdir RPMs'
-                sh 'mkdir SAL'
-                sh 'mkdir XML'
-                sh 'mkdir IDL'
-                sh 'mkdir rbtsalgen'
-                sh 'mkdir Reports'
+                dir('Reports') {
+                    deleteDir()
+                }
+                dir('RPMs') {
+                    deleteDir()
+                }
+                dir('SAL') {
+                    deleteDir()
+                }
+                dir('XML') {
+                    deleteDir()
+                }    
+                dir('IDL') {
+                    deleteDir()
+                }
+                sh 'mkdir -p -m 777 RPMs'
+                sh 'mkdir -p -m 777 Reports'
             }
         }
         stage('Pull Git repos') {
