@@ -24,58 +24,72 @@ pipeline {
     }
     stages {
         stage('Print Variables') {
-            println("The container user: " + _user);
-            println("The container user home dir: " + _home);
+            steps {
+                println("The container user: " + _user);
+                println("The container user home dir: " + _home);
+            }
         }//Variables
         stage('Cleanup') {
-            // Clean the workspace from the previous build
-            cleanWs()
-            sh 'mkdir RPMs'
-            sh 'mkdir SAL'
-            sh 'mkdir XML'
-            sh 'mkdir IDL'
-            sh 'mkdir rbtsalgen'
-            sh 'mkdir Reports'
+            steps {
+                // Clean the workspace from the previous build
+                cleanWs()
+                sh 'mkdir RPMs'
+                sh 'mkdir SAL'
+                sh 'mkdir XML'
+                sh 'mkdir IDL'
+                sh 'mkdir rbtsalgen'
+                sh 'mkdir Reports'
+            }
         }
         stage('Pull Git repos') {
-            // Get some code from a GitHub repository
-            checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/develop']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'SAL']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/ts_sal']]]
-            checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/develop']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'XML']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/ts_xml']]]
-            checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/develop']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'IDL']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/ts_idl']]]
-            checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/develop']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'rbtsalgen']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/robotframework_salgenerator']]]
+            steps {
+                // Get some code from a GitHub repository
+                checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/develop']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'SAL']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/ts_sal']]]
+                checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/develop']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'XML']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/ts_xml']]]
+                checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/develop']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'IDL']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/ts_idl']]]
+                checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/develop']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'rbtsalgen']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/robotframework_salgenerator']]]
+            }
         }//Git repos
         stage('Define SAL and XML version variables') {
-            SAL_Version = readFile("${WORKSPACE}/SAL/VERSION").trim()
-            XML_Version = readFile("${WORKSPACE}/XML/VERSION").trim()
-            MavenVersion = '-SNAPSHOT'
-            echo "The SAL version: " + SAL_Version
-            echo "The XML version: " + XML_Version
-            echo "The Maven version: " + MavenVersion
+            steps {
+                SAL_Version = readFile("${WORKSPACE}/SAL/VERSION").trim()
+                XML_Version = readFile("${WORKSPACE}/XML/VERSION").trim()
+                MavenVersion = '-SNAPSHOT'
+                echo "The SAL version: " + SAL_Version
+                echo "The XML version: " + XML_Version
+                echo "The Maven version: " + MavenVersion
+            }
         }//Define SAL & XML variables
         stage('Copy XML files') {
-            sh label: 'XML files', script: '#!/bin/bash -x\n' + 'cp -v ${WORKSPACE}/XML/sal_interfaces/*/*.xml SAL/test'
-            sh label: 'SAL Subsystems', script: '#!/bin/bash -x \n' + 'cp -v ${WORKSPACE}/XML/sal_interfaces/SALSubsystems.xml SAL/test'
-            sh label: 'SAL Generics', script: '#!/bin/bash -x \n' + 'cp -v ${WORKSPACE}/XML/sal_interfaces/SALGenerics.xml SAL/test'
-            sh label: 'XML Version', script: '#!/bin/bash -x \n' + 'cp -v ${WORKSPACE}/XML/VERSION SAL/test'
-            sh label: 'DDS QoS settings', script: '#!/bin/bash -x \n' + 'cp -v ${WORKSPACE}/SAL/lsstsal/scripts/DDS_DefaultQoS_All.xml SAL/test'
+            steps {
+                sh label: 'XML files', script: '#!/bin/bash -x\n' + 'cp -v ${WORKSPACE}/XML/sal_interfaces/*/*.xml SAL/test'
+                sh label: 'SAL Subsystems', script: '#!/bin/bash -x \n' + 'cp -v ${WORKSPACE}/XML/sal_interfaces/SALSubsystems.xml SAL/test'
+                sh label: 'SAL Generics', script: '#!/bin/bash -x \n' + 'cp -v ${WORKSPACE}/XML/sal_interfaces/SALGenerics.xml SAL/test'
+                sh label: 'XML Version', script: '#!/bin/bash -x \n' + 'cp -v ${WORKSPACE}/XML/VERSION SAL/test'
+                sh label: 'DDS QoS settings', script: '#!/bin/bash -x \n' + 'cp -v ${WORKSPACE}/SAL/lsstsal/scripts/DDS_DefaultQoS_All.xml SAL/test'
+            }
         }//Copy XML
         stage('Install IDL and XML python libraries') {
-            sh label: 'IDL library', script: '#!/bin/bash -x \n' + 'cd IDL && pip install --user .'
-            sh label: 'XML library', script: '#!/bin/bash -x \n' + 'cd XML && pip install --user .'
+            steps {
+                sh label: 'IDL library', script: '#!/bin/bash -x \n' + 'cd IDL && pip install --user .'
+                sh label: 'XML library', script: '#!/bin/bash -x \n' + 'cd XML && pip install --user .'
+            }
         }//IDL & XML
         stage('Validate') {
-            // Validate the SAL/XML state using Test/Script CSCs
-            sh label: 'Validate', script: '#!/bin/bash -x \n' + 'source ' + _home + '/.bash_profile \n' +
-            'echo ========= Move to robotframework_salgenerator directory ========= \n' +
-            'echo cd ' + _home + '/trunk/robotframework_salgenerator \n' +
-            'cd ' + _home + '/trunk/robotframework_salgenerator \n' +
-            'pwd \n' +
-            'robot --variable ContInt:true -e skipped --noncritical TSS* --noncritical DM* --variable SALVersion:' + SAL_Version + ' ' +
-                '--variable SALInstall:' + _home + '/trunk/ts_sal --variable OpenspliceRelease:\'OpenSplice HDE Release\' ' + 
-                '--variable OpenspliceVersion:6.9.181127OSS --variable OpenspliceDate:2018-11-28 --variable PythonVersion:\'Python ' + _python_version + '\' ' +
-                '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:_${BUILD_NUMBER} ' + 
-                '--name Validate --output VALIDATE --outputdir ' + _home + '/Reports -A ' + _home + '/trunk/robotframework_salgenerator/Test_SalGen.list'
-            'echo Validation complete'
+            steps {
+                // Validate the SAL/XML state using Test/Script CSCs
+                sh label: 'Validate', script: '#!/bin/bash -x \n' + 'source ' + _home + '/.bash_profile \n' +
+                'echo ========= Move to robotframework_salgenerator directory ========= \n' +
+                'echo cd ' + _home + '/trunk/robotframework_salgenerator \n' +
+                'cd ' + _home + '/trunk/robotframework_salgenerator \n' +
+                'pwd \n' +
+                'robot --variable ContInt:true -e skipped --noncritical TSS* --noncritical DM* --variable SALVersion:' + SAL_Version + ' ' +
+                    '--variable SALInstall:' + _home + '/trunk/ts_sal --variable OpenspliceRelease:\'OpenSplice HDE Release\' ' + 
+                    '--variable OpenspliceVersion:6.9.181127OSS --variable OpenspliceDate:2018-11-28 --variable PythonVersion:\'Python ' + _python_version + '\' ' +
+                    '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:_${BUILD_NUMBER} ' + 
+                    '--name Validate --output VALIDATE --outputdir ' + _home + '/Reports -A ' + _home + '/trunk/robotframework_salgenerator/Test_SalGen.list'
+                'echo Validation complete'
+            }
         }//Validate
     }//stages
 }//pipeline
