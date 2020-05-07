@@ -116,15 +116,15 @@ node {
             stage('Push Java artifacts') {
                 sh label: 'Java Artifacts', script: '#!/bin/bash -x \n' + 
                 'cd ' + _home + '/trunk/ts_sal/test/maven/ATCamera_' + SAL_Version + '_' + XML_Version + MavenVersion + ' \n' +
-                'mvn -DskipTests=true deploy \n' +
+                'mvn -DskipTests=true -B deploy \n' +
                 'cd ' + _home + '/trunk/ts_sal/test/maven/CCCamera_' + SAL_Version + '_' + XML_Version + MavenVersion + ' \n' +
-                'mvn -DskipTests=true deploy \n' +
+                'mvn -DskipTests=true -B deploy \n' +
                 'cd ' + _home + '/trunk/ts_sal/test/maven/MTCamera_' + SAL_Version + '_' + XML_Version + MavenVersion + ' \n' +
-                'mvn -DskipTests=true deploy \n' +
+                'mvn -DskipTests=true -B deploy \n' +
                 'echo  "=== Java push complete ==="'
             }//Java artifacts
             stage('Push RPMs to AWS S3 bucket') {
-                sh label: 'Push RPMs to AWS', script: '#!/bin/bash -x' + 
+                sh label: 'Push RPMs to AWS', script: '#!/bin/bash -x \n' + 
                     'aws s3 cp ' + _home + '/trunk/ts_sal/test/rpmbuild/RPMS/x86_64/ s3://sal-objects/daily ' +
                     '--acl public-read --recursive --exclude "dbsimulate/*" --exclude "salgenerator/*"'
                 println('Pushed RPMs to S3 bucket')
