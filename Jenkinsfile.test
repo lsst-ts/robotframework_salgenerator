@@ -161,7 +161,7 @@ pipeline {
                         'exit 0'
                     }
                 }//CppEvents
-            )//parallel
+            }//parallel
         }//RunCppMessagingTests
         stage('Process Results') {
             steps {
