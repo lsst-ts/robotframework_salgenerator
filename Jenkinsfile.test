@@ -86,5 +86,27 @@ pipeline {
                 'if [ $? == 0 ]; then echo Validation complete; else exit $?; fi'
             }
         }//Validate
+        stage('Process Results') {
+            steps {
+                sh label: 'Results', script: '#!/bin/bash -x \n' + 'echo "# Check for output files."\n' +
+                'declare -a outputs=(VALIDATE.xml AUXTEL.xml MAINTEL.xml)\n' + 'echo ${outputs[@]}\n' +
+                'i=0\n echo i=$i\n' + 'for item in "${outputs[@]}"; do\n' +
+                '\tif test -f ' + _home + '/Reports/$item; then array[$i]=' + _home + '/Reports/$item; else echo ' +
+                    _home + '/Reports/$item does not exist!; fi\n' +
+                '\t(( i++ ))\n' + 'done\n' +
+                'echo ========= Generate the reports =========\n' +
+                'rebot --nostatusrc --noncritical TSS* --noncritical DM* --outputdir ' + _home + '/Reports --name RPM_Generation -o rpm_output.xml -l rpm_log.html ' +
+                '-r rpm_report.html ${array[@]} \n' +
+                'echo Robot results complete'
+            }
+        }//Robot Results
     }//stages
+    post { 
+        always {
+            robot outputPath: 'Reports', logFileName: 'rpm_log.html', outputFileName: 'rpm_output.xml', reportFileName: 'rpm_report.html', passThreshold: 100.0, unstableThreshold: 95.0
+        }
+        success {
+            build job: 'linked_job', parameters: [string(name: 'TEST', value: 'TRIGGERED')], wait: false
+        }
+    }
 }//pipeline
