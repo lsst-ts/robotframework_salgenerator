@@ -18,7 +18,9 @@ pipeline {
             image 'lsstts/robotsal:python376'
             args '-w ' + _home + ' -e AWS_ACCESS_KEY_ID=$aws_key_id -e AWS_SECRET_ACCESS_KEY=$aws_secret_key ' + 
             '-e NEXUS_USER=$nexus_username -e NEXUS_PASS=$nexus_passwd ' +
-            '-v ${WORKSPACE}/SAL:' + _home + '/trunk/ts_sal -v ${WORKSPACE}/rbtsalgen:' + _home + '/trunk/robotframework_salgenerator ' +
+            '-v ${WORKSPACE}/SAL:' + _home + '/trunk/ts_sal ' +
+            '-v ${WORKSPACE}/rbtsalgen:' + _home + '/trunk/robotframework_salgenerator ' +
+            '-v ${WORKSPACE}/rbtsalmsg:' + _home + '/trunk/robotframework_SAL ' +
             '-v ${WORKSPACE}/RPMs:/tmp -v ${WORKSPACE}/Reports:' + _home + '/Reports'
          }
     }
@@ -31,11 +33,12 @@ pipeline {
         }//Variables
         stage('Pull Git repos') {
             steps {
-                // Get some code from a GitHub repository
+                // Checkout the SAL, XML, IDL and Salgenerator and SAL Messaging test repos.
                 checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/develop']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'SAL']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/ts_sal']]]
                 checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/develop']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'XML']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/ts_xml']]]
                 checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/develop']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'IDL']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/ts_idl']]]
                 checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/develop']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'rbtsalgen']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/robotframework_salgenerator']]]
+                checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/develop']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'rbtsalmsg']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/robotframework_SAL']]]
             }
         }//Git repos
         stage('Define SAL and XML version variables') {
@@ -105,7 +108,7 @@ pipeline {
                             '--variable OpenspliceVersion:6.9.181127OSS --variable OpenspliceDate:2018-11-28 --variable PythonVersion:\'Python ' + _python_version + '\' ' +
                             '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:_${BUILD_NUMBER} ' +
                             '--name AuxTel --output AUXTEL --outputdir ' + _home + '/Reports -A ' + _home + '/trunk/robotframework_salgenerator/AT_SalGen.list \n' +
-                        'if [ $? == 0 ]; then echo AuxTel generation complete; else exit $?; fi'
+                        'exit 0' 
                     }
                 }//AuxTel
                 stage('MainTel') {
@@ -122,7 +125,7 @@ pipeline {
                             '--variable OpenspliceVersion:6.9.181127OSS --variable OpenspliceDate:2018-11-28 --variable PythonVersion:\'Python ' + _python_version + '\' ' +
                             '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:_${BUILD_NUMBER} ' +
                             '--name MainTel --output MAINTEL --outputdir ' + _home + '/Reports -A ' + _home + '/trunk/robotframework_salgenerator/MT_SalGen.list \n' +
-                        'if [ $? == 0 ]; then echo MainTel generation complete; else exit $?; fi'
+                        'exit 0'
                     }
                 }//MainTel
             }//parallel
