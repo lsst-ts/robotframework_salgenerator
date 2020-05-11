@@ -76,7 +76,7 @@ Salgen CCArchiver IDL
     Log Many    @{files}
 
 Salgen CCArchiver C++
-    [Documentation]    Generate C++ wrapper.
+    [Documentation]    Generate C++ libraries.
     [Tags]    cpp
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    sal    cpp   shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
@@ -112,7 +112,7 @@ Verify CCArchiver C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_imageInOODS_log
 
 Salgen CCArchiver Python
-    [Documentation]    Generate Python wrapper.
+    [Documentation]    Generate Python libraries.
     [Tags]    python
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    sal    python    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
@@ -158,7 +158,7 @@ Salgen CCArchiver LabVIEW
     File Should Exist    ${SALWorkDir}/${subSystem}/labview/SALLV_${subSystem}_Monitor
 
 Salgen CCArchiver Java
-    [Documentation]    Generate Java wrapper.
+    [Documentation]    Generate Java libraries.
     [Tags]    java
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    sal    java    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}

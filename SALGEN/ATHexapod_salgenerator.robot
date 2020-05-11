@@ -102,7 +102,7 @@ Salgen ATHexapod IDL
     Log Many    @{files}
 
 Salgen ATHexapod C++
-    [Documentation]    Generate C++ wrapper.
+    [Documentation]    Generate C++ libraries.
     [Tags]    cpp
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    sal    cpp   shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
@@ -174,7 +174,7 @@ Verify ATHexapod C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_readyForCommand_log
 
 Salgen ATHexapod Python
-    [Documentation]    Generate Python wrapper.
+    [Documentation]    Generate Python libraries.
     [Tags]    python
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    sal    python    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
@@ -250,7 +250,7 @@ Salgen ATHexapod LabVIEW
     File Should Exist    ${SALWorkDir}/${subSystem}/labview/SALLV_${subSystem}_Monitor
 
 Salgen ATHexapod Java
-    [Documentation]    Generate Java wrapper.
+    [Documentation]    Generate Java libraries.
     [Tags]    java
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    sal    java    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
