@@ -18,7 +18,7 @@ pipeline {
             image 'lsstts/robotsal:python376'
             args '-w ' + _home + ' -e AWS_ACCESS_KEY_ID=$aws_key_id -e AWS_SECRET_ACCESS_KEY=$aws_secret_key ' + 
             '-e NEXUS_USER=$nexus_username -e NEXUS_PASS=$nexus_passwd ' +
-            '-v ${WORKSPACE}:' + _home + '/trunk'
+            '-v ${WORKSPACE}/RPMs:/tmp -v ${WORKSPACE}:' + _home + '/trunk'
          }
     }
     stages {
@@ -38,7 +38,7 @@ pipeline {
                 checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/develop']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'robotframework_SAL']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/robotframework_SAL']]]
             }
         }//Git repos
-        stage('Define SAL and XML version variables') {
+        stage('Setup: Define variables and create directories') {
             steps {
                 script {
                     SAL_Version = readFile("${WORKSPACE}/SAL/VERSION").trim()
@@ -51,6 +51,7 @@ pipeline {
                         MavenVersion = '-SNAPSHOT'
                     }
                 }
+                mkdir _home + "/trunk/Reports"
                 echo "The Branch Name: ${GIT_BRANCH}"
                 echo "The SAL version: " + SAL_Version
                 echo "The XML version: " + XML_Version
@@ -64,7 +65,7 @@ pipeline {
                 sh label: 'SAL Subsystems', script: '#!/bin/bash -x \n' + 'cp -v ${WORKSPACE}/ts_xml/sal_interfaces/SALSubsystems.xml ts_sal/test'
                 sh label: 'SAL Generics', script: '#!/bin/bash -x \n' + 'cp -v ${WORKSPACE}/ts_xml/sal_interfaces/SALGenerics.xml ts_sal/test'
                 sh label: 'XML Version', script: '#!/bin/bash -x \n' + 'cp -v ${WORKSPACE}/ts_xml/VERSION ts_sal/test'
-                sh label: 'DDS QoS settings', script: '#!/bin/bash -x \n' + 'cp -v ${WORKSPACE}/ts_xml/lsstsal/scripts/DDS_DefaultQoS_All.xml ts_sal/test'
+                sh label: 'DDS QoS settings', script: '#!/bin/bash -x \n' + 'cp -v ${WORKSPACE}/ts_sal/lsstsal/scripts/DDS_DefaultQoS_All.xml ts_sal/test'
             }
         }//Copy XML
         stage('Install IDL and XML python libraries') {
@@ -77,7 +78,6 @@ pipeline {
             steps {
                 // Validate the SAL/XML state using Test/Script CSCs
                 sh label: 'Validate', script: '#!/bin/bash -x \n' + 'source ' + _home + '/.bash_profile \n' +
-                'mkdir ' + _home + '/trunk/Reports \n' +
                 'echo ========= Move to robotframework_salgenerator directory ========= \n' +
                 'echo cd ' + _home + '/trunk/robotframework_salgenerator \n' +
                 'cd ' + _home + '/trunk/robotframework_salgenerator \n' +
