@@ -51,7 +51,7 @@ pipeline {
                         MavenVersion = '-SNAPSHOT'
                     }
                 }
-                mkdir "${WORKSPACE}/Reports"
+                sh 'mkdir -v "${WORKSPACE}/Reports"'
                 echo "The Branch Name: ${GIT_BRANCH}"
                 echo "The SAL version: " + SAL_Version
                 echo "The XML version: " + XML_Version
@@ -70,8 +70,8 @@ pipeline {
         }//Copy XML
         stage('Install IDL and XML python libraries') {
             steps {
-                sh label: 'IDL library', script: '#!/bin/bash -x \n' + 'cd IDL && pip install --user .'
-                sh label: 'XML library', script: '#!/bin/bash -x \n' + 'cd XML && pip install --user .'
+                sh label: 'IDL library', script: '#!/bin/bash -x \n' + 'cd ts_idl && pip install --user .'
+                sh label: 'XML library', script: '#!/bin/bash -x \n' + 'cd ts_xml && pip install --user .'
             }
         }//IDL & XML
         stage('Validate') {
