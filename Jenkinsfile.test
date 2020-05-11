@@ -88,7 +88,8 @@ pipeline {
                     '--variable OpenspliceVersion:6.9.181127OSS --variable OpenspliceDate:2018-11-28 --variable PythonVersion:\'Python ' + _python_version + '\' ' +
                     '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:_${BUILD_NUMBER} ' + 
                     '--name Validate --output VALIDATE --outputdir ' + _home + '/trunk/Reports -A ' + _home + '/trunk/robotframework_salgenerator/Test_SalGen.list \n' +
-                'if [ $? == 0 ]; then echo Validation complete; else exit $?; fi'
+                'Result = $? \n' +
+                'if [ $Result == 0 ]; then echo Validation complete; else exit $Result; fi'
             }
         }//Validate
         stage('Generate the RPMs') {
@@ -180,6 +181,70 @@ pipeline {
                 'echo Robot results complete'
             }
         }//Robot Results
+        stage('Push Java artifacts') {
+            when {
+                expression { 
+                    return params.Push 
+                }
+            }
+            steps {
+                sh label: 'Java Artifacts', script: '#!/bin/bash -x\n' +
+                'cd ' + _home + '/trunk/ts_sal/test/maven/ATCamera_' + SAL_Version + '_' + XML_Version + MavenVersion + ' \n' +
+                'mvn -DskipTests=true deploy \n' +
+                'cd ' + _home + '/trunk/ts_sal/test/maven/CCCamera_' + SAL_Version + '_' + XML_Version + MavenVersion + ' \n' +
+                'mvn -DskipTests=true deploy \n' +
+                'cd ' + _home + '/trunk/ts_sal/test/maven/MTCamera_' + SAL_Version + '_' + XML_Version + MavenVersion + ' \n' +
+                'mvn -DskipTests=true deploy \n' +
+                'echo "=== Java deploy complete ==="'
+            }
+        }//Java artifacts
+        stage('Push RPMs to AWS S3 bucket') {
+            when {
+                expression { 
+                    return params.Push 
+                }
+            }
+            steps {
+                sh label: 'Push RPMs to Nexus3', script: '#!/bin/bash -x\n', 'aws s3 cp ' + _home + '/trunk/ts_sal/test/rpmbuild/RPMS/x86_64/ s3://sal-objects/master ' +
+                    '--acl public-read --recursive --exclude "dbsimulate/*" --exclude "salgenerator/*"'
+                println('Pushed RPMs to S3 bucket')
+            }
+        }//Push to AWS S3
+        stage('Push RPMs to Nexus3') {
+            when {
+                expression { 
+                    return params.Push 
+                }
+            }
+            steps {
+                def RPM_LIST = sh (
+                    label: 'Push RPMs to Nexus3', script: '#!/bin/bash -x\n' +
+                    'aws s3 ls s3://sal-objects/daily/ |grep -v debuginfo |grep ' + SAL_Version +
+                    ' |grep ' + XML_Version + ' |grep _${BUILD_NUMBER}- |cut -c 32-',
+                    returnStdout: true
+                ).trim()
+                def array = RPM_LIST.split('\n')
+                println("Groovy variable: " + array)
+                if (array[0] == null) {
+                    // If no RPMs found, abort build and mark as failure.
+                    println("ERROR: No RPMs found with the given search parameters.")
+                } else {
+                    // Iterate over RPMs and push to Nexus3 yum repo.
+                    for(file in array) {
+                        sh 'echo "========= Downloading RPM from s3 bucket ========="'
+                        sh 'set -x ; aws s3 cp s3://sal-objects/daily/' + file + ' /tmp'
+                        sh 'echo "=== Pushing RPM to Nexus3 yum repo ==="'
+                        sh 'set -x ; curl -Ss -u $nexus_username:$nexus_passwd -T ${WORKSPACE}/RPMs/' + file + ' https://repo-nexus.lsst.org/nexus/repository/ts_yum/daily/'
+                        sh 'echo "=== CSC RPM push complete ==="'
+                    }//for
+                    sh 'echo "=== Push ts_sal_utils RPM to Nexus3 yum repo ==="'
+                    sh 'set -x ; aws s3 cp s3://sal-objects/daily/ts_sal_utils-' + SAL_Version + '_${BUILD_NUMBER}-1.x86_64.rpm /tmp'
+                    sh 'set -x ; curl -Ss -u $nexus_username:$nexus_passwd -T ${WORKSPACE}/RPMs/ts_sal_utils-' + SAL_Version + '_${BUILD_NUMBER}-1.x86_64.rpm' +
+                        ' https://repo-nexus.lsst.org/nexus/repository/ts_yum/daily/'
+                    sh 'echo "=== ts_sal_utils RPM push complete ==="'
+                }//else
+            }
+        }//Push to Nexus3
     }//stages
     post { 
         always {
@@ -187,6 +252,9 @@ pipeline {
         }
         success {
             build job: 'linked_job', parameters: [string(name: 'TEST', value: 'TRIGGERED')], wait: false
+        }
+        cleanup {
+            deleteDir() /* clean up our workspace */
         }
     }
 }//pipeline
