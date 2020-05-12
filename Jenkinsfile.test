@@ -62,11 +62,11 @@ pipeline {
         stage('Copy XML files') {
             steps {
                 // Move XML definition files to the SAL working directory.
-                sh label: 'XML files', script: '#!/bin/bash -x\n' + 'cp -v ${WORKSPACE}/ts_xml/sal_interfaces/*/*.xml ts_sal/test'
-                sh label: 'SAL Subsystems', script: '#!/bin/bash -x \n' + 'cp -v ${WORKSPACE}/ts_xml/sal_interfaces/SALSubsystems.xml ts_sal/test'
-                sh label: 'SAL Generics', script: '#!/bin/bash -x \n' + 'cp -v ${WORKSPACE}/ts_xml/sal_interfaces/SALGenerics.xml ts_sal/test'
-                sh label: 'XML Version', script: '#!/bin/bash -x \n' + 'cp -v ${WORKSPACE}/ts_xml/VERSION ts_sal/test'
-                sh label: 'DDS QoS settings', script: '#!/bin/bash -x \n' + 'cp -v ${WORKSPACE}/ts_sal/lsstsal/scripts/DDS_DefaultQoS_All.xml ts_sal/test'
+                sh label: 'XML files', script: '#!/bin/bash \n' + 'cp -v ${WORKSPACE}/ts_xml/sal_interfaces/*/*.xml ts_sal/test'
+                sh label: 'SAL Subsystems', script: '#!/bin/bash \n' + 'cp -v ${WORKSPACE}/ts_xml/sal_interfaces/SALSubsystems.xml ts_sal/test'
+                sh label: 'SAL Generics', script: '#!/bin/bash \n' + 'cp -v ${WORKSPACE}/ts_xml/sal_interfaces/SALGenerics.xml ts_sal/test'
+                sh label: 'XML Version', script: '#!/bin/bash \n' + 'cp -v ${WORKSPACE}/ts_xml/VERSION ts_sal/test'
+                sh label: 'DDS QoS settings', script: '#!/bin/bash \n' + 'cp -v ${WORKSPACE}/ts_sal/lsstsal/scripts/DDS_DefaultQoS_All.xml ts_sal/test'
             }
         }//Copy XML
         stage('Install IDL and XML python libraries') {
@@ -168,14 +168,14 @@ pipeline {
         }//RunCppMessagingTests
         stage('Process Results') {
             steps {
-                sh label: 'Results', script: '#!/bin/bash -x \n' + 'echo "# Check for output files."\n' +
+                sh label: 'Results', script: '#!/bin/bash \n' + 'echo "# Check for output files."\n' +
                 'declare -a outputs=(VALIDATE.xml AUXTEL.xml MAINTEL.xml CombinedCppTelemetry.xml CombinedCppEvents.xml CombinedJavaTelemetry.xml)\n' + 
                 'echo ${outputs[@]}\n' +
                 'i=0\n echo i=$i\n' + 'for item in "${outputs[@]}"; do\n' +
                 '\tif test -f ' + _home + '/trunk/Reports/$item; then array[$i]=' + _home + '/trunk/Reports/$item; else echo ' +
                     _home + '/trunk/Reports/$item does not exist!; fi\n' +
                 '\t(( i++ ))\n' + 'done\n' +
-                'echo ========= Generate the reports =========\n' +
+                'echo ========= Generate the reports =========\n' + 'set -x \n' +
                 'rebot --nostatusrc --noncritical TSS* --noncritical DM* --outputdir ' + _home + '/trunk/Reports --name RPM_Generation -o rpm_output.xml -l rpm_log.html ' +
                 '-r rpm_report.html ${array[@]} \n' +
                 'echo Robot results complete'
@@ -190,11 +190,11 @@ pipeline {
             steps {
                 sh label: 'Java Artifacts', script: '#!/bin/bash -x\n' +
                 'cd ' + _home + '/trunk/ts_sal/test/maven/ATCamera_' + SAL_Version + '_' + XML_Version + MavenVersion + ' \n' +
-                'mvn -DskipTests=true deploy \n' +
+                'mvn -DskipTests=true -B deploy \n' +
                 'cd ' + _home + '/trunk/ts_sal/test/maven/CCCamera_' + SAL_Version + '_' + XML_Version + MavenVersion + ' \n' +
-                'mvn -DskipTests=true deploy \n' +
+                'mvn -DskipTests=true -B deploy \n' +
                 'cd ' + _home + '/trunk/ts_sal/test/maven/MTCamera_' + SAL_Version + '_' + XML_Version + MavenVersion + ' \n' +
-                'mvn -DskipTests=true deploy \n' +
+                'mvn -DskipTests=true -B deploy \n' +
                 'echo "=== Java deploy complete ==="'
             }
         }//Java artifacts
@@ -205,9 +205,10 @@ pipeline {
                 }
             }
             steps {
-                sh label: 'Push RPMs to Nexus3', script: '#!/bin/bash -x\n', 'aws s3 cp ' + _home + '/trunk/ts_sal/test/rpmbuild/RPMS/x86_64/ s3://sal-objects/master ' +
-                    '--acl public-read --recursive --exclude "dbsimulate/*" --exclude "salgenerator/*"'
-                println('Pushed RPMs to S3 bucket')
+                sh label: 'Push RPMs to Nexus3', script: '#!/bin/bash -x\n' + 
+                'aws s3 cp ' + _home + '/trunk/ts_sal/test/rpmbuild/RPMS/x86_64/ s3://sal-objects/daily ' +
+                    '--acl public-read --recursive --exclude "dbsimulate/*" --exclude "salgenerator/*" \n' +
+                'echo "=== Pushed RPMs to S3 bucket ==="'
             }
         }//Push to AWS S3
         stage('Push RPMs to Nexus3') {
@@ -217,44 +218,44 @@ pipeline {
                 }
             }
             steps {
-                def RPM_LIST = sh (
-                    label: 'Push RPMs to Nexus3', script: '#!/bin/bash -x\n' +
+                //Define the RPM array, then iterate to push RPMs to Nexus3
+                script {
+                    array = sh(returnStdout: true, label: 'Push RPMs to Nexus3',
+                    script: '#!/bin/bash -x\n' +
                     'aws s3 ls s3://sal-objects/daily/ |grep -v debuginfo |grep ' + SAL_Version +
-                    ' |grep ' + XML_Version + ' |grep _${BUILD_NUMBER}- |cut -c 32-',
-                    returnStdout: true
-                ).trim()
-                def array = RPM_LIST.split('\n')
-                println("Groovy variable: " + array)
-                if (array[0] == null) {
-                    // If no RPMs found, abort build and mark as failure.
-                    println("ERROR: No RPMs found with the given search parameters.")
-                } else {
-                    // Iterate over RPMs and push to Nexus3 yum repo.
-                    for(file in array) {
-                        sh 'echo "========= Downloading RPM from s3 bucket ========="'
-                        sh 'set -x ; aws s3 cp s3://sal-objects/daily/' + file + ' /tmp'
-                        sh 'echo "=== Pushing RPM to Nexus3 yum repo ==="'
-                        sh 'set -x ; curl -Ss -u $nexus_username:$nexus_passwd -T ${WORKSPACE}/RPMs/' + file + ' https://repo-nexus.lsst.org/nexus/repository/ts_yum/daily/'
-                        sh 'echo "=== CSC RPM push complete ==="'
-                    }//for
-                    sh 'echo "=== Push ts_sal_utils RPM to Nexus3 yum repo ==="'
-                    sh 'set -x ; aws s3 cp s3://sal-objects/daily/ts_sal_utils-' + SAL_Version + '_${BUILD_NUMBER}-1.x86_64.rpm /tmp'
-                    sh 'set -x ; curl -Ss -u $nexus_username:$nexus_passwd -T ${WORKSPACE}/RPMs/ts_sal_utils-' + SAL_Version + '_${BUILD_NUMBER}-1.x86_64.rpm' +
-                        ' https://repo-nexus.lsst.org/nexus/repository/ts_yum/daily/'
-                    sh 'echo "=== ts_sal_utils RPM push complete ==="'
-                }//else
+                    ' |grep ' + XML_Version + ' |grep _130- |cut -c 32- |tr "\n\r" " "'
+                    )
+                    rpm_array = array.tokenize()
+                    println rpm_array
+                    if (rpm_array[0] == null) {
+                        // If no RPMs found, abort build and mark as failure.
+                        println("ERROR: No RPMs found with the given search parameters.")
+                    } else {
+                        // Iterate over RPMs and push to Nexus3 yum repo.
+                        for(file in rpm_array) {
+                            sh 'echo "=== Pushing RPM to Nexus3 yum repo ==="'
+                            sh 'curl --write-out %{http_code} -Ss -u $NEXUS_USER:$NEXUS_PASS -T ${WORKSPACE}/ts_sal/test/rpmbuild/RPMS/x86_64/' + file + ' https://repo-nexus.lsst.org/nexus/repository/ts_yum/daily/'
+                            sh 'echo "=== CSC RPM push complete ==="'
+                        }//for
+                        // Push the ts_sal_utils RPM to Nexus3
+                        sh 'echo "=== Push ts_sal_utils RPM to Nexus3 yum repo ==="'
+                        sh 'curl --write-out %{http_code} -Ss -u $NEXUS_USER:$NEXUS_PASS -T ${WORKSPACE}/ts_sal/test/rpmbuild/RPMS/x86_64/ts_sal_utils-' + SAL_Version + '_${BUILD_NUMBER}-1.x86_64.rpm' +
+                            ' https://repo-nexus.lsst.org/nexus/repository/ts_yum/daily/'
+                        sh 'echo "=== ts_sal_utils RPM push complete ==="'
+                    }//else
+                }//script
             }
-        }//Push to Nexus3
+        }//Push RPMs to Nexus3
     }//stages
     post { 
         always {
             robot outputPath: 'Reports', logFileName: 'rpm_log.html', outputFileName: 'rpm_output.xml', reportFileName: 'rpm_report.html', passThreshold: 100.0, unstableThreshold: 90.0
         }
         success {
-            build job: 'linked_job', parameters: [string(name: 'TEST', value: 'TRIGGERED')], wait: false
+            build job: 'linked_job', parameters: [string(name: 'TEST', value: 'TRIGGERED from build #${BUILD_NUMBER}')], wait: false
         }
         cleanup {
             deleteDir() /* clean up our workspace */
         }
-    }
+    }//post
 }//pipeline
