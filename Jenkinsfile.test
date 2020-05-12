@@ -248,7 +248,7 @@ pipeline {
     }//stages
     post { 
         always {
-            robot outputPath: 'Reports', logFileName: 'rpm_log.html', outputFileName: 'rpm_output.xml', reportFileName: 'rpm_report.html', passThreshold: 100.0, unstableThreshold: 95.0
+            robot outputPath: 'Reports', logFileName: 'rpm_log.html', outputFileName: 'rpm_output.xml', reportFileName: 'rpm_report.html', passThreshold: 100.0, unstableThreshold: 90.0
         }
         success {
             build job: 'linked_job', parameters: [string(name: 'TEST', value: 'TRIGGERED')], wait: false
