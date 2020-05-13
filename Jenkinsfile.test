@@ -19,6 +19,7 @@ pipeline {
             args '-w ' + _home + ' -e AWS_ACCESS_KEY_ID=$aws_key_id -e AWS_SECRET_ACCESS_KEY=$aws_secret_key ' + 
             '-e NEXUS_USER=$nexus_username -e NEXUS_PASS=$nexus_passwd ' +
             '-v ${WORKSPACE}:' + _home + '/trunk'
+            label 'Node2_8CPU'
          }
     }
     stages {
@@ -52,7 +53,7 @@ pipeline {
                     }
                 }
                 sh 'mkdir -pv "${WORKSPACE}/Reports"'
-                sh 'mkdir -pv ' + _home + '/trunk/Reports"'
+                sh 'mkdir -pv ' + _home + '/trunk/Reports'
                 echo "The Branch Name: ${GIT_BRANCH}"
                 echo "The SAL version: " + SAL_Version
                 echo "The XML version: " + XML_Version
@@ -88,8 +89,8 @@ pipeline {
                     '--variable OpenspliceVersion:6.9.181127OSS --variable OpenspliceDate:2018-11-28 --variable PythonVersion:\'Python ' + _python_version + '\' ' +
                     '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:_${BUILD_NUMBER} ' + 
                     '--name Validate --output VALIDATE --outputdir ' + _home + '/trunk/Reports -A ' + _home + '/trunk/robotframework_salgenerator/Test_SalGen.list \n' +
-                'Result = $? \n' +
-                'if [ $Result == 0 ]; then echo Validation complete; else exit $Result; fi'
+                'Result=$? \n' +
+                'if [ $Result -eq 0 ]; then echo Validation complete; else exit $Result; fi'
             }
         }//Validate
         stage('Generate the RPMs') {
@@ -223,7 +224,7 @@ pipeline {
                     array = sh(returnStdout: true, label: 'Push RPMs to Nexus3',
                     script: '#!/bin/bash -x\n' +
                     'aws s3 ls s3://sal-objects/daily/ |grep -v debuginfo |grep ' + SAL_Version +
-                    ' |grep ' + XML_Version + ' |grep _130- |cut -c 32- |tr "\n\r" " "'
+                    ' |grep ' + XML_Version + ' |grep _${BUILD_NUMBER}- |cut -c 32- |tr "\n\r" " "'
                     )
                     rpm_array = array.tokenize()
                     println rpm_array
