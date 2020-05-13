@@ -131,12 +131,12 @@ pipeline {
             }//parallel
         }//Generate_RPMs
         stage('Run C++ Messaging Tests') {
-            parallel {
-                when {
-                    expression { 
-                        return params.Messaging 
-                    }
+            when {
+                expression { 
+                    return params.Messaging 
                 }
+            }
+            parallel {
                 stage('CppTelemetry') {
                     steps {
                         sh label: 'CppTelemetry', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' + 'set -x \n' +
@@ -154,11 +154,6 @@ pipeline {
                     }
                 }//CppTelemetry
                 stage('CppEvents') {
-                    when {
-                        expression { 
-                            return params.Messaging 
-                        }
-                    }
                     steps {
                         sh label: 'CppEvents', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' + 'set -x \n' +
                         'echo ========= Move to robotframework_SAL directory ========= \n' +
