@@ -6,6 +6,7 @@ def _home="/home/" + _user
 pipeline {
     parameters {
         booleanParam defaultValue: true, description: 'Push RPMs to Nexus3 yum repo?', name: 'Push'
+        booleanParam defaultValue: true, description: 'Run SAL messaging tests?', name: 'Messaging'
     }
     environment {
         AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
@@ -131,6 +132,11 @@ pipeline {
         }//Generate_RPMs
         stage('Run C++ Messaging Tests') {
             parallel {
+                when {
+                    expression { 
+                        return params.Messaging 
+                    }
+                }
                 stage('CppTelemetry') {
                     steps {
                         sh label: 'CppTelemetry', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' + 'set -x \n' +
@@ -148,6 +154,11 @@ pipeline {
                     }
                 }//CppTelemetry
                 stage('CppEvents') {
+                    when {
+                        expression { 
+                            return params.Messaging 
+                        }
+                    }
                     steps {
                         sh label: 'CppEvents', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' + 'set -x \n' +
                         'echo ========= Move to robotframework_SAL directory ========= \n' +
@@ -165,6 +176,42 @@ pipeline {
                 }//CppEvents
             }//parallel
         }//RunCppMessagingTests
+        stage('Run Java Messaging Tests') {
+            when {
+                expression { 
+                    return params.Messaging 
+                }
+            }
+            parallel {
+                stage('JavaTelemetry') {
+                    steps {
+                        sh label: 'JavaTelemetry', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' + 'set -x \n' +
+                        'echo ========= Move to robotframework_SAL directory ========= \n' +
+                        'echo cd ' + _home + '/trunk/robotframework_SAL \n' +
+                        'cd ' + _home + '/trunk/robotframework_SAL \n' +
+                        'echo ========= Execute SAL Java messaging tests ========= \n' +
+                        'robot --outputdir ' + _home + '/Reports --variable ContInt:true -e skipped --noncritical TSS* --noncritical DM* ' +
+                            '--variable SALVersion:' + SAL_Version + ' --variable SALInstall:' + _home + '/trunk/ts_sal ' +
+                            '--variable OpenspliceRelease:\'OpenSplice HDE Release\' ' +
+                            '--variable OpenspliceVersion:6.9.181127OSS --variable OpenspliceDate:2018-11-28 ' +
+                            '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable PythonVersion:\'Python ' + _python_version + '\' ' +
+                            '-A ' + _home + '/trunk/robotframework_SAL/CombinedJavaTelemetry_Tests.list \n' +
+                        'exit 0'
+                    }
+                }//JavaTelemetry
+                stage('JavaEvents') {
+                    steps {
+                        sh label: 'JavaEvents', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' + 'set -x \n' +
+                        'echo ========= Move to robotframework_SAL directory ========= \n' +
+                        'echo cd ' + _home + '/trunk/robotframework_SAL \n' +
+                        'cd ' + _home + '/trunk/robotframework_SAL \n' +
+                        'echo ========= Execute SAL messaging tests ========= \n' +
+                        'echo No Java Events messaging tests at this time \n' +
+                        'exit 0'
+                    }
+                }//JavaEvents
+            }//parallel
+        }//RunJavaMessagingTests
         stage('Process Results') {
             steps {
                 sh label: 'Results', script: '#!/bin/bash \n' + 'echo "# Check for output files."\n' +
