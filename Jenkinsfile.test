@@ -23,12 +23,6 @@ pipeline {
          }
     }
     stages {
-        stage('Print Variables') {
-            steps {
-                println("The container user: " + _user);
-                println("The container home dir: " + _home);
-            }
-        }//Variables
         stage('Pull Git repos') {
             steps {
                 // Checkout the SAL, XML, IDL and Salgenerator and SAL Messaging test repos.
@@ -41,6 +35,10 @@ pipeline {
         }//Git repos
         stage('Setup: Define variables and create directories') {
             steps {
+                println("The container user: " + _user);
+                println("The container home dir: " + _home);
+                println("The Python version: " + _python_version);
+                println("Push build artifacts? " + params.Push);
                 script {
                     SAL_Version = readFile("${WORKSPACE}/ts_sal/VERSION").trim()
                     XML_Version = readFile("${WORKSPACE}/ts_xml/VERSION").trim()
@@ -178,7 +176,7 @@ pipeline {
                 '\t(( i++ ))\n' + 'done\n' +
                 'echo ========= Generate the reports =========\n' + 'set -x \n' +
                 'rebot --nostatusrc --noncritical TSS* --noncritical DM* --outputdir ' + _home + '/trunk/Reports --name RPM_Generation -o rpm_output.xml -l rpm_log.html ' +
-                '-r rpm_report.html ${array[@]} \n' +
+                    '-r rpm_report.html ${array[@]} \n' +
                 'echo Robot results complete'
             }
         }//Robot Results
