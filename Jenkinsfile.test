@@ -40,6 +40,7 @@ pipeline {
                 println("The container home dir: " + _home);
                 println("The Python version: " + _python_version);
                 println("Push build artifacts? " + params.Push);
+                println("Run messaging tests? " + params.Messaging);
                 script {
                     SAL_Version = readFile("${WORKSPACE}/ts_sal/VERSION").trim()
                     XML_Version = readFile("${WORKSPACE}/ts_xml/VERSION").trim()
@@ -291,7 +292,7 @@ pipeline {
     post { 
         always {
             robot outputPath: 'Reports', logFileName: 'rpm_log.html', outputFileName: 'rpm_output.xml', reportFileName: 'rpm_report.html', passThreshold: 100.0, unstableThreshold: 90.0
-            build job: 'linked_job', parameters: [string(name: 'TEST', value: 'TRIGGERED from build #${BUILD_NUMBER}')], wait: false
+            build job: 'linked_job', parameters: [string(name: 'SAL_Version', value: SAL_Version), string(name: 'XML_Version', value: XML_Version)], wait: false
         }
         cleanup {
             deleteDir() /* clean up our workspace */
