@@ -58,6 +58,7 @@ pipeline {
                 echo "The SAL version: " + SAL_Version
                 echo "The XML version: " + XML_Version
                 echo "The Maven version: " + MavenVersion
+                echo "The RPM Version: " + SAL_Version + "_${BUILD_NUMBER}-" + XML_Version
             }
         }//Define SAL & XML variables
         stage('Copy XML files') {
@@ -296,7 +297,7 @@ pipeline {
     }//stages
     post { 
         always {
-            build job: 'IDL_Conda_package/develop', parameters: [string(name: 'SAL_Version', value: SAL_Version), string(name: 'XML_Version', value: XML_Version)], wait: false
+            build job: 'IDL_Conda_package/develop', parameters: [string(name: 'SAL_Version', value: SAL_Version + "_${BUILD_NUMBER}"), string(name: 'XML_Version', value: XML_Version)], wait: false
         }
         cleanup {
             deleteDir() /* clean up our workspace */
