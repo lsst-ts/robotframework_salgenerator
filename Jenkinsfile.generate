@@ -254,7 +254,7 @@ pipeline {
             }
             steps {
                 sh label: 'Push RPMs to Nexus3', script: '#!/bin/bash -x\n' + 
-                'aws s3 cp ' + _home + '/trunk/ts_sal/test/rpmbuild/RPMS/x86_64/ s3://sal-objects/daily ' +
+                'aws --no-progress s3 cp ' + _home + '/trunk/ts_sal/test/rpmbuild/RPMS/x86_64/ s3://sal-objects/daily ' +
                     '--acl public-read --recursive --exclude "dbsimulate/*" --exclude "salgenerator/*" \n' +
                 'echo "=== Pushed RPMs to S3 bucket ==="'
             }
