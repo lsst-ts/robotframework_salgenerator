@@ -180,7 +180,7 @@ node {
             stage('Push RPMs to AWS S3 bucket') {
                 if (Push == 'true') {
                     sh label: 'Push RPMs to Nexus3', script: '#!/bin/bash -x\n ' + 
-                        'aws s3 cp ' + _home + '/trunk/ts_sal/test/rpmbuild/RPMS/x86_64/ s3://sal-objects/master ' +
+                        'aws --no-progress s3 cp ' + _home + '/trunk/ts_sal/test/rpmbuild/RPMS/x86_64/ s3://sal-objects/master ' +
                         '--acl public-read --recursive --exclude "dbsimulate/*" --exclude "salgenerator/*"'
                     println('Pushed RPMs to S3 bucket')
                 } else {
