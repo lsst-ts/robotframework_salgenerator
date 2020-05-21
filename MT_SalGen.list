@@ -27,5 +27,6 @@ SALGEN/MTMount_salgenerator.robot
 SALGEN/MTPtg_salgenerator.robot
 SALGEN/MTVMS_salgenerator.robot
 SALGEN/NewMTMount_salgenerator.robot
+SALGEN/Rotator_salgenerator.robot
 SALGEN/SummitFacility_salgenerator.robot
 SALGEN/Watcher_salgenerator.robot
