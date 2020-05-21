@@ -297,6 +297,7 @@ pipeline {
     }//stages
     post { 
         always {
+            echo "Starting the IDL_Conda_package/develop job; sal_version: " + SAL_Version + "_${BUILD_NUMBER}" + ", xml_version: " + XML_Version + ", develop: true"
             build job: 'IDL_Conda_package/develop', parameters: [string(name: 'sal_version', value: SAL_Version + "_${BUILD_NUMBER}"), string(name: 'xml_version', value: XML_Version), \
                 booleanParam(name: 'develop', value: true)], wait: false
         }
