@@ -229,36 +229,6 @@ pipeline {
             }
         }
         }//Robot Results
-        stage('Push Java artifacts') {
-            when {
-                expression { 
-                    return params.Push 
-                }
-            }
-            steps {
-                sh label: 'Java Artifacts', script: '#!/bin/bash -x\n' +
-                'cd ' + _home + '/trunk/ts_sal/test/maven/ATCamera_' + SAL_Version + '_' + XML_Version + MavenVersion + ' \n' +
-                'mvn -DskipTests=true -B deploy \n' +
-                'cd ' + _home + '/trunk/ts_sal/test/maven/CCCamera_' + SAL_Version + '_' + XML_Version + MavenVersion + ' \n' +
-                'mvn -DskipTests=true -B deploy \n' +
-                'cd ' + _home + '/trunk/ts_sal/test/maven/MTCamera_' + SAL_Version + '_' + XML_Version + MavenVersion + ' \n' +
-                'mvn -DskipTests=true -B deploy \n' +
-                'echo "=== Java deploy complete ==="'
-            }
-        }//Java artifacts
-        stage('Push RPMs to AWS S3 bucket') {
-            when {
-                expression { 
-                    return params.Push 
-                }
-            }
-            steps {
-                sh label: 'Push RPMs to Nexus3', script: '#!/bin/bash -x\n' + 
-                'aws --no-progress s3 cp ' + _home + '/trunk/ts_sal/test/rpmbuild/RPMS/x86_64/ s3://sal-objects/daily ' +
-                    '--acl public-read --recursive --exclude "dbsimulate/*" --exclude "salgenerator/*" \n' +
-                'echo "=== Pushed RPMs to S3 bucket ==="'
-            }
-        }//Push to AWS S3
         stage('Push RPMs to Nexus3') {
             when {
                 expression { 
@@ -294,6 +264,36 @@ pipeline {
                 }//script
             }
         }//Push RPMs to Nexus3
+        stage('Push RPMs to AWS S3 bucket') {
+            when {
+                expression { 
+                    return params.Push 
+                }
+            }
+            steps {
+                sh label: 'Push RPMs to Nexus3', script: '#!/bin/bash -x\n' + 
+                'aws --no-progress s3 cp ' + _home + '/trunk/ts_sal/test/rpmbuild/RPMS/x86_64/ s3://sal-objects/daily ' +
+                    '--acl public-read --recursive --exclude "dbsimulate/*" --exclude "salgenerator/*" \n' +
+                'echo "=== Pushed RPMs to S3 bucket ==="'
+            }
+        }//Push to AWS S3
+        stage('Push Java artifacts') {
+            when {
+                expression { 
+                    return params.Push 
+                }
+            }
+            steps {
+                sh label: 'Java Artifacts', script: '#!/bin/bash -x\n' +
+                'cd ' + _home + '/trunk/ts_sal/test/maven/ATCamera_' + SAL_Version + '_' + XML_Version + MavenVersion + ' \n' +
+                'mvn -DskipTests=true -B deploy \n' +
+                'cd ' + _home + '/trunk/ts_sal/test/maven/CCCamera_' + SAL_Version + '_' + XML_Version + MavenVersion + ' \n' +
+                'mvn -DskipTests=true -B deploy \n' +
+                'cd ' + _home + '/trunk/ts_sal/test/maven/MTCamera_' + SAL_Version + '_' + XML_Version + MavenVersion + ' \n' +
+                'mvn -DskipTests=true -B deploy \n' +
+                'echo "=== Java deploy complete ==="'
+            }
+        }//Java artifacts
     }//stages
     post { 
         always {
