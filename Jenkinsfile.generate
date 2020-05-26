@@ -240,7 +240,7 @@ pipeline {
                 script {
                     array = sh(returnStdout: true, label: 'Push RPMs to Nexus3',
                     script: '#!/bin/bash -x\n' +
-                    'aws s3 ls s3://sal-objects/daily/ |grep -v debuginfo |grep ' + SAL_Version +
+                    'ls ${WORKSPACE}/ts_sal/test/rpmbuild/RPMS/x86_64/ |grep -v debuginfo |grep ' + SAL_Version +
                     ' |grep ' + XML_Version + ' |grep _${BUILD_NUMBER}- |cut -c 32- |tr "\n\r" " "'
                     )
                     rpm_array = array.tokenize()
