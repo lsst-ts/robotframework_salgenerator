@@ -44,6 +44,27 @@ Salgen Environment Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_airPressure.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_precipitation.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_soilTemperature.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_abort.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_standby.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_exitControl.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_start.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enterControl.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setLogLevel.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setValue.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setAuthList.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingVersions.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_errorCode.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_summaryState.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_appliedSettingsMatchStart.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_logLevel.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_logMessage.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingsApplied.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_simulationMode.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_softwareVersions.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_heartbeat.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_authList.idl
 
 Salgen Environment HTML
     [Documentation]    Create web form interfaces.
@@ -67,6 +88,27 @@ Verify Environment revCodes File
     [Documentation]    Ensure Environment_revCodes.tcl contains 1 revcode per topic.
     [Tags]    html    
     ${output}=    Log File    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_abort\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_enable\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_disable\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_standby\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_exitControl\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_start\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_enterControl\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setLogLevel\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setValue\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setAuthList\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_settingVersions\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_errorCode\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_summaryState\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_appliedSettingsMatchStart\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_logLevel\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_logMessage\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_settingsApplied\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_simulationMode\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_softwareVersions\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_heartbeat\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_authList\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_weather\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_windDirection\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_windGustDirection\\) [a-z0-9]{8,}
@@ -92,7 +134,7 @@ Salgen Environment IDL
     Log Many    @{files}
 
 Salgen Environment C++
-    [Documentation]    Generate C++ wrapper.
+    [Documentation]    Generate C++ libraries.
     [Tags]    cpp
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    sal    cpp   shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
@@ -172,7 +214,7 @@ Verify Environment C++ Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}_soilTemperature/cpp/standalone/sacpp_${subSystem}_sub
 
 Salgen Environment Python
-    [Documentation]    Generate Python wrapper.
+    [Documentation]    Generate Python libraries.
     [Tags]    python
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    sal    python    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
@@ -230,7 +272,7 @@ Salgen Environment LabVIEW
     File Should Exist    ${SALWorkDir}/${subSystem}/labview/SALLV_${subSystem}_Monitor
 
 Salgen Environment Java
-    [Documentation]    Generate Java wrapper.
+    [Documentation]    Generate Java libraries.
     [Tags]    java
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    sal    java    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}

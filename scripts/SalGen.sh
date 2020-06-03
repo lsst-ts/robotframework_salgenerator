@@ -428,12 +428,8 @@ function createTestSuite() {
     declare -a xmls=($(ls $HOME/trunk/ts_xml/sal_interfaces/$subSystem))
     # Declare topic arrays
     declare -a telemetryArray=($(getTelemetryTopics $subSystem))
-    if [[ ${xmls[*]} =~ "${subSystem}_Commands.xml" ]]; then
-        declare -a commandArray=($(getCommandTopics $subSystem))
-    fi
-    if [[ ${xmls[*]} =~ "${subSystem}_Events.xml" ]]; then
-        declare -a eventArray=($(getEventTopics $subSystem))
-    fi
+    declare -a commandArray=($(getCommandTopics $subSystem))
+    declare -a eventArray=($(getEventTopics $subSystem))
 
     #  Check if test suite should be skipped.
     skipped=$(checkIfSkipped $subSystem $topic)

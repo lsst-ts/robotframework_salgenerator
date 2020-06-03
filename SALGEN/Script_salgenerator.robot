@@ -33,11 +33,11 @@ Salgen Script Validate
     Directory Should Exist    ${SALWorkDir}/idl-templates/validated
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setLogLevel.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_configure.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_run.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_resume.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setGroupId.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setLogLevel.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setCheckpoints.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_stop.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_heartbeat.idl
@@ -71,11 +71,11 @@ Verify Script revCodes File
     [Documentation]    Ensure Script_revCodes.tcl contains 1 revcode per topic.
     [Tags]    html    
     ${output}=    Log File    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setLogLevel\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_configure\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_run\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_resume\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setGroupId\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setLogLevel\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setCheckpoints\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_stop\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_heartbeat\\) [a-z0-9]{8,}
@@ -98,7 +98,7 @@ Salgen Script IDL
     Log Many    @{files}
 
 Salgen Script C++
-    [Documentation]    Generate C++ wrapper.
+    [Documentation]    Generate C++ libraries.
     [Tags]    cpp
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    sal    cpp   shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
@@ -122,6 +122,8 @@ Verify C++ Directories
 Verify Script C++ Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setLogLevel_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setLogLevel_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_configure_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_configure_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_run_commander
@@ -130,8 +132,6 @@ Verify Script C++ Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_resume_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setGroupId_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setGroupId_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setLogLevel_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setLogLevel_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setCheckpoints_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setCheckpoints_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_stop_commander
@@ -156,7 +156,7 @@ Verify Script C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_state_log
 
 Salgen Script Python
-    [Documentation]    Generate Python wrapper.
+    [Documentation]    Generate Python libraries.
     [Tags]    python
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    sal    python    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
@@ -174,6 +174,8 @@ Verify Script Python Command Interfaces
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_setLogLevel.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setLogLevel.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_configure.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_configure.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_run.py
@@ -182,8 +184,6 @@ Verify Script Python Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_resume.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_setGroupId.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setGroupId.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_setLogLevel.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setLogLevel.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_setCheckpoints.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setCheckpoints.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_stop.py
@@ -224,7 +224,7 @@ Salgen Script LabVIEW
     File Should Exist    ${SALWorkDir}/${subSystem}/labview/SALLV_${subSystem}_Monitor
 
 Salgen Script Java
-    [Documentation]    Generate Java wrapper.
+    [Documentation]    Generate Java libraries.
     [Tags]    java
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    sal    java    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}

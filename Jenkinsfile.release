@@ -9,7 +9,9 @@ node {
     println("The container user home dir: " + _home);
     
     
-    properties([parameters([booleanParam(defaultValue: true, description: 'Push RPMs to Nexus3 yum repo?', name: 'Push')])])
+    properties([parameters([booleanParam(defaultValue: true, description: 'Push RPMs to Nexus3 yum repo?', name: 'Push'),
+        string(defaultValue: '', description: '', name: 'SAL_Version', trim: true), 
+        string(defaultValue: '', description: '', name: 'XML_Version', trim: true)])])
     stage('Cleanup') {
         // Clean the workspace from the previous build
         cleanWs()
@@ -21,6 +23,20 @@ node {
         sh 'mkdir rbtsalmsg'
         sh 'mkdir Reports'
     }
+    stage('Define SAL and XML Checkouts') {
+        if ( SAL_tag == "" ) {
+            SAL_Checkout = "*/master"
+        } else {
+            SAL_Checkout = "refs/tags/" + SAL_tag
+        }
+        if ( XML_tag == "" ) {
+            XML_Checkout = "*/master"
+        } else {
+            XML_Checkout = "refs/tags/" + XML_tag
+        }
+        echo "The SAL Checkout: " + SAL_Checkout
+        echo "The XML Checkout: " + XML_Checkout
+    }
     withCredentials([string(credentialsId: 'AWS_ACCESS_KEY_ID', variable: 'aws_key_id'), 
         string(credentialsId: 'AWS_SECRET_ACCESS_KEY', variable: 'aws_secret_key'),
         string(credentialsId: 'nexus_username', variable: 'nexus_username'),
@@ -31,8 +47,8 @@ node {
                 '-v ${WORKSPACE}/rbtsalmsg:' + _home + '/trunk/robotframework_SAL -v ${WORKSPACE}/RPMs:/tmp -v ${WORKSPACE}/Reports:' + _home + '/Reports') {
             stage('Pull Git repos') {
                 // Get some code from a GitHub repository
-                checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'SAL']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/ts_sal']]]
-                checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'XML']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/ts_xml']]]
+                checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: SAL_Checkout]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'SAL']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/ts_sal']]]
+                checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: XML_Checkout]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'XML']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/ts_xml']]]
                 checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'IDL']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/ts_idl']]]
                 checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'rbtsalgen']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/robotframework_salgenerator']]]
                 checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'rbtsalmsg']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/robotframework_SAL']]]
