@@ -10,8 +10,8 @@ node {
     
     
     properties([parameters([booleanParam(defaultValue: true, description: 'Push RPMs to Nexus3 yum repo?', name: 'Push'),
-        string(defaultValue: '', description: '', name: 'SAL_Version', trim: true), 
-        string(defaultValue: '', description: '', name: 'XML_Version', trim: true)])])
+        string(defaultValue: '', description: '', name: 'SAL_tag', trim: true), 
+        string(defaultValue: '', description: '', name: 'XML_tag', trim: true)])])
     stage('Cleanup') {
         // Clean the workspace from the previous build
         cleanWs()
