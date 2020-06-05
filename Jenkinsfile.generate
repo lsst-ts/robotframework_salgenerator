@@ -301,7 +301,7 @@ pipeline {
             build job: 'IDL_Conda_package/develop', parameters: [string(name: 'sal_version', value: SAL_Version + "_${BUILD_NUMBER}"), string(name: 'xml_version', value: XML_Version), \
                 booleanParam(name: 'develop', value: true)], wait: false
             echo "Starting the SalObj_Conda_package/develop job; Build_DevEnv: true"
-            build job: 'SalObj_Conda_package/tickets%2FDM-24950', parameters: [booleanParam(name: 'Build_DevEnv', value: true)], wait: false
+            build job: 'SalObj_Conda_package/develop', wait: false
         }
         cleanup {
             deleteDir() /* clean up our workspace */
