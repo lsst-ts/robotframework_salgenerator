@@ -302,6 +302,8 @@ pipeline {
                 booleanParam(name: 'develop', value: true)], wait: false
             echo "Starting the SalObj_Conda_package/develop job; Build_DevEnv: true"
             build job: 'SalObj_Conda_package/develop', wait: false
+            echo "Starting the BaseDevImage job; BuildSalobjContainer:true and BuildDevEnv:true"
+            build job: 'BaseDevImage', parameters: [booleanParam(name: 'BuildSalobjContainer', value: true), booleanParam(name: 'BuildDevEnv', value: true)], wait: false
         }
         cleanup {
             deleteDir() /* clean up our workspace */
