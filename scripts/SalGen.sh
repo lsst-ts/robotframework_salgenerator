@@ -237,11 +237,12 @@ function salgenMaven() {
     echo "Salgen $subSystemUp Maven" >> $testSuite
     echo "    [Documentation]    Generate the Maven repository." >> $testSuite
     echo "    [Tags]    java$skipped" >> $testSuite
-    echo "    \${maven}=    Set Variable    \${SAL_Version}_\${XML_Version}\${MavenVersion}" >> $testSuite
+    echo "    \${maven}=    Set Variable    \${MavenVersion}" >> $testSuite
     echo "    \${output}=    Run Process    \${SALHome}/scripts/salgenerator    \${subSystem}    maven    version\\=\${maven}    \
 shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.txt    stderr=\${EXECDIR}\${/}\${subSystem}_stderr.txt" >> $testSuite
     echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
-    echo "    Should Contain    \${output.stdout}    SAL generator - \${maven}" >> $testSuite
+    echo "    Should Contain    \${output.stdout}    argv = \${subSystem} maven version=\${maven}" >> $testSuite
+    echo "    Should Contain    \${output.stdout}    SAL generator - \${SAL_Version}" >> $testSuite
     echo "    Should Contain    \${output.stdout}    Running maven install" >> $testSuite
     echo "    Should Contain    \${output.stdout}    [INFO] Building sal_\${subSystem} \${SALVersion}" >> $testSuite
     echo "    Should Contain X Times    \${output.stdout}    [INFO] BUILD SUCCESS    1" >> $testSuite
@@ -361,7 +362,7 @@ function salgenRPM() {
     echo "Salgen $subSystemUp RPM" >> $testSuite
     echo "    [Documentation]    Generate the SAL library RPM for \${subSystem}" >> $testSuite
     echo "    [Tags]    rpm$skipped" >> $testSuite
-    echo "    \${output}=    Run Process    \${SALHome}/scripts/salgenerator    \${subSystem}    rpm    version\\=\${SALVersion}\${Build_Number}    \
+    echo "    \${output}=    Run Process    \${SALHome}/scripts/salgenerator    \${subSystem}    rpm    version\\=pre\${Build_Number}    \
 shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.txt    stderr=\${EXECDIR}\${/}\${subSystem}_stderr.txt" >> $testSuite
     echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
     echo "    @{files}=    List Directory    /tmp/" >> $testSuite
