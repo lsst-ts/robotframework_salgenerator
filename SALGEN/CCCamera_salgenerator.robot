@@ -748,7 +748,8 @@ Salgen CCCamera Lib
 Salgen CCCamera RPM
     [Documentation]    Generate the SAL library RPM for ${subSystem}
     [Tags]    rpm
-    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    rpm    version\=${SALVersion}${Build_Number}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
+    Log Many    ${XMLVersion}    ${SALVersion}    ${Build_Number}    ${DIST}
+    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    rpm    version\=${Build_Number}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     @{files}=    List Directory    /tmp/
     File Should Exist    /tmp/makerpm_${subSystem}.log
@@ -762,7 +763,7 @@ Salgen CCCamera RPM
     Log File    /tmp/makerpm-meta.log
     Log File    /tmp/makerpm-atmeta.log
     Should Not Contain    ${output.stdout}    ERROR : Asset required for rpm
-    Should Contain    ${output.stdout}    SAL generator - ${SALVersion}${Build_Number}
+    Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Building runtime RPM for ${subSystem} subsystem
     Directory Should Exist    ${SALWorkDir}/rpmbuild
     Directory Should Exist    ${SALWorkDir}/rpmbuild/BUILD
@@ -775,26 +776,26 @@ Salgen CCCamera RPM
     @{files}=    List Directory    ${SALWorkDir}/rpmbuild/RPMS/x86_64/
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/rpmbuild/SPECS/ts_sal_${subSystem}.spec
-    File Should Exist    ${SALWorkDir}/rpmbuild/SOURCES/${subSystem}-${SALVersion}${Build_Number}.tgz
-    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_runtime-${SALVersion}${Build_Number}-${XMLVersion}.el7.x86_64.rpm
-    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_ATruntime-${SALVersion}${Build_Number}-${XMLVersion}.el7.x86_64.rpm
-    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_utils-${SALVersion}${Build_Number}-1.x86_64.rpm
-    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}-${SALVersion}${Build_Number}-${XMLVersion}${DIST}.x86_64.rpm
-    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}_test-${SALVersion}${Build_Number}-${XMLVersion}${DIST}.x86_64.rpm
+    File Should Exist    ${SALWorkDir}/rpmbuild/SOURCES/${subSystem}-${XMLVersion}.tgz
+    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_runtime-${XMLVersion}-${SALVersion}.${Build_Number}${DIST}.x86_64.rpm
+    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_ATruntime-${XMLVersion}-${SALVersion}.${Build_Number}${DIST}.x86_64.rpm
+    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_utils-${SALVersion}-1.x86_64.rpm
+    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}-${XMLVersion}-${SALVersion}.${Build_Number}${DIST}.x86_64.rpm
+    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}_test-${XMLVersion}-${SALVersion}.${Build_Number}${DIST}.x86_64.rpm
 
 Salgen CCCamera Maven
     [Documentation]    Generate the Maven repository.
     [Tags]    java
-    ${maven}=    Set Variable    ${SAL_Version}_${XML_Version}${MavenVersion}
-    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    maven    version\=${maven}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
+    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    maven    version\=${MavenVersion}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
-    Should Contain    ${output.stdout}    SAL generator - ${maven}
+    Should Contain    ${output.stdout}    argv = ${subSystem} maven version=${MavenVersion}
+    Should Contain    ${output.stdout}    SAL generator - ${SAL_Version}
     Should Contain    ${output.stdout}    Running maven install
-    Should Contain    ${output.stdout}    [INFO] Building sal_${subSystem} ${SALVersion}
+    Should Contain    ${output.stdout}    [INFO] Building sal_${subSystem} ${XMLVersion}-${SALVersion}.${MavenVersion}
     Should Contain X Times    ${output.stdout}    [INFO] BUILD SUCCESS    1
     Should Contain X Times    ${output.stdout}    [INFO] Finished at:    1
     @{files}=    List Directory    ${SALWorkDir}/maven
-    File Should Exist    ${SALWorkDir}/maven/${subSystem}_${maven}/pom.xml
+    File Should Exist    ${SALWorkDir}/maven/${subSystem}_${XMLVersion}-${SALVersion}.${MavenVersion}/pom.xml
 
 Cleanup stdout and stderr Files
     [Tags]
