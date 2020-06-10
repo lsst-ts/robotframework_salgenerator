@@ -237,18 +237,17 @@ function salgenMaven() {
     echo "Salgen $subSystemUp Maven" >> $testSuite
     echo "    [Documentation]    Generate the Maven repository." >> $testSuite
     echo "    [Tags]    java$skipped" >> $testSuite
-    echo "    \${maven}=    Set Variable    \${MavenVersion}" >> $testSuite
-    echo "    \${output}=    Run Process    \${SALHome}/scripts/salgenerator    \${subSystem}    maven    version\\=\${maven}    \
+    echo "    \${output}=    Run Process    \${SALHome}/scripts/salgenerator    \${subSystem}    maven    version\\=\${MavenVersion}    \
 shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.txt    stderr=\${EXECDIR}\${/}\${subSystem}_stderr.txt" >> $testSuite
     echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
-    echo "    Should Contain    \${output.stdout}    argv = \${subSystem} maven version=\${maven}" >> $testSuite
+    echo "    Should Contain    \${output.stdout}    argv = \${subSystem} maven version=\${MavenVersion}" >> $testSuite
     echo "    Should Contain    \${output.stdout}    SAL generator - \${SAL_Version}" >> $testSuite
     echo "    Should Contain    \${output.stdout}    Running maven install" >> $testSuite
     echo "    Should Contain    \${output.stdout}    [INFO] Building sal_\${subSystem} \${SALVersion}" >> $testSuite
     echo "    Should Contain X Times    \${output.stdout}    [INFO] BUILD SUCCESS    1" >> $testSuite
     echo "    Should Contain X Times    \${output.stdout}    [INFO] Finished at:    1" >> $testSuite
     echo "    @{files}=    List Directory    \${SALWorkDir}/maven" >> $testSuite
-    echo "    File Should Exist    \${SALWorkDir}/maven/\${subSystem}_\${maven}/pom.xml" >> $testSuite
+    echo "    File Should Exist    \${SALWorkDir}/maven/\${subSystem}_\${XMLVersion}-\${SALVersion}.\${MavenVersion}/pom.xml" >> $testSuite
     echo "" >> $testSuite
 }
 
@@ -362,7 +361,7 @@ function salgenRPM() {
     echo "Salgen $subSystemUp RPM" >> $testSuite
     echo "    [Documentation]    Generate the SAL library RPM for \${subSystem}" >> $testSuite
     echo "    [Tags]    rpm$skipped" >> $testSuite
-    echo "    \${output}=    Run Process    \${SALHome}/scripts/salgenerator    \${subSystem}    rpm    version\\=pre\${Build_Number}    \
+    echo "    \${output}=    Run Process    \${SALHome}/scripts/salgenerator    \${subSystem}    rpm    version\\=\${Build_Number}    \
 shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.txt    stderr=\${EXECDIR}\${/}\${subSystem}_stderr.txt" >> $testSuite
     echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
     echo "    @{files}=    List Directory    /tmp/" >> $testSuite
@@ -377,7 +376,7 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     echo "    Log File    /tmp/makerpm-meta.log" >> $testSuite
     echo "    Log File    /tmp/makerpm-atmeta.log" >> $testSuite
     echo "    Should Not Contain    \${output.stdout}    ERROR : Asset required for rpm" >> $testSuite
-    echo "    Should Contain    \${output.stdout}    SAL generator - \${SALVersion}\${Build_Number}" >> $testSuite
+    echo "    Should Contain    \${output.stdout}    SAL generator - \${SALVersion}" >> $testSuite
     echo "    Should Contain    \${output.stdout}    Building runtime RPM for \${subSystem} subsystem" >> $testSuite
     echo "    Directory Should Exist    \${SALWorkDir}/rpmbuild" >> $testSuite
     echo "    Directory Should Exist    \${SALWorkDir}/rpmbuild/BUILD" >> $testSuite
