@@ -422,11 +422,11 @@ Salgen TunableLaser Maven
     Should Contain    ${output.stdout}    argv = ${subSystem} maven version=${MavenVersion}
     Should Contain    ${output.stdout}    SAL generator - ${SAL_Version}
     Should Contain    ${output.stdout}    Running maven install
-    Should Contain    ${output.stdout}    [INFO] Building sal_${subSystem} ${XMLVersion}-${SALVersion}.${MavenVersion}
+    Should Contain    ${output.stdout}    [INFO] Building sal_${subSystem} ${XMLVersion}_${SALVersion}${MavenVersion}
     Should Contain X Times    ${output.stdout}    [INFO] BUILD SUCCESS    1
     Should Contain X Times    ${output.stdout}    [INFO] Finished at:    1
     @{files}=    List Directory    ${SALWorkDir}/maven
-    File Should Exist    ${SALWorkDir}/maven/${subSystem}_${XMLVersion}-${SALVersion}.${MavenVersion}/pom.xml
+    File Should Exist    ${SALWorkDir}/maven/${subSystem}-${XMLVersion}_${SALVersion}${MavenVersion}/pom.xml
 
 Cleanup stdout and stderr Files
     [Tags]
