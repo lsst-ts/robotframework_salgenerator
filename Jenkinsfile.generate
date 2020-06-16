@@ -240,8 +240,8 @@ pipeline {
                 script {
                     array = sh(returnStdout: true, label: 'Push RPMs to Nexus3',
                     script: '#!/bin/bash -x\n' +
-                    'ls ${WORKSPACE}/ts_sal/test/rpmbuild/RPMS/x86_64/ |grep -v debuginfo |grep ' + SAL_Version +
-                    ' |grep ' + XML_Version + ' |grep pre${BUILD_NUMBER} |tr "\n\r" " "'
+                    'ls ${WORKSPACE}/ts_sal/test/rpmbuild/RPMS/x86_64/ |grep -v debuginfo |grep ' + XML_Version +
+                    ' |grep ' + SAL_Version + ' |grep pre${BUILD_NUMBER} |tr "\n\r" " "'
                     )
                     rpm_array = array.tokenize()
                     println rpm_array
@@ -285,11 +285,11 @@ pipeline {
             }
             steps {
                 sh label: 'Java Artifacts', script: '#!/bin/bash -x\n' +
-                'cd ' + _home + '/trunk/ts_sal/test/maven/ATCamera_' + SAL_Version + '_' + XML_Version + MavenVersion + ' \n' +
+                'cd ' + _home + '/trunk/ts_sal/test/maven/ATCamera_' + XML_Version + '-' + SAL_Version + '.' + MavenVersion + ' \n' +
                 'mvn -DskipTests=true -B deploy \n' +
-                'cd ' + _home + '/trunk/ts_sal/test/maven/CCCamera_' + SAL_Version + '_' + XML_Version + MavenVersion + ' \n' +
+                'cd ' + _home + '/trunk/ts_sal/test/maven/CCCamera_' + XML_Version + '-' + SAL_Version + '.' + MavenVersion + ' \n' +
                 'mvn -DskipTests=true -B deploy \n' +
-                'cd ' + _home + '/trunk/ts_sal/test/maven/MTCamera_' + SAL_Version + '_' + XML_Version + MavenVersion + ' \n' +
+                'cd ' + _home + '/trunk/ts_sal/test/maven/MTCamera_' + XML_Version + '-' + SAL_Version + '.' + MavenVersion + ' \n' +
                 'mvn -DskipTests=true -B deploy \n' +
                 'echo "=== Java deploy complete ==="'
             }
