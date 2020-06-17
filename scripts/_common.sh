@@ -78,7 +78,7 @@ function clearTestSuites() {
 }
 
 function subsystemArray() {
-    echo "ATAOS ATArchiver ATBuilding ATCamera 
+    echo "AdamSensors ATAOS ATArchiver ATBuilding ATCamera 
     ATDome ATDomeTrajectory ATHeaderService 
     ATHexapod ATMCS ATMonochromator ATOODS 
     ATPneumatics ATPtg ATSpectrograph ATWhiteLight 
