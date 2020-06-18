@@ -34,13 +34,12 @@ Salgen Dome Validate
     Directory Should Exist    ${SALWorkDir}/idl-templates/validated
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_summary.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_domeADB_status.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_domeAPS_status.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_domeLouvers_status.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_domeLWS_status.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_domeMONCS_status.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_domeTHCS_status.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_azimuth.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_lightWindScreen.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_apertureShutter.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_louvers.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_interlocks.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_thermal.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_abort.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
@@ -56,7 +55,7 @@ Salgen Dome Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_moveAz.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_moveEl.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_park.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setLouver.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setLouvers.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_closeLouvers.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_stopLouvers.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_closeShutter.idl
@@ -77,21 +76,15 @@ Salgen Dome Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_softwareVersions.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_heartbeat.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_authList.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_stateChange.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_motionEnabled.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_inPosition.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_driveFault.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_lockingPinEngaged.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_lockingPinDisengaged.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_overTemp.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_speedLimitReached.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_accelLimitReached.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_brakeEngaged.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_brakeDisengaged.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_craneStatusChange.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rearDoorStatusChange.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_sealStatusChange.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_interlockAlarm.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_azEnabled.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_elEnabled.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_azMotion.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_elMotion.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_azTarget.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_elTarget.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_brakesEngaged.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_lockingPinsEngaged.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_interlocks.idl
 
 Salgen Dome HTML
     [Documentation]    Create web form interfaces.
@@ -132,7 +125,7 @@ Verify Dome revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_moveAz\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_moveEl\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_park\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setLouver\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setLouvers\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_closeLouvers\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_stopLouvers\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_closeShutter\\) [a-z0-9]{8,}
@@ -153,28 +146,21 @@ Verify Dome revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_softwareVersions\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_heartbeat\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_authList\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_stateChange\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_motionEnabled\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_inPosition\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_driveFault\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_lockingPinEngaged\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_lockingPinDisengaged\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_overTemp\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_speedLimitReached\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_accelLimitReached\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_brakeEngaged\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_brakeDisengaged\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_craneStatusChange\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rearDoorStatusChange\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_sealStatusChange\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_interlockAlarm\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_summary\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_domeADB_status\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_domeAPS_status\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_domeLouvers_status\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_domeLWS_status\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_domeMONCS_status\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_domeTHCS_status\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_azEnabled\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_elEnabled\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_azMotion\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_elMotion\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_azTarget\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_elTarget\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_brakesEngaged\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_lockingPinsEngaged\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_interlocks\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_azimuth\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_lightWindScreen\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_apertureShutter\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_louvers\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_interlocks\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_thermal\\) [a-z0-9]{8,}
 
 Salgen Dome IDL
     [Documentation]    Generate the revCoded IDL for ${subSystem}
@@ -195,15 +181,14 @@ Salgen Dome C++
     Should Not Contain    ${output.stdout}    *** DDS error in file
     Should Not Contain    ${output.stdout}    Error 1
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_summary.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_domeADB_status.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_domeAPS_status.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_domeLouvers_status.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_domeLWS_status.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_domeMONCS_status.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_domeTHCS_status.idl
-    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    7
-    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    7
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_azimuth.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_lightWindScreen.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_apertureShutter.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_louvers.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_interlocks.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_thermal.idl
+    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    6
+    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    6
     Should Contain X Times    ${output.stdout}    cpp : Done Commander    1
     Should Contain X Times    ${output.stdout}    cpp : Done Event/Logger    1
 
@@ -221,31 +206,28 @@ Verify Dome Telemetry directories
     [Tags]    cpp
     @{files}=    List Directory    ${SALWorkDir}    pattern=*${subSystem}*
     Log Many    @{files}
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_summary
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_domeADB_status
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_domeAPS_status
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_domeLouvers_status
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_domeLWS_status
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_domeMONCS_status
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_domeTHCS_status
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_azimuth
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_lightWindScreen
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_apertureShutter
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_louvers
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_interlocks
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_thermal
 
 Verify Dome C++ Telemetry Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}_summary/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_summary/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_domeADB_status/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_domeADB_status/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_domeAPS_status/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_domeAPS_status/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_domeLouvers_status/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_domeLouvers_status/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_domeLWS_status/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_domeLWS_status/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_domeMONCS_status/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_domeMONCS_status/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_domeTHCS_status/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_domeTHCS_status/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_azimuth/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_azimuth/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_lightWindScreen/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_lightWindScreen/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_apertureShutter/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_apertureShutter/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_louvers/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_louvers/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_interlocks/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_interlocks/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_thermal/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_thermal/cpp/standalone/sacpp_${subSystem}_sub
 
 Verify Dome C++ Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -280,8 +262,8 @@ Verify Dome C++ Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_moveEl_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_park_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_park_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setLouver_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setLouver_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setLouvers_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setLouvers_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_closeLouvers_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_closeLouvers_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_stopLouvers_commander
@@ -326,36 +308,24 @@ Verify Dome C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_heartbeat_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_authList_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_authList_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_stateChange_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_stateChange_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_motionEnabled_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_motionEnabled_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_inPosition_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_inPosition_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_driveFault_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_driveFault_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_lockingPinEngaged_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_lockingPinEngaged_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_lockingPinDisengaged_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_lockingPinDisengaged_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_overTemp_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_overTemp_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_speedLimitReached_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_speedLimitReached_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_accelLimitReached_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_accelLimitReached_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_brakeEngaged_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_brakeEngaged_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_brakeDisengaged_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_brakeDisengaged_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_craneStatusChange_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_craneStatusChange_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_rearDoorStatusChange_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_rearDoorStatusChange_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_sealStatusChange_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_sealStatusChange_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_interlockAlarm_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_interlockAlarm_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_azEnabled_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_azEnabled_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_elEnabled_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_elEnabled_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_azMotion_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_azMotion_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_elMotion_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_elMotion_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_azTarget_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_azTarget_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_elTarget_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_elTarget_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_brakesEngaged_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_brakesEngaged_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_lockingPinsEngaged_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_lockingPinsEngaged_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_interlocks_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_interlocks_log
 
 Salgen Dome Python
     [Documentation]    Generate Python libraries.
@@ -376,20 +346,18 @@ Verify Dome Python Telemetry Interfaces
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_summary_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_summary_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_domeADB_status_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_domeADB_status_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_domeAPS_status_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_domeAPS_status_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_domeLouvers_status_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_domeLouvers_status_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_domeLWS_status_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_domeLWS_status_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_domeMONCS_status_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_domeMONCS_status_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_domeTHCS_status_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_domeTHCS_status_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_azimuth_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_azimuth_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_lightWindScreen_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_lightWindScreen_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_apertureShutter_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_apertureShutter_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_louvers_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_louvers_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_interlocks_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_interlocks_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_thermal_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_thermal_Subscriber.py
 
 Verify Dome Python Command Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
@@ -426,8 +394,8 @@ Verify Dome Python Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_moveEl.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_park.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_park.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_setLouver.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setLouver.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_setLouvers.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setLouvers.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_closeLouvers.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_closeLouvers.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_stopLouvers.py
@@ -474,36 +442,24 @@ Verify Dome Python Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_heartbeat.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_authList.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_authList.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_stateChange.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_stateChange.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_motionEnabled.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_motionEnabled.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_inPosition.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_inPosition.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_driveFault.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_driveFault.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_lockingPinEngaged.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_lockingPinEngaged.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_lockingPinDisengaged.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_lockingPinDisengaged.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_overTemp.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_overTemp.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_speedLimitReached.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_speedLimitReached.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_accelLimitReached.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_accelLimitReached.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_brakeEngaged.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_brakeEngaged.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_brakeDisengaged.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_brakeDisengaged.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_craneStatusChange.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_craneStatusChange.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_rearDoorStatusChange.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_rearDoorStatusChange.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_sealStatusChange.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_sealStatusChange.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_interlockAlarm.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_interlockAlarm.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_azEnabled.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_azEnabled.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_elEnabled.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_elEnabled.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_azMotion.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_azMotion.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_elMotion.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_elMotion.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_azTarget.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_azTarget.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_elTarget.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_elTarget.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_brakesEngaged.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_brakesEngaged.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_lockingPinsEngaged.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_lockingPinsEngaged.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_interlocks.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_interlocks.py
 
 Salgen Dome LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
@@ -525,15 +481,14 @@ Salgen Dome Java
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    sal    java    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_summary.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_domeADB_status.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_domeAPS_status.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_domeLouvers_status.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_domeLWS_status.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_domeMONCS_status.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_domeTHCS_status.idl
-    Should Contain X Times    ${output.stdout}    javac : Done Publisher    7
-    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    7
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_azimuth.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_lightWindScreen.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_apertureShutter.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_louvers.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_interlocks.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_thermal.idl
+    Should Contain X Times    ${output.stdout}    javac : Done Publisher    6
+    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    6
     Directory Should Exist    ${SALWorkDir}/${subSystem}/java
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl

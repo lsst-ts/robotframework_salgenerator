@@ -34,19 +34,22 @@ Salgen MTM2 Validate
     Directory Should Exist    ${SALWorkDir}/idl-templates/validated
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_mirrorPositionMeasured.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_axialForceData.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_tangentForceData.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_temperaturesMeasured.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_zenithAngleData.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_position.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_positionIMS.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_axialForce.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_tangentForce.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_temperature.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_zenithAngle.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_axialActuatorSteps.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_tangentActuatorSteps.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_axialEncoderPositions.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_tangentEncoderPositions.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_ilcData.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_displacementSensors.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_forceBalance.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_netForcesTotal.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_netMomentsTotal.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_powerStatus.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_abort.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
@@ -61,6 +64,9 @@ Salgen MTM2 Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_positionMirror.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_resetForceOffsets.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_clearErrors.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_switchForceBalanceSystem.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_selectInclinationSource.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setTemperatureOffset.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingVersions.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_errorCode.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_summaryState.idl
@@ -79,6 +85,9 @@ Salgen MTM2 Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_interlock.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_tcpIpConnected.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_hardpointList.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_forceBalanceSystemStatus.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_inclinationTelemetrySource.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_temperatureOffset.idl
 
 Salgen MTM2 HTML
     [Documentation]    Create web form interfaces.
@@ -118,6 +127,9 @@ Verify MTM2 revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_positionMirror\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_resetForceOffsets\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_clearErrors\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_switchForceBalanceSystem\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_selectInclinationSource\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setTemperatureOffset\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_settingVersions\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_errorCode\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_summaryState\\) [a-z0-9]{8,}
@@ -136,19 +148,25 @@ Verify MTM2 revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_interlock\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_tcpIpConnected\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_hardpointList\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_mirrorPositionMeasured\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_axialForceData\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_tangentForceData\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_temperaturesMeasured\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_zenithAngleData\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_forceBalanceSystemStatus\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_inclinationTelemetrySource\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_temperatureOffset\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_position\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_positionIMS\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_axialForce\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_tangentForce\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_temperature\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_zenithAngle\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_axialActuatorSteps\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_tangentActuatorSteps\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_axialEncoderPositions\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_tangentEncoderPositions\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_ilcData\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_displacementSensors\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_forceBalance\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_netForcesTotal\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_netMomentsTotal\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_powerStatus\\) [a-z0-9]{8,}
 
 Salgen MTM2 IDL
     [Documentation]    Generate the revCoded IDL for ${subSystem}
@@ -169,21 +187,24 @@ Salgen MTM2 C++
     Should Not Contain    ${output.stdout}    *** DDS error in file
     Should Not Contain    ${output.stdout}    Error 1
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_mirrorPositionMeasured.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_axialForceData.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_tangentForceData.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_temperaturesMeasured.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_zenithAngleData.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_position.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_positionIMS.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_axialForce.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_tangentForce.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_temperature.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_zenithAngle.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_axialActuatorSteps.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_tangentActuatorSteps.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_axialEncoderPositions.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_tangentEncoderPositions.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_ilcData.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_displacementSensors.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_forceBalance.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_netForcesTotal.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_netMomentsTotal.idl
-    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    13
-    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    13
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_powerStatus.idl
+    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    16
+    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    16
     Should Contain X Times    ${output.stdout}    cpp : Done Commander    1
     Should Contain X Times    ${output.stdout}    cpp : Done Event/Logger    1
 
@@ -201,33 +222,38 @@ Verify MTM2 Telemetry directories
     [Tags]    cpp
     @{files}=    List Directory    ${SALWorkDir}    pattern=*${subSystem}*
     Log Many    @{files}
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_mirrorPositionMeasured
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_axialForceData
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_tangentForceData
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_temperaturesMeasured
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_zenithAngleData
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_position
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_positionIMS
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_axialForce
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_tangentForce
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_temperature
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_zenithAngle
     Directory Should Exist    ${SALWorkDir}/${subSystem}_axialActuatorSteps
     Directory Should Exist    ${SALWorkDir}/${subSystem}_tangentActuatorSteps
     Directory Should Exist    ${SALWorkDir}/${subSystem}_axialEncoderPositions
     Directory Should Exist    ${SALWorkDir}/${subSystem}_tangentEncoderPositions
     Directory Should Exist    ${SALWorkDir}/${subSystem}_ilcData
     Directory Should Exist    ${SALWorkDir}/${subSystem}_displacementSensors
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_forceBalance
     Directory Should Exist    ${SALWorkDir}/${subSystem}_netForcesTotal
     Directory Should Exist    ${SALWorkDir}/${subSystem}_netMomentsTotal
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_powerStatus
 
 Verify MTM2 C++ Telemetry Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}_mirrorPositionMeasured/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_mirrorPositionMeasured/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_axialForceData/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_axialForceData/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_tangentForceData/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_tangentForceData/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_temperaturesMeasured/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_temperaturesMeasured/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_zenithAngleData/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_zenithAngleData/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_position/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_position/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_positionIMS/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_positionIMS/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_axialForce/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_axialForce/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_tangentForce/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_tangentForce/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_temperature/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_temperature/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_zenithAngle/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_zenithAngle/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_axialActuatorSteps/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_axialActuatorSteps/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_tangentActuatorSteps/cpp/standalone/sacpp_${subSystem}_pub
@@ -240,10 +266,14 @@ Verify MTM2 C++ Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}_ilcData/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_displacementSensors/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_displacementSensors/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_forceBalance/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_forceBalance/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_netForcesTotal/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_netForcesTotal/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_netMomentsTotal/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_netMomentsTotal/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_powerStatus/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_powerStatus/cpp/standalone/sacpp_${subSystem}_sub
 
 Verify MTM2 C++ Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -276,6 +306,12 @@ Verify MTM2 C++ Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_resetForceOffsets_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_clearErrors_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_clearErrors_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_switchForceBalanceSystem_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_switchForceBalanceSystem_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_selectInclinationSource_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_selectInclinationSource_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setTemperatureOffset_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setTemperatureOffset_controller
 
 Verify MTM2 C++ Event Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -316,6 +352,12 @@ Verify MTM2 C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_tcpIpConnected_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_hardpointList_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_hardpointList_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_forceBalanceSystemStatus_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_forceBalanceSystemStatus_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_inclinationTelemetrySource_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_inclinationTelemetrySource_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_temperatureOffset_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_temperatureOffset_log
 
 Salgen MTM2 Python
     [Documentation]    Generate Python libraries.
@@ -336,16 +378,18 @@ Verify MTM2 Python Telemetry Interfaces
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_mirrorPositionMeasured_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_mirrorPositionMeasured_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_axialForceData_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_axialForceData_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_tangentForceData_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_tangentForceData_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_temperaturesMeasured_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_temperaturesMeasured_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_zenithAngleData_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_zenithAngleData_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_position_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_position_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_positionIMS_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_positionIMS_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_axialForce_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_axialForce_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_tangentForce_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_tangentForce_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_temperature_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_temperature_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_zenithAngle_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_zenithAngle_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_axialActuatorSteps_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_axialActuatorSteps_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_tangentActuatorSteps_Publisher.py
@@ -358,10 +402,14 @@ Verify MTM2 Python Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_ilcData_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_displacementSensors_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_displacementSensors_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_forceBalance_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_forceBalance_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_netForcesTotal_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_netForcesTotal_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_netMomentsTotal_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_netMomentsTotal_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_powerStatus_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_powerStatus_Subscriber.py
 
 Verify MTM2 Python Command Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
@@ -396,6 +444,12 @@ Verify MTM2 Python Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_resetForceOffsets.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_clearErrors.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_clearErrors.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_switchForceBalanceSystem.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_switchForceBalanceSystem.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_selectInclinationSource.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_selectInclinationSource.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_setTemperatureOffset.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setTemperatureOffset.py
 
 Verify MTM2 Python Event Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
@@ -438,6 +492,12 @@ Verify MTM2 Python Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_tcpIpConnected.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_hardpointList.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_hardpointList.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_forceBalanceSystemStatus.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_forceBalanceSystemStatus.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_inclinationTelemetrySource.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_inclinationTelemetrySource.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_temperatureOffset.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_temperatureOffset.py
 
 Salgen MTM2 LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
@@ -459,21 +519,24 @@ Salgen MTM2 Java
     ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    sal    java    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_mirrorPositionMeasured.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_axialForceData.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_tangentForceData.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_temperaturesMeasured.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_zenithAngleData.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_position.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_positionIMS.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_axialForce.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_tangentForce.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_temperature.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_zenithAngle.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_axialActuatorSteps.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_tangentActuatorSteps.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_axialEncoderPositions.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_tangentEncoderPositions.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_ilcData.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_displacementSensors.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_forceBalance.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_netForcesTotal.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_netMomentsTotal.idl
-    Should Contain X Times    ${output.stdout}    javac : Done Publisher    13
-    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    13
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_powerStatus.idl
+    Should Contain X Times    ${output.stdout}    javac : Done Publisher    16
+    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    16
     Directory Should Exist    ${SALWorkDir}/${subSystem}/java
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
