@@ -46,10 +46,10 @@ pipeline {
                     XML_Version = readFile("${WORKSPACE}/ts_xml/VERSION").trim()
                     if ("${GIT_BRANCH}" == 'master') {
                         // Maven release artifacts simply use the version numbers.
-                        MavenVersion = '1'
+                        MavenVersion = ''
                     } else {
                         // Maven develop/daily/etc artifacts add the -SNAPSHOT string.
-                        MavenVersion = 'SNAPSHOT'
+                        MavenVersion = '-SNAPSHOT'
                     }
                 }
                 sh 'mkdir -pv "${WORKSPACE}/Reports"'
@@ -285,11 +285,11 @@ pipeline {
             }
             steps {
                 sh label: 'Java Artifacts', script: '#!/bin/bash -x\n' +
-                'cd ' + _home + '/trunk/ts_sal/test/maven/ATCamera_' + XML_Version + '-' + SAL_Version + '.' + MavenVersion + ' \n' +
+                'cd ' + _home + '/trunk/ts_sal/test/maven/ATCamera-' + XML_Version + '-' + SAL_Version + MavenVersion + ' \n' +
                 'mvn -DskipTests=true -B deploy \n' +
-                'cd ' + _home + '/trunk/ts_sal/test/maven/CCCamera_' + XML_Version + '-' + SAL_Version + '.' + MavenVersion + ' \n' +
+                'cd ' + _home + '/trunk/ts_sal/test/maven/CCCamera-' + XML_Version + '-' + SAL_Version + MavenVersion + ' \n' +
                 'mvn -DskipTests=true -B deploy \n' +
-                'cd ' + _home + '/trunk/ts_sal/test/maven/MTCamera_' + XML_Version + '-' + SAL_Version + '.' + MavenVersion + ' \n' +
+                'cd ' + _home + '/trunk/ts_sal/test/maven/MTCamera-' + XML_Version + '-' + SAL_Version + MavenVersion + ' \n' +
                 'mvn -DskipTests=true -B deploy \n' +
                 'echo "=== Java deploy complete ==="'
             }
