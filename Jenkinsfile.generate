@@ -187,7 +187,7 @@ pipeline {
                         'echo cd ' + _home + '/trunk/robotframework_SAL \n' +
                         'cd ' + _home + '/trunk/robotframework_SAL \n' +
                         'echo ========= Execute SAL Java messaging tests ========= \n' +
-                        'robot --outputdir ' + _home + '/Reports --variable ContInt:true -e skipped --noncritical TSS* --noncritical DM* ' +
+                        'robot --outputdir ' + _home + '/trunk/Reports --variable ContInt:true -e skipped --noncritical TSS* --noncritical DM* ' +
                             '--variable SALVersion:' + SAL_Version + ' --variable SALInstall:' + _home + '/trunk/ts_sal ' +
                             '--variable OpenspliceRelease:\'OpenSplice HDE Release\' ' +
                             '--variable OpenspliceVersion:6.9.181127OSS --variable OpenspliceDate:2018-11-28 ' +
