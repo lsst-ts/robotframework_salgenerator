@@ -58,7 +58,7 @@ pipeline {
                 echo "The SAL version: " + SAL_Version
                 echo "The XML version: " + XML_Version
                 echo "The Maven version: " + MavenVersion
-                echo "The RPM Version: " + SAL_Version + "_${BUILD_NUMBER}-" + XML_Version
+                echo "The RPM Version: " + XML_Version + "-" + SAL_Version + ".pre${BUILD_NUMBER}"
             }
         }//Define SAL & XML variables
         stage('Copy XML files') {
@@ -88,7 +88,7 @@ pipeline {
                 'robot --variable ContInt:true -e skipped --noncritical TSS* --noncritical DM* --variable SALVersion:' + SAL_Version + ' ' +
                     '--variable SALInstall:' + _home + '/trunk/ts_sal --variable OpenspliceRelease:\'OpenSplice HDE Release\' ' + 
                     '--variable OpenspliceVersion:6.9.181127OSS --variable OpenspliceDate:2018-11-28 --variable PythonVersion:\'Python ' + _python_version + '\' ' +
-                    '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:_${BUILD_NUMBER} ' + 
+                    '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:pre${BUILD_NUMBER} ' + 
                     '--name Validate --output VALIDATE --outputdir ' + _home + '/trunk/Reports -A ' + _home + '/trunk/robotframework_salgenerator/Test_SalGen.list \n' +
                 'Result=$? \n' +
                 'if [ $Result -eq 0 ]; then echo Validation complete; else exit $Result; fi'
@@ -108,7 +108,7 @@ pipeline {
                         'robot --variable ContInt:true -e skipped --noncritical TSS* --noncritical DM* --variable SALVersion:' + SAL_Version + ' ' +
                             '--variable SALInstall:' + _home + '/trunk/ts_sal --variable OpenspliceRelease:\'OpenSplice HDE Release\' ' +
                             '--variable OpenspliceVersion:6.9.181127OSS --variable OpenspliceDate:2018-11-28 --variable PythonVersion:\'Python ' + _python_version + '\' ' +
-                            '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:_${BUILD_NUMBER} ' +
+                            '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:pre${BUILD_NUMBER} ' +
                             '--name AuxTel --output AUXTEL --outputdir ' + _home + '/trunk/Reports -A ' + _home + '/trunk/robotframework_salgenerator/AT_SalGen.list \n' +
                         'exit 0' 
                     }
@@ -125,7 +125,7 @@ pipeline {
                         'robot --variable ContInt:true -e skipped --noncritical TSS* --noncritical DM* --variable SALVersion:' + SAL_Version + ' ' +
                             '--variable SALInstall:' + _home + '/trunk/ts_sal --variable OpenspliceRelease:\'OpenSplice HDE Release\' ' +
                             '--variable OpenspliceVersion:6.9.181127OSS --variable OpenspliceDate:2018-11-28 --variable PythonVersion:\'Python ' + _python_version + '\' ' +
-                            '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:_${BUILD_NUMBER} ' +
+                            '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:pre${BUILD_NUMBER} ' +
                             '--name MainTel --output MAINTEL --outputdir ' + _home + '/trunk/Reports -A ' + _home + '/trunk/robotframework_salgenerator/MT_SalGen.list \n' +
                         'exit 0'
                     }
@@ -187,7 +187,7 @@ pipeline {
                         'echo cd ' + _home + '/trunk/robotframework_SAL \n' +
                         'cd ' + _home + '/trunk/robotframework_SAL \n' +
                         'echo ========= Execute SAL Java messaging tests ========= \n' +
-                        'robot --outputdir ' + _home + '/Reports --variable ContInt:true -e skipped --noncritical TSS* --noncritical DM* ' +
+                        'robot --outputdir ' + _home + '/trunk/Reports --variable ContInt:true -e skipped --noncritical TSS* --noncritical DM* ' +
                             '--variable SALVersion:' + SAL_Version + ' --variable SALInstall:' + _home + '/trunk/ts_sal ' +
                             '--variable OpenspliceRelease:\'OpenSplice HDE Release\' ' +
                             '--variable OpenspliceVersion:6.9.181127OSS --variable OpenspliceDate:2018-11-28 ' +
@@ -240,8 +240,8 @@ pipeline {
                 script {
                     array = sh(returnStdout: true, label: 'Push RPMs to Nexus3',
                     script: '#!/bin/bash -x\n' +
-                    'ls ${WORKSPACE}/ts_sal/test/rpmbuild/RPMS/x86_64/ |grep -v debuginfo |grep ' + SAL_Version +
-                    ' |grep ' + XML_Version + ' |grep _${BUILD_NUMBER}- |tr "\n\r" " "'
+                    'ls ${WORKSPACE}/ts_sal/test/rpmbuild/RPMS/x86_64/ |grep -v debuginfo |grep ' + XML_Version +
+                    ' |grep ' + SAL_Version + ' |grep pre${BUILD_NUMBER} |tr "\n\r" " "'
                     )
                     rpm_array = array.tokenize()
                     println rpm_array
@@ -257,7 +257,7 @@ pipeline {
                         }//for
                         // Push the ts_sal_utils RPM to Nexus3
                         sh 'echo "=== Push ts_sal_utils RPM to Nexus3 yum repo ==="'
-                        sh 'curl --write-out %{http_code} -Ss -u $NEXUS_USER:$NEXUS_PASS -T ${WORKSPACE}/ts_sal/test/rpmbuild/RPMS/x86_64/ts_sal_utils-' + SAL_Version + '_${BUILD_NUMBER}-1.x86_64.rpm' +
+                        sh 'curl --write-out %{http_code} -Ss -u $NEXUS_USER:$NEXUS_PASS -T ${WORKSPACE}/ts_sal/test/rpmbuild/RPMS/x86_64/ts_sal_utils-' + SAL_Version + '-1.x86_64.rpm' +
                             ' https://repo-nexus.lsst.org/nexus/repository/ts_yum/daily/'
                         sh 'echo "=== ts_sal_utils RPM push complete ==="'
                     }//else
@@ -285,11 +285,11 @@ pipeline {
             }
             steps {
                 sh label: 'Java Artifacts', script: '#!/bin/bash -x\n' +
-                'cd ' + _home + '/trunk/ts_sal/test/maven/ATCamera_' + SAL_Version + '_' + XML_Version + MavenVersion + ' \n' +
+                'cd ' + _home + '/trunk/ts_sal/test/maven/ATCamera-' + XML_Version + '-' + SAL_Version + MavenVersion + ' \n' +
                 'mvn -DskipTests=true -B deploy \n' +
-                'cd ' + _home + '/trunk/ts_sal/test/maven/CCCamera_' + SAL_Version + '_' + XML_Version + MavenVersion + ' \n' +
+                'cd ' + _home + '/trunk/ts_sal/test/maven/CCCamera-' + XML_Version + '-' + SAL_Version + MavenVersion + ' \n' +
                 'mvn -DskipTests=true -B deploy \n' +
-                'cd ' + _home + '/trunk/ts_sal/test/maven/MTCamera_' + SAL_Version + '_' + XML_Version + MavenVersion + ' \n' +
+                'cd ' + _home + '/trunk/ts_sal/test/maven/MTCamera-' + XML_Version + '-' + SAL_Version + MavenVersion + ' \n' +
                 'mvn -DskipTests=true -B deploy \n' +
                 'echo "=== Java deploy complete ==="'
             }
@@ -297,11 +297,13 @@ pipeline {
     }//stages
     post { 
         always {
-            echo "Starting the IDL_Conda_package/develop job; sal_version: " + SAL_Version + "_${BUILD_NUMBER}" + ", xml_version: " + XML_Version + ", develop: true"
-            build job: 'IDL_Conda_package/develop', parameters: [string(name: 'sal_version', value: SAL_Version + "_${BUILD_NUMBER}"), string(name: 'xml_version', value: XML_Version), \
+            echo "Starting the IDL_Conda_package/develop job; sal_version: " + SAL_Version + ".pre${BUILD_NUMBER}" + ", xml_version: " + XML_Version + ", develop: true"
+            build job: 'IDL_Conda_package/develop', parameters: [string(name: 'sal_version', value: SAL_Version + ".pre${BUILD_NUMBER}"), string(name: 'xml_version', value: XML_Version), \
                 booleanParam(name: 'develop', value: true)], wait: false
             echo "Starting the SalObj_Conda_package/develop job; Build_DevEnv: true"
             build job: 'SalObj_Conda_package/develop', wait: false
+            echo "Starting the BaseDevImage job; BuildSalobjContainer:true and BuildDevEnv:true"
+            build job: 'BaseDevImage', parameters: [booleanParam(name: 'BuildSalobjContainer', value: true), booleanParam(name: 'BuildDevEnv', value: true)], wait: false
         }
         cleanup {
             deleteDir() /* clean up our workspace */
