@@ -243,11 +243,11 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     echo "    Should Contain    \${output.stdout}    argv = \${subSystem} maven version=\${MavenVersion}" >> $testSuite
     echo "    Should Contain    \${output.stdout}    SAL generator - \${SAL_Version}" >> $testSuite
     echo "    Should Contain    \${output.stdout}    Running maven install" >> $testSuite
-    echo "    Should Contain    \${output.stdout}    [INFO] Building sal_\${subSystem} \${XMLVersion}_\${SALVersion}\${MavenVersion}" >> $testSuite
+    echo "    Should Contain    \${output.stdout}    [INFO] Building sal_\${subSystem} \${SALVersion}_\${XMLVersion}\${MavenVersion}" >> $testSuite
     echo "    Should Contain X Times    \${output.stdout}    [INFO] BUILD SUCCESS    1" >> $testSuite
     echo "    Should Contain X Times    \${output.stdout}    [INFO] Finished at:    1" >> $testSuite
     echo "    @{files}=    List Directory    \${SALWorkDir}/maven" >> $testSuite
-    echo "    File Should Exist    \${SALWorkDir}/maven/\${subSystem}-\${XMLVersion}_\${SALVersion}\${MavenVersion}/pom.xml" >> $testSuite
+    echo "    File Should Exist    \${SALWorkDir}/maven/\${subSystem}-\${SALVersion}_\${XMLVersion}\${MavenVersion}/pom.xml" >> $testSuite
     echo "" >> $testSuite
 }
 
@@ -390,12 +390,12 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     echo "    @{files}=    List Directory    \${SALWorkDir}/rpmbuild/RPMS/x86_64/" >> $testSuite
     echo "    Log Many    @{files}" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/rpmbuild/SPECS/ts_sal_\${subSystem}.spec" >> $testSuite
-    echo "    File Should Exist    \${SALWorkDir}/rpmbuild/SOURCES/\${subSystem}-\${XMLVersion}.tgz" >> $testSuite
-    echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_runtime-\${XMLVersion}-\${SALVersion}.\${Build_Number}\${DIST}.x86_64.rpm" >> $testSuite
-    echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_ATruntime-\${XMLVersion}-\${SALVersion}.\${Build_Number}\${DIST}.x86_64.rpm" >> $testSuite
+    echo "    File Should Exist    \${SALWorkDir}/rpmbuild/SOURCES/\${subSystem}-\${SALVersion}.tgz" >> $testSuite
+    echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_runtime-\${SALVersion}_\${Build_Number}-\${XMLVersion}\${DIST}.x86_64.rpm" >> $testSuite
+    echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_ATruntime-\${SALVersion}_\${Build_Number}-\${XMLVersion}\${DIST}.x86_64.rpm" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_utils-\${SALVersion}-1.x86_64.rpm" >> $testSuite
-    echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/\${subSystem}-\${XMLVersion}-\${SALVersion}.\${Build_Number}\${DIST}.x86_64.rpm" >> $testSuite
-    echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/\${subSystem}_test-\${XMLVersion}-\${SALVersion}.\${Build_Number}\${DIST}.x86_64.rpm" >> $testSuite
+    echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/\${subSystem}-\${DIST}.x86_64.rpm" >> $testSuite
+    echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/\${subSystem}_test-\${SALVersion}_\${Build_Number}-\${XMLVersion}\${DIST}.x86_64.rpm" >> $testSuite
     echo "" >> $testSuite
 }
 
