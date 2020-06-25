@@ -271,7 +271,7 @@ Salgen Script RPM
     [Documentation]    Generate the SAL library RPM for ${subSystem}
     [Tags]    rpm
     Log Many    ${XMLVersion}    ${SALVersion}    ${Build_Number}    ${DIST}
-    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    rpm    version\=${Build_Number}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
+    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    rpm    version\=${SALVersion}${Build_Number}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     @{files}=    List Directory    /tmp/
     File Should Exist    /tmp/makerpm_${subSystem}.log
@@ -285,7 +285,7 @@ Salgen Script RPM
     Log File    /tmp/makerpm-meta.log
     Log File    /tmp/makerpm-atmeta.log
     Should Not Contain    ${output.stdout}    ERROR : Asset required for rpm
-    Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
+    Should Contain    ${output.stdout}    SAL generator - ${SALVersion}${Build_Number}
     Should Contain    ${output.stdout}    Building runtime RPM for ${subSystem} subsystem
     Directory Should Exist    ${SALWorkDir}/rpmbuild
     Directory Should Exist    ${SALWorkDir}/rpmbuild/BUILD
@@ -308,16 +308,16 @@ Salgen Script RPM
 Salgen Script Maven
     [Documentation]    Generate the Maven repository.
     [Tags]    java
-    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    maven    version\=${MavenVersion}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
+    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    maven    version\=${SALVersion}${Build_Number}_${XMLVersion}${MavenVersion}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
-    Should Contain    ${output.stdout}    argv = ${subSystem} maven version=${MavenVersion}
-    Should Contain    ${output.stdout}    SAL generator - ${SAL_Version}
+    Should Contain    ${output.stdout}    argv = ${subSystem} maven version=${SALVersion}${Build_Number}_${XMLVersion}${MavenVersion}
+    Should Contain    ${output.stdout}    SAL generator - ${SAL_Version}${Build_Number}
     Should Contain    ${output.stdout}    Running maven install
-    Should Contain    ${output.stdout}    [INFO] Building sal_${subSystem} ${SALVersion}_${XMLVersion}${MavenVersion}
+    Should Contain    ${output.stdout}    [INFO] Building sal_${subSystem} ${SALVersion}${Build_Number}_${XMLVersion}${MavenVersion}
     Should Contain X Times    ${output.stdout}    [INFO] BUILD SUCCESS    1
     Should Contain X Times    ${output.stdout}    [INFO] Finished at:    1
     @{files}=    List Directory    ${SALWorkDir}/maven
-    File Should Exist    ${SALWorkDir}/maven/${subSystem}-${SALVersion}_${XMLVersion}${MavenVersion}/pom.xml
+    File Should Exist    ${SALWorkDir}/maven/${subSystem}-${SALVersion}${Build_Number}_${XMLVersion}${MavenVersion}/pom.xml
 
 Cleanup stdout and stderr Files
     [Tags]
