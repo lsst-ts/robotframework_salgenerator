@@ -298,12 +298,12 @@ pipeline {
     post { 
         always {
             echo "Starting the IDL_Conda_package/develop job; sal_version: " + SAL_Version + ".pre${BUILD_NUMBER}" + ", xml_version: " + XML_Version + ", develop: true"
-            //build job: 'IDL_Conda_package/develop', parameters: [string(name: 'sal_version', value: SAL_Version + ".pre${BUILD_NUMBER}"), string(name: 'xml_version', value: XML_Version), \
-                //booleanParam(name: 'develop', value: true)], wait: false
+            build job: 'IDL_Conda_package/develop', parameters: [string(name: 'sal_version', value: SAL_Version + ".pre${BUILD_NUMBER}"), string(name: 'xml_version', value: XML_Version), \
+                booleanParam(name: 'develop', value: true)], wait: false
             echo "Starting the SalObj_Conda_package/develop job; Build_DevEnv: true"
-            //build job: 'SalObj_Conda_package/develop', wait: false
+            build job: 'SalObj_Conda_package/develop', wait: false
             echo "Starting the BaseDevImage job; BuildSalobjContainer:true and BuildDevEnv:true"
-            //build job: 'BaseDevImage', parameters: [booleanParam(name: 'BuildSalobjContainer', value: true), booleanParam(name: 'BuildDevEnv', value: true)], wait: false
+            build job: 'BaseDevImage', parameters: [booleanParam(name: 'BuildSalobjContainer', value: true), booleanParam(name: 'BuildDevEnv', value: true)], wait: false
         }
         cleanup {
             deleteDir() /* clean up our workspace */
