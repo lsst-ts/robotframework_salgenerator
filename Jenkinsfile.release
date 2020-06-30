@@ -232,14 +232,14 @@ node {
                         // Iterate over RPMs and push to Nexus3 yum repo.
                         for(file in array) {
                             sh 'echo "========= Downloading ' + file + ' from s3 bucket ========="'
-                            sh 'set -x ; aws s3 cp s3://sal-objects/master/' + file + ' /tmp'
+                            sh 'set -x ; aws --no-progress s3 cp s3://sal-objects/master/' + file + ' /tmp'
                             sh 'echo "=== Pushing ' + file + ' to Nexus3 yum repo ==="'
-                            sh 'set -x ; curl -Ss -u $nexus_username:$nexus_passwd -T ${WORKSPACE}/RPMs/' + file + ' https://repo-nexus.lsst.org/nexus/repository/ts_yum/releases/'
+                            sh 'set -x ; curl --write-out %{http_code} -Ss -u $nexus_username:$nexus_passwd -T ${WORKSPACE}/RPMs/' + file + ' https://repo-nexus.lsst.org/nexus/repository/ts_yum/releases/'
                             sh 'echo "=== CSC RPM push complete ==="'
                         }//for
                         sh 'echo "=== Push ts_sal_utils RPM to Nexus3 yum repo ==="'
-                        sh 'set -x ; aws s3 cp s3://sal-objects/master/ts_sal_utils-' + SAL_Version + '-1.x86_64.rpm /tmp'
-                        sh 'set -x ; curl -Ss -u $nexus_username:$nexus_passwd -T ${WORKSPACE}/RPMs/ts_sal_utils-' + SAL_Version + '-1.x86_64.rpm' +
+                        sh 'set -x ; aws --no-progress s3 cp s3://sal-objects/master/ts_sal_utils-' + SAL_Version + '-1.x86_64.rpm /tmp'
+                        sh 'set -x ; curl --write-out %{http_code} -Ss -u $nexus_username:$nexus_passwd -T ${WORKSPACE}/RPMs/ts_sal_utils-' + SAL_Version + '-1.x86_64.rpm' +
                         ' https://repo-nexus.lsst.org/nexus/repository/ts_yum/releases/'
                         sh 'echo "=== ts_sal_utils RPM push complete ==="'
                     }//else    
