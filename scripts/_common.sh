@@ -79,9 +79,9 @@ function clearTestSuites() {
 
 function subsystemArray() {
     echo "AdamSensors ATAOS ATArchiver ATBuilding ATCamera 
-    ATDome ATDomeTrajectory ATHeaderService 
-    ATHexapod ATMCS ATMonochromator ATOODS 
-    ATPneumatics ATPtg ATSpectrograph ATWhiteLight 
+    ATDome ATDomeTrajectory ATHeaderService ATHexapod 
+    ATMCS ATMonochromator ATOODS ATPneumatics 
+    ATPtg ATSpectrograph ATWhiteLight Authorize
     CCArchiver CCCamera CCHeaderService CCOODS
     CatchupArchiver CBP DIMM Dome DSM
     EAS EFDTransformationServer Electrometer Environment ESS
