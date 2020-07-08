@@ -7,7 +7,6 @@
 SALGEN/Authorize_salgenerator.robot
 SALGEN/Dome_salgenerator.robot
 SALGEN/EAS_salgenerator.robot
-SALGEN/EFDTransformationServer_salgenerator.robot
 SALGEN/Environment_salgenerator.robot
 SALGEN/ESS_salgenerator.robot
 SALGEN/HVAC_salgenerator.robot

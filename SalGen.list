@@ -28,7 +28,6 @@ SALGEN/DIMM_salgenerator.robot
 SALGEN/DSM_salgenerator.robot
 SALGEN/Dome_salgenerator.robot
 SALGEN/EAS_salgenerator.robot
-SALGEN/EFDTransformationServer_salgenerator.robot
 SALGEN/Electrometer_salgenerator.robot
 SALGEN/Environment_salgenerator.robot
 SALGEN/FiberSpectrograph_salgenerator.robot
