@@ -88,7 +88,7 @@ pipeline {
                 'robot --variable ContInt:true -e skipped --noncritical TSS* --noncritical DM* --variable SALVersion:' + SAL_Version + ' ' +
                     '--variable SALInstall:' + _home + '/trunk/ts_sal --variable OpenspliceRelease:\'OpenSplice HDE Release\' ' + 
                     '--variable OpenspliceVersion:6.9.181127OSS --variable OpenspliceDate:2018-11-28 --variable PythonVersion:\'Python ' + _python_version + '\' ' +
-                    '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:_${BUILD_NUMBER} ' + 
+                    '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:pre${BUILD_NUMBER} ' + 
                     '--name Validate --output VALIDATE --outputdir ' + _home + '/trunk/Reports -A ' + _home + '/trunk/robotframework_salgenerator/Test_SalGen.list \n' +
                 'Result=$? \n' +
                 'if [ $Result -eq 0 ]; then echo Validation complete; else exit $Result; fi'
@@ -108,7 +108,7 @@ pipeline {
                         'robot --variable ContInt:true -e skipped --noncritical TSS* --noncritical DM* --variable SALVersion:' + SAL_Version + ' ' +
                             '--variable SALInstall:' + _home + '/trunk/ts_sal --variable OpenspliceRelease:\'OpenSplice HDE Release\' ' +
                             '--variable OpenspliceVersion:6.9.181127OSS --variable OpenspliceDate:2018-11-28 --variable PythonVersion:\'Python ' + _python_version + '\' ' +
-                            '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:_${BUILD_NUMBER} ' +
+                            '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:pre${BUILD_NUMBER} ' +
                             '--name AuxTel --output AUXTEL --outputdir ' + _home + '/trunk/Reports -A ' + _home + '/trunk/robotframework_salgenerator/AT_SalGen.list \n' +
                         'exit 0' 
                     }
@@ -125,7 +125,7 @@ pipeline {
                         'robot --variable ContInt:true -e skipped --noncritical TSS* --noncritical DM* --variable SALVersion:' + SAL_Version + ' ' +
                             '--variable SALInstall:' + _home + '/trunk/ts_sal --variable OpenspliceRelease:\'OpenSplice HDE Release\' ' +
                             '--variable OpenspliceVersion:6.9.181127OSS --variable OpenspliceDate:2018-11-28 --variable PythonVersion:\'Python ' + _python_version + '\' ' +
-                            '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:_${BUILD_NUMBER} ' +
+                            '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:pre${BUILD_NUMBER} ' +
                             '--name MainTel --output MAINTEL --outputdir ' + _home + '/trunk/Reports -A ' + _home + '/trunk/robotframework_salgenerator/MT_SalGen.list \n' +
                         'exit 0'
                     }
@@ -285,11 +285,11 @@ pipeline {
             }
             steps {
                 sh label: 'Java Artifacts', script: '#!/bin/bash -x\n' +
-                'cd ' + _home + '/trunk/ts_sal/test/maven/ATCamera-' + XML_Version + '-' + SAL_Version + MavenVersion + ' \n' +
+                'cd ' + _home + '/trunk/ts_sal/test/maven/ATCamera-' + XML_Version + '_' + SAL_Version + MavenVersion + ' \n' +
                 'mvn -DskipTests=true -B deploy \n' +
-                'cd ' + _home + '/trunk/ts_sal/test/maven/CCCamera-' + XML_Version + '-' + SAL_Version + MavenVersion + ' \n' +
+                'cd ' + _home + '/trunk/ts_sal/test/maven/CCCamera-' + XML_Version + '_' + SAL_Version + MavenVersion + ' \n' +
                 'mvn -DskipTests=true -B deploy \n' +
-                'cd ' + _home + '/trunk/ts_sal/test/maven/MTCamera-' + XML_Version + '-' + SAL_Version + MavenVersion + ' \n' +
+                'cd ' + _home + '/trunk/ts_sal/test/maven/MTCamera-' + XML_Version + '_' + SAL_Version + MavenVersion + ' \n' +
                 'mvn -DskipTests=true -B deploy \n' +
                 'echo "=== Java deploy complete ==="'
             }

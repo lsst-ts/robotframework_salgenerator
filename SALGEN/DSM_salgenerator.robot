@@ -292,9 +292,10 @@ Salgen DSM RPM
     [Documentation]    Generate the SAL library RPM for ${subSystem}
     [Tags]    rpm
     Log Many    ${XMLVersion}    ${SALVersion}    ${Build_Number}    ${DIST}
-    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    rpm    version\=${SALVersion}${Build_Number}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
+    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    rpm    version\=${Build_Number}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     @{files}=    List Directory    /tmp/
+    Should Be Empty    ${output.stderr}
     File Should Exist    /tmp/makerpm_${subSystem}.log
     File Should Exist    /tmp/makerpm_${subSystem}_test.log
     File Should Exist    /tmp/makerpm-utils.log
@@ -306,7 +307,7 @@ Salgen DSM RPM
     Log File    /tmp/makerpm-meta.log
     Log File    /tmp/makerpm-atmeta.log
     Should Not Contain    ${output.stdout}    ERROR : Asset required for rpm
-    Should Contain    ${output.stdout}    SAL generator - ${SALVersion}${Build_Number}
+    Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Building runtime RPM for ${subSystem} subsystem
     Directory Should Exist    ${SALWorkDir}/rpmbuild
     Directory Should Exist    ${SALWorkDir}/rpmbuild/BUILD
@@ -319,26 +320,26 @@ Salgen DSM RPM
     @{files}=    List Directory    ${SALWorkDir}/rpmbuild/RPMS/x86_64/
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/rpmbuild/SPECS/ts_sal_${subSystem}.spec
-    File Should Exist    ${SALWorkDir}/rpmbuild/SOURCES/${subSystem}-${SALVersion}${Build_Number}.tgz
-    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_runtime-${SALVersion}${Build_Number}-${XMLVersion}${DIST}.x86_64.rpm
-    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_ATruntime-${SALVersion}${Build_Number}-${XMLVersion}${DIST}.x86_64.rpm
-    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_utils-${SALVersion}${Build_Number}-1.x86_64.rpm
-    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}-${SALVersion}${Build_Number}-${XMLVersion}${DIST}.x86_64.rpm
-    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}_test-${SALVersion}${Build_Number}-${XMLVersion}${DIST}.x86_64.rpm
+    File Should Exist    ${SALWorkDir}/rpmbuild/SOURCES/${subSystem}-${XMLVersion}.tgz
+    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_runtime-${XMLVersion}-${SALVersion}.${Build_Number}${DIST}.x86_64.rpm
+    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_ATruntime-${XMLVersion}-${SALVersion}.${Build_Number}${DIST}.x86_64.rpm
+    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_utils-${SALVersion}-1.x86_64.rpm
+    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}-${XMLVersion}-${SALVersion}.${Build_Number}${DIST}.x86_64.rpm
+    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}_test-${XMLVersion}-${SALVersion}.${Build_Number}${DIST}.x86_64.rpm
 
 Salgen DSM Maven
     [Documentation]    Generate the Maven repository.
     [Tags]    java
-    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    maven    version\=${SALVersion}${Build_Number}_${XMLVersion}${MavenVersion}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
+    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    maven    version\=${MavenVersion}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
-    Should Contain    ${output.stdout}    argv = ${subSystem} maven version=${SALVersion}${Build_Number}_${XMLVersion}${MavenVersion}
-    Should Contain    ${output.stdout}    SAL generator - ${SAL_Version}${Build_Number}
+    Should Contain    ${output.stdout}    argv = ${subSystem} maven version=${MavenVersion}
+    Should Contain    ${output.stdout}    SAL generator - ${SAL_Version}
     Should Contain    ${output.stdout}    Running maven install
-    Should Contain    ${output.stdout}    [INFO] Building sal_${subSystem} ${SALVersion}${Build_Number}_${XMLVersion}${MavenVersion}
+    Should Contain    ${output.stdout}    [INFO] Building sal_${subSystem} ${XMLVersion}_${SALVersion}${MavenVersion}
     Should Contain X Times    ${output.stdout}    [INFO] BUILD SUCCESS    1
     Should Contain X Times    ${output.stdout}    [INFO] Finished at:    1
     @{files}=    List Directory    ${SALWorkDir}/maven
-    File Should Exist    ${SALWorkDir}/maven/${subSystem}_${SALVersion}${Build_Number}_${XMLVersion}${MavenVersion}/pom.xml
+    File Should Exist    ${SALWorkDir}/maven/${subSystem}-${XMLVersion}_${SALVersion}${MavenVersion}/pom.xml
 
 Cleanup stdout and stderr Files
     [Tags]

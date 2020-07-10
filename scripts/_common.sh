@@ -18,9 +18,12 @@ function getCommandTopics() {
     local array=()
     local commands=""
     local generic_commands=""
+    ## First, get all the CSC defined commands from the interface definition.
     if test -f $HOME/trunk/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Commands.xml; then
         local commands=$( xml sel -t -m "//SALCommandSet/SALCommand/EFDB_Topic" -v . -n $HOME/trunk/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Commands.xml |sed "s/${subSystem}_command_//" |tr '\r\n' ' ' )
     fi
+    ## Now, get the desired Generic commands.
+    ### If <Generics> is "yes", then grab them all.  If "no", grab none.  If comma-delimited list, just grab the "*command*" items.
     if [[ $( xml sel -t -m "//SALSubsystemSet/SALSubsystem[Name='$subSystem']" -v Generics $HOME/trunk/ts_xml/sal_interfaces/SALSubsystems.xml ) == "yes" ]]; then
         local generic_commands=$( xml sel -t -m "//SALObjects/SALCommandSet/SALCommand/EFDB_Topic" -v . -n $HOME/trunk/ts_xml/sal_interfaces/SALGenerics.xml |sed "s/SALGeneric_command_//" |tr '\r\n' ' ' )
     elif [[ $( xml sel -t -m "//SALSubsystemSet/SALSubsystem[Name='$subSystem']" -v Generics $HOME/trunk/ts_xml/sal_interfaces/SALSubsystems.xml ) == "no" ]]; then
@@ -33,6 +36,7 @@ function getCommandTopics() {
             fi 
         done
     fi
+    ## Return the list.
     echo "$generic_commands $commands"
 }
 
@@ -41,9 +45,12 @@ function getEventTopics() {
     local array=()
     local events=""
     local generic_events=""
+    ## First, get all the CSC defined events from the interface definition.
     if test -f $HOME/trunk/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Events.xml; then
         local events=$( xml sel -t -m "//SALEventSet/SALEvent/EFDB_Topic" -v . -n $HOME/trunk/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Events.xml |sed "s/${subSystem}_logevent_//" |tr '\r\n' ' ')
     fi
+    ## Now, get the desired Generic events.
+    ### If <Generics> is "yes", then grab them all.  If "no", grab none.  If comma-delimited list, just grab the "*logevent*" items.
     if [[ $( xml sel -t -m "//SALSubsystemSet/SALSubsystem[Name='$subSystem']" -v Generics $HOME/trunk/ts_xml/sal_interfaces/SALSubsystems.xml ) == "yes" ]]; then
         local generic_events=$( xml sel -t -m "//SALObjects/SALEventSet/SALEvent/EFDB_Topic" -v . -n $HOME/trunk/ts_xml/sal_interfaces/SALGenerics.xml |sed "s/SALGeneric_logevent_//" |tr '\r\n' ' ' )
     elif [[ $( xml sel -t -m "//SALSubsystemSet/SALSubsystem[Name='$subSystem']" -v Generics $HOME/trunk/ts_xml/sal_interfaces/SALSubsystems.xml ) == "no" ]]; then
@@ -56,6 +63,7 @@ function getEventTopics() {
             fi
         done
     fi
+    ## Return the list.
     echo "$generic_events $events"
 }
 
@@ -79,12 +87,12 @@ function clearTestSuites() {
 
 function subsystemArray() {
     echo "AdamSensors ATAOS ATArchiver ATBuilding ATCamera 
-    ATDome ATDomeTrajectory ATHeaderService 
-    ATHexapod ATMCS ATMonochromator ATOODS 
-    ATPneumatics ATPtg ATSpectrograph ATWhiteLight 
+    ATDome ATDomeTrajectory ATHeaderService ATHexapod 
+    ATMCS ATMonochromator ATOODS ATPneumatics 
+    ATPtg ATSpectrograph ATWhiteLight Authorize
     CCArchiver CCCamera CCHeaderService CCOODS
     CatchupArchiver CBP DIMM Dome DSM
-    EAS EFDTransformationServer Electrometer Environment ESS
+    EAS Electrometer Environment ESS
     FiberSpectrograph GenericCamera IOTA 
     Hexapod HVAC LinearStage LOVE 
     MTAOS MTAlignment MTArchiver MTCamera
