@@ -56,7 +56,7 @@ node {
             stage('Define SAL and XML version variables') {
                 SAL_Version = readFile("${WORKSPACE}/SAL/VERSION").trim()
                 XML_Version = readFile("${WORKSPACE}/XML/VERSION").trim()
-                MavenVersion = "1"
+                MavenVersion = "-1"
                 echo "The SAL version: " + SAL_Version
                 echo "The XML version: " + XML_Version
                 echo "The Maven version: " + MavenVersion
