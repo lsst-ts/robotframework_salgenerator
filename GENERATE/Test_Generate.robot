@@ -49,26 +49,6 @@ Verify Validate Process
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_scalars.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_arrays.idl
 
-Verify Salgen Test HTML Build Process
-    [Documentation]    Create web form interfaces.
-    [Tags]    html    
-    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    html    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
-    Log Many    ${output.stdout}    ${output.stderr}
-    Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
-    Should Contain    ${output.stdout}    Generating telemetry stream definition editor html
-    Should Contain    ${output.stdout}    Generating Facility database table creation html
-    Should Contain    ${output.stdout}    Generating Subsystem simulation control html
-    @{files}=    List Directory    ${SALWorkDir}/html/${subSystem}
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/Test_Commands.html
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/Test_Events.html
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/Test_Telemetry.html
-    @{files}=    List Directory    ${SALWorkDir}/html/dbsimulate    pattern=*${subSystem}*
-    Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-dbsimulate.html
-    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-dbsimulate-${subSystem}.html
-    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-simulate-${subSystem}.html
-    File Should Exist    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
-
 Verify Test revCodes File
     [Documentation]    Ensure Test_revCodes.tcl contains 1 revcode per topic.
     [Tags]    html    

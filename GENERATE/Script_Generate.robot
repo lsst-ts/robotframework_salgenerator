@@ -54,23 +54,6 @@ Verify Validate Process
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_metadata.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_state.idl
 
-Verify Salgen Script HTML Build Process
-    [Documentation]    Create web form interfaces.
-    [Tags]    html
-    Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
-    Should Contain    ${output.stdout}    Generating telemetry stream definition editor html
-    Should Contain    ${output.stdout}    Generating Facility database table creation html
-    Should Contain    ${output.stdout}    Generating Subsystem simulation control html
-    @{files}=    List Directory    ${SALWorkDir}/html/${subSystem}
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/${subSystem}_Commands.html
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/${subSystem}_Events.html
-    @{files}=    List Directory    ${SALWorkDir}/html/dbsimulate    pattern=*${subSystem}*
-    Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-dbsimulate.html
-    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-dbsimulate-${subSystem}.html
-    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-simulate-${subSystem}.html
-    File Should Exist    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
-
 Verify Script revCodes File
     [Documentation]    Ensure ${subSystem}_revCodes.tcl contains 1 revcode per topic.
     [Tags]    html    
