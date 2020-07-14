@@ -24,7 +24,7 @@ Verify Script XML Defintions exist
 Salgen Script Generate
     [Documentation]    Execute the combined build process generate on ${subSystem}.
     [Tags]
-    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    python    generate    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
+    ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    python    generate    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Set Suite Variable    ${output.stdout}    ${output.stdout}
     Set Suite Variable    ${output.stderr}    ${output.stderr}
