@@ -24,7 +24,7 @@ Verify Script XML Defintions exist
 Salgen Script Validate
     [Documentation]    Validate the Script XML definitions.
     [Tags]    validate
-    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    validate    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
+    ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    validate    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Processing ${subSystem}
@@ -53,7 +53,7 @@ Salgen Script Validate
 Salgen Script HTML
     [Documentation]    Create web form interfaces.
     [Tags]    html    
-    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    html    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
+    ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    html    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Generating telemetry stream definition editor html
@@ -93,7 +93,7 @@ Verify Script revCodes File
 Salgen Script IDL
     [Documentation]    Generate the revCoded IDL for ${subSystem}
     [Tags]    idl
-    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    sal    idl    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
+    ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    sal    idl    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Completed ${subSystem} validation
@@ -104,7 +104,7 @@ Salgen Script IDL
 Salgen Script C++
     [Documentation]    Generate C++ libraries.
     [Tags]    cpp
-    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    sal    cpp   shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
+    ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    sal    cpp   shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Not Contain    ${output.stdout}    *** DDS error in file
     Should Not Contain    ${output.stdout}    Error 1
@@ -166,7 +166,7 @@ Verify Script C++ Event Interfaces
 Salgen Script Python
     [Documentation]    Generate Python libraries.
     [Tags]    python
-    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    sal    python    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
+    ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    sal    python    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Generating Python SAL support for ${subSystem}
@@ -224,7 +224,7 @@ Verify Script Python Event Interfaces
 Salgen Script LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
     [Tags]    labview
-    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    labview    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
+    ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    labview    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Directory Should Exist    ${SALWorkDir}/${subSystem}/labview
@@ -238,7 +238,7 @@ Salgen Script LabVIEW
 Salgen Script Java
     [Documentation]    Generate Java libraries.
     [Tags]    java
-    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    sal    java    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
+    ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    sal    java    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    WARNING : No Telemetry definitions found for ${subSystem}
@@ -251,7 +251,7 @@ Salgen Script Java
 Salgen Script Lib
     [Documentation]    Generate the SAL shared library for ${subSystem}
     [Tags]    lib
-    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    lib    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
+    ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    lib    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    Building shared library for ${subSystem} subsystem
@@ -271,7 +271,7 @@ Salgen Script RPM
     [Documentation]    Generate the SAL library RPM for ${subSystem}
     [Tags]    rpm
     Log Many    ${XMLVersion}    ${SALVersion}    ${Build_Number}    ${DIST}
-    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    rpm    version\=${Build_Number}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
+    ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    rpm    version\=${SALVersion}${Build_Number}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     @{files}=    List Directory    /tmp/
     Should Be Empty    ${output.stderr}
@@ -309,7 +309,7 @@ Salgen Script RPM
 Salgen Script Maven
     [Documentation]    Generate the Maven repository.
     [Tags]    java
-    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    maven    version\=${MavenVersion}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
+    ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    maven    version\=${SALVersion}${Build_Number}_${XMLVersion}${MavenVersion}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    argv = ${subSystem} maven version=${MavenVersion}
     Should Contain    ${output.stdout}    SAL generator - ${SAL_Version}

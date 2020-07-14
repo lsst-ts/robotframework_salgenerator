@@ -59,7 +59,7 @@ function salgenValidate() {
     echo "Salgen $subSystemUp Validate" >> $testSuite
     echo "    [Documentation]    Validate the $subSystemUp XML definitions." >> $testSuite
     echo "    [Tags]    validate$skipped" >> $testSuite
-    echo "    \${output}=    Run Process    \${SALHome}/scripts/salgenerator    \${subSystem}    validate    \
+    echo "    \${output}=    Run Process    \${SALHome}/bin/salgenerator    \${subSystem}    validate    \
 shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.txt    stderr=\${EXECDIR}\${/}\${subSystem}_stderr.txt" >> $testSuite
     echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
     echo "    Should Contain    \${output.stdout}    SAL generator - \${SALVersion}" >> $testSuite
@@ -86,7 +86,7 @@ function salgenHTML() {
     echo "Salgen $subSystemUp HTML" >> $testSuite
     echo "    [Documentation]    Create web form interfaces." >> $testSuite
     echo "    [Tags]    html    $skipped" >> $testSuite
-    echo "    \${output}=    Run Process    \${SALHome}/scripts/salgenerator    \${subSystem}    html    \
+    echo "    \${output}=    Run Process    \${SALHome}/bin/salgenerator    \${subSystem}    html    \
 shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.txt    stderr=\${EXECDIR}\${/}\${subSystem}_stderr.txt" >> $testSuite
     echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
     echo "    Should Contain    \${output.stdout}    SAL generator - \${SALVersion}" >> $testSuite
@@ -129,7 +129,7 @@ function salgenCPP {
     echo "Salgen $subSystemUp C++" >> $testSuite
     echo "    [Documentation]    Generate C++ libraries." >> $testSuite
     echo "    [Tags]    cpp" >> $testSuite
-    echo "    \${output}=    Run Process    \${SALHome}/scripts/salgenerator    \${subSystem}    sal    cpp   \
+    echo "    \${output}=    Run Process    \${SALHome}/bin/salgenerator    \${subSystem}    sal    cpp   \
 shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.txt    stderr=\${EXECDIR}\${/}\${subSystem}_stderr.txt" >> $testSuite
     echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
     echo "    Should Not Contain    \${output.stdout}    *** DDS error in file" >> $testSuite
@@ -211,7 +211,7 @@ function salgenJava() {
     echo "Salgen $subSystemUp Java" >> $testSuite
     echo "    [Documentation]    Generate Java libraries." >> $testSuite
     echo "    [Tags]    java$skipped" >> $testSuite
-    echo "    \${output}=    Run Process    \${SALHome}/scripts/salgenerator    \${subSystem}    sal    java    \
+    echo "    \${output}=    Run Process    \${SALHome}/bin/salgenerator    \${subSystem}    sal    java    \
 shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.txt    stderr=\${EXECDIR}\${/}\${subSystem}_stderr.txt" >> $testSuite
     echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
     echo "    Should Contain    \${output.stdout}    SAL generator - \${SALVersion}" >> $testSuite
@@ -237,7 +237,7 @@ function salgenMaven() {
     echo "Salgen $subSystemUp Maven" >> $testSuite
     echo "    [Documentation]    Generate the Maven repository." >> $testSuite
     echo "    [Tags]    java$skipped" >> $testSuite
-    echo "    \${output}=    Run Process    \${SALHome}/scripts/salgenerator    \${subSystem}    maven    version\\=\${MavenVersion}    \
+    echo "    \${output}=    Run Process    \${SALHome}/bin/salgenerator    \${subSystem}    maven    version\\=\${SALVersion}\${Build_Number}_\${XMLVersion}\${MavenVersion}    \
 shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.txt    stderr=\${EXECDIR}\${/}\${subSystem}_stderr.txt" >> $testSuite
     echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
     echo "    Should Contain    \${output.stdout}    argv = \${subSystem} maven version=\${MavenVersion}" >> $testSuite
@@ -256,7 +256,7 @@ function salgenPython() {
     echo "Salgen $subSystemUp Python" >> $testSuite
     echo "    [Documentation]    Generate Python libraries." >> $testSuite
     echo "    [Tags]    python$skipped" >> $testSuite
-    echo "    \${output}=    Run Process    \${SALHome}/scripts/salgenerator    \${subSystem}    sal    python    \
+    echo "    \${output}=    Run Process    \${SALHome}/bin/salgenerator    \${subSystem}    sal    python    \
 shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.txt    stderr=\${EXECDIR}\${/}\${subSystem}_stderr.txt" >> $testSuite
     echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
     echo "    Should Contain    \${output.stdout}    SAL generator - \${SALVersion}" >> $testSuite
@@ -314,7 +314,7 @@ function salgenLabview() {
     echo "Salgen $subSystemUp LabVIEW" >> $testSuite
     echo "    [Documentation]    Generate \${subSystem} low-level LabView interfaces." >> $testSuite
     echo "    [Tags]    labview$skipped" >> $testSuite
-    echo "    \${output}=    Run Process    \${SALHome}/scripts/salgenerator    \${subSystem}    labview    \
+    echo "    \${output}=    Run Process    \${SALHome}/bin/salgenerator    \${subSystem}    labview    \
 shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.txt    stderr=\${EXECDIR}\${/}\${subSystem}_stderr.txt" >> $testSuite
     echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
     echo "    Should Contain    \${output.stdout}    SAL generator - \${SALVersion}" >> $testSuite
@@ -333,7 +333,7 @@ function salgenLib() {
     echo "Salgen $subSystemUp Lib" >> $testSuite
     echo "    [Documentation]    Generate the SAL shared library for \${subSystem}" >> $testSuite
     echo "    [Tags]    lib$skipped" >> $testSuite
-    echo "    \${output}=    Run Process    \${SALHome}/scripts/salgenerator    \${subSystem}    lib    \
+    echo "    \${output}=    Run Process    \${SALHome}/bin/salgenerator    \${subSystem}    lib    \
 shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.txt    stderr=\${EXECDIR}\${/}\${subSystem}_stderr.txt" >> $testSuite
     echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
     echo "    Should Contain    \${output.stdout}    SAL generator - \${SALVersion}" >> $testSuite
@@ -362,7 +362,7 @@ function salgenRPM() {
     echo "    [Documentation]    Generate the SAL library RPM for \${subSystem}" >> $testSuite
     echo "    [Tags]    rpm$skipped" >> $testSuite
     echo "    Log Many    \${XMLVersion}    \${SALVersion}    \${Build_Number}    \${DIST}" >> $testSuite
-    echo "    \${output}=    Run Process    \${SALHome}/scripts/salgenerator    \${subSystem}    rpm    version\\=\${Build_Number}    \
+    echo "    \${output}=    Run Process    \${SALHome}/bin/salgenerator    \${subSystem}    rpm    version\\=\${SALVersion}\${Build_Number}    \
 shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.txt    stderr=\${EXECDIR}\${/}\${subSystem}_stderr.txt" >> $testSuite
     echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
     echo "    @{files}=    List Directory    /tmp/" >> $testSuite
@@ -405,7 +405,7 @@ function salgenIDL() {
     echo "Salgen $subSystemUp IDL" >> $testSuite
     echo "    [Documentation]    Generate the revCoded IDL for \${subSystem}" >> $testSuite
     echo "    [Tags]    idl$skipped" >> $testSuite
-    echo "    \${output}=    Run Process    \${SALHome}/scripts/salgenerator    \${subSystem}    sal    idl    \
+    echo "    \${output}=    Run Process    \${SALHome}/bin/salgenerator    \${subSystem}    sal    idl    \
 shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.txt    stderr=\${EXECDIR}\${/}\${subSystem}_stderr.txt" >> $testSuite
     echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
     echo "    Should Contain    \${output.stdout}    SAL generator - \${SALVersion}" >> $testSuite
