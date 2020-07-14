@@ -396,7 +396,7 @@ Salgen Test RPM
 Salgen Test Maven
     [Documentation]    Generate the Maven repository.
     [Tags]    java
-    ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    maven    version\=${XMLVersion}-${SALVersion}${Build_Number}${MavenVersion}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
+    ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    maven    version\=${Build_Number}${MavenVersion}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    argv = ${subSystem} maven version=${XMLVersion}-${SALVersion}${Build_Number}${MavenVersion}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
