@@ -382,6 +382,7 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     echo "    Log File    /tmp/makerpm_\${subSystem}_test.log" >> $testSuite
     echo "    Log File    /tmp/makerpm-utils.log" >> $testSuite
     echo "    Should Not Contain    \${output.stdout}    ERROR : Asset required for rpm" >> $testSuite
+    echo "    Should Not Contain    \${output.stdout}    child process exited abnormally" >> $testSuite
     echo "    Should Contain    \${output.stdout}    SAL generator - \${SALVersion}" >> $testSuite
     echo "    Should Contain    \${output.stdout}    XMLVERSION = \${XMLVersion}" >> $testSuite
     echo "    Should Contain    \${output.stdout}    Building runtime RPM for \${subSystem} subsystem" >> $testSuite
