@@ -193,7 +193,7 @@ pipeline {
                             '--variable OpenspliceRelease:\'OpenSplice HDE Release\' ' +
                             '--variable OpenspliceVersion:6.9.181127OSS --variable OpenspliceDate:2018-11-28 ' +
                             '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version +
-                            ' --variable Build_Number:pre${BUILD_NUMBER} ' + '--variable PythonVersion:\'Python ' + _python_version + 
+                            ' --variable Build_Number:pre${BUILD_NUMBER} --variable PythonVersion:\'Python ' + _python_version + 
                             '-A ' + _home + '/trunk/robotframework_SAL/CombinedJavaTelemetry_Tests.list \n' +
                         'exit 0'
                     }
