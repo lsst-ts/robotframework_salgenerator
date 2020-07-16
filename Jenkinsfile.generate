@@ -221,13 +221,14 @@ pipeline {
                     _home + '/trunk/Reports/$item does not exist!; fi\n' +
                 '\t(( i++ ))\n' + 'done\n' +
                 'echo ========= Generate the reports =========\n' + 'set -x \n' +
-                'rebot --nostatusrc --noncritical TSS* --noncritical DM* --outputdir ' + _home + '/trunk/Reports --name RPM_Generation -o rpm_output.xml -l rpm_log.html ' +
+                'rebot --nostatusrc --noncritical messaging --noncritical TSS* --noncritical DM* ' + 
+                    '--outputdir ' + _home + '/trunk/Reports --name RPM_Generation -o rpm_output.xml -l rpm_log.html ' +
                     '-r rpm_report.html ${array[@]} \n' +
                 'echo Robot results complete'
             }
             post {
                 always {
-                    robot outputPath: 'Reports', logFileName: 'rpm_log.html', outputFileName: 'rpm_output.xml', reportFileName: 'rpm_report.html', passThreshold: 90.0, unstableThreshold: 85.0
+                    robot outputPath: 'Reports', logFileName: 'rpm_log.html', outputFileName: 'rpm_output.xml', reportFileName: 'rpm_report.html', passThreshold: 95.0, unstableThreshold: 90.0
             }
         }
         }//Robot Results
@@ -298,7 +299,7 @@ pipeline {
         }//Java artifacts
     }//stages
     post { 
-        always {
+        success {
             echo "Starting the IDL_Conda_package/develop job; sal_version: " + SAL_Version + ".pre${BUILD_NUMBER}" + ", xml_version: " + XML_Version + ", develop: true"
             build job: 'IDL_Conda_package/develop', parameters: [string(name: 'sal_version', value: SAL_Version + ".pre${BUILD_NUMBER}"), string(name: 'xml_version', value: XML_Version), \
                 booleanParam(name: 'develop', value: true)], wait: false
