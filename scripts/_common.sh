@@ -152,8 +152,6 @@ function checkIfSkipped() {
     topic=$2
     if [[ ("$subsystem" == "MTMount") && (("$topic" == "java") || ("$topic" == "lib") || ("$topic" == "rpm")) ]]; then
         skipped="    DM-18229"
-    elif [[ ("$subsystem" == "LOVE") && (("$topic" == "labview") || ("$topic" == "lib") || ("$topic" == "rpm")) ]]; then
-        skipped="    DM-21278"
     else
         skipped=""
     fi
