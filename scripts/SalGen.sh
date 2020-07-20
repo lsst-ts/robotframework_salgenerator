@@ -351,15 +351,17 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     echo "    Log Many    @{files}" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/lib/libsacpp_\${subSystem}_types.so" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/lib/libSAL_\${subSystem}.so" >> $testSuite
-    if [ "$subSystem" == "scheduler" ] || [ "$subSystem" == "efd" ]; then
-        echo "The SALLV_* files are produced by the LabVIEW option. This is skipped for the Scheduler and EFD."
+    if [ "$subSystem" == "Scheduler" ]; then
+        echo "The SALLV_* files are produced by the LabVIEW option. This is skipped for the Scheduler."
     else
         echo "    File Should Exist    \${SALWorkDir}/lib/SALLV_\${subSystem}.so" >> $testSuite
     fi
     echo "    File Should Exist    \${SALWorkDir}/lib/SALPY_\${subSystem}.so" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/lib/libsacpp_\${subSystem}_types.so" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/lib/libSAL_\${subSystem}.so" >> $testSuite
-    echo "    File Should Exist    \${SALWorkDir}/lib/saj_\${subSystem}_types.jar" >> $testSuite
+    if [[ "$subSystem" != "MTM1M3" ]]; then
+        echo "    File Should Exist    \${SALWorkDir}/lib/saj_\${subSystem}_types.jar" >> $testSuite
+    fi
     echo "    File Should Exist    \${SALWorkDir}/lib/SALLV_\${subSystem}.so" >> $testSuite
     echo "" >> $testSuite
 }
@@ -478,20 +480,25 @@ function createTestSuite() {
     if [[ ${xmls[*]} =~ "${subSystem}_Events.xml" ]]; then
         verifyPythonEventInterfaces
     fi
-    # Create LabVIEW interfaces.  NOTE: There are NO such Scheduler or EFD interfaces.
-    if [ "$subSystem" == "scheduler" ] || [ "$subSystem" == "efd" ]; then
-        echo "Skipping LabVIEW step for the Scheduler and EFD."
+    # Create LabVIEW interfaces.  NOTE: There are NO such Scheduler.
+    if [ "$subSystem" == "Scheduler" ]; then
+        echo "Skipping LabVIEW step for the Scheduler."
     else
         salgenLabview
     fi
     # Create and verify Java interfaces.
-    salgenJava
+    echo $subSystem
+    if [[ "$subSystem" != "MTM1M3" ]]; then
+        salgenJava
+    fi
     # Move/Generate the SAL libraries.
     salgenLib
     # Generate the as-built SAL libraries RPM.
     salgenRPM
     # Run the Maven tests.
-    salgenMaven
+    if [[ "$subSystem" != "MTM1M3" ]]; then
+        salgenMaven
+    fi
     # Indicate completion of the test suite.
     cleanupOutputs
     echo Done with test suite.
