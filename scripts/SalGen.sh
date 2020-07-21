@@ -351,9 +351,10 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     echo "    Log Many    @{files}" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/lib/libsacpp_\${subSystem}_types.so" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/lib/libSAL_\${subSystem}.so" >> $testSuite
-    if [ "$subSystem" == "Scheduler" ]; then
-        echo "The SALLV_* files are produced by the LabVIEW option. This is skipped for the Scheduler."
-    else
+    echo "$subSystem"
+    if [ "$subSystem" != "Scheduler" ]; then
+        #echo "The SALLV_* files are produced by the LabVIEW option. This is skipped for the Scheduler."
+    #else
         echo "    File Should Exist    \${SALWorkDir}/lib/SALLV_\${subSystem}.so" >> $testSuite
     fi
     echo "    File Should Exist    \${SALWorkDir}/lib/SALPY_\${subSystem}.so" >> $testSuite
@@ -362,7 +363,6 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     if [[ "$subSystem" != "MTM1M3" ]]; then
         echo "    File Should Exist    \${SALWorkDir}/lib/saj_\${subSystem}_types.jar" >> $testSuite
     fi
-    echo "    File Should Exist    \${SALWorkDir}/lib/SALLV_\${subSystem}.so" >> $testSuite
     echo "" >> $testSuite
 }
 
@@ -487,7 +487,6 @@ function createTestSuite() {
         salgenLabview
     fi
     # Create and verify Java interfaces.
-    echo $subSystem
     if [[ "$subSystem" != "MTM1M3" ]]; then
         salgenJava
     fi

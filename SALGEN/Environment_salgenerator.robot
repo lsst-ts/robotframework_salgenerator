@@ -303,7 +303,6 @@ Salgen Environment Lib
     File Should Exist    ${SALWorkDir}/lib/libsacpp_${subSystem}_types.so
     File Should Exist    ${SALWorkDir}/lib/libSAL_${subSystem}.so
     File Should Exist    ${SALWorkDir}/lib/saj_${subSystem}_types.jar
-    File Should Exist    ${SALWorkDir}/lib/SALLV_${subSystem}.so
 
 Salgen Environment RPM
     [Documentation]    Generate the SAL library RPM for ${subSystem}
