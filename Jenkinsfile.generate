@@ -295,7 +295,7 @@ pipeline {
                 'cd ' + _home + '/trunk/ts_sal/test/maven/MTCamera-' + XML_Version + '_' + SAL_Version + 'pre${BUILD_NUMBER}' + MavenVersion + ' \n' +
                 'mvn -DskipTests=true -B deploy \n' +
                 'Result=$? \n' +
-                'if [ $Result -eq 0 ]; then 'echo "=== Java deploy complete ==="'; else exit $Result; fi'
+                'if [ $Result -eq 0 ]; then echo "=== Java deploy complete ==="; else exit $Result; fi'
             }
         }//Java artifacts
     }//stages
