@@ -9,7 +9,7 @@ ${KeyFile}              ${EMPTY}
 ${PythonVersion}        Python 3.6.5
 ${MavenVersion}         -SNAPSHOT
 ${SALInstall}           /opt/sal
-${SALHome}              ${SalInstall}/
+${SALHome}              ${SalInstall}
 ${SALWorkDir}           ${SalInstall}/test
 ${SALVersion}           4.0
 ${XMLVersion}           4.8.0
