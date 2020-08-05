@@ -72,12 +72,3 @@ Verify DDS QoS Settings file exists
     Comment    Verify the DDS Quality of Service settings XML file exists.
 	File Should Exist    ${SALWorkDir}/DDS_DefaultQoS_All.xml
 	File Should Exist    ${SALInstall}/lsstsal/scripts/DDS_DefaultQoS_All.xml
-
-Verify State Enumeration Definition
-    [Documentation]    Verify the State Enumeration definition within the SAL.
-    [Tags]    smoke
-    Comment    Verify Generic Events file.
-    File Should Exist    ${SALInstall}/lsstsal/scripts/generateGenericEvents.tcl 
-    Comment    Verify Generic Events file contains the State Enumeration definition.
-    ${content}=    Run    grep -m 1 "<Enumeration>" ${SALInstall}/lsstsal/scripts/generateGenericEvents.tcl
-    Should Contain    ${content}    <Enumeration>DisabledState,EnabledState,FaultState,OfflineState,StandbyState</Enumeration>
