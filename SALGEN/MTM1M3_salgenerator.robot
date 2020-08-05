@@ -25,9 +25,10 @@ Verify MTM1M3 XML Defintions exist
 Salgen MTM1M3 Validate
     [Documentation]    Validate the MTM1M3 XML definitions.
     [Tags]    validate
-    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    validate    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
+    ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    validate    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
+    Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
     Should Contain    ${output.stdout}    Processing ${subSystem}
     Should Contain    ${output.stdout}    Completed ${subSystem} validation
     Directory Should Exist    ${SALWorkDir}/idl-templates
@@ -69,7 +70,6 @@ Salgen MTM1M3 Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disableHardpointChase.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_testForceActuator.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_applyOffsetForces.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_shutdown.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_translateM1M3.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_clearOffsetForces.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_applyAberrationForcesByBendingModes.idl
@@ -157,26 +157,6 @@ Salgen MTM1M3 Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_appliedCylinderForces.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_modbusResponse.idl
 
-Salgen MTM1M3 HTML
-    [Documentation]    Create web form interfaces.
-    [Tags]    html    
-    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    html    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
-    Log Many    ${output.stdout}    ${output.stderr}
-    Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
-    Should Contain    ${output.stdout}    Generating telemetry stream definition editor html
-    Should Contain    ${output.stdout}    Generating Facility database table creation html
-    Should Contain    ${output.stdout}    Generating Subsystem simulation control html
-    @{files}=    List Directory    ${SALWorkDir}/html/${subSystem}
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/MTM1M3_Commands.html
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/MTM1M3_Events.html
-    File Should Exist    ${SALWorkDir}/html/${subSystem}/MTM1M3_Telemetry.html
-    @{files}=    List Directory    ${SALWorkDir}/html/dbsimulate    pattern=*${subSystem}*
-    Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-dbsimulate.html
-    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-dbsimulate-${subSystem}.html
-    File Should Exist    ${SALWorkDir}/html/dbsimulate/index-simulate-${subSystem}.html
-    File Should Exist    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
-
 Verify MTM1M3 revCodes File
     [Documentation]    Ensure MTM1M3_revCodes.tcl contains 1 revcode per topic.
     [Tags]    html    
@@ -206,7 +186,6 @@ Verify MTM1M3 revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_disableHardpointChase\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_testForceActuator\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_applyOffsetForces\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_shutdown\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_translateM1M3\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_clearOffsetForces\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_applyAberrationForcesByBendingModes\\) [a-z0-9]{8,}
@@ -307,9 +286,10 @@ Verify MTM1M3 revCodes File
 Salgen MTM1M3 IDL
     [Documentation]    Generate the revCoded IDL for ${subSystem}
     [Tags]    idl
-    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    sal    idl    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
+    ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    sal    idl    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
+    Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
     Should Contain    ${output.stdout}    Completed ${subSystem} validation
     File Should Exist    ${SALWorkDir}/${subSystem}/sal_revCoded_${subSystem}.idl
     @{files}=    List Directory    ${SALWorkDir}/idl-templates/validated/
@@ -318,11 +298,12 @@ Salgen MTM1M3 IDL
 Salgen MTM1M3 C++
     [Documentation]    Generate C++ libraries.
     [Tags]    cpp
-    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    sal    cpp   shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
+    ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    sal    cpp   shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Not Contain    ${output.stdout}    *** DDS error in file
     Should Not Contain    ${output.stdout}    Error 1
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
+    Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_forceActuatorData.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_inclinometerData.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_outerLoopData.idl
@@ -440,8 +421,6 @@ Verify MTM1M3 C++ Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_testForceActuator_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_applyOffsetForces_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_applyOffsetForces_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_shutdown_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_shutdown_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_translateM1M3_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_translateM1M3_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_clearOffsetForces_commander
@@ -622,9 +601,10 @@ Verify MTM1M3 C++ Event Interfaces
 Salgen MTM1M3 Python
     [Documentation]    Generate Python libraries.
     [Tags]    python
-    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    sal    python    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
+    ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    sal    python    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
+    Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
     Should Contain    ${output.stdout}    Generating Python SAL support for ${subSystem}
     Should Contain    ${output.stdout}    Generating Python bindings
     Should Contain    ${output.stdout}    python : Done SALPY_${subSystem}.so
@@ -714,8 +694,6 @@ Verify MTM1M3 Python Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_testForceActuator.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_applyOffsetForces.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_applyOffsetForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_shutdown.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_shutdown.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_translateM1M3.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_translateM1M3.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_clearOffsetForces.py
@@ -898,9 +876,10 @@ Verify MTM1M3 Python Event Interfaces
 Salgen MTM1M3 LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
     [Tags]    labview
-    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    labview    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
+    ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    labview    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
+    Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
     Directory Should Exist    ${SALWorkDir}/${subSystem}/labview
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/labview
     Log Many    @{files}
@@ -909,36 +888,13 @@ Salgen MTM1M3 LabVIEW
     File Should Exist    ${SALWorkDir}/${subSystem}/labview/SALLV_${subSystem}.so
     File Should Exist    ${SALWorkDir}/${subSystem}/labview/SALLV_${subSystem}_Monitor
 
-Salgen MTM1M3 Java
-    [Documentation]    Generate Java libraries.
-    [Tags]    java
-    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    sal    java    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
-    Log Many    ${output.stdout}    ${output.stderr}
-    Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_forceActuatorData.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_inclinometerData.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_outerLoopData.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_accelerometerData.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_hardpointActuatorData.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_imsData.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_gyroData.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_powerSupplyData.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_pidData.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_hardpointMonitorData.idl
-    Should Contain X Times    ${output.stdout}    javac : Done Publisher    10
-    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    10
-    Directory Should Exist    ${SALWorkDir}/${subSystem}/java
-    @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
-    File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
-    File Should Exist    ${SALWorkDir}/${subSystem}/java/saj_${subSystem}_types.jar
-    File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
-
 Salgen MTM1M3 Lib
     [Documentation]    Generate the SAL shared library for ${subSystem}
     [Tags]    lib
-    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    lib    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
+    ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    lib    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
+    Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
     Should Contain    ${output.stdout}    Building shared library for ${subSystem} subsystem
     Directory Should Exist    ${SALWorkDir}/lib
     @{files}=    List Directory    ${SALWorkDir}/lib    pattern=*${subSystem}*
@@ -949,29 +905,25 @@ Salgen MTM1M3 Lib
     File Should Exist    ${SALWorkDir}/lib/SALPY_${subSystem}.so
     File Should Exist    ${SALWorkDir}/lib/libsacpp_${subSystem}_types.so
     File Should Exist    ${SALWorkDir}/lib/libSAL_${subSystem}.so
-    File Should Exist    ${SALWorkDir}/lib/saj_${subSystem}_types.jar
-    File Should Exist    ${SALWorkDir}/lib/SALLV_${subSystem}.so
 
 Salgen MTM1M3 RPM
     [Documentation]    Generate the SAL library RPM for ${subSystem}
     [Tags]    rpm
     Log Many    ${XMLVersion}    ${SALVersion}    ${Build_Number}    ${DIST}
-    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    rpm    version\=${SALVersion}${Build_Number}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
+    ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    rpm    version\=${Build_Number}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     @{files}=    List Directory    /tmp/
     Should Be Empty    ${output.stderr}
     File Should Exist    /tmp/makerpm_${subSystem}.log
     File Should Exist    /tmp/makerpm_${subSystem}_test.log
     File Should Exist    /tmp/makerpm-utils.log
-    File Should Exist    /tmp/makerpm-meta.log
-    File Should Exist    /tmp/makerpm-atmeta.log
     Log File    /tmp/makerpm_${subSystem}.log
     Log File    /tmp/makerpm_${subSystem}_test.log
     Log File    /tmp/makerpm-utils.log
-    Log File    /tmp/makerpm-meta.log
-    Log File    /tmp/makerpm-atmeta.log
     Should Not Contain    ${output.stdout}    ERROR : Asset required for rpm
+    Should Not Contain    ${output.stdout}    child process exited abnormally
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
+    Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
     Should Contain    ${output.stdout}    Building runtime RPM for ${subSystem} subsystem
     Directory Should Exist    ${SALWorkDir}/rpmbuild
     Directory Should Exist    ${SALWorkDir}/rpmbuild/BUILD
@@ -984,26 +936,12 @@ Salgen MTM1M3 RPM
     @{files}=    List Directory    ${SALWorkDir}/rpmbuild/RPMS/x86_64/
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/rpmbuild/SPECS/ts_sal_${subSystem}.spec
-    File Should Exist    ${SALWorkDir}/rpmbuild/SOURCES/${subSystem}-${SALVersion}.tgz
-    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_runtime-${SALVersion}${Build_Number}-${XMLVersion}${DIST}.x86_64.rpm
-    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_ATruntime-${SALVersion}${Build_Number}-${XMLVersion}${DIST}.x86_64.rpm
-    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_utils-${SALVersion}${Build_Number}-1.x86_64.rpm
-    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}-${SALVersion}${Build_Number}-${XMLVersion}${DIST}.x86_64.rpm
-    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}_test-${SALVersion}${Build_Number}-${XMLVersion}${DIST}.x86_64.rpm
-
-Salgen MTM1M3 Maven
-    [Documentation]    Generate the Maven repository.
-    [Tags]    java
-    ${output}=    Run Process    ${SALHome}/scripts/salgenerator    ${subSystem}    maven    version\=${SALVersion}${Build_Number}_${XMLVersion}${MavenVersion}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
-    Log Many    ${output.stdout}    ${output.stderr}
-    Should Contain    ${output.stdout}    argv = ${subSystem} maven version=${SALVersion}${Build_Number}_${XMLVersion}${MavenVersion}
-    Should Contain    ${output.stdout}    SAL generator - ${SAL_Version}
-    Should Contain    ${output.stdout}    Running maven install
-    Should Contain    ${output.stdout}    [INFO] Building sal_${subSystem} ${SALVersion}${Build_Number}_${XMLVersion}${MavenVersion}
-    Should Contain X Times    ${output.stdout}    [INFO] BUILD SUCCESS    1
-    Should Contain X Times    ${output.stdout}    [INFO] Finished at:    1
-    @{files}=    List Directory    ${SALWorkDir}/maven
-    File Should Exist    ${SALWorkDir}/maven/${subSystem}_${SALVersion}${Build_Number}_${XMLVersion}${MavenVersion}/pom.xml
+    File Should Exist    ${SALWorkDir}/rpmbuild/SOURCES/${subSystem}-${XMLVersion}.tgz
+    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_runtime-${XMLVersion}-${SALVersion}.${Build_Number}${DIST}.x86_64.rpm
+    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_ATruntime-${XMLVersion}-${SALVersion}.${Build_Number}${DIST}.x86_64.rpm
+    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_utils-${SALVersion}-1.x86_64.rpm
+    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}-${XMLVersion}-${SALVersion}.${Build_Number}${DIST}.x86_64.rpm
+    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}_test-${XMLVersion}-${SALVersion}.${Build_Number}${DIST}.x86_64.rpm
 
 Cleanup stdout and stderr Files
     [Tags]
