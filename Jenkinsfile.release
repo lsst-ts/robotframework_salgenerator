@@ -43,8 +43,9 @@ node {
         string(credentialsId: 'nexus_password', variable: 'nexus_passwd')]) {
             docker.image('lsstts/robotsal:python376').inside('-w ' + _home + ' -e AWS_ACCESS_KEY_ID=$aws_key_id -e AWS_SECRET_ACCESS_KEY=$aws_secret_key ' +
                 '-e NEXUS_USER=$nexus_username -e NEXUS_PASS=$nexus_passwd ' +
-                '-v ${WORKSPACE}/SAL:' + _home + '/trunk/ts_sal -v ${WORKSPACE}/rbtsalgen:' + _home + '/trunk/robotframework_salgenerator ' +
-                '-v ${WORKSPACE}/rbtsalmsg:' + _home + '/trunk/robotframework_SAL -v ${WORKSPACE}/RPMs:/tmp -v ${WORKSPACE}/Reports:' + _home + '/Reports') {
+                '-v ${WORKSPACE}/SAL:' + _home + '/trunk/ts_sal -v ${WORKSPACE}/XML:' + _home + '/trunk/ts_xml -v ${WORKSPACE}/rbtsalgen:' + _home +
+                '/trunk/robotframework_salgenerator ' + '-v ${WORKSPACE}/rbtsalmsg:' + _home + '/trunk/robotframework_SAL -v ${WORKSPACE}/RPMs:/tmp -v ${WORKSPACE}/Reports:' +
+                _home + '/Reports') {
             stage('Pull Git repos') {
                 // Get some code from a GitHub repository
                 checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: SAL_Checkout]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'SAL']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/ts_sal']]]
