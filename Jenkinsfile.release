@@ -207,13 +207,14 @@ node {
             stage('Push Java artifacts') {
                 if (Push == 'true') {
                     sh label: 'Java Artifacts', script: '#!/bin/bash -x\n' +
-                    'cd ' + _home + '/trunk/ts_sal/test/maven/ATCamera_' + SAL_Version + '_' + XML_Version + MavenVersion + ' \n' +
+                    'cd ' + _home + '/trunk/ts_sal/test/maven/ATCamera-' + XML_Version + '_' + SAL_Version + MavenVersion + ' \n' +
                     'mvn -DskipTests=true -B deploy \n' +
-                    'cd ' + _home + '/trunk/ts_sal/test/maven/CCCamera_' + SAL_Version + '_' + XML_Version + MavenVersion + ' \n' +
+                    'cd ' + _home + '/trunk/ts_sal/test/maven/CCCamera-' + XML_Version + '_' + SAL_Version + MavenVersion + ' \n' +
                     'mvn -DskipTests=true -B deploy \n' +
-                    'cd ' + _home + '/trunk/ts_sal/test/maven/MTCamera_' + SAL_Version + '_' + XML_Version + MavenVersion + ' \n' +
+                    'cd ' + _home + '/trunk/ts_sal/test/maven/MTCamera-' + XML_Version + '_' + SAL_Version + MavenVersion + ' \n' +
                     'mvn -DskipTests=true -B deploy \n' +
-                    'echo "=== Java deploy complete ==="'
+                    'Result=$? \n' +
+                    'if [ $Result -eq 0 ]; then echo "=== Java deploy complete ==="; else exit $Result; fi'
                 }//If Push True
             }//Java artifacts
             stage('Push RPMs to Nexus3') {
