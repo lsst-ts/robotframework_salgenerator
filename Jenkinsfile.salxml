@@ -5,6 +5,9 @@ def _home="/home/" + _user
 
 pipeline {
     parameters {
+        booleanParam defaultValue: false, description: 'Is this a "bleeding edge" build?', name: 'Bleed'
+        booleanParam defaultValue: false, description: 'Is this a Daily build?', name: 'Daily'
+        booleanParam defaultValue: false, description: 'Is this a Release build?', name: 'Release'
         booleanParam defaultValue: true, description: 'Push RPMs to Nexus3 yum repo?', name: 'Push'
         booleanParam defaultValue: true, description: 'Run SAL messaging tests?', name: 'Messaging'
         string defaultValue: '', description: '', name: 'SAL_tag', trim: true
@@ -26,7 +29,36 @@ pipeline {
          }
     }
     stages {
+        stage('Bleeding Edge Build Values') {
+            when {
+                expression { 
+                    return params.Bleed 
+                }
+            }
+            SAL_Checkout = "*/develop"
+            XML_Checkout = "*/develop"
+            IDL_Checkout = "*/develop"
+            RFSALGEN_Checkout = "*/develop"
+            RFSALMSGs_Checkout = "*/develop"
+        }
+        stage('Daily Build Values') {
+            when {
+                expression { 
+                    return params.Daily 
+                }
+            }
+            SAL_Checkout = "*/master"
+            XML_Checkout = "*/develop"
+            IDL_Checkout = "*/master"
+            RFSALGEN_Checkout = "*/develop"
+            RFSALMSGs_Checkout = "*/develop"
+        }
         stage('Define SAL and XML Checkouts') {
+            when {
+                expression { 
+                    return params.Release
+                }
+            }
             if ( SAL_tag == "" ) {
                 SAL_Checkout = "*/master"
             } else {
@@ -37,17 +69,23 @@ pipeline {
             } else {
                 XML_Checkout = "refs/tags/" + XML_tag
             }
-            echo "The SAL Checkout: " + SAL_Checkout
-            echo "The XML Checkout: " + XML_Checkout
+            IDL_Checkout = "*/master"
+            RFSALGEN_Checkout = "*/master"
+            RFSALMSGs_Checkout = "*/master"
         }
         stage('Pull Git repos') {
             steps {
+                echo "The SAL Checkout: " + SAL_Checkout
+                echo "The XML Checkout: " + XML_Checkout
+                echo "The IDL Checkout: " + IDL_Checkout
+                echo "The RFSALGEN Checkout: " + RFSALGEN_Checkout
+                echo "The RFSALMSGs Checkout: " + RFSALMSGs_Checkout
                 // Checkout the SAL, XML, IDL and Salgenerator and SAL Messaging test repos.
                 checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: SAL_Checkout]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'ts_sal']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/ts_sal']]]
                 checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: XML_Checkout]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'ts_xml']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/ts_xml']]]
-                checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/develop']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'ts_idl']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/ts_idl']]]
-                checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/develop']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'robotframework_salgenerator']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/robotframework_salgenerator']]]
-                checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/develop']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'robotframework_SAL']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/robotframework_SAL']]]
+                checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: 'IDL_Checkout']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'ts_idl']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/ts_idl']]]
+                checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: 'RFSALGEN_Checkout']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'robotframework_salgenerator']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/robotframework_salgenerator']]]
+                checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: 'RFSALMSGs_Checkout']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'robotframework_SAL']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/robotframework_SAL']]]
             }
         }//Git repos
         stage('Setup: Define variables and create directories') {
@@ -60,12 +98,17 @@ pipeline {
                 script {
                     SAL_Version = readFile("${WORKSPACE}/ts_sal/VERSION").trim()
                     XML_Version = readFile("${WORKSPACE}/ts_xml/VERSION").trim()
-                    if ("${GIT_BRANCH}" == 'master') {
-                        // Maven release artifacts simply use the version numbers.
+                    if ( params.Release == true) {
+                        // Maven and RPM release artifacts simply use the version numbers.
                         MavenVersion = ''
+                        Build_Param = ''
+                        RPM_Version = XML_Version + "-" + SAL_Version
                     } else {
                         // Maven develop/daily/etc artifacts add the -SNAPSHOT string.
                         MavenVersion = '-SNAPSHOT'
+                        // RPM develop/daily/etc artifacts add 'pre' and the Build Number string.
+                        Build_Param = "pre${BUILD_NUMBER}"
+                        RPM_Version = XML_Version + "-" + SAL_Version + "." + Build_Param
                     }
                 }
                 sh 'mkdir -pv "${WORKSPACE}/Reports"'
@@ -74,7 +117,7 @@ pipeline {
                 echo "The SAL version: " + SAL_Version
                 echo "The XML version: " + XML_Version
                 echo "The Maven version: " + MavenVersion
-                echo "The RPM Version: " + XML_Version + "-" + SAL_Version + ".pre${BUILD_NUMBER}"
+                echo "The RPM Version: " + RPM_Version 
             }
         }//Define SAL & XML variables
         stage('Copy XML files') {
@@ -104,7 +147,7 @@ pipeline {
                 'robot --variable ContInt:true -e skipped --noncritical TSS* --noncritical DM* --variable SALVersion:' + SAL_Version + ' ' +
                     '--variable SALInstall:' + _home + '/trunk/ts_sal --variable OpenspliceRelease:\'OpenSplice HDE Release\' ' + 
                     '--variable OpenspliceVersion:6.9.181127OSS --variable OpenspliceDate:2018-11-28 --variable PythonVersion:\'Python ' + _python_version + '\' ' +
-                    '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:pre${BUILD_NUMBER} ' + 
+                    '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:' + Build_Param + '\' ' + 
                     '--name Validate --output VALIDATE --outputdir ' + _home + '/trunk/Reports -A ' + _home + '/trunk/robotframework_salgenerator/Test_SalGen.list \n' +
                 'Result=$? \n' +
                 'if [ $Result -eq 0 ]; then echo Validation complete; else exit $Result; fi'
@@ -124,7 +167,7 @@ pipeline {
                         'robot --variable ContInt:true -e skipped --noncritical TSS* --noncritical DM* --variable SALVersion:' + SAL_Version + ' ' +
                             '--variable SALInstall:' + _home + '/trunk/ts_sal --variable OpenspliceRelease:\'OpenSplice HDE Release\' ' +
                             '--variable OpenspliceVersion:6.9.181127OSS --variable OpenspliceDate:2018-11-28 --variable PythonVersion:\'Python ' + _python_version + '\' ' +
-                            '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:pre${BUILD_NUMBER} ' +
+                            '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:' + Build_Param + '\' ' +
                             '--name AuxTel --output AUXTEL --outputdir ' + _home + '/trunk/Reports -A ' + _home + '/trunk/robotframework_salgenerator/AT_SalGen.list \n' +
                         'exit 0' 
                     }
@@ -141,7 +184,7 @@ pipeline {
                         'robot --variable ContInt:true -e skipped --noncritical TSS* --noncritical DM* --variable SALVersion:' + SAL_Version + ' ' +
                             '--variable SALInstall:' + _home + '/trunk/ts_sal --variable OpenspliceRelease:\'OpenSplice HDE Release\' ' +
                             '--variable OpenspliceVersion:6.9.181127OSS --variable OpenspliceDate:2018-11-28 --variable PythonVersion:\'Python ' + _python_version + '\' ' +
-                            '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:pre${BUILD_NUMBER} ' +
+                            '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:' + Build_Param + '\' ' +
                             '--name MainTel --output MAINTEL --outputdir ' + _home + '/trunk/Reports -A ' + _home + '/trunk/robotframework_salgenerator/MT_SalGen.list \n' +
                         'exit 0'
                     }
@@ -209,7 +252,7 @@ pipeline {
                             '--variable OpenspliceRelease:\'OpenSplice HDE Release\' ' +
                             '--variable OpenspliceVersion:6.9.181127OSS --variable OpenspliceDate:2018-11-28 ' +
                             '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version +
-                            ' --variable Build_Number:pre${BUILD_NUMBER} --variable PythonVersion:\'Python ' + _python_version + '\' ' +
+                            ' --variable Build_Number:' + Build_Param + '\' ' + --variable PythonVersion:\'Python ' + _python_version + '\' ' +
                             '-A ' + _home + '/trunk/robotframework_SAL/CombinedJavaTelemetry_Tests.list \n' +
                         'exit 0'
                     }
@@ -304,27 +347,46 @@ pipeline {
             }
             steps {
                 sh label: 'Java Artifacts', script: '#!/bin/bash -x\n' +
-                'cd ' + _home + '/trunk/ts_sal/test/maven/ATCamera-' + XML_Version + '_' + SAL_Version + 'pre${BUILD_NUMBER}' + MavenVersion + ' \n' +
+                'cd ' + _home + '/trunk/ts_sal/test/maven/ATCamera-' + RPM_Version + MavenVersion + ' \n' +
                 'mvn -DskipTests=true -B deploy \n' +
-                'cd ' + _home + '/trunk/ts_sal/test/maven/CCCamera-' + XML_Version + '_' + SAL_Version + 'pre${BUILD_NUMBER}' + MavenVersion + ' \n' +
+                'cd ' + _home + '/trunk/ts_sal/test/maven/CCCamera-' + RPL_Version + MavenVersion + ' \n' +
                 'mvn -DskipTests=true -B deploy \n' +
-                'cd ' + _home + '/trunk/ts_sal/test/maven/MTCamera-' + XML_Version + '_' + SAL_Version + 'pre${BUILD_NUMBER}' + MavenVersion + ' \n' +
+                'cd ' + _home + '/trunk/ts_sal/test/maven/MTCamera-' + RPL_Version + MavenVersion + ' \n' +
                 'mvn -DskipTests=true -B deploy \n' +
                 'Result=$? \n' +
                 'if [ $Result -eq 0 ]; then echo "=== Java deploy complete ==="; else exit $Result; fi'
             }
         }//Java artifacts
+        stage('Trigger Jobs - Release') {
+            when {
+                expression {
+                    return params.Release
+                }
+            }
+            steps {
+                echo "Starting the IDL_Conda_package/master job; sal_version: " + SAL_Version + Build_Param + ", xml_version: " + XML_Version + ", develop: false"
+                build job: 'IDL_Conda_package/develop', parameters: [string(name: 'sal_version', value: SAL_Version + Build_Param), string(name: 'xml_version', value: XML_Version), \
+                    booleanParam(name: 'develop', value: false)], wait: false
+                echo "Starting the BaseDevImage job; BuildSalobjContainer:true and BuildDevEnv:true"
+                build job: 'BaseDevImage', parameters: [booleanParam(name: 'BuildSalobjContainer', value: true), booleanParam(name: 'SalobjContainerMaster', value: true), booleanParam(name: 'BuildDevEnv', value: true) booleanParam(name: 'BuildDevEnvMaster', value: true)], wait: false
+            }
+        }//Trigger Jobs - Release
+        stage('Trigger Jobs - Daily') {
+            when {
+                expression {
+                    return params.Daily
+                }
+            }
+            steps {
+                echo "Starting the IDL_Conda_package/develop job; sal_version: " + SAL_Version + Build_Param + ", xml_version: " + XML_Version + ", develop: true"
+                build job: 'IDL_Conda_package/develop', parameters: [string(name: 'sal_version', value: SAL_Version + Build_Param), string(name: 'xml_version', value: XML_Version), \
+                    booleanParam(name: 'develop', value: true)], wait: false
+                echo "Starting the BaseDevImage job; BuildSalobjContainer:true and BuildDevEnv:true"
+                build job: 'BaseDevImage', parameters: [booleanParam(name: 'BuildSalobjContainer', value: true), booleanParam(name: 'SalobjContainerDevelop', value: true), booleanParam(name: 'BuildDevEnv', value: true), booleanParam(name: 'DevEnvDevelop', value: true)], wait: false
+            }
+        }//Trigger Jobs - Release
     }//stages
     post { 
-        success {
-            echo "Starting the IDL_Conda_package/develop job; sal_version: " + SAL_Version + ".pre${BUILD_NUMBER}" + ", xml_version: " + XML_Version + ", develop: true"
-            build job: 'IDL_Conda_package/develop', parameters: [string(name: 'sal_version', value: SAL_Version + ".pre${BUILD_NUMBER}"), string(name: 'xml_version', value: XML_Version), \
-                booleanParam(name: 'develop', value: true)], wait: false
-            echo "Starting the SalObj_Conda_package/develop job; Build_DevEnv: true"
-            build job: 'SalObj_Conda_package/develop', wait: false
-            echo "Starting the BaseDevImage job; BuildSalobjContainer:true and BuildDevEnv:true"
-            build job: 'BaseDevImage', parameters: [booleanParam(name: 'BuildSalobjContainer', value: true), booleanParam(name: 'BuildDevEnv', value: true)], wait: false
-        }
         cleanup {
             deleteDir() /* clean up our workspace */
         }
