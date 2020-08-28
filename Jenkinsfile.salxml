@@ -179,7 +179,7 @@ pipeline {
                         'robot --variable ContInt:true -e skipped --noncritical TSS* --noncritical DM* --variable SALVersion:' + SAL_Version + ' ' +
                             '--variable SALInstall:' + _home + '/trunk/ts_sal --variable OpenspliceRelease:\'OpenSplice HDE Release\' ' +
                             '--variable OpenspliceVersion:6.9.181127OSS --variable OpenspliceDate:2018-11-28 --variable PythonVersion:\'Python ' + _python_version + '\' ' +
-                            '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:' + Build_Param + '\' ' +
+                            '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:' + Build_Param + ' ' +
                             '--name AuxTel --output AUXTEL --outputdir ' + _home + '/trunk/Reports -A ' + _home + '/trunk/robotframework_salgenerator/AT_SalGen.list \n' +
                         'exit 0' 
                     }
@@ -196,7 +196,7 @@ pipeline {
                         'robot --variable ContInt:true -e skipped --noncritical TSS* --noncritical DM* --variable SALVersion:' + SAL_Version + ' ' +
                             '--variable SALInstall:' + _home + '/trunk/ts_sal --variable OpenspliceRelease:\'OpenSplice HDE Release\' ' +
                             '--variable OpenspliceVersion:6.9.181127OSS --variable OpenspliceDate:2018-11-28 --variable PythonVersion:\'Python ' + _python_version + '\' ' +
-                            '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:' + Build_Param + '\' ' +
+                            '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:' + Build_Param + ' ' +
                             '--name MainTel --output MAINTEL --outputdir ' + _home + '/trunk/Reports -A ' + _home + '/trunk/robotframework_salgenerator/MT_SalGen.list \n' +
                         'exit 0'
                     }
@@ -313,9 +313,9 @@ pipeline {
                 //Define the RPM array, then iterate to push RPMs to Nexus3
                 script {
                     //Define location for artifacts
-                    if (params.Bleed == True) {
+                    if (params.Bleed == 'true') {
                         location = "bleed"
-                    } else if (params.Daily == True) {
+                    } else if (params.Daily == 'true') {
                         location = "daily"
                     } else {
                         location = "releases"
@@ -369,9 +369,9 @@ pipeline {
                 sh label: 'Java Artifacts', script: '#!/bin/bash -x\n' +
                 'cd ' + _home + '/trunk/ts_sal/test/maven/ATCamera-' + RPM_Version + MavenVersion + ' \n' +
                 'mvn -DskipTests=true -B deploy \n' +
-                'cd ' + _home + '/trunk/ts_sal/test/maven/CCCamera-' + RPL_Version + MavenVersion + ' \n' +
+                'cd ' + _home + '/trunk/ts_sal/test/maven/CCCamera-' + RPM_Version + MavenVersion + ' \n' +
                 'mvn -DskipTests=true -B deploy \n' +
-                'cd ' + _home + '/trunk/ts_sal/test/maven/MTCamera-' + RPL_Version + MavenVersion + ' \n' +
+                'cd ' + _home + '/trunk/ts_sal/test/maven/MTCamera-' + RPM_Version + MavenVersion + ' \n' +
                 'mvn -DskipTests=true -B deploy \n' +
                 'Result=$? \n' +
                 'if [ $Result -eq 0 ]; then echo "=== Java deploy complete ==="; else exit $Result; fi'
