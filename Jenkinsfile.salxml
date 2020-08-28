@@ -36,11 +36,13 @@ pipeline {
                 }
             }
             steps {
-                SAL_Checkout = "*/develop"
-                XML_Checkout = "*/develop"
-                IDL_Checkout = "*/develop"
-                RFSALGEN_Checkout = "*/develop"
-                RFSALMSGs_Checkout = "*/develop"
+                script {
+                    SAL_Checkout = "*/develop"
+                    XML_Checkout = "*/develop"
+                    IDL_Checkout = "*/develop"
+                    RFSALGEN_Checkout = "*/develop"
+                    RFSALMSGs_Checkout = "*/develop"
+                }
             }
         }
         stage('Daily Build Values') {
@@ -50,11 +52,13 @@ pipeline {
                 }
             }
             steps {
-                SAL_Checkout = "*/master"
-                XML_Checkout = "*/develop"
-                IDL_Checkout = "*/master"
-                RFSALGEN_Checkout = "*/develop"
-                RFSALMSGs_Checkout = "*/develop"
+                script {
+                    SAL_Checkout = "*/master"
+                    XML_Checkout = "*/develop"
+                    IDL_Checkout = "*/master"
+                    RFSALGEN_Checkout = "*/develop"
+                    RFSALMSGs_Checkout = "*/develop"
+                }
             }
         }
         stage('Define SAL and XML Checkouts') {
@@ -64,19 +68,21 @@ pipeline {
                 }
             }
             steps {
-                if ( SAL_tag == "" ) {
-                    SAL_Checkout = "*/master"
-                } else {
-                    SAL_Checkout = "refs/tags/" + SAL_tag
+                script {
+                    if ( SAL_tag == "" ) {
+                        SAL_Checkout = "*/master"
+                    } else {
+                        SAL_Checkout = "refs/tags/" + SAL_tag
+                    }
+                    if ( XML_tag == "" ) {
+                        XML_Checkout = "*/master"
+                    } else {
+                        XML_Checkout = "refs/tags/" + XML_tag
+                    }
+                    IDL_Checkout = "*/master"
+                    RFSALGEN_Checkout = "*/master"
+                    RFSALMSGs_Checkout = "*/master"
                 }
-                if ( XML_tag == "" ) {
-                    XML_Checkout = "*/master"
-                } else {
-                    XML_Checkout = "refs/tags/" + XML_tag
-                }
-                IDL_Checkout = "*/master"
-                RFSALGEN_Checkout = "*/master"
-                RFSALMSGs_Checkout = "*/master"
             }
         }
         stage('Pull Git repos') {
