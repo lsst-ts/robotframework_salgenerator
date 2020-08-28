@@ -39,7 +39,6 @@ SALGEN/LOVE_salgenerator.robot
 SALGEN/LinearStage_salgenerator.robot
 SALGEN/MTAOS_salgenerator.robot
 SALGEN/MTAlignment_salgenerator.robot
-SALGEN/MTArchiver_salgenerator.robot
 SALGEN/MTCamera_salgenerator.robot
 SALGEN/MTDomeTrajectory_salgenerator.robot
 SALGEN/MTEEC_salgenerator.robot
