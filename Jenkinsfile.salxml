@@ -367,11 +367,11 @@ pipeline {
             }
             steps {
                 sh label: 'Java Artifacts', script: '#!/bin/bash -x\n' +
-                'cd ' + _home + '/trunk/ts_sal/test/maven/ATCamera-' + RPM_Version + MavenVersion + ' \n' +
+                'cd ' + _home + '/trunk/ts_sal/test/maven/ATCamera-' + XML_Version + "_" + SAL_Version + Build_Param + MavenVersion + ' \n' +
                 'mvn -DskipTests=true -B deploy \n' +
-                'cd ' + _home + '/trunk/ts_sal/test/maven/CCCamera-' + RPM_Version + MavenVersion + ' \n' +
+                'cd ' + _home + '/trunk/ts_sal/test/maven/CCCamera-' + XML_Version + "_" + SAL_Version + Build_Param + MavenVersion + ' \n' +
                 'mvn -DskipTests=true -B deploy \n' +
-                'cd ' + _home + '/trunk/ts_sal/test/maven/MTCamera-' + RPM_Version + MavenVersion + ' \n' +
+                'cd ' + _home + '/trunk/ts_sal/test/maven/MTCamera-' + XML_Version + "_" + SAL_Version + Build_Param + MavenVersion + ' \n' +
                 'mvn -DskipTests=true -B deploy \n' +
                 'Result=$? \n' +
                 'if [ $Result -eq 0 ]; then echo "=== Java deploy complete ==="; else exit $Result; fi'
