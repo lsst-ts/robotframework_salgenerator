@@ -87,6 +87,9 @@ pipeline {
         }
         stage('Pull Git repos') {
             steps {
+                println("This is a bleed build: " + params.Bleed)
+                println("This is a daily build: " + params.Daily)
+                println("This is a release build: " + params.Release)
                 echo "The SAL Checkout: " + SAL_Checkout
                 echo "The XML Checkout: " + XML_Checkout
                 echo "The IDL Checkout: " + IDL_Checkout
@@ -313,13 +316,14 @@ pipeline {
                 //Define the RPM array, then iterate to push RPMs to Nexus3
                 script {
                     //Define location for artifacts
-                    if (params.Bleed == 'true') {
-                        location = "bleed"
-                    } else if (params.Daily == 'true') {
+                    if (params.Release) {
+                        location = "release"
+                    } else if (params.Daily) {
                         location = "daily"
                     } else {
-                        location = "releases"
+                        location = "bleed"
                     }
+                    echo "The push location: " + location
                     array = sh(returnStdout: true, label: 'Push RPMs to Nexus3',
                     script: '#!/bin/bash -x\n' +
                     'ls ${WORKSPACE}/ts_sal/test/rpmbuild/RPMS/x86_64/ |grep -v debuginfo |grep ' + XML_Version +
