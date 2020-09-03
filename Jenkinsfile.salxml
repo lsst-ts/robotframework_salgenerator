@@ -6,7 +6,7 @@ def _home="/home/" + _user
 pipeline {
     parameters {
         booleanParam defaultValue: params.Push ?:true, description: 'Push RPMs to Nexus3 yum repo?', name: 'Push'
-        booleanParam defaultValue: params.Messaging ?:true, description: 'Run SAL messaging tests?', name: 'Messaging'
+        booleanParam defaultValue: params.Messaging ?:false, description: 'Run SAL messaging tests?', name: 'Messaging'
         booleanParam defaultValue: params.Bleed ?:false, description: 'Is this a "bleeding edge" build?', name: 'Bleed'
         booleanParam defaultValue: params.Daily ?:false, description: 'Is this a Daily build?', name: 'Daily'
         booleanParam defaultValue: params.Release ?:false, description: 'Is this a Release build?', name: 'Release'
