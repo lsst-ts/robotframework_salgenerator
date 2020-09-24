@@ -115,14 +115,6 @@ Verify Proper SAL Setup - scripts
     File Should Exist   ${SALInstall}/scripts/buildJavaLibraries.sh
     File Should Exist   ${SALInstall}/scripts/buildPythonLibraries.sh
 
-Verify Proper SAL Setup - tests
-    [Documentation]    There are a few dozen files that are necessary for SAL and salgenerator to function properly. This test verifies those files exist in the correct locations.
-    Directory Should Exist   ${SALInstall}/test
-    Directory Should Exist   ${SALInstall}/tests
-    File Should Exist   ${SALInstall}/tests/SConscript
-    File Should Exist   ${SALInstall}/tests/test_lsst_dds_domain.py
-    File Should Exist   ${SALInstall}/tests/test_sal.py
-
 Verify Proper SAL Setup - ups
     [Documentation]    There are a few dozen files that are necessary for SAL and salgenerator to function properly. This test verifies those files exist in the correct locations.
     Directory Should Exist   ${SALInstall}/ups
