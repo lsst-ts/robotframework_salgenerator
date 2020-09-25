@@ -13,13 +13,15 @@ pipeline {
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
         NEXUS_USER = credentials('nexus_username')
         NEXUS_PASS = credentials('nexus_password')
+        OSPL_URI = "file:///opt/OpenSpliceDDS/V6.10.4/HDE/x86_64.linux/etc/config/ospl_sp_ddsi.xml"
+        DDS_QOS = "file://" + _home + "/trunk/ts_idl/qos/QoS.xml"
     }
     agent {
         docker { 
-            image 'lsstts/robotsal:python376'
+            image 'ts-dockerhub.lsst.org/robotsal:latest'
             args '-w ' + _home + ' -e AWS_ACCESS_KEY_ID=$aws_key_id -e AWS_SECRET_ACCESS_KEY=$aws_secret_key ' + 
-            '-e NEXUS_USER=$nexus_username -e NEXUS_PASS=$nexus_passwd ' +
-            '-v ${WORKSPACE}:' + _home + '/trunk'
+            '-e NEXUS_USER=$nexus_username -e NEXUS_PASS=$nexus_passwd -e OSPL_URI=$ospl_uri -e DDS_QOS=$dds_qos ' +
+            '-e LSST_DDS_PARTITION_PREFIX=citest -v ${WORKSPACE}:' + _home + '/trunk'
             label 'Node2_8CPU'
          }
     }
