@@ -14,7 +14,7 @@ pipeline {
         NEXUS_USER = credentials('nexus_username')
         NEXUS_PASS = credentials('nexus_password')
         OSPL_URI = "file:///opt/OpenSpliceDDS/V6.10.4/HDE/x86_64.linux/etc/config/ospl_sp_ddsi.xml"
-        DDS_QOS = "file://" + _home + "/trunk/ts_idl/qos/QoS.xml"
+        DDS_QOS = "file://${_home}/trunk/ts_idl/qos/QoS.xml"
     }
     agent {
         docker { 
