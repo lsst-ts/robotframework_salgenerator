@@ -1,5 +1,7 @@
 // Define variables
 def _python_version="3.7.6"
+def _ospl_version="6.10.4"
+def _ospl_date="2020-06-25"
 def _user="appuser"
 def _home="/home/" + _user
 
@@ -13,7 +15,7 @@ pipeline {
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
         NEXUS_USER = credentials('nexus_username')
         NEXUS_PASS = credentials('nexus_password')
-        OSPL_URI = "file:///opt/OpenSpliceDDS/V6.10.4/HDE/x86_64.linux/etc/config/ospl_sp_ddsi.xml"
+        OSPL_URI = "file:///opt/OpenSpliceDDS/V${_ospl_version_ospl}/HDE/x86_64.linux/etc/config/ospl_sp_ddsi.xml"
         DDS_QOS = "file://${_home}/trunk/ts_idl/qos/QoS.xml"
     }
     agent {
@@ -89,7 +91,7 @@ pipeline {
                 'pwd \n' +
                 'robot --variable ContInt:true -e skipped --noncritical TSS* --noncritical DM* --variable SALVersion:' + SAL_Version + ' ' +
                     '--variable SALInstall:' + _home + '/trunk/ts_sal --variable OpenspliceRelease:\'OpenSplice HDE Release\' ' + 
-                    '--variable OpenspliceVersion:6.9.181127OSS --variable OpenspliceDate:2018-11-28 --variable PythonVersion:\'Python ' + _python_version + '\' ' +
+                    '--variable OpenspliceVersion:' + _ospl_version + ' --variable OpenspliceDate:' + _ospl_date + ' --variable PythonVersion:\'Python ' + _python_version + '\' ' +
                     '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:pre${BUILD_NUMBER} ' + 
                     '--name Validate --output VALIDATE --outputdir ' + _home + '/trunk/Reports -A ' + _home + '/trunk/robotframework_salgenerator/Test_SalGen.list \n' +
                 'Result=$? \n' +
@@ -109,7 +111,7 @@ pipeline {
                         'echo ========= Execute AuxTel salgenerator tests ========= \n' +
                         'robot --variable ContInt:true -e skipped --noncritical TSS* --noncritical DM* --variable SALVersion:' + SAL_Version + ' ' +
                             '--variable SALInstall:' + _home + '/trunk/ts_sal --variable OpenspliceRelease:\'OpenSplice HDE Release\' ' +
-                            '--variable OpenspliceVersion:6.9.181127OSS --variable OpenspliceDate:2018-11-28 --variable PythonVersion:\'Python ' + _python_version + '\' ' +
+                            '--variable OpenspliceVersion:' + _ospl_version + ' --variable OpenspliceDate:' + _ospl_date + ' --variable PythonVersion:\'Python ' + _python_version + '\' ' +
                             '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:pre${BUILD_NUMBER} ' +
                             '--name AuxTel --output AUXTEL --outputdir ' + _home + '/trunk/Reports -A ' + _home + '/trunk/robotframework_salgenerator/AT_SalGen.list \n' +
                         'exit 0' 
@@ -126,7 +128,7 @@ pipeline {
                         'echo ========= Execute MainTel salgenerator tests ========= \n' +
                         'robot --variable ContInt:true -e skipped --noncritical TSS* --noncritical DM* --variable SALVersion:' + SAL_Version + ' ' +
                             '--variable SALInstall:' + _home + '/trunk/ts_sal --variable OpenspliceRelease:\'OpenSplice HDE Release\' ' +
-                            '--variable OpenspliceVersion:6.9.181127OSS --variable OpenspliceDate:2018-11-28 --variable PythonVersion:\'Python ' + _python_version + '\' ' +
+                            '--variable OpenspliceVersion:' + _ospl_version + ' --variable OpenspliceDate:' + _ospl_date + ' --variable PythonVersion:\'Python ' + _python_version + '\' ' +
                             '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:pre${BUILD_NUMBER} ' +
                             '--name MainTel --output MAINTEL --outputdir ' + _home + '/trunk/Reports -A ' + _home + '/trunk/robotframework_salgenerator/MT_SalGen.list \n' +
                         'exit 0'
@@ -151,8 +153,8 @@ pipeline {
                         'robot --outputdir ' + _home + '/trunk/Reports --variable ContInt:true -e skipped --noncritical TSS* --noncritical DM* ' +
                             '--variable SALVersion:' + SAL_Version + ' --variable SALInstall:' + _home + '/trunk/ts_sal ' +
                             '--variable OpenspliceRelease:\'OpenSplice HDE Release\' ' +
-                            '--variable OpenspliceVersion:6.9.181127OSS --variable OpenspliceDate:2018-11-28 ' +
-                            '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable PythonVersion:\'Python ' + _python_version + '\' ' +
+                            '--variable OpenspliceVersion:' + _ospl_version + ' --variable OpenspliceDate:' + _ospl_date +
+                            ' --variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable PythonVersion:\'Python ' + _python_version + '\' ' +
                             '-A ' + _home + '/trunk/robotframework_SAL/CombinedCppTelemetry_Tests.list \n' +
                         'exit 0'
                     }
@@ -167,8 +169,8 @@ pipeline {
                         'robot --outputdir ' + _home + '/trunk/Reports --variable ContInt:true -e skipped --noncritical TSS* --noncritical DM* ' +
                             '--variable SALVersion:' + SAL_Version + ' --variable SALInstall:' + _home + '/trunk/ts_sal ' +
                             '--variable OpenspliceRelease:\'OpenSplice HDE Release\' ' +
-                            '--variable OpenspliceVersion:6.9.181127OSS --variable OpenspliceDate:2018-11-28 ' +
-                            '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version +
+                            '--variable OpenspliceVersion:' + _ospl_version + ' --variable OpenspliceDate:' + _ospl_date +
+                            ' --variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version +
                             ' --variable PythonVersion:\'Python ' + _python_version + '\' ' +
                             '-A ' + _home + '/trunk/robotframework_SAL/CombinedCppEvents_Tests.list \n' +
                         'exit 0'
@@ -193,8 +195,8 @@ pipeline {
                         'robot --outputdir ' + _home + '/trunk/Reports --variable ContInt:true -e skipped --noncritical TSS* --noncritical DM* ' +
                             '--variable SALVersion:' + SAL_Version + ' --variable SALInstall:' + _home + '/trunk/ts_sal ' +
                             '--variable OpenspliceRelease:\'OpenSplice HDE Release\' ' +
-                            '--variable OpenspliceVersion:6.9.181127OSS --variable OpenspliceDate:2018-11-28 ' +
-                            '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version +
+                            '--variable OpenspliceVersion:' + _ospl_version + ' --variable OpenspliceDate:' + _ospl_date +
+                            ' --variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version +
                             ' --variable Build_Number:pre${BUILD_NUMBER} --variable PythonVersion:\'Python ' + _python_version + '\' ' +
                             '-A ' + _home + '/trunk/robotframework_SAL/CombinedJavaTelemetry_Tests.list \n' +
                         'exit 0'
