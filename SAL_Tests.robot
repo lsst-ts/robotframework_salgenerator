@@ -36,21 +36,6 @@ Verify OpenSplice Version
     Should Contain    ${versionData.stdout}    ${OpenspliceVersion} For x86_64.linux
     Should Contain    ${versionData.stdout}    Date ${OpenspliceDate}
 
-Verify DDS Shared Memory Configuration
-    [Documentation]    Start the DDS shared memory daemon. Verify this daemon starts properly.
-    [Tags]    smoke    version
-    Comment    First, clean up from previous runs.
-    ${result}=    Run Process    ospl    stop    shell=True
-    Log Many    ${result.stdout}    ${result.stderr}
-    Remove Files    ospl-info.log    ospl-error.log
-    Comment    Now, start the DDS daemon.
-    Start Process    ospl    start    shell=True
-    Wait Until Created    ospl-info.log
-    ${output}=    Get File    ospl-info.log
-    Log    ${output}
-    Should Contain    ${output}    Domain (id)
-    Should Contain    ${output}    ospl_sp_ddsi (0)
-    
 Verify XML Version
     [Tags]    smoke    version
     File Should Exist    ${SALInstall}/test/VERSION
