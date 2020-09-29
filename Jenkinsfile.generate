@@ -15,7 +15,7 @@ pipeline {
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
         NEXUS_USER = credentials('nexus_username')
         NEXUS_PASS = credentials('nexus_password')
-        OSPL_URI = "file:///opt/OpenSpliceDDS/V${_ospl_version_ospl}/HDE/x86_64.linux/etc/config/ospl_sp_ddsi.xml"
+        OSPL_URI = "file:///opt/OpenSpliceDDS/V${_ospl_version}/HDE/x86_64.linux/etc/config/ospl_sp_ddsi.xml"
         DDS_QOS = "file://${_home}/trunk/ts_idl/qos/QoS.xml"
     }
     agent {
@@ -85,6 +85,8 @@ pipeline {
             steps {
                 // Validate the SAL/XML state using Test/Script CSCs
                 sh label: 'Validate', script: '#!/bin/bash -x \n' + 'source ' + _home + '/.bash_profile \n' +
+                'echo OSPL_URI: $OSPL_URI \n' +
+                'echo DDS_QOS: $DDS_QOS \n' +
                 'echo ========= Move to robotframework_salgenerator directory ========= \n' +
                 'echo cd ' + _home + '/trunk/robotframework_salgenerator \n' +
                 'cd ' + _home + '/trunk/robotframework_salgenerator \n' +
