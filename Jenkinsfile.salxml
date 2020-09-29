@@ -366,20 +366,6 @@ pipeline {
                 'if [ $Result -eq 0 ]; then echo "=== Java deploy complete ==="; else exit $Result; fi'
             }
         }//Java artifacts
-        stage('Trigger Jobs - Release') {
-            when {
-                expression {
-                    return params.Release
-                }
-            }
-            steps {
-                echo "Starting the IDL_Conda_package/master job; sal_version: " + SAL_Version + Build_Param + ", xml_version: " + XML_Version + ", develop: false"
-                build job: 'IDL_Conda_package/develop', parameters: [string(name: 'sal_version', value: SAL_Version + Build_Param), string(name: 'xml_version', value: XML_Version), \
-                    booleanParam(name: 'develop', value: false), booleanParam(name: 'buildSalObjConda', value: true), booleanParam(name: 'buildCSCConda', value: true)], wait: false
-                echo "Starting the BaseDevImage job; BuildSalobjContainer:true and BuildDevEnv:true"
-                build job: 'BaseDevImage', parameters: [booleanParam(name: 'BuildSalobjContainer', value: true), booleanParam(name: 'SalobjContainerMaster', value: true), booleanParam(name: 'BuildDevEnv', value: true), booleanParam(name: 'BuildDevEnvMaster', value: true)], wait: false
-            }
-        }//TriggerJobs - Release
         stage('Trigger Jobs - Daily') {
             when {
                 expression {
