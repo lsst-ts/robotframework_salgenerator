@@ -302,7 +302,7 @@ pipeline {
                 script {
                     //Define location for artifacts
                     if (params.Release) {
-                        location = "release"
+                        location = "releases"
                     } else if (params.Daily) {
                         location = "daily"
                     } else {
