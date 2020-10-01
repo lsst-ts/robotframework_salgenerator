@@ -312,7 +312,7 @@ pipeline {
                     array = sh(returnStdout: true, label: 'Push RPMs to Nexus3',
                     script: '#!/bin/bash -x\n' +
                     'ls ${WORKSPACE}/ts_sal/test/rpmbuild/RPMS/x86_64/ |grep -v debuginfo |grep ' + XML_Version +
-                    ' |grep ' + SAL_Version + ' |grep pre${BUILD_NUMBER} |tr "\n\r" " "'
+                    ' |grep ' + SAL_Version + ' |grep ' + Build_Param + ' |tr "\n\r" " "'
                     )
                     rpm_array = array.tokenize()
                     println rpm_array
