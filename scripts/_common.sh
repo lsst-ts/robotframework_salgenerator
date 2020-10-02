@@ -95,7 +95,7 @@ function subsystemArray() {
     EAS Electrometer Environment ESS
     FiberSpectrograph GenericCamera IOTA 
     Hexapod HVAC LinearStage LOVE 
-    MTAOS MTAlignment MTCamera
+    MTArchiver MTAOS MTAlignment MTCamera
     MTDomeTrajectory MTEEC MTHeaderService
     MTM1M3 MTM1M3TS MTM2 MTMount MTPtg MTVMS
     NewMTMount PromptProcessing Rotator
