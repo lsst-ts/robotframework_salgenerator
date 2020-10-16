@@ -463,25 +463,25 @@ function createTestSuite() {
     # Create and verify C++ interfaces.
     salgenCPP
     verifyCppDirectories
-    if [[ ${xmls[*]} =~ "${subSystem}_Telemetry.xml" ]]; then
+    if [[ ${#telemetryArray[@]} -ne 0 ]]; then
         verifyTelemetryDirectories
         verifyCppTelemetryInterfaces
     fi
-    if [[ ${xmls[*]} =~ "${subSystem}_Commands.xml" ]]; then
+    if [[ ${#commandArray[@]} -ne 0 ]]; then
         verifyCppCommandInterfaces
     fi
-    if [[ ${xmls[*]} =~ "${subSystem}_Events.xml" ]]; then
+    if [[ ${#eventArray[@]} -ne 0 ]]; then
         verifyCppEventInterfaces
     fi
     # Create and verify Python interfaces.
     salgenPython
-    if [[ ${xmls[*]} =~ "${subSystem}_Telemetry.xml" ]]; then
+    if [[ ${#telemetryArray[@]} -ne 0 ]]; then
         verifyPythonTelemetryInterfaces
     fi
-    if [[ ${xmls[*]} =~ "${subSystem}_Commands.xml" ]]; then
+    if [[ ${#commandArray[@]} -ne 0 ]]; then
         verifyPythonCommandInterfaces
     fi
-    if [[ ${xmls[*]} =~ "${subSystem}_Events.xml" ]]; then
+    if [[ ${#eventArray[@]} -ne 0 ]]; then
         verifyPythonEventInterfaces
     fi
     # Create LabVIEW interfaces.  NOTE: There are NO such Scheduler.
