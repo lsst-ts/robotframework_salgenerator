@@ -37,19 +37,25 @@ Salgen CCCamera Validate
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_filterChanger.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_bonnShutter.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_rebpower_R22.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_rebpower_RebPS.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_rebpower_Reb.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_rebpower_Rebps.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vacuum_VQMonitor.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vacuum_IonPumps.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vacuum_Turbo.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vacuum_Cryo.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vacuum_Cold2.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vacuum_Rtds.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vacuum_Cold1.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_quadbox_PDU_24VC.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_quadbox_PDU_24VD.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_quadbox_BFR.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_quadbox_PDU_5V.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_quadbox_PDU_48V.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_daq_monitor_Store.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fp_Reb.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fp_Ccd.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fp_Segment.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fp_RebTotalPower.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_abort.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
@@ -119,7 +125,12 @@ Salgen CCCamera Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focalPlaneRaftTempControlStatusSettingsApplied.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focalPlaneRaftTempControlSettingsApplied.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focalPlaneDAQSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focalPlaneSequencerSettingsApplied.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focalPlaneSequencerConfigSettingsApplied.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focalPlaneRebRaftsSettingsApplied.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focalPlaneRebRaftsPowerSettingsApplied.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_daq_monitorSettingsApplied.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_daq_monitor_StatsSettingsApplied.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_daq_monitor_StoreSettingsApplied.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_shutterBladeMotionProfile.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_imageStored.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fitsFilesWritten.idl
@@ -199,7 +210,12 @@ Verify CCCamera revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focalPlaneRaftTempControlStatusSettingsApplied\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focalPlaneRaftTempControlSettingsApplied\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focalPlaneDAQSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focalPlaneSequencerSettingsApplied\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focalPlaneSequencerConfigSettingsApplied\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focalPlaneRebRaftsSettingsApplied\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focalPlaneRebRaftsPowerSettingsApplied\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_daq_monitorSettingsApplied\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_daq_monitor_StatsSettingsApplied\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_daq_monitor_StoreSettingsApplied\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_shutterBladeMotionProfile\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_imageStored\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fitsFilesWritten\\) [a-z0-9]{8,}
@@ -207,19 +223,25 @@ Verify CCCamera revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_imageVisualization\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_filterChanger\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_bonnShutter\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_rebpower_R22\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_rebpower_RebPS\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_rebpower_Reb\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_rebpower_Rebps\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vacuum_VQMonitor\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vacuum_IonPumps\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vacuum_Turbo\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vacuum_Cryo\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vacuum_Cold2\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vacuum_Rtds\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vacuum_Cold1\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_quadbox_PDU_24VC\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_quadbox_PDU_24VD\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_quadbox_BFR\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_quadbox_PDU_5V\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_quadbox_PDU_48V\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_daq_monitor_Store\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fp_Reb\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fp_Ccd\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fp_Segment\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fp_RebTotalPower\\) [a-z0-9]{8,}
 
 Salgen CCCamera IDL
     [Documentation]    Generate the revCoded IDL for ${subSystem}
@@ -244,21 +266,27 @@ Salgen CCCamera C++
     Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_filterChanger.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_bonnShutter.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_rebpower_R22.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_rebpower_RebPS.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_rebpower_Reb.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_rebpower_Rebps.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_vacuum_VQMonitor.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_vacuum_IonPumps.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_vacuum_Turbo.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_vacuum_Cryo.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_vacuum_Cold2.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_vacuum_Rtds.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_vacuum_Cold1.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_quadbox_PDU_24VC.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_quadbox_PDU_24VD.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_quadbox_BFR.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_quadbox_PDU_5V.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_quadbox_PDU_48V.idl
-    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    15
-    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    15
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_daq_monitor_Store.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_fp_Reb.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_fp_Ccd.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_fp_Segment.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_fp_RebTotalPower.idl
+    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    21
+    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    21
     Should Contain X Times    ${output.stdout}    cpp : Done Commander    1
     Should Contain X Times    ${output.stdout}    cpp : Done Event/Logger    1
 
@@ -278,19 +306,25 @@ Verify CCCamera Telemetry directories
     Log Many    @{files}
     Directory Should Exist    ${SALWorkDir}/${subSystem}_filterChanger
     Directory Should Exist    ${SALWorkDir}/${subSystem}_bonnShutter
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_rebpower_R22
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_rebpower_RebPS
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_rebpower_Reb
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_rebpower_Rebps
     Directory Should Exist    ${SALWorkDir}/${subSystem}_vacuum_VQMonitor
     Directory Should Exist    ${SALWorkDir}/${subSystem}_vacuum_IonPumps
     Directory Should Exist    ${SALWorkDir}/${subSystem}_vacuum_Turbo
     Directory Should Exist    ${SALWorkDir}/${subSystem}_vacuum_Cryo
     Directory Should Exist    ${SALWorkDir}/${subSystem}_vacuum_Cold2
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_vacuum_Rtds
     Directory Should Exist    ${SALWorkDir}/${subSystem}_vacuum_Cold1
     Directory Should Exist    ${SALWorkDir}/${subSystem}_quadbox_PDU_24VC
     Directory Should Exist    ${SALWorkDir}/${subSystem}_quadbox_PDU_24VD
     Directory Should Exist    ${SALWorkDir}/${subSystem}_quadbox_BFR
     Directory Should Exist    ${SALWorkDir}/${subSystem}_quadbox_PDU_5V
     Directory Should Exist    ${SALWorkDir}/${subSystem}_quadbox_PDU_48V
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_daq_monitor_Store
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_fp_Reb
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_fp_Ccd
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_fp_Segment
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_fp_RebTotalPower
 
 Verify CCCamera C++ Telemetry Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -299,10 +333,10 @@ Verify CCCamera C++ Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}_filterChanger/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_bonnShutter/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_bonnShutter/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_rebpower_R22/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_rebpower_R22/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_rebpower_RebPS/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_rebpower_RebPS/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_rebpower_Reb/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_rebpower_Reb/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_rebpower_Rebps/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_rebpower_Rebps/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_vacuum_VQMonitor/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_vacuum_VQMonitor/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_vacuum_IonPumps/cpp/standalone/sacpp_${subSystem}_pub
@@ -313,6 +347,8 @@ Verify CCCamera C++ Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}_vacuum_Cryo/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_vacuum_Cold2/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_vacuum_Cold2/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_vacuum_Rtds/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_vacuum_Rtds/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_vacuum_Cold1/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_vacuum_Cold1/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_quadbox_PDU_24VC/cpp/standalone/sacpp_${subSystem}_pub
@@ -325,6 +361,16 @@ Verify CCCamera C++ Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}_quadbox_PDU_5V/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_quadbox_PDU_48V/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_quadbox_PDU_48V/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_daq_monitor_Store/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_daq_monitor_Store/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_fp_Reb/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_fp_Reb/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_fp_Ccd/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_fp_Ccd/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_fp_Segment/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_fp_Segment/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_fp_RebTotalPower/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_fp_RebTotalPower/cpp/standalone/sacpp_${subSystem}_sub
 
 Verify CCCamera C++ Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -471,8 +517,18 @@ Verify CCCamera C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_focalPlaneRaftTempControlSettingsApplied_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_focalPlaneDAQSettingsApplied_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_focalPlaneDAQSettingsApplied_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_focalPlaneSequencerSettingsApplied_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_focalPlaneSequencerSettingsApplied_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_focalPlaneSequencerConfigSettingsApplied_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_focalPlaneSequencerConfigSettingsApplied_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_focalPlaneRebRaftsSettingsApplied_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_focalPlaneRebRaftsSettingsApplied_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_focalPlaneRebRaftsPowerSettingsApplied_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_focalPlaneRebRaftsPowerSettingsApplied_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_daq_monitorSettingsApplied_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_daq_monitorSettingsApplied_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_daq_monitor_StatsSettingsApplied_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_daq_monitor_StatsSettingsApplied_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_daq_monitor_StoreSettingsApplied_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_daq_monitor_StoreSettingsApplied_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_shutterBladeMotionProfile_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_shutterBladeMotionProfile_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_imageStored_send
@@ -508,10 +564,10 @@ Verify CCCamera Python Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_filterChanger_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_bonnShutter_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_bonnShutter_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_rebpower_R22_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_rebpower_R22_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_rebpower_RebPS_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_rebpower_RebPS_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_rebpower_Reb_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_rebpower_Reb_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_rebpower_Rebps_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_rebpower_Rebps_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_vacuum_VQMonitor_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_vacuum_VQMonitor_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_vacuum_IonPumps_Publisher.py
@@ -522,6 +578,8 @@ Verify CCCamera Python Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_vacuum_Cryo_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_vacuum_Cold2_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_vacuum_Cold2_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_vacuum_Rtds_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_vacuum_Rtds_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_vacuum_Cold1_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_vacuum_Cold1_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_quadbox_PDU_24VC_Publisher.py
@@ -534,6 +592,16 @@ Verify CCCamera Python Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_quadbox_PDU_5V_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_quadbox_PDU_48V_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_quadbox_PDU_48V_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_daq_monitor_Store_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_daq_monitor_Store_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_fp_Reb_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_fp_Reb_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_fp_Ccd_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_fp_Ccd_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_fp_Segment_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_fp_Segment_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_fp_RebTotalPower_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_fp_RebTotalPower_Subscriber.py
 
 Verify CCCamera Python Command Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
@@ -684,8 +752,18 @@ Verify CCCamera Python Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_focalPlaneRaftTempControlSettingsApplied.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_focalPlaneDAQSettingsApplied.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_focalPlaneDAQSettingsApplied.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_focalPlaneSequencerSettingsApplied.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_focalPlaneSequencerSettingsApplied.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_focalPlaneSequencerConfigSettingsApplied.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_focalPlaneSequencerConfigSettingsApplied.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_focalPlaneRebRaftsSettingsApplied.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_focalPlaneRebRaftsSettingsApplied.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_focalPlaneRebRaftsPowerSettingsApplied.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_focalPlaneRebRaftsPowerSettingsApplied.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_daq_monitorSettingsApplied.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_daq_monitorSettingsApplied.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_daq_monitor_StatsSettingsApplied.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_daq_monitor_StatsSettingsApplied.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_daq_monitor_StoreSettingsApplied.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_daq_monitor_StoreSettingsApplied.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_shutterBladeMotionProfile.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_shutterBladeMotionProfile.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_imageStored.py
@@ -721,21 +799,27 @@ Salgen CCCamera Java
     Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_filterChanger.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_bonnShutter.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_rebpower_R22.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_rebpower_RebPS.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_rebpower_Reb.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_rebpower_Rebps.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuum_VQMonitor.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuum_IonPumps.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuum_Turbo.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuum_Cryo.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuum_Cold2.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuum_Rtds.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuum_Cold1.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_quadbox_PDU_24VC.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_quadbox_PDU_24VD.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_quadbox_BFR.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_quadbox_PDU_5V.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_quadbox_PDU_48V.idl
-    Should Contain X Times    ${output.stdout}    javac : Done Publisher    15
-    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    15
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_daq_monitor_Store.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fp_Reb.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fp_Ccd.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fp_Segment.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fp_RebTotalPower.idl
+    Should Contain X Times    ${output.stdout}    javac : Done Publisher    21
+    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    21
     Directory Should Exist    ${SALWorkDir}/${subSystem}/java
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl

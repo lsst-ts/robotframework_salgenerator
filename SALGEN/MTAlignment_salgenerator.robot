@@ -47,6 +47,7 @@ Salgen MTAlignment Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setValue.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setAuthList.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_measureTarget.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_align.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_measurePoint.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_laserPower.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_healthCheck.idl
@@ -80,6 +81,7 @@ Verify MTAlignment revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setValue\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setAuthList\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_measureTarget\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_align\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_measurePoint\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_laserPower\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_healthCheck\\) [a-z0-9]{8,}
@@ -173,6 +175,8 @@ Verify MTAlignment C++ Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setAuthList_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_measureTarget_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_measureTarget_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_align_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_align_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_measurePoint_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_measurePoint_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_laserPower_commander
@@ -262,6 +266,8 @@ Verify MTAlignment Python Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setAuthList.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_measureTarget.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_measureTarget.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_align.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_align.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_measurePoint.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_measurePoint.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_laserPower.py

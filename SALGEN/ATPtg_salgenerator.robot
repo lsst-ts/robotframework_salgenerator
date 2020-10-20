@@ -127,6 +127,7 @@ Salgen ATPtg Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_elLimitWarning.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_pointing_file.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_timesOfLimits.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_validatedTarget.idl
 
 Verify ATPtg revCodes File
     [Documentation]    Ensure ATPtg_revCodes.tcl contains 1 revcode per topic.
@@ -217,6 +218,7 @@ Verify ATPtg revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_elLimitWarning\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_pointing_file\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_timesOfLimits\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_validatedTarget\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_currentTargetStatus\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_guidingAndOffsets\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_timeAndDate\\) [a-z0-9]{8,}
@@ -475,6 +477,8 @@ Verify ATPtg C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_pointing_file_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_timesOfLimits_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_timesOfLimits_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_validatedTarget_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_validatedTarget_log
 
 Salgen ATPtg Python
     [Documentation]    Generate Python libraries.
@@ -692,6 +696,8 @@ Verify ATPtg Python Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_pointing_file.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_timesOfLimits.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_timesOfLimits.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_validatedTarget.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_validatedTarget.py
 
 Salgen ATPtg LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.

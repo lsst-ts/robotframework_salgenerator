@@ -35,22 +35,42 @@ Salgen MTCamera Validate
     Directory Should Exist    ${SALWorkDir}/idl-templates/validated
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_shutter.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_prot.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_filter.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_heartbeat.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_was.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_ccs.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_clusterEncoder.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_cyro.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_purge.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_wds.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_gds.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_sds.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_gas.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_pcms.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_sas.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_cold.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_quadbox_BFR.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_quadbox_PDU_5V.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_quadbox_PDU_24VC.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_quadbox_PDU_24VD.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_quadbox_PDU_48V.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_quadbox_REB_Bulk_PS.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_rebpower_Rebps.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_rebpower_Reb.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_hex_Cold1.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_hex_Cold2.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_hex_Cryo5.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_hex_Cryo6.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_hex_Cryo4.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_hex_Cryo3.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_hex_Cryo2.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_hex_Cryo1.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_refrig_Cold1.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_refrig_Cold2.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_refrig_Cryo5.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_refrig_Cryo6.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_refrig_Cryo4.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_refrig_Cryo3.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_refrig_Cryo2.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_refrig_Cryo1.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vacuum_IonPumps.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vacuum_TurboPump.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vacuum_CryoVacGauge.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vacuum_TurboVacGauge.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vacuum_ForelineVacGauge.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vacuum_Hex1VacGauge.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vacuum_Hex2VacGauge.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_daq_monitor_Store.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_focal_plane_Reb.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_focal_plane_Ccd.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_focal_plane_Segment.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_focal_plane_RebTotalPower.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_abort.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
@@ -115,6 +135,7 @@ Salgen MTCamera Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_startReadout.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_startRotateCarousel.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_imageReadoutParameters.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focalPlaneSummaryInfo.idl
 
 Verify MTCamera revCodes File
     [Documentation]    Ensure MTCamera_revCodes.tcl contains 1 revcode per topic.
@@ -184,22 +205,43 @@ Verify MTCamera revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_startReadout\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_startRotateCarousel\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_imageReadoutParameters\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_shutter\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_prot\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_filter\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_heartbeat\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_was\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_ccs\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_clusterEncoder\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_cyro\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_purge\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_wds\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_gds\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_sds\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_gas\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_pcms\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_sas\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_cold\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focalPlaneSummaryInfo\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_quadbox_BFR\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_quadbox_PDU_5V\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_quadbox_PDU_24VC\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_quadbox_PDU_24VD\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_quadbox_PDU_48V\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_quadbox_REB_Bulk_PS\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_rebpower_Rebps\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_rebpower_Reb\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_hex_Cold1\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_hex_Cold2\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_hex_Cryo5\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_hex_Cryo6\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_hex_Cryo4\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_hex_Cryo3\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_hex_Cryo2\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_hex_Cryo1\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_refrig_Cold1\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_refrig_Cold2\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_refrig_Cryo5\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_refrig_Cryo6\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_refrig_Cryo4\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_refrig_Cryo3\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_refrig_Cryo2\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_refrig_Cryo1\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vacuum_IonPumps\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vacuum_TurboPump\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vacuum_CryoVacGauge\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vacuum_TurboVacGauge\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vacuum_ForelineVacGauge\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vacuum_Hex1VacGauge\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vacuum_Hex2VacGauge\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_daq_monitor_Store\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_focal_plane_Reb\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_focal_plane_Ccd\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_focal_plane_Segment\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_focal_plane_RebTotalPower\\) [a-z0-9]{8,}
 
 Salgen MTCamera IDL
     [Documentation]    Generate the revCoded IDL for ${subSystem}
@@ -222,24 +264,44 @@ Salgen MTCamera C++
     Should Not Contain    ${output.stdout}    Error 1
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_shutter.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_prot.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_filter.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_heartbeat.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_was.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_ccs.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_clusterEncoder.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_cyro.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_purge.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_wds.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_gds.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_sds.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_gas.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_pcms.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_sas.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_cold.idl
-    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    16
-    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    16
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_quadbox_BFR.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_quadbox_PDU_5V.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_quadbox_PDU_24VC.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_quadbox_PDU_24VD.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_quadbox_PDU_48V.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_quadbox_REB_Bulk_PS.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_rebpower_Rebps.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_rebpower_Reb.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_hex_Cold1.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_hex_Cold2.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_hex_Cryo5.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_hex_Cryo6.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_hex_Cryo4.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_hex_Cryo3.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_hex_Cryo2.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_hex_Cryo1.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_refrig_Cold1.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_refrig_Cold2.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_refrig_Cryo5.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_refrig_Cryo6.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_refrig_Cryo4.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_refrig_Cryo3.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_refrig_Cryo2.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_refrig_Cryo1.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_vacuum_IonPumps.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_vacuum_TurboPump.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_vacuum_CryoVacGauge.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_vacuum_TurboVacGauge.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_vacuum_ForelineVacGauge.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_vacuum_Hex1VacGauge.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_vacuum_Hex2VacGauge.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_daq_monitor_Store.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_focal_plane_Reb.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_focal_plane_Ccd.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_focal_plane_Segment.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_focal_plane_RebTotalPower.idl
+    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    36
+    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    36
     Should Contain X Times    ${output.stdout}    cpp : Done Commander    1
     Should Contain X Times    ${output.stdout}    cpp : Done Event/Logger    1
 
@@ -257,58 +319,118 @@ Verify MTCamera Telemetry directories
     [Tags]    cpp
     @{files}=    List Directory    ${SALWorkDir}    pattern=*${subSystem}*
     Log Many    @{files}
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_shutter
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_prot
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_filter
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_heartbeat
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_was
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_ccs
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_clusterEncoder
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_cyro
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_purge
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_wds
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_gds
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_sds
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_gas
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_pcms
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_sas
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_cold
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_quadbox_BFR
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_quadbox_PDU_5V
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_quadbox_PDU_24VC
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_quadbox_PDU_24VD
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_quadbox_PDU_48V
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_quadbox_REB_Bulk_PS
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_rebpower_Rebps
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_rebpower_Reb
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_hex_Cold1
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_hex_Cold2
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_hex_Cryo5
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_hex_Cryo6
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_hex_Cryo4
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_hex_Cryo3
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_hex_Cryo2
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_hex_Cryo1
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_refrig_Cold1
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_refrig_Cold2
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_refrig_Cryo5
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_refrig_Cryo6
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_refrig_Cryo4
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_refrig_Cryo3
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_refrig_Cryo2
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_refrig_Cryo1
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_vacuum_IonPumps
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_vacuum_TurboPump
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_vacuum_CryoVacGauge
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_vacuum_TurboVacGauge
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_vacuum_ForelineVacGauge
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_vacuum_Hex1VacGauge
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_vacuum_Hex2VacGauge
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_daq_monitor_Store
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_focal_plane_Reb
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_focal_plane_Ccd
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_focal_plane_Segment
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_focal_plane_RebTotalPower
 
 Verify MTCamera C++ Telemetry Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}_shutter/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_shutter/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_prot/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_prot/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_filter/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_filter/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_heartbeat/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_heartbeat/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_was/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_was/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_ccs/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_ccs/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_clusterEncoder/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_clusterEncoder/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_cyro/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_cyro/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_purge/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_purge/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_wds/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_wds/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_gds/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_gds/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_sds/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_sds/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_gas/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_gas/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_pcms/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_pcms/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_sas/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_sas/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_cold/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_cold/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_quadbox_BFR/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_quadbox_BFR/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_quadbox_PDU_5V/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_quadbox_PDU_5V/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_quadbox_PDU_24VC/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_quadbox_PDU_24VC/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_quadbox_PDU_24VD/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_quadbox_PDU_24VD/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_quadbox_PDU_48V/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_quadbox_PDU_48V/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_quadbox_REB_Bulk_PS/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_quadbox_REB_Bulk_PS/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_rebpower_Rebps/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_rebpower_Rebps/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_rebpower_Reb/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_rebpower_Reb/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_hex_Cold1/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_hex_Cold1/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_hex_Cold2/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_hex_Cold2/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_hex_Cryo5/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_hex_Cryo5/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_hex_Cryo6/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_hex_Cryo6/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_hex_Cryo4/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_hex_Cryo4/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_hex_Cryo3/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_hex_Cryo3/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_hex_Cryo2/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_hex_Cryo2/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_hex_Cryo1/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_hex_Cryo1/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_refrig_Cold1/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_refrig_Cold1/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_refrig_Cold2/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_refrig_Cold2/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_refrig_Cryo5/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_refrig_Cryo5/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_refrig_Cryo6/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_refrig_Cryo6/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_refrig_Cryo4/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_refrig_Cryo4/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_refrig_Cryo3/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_refrig_Cryo3/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_refrig_Cryo2/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_refrig_Cryo2/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_refrig_Cryo1/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_refrig_Cryo1/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_vacuum_IonPumps/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_vacuum_IonPumps/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_vacuum_TurboPump/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_vacuum_TurboPump/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_vacuum_CryoVacGauge/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_vacuum_CryoVacGauge/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_vacuum_TurboVacGauge/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_vacuum_TurboVacGauge/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_vacuum_ForelineVacGauge/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_vacuum_ForelineVacGauge/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_vacuum_Hex1VacGauge/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_vacuum_Hex1VacGauge/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_vacuum_Hex2VacGauge/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_vacuum_Hex2VacGauge/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_daq_monitor_Store/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_daq_monitor_Store/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_focal_plane_Reb/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_focal_plane_Reb/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_focal_plane_Ccd/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_focal_plane_Ccd/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_focal_plane_Segment/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_focal_plane_Segment/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_focal_plane_RebTotalPower/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_focal_plane_RebTotalPower/cpp/standalone/sacpp_${subSystem}_sub
 
 Verify MTCamera C++ Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -445,6 +567,8 @@ Verify MTCamera C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_startRotateCarousel_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_imageReadoutParameters_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_imageReadoutParameters_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_focalPlaneSummaryInfo_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_focalPlaneSummaryInfo_log
 
 Salgen MTCamera Python
     [Documentation]    Generate Python libraries.
@@ -466,38 +590,78 @@ Verify MTCamera Python Telemetry Interfaces
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_shutter_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_shutter_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_prot_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_prot_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_filter_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_filter_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_heartbeat_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_heartbeat_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_was_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_was_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_ccs_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_ccs_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_clusterEncoder_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_clusterEncoder_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_cyro_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_cyro_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_purge_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_purge_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_wds_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_wds_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_gds_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_gds_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_sds_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_sds_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_gas_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_gas_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_pcms_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_pcms_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_sas_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_sas_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_cold_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_cold_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_quadbox_BFR_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_quadbox_BFR_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_quadbox_PDU_5V_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_quadbox_PDU_5V_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_quadbox_PDU_24VC_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_quadbox_PDU_24VC_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_quadbox_PDU_24VD_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_quadbox_PDU_24VD_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_quadbox_PDU_48V_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_quadbox_PDU_48V_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_quadbox_REB_Bulk_PS_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_quadbox_REB_Bulk_PS_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_rebpower_Rebps_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_rebpower_Rebps_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_rebpower_Reb_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_rebpower_Reb_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_hex_Cold1_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_hex_Cold1_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_hex_Cold2_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_hex_Cold2_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_hex_Cryo5_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_hex_Cryo5_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_hex_Cryo6_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_hex_Cryo6_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_hex_Cryo4_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_hex_Cryo4_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_hex_Cryo3_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_hex_Cryo3_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_hex_Cryo2_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_hex_Cryo2_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_hex_Cryo1_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_hex_Cryo1_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_refrig_Cold1_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_refrig_Cold1_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_refrig_Cold2_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_refrig_Cold2_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_refrig_Cryo5_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_refrig_Cryo5_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_refrig_Cryo6_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_refrig_Cryo6_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_refrig_Cryo4_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_refrig_Cryo4_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_refrig_Cryo3_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_refrig_Cryo3_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_refrig_Cryo2_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_refrig_Cryo2_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_refrig_Cryo1_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_refrig_Cryo1_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_vacuum_IonPumps_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_vacuum_IonPumps_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_vacuum_TurboPump_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_vacuum_TurboPump_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_vacuum_CryoVacGauge_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_vacuum_CryoVacGauge_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_vacuum_TurboVacGauge_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_vacuum_TurboVacGauge_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_vacuum_ForelineVacGauge_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_vacuum_ForelineVacGauge_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_vacuum_Hex1VacGauge_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_vacuum_Hex1VacGauge_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_vacuum_Hex2VacGauge_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_vacuum_Hex2VacGauge_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_daq_monitor_Store_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_daq_monitor_Store_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_focal_plane_Reb_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_focal_plane_Reb_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_focal_plane_Ccd_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_focal_plane_Ccd_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_focal_plane_Segment_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_focal_plane_Segment_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_focal_plane_RebTotalPower_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_focal_plane_RebTotalPower_Subscriber.py
 
 Verify MTCamera Python Command Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
@@ -638,6 +802,8 @@ Verify MTCamera Python Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_startRotateCarousel.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_imageReadoutParameters.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_imageReadoutParameters.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_focalPlaneSummaryInfo.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_focalPlaneSummaryInfo.py
 
 Salgen MTCamera LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
@@ -661,24 +827,44 @@ Salgen MTCamera Java
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_shutter.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_prot.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_filter.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_heartbeat.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_was.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_ccs.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_clusterEncoder.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_cyro.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_purge.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_wds.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_gds.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_sds.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_gas.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_pcms.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_sas.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_cold.idl
-    Should Contain X Times    ${output.stdout}    javac : Done Publisher    16
-    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    16
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_quadbox_BFR.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_quadbox_PDU_5V.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_quadbox_PDU_24VC.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_quadbox_PDU_24VD.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_quadbox_PDU_48V.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_quadbox_REB_Bulk_PS.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_rebpower_Rebps.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_rebpower_Reb.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_hex_Cold1.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_hex_Cold2.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_hex_Cryo5.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_hex_Cryo6.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_hex_Cryo4.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_hex_Cryo3.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_hex_Cryo2.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_hex_Cryo1.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_refrig_Cold1.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_refrig_Cold2.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_refrig_Cryo5.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_refrig_Cryo6.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_refrig_Cryo4.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_refrig_Cryo3.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_refrig_Cryo2.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_refrig_Cryo1.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuum_IonPumps.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuum_TurboPump.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuum_CryoVacGauge.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuum_TurboVacGauge.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuum_ForelineVacGauge.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuum_Hex1VacGauge.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuum_Hex2VacGauge.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_daq_monitor_Store.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_focal_plane_Reb.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_focal_plane_Ccd.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_focal_plane_Segment.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_focal_plane_RebTotalPower.idl
+    Should Contain X Times    ${output.stdout}    javac : Done Publisher    36
+    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    36
     Directory Should Exist    ${SALWorkDir}/${subSystem}/java
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
