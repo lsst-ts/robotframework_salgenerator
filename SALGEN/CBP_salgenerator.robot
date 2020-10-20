@@ -19,6 +19,7 @@ Verify CBP XML Defintions exist
     Should Not Contain    ${output.stderr}    No such file or directory    msg="CBP has no XML defintions"    values=False
     Should Not Be Empty    ${output.stdout}
     File Should Exist    ${SALWorkDir}/CBP_Commands.xml
+    File Should Exist    ${SALWorkDir}/CBP_Events.xml
     File Should Exist    ${SALWorkDir}/CBP_Telemetry.xml
 
 Salgen CBP Validate
@@ -66,6 +67,8 @@ Salgen CBP Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_softwareVersions.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_heartbeat.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_authList.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_target.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_inPosition.idl
 
 Verify CBP revCodes File
     [Documentation]    Ensure CBP_revCodes.tcl contains 1 revcode per topic.
@@ -97,6 +100,8 @@ Verify CBP revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_softwareVersions\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_heartbeat\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_authList\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_target\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_inPosition\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_status\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_mask\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_azimuth\\) [a-z0-9]{8,}
@@ -232,6 +237,10 @@ Verify CBP C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_heartbeat_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_authList_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_authList_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_target_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_target_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_inPosition_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_inPosition_log
 
 Salgen CBP Python
     [Documentation]    Generate Python libraries.
@@ -329,6 +338,10 @@ Verify CBP Python Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_heartbeat.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_authList.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_authList.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_target.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_target.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_inPosition.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_inPosition.py
 
 Salgen CBP LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.

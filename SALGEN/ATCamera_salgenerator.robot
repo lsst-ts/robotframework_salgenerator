@@ -35,6 +35,11 @@ Salgen ATCamera Validate
     Directory Should Exist    ${SALWorkDir}/idl-templates/validated
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_daq_monitor_Store.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fp_Reb.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fp_Ccd.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fp_Segment.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fp_RebTotalPower.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_wreb.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_bonnShutter.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_wrebPower.idl
@@ -90,10 +95,22 @@ Salgen ATCamera Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_startReadout.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_shutterMotionProfile.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_imageReadoutParameters.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingsAppliedLegacy.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_bonnShutterSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_wrebSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_softwareVersionsSettingsApplied.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focalPlaneSummaryInfo.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focalPlaneHardwareIdSettingsApplied.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focalPlaneRaftTempControlStatusSettingsApplied.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focalPlaneRaftTempControlSettingsApplied.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focalPlaneDAQSettingsApplied.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focalPlaneSequencerConfigSettingsApplied.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focalPlaneRebRaftsSettingsApplied.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focalPlaneRebRaftsPowerSettingsApplied.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_daq_monitorSettingsApplied.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_daq_monitor_StatsSettingsApplied.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_daq_monitor_StoreSettingsApplied.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_shutterBladeMotionProfile.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_imageStored.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fitsFilesWritten.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fileCommandExecution.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_imageVisualization.idl
 
 Verify ATCamera revCodes File
     [Documentation]    Ensure ATCamera_revCodes.tcl contains 1 revcode per topic.
@@ -150,10 +167,27 @@ Verify ATCamera revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_startReadout\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_shutterMotionProfile\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_imageReadoutParameters\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_settingsAppliedLegacy\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_bonnShutterSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_wrebSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_softwareVersionsSettingsApplied\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focalPlaneSummaryInfo\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focalPlaneHardwareIdSettingsApplied\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focalPlaneRaftTempControlStatusSettingsApplied\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focalPlaneRaftTempControlSettingsApplied\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focalPlaneDAQSettingsApplied\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focalPlaneSequencerConfigSettingsApplied\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focalPlaneRebRaftsSettingsApplied\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focalPlaneRebRaftsPowerSettingsApplied\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_daq_monitorSettingsApplied\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_daq_monitor_StatsSettingsApplied\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_daq_monitor_StoreSettingsApplied\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_shutterBladeMotionProfile\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_imageStored\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fitsFilesWritten\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fileCommandExecution\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_imageVisualization\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_daq_monitor_Store\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fp_Reb\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fp_Ccd\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fp_Segment\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fp_RebTotalPower\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_wreb\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_bonnShutter\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_wrebPower\\) [a-z0-9]{8,}
@@ -180,12 +214,17 @@ Salgen ATCamera C++
     Should Not Contain    ${output.stdout}    Error 1
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_daq_monitor_Store.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_fp_Reb.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_fp_Ccd.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_fp_Segment.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_fp_RebTotalPower.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_wreb.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_bonnShutter.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_wrebPower.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_vacuum.idl
-    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    4
-    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    4
+    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    9
+    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    9
     Should Contain X Times    ${output.stdout}    cpp : Done Commander    1
     Should Contain X Times    ${output.stdout}    cpp : Done Event/Logger    1
 
@@ -203,6 +242,11 @@ Verify ATCamera Telemetry directories
     [Tags]    cpp
     @{files}=    List Directory    ${SALWorkDir}    pattern=*${subSystem}*
     Log Many    @{files}
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_daq_monitor_Store
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_fp_Reb
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_fp_Ccd
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_fp_Segment
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_fp_RebTotalPower
     Directory Should Exist    ${SALWorkDir}/${subSystem}_wreb
     Directory Should Exist    ${SALWorkDir}/${subSystem}_bonnShutter
     Directory Should Exist    ${SALWorkDir}/${subSystem}_wrebPower
@@ -211,6 +255,16 @@ Verify ATCamera Telemetry directories
 Verify ATCamera C++ Telemetry Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
+    File Should Exist    ${SALWorkDir}/${subSystem}_daq_monitor_Store/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_daq_monitor_Store/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_fp_Reb/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_fp_Reb/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_fp_Ccd/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_fp_Ccd/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_fp_Segment/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_fp_Segment/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_fp_RebTotalPower/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_fp_RebTotalPower/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_wreb/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_wreb/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_bonnShutter/cpp/standalone/sacpp_${subSystem}_pub
@@ -329,14 +383,38 @@ Verify ATCamera C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_shutterMotionProfile_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_imageReadoutParameters_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_imageReadoutParameters_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsAppliedLegacy_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsAppliedLegacy_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_bonnShutterSettingsApplied_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_bonnShutterSettingsApplied_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_wrebSettingsApplied_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_wrebSettingsApplied_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_softwareVersionsSettingsApplied_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_softwareVersionsSettingsApplied_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_focalPlaneSummaryInfo_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_focalPlaneSummaryInfo_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_focalPlaneHardwareIdSettingsApplied_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_focalPlaneHardwareIdSettingsApplied_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_focalPlaneRaftTempControlStatusSettingsApplied_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_focalPlaneRaftTempControlStatusSettingsApplied_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_focalPlaneRaftTempControlSettingsApplied_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_focalPlaneRaftTempControlSettingsApplied_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_focalPlaneDAQSettingsApplied_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_focalPlaneDAQSettingsApplied_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_focalPlaneSequencerConfigSettingsApplied_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_focalPlaneSequencerConfigSettingsApplied_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_focalPlaneRebRaftsSettingsApplied_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_focalPlaneRebRaftsSettingsApplied_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_focalPlaneRebRaftsPowerSettingsApplied_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_focalPlaneRebRaftsPowerSettingsApplied_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_daq_monitorSettingsApplied_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_daq_monitorSettingsApplied_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_daq_monitor_StatsSettingsApplied_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_daq_monitor_StatsSettingsApplied_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_daq_monitor_StoreSettingsApplied_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_daq_monitor_StoreSettingsApplied_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_shutterBladeMotionProfile_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_shutterBladeMotionProfile_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_imageStored_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_imageStored_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_fitsFilesWritten_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_fitsFilesWritten_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_fileCommandExecution_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_fileCommandExecution_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_imageVisualization_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_imageVisualization_log
 
 Salgen ATCamera Python
     [Documentation]    Generate Python libraries.
@@ -358,6 +436,16 @@ Verify ATCamera Python Telemetry Interfaces
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_daq_monitor_Store_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_daq_monitor_Store_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_fp_Reb_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_fp_Reb_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_fp_Ccd_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_fp_Ccd_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_fp_Segment_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_fp_Segment_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_fp_RebTotalPower_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_fp_RebTotalPower_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_wreb_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_wreb_Subscriber.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_bonnShutter_Publisher.py
@@ -480,14 +568,38 @@ Verify ATCamera Python Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_shutterMotionProfile.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_imageReadoutParameters.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_imageReadoutParameters.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_settingsAppliedLegacy.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_settingsAppliedLegacy.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_bonnShutterSettingsApplied.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_bonnShutterSettingsApplied.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_wrebSettingsApplied.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_wrebSettingsApplied.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_softwareVersionsSettingsApplied.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_softwareVersionsSettingsApplied.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_focalPlaneSummaryInfo.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_focalPlaneSummaryInfo.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_focalPlaneHardwareIdSettingsApplied.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_focalPlaneHardwareIdSettingsApplied.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_focalPlaneRaftTempControlStatusSettingsApplied.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_focalPlaneRaftTempControlStatusSettingsApplied.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_focalPlaneRaftTempControlSettingsApplied.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_focalPlaneRaftTempControlSettingsApplied.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_focalPlaneDAQSettingsApplied.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_focalPlaneDAQSettingsApplied.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_focalPlaneSequencerConfigSettingsApplied.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_focalPlaneSequencerConfigSettingsApplied.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_focalPlaneRebRaftsSettingsApplied.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_focalPlaneRebRaftsSettingsApplied.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_focalPlaneRebRaftsPowerSettingsApplied.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_focalPlaneRebRaftsPowerSettingsApplied.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_daq_monitorSettingsApplied.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_daq_monitorSettingsApplied.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_daq_monitor_StatsSettingsApplied.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_daq_monitor_StatsSettingsApplied.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_daq_monitor_StoreSettingsApplied.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_daq_monitor_StoreSettingsApplied.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_shutterBladeMotionProfile.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_shutterBladeMotionProfile.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_imageStored.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_imageStored.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_fitsFilesWritten.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_fitsFilesWritten.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_fileCommandExecution.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_fileCommandExecution.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_imageVisualization.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_imageVisualization.py
 
 Salgen ATCamera LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
@@ -511,12 +623,17 @@ Salgen ATCamera Java
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_daq_monitor_Store.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fp_Reb.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fp_Ccd.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fp_Segment.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fp_RebTotalPower.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_wreb.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_bonnShutter.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_wrebPower.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuum.idl
-    Should Contain X Times    ${output.stdout}    javac : Done Publisher    4
-    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    4
+    Should Contain X Times    ${output.stdout}    javac : Done Publisher    9
+    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    9
     Directory Should Exist    ${SALWorkDir}/${subSystem}/java
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
