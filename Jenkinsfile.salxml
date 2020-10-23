@@ -1,6 +1,6 @@
 // Define variables
 def _python_version="3.7.6"
-def _ospl_version="6.10.4"
+def _ospl_version="6.10.4p2"
 def _ospl_date="2020-06-25"
 def _user="appuser"
 def _home="/home/" + _user
