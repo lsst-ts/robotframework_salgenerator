@@ -1,6 +1,6 @@
 // Define variables
 def _python_version="3.7.6"
-def _ospl_version="6.10.4"
+def _ospl_version="6.10.4p2"
 def _ospl_date="2020-06-25"
 def _user="appuser"
 def _home="/home/" + _user
@@ -385,7 +385,7 @@ pipeline {
         always {
             //Process Robot-Framework results.
             sh label: 'Results', script: '#!/bin/bash \n' + 'echo "# Check for output files."\n' +
-            'declare -a outputs=(VALIDATE.xml AUXTEL.xml MAINTEL.xml CombinedCppTelemetry.xml CombinedCppEvents.xml CombinedJavaTelemetry.xml)\n' + 
+            'declare -a outputs=(VALIDATE.xml AUXTEL.xml MAINTEL.xml CombinedCppTelemetry.xml CombinedCppEvents.xml CombinedJavaTelemetry.xml CombinedJavaEvents.xml) \n' + 
             'echo ${outputs[@]}\n' +
             'i=0\n echo i=$i\n' + 'for item in "${outputs[@]}"; do\n' +
             '\tif test -f ' + _home + '/trunk/Reports/$item; then array[$i]=' + _home + '/trunk/Reports/$item; else echo ' +
