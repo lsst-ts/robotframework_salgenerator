@@ -598,7 +598,7 @@ Salgen MTMount LabVIEW
 
 Salgen MTMount Java
     [Documentation]    Generate Java libraries.
-    [Tags]    java    DM-18229
+    [Tags]    java
     ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    sal    java    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
@@ -645,7 +645,7 @@ Salgen MTMount Java
 
 Salgen MTMount Lib
     [Documentation]    Generate the SAL shared library for ${subSystem}
-    [Tags]    lib    DM-18229
+    [Tags]    lib
     ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    lib    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
@@ -664,7 +664,7 @@ Salgen MTMount Lib
 
 Salgen MTMount RPM
     [Documentation]    Generate the SAL library RPM for ${subSystem}
-    [Tags]    rpm    DM-18229
+    [Tags]    rpm
     Log Many    ${XMLVersion}    ${SALVersion}    ${Build_Number}    ${DIST}
     ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    rpm    version\=${Build_Number}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
@@ -705,7 +705,7 @@ Salgen MTMount RPM
 
 Salgen MTMount Maven
     [Documentation]    Generate the Maven repository.
-    [Tags]    java    DM-18229
+    [Tags]    java
     ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    maven    version\=${Build_Number}${MavenVersion}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    argv = ${subSystem} maven version=${Build_Number}${MavenVersion}
