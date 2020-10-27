@@ -366,10 +366,13 @@ pipeline {
                 'if [ $Result -eq 0 ]; then echo "=== Java deploy complete ==="; else exit $Result; fi'
             }
         }//Java artifacts
-        stage('Trigger Jobs - Daily') {
+        stage('Trigger Jobs') {
             when {
-                expression {
-                    return params.Daily
+                anyOf {
+                    expression {
+                        params.Bleed
+                        params.Daily
+                    }
                 }
             }
             steps {
@@ -379,7 +382,7 @@ pipeline {
                 echo "Starting the BaseDevImage job; BuildSalobjContainer:true and BuildDevEnv:true"
                 build job: 'BaseDevImage', parameters: [booleanParam(name: 'BuildSalobjContainer', value: true), booleanParam(name: 'SalobjContainerDevelop', value: true), booleanParam(name: 'BuildDevEnv', value: true), booleanParam(name: 'DevEnvDevelop', value: true)], wait: false
             }
-        }//TriggerJobs - Daily
+        }//TriggerJobs
     }//stages
     post { 
         always {
