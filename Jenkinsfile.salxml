@@ -368,12 +368,7 @@ pipeline {
         }//Java artifacts
         stage('Trigger Jobs') {
             when {
-                anyOf {
-                    expression {
-                        params.Bleed
-                        params.Daily
-                    }
-                }
+                expression { return params.Bleed || params.Daily }
             }
             steps {
                 echo "Starting the IDL_Conda_package/develop job; sal_version: " + SAL_Version + "." + Build_Param + ", xml_version: " + XML_Version + ", develop: true"
