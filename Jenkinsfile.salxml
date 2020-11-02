@@ -5,6 +5,11 @@ def _ospl_date="2020-10-09"
 def _user="appuser"
 def _home="/home/" + _user
 
+properties(
+    [
+        disableConcurrentBuilds()
+    ]
+)
 pipeline {
     parameters {
         booleanParam defaultValue: params.Push ?:true, description: 'Push RPMs to Nexus3 yum repo?', name: 'Push'
@@ -29,18 +34,19 @@ pipeline {
             args '-w ' + _home + ' -e AWS_ACCESS_KEY_ID=$aws_key_id -e AWS_SECRET_ACCESS_KEY=$aws_secret_key ' + 
             '-e NEXUS_USER=$nexus_user -e NEXUS_PASS=$nexus_pass -e OSPL_URI=$ospl_uri -e DDS_QOS=$dds_qos ' +
             '-e LSST_DDS_PARTITION_PREFIX=citest -v ${WORKSPACE}:' + _home + '/trunk'
-            label 'Node2_8CPU'
+            label 'Node2_8CPU || Conda_Build_Node'
          }
     }
     stages {
         stage('Bleeding Edge Build Values') {
             when {
                 expression { 
-                    return params.Bleed 
+                    return params.Bleed
                 }
             }
             steps {
                 script {
+                    BuildType = "Bleed"
                     SAL_Checkout = "*/develop"
                     XML_Checkout = "*/develop"
                     IDL_Checkout = "*/develop"
@@ -52,11 +58,12 @@ pipeline {
         stage('Daily Build Values') {
             when {
                 expression { 
-                    return params.Daily 
+                    return params.Daily
                 }
             }
             steps {
                 script {
+                    BuildType = "Daily"
                     SAL_Checkout = "*/master"
                     XML_Checkout = "*/develop"
                     IDL_Checkout = "*/master"
@@ -73,6 +80,7 @@ pipeline {
             }
             steps {
                 script {
+                    BuildType = "Release"
                     if ( SAL_tag == "" ) {
                         SAL_Checkout = "*/master"
                     } else {
@@ -91,9 +99,7 @@ pipeline {
         }
         stage('Pull Git repos') {
             steps {
-                println("This is a bleed build: " + params.Bleed)
-                println("This is a daily build: " + params.Daily)
-                println("This is a release build: " + params.Release)
+                println("This is a " + BuildType + " build.")
                 echo "The SAL Checkout: " + SAL_Checkout
                 echo "The XML Checkout: " + XML_Checkout
                 echo "The IDL Checkout: " + IDL_Checkout
@@ -371,9 +377,9 @@ pipeline {
                 expression { return params.Bleed || params.Daily }
             }
             steps {
-                echo "Starting the IDL_Conda_package/develop job; sal_version: " + SAL_Version + "." + Build_Param + ", xml_version: " + XML_Version + ", develop: true"
+                echo "Starting the IDL_Conda_package/develop job; sal_version: " + SAL_Version + "." + Build_Param + ", xml_version: " + XML_Version + ", build_type: " + BuildType + ", develop: true"
                 build job: 'IDL_Conda_package/develop', parameters: [string(name: 'sal_version', value: SAL_Version + "." + Build_Param), string(name: 'xml_version', value: XML_Version), \
-                    booleanParam(name: 'develop', value: true), booleanParam(name: 'buildSalObjConda', value: true), booleanParam(name: 'buildCSCConda', value: true)], wait: false
+                    string(name: 'build_type', value: BuildType), booleanParam(name: 'develop', value: true), booleanParam(name: 'buildSalObjConda', value: true), booleanParam(name: 'buildCSCConda', value: true)], wait: false
                 echo "Starting the BaseDevImage job; BuildSalobjContainer:true and BuildDevEnv:true"
                 build job: 'BaseDevImage', parameters: [booleanParam(name: 'BuildSalobjContainer', value: true), booleanParam(name: 'SalobjContainerDevelop', value: true), booleanParam(name: 'BuildDevEnv', value: true), booleanParam(name: 'DevEnvDevelop', value: true)], wait: false
             }
