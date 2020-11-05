@@ -5,11 +5,18 @@ def _ospl_date="2020-10-09"
 def _user="appuser"
 def _home="/home/" + _user
 
+properties(
+    [
+        disableConcurrentBuilds()
+    ]
+)
 pipeline {
     parameters {
         booleanParam defaultValue: params.Push ?:true, description: 'Push RPMs to Nexus3 yum repo?', name: 'Push'
         booleanParam defaultValue: params.Messaging ?:false, description: 'Run SAL messaging tests?', name: 'Messaging'
-        choice choices: ['Bleed', 'Daily', 'Release'], description: 'What type of build is this?', name: 'BuildType'
+        booleanParam defaultValue: params.Bleed ?:false, description: 'Is this a "bleeding edge" build?', name: 'Bleed'
+        booleanParam defaultValue: params.Daily ?:false, description: 'Is this a Daily build?', name: 'Daily'
+        booleanParam defaultValue: params.Release ?:false, description: 'Is this a Release build?', name: 'Release'
         string defaultValue: '', description: '', name: 'SAL_tag', trim: true
         string defaultValue: '', description: '', name: 'XML_tag', trim: true
     }
@@ -34,11 +41,12 @@ pipeline {
         stage('Bleeding Edge Build Values') {
             when {
                 expression { 
-                    params.BuildType == "Bleed"
+                    return params.Bleed
                 }
             }
             steps {
                 script {
+                    BuildType = "Bleed"
                     SAL_Checkout = "*/develop"
                     XML_Checkout = "*/develop"
                     IDL_Checkout = "*/develop"
@@ -50,11 +58,12 @@ pipeline {
         stage('Daily Build Values') {
             when {
                 expression { 
-                    params.BuildType == "Daily"
+                    return params.Daily
                 }
             }
             steps {
                 script {
+                    BuildType = "Daily"
                     SAL_Checkout = "*/master"
                     XML_Checkout = "*/develop"
                     IDL_Checkout = "*/master"
@@ -66,11 +75,12 @@ pipeline {
         stage('Release Build Values') {
             when {
                 expression { 
-                    params.BuildType == "Release"
+                    return params.Release
                 }
             }
             steps {
                 script {
+                    BuildType = "Release"
                     if ( SAL_tag == "" ) {
                         SAL_Checkout = "*/master"
                     } else {
@@ -89,7 +99,7 @@ pipeline {
         }
         stage('Pull Git repos') {
             steps {
-                println("This is a " + params.BuildType + " build.")
+                println("This is a " + BuildType + " build.")
                 echo "The SAL Checkout: " + SAL_Checkout
                 echo "The XML Checkout: " + XML_Checkout
                 echo "The IDL Checkout: " + IDL_Checkout
@@ -364,12 +374,12 @@ pipeline {
         }//Java artifacts
         stage('Trigger Jobs') {
             when {
-                expression { params.BuildType == "Bleed" || params.BuildType == "Daily" }
+                expression { return params.Bleed || params.Daily }
             }
             steps {
-                echo "Starting the IDL_Conda_package/develop job; sal_version: " + SAL_Version + "." + Build_Param + ", xml_version: " + XML_Version + ", build_type: " + params.BuildType + ", develop: true"
+                echo "Starting the IDL_Conda_package/develop job; sal_version: " + SAL_Version + "." + Build_Param + ", xml_version: " + XML_Version + ", build_type: " + BuildType + ", develop: true"
                 build job: 'IDL_Conda_package/develop', parameters: [string(name: 'sal_version', value: SAL_Version + "." + Build_Param), string(name: 'xml_version', value: XML_Version), \
-                    string(name: 'build_type', value: params.BuildType), booleanParam(name: 'develop', value: true), booleanParam(name: 'buildSalObjConda', value: true), booleanParam(name: 'buildCSCConda', value: true)], wait: false
+                    string(name: 'build_type', value: BuildType), booleanParam(name: 'develop', value: true), booleanParam(name: 'buildSalObjConda', value: true), booleanParam(name: 'buildCSCConda', value: true)], wait: false
                 echo "Starting the BaseDevImage job; BuildSalobjContainer:true and BuildDevEnv:true"
                 build job: 'BaseDevImage', parameters: [booleanParam(name: 'BuildSalobjContainer', value: true), booleanParam(name: 'SalobjContainerDevelop', value: true), booleanParam(name: 'BuildDevEnv', value: true), booleanParam(name: 'DevEnvDevelop', value: true)], wait: false
             }
