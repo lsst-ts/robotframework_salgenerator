@@ -91,16 +91,16 @@ function subsystemArray() {
     ATMCS ATMonochromator ATOODS ATPneumatics 
     ATPtg ATSpectrograph ATWhiteLight Authorize
     CCArchiver CCCamera CCHeaderService CCOODS
-    CatchupArchiver CBP DIMM Dome DSM
-    EAS Electrometer Environment ESS
+    CatchupArchiver CBP DIMM DSM
+    EAS Electrometer ESS
     FiberSpectrograph GenericCamera IOTA 
     Hexapod HVAC LinearStage LOVE 
-    MTAOS MTAlignment MTCamera
+    MTAOS MTAlignment MTCamera MTDome 
     MTDomeTrajectory MTEEC MTHeaderService
     MTM1M3 MTM1M3TS MTM2 MTMount MTPtg MTVMS
     NewMTMount OCPS PromptProcessing Rotator
     Scheduler Script ScriptQueue SummitFacility Test
-    TunableLaser Watcher"
+    TunableLaser Watcher WeatherStation"
 }
 
 function stateArray() {

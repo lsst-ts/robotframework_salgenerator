@@ -18,6 +18,7 @@ Verify DSM XML Defintions exist
     Log Many    ${output.stdout}    ${output.stderr}
     Should Not Contain    ${output.stderr}    No such file or directory    msg="DSM has no XML defintions"    values=False
     Should Not Be Empty    ${output.stdout}
+    File Should Exist    ${SALWorkDir}/DSM_Events.xml
     File Should Exist    ${SALWorkDir}/DSM_Telemetry.xml
 
 Salgen DSM Validate
@@ -34,7 +35,6 @@ Salgen DSM Validate
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_domeSeeing.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_configuration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_abort.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
@@ -56,6 +56,7 @@ Salgen DSM Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_softwareVersions.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_heartbeat.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_authList.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_configuration.idl
 
 Verify DSM revCodes File
     [Documentation]    Ensure DSM_revCodes.tcl contains 1 revcode per topic.
@@ -82,8 +83,8 @@ Verify DSM revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_softwareVersions\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_heartbeat\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_authList\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_configuration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_domeSeeing\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_configuration\\) [a-z0-9]{8,}
 
 Salgen DSM IDL
     [Documentation]    Generate the revCoded IDL for ${subSystem}
@@ -107,9 +108,8 @@ Salgen DSM C++
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_domeSeeing.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_configuration.idl
-    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    2
-    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    2
+    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    1
+    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    1
     Should Contain X Times    ${output.stdout}    cpp : Done Commander    1
     Should Contain X Times    ${output.stdout}    cpp : Done Event/Logger    1
 
@@ -128,15 +128,12 @@ Verify DSM Telemetry directories
     @{files}=    List Directory    ${SALWorkDir}    pattern=*${subSystem}*
     Log Many    @{files}
     Directory Should Exist    ${SALWorkDir}/${subSystem}_domeSeeing
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_configuration
 
 Verify DSM C++ Telemetry Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
     File Should Exist    ${SALWorkDir}/${subSystem}_domeSeeing/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_domeSeeing/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_configuration/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_configuration/cpp/standalone/sacpp_${subSystem}_sub
 
 Verify DSM C++ Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -187,6 +184,8 @@ Verify DSM C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_heartbeat_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_authList_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_authList_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_configuration_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_configuration_log
 
 Salgen DSM Python
     [Documentation]    Generate Python libraries.
@@ -210,8 +209,6 @@ Verify DSM Python Telemetry Interfaces
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_domeSeeing_Publisher.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_domeSeeing_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_configuration_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_configuration_Subscriber.py
 
 Verify DSM Python Command Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
@@ -266,6 +263,8 @@ Verify DSM Python Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_heartbeat.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_authList.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_authList.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_configuration.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_configuration.py
 
 Salgen DSM LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
@@ -290,9 +289,8 @@ Salgen DSM Java
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_domeSeeing.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_configuration.idl
-    Should Contain X Times    ${output.stdout}    javac : Done Publisher    2
-    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    2
+    Should Contain X Times    ${output.stdout}    javac : Done Publisher    1
+    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    1
     Directory Should Exist    ${SALWorkDir}/${subSystem}/java
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl

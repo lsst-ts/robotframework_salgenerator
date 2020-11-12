@@ -30,11 +30,9 @@ SALGEN/CCOODS_salgenerator.robot
 SALGEN/CatchupArchiver_salgenerator.robot
 SALGEN/DIMM_salgenerator.robot
 SALGEN/DSM_salgenerator.robot
-SALGEN/Dome_salgenerator.robot
 SALGEN/EAS_salgenerator.robot
 SALGEN/ESS_salgenerator.robot
 SALGEN/Electrometer_salgenerator.robot
-SALGEN/Environment_salgenerator.robot
 SALGEN/FiberSpectrograph_salgenerator.robot
 SALGEN/GenericCamera_salgenerator.robot
 SALGEN/HVAC_salgenerator.robot
@@ -46,6 +44,7 @@ SALGEN/MTAOS_salgenerator.robot
 SALGEN/MTAlignment_salgenerator.robot
 SALGEN/MTArchiver_salgenerator.robot
 SALGEN/MTCamera_salgenerator.robot
+SALGEN/MTDome_salgenerator.robot
 SALGEN/MTDomeTrajectory_salgenerator.robot
 SALGEN/MTEEC_salgenerator.robot
 SALGEN/MTHeaderService_salgenerator.robot
@@ -65,4 +64,5 @@ SALGEN/SummitFacility_salgenerator.robot
 SALGEN/Test_salgenerator.robot
 SALGEN/TunableLaser_salgenerator.robot
 SALGEN/Watcher_salgenerator.robot
+SALGEN/WeatherStation_salgenerator.robot
 SAL_Unit_Tests.robot
