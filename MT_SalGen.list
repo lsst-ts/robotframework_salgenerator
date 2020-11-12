@@ -8,7 +8,7 @@ SALGEN/Authorize_salgenerator.robot
 SALGEN/EAS_salgenerator.robot
 SALGEN/ESS_salgenerator.robot
 SALGEN/HVAC_salgenerator.robot
-SALGEN/Hexapod_salgenerator.robot
+SALGEN/MTHexapod_salgenerator.robot
 SALGEN/IOTA_salgenerator.robot
 SALGEN/LOVE_salgenerator.robot
 SALGEN/MTAOS_salgenerator.robot
@@ -25,7 +25,7 @@ SALGEN/MTMount_salgenerator.robot
 SALGEN/MTPtg_salgenerator.robot
 SALGEN/MTVMS_salgenerator.robot
 SALGEN/NewMTMount_salgenerator.robot
-SALGEN/Rotator_salgenerator.robot
+SALGEN/MTRotator_salgenerator.robot
 SALGEN/SummitFacility_salgenerator.robot
 SALGEN/Watcher_salgenerator.robot
 SALGEN/WeatherStation_salgenerator.robot
