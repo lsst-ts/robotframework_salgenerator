@@ -94,11 +94,11 @@ function subsystemArray() {
     CatchupArchiver CBP DIMM DSM
     EAS Electrometer ESS
     FiberSpectrograph GenericCamera IOTA 
-    Hexapod HVAC LinearStage LOVE 
+    MTHexapod HVAC LinearStage LOVE 
     MTAOS MTAlignment MTCamera MTDome 
     MTDomeTrajectory MTEEC MTHeaderService
     MTM1M3 MTM1M3TS MTM2 MTMount MTPtg MTVMS
-    NewMTMount OCPS PromptProcessing Rotator
+    NewMTMount OCPS PromptProcessing MTRotator
     Scheduler Script ScriptQueue SummitFacility Test
     TunableLaser Watcher WeatherStation"
 }
