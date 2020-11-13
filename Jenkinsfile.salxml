@@ -12,7 +12,7 @@ properties(
 )
 pipeline {
     parameters {
-        booleanParam defaultValue: params.Push ?:true, description: 'Push RPMs to Nexus3 yum repo?', name: 'Push'
+        booleanParam defaultValue: params.Push ?:true, description: 'Push RPMs to Nexus3 yum repo and trigger DevEnv and Conda workflows?', name: 'Push'
         booleanParam defaultValue: params.Messaging ?:false, description: 'Run SAL messaging tests?', name: 'Messaging'
         booleanParam defaultValue: params.Bleed ?:false, description: 'Is this a "bleeding edge" build?', name: 'Bleed'
         booleanParam defaultValue: params.Daily ?:false, description: 'Is this a Daily build?', name: 'Daily'
@@ -378,7 +378,10 @@ pipeline {
         }//Java artifacts
         stage('Trigger Jobs') {
             when {
-                expression { return params.Bleed || params.Daily }
+                allOf {
+                    expression { return params.Push }
+                    expression { return params.Bleed || params.Daily }
+                }
             }
             steps {
                 echo "Starting the IDL_Conda_package/develop job; sal_version: " + SAL_Version + "." + Build_Param + ", xml_version: " + XML_Version + ", build_type: " + BuildType + ", develop: true"
