@@ -5,9 +5,14 @@ def _ospl_date="2020-10-09"
 def _user="appuser"
 def _home="/home/" + _user
 
+properties(
+    [
+        disableConcurrentBuilds()
+    ]
+)
 pipeline {
     parameters {
-        booleanParam defaultValue: params.Push ?:true, description: 'Push RPMs to Nexus3 yum repo?', name: 'Push'
+        booleanParam defaultValue: params.Push ?:true, description: 'Push RPMs to Nexus3 yum repo and trigger DevEnv and Conda workflows?', name: 'Push'
         booleanParam defaultValue: params.Messaging ?:false, description: 'Run SAL messaging tests?', name: 'Messaging'
         booleanParam defaultValue: params.Bleed ?:false, description: 'Is this a "bleeding edge" build?', name: 'Bleed'
         booleanParam defaultValue: params.Daily ?:false, description: 'Is this a Daily build?', name: 'Daily'
@@ -29,21 +34,23 @@ pipeline {
             args '-w ' + _home + ' -e AWS_ACCESS_KEY_ID=$aws_key_id -e AWS_SECRET_ACCESS_KEY=$aws_secret_key ' + 
             '-e NEXUS_USER=$nexus_user -e NEXUS_PASS=$nexus_pass -e OSPL_URI=$ospl_uri -e DDS_QOS=$dds_qos ' +
             '-e LSST_DDS_PARTITION_PREFIX=citest -v ${WORKSPACE}:' + _home + '/trunk'
-            label 'Node2_8CPU'
+            label 'Node2_8CPU || Conda_Build_Node'
          }
     }
     stages {
         stage('Bleeding Edge Build Values') {
             when {
                 expression { 
-                    return params.Bleed 
+                    return params.Bleed
                 }
             }
             steps {
                 script {
+                    BuildType = "Bleed"
                     SAL_Checkout = "*/develop"
                     XML_Checkout = "*/develop"
                     IDL_Checkout = "*/develop"
+                    DDSCONFIG_Checkout = "*/develop"
                     RFSALGEN_Checkout = "*/develop"
                     RFSALMSGs_Checkout = "*/develop"
                 }
@@ -52,14 +59,16 @@ pipeline {
         stage('Daily Build Values') {
             when {
                 expression { 
-                    return params.Daily 
+                    return params.Daily
                 }
             }
             steps {
                 script {
+                    BuildType = "Daily"
                     SAL_Checkout = "*/master"
                     XML_Checkout = "*/develop"
                     IDL_Checkout = "*/master"
+                    DDSCONFIG_Checkout = "*/master"
                     RFSALGEN_Checkout = "*/develop"
                     RFSALMSGs_Checkout = "*/develop"
                 }
@@ -73,6 +82,7 @@ pipeline {
             }
             steps {
                 script {
+                    BuildType = "Release"
                     if ( SAL_tag == "" ) {
                         SAL_Checkout = "*/master"
                     } else {
@@ -84,6 +94,7 @@ pipeline {
                         XML_Checkout = "refs/tags/" + XML_tag
                     }
                     IDL_Checkout = "*/master"
+                    DDSCONFIG_Checkout = "*/master"
                     RFSALGEN_Checkout = "*/master"
                     RFSALMSGs_Checkout = "*/master"
                 }
@@ -91,18 +102,18 @@ pipeline {
         }
         stage('Pull Git repos') {
             steps {
-                println("This is a bleed build: " + params.Bleed)
-                println("This is a daily build: " + params.Daily)
-                println("This is a release build: " + params.Release)
+                println("This is a " + BuildType + " build.")
                 echo "The SAL Checkout: " + SAL_Checkout
                 echo "The XML Checkout: " + XML_Checkout
                 echo "The IDL Checkout: " + IDL_Checkout
+                echo "The DDSCONFIG Checkout: " + DDSCONFIG_Checkout
                 echo "The RFSALGEN Checkout: " + RFSALGEN_Checkout
                 echo "The RFSALMSGs Checkout: " + RFSALMSGs_Checkout
                 // Checkout the SAL, XML, IDL and Salgenerator and SAL Messaging test repos.
                 checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: SAL_Checkout]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'ts_sal']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/ts_sal']]]
                 checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: XML_Checkout]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'ts_xml']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/ts_xml']]]
                 checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: IDL_Checkout]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'ts_idl']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/ts_idl']]]
+                checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: DDSCONFIG_Checkout]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'ts_ddsconfig']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/ts_ddsconfig']]]
                 checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: RFSALGEN_Checkout]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'robotframework_salgenerator']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/robotframework_salgenerator']]]
                 checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: RFSALMSGs_Checkout]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'robotframework_SAL']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/robotframework_SAL']]]
             }
@@ -146,7 +157,6 @@ pipeline {
                 sh label: 'SAL Subsystems', script: '#!/bin/bash \n' + 'cp -v ${WORKSPACE}/ts_xml/sal_interfaces/SALSubsystems.xml ts_sal/test'
                 sh label: 'SAL Generics', script: '#!/bin/bash \n' + 'cp -v ${WORKSPACE}/ts_xml/sal_interfaces/SALGenerics.xml ts_sal/test'
                 sh label: 'XML Version', script: '#!/bin/bash \n' + 'cp -v ${WORKSPACE}/ts_xml/VERSION ts_sal/test'
-                sh label: 'DDS QoS settings', script: '#!/bin/bash \n' + 'cp -v ${WORKSPACE}/ts_sal/lsstsal/scripts/DDS_DefaultQoS_All.xml ts_sal/test'
             }
         }//Copy XML
         stage('Install IDL and XML python libraries') {
@@ -366,20 +376,21 @@ pipeline {
                 'if [ $Result -eq 0 ]; then echo "=== Java deploy complete ==="; else exit $Result; fi'
             }
         }//Java artifacts
-        stage('Trigger Jobs - Daily') {
+        stage('Trigger Jobs') {
             when {
-                expression {
-                    return params.Daily
+                allOf {
+                    expression { return params.Push }
+                    expression { return params.Bleed || params.Daily }
                 }
             }
             steps {
-                echo "Starting the IDL_Conda_package/develop job; sal_version: " + SAL_Version + "." + Build_Param + ", xml_version: " + XML_Version + ", develop: true"
+                echo "Starting the IDL_Conda_package/develop job; sal_version: " + SAL_Version + "." + Build_Param + ", xml_version: " + XML_Version + ", build_type: " + BuildType + ", develop: true"
                 build job: 'IDL_Conda_package/develop', parameters: [string(name: 'sal_version', value: SAL_Version + "." + Build_Param), string(name: 'xml_version', value: XML_Version), \
-                    booleanParam(name: 'develop', value: true), booleanParam(name: 'buildSalObjConda', value: true), booleanParam(name: 'buildCSCConda', value: true)], wait: false
+                    string(name: 'build_type', value: BuildType), booleanParam(name: 'develop', value: true), booleanParam(name: 'buildSalObjConda', value: true), booleanParam(name: 'buildCSCConda', value: true)], wait: false
                 echo "Starting the BaseDevImage job; BuildSalobjContainer:true and BuildDevEnv:true"
                 build job: 'BaseDevImage', parameters: [booleanParam(name: 'BuildSalobjContainer', value: true), booleanParam(name: 'SalobjContainerDevelop', value: true), booleanParam(name: 'BuildDevEnv', value: true), booleanParam(name: 'DevEnvDevelop', value: true)], wait: false
             }
-        }//TriggerJobs - Daily
+        }//TriggerJobs
     }//stages
     post { 
         always {

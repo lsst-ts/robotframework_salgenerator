@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation    This suite builds the various interfaces for the Environment.
+Documentation    This suite builds the various interfaces for the OCPS.
 Force Tags    salgen    
 Suite Setup    Log Many    ${Host}    ${subSystem}    ${timeout}
 Library    OperatingSystem
@@ -7,21 +7,22 @@ Library    Process
 Resource    ../Global_Vars.resource
 
 *** Variables ***
-${subSystem}    Environment
+${subSystem}    OCPS
 ${timeout}    1200s
 
 *** Test Cases ***
-Verify Environment XML Defintions exist
+Verify OCPS XML Defintions exist
     [Tags]
     Comment    Verify the CSC XML definition files exist.
-    ${output}    Run Process    ls     ${SALWorkDir}/Environment_*.xml    shell=True
+    ${output}    Run Process    ls     ${SALWorkDir}/OCPS_*.xml    shell=True
     Log Many    ${output.stdout}    ${output.stderr}
-    Should Not Contain    ${output.stderr}    No such file or directory    msg="Environment has no XML defintions"    values=False
+    Should Not Contain    ${output.stderr}    No such file or directory    msg="OCPS has no XML defintions"    values=False
     Should Not Be Empty    ${output.stdout}
-    File Should Exist    ${SALWorkDir}/Environment_Telemetry.xml
+    File Should Exist    ${SALWorkDir}/OCPS_Commands.xml
+    File Should Exist    ${SALWorkDir}/OCPS_Events.xml
 
-Salgen Environment Validate
-    [Documentation]    Validate the Environment XML definitions.
+Salgen OCPS Validate
+    [Documentation]    Validate the OCPS XML definitions.
     [Tags]    validate
     ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    validate    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
@@ -33,18 +34,6 @@ Salgen Environment Validate
     Directory Should Exist    ${SALWorkDir}/idl-templates/validated
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_weather.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_windDirection.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_windGustDirection.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_windSpeed.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_airTemperature.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_relativeHumidity.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_dewPoint.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_snowDepth.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_solarNetRadiation.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_airPressure.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_precipitation.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_soilTemperature.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_abort.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
@@ -55,6 +44,8 @@ Salgen Environment Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setLogLevel.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setValue.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setAuthList.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_execute.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_abort_job.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingVersions.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_errorCode.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_summaryState.idl
@@ -66,9 +57,10 @@ Salgen Environment Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_softwareVersions.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_heartbeat.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_authList.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_job_result.idl
 
-Verify Environment revCodes File
-    [Documentation]    Ensure Environment_revCodes.tcl contains 1 revcode per topic.
+Verify OCPS revCodes File
+    [Documentation]    Ensure OCPS_revCodes.tcl contains 1 revcode per topic.
     [Tags]    html    
     ${output}=    Log File    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_abort\\) [a-z0-9]{8,}
@@ -81,6 +73,8 @@ Verify Environment revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setLogLevel\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setValue\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setAuthList\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_execute\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_abort_job\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_settingVersions\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_errorCode\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_summaryState\\) [a-z0-9]{8,}
@@ -92,20 +86,9 @@ Verify Environment revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_softwareVersions\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_heartbeat\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_authList\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_weather\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_windDirection\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_windGustDirection\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_windSpeed\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_airTemperature\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_relativeHumidity\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_dewPoint\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_snowDepth\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_solarNetRadiation\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_airPressure\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_precipitation\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_soilTemperature\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_job_result\\) [a-z0-9]{8,}
 
-Salgen Environment IDL
+Salgen OCPS IDL
     [Documentation]    Generate the revCoded IDL for ${subSystem}
     [Tags]    idl
     ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    sal    idl    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
@@ -117,7 +100,7 @@ Salgen Environment IDL
     @{files}=    List Directory    ${SALWorkDir}/idl-templates/validated/
     Log Many    @{files}
 
-Salgen Environment C++
+Salgen OCPS C++
     [Documentation]    Generate C++ libraries.
     [Tags]    cpp
     ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    sal    cpp   shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
@@ -126,20 +109,7 @@ Salgen Environment C++
     Should Not Contain    ${output.stdout}    Error 1
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_weather.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_windDirection.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_windGustDirection.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_windSpeed.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_airTemperature.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_relativeHumidity.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_dewPoint.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_snowDepth.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_solarNetRadiation.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_airPressure.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_precipitation.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_soilTemperature.idl
-    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    12
-    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    12
+    Should Contain    ${output.stdout}    WARNING : No Telemetry definitions found for ${subSystem}
     Should Contain X Times    ${output.stdout}    cpp : Done Commander    1
     Should Contain X Times    ${output.stdout}    cpp : Done Event/Logger    1
 
@@ -153,52 +123,7 @@ Verify C++ Directories
     @{files}=    List Directory    ${SALWorkDir}/idl-templates/validated/sal    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/idl-templates/validated/sal/sal_${subSystem}.idl
 
-Verify Environment Telemetry directories
-    [Tags]    cpp
-    @{files}=    List Directory    ${SALWorkDir}    pattern=*${subSystem}*
-    Log Many    @{files}
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_weather
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_windDirection
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_windGustDirection
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_windSpeed
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_airTemperature
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_relativeHumidity
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_dewPoint
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_snowDepth
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_solarNetRadiation
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_airPressure
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_precipitation
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_soilTemperature
-
-Verify Environment C++ Telemetry Interfaces
-    [Documentation]    Verify the C++ interfaces were properly created.
-    [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}_weather/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_weather/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_windDirection/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_windDirection/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_windGustDirection/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_windGustDirection/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_windSpeed/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_windSpeed/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_airTemperature/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_airTemperature/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_relativeHumidity/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_relativeHumidity/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_dewPoint/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_dewPoint/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_snowDepth/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_snowDepth/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_solarNetRadiation/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_solarNetRadiation/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_airPressure/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_airPressure/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_precipitation/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_precipitation/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_soilTemperature/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_soilTemperature/cpp/standalone/sacpp_${subSystem}_sub
-
-Verify Environment C++ Command Interfaces
+Verify OCPS C++ Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_abort_commander
@@ -221,8 +146,12 @@ Verify Environment C++ Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setValue_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setAuthList_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setAuthList_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_execute_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_execute_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_abort_job_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_abort_job_controller
 
-Verify Environment C++ Event Interfaces
+Verify OCPS C++ Event Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingVersions_send
@@ -247,8 +176,10 @@ Verify Environment C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_heartbeat_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_authList_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_authList_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_job_result_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_job_result_log
 
-Salgen Environment Python
+Salgen OCPS Python
     [Documentation]    Generate Python libraries.
     [Tags]    python
     ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    sal    python    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
@@ -263,37 +194,7 @@ Salgen Environment Python
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/SALPY_${subSystem}.so
 
-Verify Environment Python Telemetry Interfaces
-    [Documentation]    Verify the Python interfaces were properly created.
-    [Tags]    python
-    @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
-    Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_weather_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_weather_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_windDirection_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_windDirection_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_windGustDirection_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_windGustDirection_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_windSpeed_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_windSpeed_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_airTemperature_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_airTemperature_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_relativeHumidity_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_relativeHumidity_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_dewPoint_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_dewPoint_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_snowDepth_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_snowDepth_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_solarNetRadiation_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_solarNetRadiation_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_airPressure_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_airPressure_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_precipitation_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_precipitation_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_soilTemperature_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_soilTemperature_Subscriber.py
-
-Verify Environment Python Command Interfaces
+Verify OCPS Python Command Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
@@ -318,8 +219,12 @@ Verify Environment Python Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setValue.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_setAuthList.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setAuthList.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_execute.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_execute.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_abort_job.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_abort_job.py
 
-Verify Environment Python Event Interfaces
+Verify OCPS Python Event Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
@@ -346,8 +251,10 @@ Verify Environment Python Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_heartbeat.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_authList.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_authList.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_job_result.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_job_result.py
 
-Salgen Environment LabVIEW
+Salgen OCPS LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
     [Tags]    labview
     ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    labview    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
@@ -362,34 +269,21 @@ Salgen Environment LabVIEW
     File Should Exist    ${SALWorkDir}/${subSystem}/labview/SALLV_${subSystem}.so
     File Should Exist    ${SALWorkDir}/${subSystem}/labview/SALLV_${subSystem}_Monitor
 
-Salgen Environment Java
+Salgen OCPS Java
     [Documentation]    Generate Java libraries.
     [Tags]    java
     ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    sal    java    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_weather.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_windDirection.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_windGustDirection.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_windSpeed.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_airTemperature.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_relativeHumidity.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_dewPoint.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_snowDepth.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_solarNetRadiation.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_airPressure.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_precipitation.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_soilTemperature.idl
-    Should Contain X Times    ${output.stdout}    javac : Done Publisher    12
-    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    12
+    Should Contain    ${output.stdout}    WARNING : No Telemetry definitions found for ${subSystem}
     Directory Should Exist    ${SALWorkDir}/${subSystem}/java
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
     File Should Exist    ${SALWorkDir}/${subSystem}/java/saj_${subSystem}_types.jar
     File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
 
-Salgen Environment Lib
+Salgen OCPS Lib
     [Documentation]    Generate the SAL shared library for ${subSystem}
     [Tags]    lib
     ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    lib    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
@@ -408,7 +302,7 @@ Salgen Environment Lib
     File Should Exist    ${SALWorkDir}/lib/libSAL_${subSystem}.so
     File Should Exist    ${SALWorkDir}/lib/saj_${subSystem}_types.jar
 
-Salgen Environment RPM
+Salgen OCPS RPM
     [Documentation]    Generate the SAL library RPM for ${subSystem}
     [Tags]    rpm
     Log Many    ${XMLVersion}    ${SALVersion}    ${Build_Number}    ${DIST}
@@ -449,7 +343,7 @@ Salgen Environment RPM
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}-${XMLVersion}-${SALVersion}${dot}${Build_Number}${DIST}.x86_64.rpm
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}_test-${XMLVersion}-${SALVersion}${dot}${Build_Number}${DIST}.x86_64.rpm
 
-Salgen Environment Maven
+Salgen OCPS Maven
     [Documentation]    Generate the Maven repository.
     [Tags]    java
     ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    maven    version\=${Build_Number}${MavenVersion}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt

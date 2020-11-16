@@ -70,8 +70,7 @@ Verify SAL Generics defintion exists
 Verify DDS QoS Settings file exists
     [Tags]    smoke
     Comment    Verify the DDS Quality of Service settings XML file exists.
-    File Should Exist    ${SALWorkDir}/DDS_DefaultQoS_All.xml
-    File Should Exist    ${SALInstall}/lsstsal/scripts/DDS_DefaultQoS_All.xml
+    File Should Exist    ${SALInstall}/../ts_ddsconfig/qos/QoS.xml
 
 Verify Proper SAL Setup - base dir
     [Documentation]    There are a few dozen files that are necessary for SAL and salgenerator to function properly. This test verifies those files exist in the correct locations.

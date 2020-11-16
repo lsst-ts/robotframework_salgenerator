@@ -10,6 +10,7 @@ pipeline {
         string defaultValue: params.SAL_BRANCH ?:'develop', description: 'The branch of ts_sal to test.', name: 'SAL_BRANCH', trim: true
         string defaultValue: params.XML_BRANCH ?:'develop', description: 'The branch of ts_xml to test.', name: 'XML_BRANCH', trim: true
         string defaultValue: params.IDL_BRANCH ?:'master', description: 'The branch of ts_idl to test.', name: 'IDL_BRANCH', trim: true
+        string defaultValue: params.DDSCONFIG_BRANCH ?:'master', description: 'The branch of ts_ddsconfig to test.', name: 'DDSCONFIG_BRANCH', trim: true
         string defaultValue: params.SALGEN_BRANCH ?:'develop', description: 'The branch of robotframework_salgenerator to test.', name: 'SALGEN_BRANCH', trim: true
         string defaultValue: params.SALMSG_BRANCH ?:'develop', description: 'The branch of robotframework_SAL to test.', name: 'SALMSG_BRANCH', trim: true
         booleanParam defaultValue: params.Generate ?:false, description: 'Run the "salgenerator generate" tests?', name: 'Generate'
@@ -18,7 +19,7 @@ pipeline {
         AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
         OSPL_URI = "file:///opt/OpenSpliceDDS/V${_ospl_version}/HDE/x86_64.linux/etc/config/ospl_sp_ddsi.xml"
-        DDS_QOS = "file://${_home}/trunk/ts_idl/qos/QoS.xml"
+        DDS_QOS = "file://${_home}/trunk/ts_ddsconfig/qos/QoS.xml"
     }
     agent {
         docker { 
@@ -35,12 +36,14 @@ pipeline {
                 echo "The SAL Branch: " + SAL_BRANCH
                 echo "The XML Branch: " + XML_BRANCH
                 echo "The IDL Branch: " + IDL_BRANCH
+                echo "The DDSCONFIG Branch: " + DDSCONFIG_BRANCH
                 echo "The RFSALGEN Branch: " + SALGEN_BRANCH
                 echo "The RFSALMSGs Branch: " + SALMSG_BRANCH
-                // Checkout the SAL, XML, IDL and Salgenerator and SAL Messaging test repos.
+                // Checkout the SAL, XML, IDL, DDSCONFIG and Salgenerator and SAL Messaging test repos.
                 checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: SAL_BRANCH]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'ts_sal']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/ts_sal']]]
                 checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: XML_BRANCH]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'ts_xml']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/ts_xml']]]
                 checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: IDL_BRANCH]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'ts_idl']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/ts_idl']]]
+                checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: DDSCONFIG_BRANCH]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'ts_ddsconfig']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/ts_ddsconfig']]]
                 checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: SALGEN_BRANCH]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'robotframework_salgenerator']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/robotframework_salgenerator']]]
                 checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: SALMSG_BRANCH]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'robotframework_SAL']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/robotframework_SAL']]]
             }
@@ -82,7 +85,6 @@ pipeline {
                 sh label: 'SAL Subsystems', script: '#!/bin/bash \n' + 'cp -v ${WORKSPACE}/ts_xml/sal_interfaces/SALSubsystems.xml ts_sal/test'
                 sh label: 'SAL Generics', script: '#!/bin/bash \n' + 'cp -v ${WORKSPACE}/ts_xml/sal_interfaces/SALGenerics.xml ts_sal/test'
                 sh label: 'XML Version', script: '#!/bin/bash \n' + 'cp -v ${WORKSPACE}/ts_xml/VERSION ts_sal/test'
-                sh label: 'DDS QoS settings', script: '#!/bin/bash \n' + 'cp -v ${WORKSPACE}/ts_sal/lsstsal/scripts/DDS_DefaultQoS_All.xml ts_sal/test'
             }
         }//Copy XML
         stage('Install IDL and XML python libraries') {

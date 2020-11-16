@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation    This suite builds the various interfaces for the DSM.
+Documentation    This suite builds the various interfaces for the WeatherStation.
 Force Tags    salgen    
 Suite Setup    Log Many    ${Host}    ${subSystem}    ${timeout}
 Library    OperatingSystem
@@ -7,22 +7,21 @@ Library    Process
 Resource    ../Global_Vars.resource
 
 *** Variables ***
-${subSystem}    DSM
+${subSystem}    WeatherStation
 ${timeout}    1200s
 
 *** Test Cases ***
-Verify DSM XML Defintions exist
+Verify WeatherStation XML Defintions exist
     [Tags]
     Comment    Verify the CSC XML definition files exist.
-    ${output}    Run Process    ls     ${SALWorkDir}/DSM_*.xml    shell=True
+    ${output}    Run Process    ls     ${SALWorkDir}/WeatherStation_*.xml    shell=True
     Log Many    ${output.stdout}    ${output.stderr}
-    Should Not Contain    ${output.stderr}    No such file or directory    msg="DSM has no XML defintions"    values=False
+    Should Not Contain    ${output.stderr}    No such file or directory    msg="WeatherStation has no XML defintions"    values=False
     Should Not Be Empty    ${output.stdout}
-    File Should Exist    ${SALWorkDir}/DSM_Events.xml
-    File Should Exist    ${SALWorkDir}/DSM_Telemetry.xml
+    File Should Exist    ${SALWorkDir}/WeatherStation_Telemetry.xml
 
-Salgen DSM Validate
-    [Documentation]    Validate the DSM XML definitions.
+Salgen WeatherStation Validate
+    [Documentation]    Validate the WeatherStation XML definitions.
     [Tags]    validate
     ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    validate    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
@@ -34,7 +33,18 @@ Salgen DSM Validate
     Directory Should Exist    ${SALWorkDir}/idl-templates/validated
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_domeSeeing.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_weather.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_windDirection.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_windGustDirection.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_windSpeed.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_airTemperature.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_relativeHumidity.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_dewPoint.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_snowDepth.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_solarNetRadiation.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_airPressure.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_precipitation.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_soilTemperature.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_abort.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
@@ -56,10 +66,9 @@ Salgen DSM Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_softwareVersions.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_heartbeat.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_authList.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_configuration.idl
 
-Verify DSM revCodes File
-    [Documentation]    Ensure DSM_revCodes.tcl contains 1 revcode per topic.
+Verify WeatherStation revCodes File
+    [Documentation]    Ensure WeatherStation_revCodes.tcl contains 1 revcode per topic.
     [Tags]    html    
     ${output}=    Log File    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_abort\\) [a-z0-9]{8,}
@@ -83,10 +92,20 @@ Verify DSM revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_softwareVersions\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_heartbeat\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_authList\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_configuration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_domeSeeing\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_weather\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_windDirection\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_windGustDirection\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_windSpeed\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_airTemperature\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_relativeHumidity\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_dewPoint\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_snowDepth\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_solarNetRadiation\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_airPressure\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_precipitation\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_soilTemperature\\) [a-z0-9]{8,}
 
-Salgen DSM IDL
+Salgen WeatherStation IDL
     [Documentation]    Generate the revCoded IDL for ${subSystem}
     [Tags]    idl
     ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    sal    idl    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
@@ -98,7 +117,7 @@ Salgen DSM IDL
     @{files}=    List Directory    ${SALWorkDir}/idl-templates/validated/
     Log Many    @{files}
 
-Salgen DSM C++
+Salgen WeatherStation C++
     [Documentation]    Generate C++ libraries.
     [Tags]    cpp
     ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    sal    cpp   shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
@@ -107,9 +126,20 @@ Salgen DSM C++
     Should Not Contain    ${output.stdout}    Error 1
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_domeSeeing.idl
-    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    1
-    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    1
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_weather.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_windDirection.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_windGustDirection.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_windSpeed.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_airTemperature.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_relativeHumidity.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_dewPoint.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_snowDepth.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_solarNetRadiation.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_airPressure.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_precipitation.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_soilTemperature.idl
+    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    12
+    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    12
     Should Contain X Times    ${output.stdout}    cpp : Done Commander    1
     Should Contain X Times    ${output.stdout}    cpp : Done Event/Logger    1
 
@@ -123,19 +153,52 @@ Verify C++ Directories
     @{files}=    List Directory    ${SALWorkDir}/idl-templates/validated/sal    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/idl-templates/validated/sal/sal_${subSystem}.idl
 
-Verify DSM Telemetry directories
+Verify WeatherStation Telemetry directories
     [Tags]    cpp
     @{files}=    List Directory    ${SALWorkDir}    pattern=*${subSystem}*
     Log Many    @{files}
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_domeSeeing
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_weather
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_windDirection
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_windGustDirection
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_windSpeed
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_airTemperature
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_relativeHumidity
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_dewPoint
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_snowDepth
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_solarNetRadiation
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_airPressure
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_precipitation
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_soilTemperature
 
-Verify DSM C++ Telemetry Interfaces
+Verify WeatherStation C++ Telemetry Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}_domeSeeing/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_domeSeeing/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_weather/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_weather/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_windDirection/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_windDirection/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_windGustDirection/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_windGustDirection/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_windSpeed/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_windSpeed/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_airTemperature/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_airTemperature/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_relativeHumidity/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_relativeHumidity/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_dewPoint/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_dewPoint/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_snowDepth/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_snowDepth/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_solarNetRadiation/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_solarNetRadiation/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_airPressure/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_airPressure/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_precipitation/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_precipitation/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_soilTemperature/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_soilTemperature/cpp/standalone/sacpp_${subSystem}_sub
 
-Verify DSM C++ Command Interfaces
+Verify WeatherStation C++ Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_abort_commander
@@ -159,7 +222,7 @@ Verify DSM C++ Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setAuthList_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setAuthList_controller
 
-Verify DSM C++ Event Interfaces
+Verify WeatherStation C++ Event Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingVersions_send
@@ -184,10 +247,8 @@ Verify DSM C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_heartbeat_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_authList_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_authList_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_configuration_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_configuration_log
 
-Salgen DSM Python
+Salgen WeatherStation Python
     [Documentation]    Generate Python libraries.
     [Tags]    python
     ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    sal    python    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
@@ -202,15 +263,37 @@ Salgen DSM Python
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/SALPY_${subSystem}.so
 
-Verify DSM Python Telemetry Interfaces
+Verify WeatherStation Python Telemetry Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_domeSeeing_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_domeSeeing_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_weather_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_weather_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_windDirection_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_windDirection_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_windGustDirection_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_windGustDirection_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_windSpeed_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_windSpeed_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_airTemperature_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_airTemperature_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_relativeHumidity_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_relativeHumidity_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_dewPoint_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_dewPoint_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_snowDepth_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_snowDepth_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_solarNetRadiation_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_solarNetRadiation_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_airPressure_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_airPressure_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_precipitation_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_precipitation_Subscriber.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_soilTemperature_Publisher.py
+    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_soilTemperature_Subscriber.py
 
-Verify DSM Python Command Interfaces
+Verify WeatherStation Python Command Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
@@ -236,7 +319,7 @@ Verify DSM Python Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_setAuthList.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setAuthList.py
 
-Verify DSM Python Event Interfaces
+Verify WeatherStation Python Event Interfaces
     [Documentation]    Verify the Python interfaces were properly created.
     [Tags]    python
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
@@ -263,10 +346,8 @@ Verify DSM Python Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_heartbeat.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_authList.py
     File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_authList.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_configuration.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_configuration.py
 
-Salgen DSM LabVIEW
+Salgen WeatherStation LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
     [Tags]    labview
     ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    labview    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
@@ -281,23 +362,34 @@ Salgen DSM LabVIEW
     File Should Exist    ${SALWorkDir}/${subSystem}/labview/SALLV_${subSystem}.so
     File Should Exist    ${SALWorkDir}/${subSystem}/labview/SALLV_${subSystem}_Monitor
 
-Salgen DSM Java
+Salgen WeatherStation Java
     [Documentation]    Generate Java libraries.
     [Tags]    java
     ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    sal    java    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_domeSeeing.idl
-    Should Contain X Times    ${output.stdout}    javac : Done Publisher    1
-    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    1
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_weather.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_windDirection.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_windGustDirection.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_windSpeed.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_airTemperature.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_relativeHumidity.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_dewPoint.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_snowDepth.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_solarNetRadiation.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_airPressure.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_precipitation.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_soilTemperature.idl
+    Should Contain X Times    ${output.stdout}    javac : Done Publisher    12
+    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    12
     Directory Should Exist    ${SALWorkDir}/${subSystem}/java
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
     File Should Exist    ${SALWorkDir}/${subSystem}/java/saj_${subSystem}_types.jar
     File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
 
-Salgen DSM Lib
+Salgen WeatherStation Lib
     [Documentation]    Generate the SAL shared library for ${subSystem}
     [Tags]    lib
     ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    lib    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
@@ -316,7 +408,7 @@ Salgen DSM Lib
     File Should Exist    ${SALWorkDir}/lib/libSAL_${subSystem}.so
     File Should Exist    ${SALWorkDir}/lib/saj_${subSystem}_types.jar
 
-Salgen DSM RPM
+Salgen WeatherStation RPM
     [Documentation]    Generate the SAL library RPM for ${subSystem}
     [Tags]    rpm
     Log Many    ${XMLVersion}    ${SALVersion}    ${Build_Number}    ${DIST}
@@ -357,7 +449,7 @@ Salgen DSM RPM
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}-${XMLVersion}-${SALVersion}${dot}${Build_Number}${DIST}.x86_64.rpm
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}_test-${XMLVersion}-${SALVersion}${dot}${Build_Number}${DIST}.x86_64.rpm
 
-Salgen DSM Maven
+Salgen WeatherStation Maven
     [Documentation]    Generate the Maven repository.
     [Tags]    java
     ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    maven    version\=${Build_Number}${MavenVersion}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
