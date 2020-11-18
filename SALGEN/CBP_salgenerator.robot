@@ -38,7 +38,7 @@ Salgen CBP Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_status.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_mask.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_azimuth.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_elevation.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_altitude.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_focus.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_parked.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_abort.idl
@@ -51,11 +51,12 @@ Salgen CBP Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setLogLevel.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setValue.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setAuthList.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_move.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_clearFault.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_moveAzimuth.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_moveAltitude.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_changeMask.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setFocus.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_park.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_unpark.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingVersions.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_errorCode.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_summaryState.idl
@@ -84,11 +85,12 @@ Verify CBP revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setLogLevel\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setValue\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setAuthList\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_move\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_clearFault\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_moveAzimuth\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_moveAltitude\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_changeMask\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setFocus\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_park\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_unpark\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_settingVersions\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_errorCode\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_summaryState\\) [a-z0-9]{8,}
@@ -105,7 +107,7 @@ Verify CBP revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_status\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_mask\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_azimuth\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_elevation\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_altitude\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_focus\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_parked\\) [a-z0-9]{8,}
 
