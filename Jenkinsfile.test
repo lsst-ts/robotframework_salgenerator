@@ -211,6 +211,9 @@ pipeline {
         stage('Process Results') {
             steps {
                 sh label: 'Results', script: '#!/bin/bash \n' + 'echo "# Check for output files."\n' +
+        stage('Process Results') {
+            steps {
+                sh label: 'Results', script: '#!/bin/bash -x \n' + 'echo "# Check for output files."\n' +
                 'declare -a outputs=(VALIDATE.xml AUXTEL.xml MAINTEL.xml CombinedCppTelemetry.xml CombinedCppEvents.xml CombinedJavaTelemetry.xml)\n' + 
                 'echo ${outputs[@]}\n' +
                 'i=0\n echo i=$i\n' + 'for item in "${outputs[@]}"; do\n' +
