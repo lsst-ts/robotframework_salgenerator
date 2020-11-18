@@ -35,15 +35,37 @@ Salgen HVAC Validate
     Directory Should Exist    ${SALWorkDir}/idl-templates/validated
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_lsstBarraoblPiso01BarraoblTccGuionP1GuionSalaGuionMaquinas.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_lsstBarraoblPiso05BarraoblTccGuionP5GuionPir.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_lsstBarraoblPiso04BarraoblTccGuionP4GuionVex.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_lsstBarraoblPiso01BarraoblChiller01.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_lsstBarraoblPiso02BarraoblCrack01.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_lsstBarraoblPiso02BarraoblFancoil01.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_lsstBarraoblPiso05BarraoblManejadoraBarraoblLower_01.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_lsstBarraoblPiso04BarraoblManejadoraBarraoblSblanca.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_lsstBarraoblPiso04BarraoblManejadoraBarraoblSlimpia.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vea01P01.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vin01P01.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vec01P01.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_bombaAguaFriaP01.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_valvulaP01.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_temperatuaAmbienteP01.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vea01P05.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vea08P05.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vea09P05.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vea10P05.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vea11P05.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vea12P05.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vea13P05.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vea14P05.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vea15P05.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vea16P05.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vea17P05.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vea03P04.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vea04P04.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vex03P04.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vex04P04.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_damperLowerP04.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_zonaCargaP04.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_chiller01P01.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_crack01P02.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fancoil01P02.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_manejadoraLower01P05.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_manejadoraSblancaP04.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_manejadraSblancaP04.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_manejadoraSlimpiaP04.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_manejadoraZzzP04.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_abort.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
@@ -54,14 +76,27 @@ Salgen HVAC Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setLogLevel.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setValue.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setAuthList.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_lsstBarraoblPiso01BarraoblTccGuionP1GuionSalaGuionMaquinas.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_lsstBarraoblPiso05BarraoblTccGuionP5GuionPir.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_lsstBarraoblPiso04BarraoblTccGuionP4GuionVex.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_lsstBarraoblPiso01BarraoblChiller01.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_lsstBarraoblPiso02BarraoblCrack01.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_lsstBarraoblPiso02BarraoblFancoil01.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_lsstBarraoblPiso05BarraoblManejadoraBarraoblLower_01.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_lsstBarraoblPiso04BarraoblManejadoraBarraoblSblanca.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_vea01P01.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_vin01P01.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_vec01P01.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_vea01P05.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_vea08P05.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_vea09P05.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_vea10P05.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_vea11P05.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_vea12P05.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_vea13P05.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_vea14P05.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_vea15P05.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_vea16P05.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_vea17P05.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_vex03P04.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_vex04P04.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_chiller01P01.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_crack01P02.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_fancoil01P02.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_manejadoraLower01P05.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_manejadoraSblancaP04.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingVersions.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_errorCode.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_summaryState.idl
@@ -89,14 +124,27 @@ Verify HVAC revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setLogLevel\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setValue\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setAuthList\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_lsstBarraoblPiso01BarraoblTccGuionP1GuionSalaGuionMaquinas\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_lsstBarraoblPiso05BarraoblTccGuionP5GuionPir\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_lsstBarraoblPiso04BarraoblTccGuionP4GuionVex\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_lsstBarraoblPiso01BarraoblChiller01\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_lsstBarraoblPiso02BarraoblCrack01\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_lsstBarraoblPiso02BarraoblFancoil01\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_lsstBarraoblPiso05BarraoblManejadoraBarraoblLower_01\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_lsstBarraoblPiso04BarraoblManejadoraBarraoblSblanca\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_vea01P01\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_vin01P01\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_vec01P01\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_vea01P05\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_vea08P05\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_vea09P05\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_vea10P05\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_vea11P05\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_vea12P05\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_vea13P05\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_vea14P05\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_vea15P05\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_vea16P05\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_vea17P05\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_vex03P04\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_vex04P04\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_chiller01P01\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_crack01P02\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_fancoil01P02\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_manejadoraLower01P05\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_manejadoraSblancaP04\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_settingVersions\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_errorCode\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_summaryState\\) [a-z0-9]{8,}
@@ -109,15 +157,37 @@ Verify HVAC revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_heartbeat\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_authList\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_detailedState\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_lsstBarraoblPiso01BarraoblTccGuionP1GuionSalaGuionMaquinas\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_lsstBarraoblPiso05BarraoblTccGuionP5GuionPir\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_lsstBarraoblPiso04BarraoblTccGuionP4GuionVex\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_lsstBarraoblPiso01BarraoblChiller01\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_lsstBarraoblPiso02BarraoblCrack01\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_lsstBarraoblPiso02BarraoblFancoil01\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_lsstBarraoblPiso05BarraoblManejadoraBarraoblLower_01\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_lsstBarraoblPiso04BarraoblManejadoraBarraoblSblanca\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_lsstBarraoblPiso04BarraoblManejadoraBarraoblSlimpia\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vea01P01\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vin01P01\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vec01P01\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_bombaAguaFriaP01\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_valvulaP01\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_temperatuaAmbienteP01\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vea01P05\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vea08P05\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vea09P05\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vea10P05\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vea11P05\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vea12P05\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vea13P05\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vea14P05\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vea15P05\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vea16P05\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vea17P05\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vea03P04\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vea04P04\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vex03P04\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vex04P04\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_damperLowerP04\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_zonaCargaP04\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_chiller01P01\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_crack01P02\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fancoil01P02\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_manejadoraLower01P05\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_manejadoraSblancaP04\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_manejadraSblancaP04\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_manejadoraSlimpiaP04\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_manejadoraZzzP04\\) [a-z0-9]{8,}
 
 Salgen HVAC IDL
     [Documentation]    Generate the revCoded IDL for ${subSystem}

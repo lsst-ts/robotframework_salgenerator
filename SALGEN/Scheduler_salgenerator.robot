@@ -18,6 +18,7 @@ Verify Scheduler XML Defintions exist
     Log Many    ${output.stdout}    ${output.stderr}
     Should Not Contain    ${output.stderr}    No such file or directory    msg="Scheduler has no XML defintions"    values=False
     Should Not Be Empty    ${output.stdout}
+    File Should Exist    ${SALWorkDir}/Scheduler_Commands.xml
     File Should Exist    ${SALWorkDir}/Scheduler_Events.xml
     File Should Exist    ${SALWorkDir}/Scheduler_Telemetry.xml
 
@@ -34,35 +35,7 @@ Salgen Scheduler Validate
     Directory Should Exist    ${SALWorkDir}/idl-templates/validated
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_timestamp.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_nightSummary.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_predictedSchedule.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_surveyTopology.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_schedulerConfig.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_driverConfig.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_obsSiteConfig.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_telescopeConfig.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_rotatorConfig.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_domeConfig.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_cameraConfig.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_slewConfig.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_opticsLoopCorrConfig.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_parkConfig.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_generalPropConfig.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_sequencePropConfig.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_observatoryState.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_observation.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_interestedProposal.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_timeHandler.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_bulkCloud.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_cloudMap.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_seeing.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_wind.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_temperature.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_skyBrightness.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_photometricQuality.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_avoidanceRegions.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_downtime.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_abort.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
@@ -73,6 +46,9 @@ Salgen Scheduler Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setLogLevel.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setValue.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setAuthList.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_resume.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_stop.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_load.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingVersions.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_errorCode.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_summaryState.idl
@@ -84,10 +60,22 @@ Salgen Scheduler Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_softwareVersions.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_heartbeat.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_authList.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_detailedState.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_surveyTopology.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_dependenciesVersions.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_target.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_invalidateTarget.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_needFilterSwap.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_schedulerConfig.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_driverConfig.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_obsSiteConfig.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_telescopeConfig.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rotatorConfig.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_domeConfig.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_cameraConfig.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_slewConfig.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_opticsLoopCorrConfig.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_parkConfig.idl
 
 Verify Scheduler revCodes File
     [Documentation]    Ensure Scheduler_revCodes.tcl contains 1 revcode per topic.
@@ -103,6 +91,9 @@ Verify Scheduler revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setLogLevel\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setValue\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setAuthList\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_resume\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_stop\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_load\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_settingVersions\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_errorCode\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_summaryState\\) [a-z0-9]{8,}
@@ -114,39 +105,23 @@ Verify Scheduler revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_softwareVersions\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_heartbeat\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_authList\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_detailedState\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_surveyTopology\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_dependenciesVersions\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_target\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_invalidateTarget\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_needFilterSwap\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_timestamp\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_nightSummary\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_predictedSchedule\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_surveyTopology\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_schedulerConfig\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_driverConfig\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_obsSiteConfig\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_telescopeConfig\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_rotatorConfig\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_domeConfig\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_cameraConfig\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_slewConfig\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_opticsLoopCorrConfig\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_parkConfig\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_generalPropConfig\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_sequencePropConfig\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_schedulerConfig\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_driverConfig\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_obsSiteConfig\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_telescopeConfig\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rotatorConfig\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_domeConfig\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_cameraConfig\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_slewConfig\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_opticsLoopCorrConfig\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_parkConfig\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_observatoryState\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_observation\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_interestedProposal\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_timeHandler\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_bulkCloud\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_cloudMap\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_seeing\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_wind\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_temperature\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_skyBrightness\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_photometricQuality\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_avoidanceRegions\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_downtime\\) [a-z0-9]{8,}
 
 Salgen Scheduler IDL
     [Documentation]    Generate the revCoded IDL for ${subSystem}
