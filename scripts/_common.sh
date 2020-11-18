@@ -7,6 +7,12 @@
 #  VARIABLES
 
 #  FUNCTIONS
+function getRuntimeLanguages() {
+    local subsystem=$1
+    local output=$( xml sel -t -m "//SALSubsystemSet/SALSubsystem[Name='$subsystem']/RuntimeLanguages" -v . -n $HOME/trunk/ts_xml/sal_interfaces/SALSubsystems.xml )
+    echo $output
+}
+
 function getTelemetryTopics() {
     local subSystem=$(getEntity $1)
     local output=$( xml sel -t -m "//SALTelemetrySet/SALTelemetry/EFDB_Topic" -v . -n $HOME/trunk/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Telemetry.xml |sed "s/${subSystem}_//" )

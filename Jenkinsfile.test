@@ -1,0 +1,301 @@
+// Define variables
+def _python_version="3.7.6"
+def _user="appuser"
+def _home="/home/" + _user
+
+pipeline {
+    parameters {
+        booleanParam defaultValue: true, description: 'Push RPMs to Nexus3 yum repo?', name: 'Push'
+        booleanParam defaultValue: true, description: 'Run SAL messaging tests?', name: 'Messaging'
+    }
+    environment {
+        AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
+        AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
+        NEXUS_USER = credentials('nexus_username')
+        NEXUS_PASS = credentials('nexus_password')
+    }
+    agent {
+        docker { 
+            image 'lsstts/robotsal:python376'
+            args '-w ' + _home + ' -e AWS_ACCESS_KEY_ID=$aws_key_id -e AWS_SECRET_ACCESS_KEY=$aws_secret_key ' + 
+            '-e NEXUS_USER=$nexus_username -e NEXUS_PASS=$nexus_passwd ' +
+            '-v ${WORKSPACE}:' + _home + '/trunk'
+            label 'Node2_8CPU'
+         }
+    }
+    stages {
+        stage('Pull Git repos') {
+            steps {
+                // Checkout the SAL, XML, IDL and Salgenerator and SAL Messaging test repos.
+                checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/develop']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'ts_sal']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/ts_sal']]]
+                checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/develop']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'ts_xml']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/ts_xml']]]
+                checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/develop']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'ts_idl']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/ts_idl']]]
+                checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/develop']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'robotframework_salgenerator']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/robotframework_salgenerator']]]
+                checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/develop']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'robotframework_SAL']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/robotframework_SAL']]]
+            }
+        }//Git repos
+        stage('Setup: Define variables and create directories') {
+            steps {
+                println("The container user: " + _user);
+                println("The container home dir: " + _home);
+                println("The Python version: " + _python_version);
+                println("Push build artifacts? " + params.Push);
+                println("Run messaging tests? " + params.Messaging);
+                script {
+                    SAL_Version = readFile("${WORKSPACE}/ts_sal/VERSION").trim()
+                    XML_Version = readFile("${WORKSPACE}/ts_xml/VERSION").trim()
+                    if ("${GIT_BRANCH}" == 'master') {
+                        // Maven release artifacts simply use the version numbers.
+                        MavenVersion = ''
+                    } else {
+                        // Maven develop/daily/etc artifacts add the -SNAPSHOT string.
+                        MavenVersion = '-SNAPSHOT'
+                    }
+                }
+                sh 'mkdir -pv "${WORKSPACE}/Reports"'
+                sh 'mkdir -pv ' + _home + '/trunk/Reports'
+                echo "The Branch Name: ${GIT_BRANCH}"
+                echo "The SAL version: " + SAL_Version
+                echo "The XML version: " + XML_Version
+                echo "The Maven version: " + MavenVersion
+            }
+        }//Define SAL & XML variables
+        stage('Copy XML files') {
+            steps {
+                // Move XML definition files to the SAL working directory.
+                sh label: 'XML files', script: '#!/bin/bash \n' + 'cp -v ${WORKSPACE}/ts_xml/sal_interfaces/*/*.xml ts_sal/test'
+                sh label: 'SAL Subsystems', script: '#!/bin/bash \n' + 'cp -v ${WORKSPACE}/ts_xml/sal_interfaces/SALSubsystems.xml ts_sal/test'
+                sh label: 'SAL Generics', script: '#!/bin/bash \n' + 'cp -v ${WORKSPACE}/ts_xml/sal_interfaces/SALGenerics.xml ts_sal/test'
+                sh label: 'XML Version', script: '#!/bin/bash \n' + 'cp -v ${WORKSPACE}/ts_xml/VERSION ts_sal/test'
+                sh label: 'DDS QoS settings', script: '#!/bin/bash \n' + 'cp -v ${WORKSPACE}/ts_sal/lsstsal/scripts/DDS_DefaultQoS_All.xml ts_sal/test'
+            }
+        }//Copy XML
+        stage('Install IDL and XML python libraries') {
+            steps {
+                sh label: 'IDL library', script: '#!/bin/bash -x \n' + 'cd ts_idl && pip install --user .'
+                sh label: 'XML library', script: '#!/bin/bash -x \n' + 'cd ts_xml && pip install --user .'
+            }
+        }//IDL & XML
+        stage('Validate') {
+            steps {
+                // Validate the SAL/XML state using Test/Script CSCs
+                sh label: 'Validate', script: '#!/bin/bash -x \n' + 'source ' + _home + '/.bash_profile \n' +
+                'echo ========= Move to robotframework_salgenerator directory ========= \n' +
+                'echo cd ' + _home + '/trunk/robotframework_salgenerator \n' +
+                'cd ' + _home + '/trunk/robotframework_salgenerator \n' +
+                'pwd \n' +
+                'robot --variable ContInt:true -e skipped --noncritical TSS* --noncritical DM* --variable SALVersion:' + SAL_Version + ' ' +
+                    '--variable SALInstall:' + _home + '/trunk/ts_sal --variable OpenspliceRelease:\'OpenSplice HDE Release\' ' + 
+                    '--variable OpenspliceVersion:6.9.181127OSS --variable OpenspliceDate:2018-11-28 --variable PythonVersion:\'Python ' + _python_version + '\' ' +
+                    '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:_${BUILD_NUMBER} ' + 
+                    '--name Validate --output VALIDATE --outputdir ' + _home + '/trunk/Reports -A ' + _home + '/trunk/robotframework_salgenerator/Test_SalGen.list \n' +
+                'Result=$? \n' +
+                'if [ $Result -eq 0 ]; then echo Validation complete; else exit $Result; fi'
+            }
+        }//Validate
+        stage('Generate the RPMs') {
+            parallel {
+               stage('AuxTel') {
+                    steps {
+                        // Generate the AuxTel CSC RPMs
+                        sh label: 'AuxTel', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' + 'set -x \n' +
+                        'echo ========= Move to robotframework_salgenerator directory ========= \n' +
+                        'echo cd ' + _home + '/trunk/robotframework_salgenerator \n' +
+                        'cd ' + _home + '/trunk/robotframework_salgenerator \n' +
+                        'pwd \n' +
+                        'echo ========= Execute AuxTel salgenerator tests ========= \n' +
+                        'robot --variable ContInt:true -e skipped --noncritical TSS* --noncritical DM* --variable SALVersion:' + SAL_Version + ' ' +
+                            '--variable SALInstall:' + _home + '/trunk/ts_sal --variable OpenspliceRelease:\'OpenSplice HDE Release\' ' +
+                            '--variable OpenspliceVersion:6.9.181127OSS --variable OpenspliceDate:2018-11-28 --variable PythonVersion:\'Python ' + _python_version + '\' ' +
+                            '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:_${BUILD_NUMBER} ' +
+                            '--name AuxTel --output AUXTEL --outputdir ' + _home + '/trunk/Reports -A ' + _home + '/trunk/robotframework_salgenerator/AT_SalGen.list \n' +
+                        'exit 0' 
+                    }
+                }//AuxTel
+                stage('MainTel') {
+                    steps {
+                        // Generate the MainTel CSC RPMs
+                        sh label: 'MainTel', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' + 'set -x \n' +
+                        'echo ========= Move to robotframework_salgenerator directory ========= \n' +
+                        'echo cd ' + _home + '/trunk/robotframework_salgenerator \n' +
+                        'cd ' + _home + '/trunk/robotframework_salgenerator \n' +
+                        'pwd \n' +
+                        'echo ========= Execute MainTel salgenerator tests ========= \n' +
+                        'robot --variable ContInt:true -e skipped --noncritical TSS* --noncritical DM* --variable SALVersion:' + SAL_Version + ' ' +
+                            '--variable SALInstall:' + _home + '/trunk/ts_sal --variable OpenspliceRelease:\'OpenSplice HDE Release\' ' +
+                            '--variable OpenspliceVersion:6.9.181127OSS --variable OpenspliceDate:2018-11-28 --variable PythonVersion:\'Python ' + _python_version + '\' ' +
+                            '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:_${BUILD_NUMBER} ' +
+                            '--name MainTel --output MAINTEL --outputdir ' + _home + '/trunk/Reports -A ' + _home + '/trunk/robotframework_salgenerator/MT_SalGen.list \n' +
+                        'exit 0'
+                    }
+                }//MainTel
+            }//parallel
+        }//Generate_RPMs
+        stage('Run C++ Messaging Tests') {
+            when {
+                expression { 
+                    return params.Messaging 
+                }
+            }
+            parallel {
+                stage('CppTelemetry') {
+                    steps {
+                        sh label: 'CppTelemetry', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' + 'set -x \n' +
+                        'echo ========= Move to robotframework_SAL directory ========= \n' +
+                        'echo cd ' + _home + '/trunk/robotframework_SAL \n' +
+                        'cd ' + _home + '/trunk/robotframework_SAL \n' +
+                        'echo ========= Execute SAL messaging tests ========= \n' +
+                        'robot --outputdir ' + _home + '/trunk/Reports --variable ContInt:true -e skipped --noncritical TSS* --noncritical DM* ' +
+                            '--variable SALVersion:' + SAL_Version + ' --variable SALInstall:' + _home + '/trunk/ts_sal ' +
+                            '--variable OpenspliceRelease:\'OpenSplice HDE Release\' ' +
+                            '--variable OpenspliceVersion:6.9.181127OSS --variable OpenspliceDate:2018-11-28 ' +
+                            '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable PythonVersion:\'Python ' + _python_version + '\' ' +
+                            '-A ' + _home + '/trunk/robotframework_SAL/CombinedCppTelemetry_Tests.list \n' +
+                        'exit 0'
+                    }
+                }//CppTelemetry
+                stage('CppEvents') {
+                    steps {
+                        sh label: 'CppEvents', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' + 'set -x \n' +
+                        'echo ========= Move to robotframework_SAL directory ========= \n' +
+                        'echo cd ' + _home + '/trunk/robotframework_SAL \n' +
+                        'cd ' + _home + '/trunk/robotframework_SAL \n' +
+                        'echo Start \n' +
+                        'robot --outputdir ' + _home + '/trunk/Reports --variable ContInt:true -e skipped --noncritical TSS* --noncritical DM* ' +
+                            '--variable SALVersion:' + SAL_Version + ' --variable SALInstall:' + _home + '/trunk/ts_sal ' +
+                            '--variable OpenspliceRelease:\'OpenSplice HDE Release\' ' +
+                            '--variable OpenspliceVersion:6.9.181127OSS --variable OpenspliceDate:2018-11-28 ' +
+                            '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable PythonVersion:\'Python ' + _python_version + '\' ' +
+                            '-A ' + _home + '/trunk/robotframework_SAL/CombinedCppEvents_Tests.list \n' +
+                        'exit 0'
+                    }
+                }//CppEvents
+            }//parallel
+        }//RunCppMessagingTests
+        stage('Run Java Messaging Tests') {
+            when {
+                expression { 
+                    return params.Messaging 
+                }
+            }
+            parallel {
+                stage('JavaTelemetry') {
+                    steps {
+                        sh label: 'JavaTelemetry', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' + 'set -x \n' +
+                        'echo ========= Move to robotframework_SAL directory ========= \n' +
+                        'echo cd ' + _home + '/trunk/robotframework_SAL \n' +
+                        'cd ' + _home + '/trunk/robotframework_SAL \n' +
+                        'echo ========= Execute SAL Java messaging tests ========= \n' +
+                        'robot --outputdir ' + _home + '/Reports --variable ContInt:true -e skipped --noncritical TSS* --noncritical DM* ' +
+                            '--variable SALVersion:' + SAL_Version + ' --variable SALInstall:' + _home + '/trunk/ts_sal ' +
+                            '--variable OpenspliceRelease:\'OpenSplice HDE Release\' ' +
+                            '--variable OpenspliceVersion:6.9.181127OSS --variable OpenspliceDate:2018-11-28 ' +
+                            '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable PythonVersion:\'Python ' + _python_version + '\' ' +
+                            '-A ' + _home + '/trunk/robotframework_SAL/CombinedJavaTelemetry_Tests.list \n' +
+                        'exit 0'
+                    }
+                }//JavaTelemetry
+                stage('JavaEvents') {
+                    steps {
+                        sh label: 'JavaEvents', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' + 'set -x \n' +
+                        'echo ========= Move to robotframework_SAL directory ========= \n' +
+                        'echo cd ' + _home + '/trunk/robotframework_SAL \n' +
+                        'cd ' + _home + '/trunk/robotframework_SAL \n' +
+                        'echo ========= Execute SAL messaging tests ========= \n' +
+                        'echo No Java Events messaging tests at this time \n' +
+                        'exit 0'
+                    }
+                }//JavaEvents
+            }//parallel
+        }//RunJavaMessagingTests
+        stage('Process Results') {
+            steps {
+                sh label: 'Results', script: '#!/bin/bash \n' + 'echo "# Check for output files."\n' +
+                'declare -a outputs=(VALIDATE.xml AUXTEL.xml MAINTEL.xml CombinedCppTelemetry.xml CombinedCppEvents.xml CombinedJavaTelemetry.xml)\n' + 
+                'echo ${outputs[@]}\n' +
+                'i=0\n echo i=$i\n' + 'for item in "${outputs[@]}"; do\n' +
+                '\tif test -f ' + _home + '/trunk/Reports/$item; then array[$i]=' + _home + '/trunk/Reports/$item; else echo ' +
+                    _home + '/trunk/Reports/$item does not exist!; fi\n' +
+                '\t(( i++ ))\n' + 'done\n' +
+                'echo ========= Generate the reports =========\n' + 'set -x \n' +
+                'rebot --nostatusrc --noncritical TSS* --noncritical DM* --outputdir ' + _home + '/trunk/Reports --name RPM_Generation -o rpm_output.xml -l rpm_log.html ' +
+                    '-r rpm_report.html ${array[@]} \n' +
+                'echo Robot results complete'
+            }
+        }//Robot Results
+        stage('Push Java artifacts') {
+            when {
+                expression { 
+                    return params.Push 
+                }
+            }
+            steps {
+                sh label: 'Java Artifacts', script: '#!/bin/bash -x\n' +
+                'cd ' + _home + '/trunk/ts_sal/test/maven/ATCamera_' + SAL_Version + '_' + XML_Version + MavenVersion + ' \n' +
+                'mvn -DskipTests=true -B deploy \n' +
+                'cd ' + _home + '/trunk/ts_sal/test/maven/CCCamera_' + SAL_Version + '_' + XML_Version + MavenVersion + ' \n' +
+                'mvn -DskipTests=true -B deploy \n' +
+                'cd ' + _home + '/trunk/ts_sal/test/maven/MTCamera_' + SAL_Version + '_' + XML_Version + MavenVersion + ' \n' +
+                'mvn -DskipTests=true -B deploy \n' +
+                'echo "=== Java deploy complete ==="'
+            }
+        }//Java artifacts
+        stage('Push RPMs to AWS S3 bucket') {
+            when {
+                expression { 
+                    return params.Push 
+                }
+            }
+            steps {
+                sh label: 'Push RPMs to Nexus3', script: '#!/bin/bash -x\n' + 
+                'aws s3 cp ' + _home + '/trunk/ts_sal/test/rpmbuild/RPMS/x86_64/ s3://sal-objects/daily ' +
+                    '--acl public-read --recursive --exclude "dbsimulate/*" --exclude "salgenerator/*" \n' +
+                'echo "=== Pushed RPMs to S3 bucket ==="'
+            }
+        }//Push to AWS S3
+        stage('Push RPMs to Nexus3') {
+            when {
+                expression { 
+                    return params.Push 
+                }
+            }
+            steps {
+                //Define the RPM array, then iterate to push RPMs to Nexus3
+                script {
+                    array = sh(returnStdout: true, label: 'Push RPMs to Nexus3',
+                    script: '#!/bin/bash -x\n' +
+                    'aws s3 ls s3://sal-objects/daily/ |grep -v debuginfo |grep ' + SAL_Version +
+                    ' |grep ' + XML_Version + ' |grep _${BUILD_NUMBER}- |cut -c 32- |tr "\n\r" " "'
+                    )
+                    rpm_array = array.tokenize()
+                    println rpm_array
+                    if (rpm_array[0] == null) {
+                        // If no RPMs found, abort build and mark as failure.
+                        println("ERROR: No RPMs found with the given search parameters.")
+                    } else {
+                        // Iterate over RPMs and push to Nexus3 yum repo.
+                        for(file in rpm_array) {
+                            sh 'echo "=== Pushing RPM to Nexus3 yum repo ==="'
+                            sh 'curl --write-out %{http_code} -Ss -u $NEXUS_USER:$NEXUS_PASS -T ${WORKSPACE}/ts_sal/test/rpmbuild/RPMS/x86_64/' + file + ' https://repo-nexus.lsst.org/nexus/repository/ts_yum/daily/'
+                            sh 'echo "=== CSC RPM push complete ==="'
+                        }//for
+                        // Push the ts_sal_utils RPM to Nexus3
+                        sh 'echo "=== Push ts_sal_utils RPM to Nexus3 yum repo ==="'
+                        sh 'curl --write-out %{http_code} -Ss -u $NEXUS_USER:$NEXUS_PASS -T ${WORKSPACE}/ts_sal/test/rpmbuild/RPMS/x86_64/ts_sal_utils-' + SAL_Version + '_${BUILD_NUMBER}-1.x86_64.rpm' +
+                            ' https://repo-nexus.lsst.org/nexus/repository/ts_yum/daily/'
+                        sh 'echo "=== ts_sal_utils RPM push complete ==="'
+                    }//else
+                }//script
+            }
+        }//Push RPMs to Nexus3
+    }//stages
+    post { 
+        always {
+            robot outputPath: 'Reports', logFileName: 'rpm_log.html', outputFileName: 'rpm_output.xml', reportFileName: 'rpm_report.html', passThreshold: 100.0, unstableThreshold: 90.0
+            build job: 'linked_job', parameters: [string(name: 'SAL_Version', value: SAL_Version), string(name: 'XML_Version', value: XML_Version)], wait: false
+        }
+        cleanup {
+            deleteDir() /* clean up our workspace */
+        }
+    }//post
+}//pipeline

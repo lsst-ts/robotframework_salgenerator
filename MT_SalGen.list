@@ -10,7 +10,6 @@ SALGEN/ESS_salgenerator.robot
 SALGEN/HVAC_salgenerator.robot
 SALGEN/MTHexapod_salgenerator.robot
 SALGEN/IOTA_salgenerator.robot
-SALGEN/LOVE_salgenerator.robot
 SALGEN/MTAOS_salgenerator.robot
 SALGEN/MTAlignment_salgenerator.robot
 SALGEN/MTCamera_salgenerator.robot
