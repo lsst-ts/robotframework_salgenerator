@@ -70,7 +70,9 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     echo "    Directory Should Exist    \${SALWorkDir}/idl-templates/validated" >> $testSuite
     echo "    @{files}=    List Directory    \${SALWorkDir}/idl-templates    pattern=*\${subSystem}*" >> $testSuite
     echo "    Log Many    @{files}" >> $testSuite
-    echo "    File Should Exist    \${SALWorkDir}/idl-templates/\${subSystem}_ackcmd.idl" >> $testSuite
+    if [ ${#commandArray[@]} != 0 ]; then
+        echo "    File Should Exist    \${SALWorkDir}/idl-templates/\${subSystem}_ackcmd.idl" >> $testSuite
+    fi
     for topic in "${telemetryArray[@]}"; do
         echo "    File Should Exist    \${SALWorkDir}/idl-templates/\${subSystem}_${topic}.idl" >> $testSuite
     done
