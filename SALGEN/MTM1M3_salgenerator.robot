@@ -42,6 +42,7 @@ Salgen MTM1M3 Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_accelerometerData.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_hardpointActuatorData.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_imsData.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_forceActuatorPressure.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_gyroData.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_powerSupplyData.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_pidData.idl
@@ -285,6 +286,7 @@ Verify MTM1M3 revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_accelerometerData\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_hardpointActuatorData\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_imsData\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_forceActuatorPressure\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_gyroData\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_powerSupplyData\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_pidData\\) [a-z0-9]{8,}
@@ -319,12 +321,13 @@ Salgen MTM1M3 C++
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_accelerometerData.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_hardpointActuatorData.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_imsData.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_forceActuatorPressure.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_gyroData.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_powerSupplyData.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_pidData.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_hardpointMonitorData.idl
-    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    10
-    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    10
+    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    11
+    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    11
     Should Contain X Times    ${output.stdout}    cpp : Done Commander    1
     Should Contain X Times    ${output.stdout}    cpp : Done Event/Logger    1
 
@@ -348,6 +351,7 @@ Verify MTM1M3 Telemetry directories
     Directory Should Exist    ${SALWorkDir}/${subSystem}_accelerometerData
     Directory Should Exist    ${SALWorkDir}/${subSystem}_hardpointActuatorData
     Directory Should Exist    ${SALWorkDir}/${subSystem}_imsData
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_forceActuatorPressure
     Directory Should Exist    ${SALWorkDir}/${subSystem}_gyroData
     Directory Should Exist    ${SALWorkDir}/${subSystem}_powerSupplyData
     Directory Should Exist    ${SALWorkDir}/${subSystem}_pidData
@@ -368,6 +372,8 @@ Verify MTM1M3 C++ Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}_hardpointActuatorData/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_imsData/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_imsData/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_forceActuatorPressure/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_forceActuatorPressure/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_gyroData/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_gyroData/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_powerSupplyData/cpp/standalone/sacpp_${subSystem}_pub
