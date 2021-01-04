@@ -54,9 +54,10 @@ Salgen MTHexapod Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_configureLimits.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_configureVelocity.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_move.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_moveWithCompensation.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_moveToReference.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_offset.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_pivot.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setCompensationMode.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setPivot.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_stop.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingVersions.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_errorCode.idl
@@ -71,12 +72,15 @@ Salgen MTHexapod Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_authList.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_actuatorInPosition.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_commandableByDDS.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_compensationOffset.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_compensationMode.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_configuration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_connected.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_controllerState.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_inPosition.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_interlock.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_target.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_uncompensatedPosition.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_compensatedPosition.idl
 
 Verify MTHexapod revCodes File
     [Documentation]    Ensure MTHexapod_revCodes.tcl contains 1 revcode per topic.
@@ -97,9 +101,10 @@ Verify MTHexapod revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_configureLimits\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_configureVelocity\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_move\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_moveWithCompensation\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_moveToReference\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_offset\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_pivot\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setCompensationMode\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setPivot\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_stop\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_settingVersions\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_errorCode\\) [a-z0-9]{8,}
@@ -114,12 +119,15 @@ Verify MTHexapod revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_authList\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_actuatorInPosition\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_commandableByDDS\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_compensationOffset\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_compensationMode\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_configuration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_connected\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_controllerState\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_inPosition\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_interlock\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_target\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_uncompensatedPosition\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_compensatedPosition\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_actuators\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_application\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_electrical\\) [a-z0-9]{8,}
