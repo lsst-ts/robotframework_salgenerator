@@ -104,7 +104,7 @@ function subsystemArray() {
     MTAOS MTAlignment MTCamera MTDome 
     MTDomeTrajectory MTEEC MTHeaderService
     MTM1M3 MTM1M3TS MTM2 MTMount MTPtg MTVMS
-    NewMTMount OCPS PromptProcessing MTRotator
+    OCPS PromptProcessing MTRotator
     Scheduler Script ScriptQueue SummitFacility Test
     TunableLaser Watcher WeatherStation"
 }
