@@ -35,12 +35,14 @@ Salgen MTM1M3 Validate
     Directory Should Exist    ${SALWorkDir}/idl-templates/validated
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_ackcmd.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_forceActuatorData.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_inclinometerData.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_outerLoopData.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_accelerometerData.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_hardpointActuatorData.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_imsData.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_forceActuatorPressure.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_gyroData.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_powerSupplyData.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_pidData.idl
@@ -284,6 +286,7 @@ Verify MTM1M3 revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_accelerometerData\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_hardpointActuatorData\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_imsData\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_forceActuatorPressure\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_gyroData\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_powerSupplyData\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_pidData\\) [a-z0-9]{8,}
@@ -298,8 +301,10 @@ Salgen MTM1M3 IDL
     Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
     Should Contain    ${output.stdout}    Completed ${subSystem} validation
     File Should Exist    ${SALWorkDir}/${subSystem}/sal_revCoded_${subSystem}.idl
-    @{files}=    List Directory    ${SALWorkDir}/idl-templates/validated/
+    @{files}=    List Directory    ${SALWorkDir}/idl-templates/validated/sal    pattern=*${subSystem}*
     Log Many    @{files}
+    File Should Exist    ${SALWorkDir}/idl-templates/validated/sal/sal_${subSystem}.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/validated/sal/sal_revCoded_${subSystem}.idl
 
 Salgen MTM1M3 C++
     [Documentation]    Generate C++ libraries.
@@ -316,12 +321,13 @@ Salgen MTM1M3 C++
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_accelerometerData.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_hardpointActuatorData.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_imsData.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_forceActuatorPressure.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_gyroData.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_powerSupplyData.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_pidData.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_hardpointMonitorData.idl
-    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    10
-    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    10
+    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    11
+    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    11
     Should Contain X Times    ${output.stdout}    cpp : Done Commander    1
     Should Contain X Times    ${output.stdout}    cpp : Done Event/Logger    1
 
@@ -345,6 +351,7 @@ Verify MTM1M3 Telemetry directories
     Directory Should Exist    ${SALWorkDir}/${subSystem}_accelerometerData
     Directory Should Exist    ${SALWorkDir}/${subSystem}_hardpointActuatorData
     Directory Should Exist    ${SALWorkDir}/${subSystem}_imsData
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_forceActuatorPressure
     Directory Should Exist    ${SALWorkDir}/${subSystem}_gyroData
     Directory Should Exist    ${SALWorkDir}/${subSystem}_powerSupplyData
     Directory Should Exist    ${SALWorkDir}/${subSystem}_pidData
@@ -365,6 +372,8 @@ Verify MTM1M3 C++ Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}_hardpointActuatorData/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_imsData/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_imsData/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_forceActuatorPressure/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_forceActuatorPressure/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_gyroData/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_gyroData/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_powerSupplyData/cpp/standalone/sacpp_${subSystem}_pub
@@ -610,302 +619,6 @@ Verify MTM1M3 C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_forceActuatorBumpTestStatus_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_forceActuatorBumpTestStatus_log
 
-Salgen MTM1M3 Python
-    [Documentation]    Generate Python libraries.
-    [Tags]    python
-    ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    sal    python    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
-    Log Many    ${output.stdout}    ${output.stderr}
-    Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
-    Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
-    Should Contain    ${output.stdout}    Generating Python SAL support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating Python bindings
-    Should Contain    ${output.stdout}    python : Done SALPY_${subSystem}.so
-    Directory Should Exist    ${SALWorkDir}/${subSystem}/python
-    @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
-    Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/SALPY_${subSystem}.so
-
-Verify MTM1M3 Python Telemetry Interfaces
-    [Documentation]    Verify the Python interfaces were properly created.
-    [Tags]    python
-    @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
-    Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_forceActuatorData_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_forceActuatorData_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_inclinometerData_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_inclinometerData_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_outerLoopData_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_outerLoopData_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_accelerometerData_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_accelerometerData_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_hardpointActuatorData_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_hardpointActuatorData_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_imsData_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_imsData_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_gyroData_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_gyroData_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_powerSupplyData_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_powerSupplyData_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_pidData_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_pidData_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_hardpointMonitorData_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_hardpointMonitorData_Subscriber.py
-
-Verify MTM1M3 Python Command Interfaces
-    [Documentation]    Verify the Python interfaces were properly created.
-    [Tags]    python
-    @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
-    Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_abort.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_abort.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_enable.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_enable.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_disable.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_disable.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_standby.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_standby.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_exitControl.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_exitControl.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_start.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_start.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_enterControl.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_enterControl.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_setLogLevel.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setLogLevel.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_setValue.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setValue.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_setAuthList.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setAuthList.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_raiseM1M3.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_raiseM1M3.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_abortRaiseM1M3.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_abortRaiseM1M3.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_lowerM1M3.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_lowerM1M3.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_enterEngineering.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_enterEngineering.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_exitEngineering.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_exitEngineering.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_turnAirOn.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_turnAirOn.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_turnAirOff.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_turnAirOff.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_testAir.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_testAir.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_moveHardpointActuators.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_moveHardpointActuators.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_stopHardpointMotion.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_stopHardpointMotion.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_testHardpoint.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_testHardpoint.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_enableHardpointChase.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_enableHardpointChase.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_disableHardpointChase.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_disableHardpointChase.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_testForceActuator.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_testForceActuator.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_applyOffsetForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_applyOffsetForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_translateM1M3.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_translateM1M3.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_clearOffsetForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_clearOffsetForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_applyAberrationForcesByBendingModes.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_applyAberrationForcesByBendingModes.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_applyAberrationForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_applyAberrationForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_clearAberrationForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_clearAberrationForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_applyActiveOpticForcesByBendingModes.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_applyActiveOpticForcesByBendingModes.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_applyActiveOpticForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_applyActiveOpticForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_clearActiveOpticForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_clearActiveOpticForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_positionM1M3.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_positionM1M3.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_turnLightsOn.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_turnLightsOn.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_turnLightsOff.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_turnLightsOff.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_turnPowerOn.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_turnPowerOn.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_turnPowerOff.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_turnPowerOff.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_enableHardpointCorrections.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_enableHardpointCorrections.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_disableHardpointCorrections.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_disableHardpointCorrections.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_runMirrorForceProfile.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_runMirrorForceProfile.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_abortProfile.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_abortProfile.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_applyOffsetForcesByMirrorForce.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_applyOffsetForcesByMirrorForce.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_updatePID.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_updatePID.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_resetPID.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_resetPID.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_programILC.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_programILC.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_modbusTransmit.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_modbusTransmit.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_forceActuatorBumpTest.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_forceActuatorBumpTest.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_killForceActuatorBumpTest.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_killForceActuatorBumpTest.py
-
-Verify MTM1M3 Python Event Interfaces
-    [Documentation]    Verify the Python interfaces were properly created.
-    [Tags]    python
-    @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
-    Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_settingVersions.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_settingVersions.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_errorCode.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_errorCode.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_summaryState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_summaryState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_appliedSettingsMatchStart.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_appliedSettingsMatchStart.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_logLevel.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_logLevel.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_logMessage.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_logMessage.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_settingsApplied.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_settingsApplied.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_simulationMode.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_simulationMode.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_softwareVersions.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_softwareVersions.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_heartbeat.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_heartbeat.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_authList.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_authList.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_detailedState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_detailedState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_hardpointActuatorInfo.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_hardpointActuatorInfo.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_forceActuatorInfo.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_forceActuatorInfo.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_ilcWarning.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_ilcWarning.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_interlockWarning.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_interlockWarning.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_airSupplyStatus.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_airSupplyStatus.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_airSupplyWarning.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_airSupplyWarning.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_interlockStatus.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_interlockStatus.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_displacementSensorWarning.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_displacementSensorWarning.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_inclinometerSensorWarning.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_inclinometerSensorWarning.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_accelerometerWarning.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_accelerometerWarning.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_forceSetpointWarning.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_forceSetpointWarning.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_forceActuatorState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_forceActuatorState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_hardpointMonitorInfo.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_hardpointMonitorInfo.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_cellLightStatus.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_cellLightStatus.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_cellLightWarning.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_cellLightWarning.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_powerStatus.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_powerStatus.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_powerWarning.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_powerWarning.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_forceActuatorForceWarning.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_forceActuatorForceWarning.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_gyroWarning.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_gyroWarning.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_powerSupplyStatus.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_powerSupplyStatus.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_appliedOffsetForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_appliedOffsetForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_appliedStaticForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_appliedStaticForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_appliedActiveOpticForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_appliedActiveOpticForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_appliedAberrationForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_appliedAberrationForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_appliedAzimuthForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_appliedAzimuthForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_commandRejectionWarning.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_commandRejectionWarning.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_pidInfo.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_pidInfo.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_hardpointActuatorWarning.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_hardpointActuatorWarning.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_hardpointMonitorWarning.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_hardpointMonitorWarning.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_hardpointActuatorState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_hardpointActuatorState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_hardpointMonitorState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_hardpointMonitorState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_forceActuatorWarning.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_forceActuatorWarning.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_preclippedStaticForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_preclippedStaticForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_preclippedElevationForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_preclippedElevationForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_preclippedAzimuthForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_preclippedAzimuthForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_preclippedThermalForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_preclippedThermalForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_preclippedActiveOpticForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_preclippedActiveOpticForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_preclippedAberrationForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_preclippedAberrationForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_preclippedBalanceForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_preclippedBalanceForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_preclippedVelocityForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_preclippedVelocityForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_preclippedAccelerationForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_preclippedAccelerationForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_preclippedOffsetForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_preclippedOffsetForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_preclippedForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_preclippedForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_appliedElevationForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_appliedElevationForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_appliedAccelerationForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_appliedAccelerationForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_appliedThermalForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_appliedThermalForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_appliedVelocityForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_appliedVelocityForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_appliedBalanceForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_appliedBalanceForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_appliedForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_appliedForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_preclippedCylinderForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_preclippedCylinderForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_appliedCylinderForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_appliedCylinderForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_modbusResponse.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_modbusResponse.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_forceActuatorBumpTestStatus.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_forceActuatorBumpTestStatus.py
-
-Salgen MTM1M3 LabVIEW
-    [Documentation]    Generate ${subSystem} low-level LabView interfaces.
-    [Tags]    labview
-    ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    labview    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
-    Log Many    ${output.stdout}    ${output.stderr}
-    Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
-    Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
-    Directory Should Exist    ${SALWorkDir}/${subSystem}/labview
-    @{files}=    List Directory    ${SALWorkDir}/${subSystem}/labview
-    Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/labview/SAL_${subSystem}_salShmMonitor.cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}/labview/SAL_${subSystem}_shmem.h
-    File Should Exist    ${SALWorkDir}/${subSystem}/labview/SALLV_${subSystem}.so
-    File Should Exist    ${SALWorkDir}/${subSystem}/labview/SALLV_${subSystem}_Monitor
-
 Salgen MTM1M3 Lib
     [Documentation]    Generate the SAL shared library for ${subSystem}
     [Tags]    lib
@@ -917,15 +630,11 @@ Salgen MTM1M3 Lib
     Directory Should Exist    ${SALWorkDir}/lib
     @{files}=    List Directory    ${SALWorkDir}/lib    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/lib/libsacpp_${subSystem}_types.so
     File Should Exist    ${SALWorkDir}/lib/libSAL_${subSystem}.so
-    File Should Exist    ${SALWorkDir}/lib/SALLV_${subSystem}.so
-    File Should Exist    ${SALWorkDir}/lib/SALPY_${subSystem}.so
     File Should Exist    ${SALWorkDir}/lib/libsacpp_${subSystem}_types.so
-    File Should Exist    ${SALWorkDir}/lib/libSAL_${subSystem}.so
 
 Salgen MTM1M3 RPM
-    [Documentation]    Generate the SAL library RPM for ${subSystem}
+    [Documentation]    Generate the SAL runtime RPM for ${subSystem}
     [Tags]    rpm
     Log Many    ${XMLVersion}    ${SALVersion}    ${Build_Number}    ${DIST}
     ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    rpm    version\=${Build_Number}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt

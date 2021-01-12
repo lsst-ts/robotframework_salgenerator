@@ -7,6 +7,12 @@
 #  VARIABLES
 
 #  FUNCTIONS
+function getRuntimeLanguages() {
+    local subsystem=$1
+    local output=$( xml sel -t -m "//SALSubsystemSet/SALSubsystem[Name='$subsystem']/RuntimeLanguages" -v . -n $HOME/trunk/ts_xml/sal_interfaces/SALSubsystems.xml )
+    echo $output
+}
+
 function getTelemetryTopics() {
     local subSystem=$(getEntity $1)
     local output=$( xml sel -t -m "//SALTelemetrySet/SALTelemetry/EFDB_Topic" -v . -n $HOME/trunk/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Telemetry.xml |sed "s/${subSystem}_//" )
@@ -98,7 +104,7 @@ function subsystemArray() {
     MTAOS MTAlignment MTCamera MTDome 
     MTDomeTrajectory MTEEC MTHeaderService
     MTM1M3 MTM1M3TS MTM2 MTMount MTPtg MTVMS
-    NewMTMount OCPS PromptProcessing MTRotator
+    OCPS PromptProcessing MTRotator
     Scheduler Script ScriptQueue SummitFacility Test
     TunableLaser Watcher WeatherStation"
 }

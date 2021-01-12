@@ -70,6 +70,9 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     echo "    Directory Should Exist    \${SALWorkDir}/idl-templates/validated" >> $testSuite
     echo "    @{files}=    List Directory    \${SALWorkDir}/idl-templates    pattern=*\${subSystem}*" >> $testSuite
     echo "    Log Many    @{files}" >> $testSuite
+    if [ ${#commandArray[@]} != 0 ]; then
+        echo "    File Should Exist    \${SALWorkDir}/idl-templates/\${subSystem}_ackcmd.idl" >> $testSuite
+    fi
     for topic in "${telemetryArray[@]}"; do
         echo "    File Should Exist    \${SALWorkDir}/idl-templates/\${subSystem}_${topic}.idl" >> $testSuite
     done
@@ -336,6 +339,7 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
 }
 
 function salgenLib() {
+    langs=("$@")
     skipped=$(checkIfSkipped $subSystem "lib")
     echo "Salgen $subSystemUp Lib" >> $testSuite
     echo "    [Documentation]    Generate the SAL shared library for \${subSystem}" >> $testSuite
@@ -349,18 +353,17 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     echo "    Directory Should Exist    \${SALWorkDir}/lib" >> $testSuite
     echo "    @{files}=    List Directory    \${SALWorkDir}/lib    pattern=*\${subSystem}*" >> $testSuite
     echo "    Log Many    @{files}" >> $testSuite
-    echo "    File Should Exist    \${SALWorkDir}/lib/libsacpp_\${subSystem}_types.so" >> $testSuite
-    echo "    File Should Exist    \${SALWorkDir}/lib/libSAL_\${subSystem}.so" >> $testSuite
-    echo "$subSystem"
-    if [ "$subSystem" != "Scheduler" ]; then
-        #echo "The SALLV_* files are produced by the LabVIEW option. This is skipped for the Scheduler."
-    #else
+    if [[ ${langs[@]} =~ "CPP" ]]; then
+        echo "    File Should Exist    \${SALWorkDir}/lib/libSAL_\${subSystem}.so" >> $testSuite
+        echo "    File Should Exist    \${SALWorkDir}/lib/libsacpp_\${subSystem}_types.so" >> $testSuite
+    fi
+    if [[ ${langs[@]} =~ "SALPY" ]]; then
+        echo "    File Should Exist    \${SALWorkDir}/lib/SALPY_\${subSystem}.so" >> $testSuite
+    fi
+    if [[ ${langs[@]} =~ "LabVIEW" ]]; then
         echo "    File Should Exist    \${SALWorkDir}/lib/SALLV_\${subSystem}.so" >> $testSuite
     fi
-    echo "    File Should Exist    \${SALWorkDir}/lib/SALPY_\${subSystem}.so" >> $testSuite
-    echo "    File Should Exist    \${SALWorkDir}/lib/libsacpp_\${subSystem}_types.so" >> $testSuite
-    echo "    File Should Exist    \${SALWorkDir}/lib/libSAL_\${subSystem}.so" >> $testSuite
-    if [[ "$subSystem" != "MTM1M3" ]]; then
+    if [[ ${langs[@]} =~ "Java" ]]; then
         echo "    File Should Exist    \${SALWorkDir}/lib/saj_\${subSystem}_types.jar" >> $testSuite
     fi
     echo "" >> $testSuite
@@ -369,7 +372,7 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
 function salgenRPM() {
     skipped=$(checkIfSkipped $subSystem "rpm")
     echo "Salgen $subSystemUp RPM" >> $testSuite
-    echo "    [Documentation]    Generate the SAL library RPM for \${subSystem}" >> $testSuite
+    echo "    [Documentation]    Generate the SAL runtime RPM for \${subSystem}" >> $testSuite
     echo "    [Tags]    rpm$skipped" >> $testSuite
     echo "    Log Many    \${XMLVersion}    \${SALVersion}    \${Build_Number}    \${DIST}" >> $testSuite
     echo "    \${output}=    Run Process    \${SALHome}/bin/salgenerator    \${subSystem}    rpm    version\\=\${Build_Number}    \
@@ -424,8 +427,10 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     echo "    Should Contain    \${output.stdout}    XMLVERSION = \${XMLVersion}" >> $testSuite
     echo "    Should Contain    \${output.stdout}    Completed \${subSystem} validation" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/\${subSystem}/sal_revCoded_\${subSystem}.idl" >> $testSuite
-    echo "    @{files}=    List Directory    \${SALWorkDir}/idl-templates/validated/" >> $testSuite
+    echo "    @{files}=    List Directory    \${SALWorkDir}/idl-templates/validated/sal    pattern=*\${subSystem}*" >> $testSuite
     echo "    Log Many    @{files}" >> $testSuite
+    echo "    File Should Exist    \${SALWorkDir}/idl-templates/validated/sal/sal_\${subSystem}.idl" >> $testSuite
+    echo "    File Should Exist    \${SALWorkDir}/idl-templates/validated/sal/sal_revCoded_\${subSystem}.idl" >> $testSuite
     echo "" >> $testSuite
 }
 
@@ -449,6 +454,14 @@ function createTestSuite() {
     #  Check if test suite should be skipped.
     skipped=$(checkIfSkipped $subSystem $topic)
 
+    #  Get list of languages to build
+    temp=$(getRuntimeLanguages $subSystem)
+    IFS=', ' read -r -a rtlang <<< "${temp[0]}"
+    if [[ ${rtlang[@]} =~ "SALPY" || ${rtlang[@]} =~ "LabVIEW" ]]; then
+        rtlang+=('CPP')
+    fi
+    echo "Runtime languages to build: ${rtlang[@]}"
+
     #  Create test suite.
     echo Creating $testSuite
     createSettings
@@ -461,45 +474,51 @@ function createTestSuite() {
     # Create and verfiy the RevCoded IDL files.
     salgenIDL
     # Create and verify C++ interfaces.
-    salgenCPP
-    verifyCppDirectories
-    if [[ ${#telemetryArray[@]} -ne 0 ]]; then
-        verifyTelemetryDirectories
-        verifyCppTelemetryInterfaces
-    fi
-    if [[ ${#commandArray[@]} -ne 0 ]]; then
-        verifyCppCommandInterfaces
-    fi
-    if [[ ${#eventArray[@]} -ne 0 ]]; then
-        verifyCppEventInterfaces
+    if [[ ${rtlang[@]} =~ "CPP" || ${rtlang[@]} =~ "SALPY" || ${rtlang[@]} =~ "LabVIEW" ]]; then
+        salgenCPP
+        verifyCppDirectories
+        if [[ ${#telemetryArray[@]} -ne 0 ]]; then
+            verifyTelemetryDirectories
+            verifyCppTelemetryInterfaces
+        fi
+        if [[ ${#commandArray[@]} -ne 0 ]]; then
+            verifyCppCommandInterfaces
+        fi
+        if [[ ${#eventArray[@]} -ne 0 ]]; then
+            verifyCppEventInterfaces
+        fi
     fi
     # Create and verify Python interfaces.
-    salgenPython
-    if [[ ${#telemetryArray[@]} -ne 0 ]]; then
-        verifyPythonTelemetryInterfaces
+    if [[ ${rtlang[@]} =~ "SALPY" ]]; then
+        salgenPython
+        if [[ ${#telemetryArray[@]} -ne 0 ]]; then
+            verifyPythonTelemetryInterfaces
+        fi
+        if [[ ${#commandArray[@]} -ne 0 ]]; then
+            verifyPythonCommandInterfaces
+        fi
+        if [[ ${#eventArray[@]} -ne 0 ]]; then
+            verifyPythonEventInterfaces
+        fi
     fi
-    if [[ ${#commandArray[@]} -ne 0 ]]; then
-        verifyPythonCommandInterfaces
-    fi
-    if [[ ${#eventArray[@]} -ne 0 ]]; then
-        verifyPythonEventInterfaces
-    fi
-    # Create LabVIEW interfaces.  NOTE: There are NO such Scheduler.
-    if [ "$subSystem" == "Scheduler" ]; then
-        echo "Skipping LabVIEW step for the Scheduler."
-    else
-        salgenLabview
+    # Create LabVIEW interfaces.  NOTE: There are NO such Scheduler or EFD interfaces.
+    if [[ ${rtlang[@]} =~ "LabVIEW" ]]; then
+        if [ "$subSystem" == "scheduler" ]; then
+            echo "Skipping LabVIEW step for the Scheduler."
+        else
+            salgenLabview
+        fi
     fi
     # Create and verify Java interfaces.
-    if [[ "$subSystem" != "MTM1M3" ]]; then
+    if [[ ${rtlang[@]} =~ "Java" ]]; then
         salgenJava
     fi
     # Move/Generate the SAL libraries.
-    salgenLib
+    salgenLib "${rtlang[@]}"
     # Generate the as-built SAL libraries RPM.
-    salgenRPM
+    salgenRPM "${rtlang[@]}"
     # Run the Maven tests.
-    if [[ "$subSystem" != "MTM1M3" ]]; then
+    if [[ ${rtlang[@]} =~ "Java" ]]; then
         salgenMaven
     fi
     # Indicate completion of the test suite.

@@ -35,6 +35,7 @@ Salgen MTM2 Validate
     Directory Should Exist    ${SALWorkDir}/idl-templates/validated
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_ackcmd.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_position.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_positionIMS.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_axialForce.idl
@@ -158,8 +159,10 @@ Salgen MTM2 IDL
     Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
     Should Contain    ${output.stdout}    Completed ${subSystem} validation
     File Should Exist    ${SALWorkDir}/${subSystem}/sal_revCoded_${subSystem}.idl
-    @{files}=    List Directory    ${SALWorkDir}/idl-templates/validated/
+    @{files}=    List Directory    ${SALWorkDir}/idl-templates/validated/sal    pattern=*${subSystem}*
     Log Many    @{files}
+    File Should Exist    ${SALWorkDir}/idl-templates/validated/sal/sal_${subSystem}.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/validated/sal/sal_revCoded_${subSystem}.idl
 
 Salgen MTM2 C++
     [Documentation]    Generate C++ libraries.
@@ -342,147 +345,6 @@ Verify MTM2 C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_temperatureOffset_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_temperatureOffset_log
 
-Salgen MTM2 Python
-    [Documentation]    Generate Python libraries.
-    [Tags]    python
-    ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    sal    python    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
-    Log Many    ${output.stdout}    ${output.stderr}
-    Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
-    Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
-    Should Contain    ${output.stdout}    Generating Python SAL support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating Python bindings
-    Should Contain    ${output.stdout}    python : Done SALPY_${subSystem}.so
-    Directory Should Exist    ${SALWorkDir}/${subSystem}/python
-    @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
-    Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/SALPY_${subSystem}.so
-
-Verify MTM2 Python Telemetry Interfaces
-    [Documentation]    Verify the Python interfaces were properly created.
-    [Tags]    python
-    @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
-    Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_position_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_position_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_positionIMS_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_positionIMS_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_axialForce_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_axialForce_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_tangentForce_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_tangentForce_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_temperature_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_temperature_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_zenithAngle_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_zenithAngle_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_axialActuatorSteps_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_axialActuatorSteps_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_tangentActuatorSteps_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_tangentActuatorSteps_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_axialEncoderPositions_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_axialEncoderPositions_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_tangentEncoderPositions_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_tangentEncoderPositions_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_ilcData_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_ilcData_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_displacementSensors_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_displacementSensors_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_forceBalance_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_forceBalance_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_netForcesTotal_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_netForcesTotal_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_netMomentsTotal_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_netMomentsTotal_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_powerStatus_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_powerStatus_Subscriber.py
-
-Verify MTM2 Python Command Interfaces
-    [Documentation]    Verify the Python interfaces were properly created.
-    [Tags]    python
-    @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
-    Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_abort.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_abort.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_enable.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_enable.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_disable.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_disable.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_standby.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_standby.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_exitControl.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_exitControl.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_start.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_start.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_enterControl.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_enterControl.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_setLogLevel.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setLogLevel.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_setValue.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setValue.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_setAuthList.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setAuthList.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_applyForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_applyForces.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_positionMirror.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_positionMirror.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_resetForceOffsets.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_resetForceOffsets.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_clearErrors.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_clearErrors.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_switchForceBalanceSystem.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_switchForceBalanceSystem.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_selectInclinationSource.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_selectInclinationSource.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_setTemperatureOffset.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setTemperatureOffset.py
-
-Verify MTM2 Python Event Interfaces
-    [Documentation]    Verify the Python interfaces were properly created.
-    [Tags]    python
-    @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
-    Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_settingVersions.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_settingVersions.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_errorCode.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_errorCode.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_summaryState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_summaryState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_appliedSettingsMatchStart.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_appliedSettingsMatchStart.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_logLevel.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_logLevel.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_logMessage.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_logMessage.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_settingsApplied.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_settingsApplied.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_simulationMode.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_simulationMode.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_softwareVersions.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_softwareVersions.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_heartbeat.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_heartbeat.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_authList.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_authList.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_m2AssemblyInPosition.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_m2AssemblyInPosition.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_cellTemperatureHiWarning.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_cellTemperatureHiWarning.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_detailedState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_detailedState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_commandableByDDS.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_commandableByDDS.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_interlock.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_interlock.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_tcpIpConnected.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_tcpIpConnected.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_hardpointList.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_hardpointList.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_forceBalanceSystemStatus.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_forceBalanceSystemStatus.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_inclinationTelemetrySource.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_inclinationTelemetrySource.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_temperatureOffset.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_temperatureOffset.py
-
 Salgen MTM2 LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
     [Tags]    labview
@@ -498,37 +360,6 @@ Salgen MTM2 LabVIEW
     File Should Exist    ${SALWorkDir}/${subSystem}/labview/SALLV_${subSystem}.so
     File Should Exist    ${SALWorkDir}/${subSystem}/labview/SALLV_${subSystem}_Monitor
 
-Salgen MTM2 Java
-    [Documentation]    Generate Java libraries.
-    [Tags]    java
-    ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    sal    java    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
-    Log Many    ${output.stdout}    ${output.stderr}
-    Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
-    Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_position.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_positionIMS.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_axialForce.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_tangentForce.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_temperature.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_zenithAngle.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_axialActuatorSteps.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_tangentActuatorSteps.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_axialEncoderPositions.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_tangentEncoderPositions.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_ilcData.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_displacementSensors.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_forceBalance.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_netForcesTotal.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_netMomentsTotal.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_powerStatus.idl
-    Should Contain X Times    ${output.stdout}    javac : Done Publisher    16
-    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    16
-    Directory Should Exist    ${SALWorkDir}/${subSystem}/java
-    @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
-    File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
-    File Should Exist    ${SALWorkDir}/${subSystem}/java/saj_${subSystem}_types.jar
-    File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
-
 Salgen MTM2 Lib
     [Documentation]    Generate the SAL shared library for ${subSystem}
     [Tags]    lib
@@ -540,16 +371,12 @@ Salgen MTM2 Lib
     Directory Should Exist    ${SALWorkDir}/lib
     @{files}=    List Directory    ${SALWorkDir}/lib    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/lib/libsacpp_${subSystem}_types.so
     File Should Exist    ${SALWorkDir}/lib/libSAL_${subSystem}.so
+    File Should Exist    ${SALWorkDir}/lib/libsacpp_${subSystem}_types.so
     File Should Exist    ${SALWorkDir}/lib/SALLV_${subSystem}.so
-    File Should Exist    ${SALWorkDir}/lib/SALPY_${subSystem}.so
-    File Should Exist    ${SALWorkDir}/lib/libsacpp_${subSystem}_types.so
-    File Should Exist    ${SALWorkDir}/lib/libSAL_${subSystem}.so
-    File Should Exist    ${SALWorkDir}/lib/saj_${subSystem}_types.jar
 
 Salgen MTM2 RPM
-    [Documentation]    Generate the SAL library RPM for ${subSystem}
+    [Documentation]    Generate the SAL runtime RPM for ${subSystem}
     [Tags]    rpm
     Log Many    ${XMLVersion}    ${SALVersion}    ${Build_Number}    ${DIST}
     ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    rpm    version\=${Build_Number}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
@@ -588,21 +415,6 @@ Salgen MTM2 RPM
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_utils-${SALVersion}-1.x86_64.rpm
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}-${XMLVersion}-${SALVersion}${dot}${Build_Number}${DIST}.x86_64.rpm
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}_test-${XMLVersion}-${SALVersion}${dot}${Build_Number}${DIST}.x86_64.rpm
-
-Salgen MTM2 Maven
-    [Documentation]    Generate the Maven repository.
-    [Tags]    java
-    ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    maven    version\=${Build_Number}${MavenVersion}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
-    Log Many    ${output.stdout}    ${output.stderr}
-    Should Contain    ${output.stdout}    argv = ${subSystem} maven version=${Build_Number}${MavenVersion}
-    Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
-    Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
-    Should Contain    ${output.stdout}    Running maven install
-    Should Contain    ${output.stdout}    [INFO] Building sal_${subSystem} ${XMLVersion}_${SALVersion}${Build_Number}${MavenVersion}
-    Should Contain X Times    ${output.stdout}    [INFO] BUILD SUCCESS    1
-    Should Contain X Times    ${output.stdout}    [INFO] Finished at:    1
-    @{files}=    List Directory    ${SALWorkDir}/maven
-    File Should Exist    ${SALWorkDir}/maven/${subSystem}-${XMLVersion}_${SALVersion}${Build_Number}${MavenVersion}/pom.xml
 
 Cleanup stdout and stderr Files
     [Tags]

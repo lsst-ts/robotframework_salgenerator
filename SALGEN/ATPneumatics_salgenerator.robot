@@ -35,6 +35,7 @@ Salgen ATPneumatics Validate
     Directory Should Exist    ${SALWorkDir}/idl-templates/validated
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_ackcmd.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_m1AirPressure.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_m2AirPressure.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_mainAirSourcePressure.idl
@@ -154,8 +155,10 @@ Salgen ATPneumatics IDL
     Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
     Should Contain    ${output.stdout}    Completed ${subSystem} validation
     File Should Exist    ${SALWorkDir}/${subSystem}/sal_revCoded_${subSystem}.idl
-    @{files}=    List Directory    ${SALWorkDir}/idl-templates/validated/
+    @{files}=    List Directory    ${SALWorkDir}/idl-templates/validated/sal    pattern=*${subSystem}*
     Log Many    @{files}
+    File Should Exist    ${SALWorkDir}/idl-templates/validated/sal/sal_${subSystem}.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/validated/sal/sal_revCoded_${subSystem}.idl
 
 Salgen ATPneumatics C++
     [Documentation]    Generate C++ libraries.
@@ -310,143 +313,6 @@ Verify ATPneumatics C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_m2SetPressure_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_m2SetPressure_log
 
-Salgen ATPneumatics Python
-    [Documentation]    Generate Python libraries.
-    [Tags]    python
-    ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    sal    python    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
-    Log Many    ${output.stdout}    ${output.stderr}
-    Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
-    Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
-    Should Contain    ${output.stdout}    Generating Python SAL support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating Python bindings
-    Should Contain    ${output.stdout}    python : Done SALPY_${subSystem}.so
-    Directory Should Exist    ${SALWorkDir}/${subSystem}/python
-    @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
-    Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/SALPY_${subSystem}.so
-
-Verify ATPneumatics Python Telemetry Interfaces
-    [Documentation]    Verify the Python interfaces were properly created.
-    [Tags]    python
-    @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
-    Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_m1AirPressure_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_m1AirPressure_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_m2AirPressure_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_m2AirPressure_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_mainAirSourcePressure_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_mainAirSourcePressure_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_loadCell_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_loadCell_Subscriber.py
-
-Verify ATPneumatics Python Command Interfaces
-    [Documentation]    Verify the Python interfaces were properly created.
-    [Tags]    python
-    @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
-    Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_abort.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_abort.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_enable.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_enable.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_disable.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_disable.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_standby.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_standby.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_exitControl.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_exitControl.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_start.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_start.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_enterControl.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_enterControl.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_setLogLevel.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setLogLevel.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_setValue.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setValue.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_setAuthList.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setAuthList.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_openMasterAirSupply.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_openMasterAirSupply.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_m1SetPressure.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_m1SetPressure.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_m2SetPressure.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_m2SetPressure.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_openM1CellVents.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_openM1CellVents.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_openM1Cover.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_openM1Cover.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_openInstrumentAirValve.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_openInstrumentAirValve.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_closeInstrumentAirValve.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_closeInstrumentAirValve.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_closeMasterAirSupply.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_closeMasterAirSupply.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_closeM1Cover.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_closeM1Cover.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_m2OpenAirValve.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_m2OpenAirValve.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_m2CloseAirValve.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_m2CloseAirValve.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_m1CloseAirValve.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_m1CloseAirValve.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_m1OpenAirValve.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_m1OpenAirValve.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_closeM1CellVents.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_closeM1CellVents.py
-
-Verify ATPneumatics Python Event Interfaces
-    [Documentation]    Verify the Python interfaces were properly created.
-    [Tags]    python
-    @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
-    Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_settingVersions.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_settingVersions.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_errorCode.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_errorCode.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_summaryState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_summaryState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_appliedSettingsMatchStart.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_appliedSettingsMatchStart.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_logLevel.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_logLevel.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_logMessage.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_logMessage.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_settingsApplied.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_settingsApplied.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_simulationMode.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_simulationMode.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_softwareVersions.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_softwareVersions.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_heartbeat.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_heartbeat.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_authList.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_authList.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_m1CoverLimitSwitches.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_m1CoverLimitSwitches.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_m1VentsLimitSwitches.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_m1VentsLimitSwitches.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_powerStatus.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_powerStatus.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_eStop.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_eStop.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_m1CoverState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_m1CoverState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_m1State.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_m1State.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_m2State.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_m2State.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_instrumentState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_instrumentState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_cellVentsState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_cellVentsState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_mainValveState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_mainValveState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_m1VentsPosition.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_m1VentsPosition.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_m1SetPressure.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_m1SetPressure.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_m2SetPressure.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_m2SetPressure.py
-
 Salgen ATPneumatics LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
     [Tags]    labview
@@ -462,25 +328,6 @@ Salgen ATPneumatics LabVIEW
     File Should Exist    ${SALWorkDir}/${subSystem}/labview/SALLV_${subSystem}.so
     File Should Exist    ${SALWorkDir}/${subSystem}/labview/SALLV_${subSystem}_Monitor
 
-Salgen ATPneumatics Java
-    [Documentation]    Generate Java libraries.
-    [Tags]    java
-    ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    sal    java    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
-    Log Many    ${output.stdout}    ${output.stderr}
-    Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
-    Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_m1AirPressure.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_m2AirPressure.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_mainAirSourcePressure.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_loadCell.idl
-    Should Contain X Times    ${output.stdout}    javac : Done Publisher    4
-    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    4
-    Directory Should Exist    ${SALWorkDir}/${subSystem}/java
-    @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
-    File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
-    File Should Exist    ${SALWorkDir}/${subSystem}/java/saj_${subSystem}_types.jar
-    File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
-
 Salgen ATPneumatics Lib
     [Documentation]    Generate the SAL shared library for ${subSystem}
     [Tags]    lib
@@ -492,16 +339,12 @@ Salgen ATPneumatics Lib
     Directory Should Exist    ${SALWorkDir}/lib
     @{files}=    List Directory    ${SALWorkDir}/lib    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/lib/libsacpp_${subSystem}_types.so
     File Should Exist    ${SALWorkDir}/lib/libSAL_${subSystem}.so
+    File Should Exist    ${SALWorkDir}/lib/libsacpp_${subSystem}_types.so
     File Should Exist    ${SALWorkDir}/lib/SALLV_${subSystem}.so
-    File Should Exist    ${SALWorkDir}/lib/SALPY_${subSystem}.so
-    File Should Exist    ${SALWorkDir}/lib/libsacpp_${subSystem}_types.so
-    File Should Exist    ${SALWorkDir}/lib/libSAL_${subSystem}.so
-    File Should Exist    ${SALWorkDir}/lib/saj_${subSystem}_types.jar
 
 Salgen ATPneumatics RPM
-    [Documentation]    Generate the SAL library RPM for ${subSystem}
+    [Documentation]    Generate the SAL runtime RPM for ${subSystem}
     [Tags]    rpm
     Log Many    ${XMLVersion}    ${SALVersion}    ${Build_Number}    ${DIST}
     ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    rpm    version\=${Build_Number}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
@@ -540,21 +383,6 @@ Salgen ATPneumatics RPM
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_utils-${SALVersion}-1.x86_64.rpm
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}-${XMLVersion}-${SALVersion}${dot}${Build_Number}${DIST}.x86_64.rpm
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}_test-${XMLVersion}-${SALVersion}${dot}${Build_Number}${DIST}.x86_64.rpm
-
-Salgen ATPneumatics Maven
-    [Documentation]    Generate the Maven repository.
-    [Tags]    java
-    ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    maven    version\=${Build_Number}${MavenVersion}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
-    Log Many    ${output.stdout}    ${output.stderr}
-    Should Contain    ${output.stdout}    argv = ${subSystem} maven version=${Build_Number}${MavenVersion}
-    Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
-    Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
-    Should Contain    ${output.stdout}    Running maven install
-    Should Contain    ${output.stdout}    [INFO] Building sal_${subSystem} ${XMLVersion}_${SALVersion}${Build_Number}${MavenVersion}
-    Should Contain X Times    ${output.stdout}    [INFO] BUILD SUCCESS    1
-    Should Contain X Times    ${output.stdout}    [INFO] Finished at:    1
-    @{files}=    List Directory    ${SALWorkDir}/maven
-    File Should Exist    ${SALWorkDir}/maven/${subSystem}-${XMLVersion}_${SALVersion}${Build_Number}${MavenVersion}/pom.xml
 
 Cleanup stdout and stderr Files
     [Tags]

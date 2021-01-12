@@ -35,6 +35,7 @@ Salgen MTPtg Validate
     Directory Should Exist    ${SALWorkDir}/idl-templates/validated
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_ackcmd.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_currentTargetStatus.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_guidingAndOffsets.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_timeAndDate.idl
@@ -236,8 +237,10 @@ Salgen MTPtg IDL
     Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
     Should Contain    ${output.stdout}    Completed ${subSystem} validation
     File Should Exist    ${SALWorkDir}/${subSystem}/sal_revCoded_${subSystem}.idl
-    @{files}=    List Directory    ${SALWorkDir}/idl-templates/validated/
+    @{files}=    List Directory    ${SALWorkDir}/idl-templates/validated/sal    pattern=*${subSystem}*
     Log Many    @{files}
+    File Should Exist    ${SALWorkDir}/idl-templates/validated/sal/sal_${subSystem}.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/validated/sal/sal_revCoded_${subSystem}.idl
 
 Salgen MTPtg C++
     [Documentation]    Generate C++ libraries.
@@ -480,262 +483,6 @@ Verify MTPtg C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_validatedTarget_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_validatedTarget_log
 
-Salgen MTPtg Python
-    [Documentation]    Generate Python libraries.
-    [Tags]    python
-    ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    sal    python    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
-    Log Many    ${output.stdout}    ${output.stderr}
-    Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
-    Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
-    Should Contain    ${output.stdout}    Generating Python SAL support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating Python bindings
-    Should Contain    ${output.stdout}    python : Done SALPY_${subSystem}.so
-    Directory Should Exist    ${SALWorkDir}/${subSystem}/python
-    @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
-    Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/SALPY_${subSystem}.so
-
-Verify MTPtg Python Telemetry Interfaces
-    [Documentation]    Verify the Python interfaces were properly created.
-    [Tags]    python
-    @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
-    Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_currentTargetStatus_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_currentTargetStatus_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_guidingAndOffsets_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_guidingAndOffsets_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_timeAndDate_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_timeAndDate_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_mountStatus_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_mountStatus_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_skyEnvironment_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_skyEnvironment_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_namedAzEl_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_namedAzEl_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_mount_positions_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_mount_positions_Subscriber.py
-
-Verify MTPtg Python Command Interfaces
-    [Documentation]    Verify the Python interfaces were properly created.
-    [Tags]    python
-    @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
-    Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_abort.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_abort.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_enable.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_enable.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_disable.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_disable.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_standby.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_standby.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_exitControl.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_exitControl.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_start.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_start.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_enterControl.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_enterControl.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_setLogLevel.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setLogLevel.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_setValue.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setValue.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_setAuthList.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setAuthList.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_pointCloseFile.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_pointCloseFile.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_poriginAbsorb.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_poriginAbsorb.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_guideClear.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_guideClear.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_collOffset.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_collOffset.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_rotOffset.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_rotOffset.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_clearCollOffset.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_clearCollOffset.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_poriginXY.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_poriginXY.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_iersUpdate.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_iersUpdate.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_offsetRADec.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_offsetRADec.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_pointAddData.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_pointAddData.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_guideControl.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_guideControl.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_offsetAbsorb.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_offsetAbsorb.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_ephemTarget.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_ephemTarget.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_wavelength.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_wavelength.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_pointLoadModel.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_pointLoadModel.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_azCurrentWrap.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_azCurrentWrap.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_debugLevel.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_debugLevel.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_raDecTarget.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_raDecTarget.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_offsetPA.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_offsetPA.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_rotCurrentWrap.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_rotCurrentWrap.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_poriginOffset.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_poriginOffset.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_offsetClear.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_offsetClear.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_offsetAzEl.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_offsetAzEl.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_setAccessMode.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setAccessMode.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_azElTarget.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_azElTarget.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_planetTarget.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_planetTarget.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_pointNewFile.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_pointNewFile.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_poriginClear.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_poriginClear.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_focusName.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_focusName.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_amLimitSet.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_amLimitSet.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_guideAutoclear.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_guideAutoclear.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_stopTracking.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_stopTracking.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_startTracking.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_startTracking.py
-
-Verify MTPtg Python Event Interfaces
-    [Documentation]    Verify the Python interfaces were properly created.
-    [Tags]    python
-    @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
-    Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_settingVersions.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_settingVersions.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_errorCode.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_errorCode.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_summaryState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_summaryState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_appliedSettingsMatchStart.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_appliedSettingsMatchStart.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_logLevel.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_logLevel.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_logMessage.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_logMessage.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_settingsApplied.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_settingsApplied.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_simulationMode.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_simulationMode.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_softwareVersions.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_softwareVersions.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_heartbeat.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_heartbeat.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_authList.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_authList.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_focusNameSelected.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_focusNameSelected.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_sunProximityWarning.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_sunProximityWarning.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_detailedState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_detailedState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_mountGuideMode.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_mountGuideMode.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_azWrapWarning.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_azWrapWarning.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_wavelength.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_wavelength.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_inPositionEl.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_inPositionEl.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_axesTrackMode.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_axesTrackMode.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_objectSetWarning.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_objectSetWarning.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_pointingModel.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_pointingModel.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_airmassWarning.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_airmassWarning.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_weatherDataInvalid.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_weatherDataInvalid.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_focusNameInconsistentWarning.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_focusNameInconsistentWarning.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_currentTarget.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_currentTarget.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_iersOutOfDate.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_iersOutOfDate.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_weatherDataApplied.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_weatherDataApplied.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_currentDebugLevel.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_currentDebugLevel.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_mountDataWarning.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_mountDataWarning.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_accessMode.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_accessMode.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_rotWrapWarning.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_rotWrapWarning.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_inPosition.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_inPosition.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_inPositionRot.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_inPositionRot.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_inPositionAz.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_inPositionAz.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_iers.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_iers.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_moonProximityWarning.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_moonProximityWarning.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_trackPosting.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_trackPosting.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_ptgAzCurrentWrap.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_ptgAzCurrentWrap.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_ptgRotCurrentWrap.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_ptgRotCurrentWrap.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_elLimitWarning.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_elLimitWarning.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_pointing_file.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_pointing_file.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_timesOfLimits.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_timesOfLimits.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_validatedTarget.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_validatedTarget.py
-
-Salgen MTPtg LabVIEW
-    [Documentation]    Generate ${subSystem} low-level LabView interfaces.
-    [Tags]    labview
-    ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    labview    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
-    Log Many    ${output.stdout}    ${output.stderr}
-    Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
-    Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
-    Directory Should Exist    ${SALWorkDir}/${subSystem}/labview
-    @{files}=    List Directory    ${SALWorkDir}/${subSystem}/labview
-    Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/labview/SAL_${subSystem}_salShmMonitor.cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}/labview/SAL_${subSystem}_shmem.h
-    File Should Exist    ${SALWorkDir}/${subSystem}/labview/SALLV_${subSystem}.so
-    File Should Exist    ${SALWorkDir}/${subSystem}/labview/SALLV_${subSystem}_Monitor
-
-Salgen MTPtg Java
-    [Documentation]    Generate Java libraries.
-    [Tags]    java
-    ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    sal    java    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
-    Log Many    ${output.stdout}    ${output.stderr}
-    Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
-    Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_currentTargetStatus.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_guidingAndOffsets.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_timeAndDate.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_mountStatus.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_skyEnvironment.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_namedAzEl.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_mount_positions.idl
-    Should Contain X Times    ${output.stdout}    javac : Done Publisher    7
-    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    7
-    Directory Should Exist    ${SALWorkDir}/${subSystem}/java
-    @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
-    File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
-    File Should Exist    ${SALWorkDir}/${subSystem}/java/saj_${subSystem}_types.jar
-    File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
-
 Salgen MTPtg Lib
     [Documentation]    Generate the SAL shared library for ${subSystem}
     [Tags]    lib
@@ -747,16 +494,11 @@ Salgen MTPtg Lib
     Directory Should Exist    ${SALWorkDir}/lib
     @{files}=    List Directory    ${SALWorkDir}/lib    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/lib/libsacpp_${subSystem}_types.so
     File Should Exist    ${SALWorkDir}/lib/libSAL_${subSystem}.so
-    File Should Exist    ${SALWorkDir}/lib/SALLV_${subSystem}.so
-    File Should Exist    ${SALWorkDir}/lib/SALPY_${subSystem}.so
     File Should Exist    ${SALWorkDir}/lib/libsacpp_${subSystem}_types.so
-    File Should Exist    ${SALWorkDir}/lib/libSAL_${subSystem}.so
-    File Should Exist    ${SALWorkDir}/lib/saj_${subSystem}_types.jar
 
 Salgen MTPtg RPM
-    [Documentation]    Generate the SAL library RPM for ${subSystem}
+    [Documentation]    Generate the SAL runtime RPM for ${subSystem}
     [Tags]    rpm
     Log Many    ${XMLVersion}    ${SALVersion}    ${Build_Number}    ${DIST}
     ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    rpm    version\=${Build_Number}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
@@ -795,21 +537,6 @@ Salgen MTPtg RPM
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_utils-${SALVersion}-1.x86_64.rpm
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}-${XMLVersion}-${SALVersion}${dot}${Build_Number}${DIST}.x86_64.rpm
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}_test-${XMLVersion}-${SALVersion}${dot}${Build_Number}${DIST}.x86_64.rpm
-
-Salgen MTPtg Maven
-    [Documentation]    Generate the Maven repository.
-    [Tags]    java
-    ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    maven    version\=${Build_Number}${MavenVersion}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
-    Log Many    ${output.stdout}    ${output.stderr}
-    Should Contain    ${output.stdout}    argv = ${subSystem} maven version=${Build_Number}${MavenVersion}
-    Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
-    Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
-    Should Contain    ${output.stdout}    Running maven install
-    Should Contain    ${output.stdout}    [INFO] Building sal_${subSystem} ${XMLVersion}_${SALVersion}${Build_Number}${MavenVersion}
-    Should Contain X Times    ${output.stdout}    [INFO] BUILD SUCCESS    1
-    Should Contain X Times    ${output.stdout}    [INFO] Finished at:    1
-    @{files}=    List Directory    ${SALWorkDir}/maven
-    File Should Exist    ${SALWorkDir}/maven/${subSystem}-${XMLVersion}_${SALVersion}${Build_Number}${MavenVersion}/pom.xml
 
 Cleanup stdout and stderr Files
     [Tags]

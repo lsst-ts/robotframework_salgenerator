@@ -35,6 +35,7 @@ Salgen ATMCS Validate
     Directory Should Exist    ${SALWorkDir}/idl-templates/validated
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_ackcmd.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_trajectory.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_mount_AzEl_Encoders.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_mount_Nasmyth_Encoders.idl
@@ -188,8 +189,10 @@ Salgen ATMCS IDL
     Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
     Should Contain    ${output.stdout}    Completed ${subSystem} validation
     File Should Exist    ${SALWorkDir}/${subSystem}/sal_revCoded_${subSystem}.idl
-    @{files}=    List Directory    ${SALWorkDir}/idl-templates/validated/
+    @{files}=    List Directory    ${SALWorkDir}/idl-templates/validated/sal    pattern=*${subSystem}*
     Log Many    @{files}
+    File Should Exist    ${SALWorkDir}/idl-templates/validated/sal/sal_${subSystem}.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/validated/sal/sal_revCoded_${subSystem}.idl
 
 Salgen ATMCS C++
     [Documentation]    Generate C++ libraries.
@@ -386,177 +389,6 @@ Verify ATMCS C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_nasmyth2Brake_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_nasmyth2Brake_log
 
-Salgen ATMCS Python
-    [Documentation]    Generate Python libraries.
-    [Tags]    python
-    ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    sal    python    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
-    Log Many    ${output.stdout}    ${output.stderr}
-    Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
-    Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
-    Should Contain    ${output.stdout}    Generating Python SAL support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating Python bindings
-    Should Contain    ${output.stdout}    python : Done SALPY_${subSystem}.so
-    Directory Should Exist    ${SALWorkDir}/${subSystem}/python
-    @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
-    Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/SALPY_${subSystem}.so
-
-Verify ATMCS Python Telemetry Interfaces
-    [Documentation]    Verify the Python interfaces were properly created.
-    [Tags]    python
-    @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
-    Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_trajectory_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_trajectory_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_mount_AzEl_Encoders_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_mount_AzEl_Encoders_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_mount_Nasmyth_Encoders_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_mount_Nasmyth_Encoders_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_torqueDemand_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_torqueDemand_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_measuredTorque_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_measuredTorque_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_measuredMotorVelocity_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_measuredMotorVelocity_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_nasymth_m3_mountMotorEncoders_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_nasymth_m3_mountMotorEncoders_Subscriber.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_azEl_mountMotorEncoders_Publisher.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_azEl_mountMotorEncoders_Subscriber.py
-
-Verify ATMCS Python Command Interfaces
-    [Documentation]    Verify the Python interfaces were properly created.
-    [Tags]    python
-    @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
-    Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_abort.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_abort.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_enable.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_enable.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_disable.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_disable.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_standby.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_standby.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_exitControl.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_exitControl.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_start.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_start.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_enterControl.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_enterControl.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_setLogLevel.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setLogLevel.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_setValue.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setValue.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_setAuthList.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setAuthList.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_startTracking.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_startTracking.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_trackTarget.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_trackTarget.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_setInstrumentPort.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setInstrumentPort.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_stopTracking.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_stopTracking.py
-
-Verify ATMCS Python Event Interfaces
-    [Documentation]    Verify the Python interfaces were properly created.
-    [Tags]    python
-    @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
-    Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_settingVersions.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_settingVersions.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_errorCode.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_errorCode.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_summaryState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_summaryState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_appliedSettingsMatchStart.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_appliedSettingsMatchStart.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_logLevel.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_logLevel.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_logMessage.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_logMessage.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_settingsApplied.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_settingsApplied.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_simulationMode.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_simulationMode.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_softwareVersions.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_softwareVersions.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_heartbeat.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_heartbeat.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_authList.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_authList.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_detailedState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_detailedState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_atMountState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_atMountState.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_m3State.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_m3State.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_m3PortSelected.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_m3PortSelected.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_positionLimits.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_positionLimits.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_target.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_target.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_elevationInPosition.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_elevationInPosition.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_azimuthInPosition.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_azimuthInPosition.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_nasmyth1RotatorInPosition.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_nasmyth1RotatorInPosition.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_nasmyth2RotatorInPosition.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_nasmyth2RotatorInPosition.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_m3InPosition.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_m3InPosition.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_allAxesInPosition.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_allAxesInPosition.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_azimuthToppleBlockCCW.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_azimuthToppleBlockCCW.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_azimuthToppleBlockCW.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_azimuthToppleBlockCW.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_m3RotatorDetentSwitches.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_m3RotatorDetentSwitches.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_elevationLimitSwitchLower.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_elevationLimitSwitchLower.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_elevationLimitSwitchUpper.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_elevationLimitSwitchUpper.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_azimuthLimitSwitchCCW.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_azimuthLimitSwitchCCW.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_azimuthLimitSwitchCW.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_azimuthLimitSwitchCW.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_nasmyth1LimitSwitchCCW.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_nasmyth1LimitSwitchCCW.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_nasmyth1LimitSwitchCW.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_nasmyth1LimitSwitchCW.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_nasmyth2LimitSwitchCCW.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_nasmyth2LimitSwitchCCW.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_nasmyth2LimitSwitchCW.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_nasmyth2LimitSwitchCW.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_m3RotatorLimitSwitchCCW.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_m3RotatorLimitSwitchCCW.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_m3RotatorLimitSwitchCW.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_m3RotatorLimitSwitchCW.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_elevationDriveStatus.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_elevationDriveStatus.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_azimuthDrive1Status.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_azimuthDrive1Status.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_azimuthDrive2Status.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_azimuthDrive2Status.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_nasmyth1DriveStatus.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_nasmyth1DriveStatus.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_nasmyth2DriveStatus.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_nasmyth2DriveStatus.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_m3DriveStatus.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_m3DriveStatus.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_elevationBrake.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_elevationBrake.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_azimuthBrake1.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_azimuthBrake1.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_azimuthBrake2.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_azimuthBrake2.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_nasmyth1Brake.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_nasmyth1Brake.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_nasmyth2Brake.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_nasmyth2Brake.py
-
 Salgen ATMCS LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
     [Tags]    labview
@@ -572,29 +404,6 @@ Salgen ATMCS LabVIEW
     File Should Exist    ${SALWorkDir}/${subSystem}/labview/SALLV_${subSystem}.so
     File Should Exist    ${SALWorkDir}/${subSystem}/labview/SALLV_${subSystem}_Monitor
 
-Salgen ATMCS Java
-    [Documentation]    Generate Java libraries.
-    [Tags]    java
-    ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    sal    java    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
-    Log Many    ${output.stdout}    ${output.stderr}
-    Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
-    Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_trajectory.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_mount_AzEl_Encoders.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_mount_Nasmyth_Encoders.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_torqueDemand.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_measuredTorque.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_measuredMotorVelocity.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_nasymth_m3_mountMotorEncoders.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_azEl_mountMotorEncoders.idl
-    Should Contain X Times    ${output.stdout}    javac : Done Publisher    8
-    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    8
-    Directory Should Exist    ${SALWorkDir}/${subSystem}/java
-    @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
-    File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
-    File Should Exist    ${SALWorkDir}/${subSystem}/java/saj_${subSystem}_types.jar
-    File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
-
 Salgen ATMCS Lib
     [Documentation]    Generate the SAL shared library for ${subSystem}
     [Tags]    lib
@@ -606,16 +415,12 @@ Salgen ATMCS Lib
     Directory Should Exist    ${SALWorkDir}/lib
     @{files}=    List Directory    ${SALWorkDir}/lib    pattern=*${subSystem}*
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/lib/libsacpp_${subSystem}_types.so
     File Should Exist    ${SALWorkDir}/lib/libSAL_${subSystem}.so
+    File Should Exist    ${SALWorkDir}/lib/libsacpp_${subSystem}_types.so
     File Should Exist    ${SALWorkDir}/lib/SALLV_${subSystem}.so
-    File Should Exist    ${SALWorkDir}/lib/SALPY_${subSystem}.so
-    File Should Exist    ${SALWorkDir}/lib/libsacpp_${subSystem}_types.so
-    File Should Exist    ${SALWorkDir}/lib/libSAL_${subSystem}.so
-    File Should Exist    ${SALWorkDir}/lib/saj_${subSystem}_types.jar
 
 Salgen ATMCS RPM
-    [Documentation]    Generate the SAL library RPM for ${subSystem}
+    [Documentation]    Generate the SAL runtime RPM for ${subSystem}
     [Tags]    rpm
     Log Many    ${XMLVersion}    ${SALVersion}    ${Build_Number}    ${DIST}
     ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    rpm    version\=${Build_Number}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
@@ -654,21 +459,6 @@ Salgen ATMCS RPM
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_utils-${SALVersion}-1.x86_64.rpm
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}-${XMLVersion}-${SALVersion}${dot}${Build_Number}${DIST}.x86_64.rpm
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}_test-${XMLVersion}-${SALVersion}${dot}${Build_Number}${DIST}.x86_64.rpm
-
-Salgen ATMCS Maven
-    [Documentation]    Generate the Maven repository.
-    [Tags]    java
-    ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    maven    version\=${Build_Number}${MavenVersion}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
-    Log Many    ${output.stdout}    ${output.stderr}
-    Should Contain    ${output.stdout}    argv = ${subSystem} maven version=${Build_Number}${MavenVersion}
-    Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
-    Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
-    Should Contain    ${output.stdout}    Running maven install
-    Should Contain    ${output.stdout}    [INFO] Building sal_${subSystem} ${XMLVersion}_${SALVersion}${Build_Number}${MavenVersion}
-    Should Contain X Times    ${output.stdout}    [INFO] BUILD SUCCESS    1
-    Should Contain X Times    ${output.stdout}    [INFO] Finished at:    1
-    @{files}=    List Directory    ${SALWorkDir}/maven
-    File Should Exist    ${SALWorkDir}/maven/${subSystem}-${XMLVersion}_${SALVersion}${Build_Number}${MavenVersion}/pom.xml
 
 Cleanup stdout and stderr Files
     [Tags]
