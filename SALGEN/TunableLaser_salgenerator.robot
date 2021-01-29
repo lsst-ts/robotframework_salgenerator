@@ -50,7 +50,7 @@ Salgen TunableLaser Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setAuthList.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_startPropagateLaser.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_stopPropagateLaser.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_clearFaultState.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_clearLaserFault.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_changeWavelength.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingVersions.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_errorCode.idl
@@ -83,7 +83,7 @@ Verify TunableLaser revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setAuthList\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_startPropagateLaser\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_stopPropagateLaser\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_clearFaultState\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_clearLaserFault\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_changeWavelength\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_settingVersions\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_errorCode\\) [a-z0-9]{8,}
