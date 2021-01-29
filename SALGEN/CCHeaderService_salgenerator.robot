@@ -103,6 +103,7 @@ Salgen CCHeaderService Java
     [Tags]    java
     ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    sal    java    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
+    Should Not Contain    ${output.stdout}    ERROR : Failed to generate Java DDS types
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
     Should Contain    ${output.stdout}    WARNING : No Telemetry definitions found for ${subSystem}

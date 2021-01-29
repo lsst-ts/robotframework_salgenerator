@@ -137,6 +137,7 @@ function salgenCPP {
     echo "    \${output}=    Run Process    \${SALHome}/bin/salgenerator    \${subSystem}    sal    cpp   \
 shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.txt    stderr=\${EXECDIR}\${/}\${subSystem}_stderr.txt" >> $testSuite
     echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
+    echo "    Should Not Contain    \${output.stdout}    ERROR : Failed to generate CPP DDS types" >> $testSuite
     echo "    Should Not Contain    \${output.stdout}    *** DDS error in file" >> $testSuite
     echo "    Should Not Contain    \${output.stdout}    Error 1" >> $testSuite
     echo "    Should Contain    \${output.stdout}    SAL generator - \${SALVersion}" >> $testSuite
@@ -220,6 +221,7 @@ function salgenJava() {
     echo "    \${output}=    Run Process    \${SALHome}/bin/salgenerator    \${subSystem}    sal    java    \
 shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.txt    stderr=\${EXECDIR}\${/}\${subSystem}_stderr.txt" >> $testSuite
     echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
+    echo "    Should Not Contain    \${output.stdout}    ERROR : Failed to generate Java DDS types" >> $testSuite
     echo "    Should Contain    \${output.stdout}    SAL generator - \${SALVersion}" >> $testSuite
     echo "    Should Contain    \${output.stdout}    XMLVERSION = \${XMLVersion}" >> $testSuite
     for topic in "${telemetryArray[@]}"; do
