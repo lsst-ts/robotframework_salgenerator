@@ -27,6 +27,14 @@ Verify Python Version
     Log    ${stdout.stdout}
     Should Match    ${stdout.stdout}    ${PythonVersion}
 
+Verify Maven Version
+    [Documentation]    Verify the system Maven version.
+    [Tags]    smoke    version
+    Comment    Verify Maven version.
+    ${stdout}=    Run Process    mvn     --version
+    Log    ${stdout.stdout}
+    Should Contain    ${stdout.stdout}    ${MvnVersion}
+
 Verify OpenSplice Version
     [Documentation]    Verify the OpenSplice version and date.
     [Tags]    smoke    version
