@@ -20,7 +20,6 @@ Verify MTAOS XML Defintions exist
     Should Not Be Empty    ${output.stdout}
     File Should Exist    ${SALWorkDir}/MTAOS_Commands.xml
     File Should Exist    ${SALWorkDir}/MTAOS_Events.xml
-    File Should Exist    ${SALWorkDir}/MTAOS_Telemetry.xml
 
 Salgen MTAOS Validate
     [Documentation]    Validate the MTAOS XML definitions.
@@ -36,8 +35,6 @@ Salgen MTAOS Validate
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_ackcmd.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_wepDuration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_ofcDuration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_abort.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
@@ -48,13 +45,14 @@ Salgen MTAOS Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setLogLevel.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setValue.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setAuthList.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_resetWavefrontCorrection.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_issueWavefrontCorrection.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_processCalibrationProducts.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_processWavefrontError.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_processIntraExtraWavefrontError.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_processShWavefrontError.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_processCmosWavefrontError.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_resetCorrection.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_issueCorrection.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_rejectCorrection.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_selectSources.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_preProcess.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_runWEP.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_runOFC.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_addAberration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingVersions.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_errorCode.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_summaryState.idl
@@ -78,8 +76,8 @@ Salgen MTAOS Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rejectedM1M3Correction.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_m2Correction.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rejectedM2Correction.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_wepWarning.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_ofcWarning.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_wepDuration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_ofcDuration.idl
 
 Verify MTAOS revCodes File
     [Documentation]    Ensure MTAOS_revCodes.tcl contains 1 revcode per topic.
@@ -95,13 +93,14 @@ Verify MTAOS revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setLogLevel\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setValue\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setAuthList\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_resetWavefrontCorrection\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_issueWavefrontCorrection\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_processCalibrationProducts\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_processWavefrontError\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_processIntraExtraWavefrontError\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_processShWavefrontError\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_processCmosWavefrontError\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_resetCorrection\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_issueCorrection\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_rejectCorrection\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_selectSources\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_preProcess\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_runWEP\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_runOFC\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_addAberration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_settingVersions\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_errorCode\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_summaryState\\) [a-z0-9]{8,}
@@ -125,10 +124,8 @@ Verify MTAOS revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rejectedM1M3Correction\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_m2Correction\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rejectedM2Correction\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_wepWarning\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_ofcWarning\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_wepDuration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_ofcDuration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_wepDuration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_ofcDuration\\) [a-z0-9]{8,}
 
 Salgen MTAOS IDL
     [Documentation]    Generate the revCoded IDL for ${subSystem}
