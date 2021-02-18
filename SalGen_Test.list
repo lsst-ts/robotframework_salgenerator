@@ -35,6 +35,7 @@ SALGEN/ESS_salgenerator.robot
 SALGEN/Electrometer_salgenerator.robot
 SALGEN/FiberSpectrograph_salgenerator.robot
 SALGEN/GenericCamera_salgenerator.robot
+SALGEN/Guider_salgenerator.robot
 SALGEN/HVAC_salgenerator.robot
 SALGEN/IOTA_salgenerator.robot
 SALGEN/LOVE_salgenerator.robot
@@ -55,6 +56,7 @@ SALGEN/MTPtg_salgenerator.robot
 SALGEN/MTRotator_salgenerator.robot
 SALGEN/MTVMS_salgenerator.robot
 SALGEN/OCPS_salgenerator.robot
+SALGEN/PMD_salgenerator.robot
 SALGEN/PromptProcessing_salgenerator.robot
 SALGEN/Scheduler_salgenerator.robot
 SALGEN/ScriptQueue_salgenerator.robot
