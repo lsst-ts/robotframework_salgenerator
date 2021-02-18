@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation    This suite builds the various interfaces for the ATSpectrograph.
+Documentation    This suite builds the various interfaces for the PMD.
 Force Tags    salgen    
 Suite Setup    Log Many    ${Host}    ${subSystem}    ${timeout}
 Library    OperatingSystem
@@ -7,22 +7,22 @@ Library    Process
 Resource    ../Global_Vars.resource
 
 *** Variables ***
-${subSystem}    ATSpectrograph
+${subSystem}    PMD
 ${timeout}    1200s
 
 *** Test Cases ***
-Verify ATSpectrograph XML Defintions exist
+Verify PMD XML Defintions exist
     [Tags]
     Comment    Verify the CSC XML definition files exist.
-    ${output}    Run Process    ls     ${SALWorkDir}/ATSpectrograph_*.xml    shell=True
+    ${output}    Run Process    ls     ${SALWorkDir}/PMD_*.xml    shell=True
     Log Many    ${output.stdout}    ${output.stderr}
-    Should Not Contain    ${output.stderr}    No such file or directory    msg="ATSpectrograph has no XML defintions"    values=False
+    Should Not Contain    ${output.stderr}    No such file or directory    msg="PMD has no XML defintions"    values=False
     Should Not Be Empty    ${output.stdout}
-    File Should Exist    ${SALWorkDir}/ATSpectrograph_Commands.xml
-    File Should Exist    ${SALWorkDir}/ATSpectrograph_Events.xml
+    File Should Exist    ${SALWorkDir}/PMD_Events.xml
+    File Should Exist    ${SALWorkDir}/PMD_Telemetry.xml
 
-Salgen ATSpectrograph Validate
-    [Documentation]    Validate the ATSpectrograph XML definitions.
+Salgen PMD Validate
+    [Documentation]    Validate the PMD XML definitions.
     [Tags]    validate
     ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    validate    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
@@ -35,6 +35,7 @@ Salgen ATSpectrograph Validate
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_ackcmd.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_position.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_abort.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
@@ -45,11 +46,6 @@ Salgen ATSpectrograph Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setLogLevel.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setValue.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setAuthList.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_changeFilter.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_changeDisperser.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_moveLinearStage.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_homeLinearStage.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_stopAllAxes.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingVersions.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_errorCode.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_summaryState.idl
@@ -61,20 +57,10 @@ Salgen ATSpectrograph Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_softwareVersions.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_heartbeat.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_authList.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_detailedState.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_filterInPosition.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_reportedFilterPosition.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_reportedDisperserPosition.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_disperserInPosition.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_linearStageInPosition.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_reportedLinearStagePosition.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_lsState.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fwState.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_gwState.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingsAppliedValues.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_metadata.idl
 
-Verify ATSpectrograph revCodes File
-    [Documentation]    Ensure ATSpectrograph_revCodes.tcl contains 1 revcode per topic.
+Verify PMD revCodes File
+    [Documentation]    Ensure PMD_revCodes.tcl contains 1 revcode per topic.
     [Tags]    html    
     ${output}=    Log File    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_abort\\) [a-z0-9]{8,}
@@ -87,11 +73,6 @@ Verify ATSpectrograph revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setLogLevel\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setValue\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setAuthList\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_changeFilter\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_changeDisperser\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_moveLinearStage\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_homeLinearStage\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_stopAllAxes\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_settingVersions\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_errorCode\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_summaryState\\) [a-z0-9]{8,}
@@ -103,19 +84,10 @@ Verify ATSpectrograph revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_softwareVersions\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_heartbeat\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_authList\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_detailedState\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_filterInPosition\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_reportedFilterPosition\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_reportedDisperserPosition\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_disperserInPosition\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_linearStageInPosition\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_reportedLinearStagePosition\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_lsState\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fwState\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_gwState\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_settingsAppliedValues\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_metadata\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_position\\) [a-z0-9]{8,}
 
-Salgen ATSpectrograph IDL
+Salgen PMD IDL
     [Documentation]    Generate the revCoded IDL for ${subSystem}
     [Tags]    idl
     ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    sal    idl    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
@@ -129,7 +101,7 @@ Salgen ATSpectrograph IDL
     File Should Exist    ${SALWorkDir}/idl-templates/validated/sal/sal_${subSystem}.idl
     File Should Exist    ${SALWorkDir}/idl-templates/validated/sal/sal_revCoded_${subSystem}.idl
 
-Salgen ATSpectrograph Lib
+Salgen PMD Lib
     [Documentation]    Generate the SAL shared library for ${subSystem}
     [Tags]    lib
     ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    lib    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
@@ -141,7 +113,7 @@ Salgen ATSpectrograph Lib
     @{files}=    List Directory    ${SALWorkDir}/lib    pattern=*${subSystem}*
     Log Many    @{files}
 
-Salgen ATSpectrograph RPM
+Salgen PMD RPM
     [Documentation]    Generate the SAL runtime RPM for ${subSystem}
     [Tags]    rpm
     Log Many    ${XMLVersion}    ${SALVersion}    ${Build_Number}    ${DIST}

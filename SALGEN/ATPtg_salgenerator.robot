@@ -42,7 +42,7 @@ Salgen ATPtg Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_mountStatus.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_skyEnvironment.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_namedAzEl.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_mount_positions.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_mountPositions.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_abort.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
@@ -126,7 +126,7 @@ Salgen ATPtg Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_ptgAzCurrentWrap.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_ptgRotCurrentWrap.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_elLimitWarning.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_pointing_file.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_pointingFile.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_timesOfLimits.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_validatedTarget.idl
 
@@ -217,7 +217,7 @@ Verify ATPtg revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_ptgAzCurrentWrap\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_ptgRotCurrentWrap\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_elLimitWarning\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_pointing_file\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_pointingFile\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_timesOfLimits\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_validatedTarget\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_currentTargetStatus\\) [a-z0-9]{8,}
@@ -226,7 +226,7 @@ Verify ATPtg revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_mountStatus\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_skyEnvironment\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_namedAzEl\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_mount_positions\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_mountPositions\\) [a-z0-9]{8,}
 
 Salgen ATPtg IDL
     [Documentation]    Generate the revCoded IDL for ${subSystem}
@@ -247,6 +247,7 @@ Salgen ATPtg C++
     [Tags]    cpp
     ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    sal    cpp   shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
+    Should Not Contain    ${output.stdout}    ERROR : Failed to generate CPP DDS types
     Should Not Contain    ${output.stdout}    *** DDS error in file
     Should Not Contain    ${output.stdout}    Error 1
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
@@ -257,7 +258,7 @@ Salgen ATPtg C++
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_mountStatus.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_skyEnvironment.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_namedAzEl.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_mount_positions.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_mountPositions.idl
     Should Contain X Times    ${output.stdout}    cpp : Done Publisher    7
     Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    7
     Should Contain X Times    ${output.stdout}    cpp : Done Commander    1
@@ -283,7 +284,7 @@ Verify ATPtg Telemetry directories
     Directory Should Exist    ${SALWorkDir}/${subSystem}_mountStatus
     Directory Should Exist    ${SALWorkDir}/${subSystem}_skyEnvironment
     Directory Should Exist    ${SALWorkDir}/${subSystem}_namedAzEl
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_mount_positions
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_mountPositions
 
 Verify ATPtg C++ Telemetry Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -300,8 +301,8 @@ Verify ATPtg C++ Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}_skyEnvironment/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_namedAzEl/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_namedAzEl/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_mount_positions/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_mount_positions/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_mountPositions/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_mountPositions/cpp/standalone/sacpp_${subSystem}_sub
 
 Verify ATPtg C++ Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -476,8 +477,8 @@ Verify ATPtg C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_ptgRotCurrentWrap_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_elLimitWarning_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_elLimitWarning_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_pointing_file_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_pointing_file_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_pointingFile_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_pointingFile_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_timesOfLimits_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_timesOfLimits_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_validatedTarget_send

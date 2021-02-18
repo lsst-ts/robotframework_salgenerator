@@ -54,7 +54,6 @@ Salgen MTHexapod Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_configureLimits.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_configureVelocity.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_move.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_moveToReference.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_offset.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setCompensationMode.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setPivot.idl
@@ -101,7 +100,6 @@ Verify MTHexapod revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_configureLimits\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_configureVelocity\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_move\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_moveToReference\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_offset\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setCompensationMode\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setPivot\\) [a-z0-9]{8,}

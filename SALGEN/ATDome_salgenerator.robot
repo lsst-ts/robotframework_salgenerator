@@ -71,6 +71,7 @@ Salgen ATDome Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_dropoutDoorState.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_mainDoorCommandedState.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_mainDoorState.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_moveCode.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_azimuthInPosition.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_shutterInPosition.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_allAxesInPosition.idl
@@ -119,6 +120,7 @@ Verify ATDome revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_dropoutDoorState\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_mainDoorCommandedState\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_mainDoorState\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_moveCode\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_azimuthInPosition\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_shutterInPosition\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_allAxesInPosition\\) [a-z0-9]{8,}

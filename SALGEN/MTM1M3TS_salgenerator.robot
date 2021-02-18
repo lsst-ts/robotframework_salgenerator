@@ -48,7 +48,10 @@ Salgen MTM1M3TS Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setValue.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setAuthList.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_applySetpoint.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_shutdown.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_heaterFanDemand.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setReHeaterGains.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_reset.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_power.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingVersions.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_errorCode.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_summaryState.idl
@@ -61,7 +64,10 @@ Salgen MTM1M3TS Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_heartbeat.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_authList.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_appliedSetpoint.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_detailedState.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_reHeaterGains.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_thermalInfo.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_thermalWarning.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_powerStatus.idl
 
 Verify MTM1M3TS revCodes File
     [Documentation]    Ensure MTM1M3TS_revCodes.tcl contains 1 revcode per topic.
@@ -78,7 +84,10 @@ Verify MTM1M3TS revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setValue\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setAuthList\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_applySetpoint\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_shutdown\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_heaterFanDemand\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setReHeaterGains\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_reset\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_power\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_settingVersions\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_errorCode\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_summaryState\\) [a-z0-9]{8,}
@@ -91,7 +100,10 @@ Verify MTM1M3TS revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_heartbeat\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_authList\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_appliedSetpoint\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_detailedState\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_reHeaterGains\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_thermalInfo\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_thermalWarning\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_powerStatus\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_thermalData\\) [a-z0-9]{8,}
 
 Salgen MTM1M3TS IDL

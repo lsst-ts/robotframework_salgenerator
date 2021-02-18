@@ -98,15 +98,15 @@ function subsystemArray() {
     ATPtg ATSpectrograph ATWhiteLight Authorize
     CCArchiver CCCamera CCHeaderService CCOODS
     CatchupArchiver CBP DIMM DSM
-    EAS Electrometer ESS
-    FiberSpectrograph GenericCamera IOTA 
+    EAS Electrometer ESS FiberSpectrograph 
+    GenericCamera Guider IOTA 
     MTHexapod HVAC LinearStage LOVE 
     MTAOS MTAlignment MTCamera MTDome 
     MTDomeTrajectory MTEEC MTHeaderService
-    MTM1M3 MTM1M3TS MTM2 MTMount MTPtg MTVMS
-    OCPS PromptProcessing MTRotator
-    Scheduler Script ScriptQueue SummitFacility Test
-    TunableLaser Watcher WeatherStation"
+    MTM1M3 MTM1M3TS MTM2 MTMount MTPtg 
+    MTRotator MTVMS OCPS PMD PromptProcessing 
+    Scheduler Script ScriptQueue SummitFacility 
+    Test TunableLaser Watcher WeatherStation"
 }
 
 function stateArray() {

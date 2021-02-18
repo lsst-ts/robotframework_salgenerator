@@ -18,6 +18,7 @@ Verify LOVE XML Defintions exist
     Log Many    ${output.stdout}    ${output.stderr}
     Should Not Contain    ${output.stderr}    No such file or directory    msg="LOVE has no XML defintions"    values=False
     Should Not Be Empty    ${output.stdout}
+    File Should Exist    ${SALWorkDir}/LOVE_Commands.xml
     File Should Exist    ${SALWorkDir}/LOVE_Events.xml
 
 Salgen LOVE Validate
@@ -33,6 +34,8 @@ Salgen LOVE Validate
     Directory Should Exist    ${SALWorkDir}/idl-templates/validated
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_ackcmd.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_requestAuthorization.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_authList.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_heartbeat.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_logLevel.idl
@@ -43,6 +46,7 @@ Verify LOVE revCodes File
     [Documentation]    Ensure LOVE_revCodes.tcl contains 1 revcode per topic.
     [Tags]    html    
     ${output}=    Log File    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_requestAuthorization\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_authList\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_heartbeat\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_logLevel\\) [a-z0-9]{8,}
