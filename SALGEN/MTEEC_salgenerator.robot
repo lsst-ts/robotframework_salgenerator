@@ -160,6 +160,27 @@ Salgen MTEEC RPM
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}-${XMLVersion}-${SALVersion}${dot}${Build_Number}${DIST}.x86_64.rpm
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}_test-${XMLVersion}-${SALVersion}${dot}${Build_Number}${DIST}.x86_64.rpm
 
+Verify MTEEC RPM Contents
+    [Documentation]    Verify the ${subSystem} contains all the expected libraries
+    [Tags]    rpm
+    Comment    Re-run the {dot} process, so this test case can run independently.
+    Run Keyword If    "${Build_Number}" == ""
+    ...    Set Test Variable    ${dot}    ${EMPTY}
+    Run Keyword Unless    "${Build_Number}" == ""
+    ...    Set Test Variable    ${dot}    .
+    ${output}=    Run Process    rpm    -qpl    ${subSystem}-${XMLVersion}-${SALVersion}${dot}${Build_Number}${DIST}.x86_64.rpm    cwd=${SALWorkDir}/rpmbuild/RPMS/x86_64
+    Log Many    ${output.stdout}    ${output.stderr}
+    Should Not Contain    ${output.stderr}    error
+    Should Not Contain    ${output.stderr}    No such file or directory
+    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/idl/sal_revCoded_${subSystem}.idl
+    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/scripts/${subSystem}_revCodes.tcl
+    Comment    Verify the interface definition files are included.
+    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Generics.xml
+    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Commands.html
+    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Commands.xml
+    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Events.html
+    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Events.xml
+
 Cleanup stdout and stderr Files
     [Tags]
     Remove Files    ${EXECDIR}${/}${subSystem}_stdout.txt    ${EXECDIR}${/}${subSystem}_stderr.txt
