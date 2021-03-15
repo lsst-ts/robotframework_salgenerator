@@ -463,22 +463,22 @@ function verifyRPM() {
     echo "    Comment    Verify the interface definition files are included." >> $testSuite
     echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/\${subSystem}/\${subSystem}_Generics.xml" >> $testSuite
     if test -f $HOME/trunk/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Commands.xml; then
-        echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/\${subSystem}/\${subSystem}_Commands.html" >> $testSuite
-    fi
-    if [[ $commandsArray -ne 0 ]]; then
         echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/\${subSystem}/\${subSystem}_Commands.xml" >> $testSuite
     fi
-    if test -f $HOME/trunk/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Events.xml; then
-        echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/\${subSystem}/\${subSystem}_Events.html" >> $testSuite
+    if [[ $commandsArray -ne 0 ]]; then
+        echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/\${subSystem}/\${subSystem}_Commands.html" >> $testSuite
     fi
-    if [[ $eventsArray -ne 0 ]]; then
+    if test -f $HOME/trunk/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Events.xml; then
         echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/\${subSystem}/\${subSystem}_Events.xml" >> $testSuite
     fi
+    if [[ $eventsArray -ne 0 ]]; then
+        echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/\${subSystem}/\${subSystem}_Events.html" >> $testSuite
+    fi
     if test -f $HOME/trunk/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Telemetry.xml; then
-        echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/\${subSystem}/\${subSystem}_Telemetry.html" >> $testSuite
+        echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/\${subSystem}/\${subSystem}_Telemetry.xml" >> $testSuite
     fi
     if [[ $telemetryArray -ne 0 ]]; then
-        echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/\${subSystem}/\${subSystem}_Telemetry.xml" >> $testSuite
+        echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/\${subSystem}/\${subSystem}_Telemetry.html" >> $testSuite
     fi
     echo "" >> $testSuite
 }
