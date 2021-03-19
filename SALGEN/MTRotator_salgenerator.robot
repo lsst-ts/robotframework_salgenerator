@@ -36,7 +36,7 @@ Salgen MTRotator Validate
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_ackcmd.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_application.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_ccwFollowingError.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_rotation.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_electrical.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_motors.idl
@@ -119,7 +119,7 @@ Verify MTRotator revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_inPosition\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_configuration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_commandableByDDS\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_application\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_ccwFollowingError\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_rotation\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_electrical\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_motors\\) [a-z0-9]{8,}
@@ -148,7 +148,7 @@ Salgen MTRotator C++
     Should Not Contain    ${output.stdout}    Error 1
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_application.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_ccwFollowingError.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_rotation.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_electrical.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_motors.idl
@@ -171,7 +171,7 @@ Verify MTRotator Telemetry directories
     [Tags]    cpp
     @{files}=    List Directory    ${SALWorkDir}    pattern=*${subSystem}*
     Log Many    @{files}
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_application
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_ccwFollowingError
     Directory Should Exist    ${SALWorkDir}/${subSystem}_rotation
     Directory Should Exist    ${SALWorkDir}/${subSystem}_electrical
     Directory Should Exist    ${SALWorkDir}/${subSystem}_motors
@@ -179,8 +179,8 @@ Verify MTRotator Telemetry directories
 Verify MTRotator C++ Telemetry Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}_application/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_application/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_ccwFollowingError/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_ccwFollowingError/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_rotation/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_rotation/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_electrical/cpp/standalone/sacpp_${subSystem}_pub
@@ -278,7 +278,7 @@ Salgen MTRotator Java
     Should Not Contain    ${output.stdout}    ERROR : Failed to generate Java DDS types
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_application.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_ccwFollowingError.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_rotation.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_electrical.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_motors.idl
