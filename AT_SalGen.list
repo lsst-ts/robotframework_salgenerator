@@ -27,6 +27,7 @@ SALGEN/CCHeaderService_salgenerator.robot
 SALGEN/CCOODS_salgenerator.robot
 SALGEN/CatchupArchiver_salgenerator.robot
 SALGEN/DIMM_salgenerator.robot
+SALGEN/DREAM_salgenerator.robot
 SALGEN/DSM_salgenerator.robot
 SALGEN/Electrometer_salgenerator.robot
 SALGEN/FiberSpectrograph_salgenerator.robot

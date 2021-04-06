@@ -100,7 +100,7 @@ function subsystemArray() {
     ATMCS ATMonochromator ATOODS ATPneumatics 
     ATPtg ATSpectrograph ATWhiteLight Authorize
     CCArchiver CCCamera CCHeaderService CCOODS
-    CatchupArchiver CBP DIMM DSM
+    CatchupArchiver CBP DIMM DREAM DSM
     EAS Electrometer ESS FiberSpectrograph 
     GenericCamera Guider IOTA 
     MTHexapod HVAC LinearStage LOVE 
