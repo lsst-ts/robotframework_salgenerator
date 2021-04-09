@@ -629,13 +629,13 @@ function createTestSuite() {
     # Move/Generate the SAL libraries.
     salgenLib "${rtlang[@]}"
     # Generate the CSC documentation
-    #salgenDOC
+    salgenDOC
     # Generate the as-built SAL libraries RPM.
     salgenRPM "${rtlang[@]}"
     verifyRPM ${#commandArray[@]} ${#eventArray[@]} ${#telemetryArray[@]} "${rtlang[@]}"
-    #if [[ ${rtlang[@]} =~ "CPP" ]]; then
-    #    verifyTestRPM 
-    #fi
+    if [[ ${rtlang[@]} =~ "CPP" ]]; then
+        verifyTestRPM 
+    fi
     # Run the Maven tests.
     if [[ ${rtlang[@]} =~ "Java" ]]; then
         salgenMaven
