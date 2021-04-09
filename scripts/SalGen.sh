@@ -85,38 +85,31 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     echo "" >> $testSuite
 }
 
-function salgenHTML() {
-    skipped=$(checkIfSkipped "html")
-    echo "Salgen $subSystemUp HTML" >> $testSuite
-    echo "    [Documentation]    Create web form interfaces." >> $testSuite
-    echo "    [Tags]    html    $skipped" >> $testSuite
-    echo "    \${output}=    Run Process    \${SALHome}/bin/salgenerator    \${subSystem}    html    \
+function salgenDOC() {
+    skipped=$(checkIfSkipped "doc")
+    echo "Salgen $subSystemUp Doc" >> $testSuite
+    echo "    [Documentation]    Create the CSC documentation." >> $testSuite
+    echo "    [Tags]    doc    $skipped" >> $testSuite
+    echo "    \${output}=    Run Process    \${SALHome}/bin/salgenerator    \${subSystem}    apidoc    \
 shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.txt    stderr=\${EXECDIR}\${/}\${subSystem}_stderr.txt" >> $testSuite
     echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
     echo "    Should Contain    \${output.stdout}    SAL generator - \${SALVersion}" >> $testSuite
     echo "    Should Contain    \${output.stdout}    XMLVERSION = \${XMLVersion}" >> $testSuite
-    echo "    Should Contain    \${output.stdout}    Generating telemetry stream definition editor html" >> $testSuite
-    echo "    Should Contain    \${output.stdout}    Generating Facility database table creation html" >> $testSuite
-    echo "    Should Contain    \${output.stdout}    Generating Subsystem simulation control html" >> $testSuite
-    echo "    @{files}=    List Directory    \${SALWorkDir}/html/\${subSystem}" >> $testSuite
-    for file in "${xmls[@]}"; do
-        file=$(echo $file |sed "s/xml/html/")
-        echo "    File Should Exist    \${SALWorkDir}/html/\${subSystem}/$file" >> $testSuite
-    done
-    echo "    @{files}=    List Directory    \${SALWorkDir}/html/dbsimulate    pattern=*\${subSystem}*" >> $testSuite
+    echo "    Should Contain    \${output.stdout}    checking \${subSystem}" >> $testSuite
+    echo "    Should Contain    \${output.stdout}    checking apidoc" >> $testSuite
+    echo "    Should Contain    \${output.stdout}    Building API documentation for \${subSystem} subsystem" >> $testSuite
+    echo "    @{files}=    List Directory    \${SALHome}/doc/_build/html/apiDocumentation/SAL_\${subSystem}" >> $testSuite
     echo "    Log Many    @{files}" >> $testSuite
-    echo "    File Should Exist    \${SALWorkDir}/html/dbsimulate/index-dbsimulate.html" >> $testSuite
-    echo "    File Should Exist    \${SALWorkDir}/html/dbsimulate/index-dbsimulate-\${subSystem}.html" >> $testSuite
-    echo "    File Should Exist    \${SALWorkDir}/html/dbsimulate/index-simulate-\${subSystem}.html" >> $testSuite
-    echo "    File Should Exist    \${SALWorkDir}/idl-templates/validated/\${subSystem}_revCodes.tcl" >> $testSuite
+    echo "    File Should Exist    \${SALHome}/doc/_build/html/apiDocumentation/SAL_Test/index.html" >> $testSuite
+    echo "    File Should Exist    \${SALHome}/doc/_build/html/apiDocumentation/SAL_Test/SALPY_Test.html" >> $testSuite
     echo "" >> $testSuite
 }
 
 function revCodeDefinition() {
-    skipped=$(checkIfSkipped "html")
+    skipped=$(checkIfSkipped "doc")
     echo "Verify $subSystemUp revCodes File" >> $testSuite
     echo "    [Documentation]    Ensure ${subSystemUp}_revCodes.tcl contains 1 revcode per topic." >> $testSuite
-    echo "    [Tags]    html    $skipped" >> $testSuite
+    echo "    [Tags]    doc    $skipped" >> $testSuite
     echo "    \${output}=    Log File    \${SALWorkDir}/idl-templates/validated/\${subSystem}_revCodes.tcl" >> $testSuite
     for topic in "${commandArray[@]}"; do
         echo "    Should Match Regexp    \${output}    set REVCODE\\\(\${subSystem}_command_$topic\\\) [a-z0-9]{8,}" >> $testSuite
@@ -542,7 +535,6 @@ function createTestSuite() {
     echo "*** Test Cases ***" >> $testSuite
     verifyXMLDefinitions
     salgenValidate
-    #salgenHTML
     revCodeDefinition
     # Create and verfiy the RevCoded IDL files.
     salgenIDL
@@ -588,6 +580,8 @@ function createTestSuite() {
     fi
     # Move/Generate the SAL libraries.
     salgenLib "${rtlang[@]}"
+    # Generate the CSC documentation
+    salgenDOC
     # Generate the as-built SAL libraries RPM.
     salgenRPM "${rtlang[@]}"
     verifyRPM ${#commandArray[@]} ${#eventArray[@]} ${#telemetryArray[@]} "${rtlang[@]}"
