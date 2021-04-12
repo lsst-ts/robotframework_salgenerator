@@ -88,68 +88,13 @@ Salgen HVAC Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setLogLevel.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setValue.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setAuthList.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_chiller01P01_enable.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_chiller01P01_config.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_chiller02P01_enable.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_chiller02P01_config.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_chiller03P01_enable.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_chiller03P01_config.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_vea01P01_enable.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_vec01P01_enable.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_vin01P01_enable.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_crack01P02_enable.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_crack01P02_config.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_crack02P02_enable.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_crack02P02_config.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_fancoil01P02_config.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_fancoil01P02_enable.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_fancoil02P02_config.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_fancoil02P02_enable.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_fancoil03P02_config.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_fancoil03P02_enable.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_fancoil04P02_config.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_fancoil04P02_enable.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_fancoil05P02_config.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_fancoil05P02_enable.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_fancoil06P02_config.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_fancoil06P02_enable.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_fancoil07P02_config.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_fancoil07P02_enable.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_fancoil08P02_config.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_fancoil08P02_enable.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_fancoil09P02_config.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_fancoil09P02_enable.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_fancoil10P02_config.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_fancoil10P02_enable.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_fancoil11P02_config.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_fancoil11P02_enable.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_fancoil12P02_config.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_fancoil12P02_enable.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_manejadoraSblancaP04_enable.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_manejadoraSblancaP04_config.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_manejadoraSlimpiaP04_enable.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_manejadoraSlimpiaP04_config.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_vex03LowerP04_enable.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_vex04CargaP04_enable.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_manejadoraLower01P05_enable.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_manejadoraLower01P05_config.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_manejadoraLower02P05_enable.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_manejadoraLower02P05_config.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_manejadoraLower03P05_enable.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_manejadoraLower03P05_config.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_manejadoraLower04P05_enable.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_manejadoraLower04P05_config.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_vea01P05_enable.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_vea08P05_enable.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_vea09P05_enable.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_vea10P05_enable.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_vea11P05_enable.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_vea12P05_enable.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_vea13P05_enable.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_vea14P05_enable.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_vea15P05_enable.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_vea16P05_enable.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_vea17P05_enable.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enableDevice.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disableDevice.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_configChillers.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_configCracks.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_configFancoils.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_configManejadoras.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_configManejadoraLowers.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingVersions.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_errorCode.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_summaryState.idl
@@ -161,7 +106,12 @@ Salgen HVAC Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_softwareVersions.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_heartbeat.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_authList.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_detailedState.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_deviceEnabled.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_chillerConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_crackConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fancoilConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_manejadoraConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_manejadoraLowerConfiguration.idl
 
 Verify HVAC revCodes File
     [Documentation]    Ensure HVAC_revCodes.tcl contains 1 revcode per topic.
@@ -177,68 +127,13 @@ Verify HVAC revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setLogLevel\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setValue\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setAuthList\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_chiller01P01_enable\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_chiller01P01_config\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_chiller02P01_enable\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_chiller02P01_config\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_chiller03P01_enable\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_chiller03P01_config\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_vea01P01_enable\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_vec01P01_enable\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_vin01P01_enable\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_crack01P02_enable\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_crack01P02_config\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_crack02P02_enable\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_crack02P02_config\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_fancoil01P02_config\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_fancoil01P02_enable\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_fancoil02P02_config\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_fancoil02P02_enable\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_fancoil03P02_config\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_fancoil03P02_enable\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_fancoil04P02_config\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_fancoil04P02_enable\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_fancoil05P02_config\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_fancoil05P02_enable\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_fancoil06P02_config\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_fancoil06P02_enable\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_fancoil07P02_config\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_fancoil07P02_enable\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_fancoil08P02_config\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_fancoil08P02_enable\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_fancoil09P02_config\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_fancoil09P02_enable\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_fancoil10P02_config\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_fancoil10P02_enable\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_fancoil11P02_config\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_fancoil11P02_enable\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_fancoil12P02_config\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_fancoil12P02_enable\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_manejadoraSblancaP04_enable\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_manejadoraSblancaP04_config\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_manejadoraSlimpiaP04_enable\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_manejadoraSlimpiaP04_config\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_vex03LowerP04_enable\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_vex04CargaP04_enable\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_manejadoraLower01P05_enable\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_manejadoraLower01P05_config\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_manejadoraLower02P05_enable\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_manejadoraLower02P05_config\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_manejadoraLower03P05_enable\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_manejadoraLower03P05_config\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_manejadoraLower04P05_enable\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_manejadoraLower04P05_config\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_vea01P05_enable\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_vea08P05_enable\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_vea09P05_enable\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_vea10P05_enable\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_vea11P05_enable\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_vea12P05_enable\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_vea13P05_enable\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_vea14P05_enable\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_vea15P05_enable\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_vea16P05_enable\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_vea17P05_enable\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_enableDevice\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_disableDevice\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_configChillers\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_configCracks\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_configFancoils\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_configManejadoras\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_configManejadoraLowers\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_settingVersions\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_errorCode\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_summaryState\\) [a-z0-9]{8,}
@@ -250,7 +145,12 @@ Verify HVAC revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_softwareVersions\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_heartbeat\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_authList\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_detailedState\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_deviceEnabled\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_chillerConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_crackConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fancoilConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_manejadoraConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_manejadoraLowerConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_bombaAguaFriaP01\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_chiller01P01\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_chiller02P01\\) [a-z0-9]{8,}

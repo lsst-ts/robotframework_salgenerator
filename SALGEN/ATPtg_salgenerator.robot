@@ -37,7 +37,7 @@ Salgen ATPtg Validate
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_ackcmd.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_currentTargetStatus.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_guidingAndOffsets.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_guiding.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_timeAndDate.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_mountStatus.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_skyEnvironment.idl
@@ -129,6 +129,8 @@ Salgen ATPtg Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_pointingFile.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_timesOfLimits.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_validatedTarget.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_offsetSummary.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_pointData.idl
 
 Verify ATPtg revCodes File
     [Documentation]    Ensure ATPtg_revCodes.tcl contains 1 revcode per topic.
@@ -220,8 +222,10 @@ Verify ATPtg revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_pointingFile\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_timesOfLimits\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_validatedTarget\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_offsetSummary\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_pointData\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_currentTargetStatus\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_guidingAndOffsets\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_guiding\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_timeAndDate\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_mountStatus\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_skyEnvironment\\) [a-z0-9]{8,}
@@ -253,7 +257,7 @@ Salgen ATPtg C++
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_currentTargetStatus.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_guidingAndOffsets.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_guiding.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_timeAndDate.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_mountStatus.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_skyEnvironment.idl
@@ -279,7 +283,7 @@ Verify ATPtg Telemetry directories
     @{files}=    List Directory    ${SALWorkDir}    pattern=*${subSystem}*
     Log Many    @{files}
     Directory Should Exist    ${SALWorkDir}/${subSystem}_currentTargetStatus
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_guidingAndOffsets
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_guiding
     Directory Should Exist    ${SALWorkDir}/${subSystem}_timeAndDate
     Directory Should Exist    ${SALWorkDir}/${subSystem}_mountStatus
     Directory Should Exist    ${SALWorkDir}/${subSystem}_skyEnvironment
@@ -291,8 +295,8 @@ Verify ATPtg C++ Telemetry Interfaces
     [Tags]    cpp
     File Should Exist    ${SALWorkDir}/${subSystem}_currentTargetStatus/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_currentTargetStatus/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_guidingAndOffsets/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_guidingAndOffsets/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_guiding/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_guiding/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_timeAndDate/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_timeAndDate/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_mountStatus/cpp/standalone/sacpp_${subSystem}_pub
@@ -483,6 +487,10 @@ Verify ATPtg C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_timesOfLimits_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_validatedTarget_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_validatedTarget_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_offsetSummary_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_offsetSummary_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_pointData_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_pointData_log
 
 Salgen ATPtg Lib
     [Documentation]    Generate the SAL shared library for ${subSystem}
