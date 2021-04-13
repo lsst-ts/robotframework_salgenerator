@@ -37,7 +37,7 @@ Salgen MTPtg Validate
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_ackcmd.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_currentTargetStatus.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_guidingAndOffsets.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_guiding.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_timeAndDate.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_mountStatus.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_skyEnvironment.idl
@@ -129,6 +129,8 @@ Salgen MTPtg Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_pointingFile.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_timesOfLimits.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_validatedTarget.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_offsetSummary.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_pointData.idl
 
 Verify MTPtg revCodes File
     [Documentation]    Ensure MTPtg_revCodes.tcl contains 1 revcode per topic.
@@ -220,8 +222,10 @@ Verify MTPtg revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_pointingFile\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_timesOfLimits\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_validatedTarget\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_offsetSummary\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_pointData\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_currentTargetStatus\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_guidingAndOffsets\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_guiding\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_timeAndDate\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_mountStatus\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_skyEnvironment\\) [a-z0-9]{8,}
@@ -253,7 +257,7 @@ Salgen MTPtg C++
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_currentTargetStatus.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_guidingAndOffsets.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_guiding.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_timeAndDate.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_mountStatus.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_skyEnvironment.idl
@@ -279,7 +283,7 @@ Verify MTPtg Telemetry directories
     @{files}=    List Directory    ${SALWorkDir}    pattern=*${subSystem}*
     Log Many    @{files}
     Directory Should Exist    ${SALWorkDir}/${subSystem}_currentTargetStatus
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_guidingAndOffsets
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_guiding
     Directory Should Exist    ${SALWorkDir}/${subSystem}_timeAndDate
     Directory Should Exist    ${SALWorkDir}/${subSystem}_mountStatus
     Directory Should Exist    ${SALWorkDir}/${subSystem}_skyEnvironment
@@ -291,8 +295,8 @@ Verify MTPtg C++ Telemetry Interfaces
     [Tags]    cpp
     File Should Exist    ${SALWorkDir}/${subSystem}_currentTargetStatus/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_currentTargetStatus/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_guidingAndOffsets/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_guidingAndOffsets/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_guiding/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_guiding/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_timeAndDate/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_timeAndDate/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_mountStatus/cpp/standalone/sacpp_${subSystem}_pub
@@ -483,6 +487,10 @@ Verify MTPtg C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_timesOfLimits_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_validatedTarget_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_validatedTarget_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_offsetSummary_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_offsetSummary_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_pointData_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_pointData_log
 
 Salgen MTPtg Lib
     [Documentation]    Generate the SAL shared library for ${subSystem}
@@ -538,6 +546,38 @@ Salgen MTPtg RPM
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_utils-${SALVersion}-1.x86_64.rpm
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}-${XMLVersion}-${SALVersion}${dot}${Build_Number}${DIST}.x86_64.rpm
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}_test-${XMLVersion}-${SALVersion}${dot}${Build_Number}${DIST}.x86_64.rpm
+
+Verify MTPtg RPM Contents
+    [Documentation]    Verify the ${subSystem} contains all the expected libraries
+    [Tags]    rpm
+    Comment    Re-run the {dot} process, so this test case can run independently.
+    Run Keyword If    "${Build_Number}" == ""
+    ...    Set Test Variable    ${dot}    ${EMPTY}
+    Run Keyword Unless    "${Build_Number}" == ""
+    ...    Set Test Variable    ${dot}    .
+    ${output}=    Run Process    rpm    -qpl    ${subSystem}-${XMLVersion}-${SALVersion}${dot}${Build_Number}${DIST}.x86_64.rpm    cwd=${SALWorkDir}/rpmbuild/RPMS/x86_64
+    Log Many    ${output.stdout}    ${output.stderr}
+    Should Not Contain    ${output.stderr}    error
+    Should Not Contain    ${output.stderr}    No such file or directory
+    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/idl/sal_revCoded_${subSystem}.idl
+    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/scripts/${subSystem}_revCodes.tcl
+    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/lib/libSAL_${subSystem}.so
+    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/lib/libSAL_${subSystem}.a
+    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/SAL_${subSystem}.h
+    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/SAL_${subSystem}.h
+    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/SAL_defines.h
+    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/ccpp_sal_${subSystem}.h
+    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/sal_${subSystem}Dcps.h
+    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/sal_${subSystem}Dcps_impl.h
+    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/sal_${subSystem}SplDcps.h
+    Comment    Verify the interface definition files are included.
+    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Generics.xml
+    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Commands.xml
+    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Commands.html
+    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Events.xml
+    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Events.html
+    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Telemetry.xml
+    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Telemetry.html
 
 Cleanup stdout and stderr Files
     [Tags]

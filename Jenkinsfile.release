@@ -81,7 +81,7 @@ node {
                 'echo cd ' + _home + '/trunk/robotframework_salgenerator \n' +
                 'cd ' + _home + '/trunk/robotframework_salgenerator \n' +
                 'pwd \n' +
-                'robot --variable ContInt:true -e skipped --noncritical TSS* --noncritical DM* --variable SALVersion:' + SAL_Version + ' ' +
+                'robot --variable ContInt:true -e skipped --skiponfailure TSS* --skiponfailure DM* --variable SALVersion:' + SAL_Version + ' ' +
                     '--variable SALInstall:' + _home + '/trunk/ts_sal --variable OpenspliceRelease:\'OpenSplice HDE Release\' ' + 
                     '--variable OpenspliceVersion:6.9.181127OSS --variable OpenspliceDate:2018-11-28 --variable PythonVersion:\'Python ' + _python_version + '\' ' +
                     '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:"" ' + 
@@ -98,7 +98,7 @@ node {
                         'cd ' + _home + '/trunk/robotframework_salgenerator \n' +
                         'pwd \n' +
                         'echo ========= Execute AuxTel salgenerator tests ========= \n' +
-                        'robot --variable ContInt:true -e skipped --noncritical TSS* --noncritical DM* --variable SALVersion:' + SAL_Version + ' ' +
+                        'robot --variable ContInt:true -e skipped --skiponfailure TSS* --skiponfailure DM* --variable SALVersion:' + SAL_Version + ' ' +
                             '--variable SALInstall:' + _home + '/trunk/ts_sal --variable OpenspliceRelease:\'OpenSplice HDE Release\' ' +
                             '--variable OpenspliceVersion:6.9.181127OSS --variable OpenspliceDate:2018-11-28 --variable PythonVersion:\'Python ' + _python_version + '\' ' +
                             '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:"" ' +
@@ -113,7 +113,7 @@ node {
                         'cd ' + _home + '/trunk/robotframework_salgenerator \n' +
                         'pwd \n' +
                         'echo ========= Execute MainTel salgenerator tests ========= \n' +
-                        'robot --variable ContInt:true -e skipped --noncritical TSS* --noncritical DM* --variable SALVersion:' + SAL_Version + ' ' +
+                        'robot --variable ContInt:true -e skipped --skiponfailure TSS* --skiponfailure DM* --variable SALVersion:' + SAL_Version + ' ' +
                             '--variable SALInstall:' + _home + '/trunk/ts_sal --variable OpenspliceRelease:\'OpenSplice HDE Release\' ' +
                             '--variable OpenspliceVersion:6.9.181127OSS --variable OpenspliceDate:2018-11-28 --variable PythonVersion:\'Python ' + _python_version + '\' ' +
                             '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:"" ' +
@@ -130,7 +130,7 @@ node {
                         'echo cd ' + _home + '/trunk/robotframework_SAL \n' +
                         'cd ' + _home + '/trunk/robotframework_SAL \n' +
                         'echo ========= Execute SAL messaging tests ========= \n' +
-                        'robot --outputdir ' + _home + '/Reports --variable ContInt:true -e skipped --noncritical TSS* --noncritical DM* ' +
+                        'robot --outputdir ' + _home + '/Reports --variable ContInt:true -e skipped --skiponfailure TSS* --skiponfailure DM* ' +
                             '--variable SALVersion:' + SAL_Version + ' --variable SALInstall:' + _home + '/trunk/ts_sal ' +
                             '--variable OpenspliceRelease:\'OpenSplice HDE Release\' ' +
                             '--variable OpenspliceVersion:6.9.181127OSS --variable OpenspliceDate:2018-11-28 ' + 
@@ -144,7 +144,7 @@ node {
                         'echo cd ' + _home + '/trunk/robotframework_SAL \n' +
                         'cd ' + _home + '/trunk/robotframework_SAL \n' +
                         'echo Start \n' +
-                        'robot --outputdir ' + _home + '/Reports --variable ContInt:true -e skipped --noncritical TSS* --noncritical DM* ' +
+                        'robot --outputdir ' + _home + '/Reports --variable ContInt:true -e skipped --skiponfailure TSS* --skiponfailure DM* ' +
                             '--variable SALVersion:' + SAL_Version + ' --variable SALInstall:' + _home + '/trunk/ts_sal ' +
                             '--variable OpenspliceRelease:\'OpenSplice HDE Release\' ' +
                             '--variable OpenspliceVersion:6.9.181127OSS --variable OpenspliceDate:2018-11-28 ' + 
@@ -162,7 +162,7 @@ node {
                         'echo cd ' + _home + '/trunk/robotframework_SAL \n' +
                         'cd ' + _home + '/trunk/robotframework_SAL \n' +
                         'echo ========= Execute SAL Java messaging tests ========= \n' +
-                        'robot --outputdir ' + _home + '/Reports --variable ContInt:true -e skipped --noncritical TSS* --noncritical DM* ' +
+                        'robot --outputdir ' + _home + '/Reports --variable ContInt:true -e skipped --skiponfailure TSS* --skiponfailure DM* ' +
                             '--variable SALVersion:' + SAL_Version + ' --variable SALInstall:' + _home + '/trunk/ts_sal ' +
                             '--variable OpenspliceRelease:\'OpenSplice HDE Release\' ' +
                             '--variable OpenspliceVersion:6.9.181127OSS --variable OpenspliceDate:2018-11-28 ' +
@@ -190,7 +190,7 @@ node {
                     _home + '/Reports/$item does not exist!; fi\n' +
                 '\t(( i++ ))\n' + 'done\n' + 
                 'echo ========= Generate the reports =========\n' +
-                'rebot --nostatusrc --noncritical TSS* --noncritical DM* --outputdir ' + _home + '/Reports --name RPM_Generation -o rpm_output.xml -l rpm_log.html ' +
+                'rebot --nostatusrc --outputdir ' + _home + '/Reports --name RPM_Generation -o rpm_output.xml -l rpm_log.html ' +
                 '-r rpm_report.html ${array[@]}\n' +
                 'echo Robot Report Complete'
             }

@@ -36,10 +36,7 @@ Salgen MTVMS Validate
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_ackcmd.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_m1m3.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_tma.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_m2.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_cameraRotator.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_data.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_abort.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
@@ -50,7 +47,7 @@ Salgen MTVMS Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setLogLevel.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setValue.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setAuthList.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_shutdown.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_changeSampleRate.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingVersions.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_errorCode.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_summaryState.idl
@@ -78,7 +75,7 @@ Verify MTVMS revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setLogLevel\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setValue\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setAuthList\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_shutdown\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_changeSampleRate\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_settingVersions\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_errorCode\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_summaryState\\) [a-z0-9]{8,}
@@ -91,10 +88,7 @@ Verify MTVMS revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_heartbeat\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_authList\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_acquisitionRate\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_m1m3\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_tma\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_m2\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_cameraRotator\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_data\\) [a-z0-9]{8,}
 
 Salgen MTVMS IDL
     [Documentation]    Generate the revCoded IDL for ${subSystem}
@@ -162,6 +156,29 @@ Salgen MTVMS RPM
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_utils-${SALVersion}-1.x86_64.rpm
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}-${XMLVersion}-${SALVersion}${dot}${Build_Number}${DIST}.x86_64.rpm
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}_test-${XMLVersion}-${SALVersion}${dot}${Build_Number}${DIST}.x86_64.rpm
+
+Verify MTVMS RPM Contents
+    [Documentation]    Verify the ${subSystem} contains all the expected libraries
+    [Tags]    rpm
+    Comment    Re-run the {dot} process, so this test case can run independently.
+    Run Keyword If    "${Build_Number}" == ""
+    ...    Set Test Variable    ${dot}    ${EMPTY}
+    Run Keyword Unless    "${Build_Number}" == ""
+    ...    Set Test Variable    ${dot}    .
+    ${output}=    Run Process    rpm    -qpl    ${subSystem}-${XMLVersion}-${SALVersion}${dot}${Build_Number}${DIST}.x86_64.rpm    cwd=${SALWorkDir}/rpmbuild/RPMS/x86_64
+    Log Many    ${output.stdout}    ${output.stderr}
+    Should Not Contain    ${output.stderr}    error
+    Should Not Contain    ${output.stderr}    No such file or directory
+    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/idl/sal_revCoded_${subSystem}.idl
+    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/scripts/${subSystem}_revCodes.tcl
+    Comment    Verify the interface definition files are included.
+    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Generics.xml
+    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Commands.xml
+    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Commands.html
+    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Events.xml
+    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Events.html
+    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Telemetry.xml
+    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Telemetry.html
 
 Cleanup stdout and stderr Files
     [Tags]

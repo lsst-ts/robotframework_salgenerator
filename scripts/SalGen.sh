@@ -417,6 +417,72 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     echo "" >> $testSuite
 }
 
+function verifyRPM() {
+    commandsArray="$1"
+    eventsArray="$2"
+    telemetryArray="$3"
+    shift 3
+    skipped=$(checkIfSkipped $subSystem "rpm")
+    echo "Verify $subSystemUp RPM Contents" >> $testSuite
+    echo "    [Documentation]    Verify the \${subSystem} contains all the expected libraries" >> $testSuite
+    echo "    [Tags]    rpm$skipped" >> $testSuite
+    echo "    Comment    Re-run the {dot} process, so this test case can run independently." >> $testSuite
+    echo "    Run Keyword If    \"\${Build_Number}\" == \"\"" >> $testSuite
+    echo "    ...    Set Test Variable    \${dot}    \${EMPTY}" >> $testSuite
+    echo "    Run Keyword Unless    \"\${Build_Number}\" == \"\"" >> $testSuite
+    echo "    ...    Set Test Variable    \${dot}    ." >> $testSuite
+    echo "    \${output}=    Run Process    rpm    -qpl    \${subSystem}-\${XMLVersion}-\${SALVersion}\${dot}\${Build_Number}\${DIST}.x86_64.rpm    cwd=\${SALWorkDir}/rpmbuild/RPMS/x86_64" >> $testSuite
+    echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
+    echo "    Should Not Contain    \${output.stderr}    error" >> $testSuite
+    echo "    Should Not Contain    \${output.stderr}    No such file or directory" >> $testSuite
+    echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_sal/idl/sal_revCoded_\${subSystem}.idl" >> $testSuite
+    echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_sal/scripts/\${subSystem}_revCodes.tcl" >> $testSuite
+    if [[ "$@" =~ "CPP" ]]; then
+        echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_sal/lib/libSAL_\${subSystem}.so" >> $testSuite
+        echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_sal/lib/libSAL_\${subSystem}.a" >> $testSuite
+        echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_sal/include/SAL_\${subSystem}.h" >> $testSuite
+        echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_sal/include/SAL_\${subSystem}.h" >> $testSuite
+        echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_sal/include/SAL_defines.h" >> $testSuite
+        echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_sal/include/ccpp_sal_\${subSystem}.h" >> $testSuite
+        echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_sal/include/sal_\${subSystem}Dcps.h" >> $testSuite
+        echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_sal/include/sal_\${subSystem}Dcps_impl.h" >> $testSuite
+        echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_sal/include/sal_\${subSystem}SplDcps.h" >> $testSuite
+    fi
+    if [[ "$@" =~ "SALPY" ]]; then
+        echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_sal/lib/SALPY_\${subSystem}.so" >> $testSuite
+    fi
+    if [[ "$@" =~ "LabVIEW" ]]; then
+        echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_sal/bin/SALLV_\${subSystem}_Monitor" >> $testSuite
+        echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_sal/labview/lib/SALLV_\${subSystem}.so" >> $testSuite
+        echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_sal/labview/sal_\${subSystem}.idl" >> $testSuite
+        echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_sal/include/SAL_\${subSystem}.h" >> $testSuite
+        echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_sal/include/SAL_\${subSystem}C.h" >> $testSuite
+        echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_sal/include/SAL_\${subSystem}LV.h" >> $testSuite
+        echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_sal/include/SAL_\${subSystem}_shmem.h" >> $testSuite
+    fi
+    echo "    Comment    Verify the interface definition files are included." >> $testSuite
+    echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/\${subSystem}/\${subSystem}_Generics.xml" >> $testSuite
+    if test -f $HOME/trunk/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Commands.xml; then
+        echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/\${subSystem}/\${subSystem}_Commands.xml" >> $testSuite
+    fi
+    if [[ $commandsArray -ne 0 ]]; then
+        echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/\${subSystem}/\${subSystem}_Commands.html" >> $testSuite
+    fi
+    if test -f $HOME/trunk/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Events.xml; then
+        echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/\${subSystem}/\${subSystem}_Events.xml" >> $testSuite
+    fi
+    if [[ $eventsArray -ne 0 ]]; then
+        echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/\${subSystem}/\${subSystem}_Events.html" >> $testSuite
+    fi
+    if test -f $HOME/trunk/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Telemetry.xml; then
+        echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/\${subSystem}/\${subSystem}_Telemetry.xml" >> $testSuite
+    fi
+    if [[ $telemetryArray -ne 0 ]]; then
+        echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/\${subSystem}/\${subSystem}_Telemetry.html" >> $testSuite
+    fi
+    echo "" >> $testSuite
+}
+
 function salgenIDL() {
     skipped=$(checkIfSkipped $subSystem "idl")
     echo "Salgen $subSystemUp IDL" >> $testSuite
@@ -450,8 +516,11 @@ function createTestSuite() {
     declare -a xmls=($(ls $HOME/trunk/ts_xml/sal_interfaces/$subSystem))
     # Declare topic arrays
     declare -a telemetryArray=($(getTelemetryTopics $subSystem))
+    #echo ${telemetryArray[@]}
     declare -a commandArray=($(getCommandTopics $subSystem))
+    #echo ${commandArray[@]}
     declare -a eventArray=($(getEventTopics $subSystem))
+    #echo ${eventArray[@]}
 
     #  Check if test suite should be skipped.
     skipped=$(checkIfSkipped $subSystem $topic)
@@ -459,8 +528,10 @@ function createTestSuite() {
     #  Get list of languages to build
     temp=$(getRuntimeLanguages $subSystem)
     IFS=', ' read -r -a rtlang <<< "${temp[0]}"
-    if [[ ${rtlang[@]} =~ "SALPY" || ${rtlang[@]} =~ "LabVIEW" ]]; then
-        rtlang+=('CPP')
+    if ! [[ ${rtlang[@]} =~ "CPP" ]]; then
+        if [[ ${rtlang[@]} =~ "SALPY" || ${rtlang[@]} =~ "LabVIEW" ]]; then
+            rtlang+=('CPP')
+        fi
     fi
     echo "Runtime languages to build: ${rtlang[@]}"
 
@@ -519,6 +590,7 @@ function createTestSuite() {
     salgenLib "${rtlang[@]}"
     # Generate the as-built SAL libraries RPM.
     salgenRPM "${rtlang[@]}"
+    verifyRPM ${#commandArray[@]} ${#eventArray[@]} ${#telemetryArray[@]} "${rtlang[@]}"
     # Run the Maven tests.
     if [[ ${rtlang[@]} =~ "Java" ]]; then
         salgenMaven

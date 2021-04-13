@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation    This suite builds the various interfaces for the ATDomeTrajectory.
+Documentation    This suite builds the various interfaces for the DREAM.
 Force Tags    salgen    
 Suite Setup    Log Many    ${Host}    ${subSystem}    ${timeout}
 Library    OperatingSystem
@@ -7,22 +7,22 @@ Library    Process
 Resource    ../Global_Vars.resource
 
 *** Variables ***
-${subSystem}    ATDomeTrajectory
+${subSystem}    DREAM
 ${timeout}    1200s
 
 *** Test Cases ***
-Verify ATDomeTrajectory XML Defintions exist
+Verify DREAM XML Defintions exist
     [Tags]
     Comment    Verify the CSC XML definition files exist.
-    ${output}    Run Process    ls     ${SALWorkDir}/ATDomeTrajectory_*.xml    shell=True
+    ${output}    Run Process    ls     ${SALWorkDir}/DREAM_*.xml    shell=True
     Log Many    ${output.stdout}    ${output.stderr}
-    Should Not Contain    ${output.stderr}    No such file or directory    msg="ATDomeTrajectory has no XML defintions"    values=False
+    Should Not Contain    ${output.stderr}    No such file or directory    msg="DREAM has no XML defintions"    values=False
     Should Not Be Empty    ${output.stdout}
-    File Should Exist    ${SALWorkDir}/ATDomeTrajectory_Commands.xml
-    File Should Exist    ${SALWorkDir}/ATDomeTrajectory_Events.xml
+    File Should Exist    ${SALWorkDir}/DREAM_Commands.xml
+    File Should Exist    ${SALWorkDir}/DREAM_Telemetry.xml
 
-Salgen ATDomeTrajectory Validate
-    [Documentation]    Validate the ATDomeTrajectory XML definitions.
+Salgen DREAM Validate
+    [Documentation]    Validate the DREAM XML definitions.
     [Tags]    validate
     ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    validate    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
@@ -35,6 +35,8 @@ Salgen ATDomeTrajectory Validate
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_ackcmd.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_status.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_dataProduct.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_abort.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
@@ -45,7 +47,11 @@ Salgen ATDomeTrajectory Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setLogLevel.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setValue.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setAuthList.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setFollowingMode.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setEnabled.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_operate.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_status.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setWeatherInfo.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_getDataProduct.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingVersions.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_errorCode.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_summaryState.idl
@@ -57,11 +63,9 @@ Salgen ATDomeTrajectory Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_softwareVersions.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_heartbeat.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_authList.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_algorithm.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_followingMode.idl
 
-Verify ATDomeTrajectory revCodes File
-    [Documentation]    Ensure ATDomeTrajectory_revCodes.tcl contains 1 revcode per topic.
+Verify DREAM revCodes File
+    [Documentation]    Ensure DREAM_revCodes.tcl contains 1 revcode per topic.
     [Tags]    html    
     ${output}=    Log File    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_abort\\) [a-z0-9]{8,}
@@ -74,7 +78,11 @@ Verify ATDomeTrajectory revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setLogLevel\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setValue\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setAuthList\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setFollowingMode\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setEnabled\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_operate\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_status\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setWeatherInfo\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_getDataProduct\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_settingVersions\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_errorCode\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_summaryState\\) [a-z0-9]{8,}
@@ -86,10 +94,10 @@ Verify ATDomeTrajectory revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_softwareVersions\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_heartbeat\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_authList\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_algorithm\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_followingMode\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_status\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_dataProduct\\) [a-z0-9]{8,}
 
-Salgen ATDomeTrajectory IDL
+Salgen DREAM IDL
     [Documentation]    Generate the revCoded IDL for ${subSystem}
     [Tags]    idl
     ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    sal    idl    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
@@ -103,7 +111,7 @@ Salgen ATDomeTrajectory IDL
     File Should Exist    ${SALWorkDir}/idl-templates/validated/sal/sal_${subSystem}.idl
     File Should Exist    ${SALWorkDir}/idl-templates/validated/sal/sal_revCoded_${subSystem}.idl
 
-Salgen ATDomeTrajectory Lib
+Salgen DREAM Lib
     [Documentation]    Generate the SAL shared library for ${subSystem}
     [Tags]    lib
     ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    lib    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
@@ -115,7 +123,7 @@ Salgen ATDomeTrajectory Lib
     @{files}=    List Directory    ${SALWorkDir}/lib    pattern=*${subSystem}*
     Log Many    @{files}
 
-Salgen ATDomeTrajectory RPM
+Salgen DREAM RPM
     [Documentation]    Generate the SAL runtime RPM for ${subSystem}
     [Tags]    rpm
     Log Many    ${XMLVersion}    ${SALVersion}    ${Build_Number}    ${DIST}
@@ -156,7 +164,7 @@ Salgen ATDomeTrajectory RPM
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}-${XMLVersion}-${SALVersion}${dot}${Build_Number}${DIST}.x86_64.rpm
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}_test-${XMLVersion}-${SALVersion}${dot}${Build_Number}${DIST}.x86_64.rpm
 
-Verify ATDomeTrajectory RPM Contents
+Verify DREAM RPM Contents
     [Documentation]    Verify the ${subSystem} contains all the expected libraries
     [Tags]    rpm
     Comment    Re-run the {dot} process, so this test case can run independently.
@@ -174,8 +182,9 @@ Verify ATDomeTrajectory RPM Contents
     Should Contain     ${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Generics.xml
     Should Contain     ${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Commands.xml
     Should Contain     ${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Commands.html
-    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Events.xml
     Should Contain     ${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Events.html
+    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Telemetry.xml
+    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Telemetry.html
 
 Cleanup stdout and stderr Files
     [Tags]

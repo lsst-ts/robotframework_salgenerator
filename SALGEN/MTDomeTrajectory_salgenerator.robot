@@ -18,6 +18,7 @@ Verify MTDomeTrajectory XML Defintions exist
     Log Many    ${output.stdout}    ${output.stderr}
     Should Not Contain    ${output.stderr}    No such file or directory    msg="MTDomeTrajectory has no XML defintions"    values=False
     Should Not Be Empty    ${output.stdout}
+    File Should Exist    ${SALWorkDir}/MTDomeTrajectory_Commands.xml
     File Should Exist    ${SALWorkDir}/MTDomeTrajectory_Events.xml
 
 Salgen MTDomeTrajectory Validate
@@ -44,6 +45,7 @@ Salgen MTDomeTrajectory Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setLogLevel.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setValue.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setAuthList.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setFollowingMode.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingVersions.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_errorCode.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_summaryState.idl
@@ -56,6 +58,7 @@ Salgen MTDomeTrajectory Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_heartbeat.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_authList.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_algorithm.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_followingMode.idl
 
 Verify MTDomeTrajectory revCodes File
     [Documentation]    Ensure MTDomeTrajectory_revCodes.tcl contains 1 revcode per topic.
@@ -71,6 +74,7 @@ Verify MTDomeTrajectory revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setLogLevel\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setValue\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setAuthList\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setFollowingMode\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_settingVersions\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_errorCode\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_summaryState\\) [a-z0-9]{8,}
@@ -83,6 +87,7 @@ Verify MTDomeTrajectory revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_heartbeat\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_authList\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_algorithm\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_followingMode\\) [a-z0-9]{8,}
 
 Salgen MTDomeTrajectory IDL
     [Documentation]    Generate the revCoded IDL for ${subSystem}
@@ -150,6 +155,27 @@ Salgen MTDomeTrajectory RPM
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_utils-${SALVersion}-1.x86_64.rpm
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}-${XMLVersion}-${SALVersion}${dot}${Build_Number}${DIST}.x86_64.rpm
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}_test-${XMLVersion}-${SALVersion}${dot}${Build_Number}${DIST}.x86_64.rpm
+
+Verify MTDomeTrajectory RPM Contents
+    [Documentation]    Verify the ${subSystem} contains all the expected libraries
+    [Tags]    rpm
+    Comment    Re-run the {dot} process, so this test case can run independently.
+    Run Keyword If    "${Build_Number}" == ""
+    ...    Set Test Variable    ${dot}    ${EMPTY}
+    Run Keyword Unless    "${Build_Number}" == ""
+    ...    Set Test Variable    ${dot}    .
+    ${output}=    Run Process    rpm    -qpl    ${subSystem}-${XMLVersion}-${SALVersion}${dot}${Build_Number}${DIST}.x86_64.rpm    cwd=${SALWorkDir}/rpmbuild/RPMS/x86_64
+    Log Many    ${output.stdout}    ${output.stderr}
+    Should Not Contain    ${output.stderr}    error
+    Should Not Contain    ${output.stderr}    No such file or directory
+    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/idl/sal_revCoded_${subSystem}.idl
+    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/scripts/${subSystem}_revCodes.tcl
+    Comment    Verify the interface definition files are included.
+    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Generics.xml
+    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Commands.xml
+    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Commands.html
+    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Events.xml
+    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Events.html
 
 Cleanup stdout and stderr Files
     [Tags]
