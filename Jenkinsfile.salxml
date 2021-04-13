@@ -35,7 +35,7 @@ pipeline {
             args '-w ' + _home + ' -e AWS_ACCESS_KEY_ID=$aws_key_id -e AWS_SECRET_ACCESS_KEY=$aws_secret_key ' + 
             '-e NEXUS_USER=$nexus_user -e NEXUS_PASS=$nexus_pass -e OSPL_URI=$ospl_uri -e DDS_QOS=$dds_qos ' +
             '-e LSST_DDS_PARTITION_PREFIX=citest -v ${WORKSPACE}:' + _home + '/trunk'
-            label 'Node2_8CPU || Conda_Build_Node'
+            label 'Node2_8CPU || CSC_Conda_Node'
          }
     }
     stages {
