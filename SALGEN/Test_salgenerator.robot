@@ -359,21 +359,6 @@ Salgen Test Lib
     File Should Exist    ${SALWorkDir}/lib/SALLV_${subSystem}.so
     File Should Exist    ${SALWorkDir}/lib/saj_${subSystem}_types.jar
 
-Salgen Test Doc
-    [Documentation]    Create the CSC documentation.
-    [Tags]    doc    
-    ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    apidoc    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
-    Log Many    ${output.stdout}    ${output.stderr}
-    Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
-    Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
-    Should Contain    ${output.stdout}    checking ${subSystem}
-    Should Contain    ${output.stdout}    checking apidoc
-    Should Contain    ${output.stdout}    Building API documentation for ${subSystem} subsystem
-    @{files}=    List Directory    ${SALHome}/doc/_build/html/apiDocumentation/SAL_${subSystem}
-    Log Many    @{files}
-    File Should Exist    ${SALHome}/doc/_build/html/apiDocumentation/SAL_Test/index.html
-    File Should Exist    ${SALHome}/doc/_build/html/apiDocumentation/SAL_Test/SALPY_Test.html
-
 Salgen Test RPM
     [Documentation]    Generate the SAL runtime RPM for ${subSystem}
     [Tags]    rpm
