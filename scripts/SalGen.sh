@@ -377,10 +377,8 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     echo "    Should Be Empty    \${output.stderr}" >> $testSuite
     echo "    File Should Exist    /tmp/makerpm_\${subSystem}.log" >> $testSuite
     echo "    File Should Exist    /tmp/makerpm_\${subSystem}_test.log" >> $testSuite
-    echo "    File Should Exist    /tmp/makerpm-utils.log" >> $testSuite
     echo "    Log File    /tmp/makerpm_\${subSystem}.log" >> $testSuite
     echo "    Log File    /tmp/makerpm_\${subSystem}_test.log" >> $testSuite
-    echo "    Log File    /tmp/makerpm-utils.log" >> $testSuite
     echo "    Should Not Contain    \${output.stdout}    ERROR : Asset required for rpm" >> $testSuite
     echo "    Should Not Contain    \${output.stdout}    child process exited abnormally" >> $testSuite
     echo "    Should Contain    \${output.stdout}    SAL generator - \${SALVersion}" >> $testSuite
@@ -404,20 +402,19 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     echo "    File Should Exist    \${SALWorkDir}/rpmbuild/SOURCES/\${subSystem}-\${XMLVersion}.tgz" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_runtime-\${XMLVersion}-\${SALVersion}\${dot}\${Build_Number}\${DIST}.x86_64.rpm" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_ATruntime-\${XMLVersion}-\${SALVersion}\${dot}\${Build_Number}\${DIST}.x86_64.rpm" >> $testSuite
-    echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_utils-\${SALVersion}-1.x86_64.rpm" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/\${subSystem}-\${XMLVersion}-\${SALVersion}\${dot}\${Build_Number}\${DIST}.x86_64.rpm" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/\${subSystem}_test-\${XMLVersion}-\${SALVersion}\${dot}\${Build_Number}\${DIST}.x86_64.rpm" >> $testSuite
     echo "" >> $testSuite
 }
 
 function verifyRPM() {
-    commandsArray="$1"
-    eventsArray="$2"
-    telemetryArray="$3"
+    commandsLen="$1"
+    eventsLen="$2"
+    telemetryLen="$3"
     shift 3
     skipped=$(checkIfSkipped $subSystem "rpm")
     echo "Verify $subSystemUp RPM Contents" >> $testSuite
-    echo "    [Documentation]    Verify the \${subSystem} contains all the expected libraries" >> $testSuite
+    echo "    [Documentation]    Verify the \${subSystem} RPM contains all the expected libraries" >> $testSuite
     echo "    [Tags]    rpm$skipped" >> $testSuite
     echo "    Comment    Re-run the {dot} process, so this test case can run independently." >> $testSuite
     echo "    Run Keyword If    \"\${Build_Number}\" == \"\"" >> $testSuite
@@ -458,21 +455,59 @@ function verifyRPM() {
     if test -f $HOME/trunk/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Commands.xml; then
         echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/\${subSystem}/\${subSystem}_Commands.xml" >> $testSuite
     fi
-    if [[ $commandsArray -ne 0 ]]; then
+    if [[ $commandsLen -ne 0 ]]; then
         echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/\${subSystem}/\${subSystem}_Commands.html" >> $testSuite
     fi
     if test -f $HOME/trunk/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Events.xml; then
         echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/\${subSystem}/\${subSystem}_Events.xml" >> $testSuite
     fi
-    if [[ $eventsArray -ne 0 ]]; then
+    if [[ $eventsLen -ne 0 ]]; then
         echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/\${subSystem}/\${subSystem}_Events.html" >> $testSuite
     fi
     if test -f $HOME/trunk/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Telemetry.xml; then
         echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/\${subSystem}/\${subSystem}_Telemetry.xml" >> $testSuite
     fi
-    if [[ $telemetryArray -ne 0 ]]; then
+    if [[ $telemetryLen -ne 0 ]]; then
         echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/\${subSystem}/\${subSystem}_Telemetry.html" >> $testSuite
     fi
+    echo "" >> $testSuite
+}
+
+function verifyTestRPM() {
+    skipped=$(checkIfSkipped $subSystem "rpm")
+    echo "Verify $subSystemUp TEST RPM Contents" >> $testSuite
+    echo "    [Documentation]    Verify the \${subSystem} TEST RPM contains all the expected libraries" >> $testSuite
+    echo "    [Tags]    rpm$skipped" >> $testSuite
+    echo "    Comment    Re-run the {dot} process, so this test case can run independently." >> $testSuite
+    echo "    Run Keyword If    \"\${Build_Number}\" == \"\"" >> $testSuite
+    echo "    ...    Set Test Variable    \${dot}    \${EMPTY}" >> $testSuite
+    echo "    Run Keyword Unless    \"\${Build_Number}\" == \"\"" >> $testSuite
+    echo "    ...    Set Test Variable    \${dot}    ." >> $testSuite
+    echo "    \${output}=    Run Process    rpm    -qpl    \${subSystem}_test-\${XMLVersion}-\${SALVersion}\${dot}\${Build_Number}\${DIST}.x86_64.rpm    cwd=\${SALWorkDir}/rpmbuild/RPMS/x86_64" >> $testSuite
+    echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
+    echo "    Should Not Contain    \${output.stderr}    error" >> $testSuite
+    echo "    Should Not Contain    \${output.stderr}    No such file or directory" >> $testSuite
+    echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_sal/lib/libSAL_\${subSystem}.so" >> $testSuite
+    echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_sal/lib/libSAL_\${subSystem}.a" >> $testSuite
+    echo "    Comment    Verify the TEST RPM contains the test programs." >> $testSuite
+    echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_\${subSystem}_all_commander" >> $testSuite
+    echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_\${subSystem}_all_controller" >> $testSuite
+    echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_\${subSystem}_all_logger" >> $testSuite
+    echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_\${subSystem}_all_publisher" >> $testSuite
+    echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_\${subSystem}_all_sender" >> $testSuite
+    echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_\${subSystem}_all_subscriber" >> $testSuite
+    for topic in "${commandArray[@]}"; do
+        echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_\${subSystem}_${topic}_commander" >> $testSuite
+        echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_\${subSystem}_${topic}_controller" >> $testSuite
+    done
+    for topic in "${eventArray[@]}"; do
+        echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_\${subSystem}_${topic}_send" >> $testSuite
+        echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_\${subSystem}_${topic}_log" >> $testSuite
+    done
+    for topic in "${telemetryArray[@]}"; do
+        echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_\${subSystem}_${topic}_publisher" >> $testSuite
+        echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_\${subSystem}_${topic}_subscriber" >> $testSuite
+    done
     echo "" >> $testSuite
 }
 
@@ -585,6 +620,9 @@ function createTestSuite() {
     # Generate the as-built SAL libraries RPM.
     salgenRPM "${rtlang[@]}"
     verifyRPM ${#commandArray[@]} ${#eventArray[@]} ${#telemetryArray[@]} "${rtlang[@]}"
+    if [[ ${rtlang[@]} =~ "CPP" ]]; then
+        verifyTestRPM 
+    fi
     # Run the Maven tests.
     if [[ ${rtlang[@]} =~ "Java" ]]; then
         salgenMaven
