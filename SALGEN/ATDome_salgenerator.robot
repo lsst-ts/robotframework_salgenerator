@@ -84,7 +84,7 @@ Salgen ATDome Validate
 
 Verify ATDome revCodes File
     [Documentation]    Ensure ATDome_revCodes.tcl contains 1 revcode per topic.
-    [Tags]    html    
+    [Tags]    doc    
     ${output}=    Log File    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_abort\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_enable\\) [a-z0-9]{8,}
@@ -158,6 +158,21 @@ Salgen ATDome Lib
     @{files}=    List Directory    ${SALWorkDir}/lib    pattern=*${subSystem}*
     Log Many    @{files}
 
+Salgen ATDome Doc
+    [Documentation]    Create the CSC documentation.
+    [Tags]    doc
+    ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    apidoc    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
+    Log Many    ${output.stdout}    ${output.stderr}
+    Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
+    Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
+    Should Contain    ${output.stdout}    checking ${subSystem}
+    Should Contain    ${output.stdout}    checking apidoc
+    Should Contain    ${output.stdout}    Building API documentation for ${subSystem} subsystem
+    Directory Should Exist    ${SALHome}/doc/_build/html/apiDocumentation/SAL_${subSystem}
+    @{files}=    List Directory    ${SALHome}/doc/_build/html/apiDocumentation/SAL_${subSystem}
+    Log Many    @{files}
+    File Should Exist    ${SALHome}/doc/_build/html/apiDocumentation/SAL_${subSystem}/index.html
+
 Salgen ATDome RPM
     [Documentation]    Generate the SAL runtime RPM for ${subSystem}
     [Tags]    rpm
@@ -167,11 +182,7 @@ Salgen ATDome RPM
     @{files}=    List Directory    /tmp/
     Should Be Empty    ${output.stderr}
     File Should Exist    /tmp/makerpm_${subSystem}.log
-    File Should Exist    /tmp/makerpm_${subSystem}_test.log
-    File Should Exist    /tmp/makerpm-utils.log
     Log File    /tmp/makerpm_${subSystem}.log
-    Log File    /tmp/makerpm_${subSystem}_test.log
-    Log File    /tmp/makerpm-utils.log
     Should Not Contain    ${output.stdout}    ERROR : Asset required for rpm
     Should Not Contain    ${output.stdout}    child process exited abnormally
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
@@ -195,12 +206,10 @@ Salgen ATDome RPM
     File Should Exist    ${SALWorkDir}/rpmbuild/SOURCES/${subSystem}-${XMLVersion}.tgz
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_runtime-${XMLVersion}-${SALVersion}${dot}${Build_Number}${DIST}.x86_64.rpm
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_ATruntime-${XMLVersion}-${SALVersion}${dot}${Build_Number}${DIST}.x86_64.rpm
-    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_utils-${SALVersion}-1.x86_64.rpm
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}-${XMLVersion}-${SALVersion}${dot}${Build_Number}${DIST}.x86_64.rpm
-    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}_test-${XMLVersion}-${SALVersion}${dot}${Build_Number}${DIST}.x86_64.rpm
 
 Verify ATDome RPM Contents
-    [Documentation]    Verify the ${subSystem} contains all the expected libraries
+    [Documentation]    Verify the ${subSystem} RPM contains all the expected libraries
     [Tags]    rpm
     Comment    Re-run the {dot} process, so this test case can run independently.
     Run Keyword If    "${Build_Number}" == ""
