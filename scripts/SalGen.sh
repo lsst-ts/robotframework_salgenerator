@@ -89,7 +89,7 @@ function salgenDOC() {
     skipped=$(checkIfSkipped "doc")
     echo "Salgen $subSystemUp Doc" >> $testSuite
     echo "    [Documentation]    Create the CSC documentation." >> $testSuite
-    echo "    [Tags]    doc    $skipped" >> $testSuite
+    echo "    [Tags]    doc$skipped" >> $testSuite
     echo "    \${output}=    Run Process    \${SALHome}/bin/salgenerator    \${subSystem}    apidoc    \
 shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.txt    stderr=\${EXECDIR}\${/}\${subSystem}_stderr.txt" >> $testSuite
     echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
@@ -98,6 +98,7 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     echo "    Should Contain    \${output.stdout}    checking \${subSystem}" >> $testSuite
     echo "    Should Contain    \${output.stdout}    checking apidoc" >> $testSuite
     echo "    Should Contain    \${output.stdout}    Building API documentation for \${subSystem} subsystem" >> $testSuite
+    echo "    Directory Should Exist    \${SALHome}/doc/_build/html/apiDocumentation/SAL_\${subSystem}" >> $testSuite
     echo "    @{files}=    List Directory    \${SALHome}/doc/_build/html/apiDocumentation/SAL_\${subSystem}" >> $testSuite
     echo "    Log Many    @{files}" >> $testSuite
     echo "    File Should Exist    \${SALHome}/doc/_build/html/apiDocumentation/SAL_Test/index.html" >> $testSuite
@@ -105,6 +106,18 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     echo "" >> $testSuite
 }
 
+function salgenDocUpload() {
+    skipped=$(checkIfSkipped "doc")
+    echo "Salgen $subSystemUp Doc Upload" >> $testSuite
+    echo "    [Documentation]    Upload the CSC documentation." >> $testSuite
+    echo "    [Tags]    doc$skipped" >> $testSuite
+    echo "    \${output}=    Run Process    \${SALHome}/bin/salgenerator    \${subSystem}    apidoc    \
+shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.txt    stderr=\${EXECDIR}\${/}\${subSystem}_stderr.txt" >> $testSuite
+    echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
+    echo "    Should Contain    \${output.stdout}    SAL generator - \${SALVersion}" >> $testSuite
+    echo "    Should Contain    \${output.stdout}    XMLVERSION = \${XMLVersion}" >> $testSuite
+    echo "" >> $testSuite
+}
 function revCodeDefinition() {
     skipped=$(checkIfSkipped "doc")
     echo "Verify $subSystemUp revCodes File" >> $testSuite
