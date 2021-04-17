@@ -101,8 +101,7 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     echo "    Directory Should Exist    \${SALHome}/doc/_build/html/apiDocumentation/SAL_\${subSystem}" >> $testSuite
     echo "    @{files}=    List Directory    \${SALHome}/doc/_build/html/apiDocumentation/SAL_\${subSystem}" >> $testSuite
     echo "    Log Many    @{files}" >> $testSuite
-    echo "    File Should Exist    \${SALHome}/doc/_build/html/apiDocumentation/SAL_Test/index.html" >> $testSuite
-    echo "    File Should Exist    \${SALHome}/doc/_build/html/apiDocumentation/SAL_Test/SALPY_Test.html" >> $testSuite
+    echo "    File Should Exist    \${SALHome}/doc/_build/html/apiDocumentation/SAL_\${subSystem}/index.html" >> $testSuite
     echo "" >> $testSuite
 }
 
@@ -389,9 +388,7 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     echo "    @{files}=    List Directory    /tmp/" >> $testSuite
     echo "    Should Be Empty    \${output.stderr}" >> $testSuite
     echo "    File Should Exist    /tmp/makerpm_\${subSystem}.log" >> $testSuite
-    echo "    File Should Exist    /tmp/makerpm_\${subSystem}_test.log" >> $testSuite
     echo "    Log File    /tmp/makerpm_\${subSystem}.log" >> $testSuite
-    echo "    Log File    /tmp/makerpm_\${subSystem}_test.log" >> $testSuite
     echo "    Should Not Contain    \${output.stdout}    ERROR : Asset required for rpm" >> $testSuite
     echo "    Should Not Contain    \${output.stdout}    child process exited abnormally" >> $testSuite
     echo "    Should Contain    \${output.stdout}    SAL generator - \${SALVersion}" >> $testSuite
@@ -416,7 +413,11 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_runtime-\${XMLVersion}-\${SALVersion}\${dot}\${Build_Number}\${DIST}.x86_64.rpm" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_ATruntime-\${XMLVersion}-\${SALVersion}\${dot}\${Build_Number}\${DIST}.x86_64.rpm" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/\${subSystem}-\${XMLVersion}-\${SALVersion}\${dot}\${Build_Number}\${DIST}.x86_64.rpm" >> $testSuite
-    echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/\${subSystem}_test-\${XMLVersion}-\${SALVersion}\${dot}\${Build_Number}\${DIST}.x86_64.rpm" >> $testSuite
+    if [[ "$@" =~ "CPP" ]]; then
+        echo "    File Should Exist    /tmp/makerpm_\${subSystem}_test.log" >> $testSuite
+        echo "    Log File    /tmp/makerpm_\${subSystem}_test.log" >> $testSuite
+        echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/\${subSystem}_test-\${XMLVersion}-\${SALVersion}\${dot}\${Build_Number}\${DIST}.x86_64.rpm" >> $testSuite
+    fi
     echo "" >> $testSuite
 }
 
