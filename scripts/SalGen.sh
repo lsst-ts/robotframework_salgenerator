@@ -105,18 +105,6 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     echo "" >> $testSuite
 }
 
-function salgenDocUpload() {
-    skipped=$(checkIfSkipped "doc")
-    echo "Salgen $subSystemUp Doc Upload" >> $testSuite
-    echo "    [Documentation]    Upload the CSC documentation." >> $testSuite
-    echo "    [Tags]    doc$skipped" >> $testSuite
-    echo "    \${output}=    Run Process    \${SALHome}/bin/salgenerator    \${subSystem}    apidoc    \
-shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.txt    stderr=\${EXECDIR}\${/}\${subSystem}_stderr.txt" >> $testSuite
-    echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
-    echo "    Should Contain    \${output.stdout}    SAL generator - \${SALVersion}" >> $testSuite
-    echo "    Should Contain    \${output.stdout}    XMLVERSION = \${XMLVersion}" >> $testSuite
-    echo "" >> $testSuite
-}
 function revCodeDefinition() {
     skipped=$(checkIfSkipped "doc")
     echo "Verify $subSystemUp revCodes File" >> $testSuite
@@ -630,13 +618,13 @@ function createTestSuite() {
     # Move/Generate the SAL libraries.
     salgenLib "${rtlang[@]}"
     # Generate the CSC documentation
-    #salgenDOC
+    salgenDOC
     # Generate the as-built SAL libraries RPM.
     salgenRPM "${rtlang[@]}"
     verifyRPM ${#commandArray[@]} ${#eventArray[@]} ${#telemetryArray[@]} "${rtlang[@]}"
-    #if [[ ${rtlang[@]} =~ "CPP" ]]; then
-    #    verifyTestRPM 
-    #fi
+    if [[ ${rtlang[@]} =~ "CPP" ]]; then
+        verifyTestRPM 
+    fi
     # Run the Maven tests.
     if [[ ${rtlang[@]} =~ "Java" ]]; then
         salgenMaven
