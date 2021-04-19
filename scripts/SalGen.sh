@@ -476,6 +476,9 @@ function verifyRPM() {
 }
 
 function verifyTestRPM() {
+    commandsLen="$1"
+    eventsLen="$2"
+    telemetryLen="$3"
     skipped=$(checkIfSkipped $subSystem "rpm")
     echo "Verify $subSystemUp TEST RPM Contents" >> $testSuite
     echo "    [Documentation]    Verify the \${subSystem} TEST RPM contains all the expected libraries" >> $testSuite
@@ -492,12 +495,18 @@ function verifyTestRPM() {
     echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_sal/lib/libSAL_\${subSystem}.so" >> $testSuite
     echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_sal/lib/libSAL_\${subSystem}.a" >> $testSuite
     echo "    Comment    Verify the TEST RPM contains the test programs." >> $testSuite
-    echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_\${subSystem}_all_commander" >> $testSuite
-    echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_\${subSystem}_all_controller" >> $testSuite
-    echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_\${subSystem}_all_logger" >> $testSuite
-    echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_\${subSystem}_all_publisher" >> $testSuite
-    echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_\${subSystem}_all_sender" >> $testSuite
-    echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_\${subSystem}_all_subscriber" >> $testSuite
+    if [[ $commandsLen -ne 0 ]]; then
+        echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_\${subSystem}_all_commander" >> $testSuite
+        echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_\${subSystem}_all_controller" >> $testSuite
+    fi
+    if [[ $eventsLen -ne 0 ]]; then
+        echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_\${subSystem}_all_sender" >> $testSuite
+        echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_\${subSystem}_all_logger" >> $testSuite
+    fi
+    if [[ $telemetryLen -ne 0 ]]; then
+        echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_\${subSystem}_all_publisher" >> $testSuite
+        echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_\${subSystem}_all_subscriber" >> $testSuite
+    fi
     for topic in "${commandArray[@]}"; do
         echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_\${subSystem}_${topic}_commander" >> $testSuite
         echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_\${subSystem}_${topic}_controller" >> $testSuite
@@ -623,7 +632,7 @@ function createTestSuite() {
     salgenRPM "${rtlang[@]}"
     verifyRPM ${#commandArray[@]} ${#eventArray[@]} ${#telemetryArray[@]} "${rtlang[@]}"
     if [[ ${rtlang[@]} =~ "CPP" ]]; then
-        verifyTestRPM 
+        verifyTestRPM ${#commandArray[@]} ${#eventArray[@]} ${#telemetryArray[@]} 
     fi
     # Run the Maven tests.
     if [[ ${rtlang[@]} =~ "Java" ]]; then
