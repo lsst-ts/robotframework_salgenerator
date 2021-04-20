@@ -782,7 +782,7 @@ function createTestSuite() {
     salgenRPM "${rtlang[@]}"
     verifyRPM ${#commandArray[@]} ${#eventArray[@]} ${#telemetryArray[@]} "${rtlang[@]}"
     if [[ ${rtlang[@]} =~ "CPP" ]]; then
-        echo "RPM Contents tests are disabled."
+        echo "Verify Test RPM is disabled until SAL v6.0 is released."
         #verifyTestRPM ${#commandArray[@]} ${#eventArray[@]} ${#telemetryArray[@]} 
     fi
     # Run the Maven tests.
