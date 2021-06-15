@@ -59,6 +59,7 @@ Salgen OCPS Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_heartbeat.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_authList.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_job_result.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_job_id.idl
 
 Verify OCPS revCodes File
     [Documentation]    Ensure OCPS_revCodes.tcl contains 1 revcode per topic.
@@ -88,6 +89,7 @@ Verify OCPS revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_heartbeat\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_authList\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_job_result\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_job_id\\) [a-z0-9]{8,}
 
 Salgen OCPS IDL
     [Documentation]    Generate the revCoded IDL for ${subSystem}
