@@ -282,11 +282,17 @@ pipeline {
                             sh 'curl --write-out %{http_code} -Ss -u $NEXUS_USER:$NEXUS_PASS -T ${WORKSPACE}/ts_sal/test/rpmbuild/RPMS/x86_64/' + file + ' https://repo-nexus.lsst.org/nexus/repository/ts_yum/daily/'
                             sh 'echo "=== CSC RPM push complete ==="'
                         }//for
-                        // Push the ts_sal_utils RPM to Nexus3
-                        sh 'echo "=== Push ts_sal_utils RPM to Nexus3 yum repo ==="'
-                        sh 'curl --write-out %{http_code} -Ss -u $NEXUS_USER:$NEXUS_PASS -T ${WORKSPACE}/ts_sal/test/rpmbuild/RPMS/x86_64/ts_sal_utils-' + SAL_Version + '_${BUILD_NUMBER}-1.x86_64.rpm' +
-                            ' https://repo-nexus.lsst.org/nexus/repository/ts_yum/daily/'
-                        sh 'echo "=== ts_sal_utils RPM push complete ==="'
+                        // Push the ts_sal_utils RPM to Nexus3, if it was built.
+                        FILE = '${WORKSPACE}/ts_sal/test/rpmbuild/RPMS/x86_64/ts_sal_utils-' + SAL_Version + '-1.x86_64.rpm'
+                        echo FILE
+                        if (fileExists(FILE)) {
+                            sh 'echo "=== Push ts_sal_utils RPM to Nexus3 yum repo ==="'
+                            sh 'curl --write-out %{http_code} -Ss -u $NEXUS_USER:$NEXUS_PASS -T ' + FILE +
+                                ' https://repo-nexus.lsst.org/nexus/repository/ts_yum/' + location + '/'
+                            sh 'echo "=== ts_sal_utils RPM push complete ==="'
+                        } else {
+                            sh 'echo "=== No updates to ts_sal_utils ==="'
+                        }//fileExists
                     }//else
                 }//script
             }
