@@ -121,21 +121,6 @@ Salgen ATBuilding Lib
     @{files}=    List Directory    ${SALWorkDir}/lib    pattern=*${subSystem}*
     Log Many    @{files}
 
-Salgen ATBuilding Doc
-    [Documentation]    Create the CSC documentation.
-    [Tags]    doc
-    ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    apidoc    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
-    Log Many    ${output.stdout}    ${output.stderr}
-    Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
-    Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
-    Should Contain    ${output.stdout}    checking ${subSystem}
-    Should Contain    ${output.stdout}    checking apidoc
-    Should Contain    ${output.stdout}    Building API documentation for ${subSystem} subsystem
-    Directory Should Exist    ${SALHome}/doc/_build/html/apiDocumentation/SAL_${subSystem}
-    @{files}=    List Directory    ${SALHome}/doc/_build/html/apiDocumentation/SAL_${subSystem}
-    Log Many    @{files}
-    File Should Exist    ${SALHome}/doc/_build/html/apiDocumentation/SAL_${subSystem}/index.html
-
 Salgen ATBuilding RPM
     [Documentation]    Generate the SAL runtime RPM for ${subSystem}
     [Tags]    rpm
