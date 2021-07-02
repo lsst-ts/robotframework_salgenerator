@@ -6,15 +6,27 @@
 
 #  VARIABLES
 
+
 #  FUNCTIONS
 function getRuntimeLanguages() {
+    # This function returns, for the given $subsystem (CSC), the values in the 
+    # <RuntimeLanguages> field in the ts_xml/sal_interfaces/SALSubsystems.xml file.
+    #
+    # It expects the file to be in the $HOME/trunk/ts_xml/sal_interfaces/ directory.
+    #
     local subsystem=$1
     local output=$( xml sel -t -m "//SALSubsystemSet/SALSubsystem[Name='$subsystem']/RuntimeLanguages" -v . -n $HOME/trunk/ts_xml/sal_interfaces/SALSubsystems.xml )
     echo $output
 }
 
+
 function getTelemetryTopics() {
-    local subSystem=$(getEntity $1)
+    # This function takes the $subsystem (CSC) as an argument and returns the values for all the
+    # <EFDB_Topic> fields in the ts_xml/sal_interfaces/${subSystem}/${subSystem}_Telemetry.xml file.
+    #
+    # It expects the file to be in the $HOME/trunk/ts_xml/sal_interfaces/${subSystem} directory.
+    #
+    local subSystem=$1
     local output=""
     if test -f $HOME/trunk/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Telemetry.xml; then
         output=$( xml sel -t -m "//SALTelemetrySet/SALTelemetry/EFDB_Topic" -v . -n $HOME/trunk/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Telemetry.xml |sed "s/${subSystem}_//" )
@@ -22,7 +34,14 @@ function getTelemetryTopics() {
     echo $output
 }
 
+
 function getCommandTopics() {
+    # This function takes the $subsystem (CSC) as an argument and returns the values for all the
+    # <EFDB_Topic> fields in the ts_xml/sal_interfaces/${subSystem}/${subSystem}_Commands.xml file
+    # AND the selected values from the <Generics> field of ts_xml/sal_interfaces/SALSubsystems.xml.
+    #
+    # It expects the files to be in the $HOME/trunk/ts_xml/sal_interfaces/${subSystem} directory.
+    #
     local subSystem=$1
     local array=()
     local commands=""
@@ -49,7 +68,14 @@ function getCommandTopics() {
     echo "$generic_commands $commands"
 }
 
+
 function getEventTopics() {
+    # This function takes the $subsystem (CSC) as an argument and returns the values for all the
+    # <EFDB_Topic> fields in the ts_xml/sal_interfaces/${subSystem}/${subSystem}_Events.xml file
+    # AND the selected values from the <Generics> field of ts_xml/sal_interfaces/SALSubsystems.xml.
+    #
+    # It expects the files to be in the $HOME/trunk/ts_xml/sal_interfaces/${subSystem} directory.
+    #
     local subSystem=$1
     local array=()
     local events=""
@@ -76,8 +102,12 @@ function getEventTopics() {
     echo "$generic_events $events"
 }
 
+
 function clearTestSuites() {
-    # Get the terms into the correct capitalization.
+    # This function takes the $subsystem (CSC) and "SALGEN" as arguments and deletes the appropriate test suite.
+    # It is used prior to creating the updated test suite and is the cleanest way of capturing all changes, which 
+    # often includes deletions.
+    #
     local slash="/"
     local subsystem=$(capitializeSubsystem $1)
     local language=$(echo $2 |tr [a-z] [A-Z]) #Programming language is fully capitalized
@@ -94,7 +124,14 @@ function clearTestSuites() {
     echo ""
 }
 
+
 function subsystemArray() {
+    # Independent definition of all the CSCs (called Subsystems in SalGen.sh).
+    #
+    # While it is possible to use ts_xml/sal_interfaces/SALSubsystems.xml to 
+    # generate this list, it is better to have an independent list, such that
+    # the thing being tested is not used to test the thing.
+    #
     echo "AdamSensors ATAOS ATArchiver ATBuilding ATCamera 
     ATDome ATDomeTrajectory ATHeaderService ATHexapod 
     ATMCS ATMonochromator ATOODS ATPneumatics 
@@ -112,49 +149,12 @@ function subsystemArray() {
     Test TunableLaser Watcher WeatherStation"
 }
 
-function stateArray() {
-    echo "enable disable standby start"
-}
 
 function capitializeSubsystem() {
     local subSystem=$1
     echo $subSystem
 }
 
-function getEntity() {
-    local entity=$1
-    if [ "$entity" == "all" ]; then
-        echo "all"
-    else
-        echo "$entity"
-    fi
-}
-
-function randomString() {
-    datatype=$1
-    count=$2
-    value=$(cat /dev/random |base64 | tr -dc 'a-zA-Z' | fold -w $count | head -n 1)
-    echo $value
-}
-
-function generateArgument() {
-    parameterType=$1
-    parameterIDLSize=$2
-    # For string and char, an IDL_Size of 1 means arbitrary size, so set parameterIDLSize to a random, positive number.
-    if [[ (-z $parameterIDLSize || $parameterIDLSize == "1") && ($parameterType == "char" || $parameterType == "string") ]]; then
-        parameterIDLSize=$((1 + RANDOM % 1000))
-    fi    
-
-    ###### Set the test value. ######
-    # For char and string, the ONE argument is of length IDL_Size.
-    if [[ ($parameterType == "char") || ($parameterType == "string") ]]; then
-        testValue=$(randomString "$parameterType" $parameterIDLSize)
-    # For everything else, arrays are allowed.  This is handled in the calling script.
-    else
-        testValue=$(python random_value.py "$parameterType")
-    fi
-    echo $testValue
-}
 
 function checkIfSkipped() {
     subsystem=$1

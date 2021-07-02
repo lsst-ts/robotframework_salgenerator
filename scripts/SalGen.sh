@@ -1,20 +1,40 @@
 #!/bin/bash
-#  Shellscript to create test suites to
-#  create the various interfaces.
+#  Shell script to create the Robot-Framework (RF) 
+#  salgenerator test suites that create and test 
+#  the SAL/DDS library generation process.
 #
 #  author: Rob Bovill
 #  email:  rbovill@lsst.org
 
-# Source common functions
+
+###  VARIABLES ###
+#  Define variables and import the 
+#  common functions used in this script.
+#
+# arg : 'string'
+#       The invocation argument. Controls what is built;
+#       One of 'all', a single <CSC> or left blank.
+#
+# workDir : 'string'
+#       Defines the working directory.
+#
+# subSystemArray : 'string' array
+#       Array of all the CSCs, as defined in the 
+#       _common.sh>subsystemArray() function.
+#
+arg=${1-all}
 workDir=$HOME/trunk/robotframework_salgenerator
 source $workDir/scripts/_common.sh
-
-#  Define variables to be used in script
-arg=${1-all}
 declare -a subSystemArray=($(subsystemArray))
 
-#  FUNCTIONS
+
+###  FUNCTIONS ###
+
 function createSettings() {
+    # Creates the RF Settings section.
+    #  This is where the test suites import the libraries,
+    #  especially the Global_Vars.resource file.
+    #
     echo "*** Settings ***" >> $testSuite
     echo "Documentation    This suite builds the various interfaces for the $subSystemUp." >> $testSuite
     echo "Force Tags    salgen    $skipped" >> $testSuite
@@ -25,22 +45,38 @@ function createSettings() {
     echo "" >> $testSuite
 }
 
+
 function createVariables() {
-    entity=$(getEntity $1)
+    # Creates the RF Variables section.
+    #   Getting the timeout value correct is very challenging.
+    #   It needs to be long enough to allow all test suites to
+    #   complete, but short enough to reduce unncessary waiting.
+    #
     echo "*** Variables ***" >> $testSuite
-    echo "\${subSystem}    $entity" >> $testSuite
+    echo "\${subSystem}    $subSystem" >> $testSuite
     echo "\${timeout}    1200s" >> $testSuite
     echo "" >> $testSuite
 }
 
+
 function cleanupOutputs() {
+    # Creates the Cleanup test case.
+    #  Many of the combined messaging programs overfill 
+    #  the stdout buffer. Instead, we use the stdout 
+    #  and stderr output files. As such, clean them up
+    #  at the end of the test suite.
+    #
     echo "Cleanup stdout and stderr Files" >> $testSuite
     echo "    [Tags]" >> $testSuite
     echo "    Remove Files    \${EXECDIR}\${/}\${subSystem}_stdout.txt    \${EXECDIR}\${/}\${subSystem}_stderr.txt" >> $testSuite
     echo "" >> $testSuite
 }
 
+
 function verifyXMLDefinitions() {
+    # Creates the test case to verify the XML files exist.
+    #  Somewhat perfunctory, but good to check just in case.
+    #
     echo "Verify $subSystemUp XML Defintions exist" >> $testSuite
     echo "    [Tags]" >> $testSuite
     echo "    Comment    Verify the CSC XML definition files exist." >> $testSuite
@@ -54,7 +90,12 @@ function verifyXMLDefinitions() {
     echo "" >> $testSuite
 }
 
+
 function salgenValidate() {
+    # Creates the salgenerator validate test case.
+    #  Since not all CSCs have all XML topic types,
+    #  use conditionals to control the tests.
+    #
     skipped=$(checkIfSkipped "validate")
     echo "Salgen $subSystemUp Validate" >> $testSuite
     echo "    [Documentation]    Validate the $subSystemUp XML definitions." >> $testSuite
@@ -85,6 +126,7 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     echo "" >> $testSuite
 }
 
+
 function salgenDOC() {
     skipped=$(checkIfSkipped "doc")
     echo "Salgen $subSystemUp Doc" >> $testSuite
@@ -105,7 +147,11 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     echo "" >> $testSuite
 }
 
+
 function revCodeDefinition() {
+    # Creates the test case to verify the RevCode files
+    # were created by the Validate step.
+    #
     skipped=$(checkIfSkipped "doc")
     echo "Verify $subSystemUp revCodes File" >> $testSuite
     echo "    [Documentation]    Ensure ${subSystemUp}_revCodes.tcl contains 1 revcode per topic." >> $testSuite
@@ -123,7 +169,12 @@ function revCodeDefinition() {
     echo "" >> $testSuite
 }
 
+
 function salgenCPP {
+    # Creates the salgenerator C++ test case.
+    #  Some CSCs have NO telemetry.
+    #  All CSCs get one Command and Event entry.
+    #
     echo "Salgen $subSystemUp C++" >> $testSuite
     echo "    [Documentation]    Generate C++ libraries." >> $testSuite
     echo "    [Tags]    cpp" >> $testSuite
@@ -135,12 +186,12 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     echo "    Should Not Contain    \${output.stdout}    Error 1" >> $testSuite
     echo "    Should Contain    \${output.stdout}    SAL generator - \${SALVersion}" >> $testSuite
     echo "    Should Contain    \${output.stdout}    XMLVERSION = \${XMLVersion}" >> $testSuite
-    for topic in "${telemetryArray[@]}"; do
-        echo "    Should Contain    \${output.stdout}    Generating SAL CPP code for \${subSystem}_${topic}.idl" >> $testSuite
-    done
     if [ ${#telemetryArray[@]} -eq 0 ]; then
         echo "    Should Contain    \${output.stdout}    WARNING : No Telemetry definitions found for \${subSystem}" >> $testSuite
     else
+        for topic in "${telemetryArray[@]}"; do
+            echo "    Should Contain    \${output.stdout}    Generating SAL CPP code for \${subSystem}_${topic}.idl" >> $testSuite
+        done
         echo "    Should Contain X Times    \${output.stdout}    cpp : Done Publisher    ${#telemetryArray[@]}" >> $testSuite
         echo "    Should Contain X Times    \${output.stdout}    cpp : Done Subscriber    ${#telemetryArray[@]}" >> $testSuite
     fi
@@ -149,7 +200,11 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     echo "" >> $testSuite
 }
 
+
 function verifyCppDirectories() {
+    # Creates the test case to verify the expected
+    # C++ SAL/DDS libraries were created.
+    #
     echo "Verify C++ Directories" >> $testSuite
     echo "    [Documentation]    Ensure expected C++ directories and files are created." >> $testSuite
     echo "    [Tags]    cpp" >> $testSuite
@@ -162,7 +217,11 @@ function verifyCppDirectories() {
     echo "" >> $testSuite
 }
 
+
 function verifyTelemetryDirectories() {
+    # Creates the test case to verify the expected
+    # C++ Telemetry folders were created.
+    #
     echo "Verify $subSystemUp Telemetry directories" >> $testSuite
     echo "    [Tags]    cpp" >> $testSuite
     echo "    @{files}=    List Directory    \${SALWorkDir}    pattern=*\${subSystem}*" >> $testSuite
@@ -173,7 +232,11 @@ function verifyTelemetryDirectories() {
     echo "" >> $testSuite
 }
 
+
 function verifyCppTelemetryInterfaces() {
+    # Creates the test case to verify the expected
+    # C++ Telemetry files were created.
+    #
     echo "Verify $subSystemUp C++ Telemetry Interfaces" >> $testSuite
     echo "    [Documentation]    Verify the C++ interfaces were properly created." >> $testSuite
     echo "    [Tags]    cpp" >> $testSuite
@@ -184,7 +247,11 @@ function verifyCppTelemetryInterfaces() {
     echo "" >> $testSuite
 }
 
+
 function verifyCppCommandInterfaces() {
+    # Creates the test case to verify the expected
+    # C++ Command files were created.
+    #
     echo "Verify $subSystemUp C++ Command Interfaces" >> $testSuite
     echo "    [Documentation]    Verify the C++ interfaces were properly created." >> $testSuite
     echo "    [Tags]    cpp" >> $testSuite
@@ -195,7 +262,11 @@ function verifyCppCommandInterfaces() {
     echo "" >> $testSuite
 }
 
+
 function verifyCppEventInterfaces() {
+    # Creates the test case to verify the expected
+    # C++ Event files were created.
+    #
     echo "Verify $subSystemUp C++ Event Interfaces" >> $testSuite
     echo "    [Documentation]    Verify the C++ interfaces were properly created." >> $testSuite
     echo "    [Tags]    cpp" >> $testSuite
@@ -206,7 +277,12 @@ function verifyCppEventInterfaces() {
     echo "" >> $testSuite
 }
 
+
 function salgenJava() {
+    # Creates the salgenerator Java test case.
+    #  Some CSCs have NO telemetry.
+    #  All CSCs get one Command and Event entry.
+    #
     skipped=$(checkIfSkipped $subSystem "java")
     echo "Salgen $subSystemUp Java" >> $testSuite
     echo "    [Documentation]    Generate Java libraries." >> $testSuite
@@ -217,12 +293,12 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     echo "    Should Not Contain    \${output.stdout}    ERROR : Failed to generate Java DDS types" >> $testSuite
     echo "    Should Contain    \${output.stdout}    SAL generator - \${SALVersion}" >> $testSuite
     echo "    Should Contain    \${output.stdout}    XMLVERSION = \${XMLVersion}" >> $testSuite
-    for topic in "${telemetryArray[@]}"; do
-        echo "    Should Contain    \${output.stdout}    Generating SAL Java code for \${subSystem}_${topic}.idl" >> $testSuite
-    done
     if [ ${#telemetryArray[@]} -eq 0 ]; then
         echo "    Should Contain    \${output.stdout}    WARNING : No Telemetry definitions found for \${subSystem}" >> $testSuite
     else
+        for topic in "${telemetryArray[@]}"; do
+            echo "    Should Contain    \${output.stdout}    Generating SAL Java code for \${subSystem}_${topic}.idl" >> $testSuite
+        done
         echo "    Should Contain X Times    \${output.stdout}    javac : Done Publisher    ${#telemetryArray[@]}" >> $testSuite
         echo "    Should Contain X Times    \${output.stdout}    javac : Done Subscriber    ${#telemetryArray[@]}" >> $testSuite
     fi
@@ -234,7 +310,10 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     echo "" >> $testSuite
 }
 
+
 function salgenMaven() {
+    # Creates the salgenerator Maven test case.
+    #
     skipped=$(checkIfSkipped $subSystem "java")
     echo "Salgen $subSystemUp Maven" >> $testSuite
     echo "    [Documentation]    Generate the Maven repository." >> $testSuite
@@ -254,7 +333,11 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     echo "" >> $testSuite
 }
 
+
 function salgenPython() {
+    # Creates the salgenerator Python test case.
+    #  Verifies the SAL/DDS Python library was created.
+    #
     skipped=$(checkIfSkipped $subSystem "python")
     echo "Salgen $subSystemUp Python" >> $testSuite
     echo "    [Documentation]    Generate Python libraries." >> $testSuite
@@ -274,7 +357,11 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     echo "" >> $testSuite
 }
 
+
 function verifyPythonTelemetryInterfaces() {
+    # Creates the test case to verify the expected
+    # Python Telemetry files were created.
+    #
     echo "Verify $subSystemUp Python Telemetry Interfaces" >> $testSuite
     echo "    [Documentation]    Verify the Python interfaces were properly created." >> $testSuite
     echo "    [Tags]    python" >> $testSuite
@@ -287,7 +374,11 @@ function verifyPythonTelemetryInterfaces() {
     echo "" >> $testSuite
 }
 
+
 function verifyPythonCommandInterfaces() {
+    # Creates the test case to verify the expected
+    # Python Command files were created.
+    #
     echo "Verify $subSystemUp Python Command Interfaces" >> $testSuite
     echo "    [Documentation]    Verify the Python interfaces were properly created." >> $testSuite
     echo "    [Tags]    python" >> $testSuite
@@ -300,7 +391,11 @@ function verifyPythonCommandInterfaces() {
     echo "" >> $testSuite
 }
 
+
 function verifyPythonEventInterfaces() {
+    # Creates the test case to verify the expected
+    # Python Command files were created.
+    #
     echo "Verify $subSystemUp Python Event Interfaces" >> $testSuite
     echo "    [Documentation]    Verify the Python interfaces were properly created." >> $testSuite
     echo "    [Tags]    python" >> $testSuite
@@ -313,7 +408,11 @@ function verifyPythonEventInterfaces() {
     echo "" >> $testSuite
 }
 
+
 function salgenLabview() {
+    # Creates the salgenerator LabVIEW test case.
+    #  Verifies the SAL/DDS LabVIEW libraries are created.
+    #
     skipped=$(checkIfSkipped $subSystem "labview")
     echo "Salgen $subSystemUp LabVIEW" >> $testSuite
     echo "    [Documentation]    Generate \${subSystem} low-level LabView interfaces." >> $testSuite
@@ -333,7 +432,13 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     echo "" >> $testSuite
 }
 
+
 function salgenLib() {
+    # Creates the salgenerator Lib test case.
+    #  Verifies all the expected SAL/DDS
+    #  libraries are created and moved to the
+    #  ts_sal/test/lib directory.
+    #
     langs=("$@")
     skipped=$(checkIfSkipped $subSystem "lib")
     echo "Salgen $subSystemUp Lib" >> $testSuite
@@ -364,7 +469,12 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     echo "" >> $testSuite
 }
 
+
 function salgenRPM() {
+    # Creates the salgenerator RPM test case.
+    #  Verifies the RPM infrastructure is correct 
+    #  and all expected files were created.
+    #
     skipped=$(checkIfSkipped $subSystem "rpm")
     echo "Salgen $subSystemUp RPM" >> $testSuite
     echo "    [Documentation]    Generate the SAL runtime RPM for \${subSystem}" >> $testSuite
@@ -409,7 +519,13 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     echo "" >> $testSuite
 }
 
+
 function verifyRPM() {
+    # Create the test case to verify the RPM contents.
+    #  On occaision, the SAL incorrectly packages an RPM.
+    #  This test case is aimed at catching that problem 
+    #  before the RPM is released.
+    #
     commandsLen="$1"
     eventsLen="$2"
     telemetryLen="$3"
@@ -475,7 +591,16 @@ function verifyRPM() {
     echo "" >> $testSuite
 }
 
+
 function verifyTestRPM() {
+    # Create the test case to verify the Test RPM contents.
+    #  The Test RPM is similar to the regular RPM,
+    #  but contains the test programs, in addition.
+    #
+    #  On occaision, the SAL incorrectly packages an RPM.
+    #  This test case is aimed at catching that problem 
+    #  before the RPM is released.
+    #
     commandsLen="$1"
     eventsLen="$2"
     telemetryLen="$3"
@@ -522,7 +647,10 @@ function verifyTestRPM() {
     echo "" >> $testSuite
 }
 
+
 function salgenIDL() {
+    # Creates the salgenerator IDL test case.
+    #  Verifies the IDL files are created.
     skipped=$(checkIfSkipped $subSystem "idl")
     echo "Salgen $subSystemUp IDL" >> $testSuite
     echo "    [Documentation]    Generate the revCoded IDL for \${subSystem}" >> $testSuite
@@ -541,19 +669,29 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     echo "" >> $testSuite
 }
 
+
 function createTestSuite() {
+    # This function creates the entire salgenerator
+    # test suite for the given CSC. It coordinates
+    # all the individual functions, controls the structure
+    # of the test suite, and manages much of the logic
+    # that determines what gets tested and what is
+    # skipped because it is not relevant.
+    #
     subSystem=$1
 
-    #  Define test suite name
+    #  Define test suite name. Get the CSC into the 
+    #  desired capitalization format.
+    #
     subSystemUp=$(capitializeSubsystem $subSystem)
     testSuite=$workDir/SALGEN/${subSystemUp}_salgenerator.robot
         
-    #  Check to see if the TestSuite exists then, if it does, delete it.
+    # Check to see if the TestSuite exists then, if it does, delete it.
     clearTestSuites $subSystem "SALGEN" 
         
     # Get XML topic definitions.  Not all subsystems have all types of topics.
     declare -a xmls=($(ls $HOME/trunk/ts_xml/sal_interfaces/$subSystem))
-    # Declare topic arrays
+    # Declare topic arrays.
     declare -a telemetryArray=($(getTelemetryTopics $subSystem))
     #echo ${telemetryArray[@]}
     declare -a commandArray=($(getCommandTopics $subSystem))
@@ -564,7 +702,17 @@ function createTestSuite() {
     #  Check if test suite should be skipped.
     skipped=$(checkIfSkipped $subSystem $topic)
 
-    #  Get list of languages to build
+    # Get list of languages to build. Each CSC lists
+    # which language-specific libraries it is 
+    # required to build. This is defined in the 
+    # ts_xml/sal_interfaces/SALSubsystems.xml file.
+    #
+    # Requiring the SALPY or LabVIEW libraries
+    # inherently requires the C++ library. The 'if'
+    # statement ensures the C++ process is run
+    # in the case SALPY and/or LabVIEW are defined
+    # but CPP is not explicitly defined.
+    #
     temp=$(getRuntimeLanguages $subSystem)
     IFS=', ' read -r -a rtlang <<< "${temp[0]}"
     if ! [[ ${rtlang[@]} =~ "CPP" ]]; then
@@ -574,7 +722,9 @@ function createTestSuite() {
     fi
     echo "Runtime languages to build: ${rtlang[@]}"
 
-    #  Create test suite.
+    # Create test suite.
+    # Execution ORDER of these functions is CRITICAL.
+    #
     echo Creating $testSuite
     createSettings
     createVariables $subSystem
@@ -646,8 +796,12 @@ function createTestSuite() {
 }
 
 
-#  MAIN
-subSystem=$(getEntity $arg)
+###  MAIN ###
+# This acts as the light-weight main function.
+#  It determines with "path" the script should
+#  follow, whether for a single CSC or All of them.
+#
+subSystem=$arg
 #echo $subSystem
 if [ "$arg" == "all" ]; then
     for subSystem in "${subSystemArray[@]}"; do
@@ -658,6 +812,6 @@ elif [[ ${subSystemArray[*]} =~ $subSystem ]]; then
     createTestSuite $subSystem
     echo COMPLETED all test suites for the $subSystem.
 else
-    echo USAGE - Argument must be one of: ${subSystemArray[*]} OR all.
+    echo USAGE - Argument must be one of: [${subSystemArray[*]}] OR [all]. All is the default.
 fi
 
