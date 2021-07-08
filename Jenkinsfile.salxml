@@ -70,8 +70,8 @@ pipeline {
                     XML_Checkout = "*/develop"
                     IDL_Checkout = "*/master"
                     DDSCONFIG_Checkout = "*/master"
-                    RFSALGEN_Checkout = "*/develop"
-                    RFSALMSGs_Checkout = "*/develop"
+                    RFSALGEN_Checkout = "*/sal_develop"
+                    RFSALMSGs_Checkout = "*/sal_develop"
                 }
             }
         }
@@ -181,7 +181,7 @@ pipeline {
                     '--variable OpenspliceVersion:' + _ospl_version + ' --variable OpenspliceDate:' + _ospl_date + 
                     ' --variable MvnVersion:"Apache Maven ' + _mvn_version + '" --variable PythonVersion:"Python ' + _python_version + '" ' +
                     ' --variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:' + Build_Param + 
-                    ' --name Validate --output VALIDATE --outputdir ' + _home + '/trunk/Reports -A ' + _home + '/trunk/robotframework_salgenerator/Test_SalGen.list \n' +
+                    ' --name Validate --output VALIDATE --outputdir ' + _home + '/trunk/Reports -A ' + _home + '/trunk/robotframework_salgenerator/Validate_SAL.list \n' +
                 'Result=$? \n' +
                 'if [ $Result -eq 0 ]; then echo Validation complete; else exit $Result; fi'
             }

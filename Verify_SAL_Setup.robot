@@ -1,5 +1,7 @@
 *** Settings ***
-Documentation    This verifies the version of SAL installed on the remote host.
+Documentation    This verifies the SAL and all dependencies are installed correctly on the host.
+...     It verifies the versions of installed software and that the installation
+...     worked as expected, putting important files in the correct locations.
 Suite Setup    Log Many    ${SALVersion}    ${OpenspliceVersion}    ${OpenspliceDate}
 Library        OperatingSystem
 Library        Process
