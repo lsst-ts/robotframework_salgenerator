@@ -227,10 +227,8 @@ Salgen Guider RPM
     @{files}=    List Directory    /tmp/
     Should Be Empty    ${output.stderr}
     File Should Exist    /tmp/makerpm_${subSystem}.log
-    File Should Exist    /tmp/makerpm_${subSystem}_test.log
     File Should Exist    /tmp/makerpm-utils.log
     Log File    /tmp/makerpm_${subSystem}.log
-    Log File    /tmp/makerpm_${subSystem}_test.log
     Log File    /tmp/makerpm-utils.log
     Should Not Contain    ${output.stdout}    ERROR : Asset required for rpm
     Should Not Contain    ${output.stdout}    child process exited abnormally
@@ -257,8 +255,6 @@ Salgen Guider RPM
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_ATruntime-${XMLVersion}-${SALVersion}*${DIST}.x86_64.rpm
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_utils-${SALVersion}-1.x86_64.rpm
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}-${XMLVersion}-${SALVersion}${dot}${Build_Number}${DIST}.x86_64.rpm
-    File Should Exist    /tmp/makerpm_${subSystem}_test.log
-    Log File    /tmp/makerpm_${subSystem}_test.log
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}_test-${XMLVersion}-${SALVersion}${dot}${Build_Number}${DIST}.x86_64.rpm
 
 Verify Guider RPM Contents

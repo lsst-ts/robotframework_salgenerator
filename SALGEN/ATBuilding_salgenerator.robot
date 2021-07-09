@@ -130,10 +130,8 @@ Salgen ATBuilding RPM
     @{files}=    List Directory    /tmp/
     Should Be Empty    ${output.stderr}
     File Should Exist    /tmp/makerpm_${subSystem}.log
-    File Should Exist    /tmp/makerpm_${subSystem}_test.log
     File Should Exist    /tmp/makerpm-utils.log
     Log File    /tmp/makerpm_${subSystem}.log
-    Log File    /tmp/makerpm_${subSystem}_test.log
     Log File    /tmp/makerpm-utils.log
     Should Not Contain    ${output.stdout}    ERROR : Asset required for rpm
     Should Not Contain    ${output.stdout}    child process exited abnormally
