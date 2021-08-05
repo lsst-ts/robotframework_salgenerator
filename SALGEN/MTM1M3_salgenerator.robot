@@ -93,6 +93,9 @@ Salgen MTM1M3 Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_modbusTransmit.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_forceActuatorBumpTest.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_killForceActuatorBumpTest.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disableForceActuator.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enableForceActuator.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enableAllForceActuators.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingVersions.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_errorCode.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_summaryState.idl
@@ -158,6 +161,7 @@ Salgen MTM1M3 Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_appliedCylinderForces.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_modbusResponse.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_forceActuatorBumpTestStatus.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_enabledForceActuators.idl
 
 Verify MTM1M3 revCodes File
     [Documentation]    Ensure MTM1M3_revCodes.tcl contains 1 revcode per topic.
@@ -209,6 +213,9 @@ Verify MTM1M3 revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_modbusTransmit\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_forceActuatorBumpTest\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_killForceActuatorBumpTest\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_disableForceActuator\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_enableForceActuator\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_enableAllForceActuators\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_settingVersions\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_errorCode\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_summaryState\\) [a-z0-9]{8,}
@@ -274,6 +281,7 @@ Verify MTM1M3 revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_appliedCylinderForces\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_modbusResponse\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_forceActuatorBumpTestStatus\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_enabledForceActuators\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_forceActuatorData\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_inclinometerData\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_outerLoopData\\) [a-z0-9]{8,}
@@ -473,6 +481,12 @@ Verify MTM1M3 C++ Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_forceActuatorBumpTest_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_killForceActuatorBumpTest_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_killForceActuatorBumpTest_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_disableForceActuator_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_disableForceActuator_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enableForceActuator_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enableForceActuator_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enableAllForceActuators_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enableAllForceActuators_controller
 
 Verify MTM1M3 C++ Event Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -607,6 +621,8 @@ Verify MTM1M3 C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_modbusResponse_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_forceActuatorBumpTestStatus_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_forceActuatorBumpTestStatus_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enabledForceActuators_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enabledForceActuators_log
 
 Salgen MTM1M3 Lib
     [Documentation]    Generate the SAL shared library for ${subSystem}
