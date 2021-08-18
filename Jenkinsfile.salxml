@@ -300,7 +300,13 @@ pipeline {
                         'echo cd ' + _home + '/trunk/robotframework_SAL \n' +
                         'cd ' + _home + '/trunk/robotframework_SAL \n' +
                         'echo ========= Execute SAL messaging tests ========= \n' +
-                        'echo No Java Events messaging tests at this time \n' +
+                        'robot --outputdir ' + _home + '/trunk/Reports --variable ContInt:true -e skipped --skiponfailure TSS* --skiponfailure DM* ' +
+                            '--variable SALVersion:' + SAL_Version + ' --variable SALInstall:' + _home + '/trunk/ts_sal ' +
+                            '--variable OpenspliceRelease:\'OpenSplice HDE Release\' ' +
+                            '--variable OpenspliceVersion:' + _ospl_version + ' --variable OpenspliceDate:' + _ospl_date +
+                            ' --variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:' + Build_Param +
+                            ' --variable MvnVersion:"Apache Maven ' + _mvn_version + '" --variable PythonVersion:"Python ' + _python_version + '" ' +
+                            '-A ' + _home + '/trunk/robotframework_SAL/CombinedJavaEvents_Tests.list \n' +
                         'exit 0'
                     }
                 }//JavaEvents
