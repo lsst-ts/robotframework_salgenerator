@@ -193,7 +193,6 @@ Salgen GenericCamera RPM
     Log File    /tmp/makerpm_${subSystem}.log
     Log File    /tmp/makerpm-utils.log
     Should Not Contain    ${output.stdout}    ERROR : Asset required for rpm
-    Should Not Contain    ${output.stdout}    child process exited abnormally
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
     Should Contain    ${output.stdout}    Building runtime RPM for ${subSystem} subsystem

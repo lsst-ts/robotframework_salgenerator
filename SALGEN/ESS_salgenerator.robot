@@ -40,8 +40,6 @@ Salgen ESS Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_temperature4Ch.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_temperature8Ch.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_cloudRainLight.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_hx85a.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_hx85ba.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_abort.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
@@ -95,8 +93,6 @@ Verify ESS revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_temperature4Ch\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_temperature8Ch\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_cloudRainLight\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_hx85a\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_hx85ba\\) [a-z0-9]{8,}
 
 Salgen ESS IDL
     [Documentation]    Generate the revCoded IDL for ${subSystem}
@@ -137,7 +133,6 @@ Salgen ESS RPM
     Log File    /tmp/makerpm_${subSystem}.log
     Log File    /tmp/makerpm-utils.log
     Should Not Contain    ${output.stdout}    ERROR : Asset required for rpm
-    Should Not Contain    ${output.stdout}    child process exited abnormally
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
     Should Contain    ${output.stdout}    Building runtime RPM for ${subSystem} subsystem

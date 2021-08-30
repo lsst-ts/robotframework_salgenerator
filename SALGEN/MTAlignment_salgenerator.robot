@@ -50,18 +50,8 @@ Salgen MTAlignment Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_measureTarget.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_align.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_measurePoint.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_pointDelta.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_laserPower.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_powerOff.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_healthCheck.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setReferenceGroup.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_halt.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setWorkingFrame.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_loadSATemplateFile.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_measureDrift.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_resetT2SA.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_newStation.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_saveJobfile.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingVersions.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_errorCode.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_summaryState.idl
@@ -94,18 +84,8 @@ Verify MTAlignment revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_measureTarget\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_align\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_measurePoint\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_pointDelta\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_laserPower\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_powerOff\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_healthCheck\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setReferenceGroup\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_halt\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setWorkingFrame\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_loadSATemplateFile\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_measureDrift\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_resetT2SA\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_newStation\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_saveJobfile\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_settingVersions\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_errorCode\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_summaryState\\) [a-z0-9]{8,}
@@ -161,7 +141,6 @@ Salgen MTAlignment RPM
     Log File    /tmp/makerpm_${subSystem}.log
     Log File    /tmp/makerpm-utils.log
     Should Not Contain    ${output.stdout}    ERROR : Asset required for rpm
-    Should Not Contain    ${output.stdout}    child process exited abnormally
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
     Should Contain    ${output.stdout}    Building runtime RPM for ${subSystem} subsystem
