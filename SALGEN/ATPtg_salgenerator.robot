@@ -492,6 +492,11 @@ Verify ATPtg C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_pointData_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_pointData_log
 
+Verify ATPtg C++ AuthList Interfaces
+    [Documentation]    Verify the C++ Authlist files were properly created.
+    [Tags]    cpp
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/testAuthList.sh
+
 Salgen ATPtg Lib
     [Documentation]    Generate the SAL shared library for ${subSystem}
     [Tags]    lib

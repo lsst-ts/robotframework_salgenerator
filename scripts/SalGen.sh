@@ -278,6 +278,17 @@ function verifyCppEventInterfaces() {
 }
 
 
+function verifyCppAuthlistInterfaces() {
+    # Creates the test case to verify the expected
+    # C++ AuthList files were created.
+    echo "Verify $subSystemUp C++ AuthList Interfaces" >> $testSuite
+    echo "    [Documentation]    Verify the C++ Authlist files were properly created." >> $testSuite
+    echo "    [Tags]    cpp" >> $testSuite
+    echo "    File Should Exist    \${SALWorkDir}/\${subSystem}/cpp/src/testAuthList.sh" >> $testSuite
+    echo "" >> $testSuite
+}
+
+
 function salgenJava() {
     # Creates the salgenerator Java test case.
     #  Some CSCs have NO telemetry.
@@ -287,7 +298,7 @@ function salgenJava() {
     echo "Salgen $subSystemUp Java" >> $testSuite
     echo "    [Documentation]    Generate Java libraries." >> $testSuite
     echo "    [Tags]    java$skipped" >> $testSuite
-    echo "    \${output}=    Run Process    \${SALHome}/bin/salgenerator    \${subSystem}    sal    java    \
+    echo "    \${output}=    Run Process    \${SALHome}/bin/salgenerator    \${subSystem}    sal    java    version\\=\${Build_Number}\${MavenVersion}    \
 shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.txt    stderr=\${EXECDIR}\${/}\${subSystem}_stderr.txt" >> $testSuite
     echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
     echo "    Should Not Contain    \${output.stdout}    ERROR : Failed to generate Java DDS types" >> $testSuite
@@ -330,6 +341,17 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     echo "    Should Contain X Times    \${output.stdout}    [INFO] Finished at:    1" >> $testSuite
     echo "    @{files}=    List Directory    \${SALWorkDir}/maven" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/maven/\${subSystem}-\${XMLVersion}_\${SALVersion}\${Build_Number}\${MavenVersion}/pom.xml" >> $testSuite
+    echo "" >> $testSuite
+}
+
+
+function verifyJavaAuthlistInterfaces() {
+    # Creates the test case to verify the expected
+    # Java AuthList files were created.
+    echo "Verify $subSystemUp Java AuthList Interfaces" >> $testSuite
+    echo "    [Documentation]    Verify the Java Authlist files were properly created." >> $testSuite
+    echo "    [Tags]    cpp" >> $testSuite
+    echo "    File Should Exist    \${SALWorkDir}/\${subSystem}/java/src/testAuthList.sh" >> $testSuite
     echo "" >> $testSuite
 }
 
@@ -748,6 +770,7 @@ function createTestSuite() {
         if [[ ${#eventArray[@]} -ne 0 ]]; then
             verifyCppEventInterfaces
         fi
+        verifyCppAuthlistInterfaces
     fi
     # Create and verify Python interfaces.
     if [[ ${rtlang[@]} =~ "SALPY" ]]; then
@@ -773,6 +796,7 @@ function createTestSuite() {
     # Create and verify Java interfaces.
     if [[ ${rtlang[@]} =~ "Java" ]]; then
         salgenJava
+        verifyJavaAuthlistInterfaces
     fi
     # Move/Generate the SAL libraries.
     salgenLib "${rtlang[@]}"

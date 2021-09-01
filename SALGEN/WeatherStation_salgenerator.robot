@@ -252,6 +252,11 @@ Verify WeatherStation C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_authList_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_authList_log
 
+Verify WeatherStation C++ AuthList Interfaces
+    [Documentation]    Verify the C++ Authlist files were properly created.
+    [Tags]    cpp
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/testAuthList.sh
+
 Salgen WeatherStation Lib
     [Documentation]    Generate the SAL shared library for ${subSystem}
     [Tags]    lib
