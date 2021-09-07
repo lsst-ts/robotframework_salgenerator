@@ -412,6 +412,11 @@ Verify MTMount C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_warning_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_warning_log
 
+Verify MTMount C++ AuthList Interfaces
+    [Documentation]    Verify the C++ Authlist files were properly created.
+    [Tags]    cpp
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/testAuthList.sh
+
 Salgen MTMount LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
     [Tags]    labview

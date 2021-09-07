@@ -314,6 +314,11 @@ Verify ATPneumatics C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_m2SetPressure_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_m2SetPressure_log
 
+Verify ATPneumatics C++ AuthList Interfaces
+    [Documentation]    Verify the C++ Authlist files were properly created.
+    [Tags]    cpp
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/testAuthList.sh
+
 Salgen ATPneumatics LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
     [Tags]    labview

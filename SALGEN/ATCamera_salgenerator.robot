@@ -215,7 +215,7 @@ Salgen ATCamera IDL
 Salgen ATCamera Java
     [Documentation]    Generate Java libraries.
     [Tags]    java
-    ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    sal    java    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
+    ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    sal    java    version\=${Build_Number}${MavenVersion}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Not Contain    ${output.stdout}    ERROR : Failed to generate Java DDS types
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
@@ -236,6 +236,11 @@ Salgen ATCamera Java
     File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
     File Should Exist    ${SALWorkDir}/${subSystem}/java/saj_${subSystem}_types.jar
     File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
+
+Verify ATCamera Java AuthList Interfaces
+    [Documentation]    Verify the Java Authlist files were properly created.
+    [Tags]    cpp
+    File Should Exist    ${SALWorkDir}/${subSystem}/java/src/testAuthList.sh
 
 Salgen ATCamera Lib
     [Documentation]    Generate the SAL shared library for ${subSystem}
