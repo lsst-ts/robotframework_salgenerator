@@ -35,6 +35,7 @@ SALGEN/EAS_salgenerator.robot
 SALGEN/ESS_salgenerator.robot
 SALGEN/Electrometer_salgenerator.robot
 SALGEN/FiberSpectrograph_salgenerator.robot
+SALGEN/GCHeaderService_salgenerator.robot
 SALGEN/GenericCamera_salgenerator.robot
 SALGEN/Guider_salgenerator.robot
 SALGEN/HVAC_salgenerator.robot
