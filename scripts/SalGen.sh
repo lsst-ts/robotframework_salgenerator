@@ -80,13 +80,20 @@ function verifyXMLDefinitions() {
     echo "Verify $subSystemUp XML Defintions exist" >> $testSuite
     echo "    [Tags]" >> $testSuite
     echo "    Comment    Verify the CSC XML definition files exist." >> $testSuite
-    echo "    \${output}    Run Process    ls     \${SALWorkDir}/${subSystemUp}_*.xml    shell=True" >> $testSuite
-    echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
-    echo "    Should Not Contain    \${output.stderr}    No such file or directory    msg=\"${subSystemUp} has no XML defintions\"    values=False" >> $testSuite
-    echo "    Should Not Be Empty    \${output.stdout}" >> $testSuite
-    for file in "${xmls[@]}"; do
-        echo "    File Should Exist    \${SALWorkDir}/$file" >> $testSuite
-    done
+    if [[ "${xmls[0]}" == "README.md" ]]; then
+        echo "    \${output}    Get File    \${EXECDIR}/../ts_xml/sal_interfaces/$subSystem/README.md" >> $testSuite
+        echo "    Log    \${output}" >> $testSuite
+        echo "    Should Contain     \${output}    \# \${subSystem}" >> $testSuite
+        echo "    Should Contain     \${output}    This SAL Component only uses generic topics." >> $testSuite
+        echo "    Should Contain     \${output}    This directory is intentionally left empty." >> $testSuite
+    else
+        echo "    \${output}    Run Process    ls     \${SALWorkDir}/\${subSystem}_*xml    shell=True" >> $testSuite
+        echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
+        echo "    Should Not Be Empty    \${output.stdout}" >> $testSuite
+        for file in "${xmls[@]}"; do
+            echo "    File Should Exist    \${SALWorkDir}/$file" >> $testSuite
+        done
+    fi
     echo "" >> $testSuite
 }
 

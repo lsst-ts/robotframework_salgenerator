@@ -14,9 +14,8 @@ ${timeout}    1200s
 Verify MTDomeTrajectory XML Defintions exist
     [Tags]
     Comment    Verify the CSC XML definition files exist.
-    ${output}    Run Process    ls     ${SALWorkDir}/MTDomeTrajectory_*.xml    shell=True
+    ${output}    Run Process    ls     ${SALWorkDir}/${subSystem}_*xml    shell=True
     Log Many    ${output.stdout}    ${output.stderr}
-    Should Not Contain    ${output.stderr}    No such file or directory    msg="MTDomeTrajectory has no XML defintions"    values=False
     Should Not Be Empty    ${output.stdout}
     File Should Exist    ${SALWorkDir}/MTDomeTrajectory_Commands.xml
     File Should Exist    ${SALWorkDir}/MTDomeTrajectory_Events.xml
