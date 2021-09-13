@@ -18,7 +18,7 @@ Verify ATHeaderService XML Defintions exist
     Log Many    ${output.stdout}    ${output.stderr}
     Should Not Contain    ${output.stderr}    No such file or directory    msg="ATHeaderService has no XML defintions"    values=False
     Should Not Be Empty    ${output.stdout}
-    File Should Exist    ${SALWorkDir}/ATHeaderService_Events.xml
+    File Should Exist    ${SALWorkDir}/README.md
 
 Salgen ATHeaderService Validate
     [Documentation]    Validate the ATHeaderService XML definitions.
@@ -185,7 +185,6 @@ Verify ATHeaderService RPM Contents
     Comment    Verify the interface definition files are included.
     Should Contain     ${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Generics.xml
     Should Contain     ${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Commands.html
-    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Events.xml
     Should Contain     ${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Events.html
 
 Salgen ATHeaderService Maven
