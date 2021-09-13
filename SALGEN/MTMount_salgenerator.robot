@@ -14,9 +14,8 @@ ${timeout}    1200s
 Verify MTMount XML Defintions exist
     [Tags]
     Comment    Verify the CSC XML definition files exist.
-    ${output}    Run Process    ls     ${SALWorkDir}/MTMount_*.xml    shell=True
+    ${output}    Run Process    ls     ${SALWorkDir}/${subSystem}_*xml    shell=True
     Log Many    ${output.stdout}    ${output.stderr}
-    Should Not Contain    ${output.stderr}    No such file or directory    msg="MTMount has no XML defintions"    values=False
     Should Not Be Empty    ${output.stdout}
     File Should Exist    ${SALWorkDir}/MTMount_Commands.xml
     File Should Exist    ${SALWorkDir}/MTMount_Events.xml

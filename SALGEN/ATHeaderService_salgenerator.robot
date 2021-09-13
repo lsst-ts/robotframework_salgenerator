@@ -14,11 +14,11 @@ ${timeout}    1200s
 Verify ATHeaderService XML Defintions exist
     [Tags]
     Comment    Verify the CSC XML definition files exist.
-    ${output}    Run Process    ls     ${SALWorkDir}/ATHeaderService_*.xml    shell=True
-    Log Many    ${output.stdout}    ${output.stderr}
-    Should Not Contain    ${output.stderr}    No such file or directory    msg="ATHeaderService has no XML defintions"    values=False
-    Should Not Be Empty    ${output.stdout}
-    File Should Exist    ${SALWorkDir}/README.md
+    ${output}    Get File    ${EXECDIR}/../ts_xml/sal_interfaces/ATHeaderService/README.md
+    Log    ${output}
+    Should Contain     ${output}    \# ${subSystem}
+    Should Contain     ${output}    This SAL Component only uses generic topics.
+    Should Contain     ${output}    This directory is intentionally left empty.
 
 Salgen ATHeaderService Validate
     [Documentation]    Validate the ATHeaderService XML definitions.

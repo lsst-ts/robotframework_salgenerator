@@ -14,11 +14,11 @@ ${timeout}    1200s
 Verify GCHeaderService XML Defintions exist
     [Tags]
     Comment    Verify the CSC XML definition files exist.
-    ${output}    Run Process    ls     ${SALWorkDir}/GCHeaderService_*.xml    shell=True
-    Log Many    ${output.stdout}    ${output.stderr}
-    Should Not Contain    ${output.stderr}    No such file or directory    msg="GCHeaderService has no XML defintions"    values=False
-    Should Not Be Empty    ${output.stdout}
-    File Should Exist    ${SALWorkDir}/README.md
+    ${output}    Get File    ${EXECDIR}/../ts_xml/sal_interfaces/GCHeaderService/README.md
+    Log    ${output}
+    Should Contain     ${output}    \# ${subSystem}
+    Should Contain     ${output}    This SAL Component only uses generic topics.
+    Should Contain     ${output}    This directory is intentionally left empty.
 
 Salgen GCHeaderService Validate
     [Documentation]    Validate the GCHeaderService XML definitions.
@@ -101,7 +101,7 @@ Salgen GCHeaderService IDL
 Salgen GCHeaderService Java
     [Documentation]    Generate Java libraries.
     [Tags]    java
-    ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    sal    java    version\=${Build_Number}${MavenVersion}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
+    ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    sal    java    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Not Contain    ${output.stdout}    ERROR : Failed to generate Java DDS types
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
@@ -112,11 +112,6 @@ Salgen GCHeaderService Java
     File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
     File Should Exist    ${SALWorkDir}/${subSystem}/java/saj_${subSystem}_types.jar
     File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
-
-Verify GCHeaderService Java AuthList Interfaces
-    [Documentation]    Verify the Java Authlist files were properly created.
-    [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}/java/src/testAuthList.sh
 
 Salgen GCHeaderService Lib
     [Documentation]    Generate the SAL shared library for ${subSystem}
@@ -144,6 +139,7 @@ Salgen GCHeaderService RPM
     Log File    /tmp/makerpm_${subSystem}.log
     Log File    /tmp/makerpm-utils.log
     Should Not Contain    ${output.stdout}    ERROR : Asset required for rpm
+    Should Not Contain    ${output.stdout}    child process exited abnormally
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
     Should Contain    ${output.stdout}    Building runtime RPM for ${subSystem} subsystem

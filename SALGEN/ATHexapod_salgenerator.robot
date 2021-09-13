@@ -14,9 +14,8 @@ ${timeout}    1200s
 Verify ATHexapod XML Defintions exist
     [Tags]
     Comment    Verify the CSC XML definition files exist.
-    ${output}    Run Process    ls     ${SALWorkDir}/ATHexapod_*.xml    shell=True
+    ${output}    Run Process    ls     ${SALWorkDir}/${subSystem}_*xml    shell=True
     Log Many    ${output.stdout}    ${output.stderr}
-    Should Not Contain    ${output.stderr}    No such file or directory    msg="ATHexapod has no XML defintions"    values=False
     Should Not Be Empty    ${output.stdout}
     File Should Exist    ${SALWorkDir}/ATHexapod_Commands.xml
     File Should Exist    ${SALWorkDir}/ATHexapod_Events.xml
