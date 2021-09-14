@@ -484,6 +484,7 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     echo "    Log Many    @{files}" >> $testSuite
     if [[ ${langs[@]} =~ "CPP" ]]; then
         echo "    File Should Exist    \${SALWorkDir}/lib/libSAL_\${subSystem}.so" >> $testSuite
+        echo "    File Should Exist    \${SALWorkDir}/lib/libSAL_\${subSystem}.a" >> $testSuite
         echo "    File Should Exist    \${SALWorkDir}/lib/libsacpp_\${subSystem}_types.so" >> $testSuite
     fi
     if [[ ${langs[@]} =~ "SALPY" ]]; then
@@ -577,6 +578,7 @@ function verifyRPM() {
     if [[ "$@" =~ "CPP" ]]; then
         echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_sal/lib/libSAL_\${subSystem}.so" >> $testSuite
         echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_sal/lib/libSAL_\${subSystem}.a" >> $testSuite
+        echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_sal/lib/libsacpp_\${subSystem}_types.so" >> $testSuite
         echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_sal/include/SAL_\${subSystem}.h" >> $testSuite
         echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_sal/include/SAL_\${subSystem}.h" >> $testSuite
         echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_sal/include/SAL_defines.h" >> $testSuite
