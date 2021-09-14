@@ -348,8 +348,8 @@ pipeline {
                             sh 'echo "=== CSC RPM push complete ==="'
                         }//for
                         // Push the ts_sal_utils RPM to Nexus3, if it was built.
-                        FILE = '${WORKSPACE}/ts_sal/test/rpmbuild/RPMS/x86_64/ts_sal_utils-' + SAL_Version + '-1.x86_64.rpm'
-                        echo FILE
+                        FILE = env.WORKSPACE + '/ts_sal/test/rpmbuild/RPMS/x86_64/ts_sal_utils-' + SAL_Version + '-1.x86_64.rpm'
+                        echo "ts_sal_utils file: " + FILE
                         if (fileExists(FILE)) {
                             sh 'echo "=== Push ts_sal_utils RPM to Nexus3 yum repo ==="'
                             sh 'curl --write-out %{http_code} -Ss -u $NEXUS_USER:$NEXUS_PASS -T ' + FILE +
