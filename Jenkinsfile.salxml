@@ -96,8 +96,8 @@ pipeline {
                     }
                     IDL_Checkout = "*/master"
                     DDSCONFIG_Checkout = "*/master"
-                    RFSALGEN_Checkout = "*/master"
-                    RFSALMSGs_Checkout = "*/master"
+                    RFSALGEN_Checkout = "*/main"
+                    RFSALMSGs_Checkout = "*/main"
                 }
             }
         }
