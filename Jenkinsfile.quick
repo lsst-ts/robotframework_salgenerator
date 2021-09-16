@@ -10,8 +10,8 @@ pipeline {
     parameters {
         string defaultValue: params.SAL_BRANCH ?:'develop', description: 'The branch of ts_sal to test.', name: 'SAL_BRANCH', trim: true
         string defaultValue: params.XML_BRANCH ?:'develop', description: 'The branch of ts_xml to test.', name: 'XML_BRANCH', trim: true
-        string defaultValue: params.IDL_BRANCH ?:'master', description: 'The branch of ts_idl to test.', name: 'IDL_BRANCH', trim: true
-        string defaultValue: params.DDSCONFIG_BRANCH ?:'master', description: 'The branch of ts_ddsconfig to test.', name: 'DDSCONFIG_BRANCH', trim: true
+        string defaultValue: params.IDL_BRANCH ?:'main', description: 'The branch of ts_idl to test.', name: 'IDL_BRANCH', trim: true
+        string defaultValue: params.DDSCONFIG_BRANCH ?:'main', description: 'The branch of ts_ddsconfig to test.', name: 'DDSCONFIG_BRANCH', trim: true
         string defaultValue: params.SALGEN_BRANCH ?:'develop', description: 'The branch of robotframework_salgenerator to test.', name: 'SALGEN_BRANCH', trim: true
         string defaultValue: params.SALMSG_BRANCH ?:'develop', description: 'The branch of robotframework_SAL to test.', name: 'SALMSG_BRANCH', trim: true
         booleanParam defaultValue: params.Generate ?:false, description: 'Run the "salgenerator generate" tests?', name: 'Generate'
@@ -57,7 +57,7 @@ pipeline {
                 script {
                     SAL_Version = readFile("${WORKSPACE}/ts_sal/VERSION").trim()
                     XML_Version = readFile("${WORKSPACE}/ts_xml/VERSION").trim()
-                    if ( params.SAL_BRANCH == 'master') {
+                    if ( params.SAL_BRANCH == 'main') {
                         // Maven and RPM release artifacts simply use the version numbers.
                         MavenVersion = ''
                         Build_Param = ''
