@@ -285,17 +285,6 @@ function verifyCppEventInterfaces() {
 }
 
 
-function verifyCppAuthlistInterfaces() {
-    # Creates the test case to verify the expected
-    # C++ AuthList files were created.
-    echo "Verify $subSystemUp C++ AuthList Interfaces" >> $testSuite
-    echo "    [Documentation]    Verify the C++ Authlist files were properly created." >> $testSuite
-    echo "    [Tags]    cpp" >> $testSuite
-    echo "    File Should Exist    \${SALWorkDir}/\${subSystem}/cpp/src/testAuthList.sh" >> $testSuite
-    echo "" >> $testSuite
-}
-
-
 function salgenJava() {
     # Creates the salgenerator Java test case.
     #  Some CSCs have NO telemetry.
@@ -348,17 +337,6 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     echo "    Should Contain X Times    \${output.stdout}    [INFO] Finished at:    1" >> $testSuite
     echo "    @{files}=    List Directory    \${SALWorkDir}/maven" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/maven/\${subSystem}-\${XMLVersion}_\${SALVersion}\${Build_Number}\${MavenVersion}/pom.xml" >> $testSuite
-    echo "" >> $testSuite
-}
-
-
-function verifyJavaAuthlistInterfaces() {
-    # Creates the test case to verify the expected
-    # Java AuthList files were created.
-    echo "Verify $subSystemUp Java AuthList Interfaces" >> $testSuite
-    echo "    [Documentation]    Verify the Java Authlist files were properly created." >> $testSuite
-    echo "    [Tags]    cpp" >> $testSuite
-    echo "    File Should Exist    \${SALWorkDir}/\${subSystem}/java/src/testAuthList.sh" >> $testSuite
     echo "" >> $testSuite
 }
 
@@ -546,6 +524,7 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     if [[ "$@" =~ "CPP" ]]; then
         echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/\${subSystem}_test-\${XMLVersion}-\${SALVersion}\${dot}\${Build_Number}\${DIST}.x86_64.rpm" >> $testSuite
     fi
+    echo "    Should Not Contain    \${output.stdout}    child process exited abnormally" >> $testSuite
     echo "" >> $testSuite
 }
 
@@ -779,7 +758,6 @@ function createTestSuite() {
         if [[ ${#eventArray[@]} -ne 0 ]]; then
             verifyCppEventInterfaces
         fi
-        verifyCppAuthlistInterfaces
     fi
     # Create and verify Python interfaces.
     if [[ ${rtlang[@]} =~ "SALPY" ]]; then
@@ -805,7 +783,6 @@ function createTestSuite() {
     # Create and verify Java interfaces.
     if [[ ${rtlang[@]} =~ "Java" ]]; then
         salgenJava
-        verifyJavaAuthlistInterfaces
     fi
     # Move/Generate the SAL libraries.
     salgenLib "${rtlang[@]}"

@@ -221,11 +221,6 @@ Verify Test C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_arrays_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_arrays_log
 
-Verify Test C++ AuthList Interfaces
-    [Documentation]    Verify the C++ Authlist files were properly created.
-    [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/testAuthList.sh
-
 Salgen Test Python
     [Documentation]    Generate Python libraries.
     [Tags]    python
@@ -352,11 +347,6 @@ Salgen Test Java
     File Should Exist    ${SALWorkDir}/${subSystem}/java/saj_${subSystem}_types.jar
     File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
 
-Verify Test Java AuthList Interfaces
-    [Documentation]    Verify the Java Authlist files were properly created.
-    [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}/java/src/testAuthList.sh
-
 Salgen Test Lib
     [Documentation]    Generate the SAL shared library for ${subSystem}
     [Tags]    lib
@@ -412,6 +402,7 @@ Salgen Test RPM
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_utils-${SALVersion}-1.x86_64.rpm
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}-${XMLVersion}-${SALVersion}${dot}${Build_Number}${DIST}.x86_64.rpm
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}_test-${XMLVersion}-${SALVersion}${dot}${Build_Number}${DIST}.x86_64.rpm
+    Should Not Contain    ${output.stdout}    child process exited abnormally
 
 Verify Test RPM Contents
     [Documentation]    Verify the ${subSystem} RPM contains all the expected libraries

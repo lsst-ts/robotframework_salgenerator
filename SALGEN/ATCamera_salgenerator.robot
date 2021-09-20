@@ -238,11 +238,6 @@ Salgen ATCamera Java
     File Should Exist    ${SALWorkDir}/${subSystem}/java/saj_${subSystem}_types.jar
     File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
 
-Verify ATCamera Java AuthList Interfaces
-    [Documentation]    Verify the Java Authlist files were properly created.
-    [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}/java/src/testAuthList.sh
-
 Salgen ATCamera Lib
     [Documentation]    Generate the SAL shared library for ${subSystem}
     [Tags]    lib
@@ -292,6 +287,7 @@ Salgen ATCamera RPM
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_ATruntime-${XMLVersion}-${SALVersion}*${DIST}.x86_64.rpm
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_utils-${SALVersion}-1.x86_64.rpm
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}-${XMLVersion}-${SALVersion}${dot}${Build_Number}${DIST}.x86_64.rpm
+    Should Not Contain    ${output.stdout}    child process exited abnormally
 
 Verify ATCamera RPM Contents
     [Documentation]    Verify the ${subSystem} RPM contains all the expected libraries

@@ -317,11 +317,6 @@ Verify ATPneumatics C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_m2SetPressure_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_m2SetPressure_log
 
-Verify ATPneumatics C++ AuthList Interfaces
-    [Documentation]    Verify the C++ Authlist files were properly created.
-    [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/testAuthList.sh
-
 Salgen ATPneumatics LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
     [Tags]    labview
@@ -390,6 +385,7 @@ Salgen ATPneumatics RPM
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_utils-${SALVersion}-1.x86_64.rpm
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}-${XMLVersion}-${SALVersion}${dot}${Build_Number}${DIST}.x86_64.rpm
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}_test-${XMLVersion}-${SALVersion}${dot}${Build_Number}${DIST}.x86_64.rpm
+    Should Not Contain    ${output.stdout}    child process exited abnormally
 
 Verify ATPneumatics RPM Contents
     [Documentation]    Verify the ${subSystem} RPM contains all the expected libraries
