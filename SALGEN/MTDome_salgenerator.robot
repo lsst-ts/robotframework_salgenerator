@@ -58,15 +58,12 @@ Salgen MTDome Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_park.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setLouvers.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_closeLouvers.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_stopLouvers.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_closeShutter.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_openShutter.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_stopShutter.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_stopAz.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_stopEl.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_stop.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setTemperature.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_exitFault.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setOperationalMode.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingVersions.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_errorCode.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_summaryState.idl
@@ -85,6 +82,7 @@ Salgen MTDome Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_elMotion.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_azTarget.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_elTarget.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_operationalMode.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_brakesEngaged.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_lockingPinsEngaged.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_interlocks.idl
@@ -110,15 +108,12 @@ Verify MTDome revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_park\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setLouvers\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_closeLouvers\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_stopLouvers\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_closeShutter\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_openShutter\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_stopShutter\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_stopAz\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_stopEl\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_stop\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setTemperature\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_exitFault\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setOperationalMode\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_settingVersions\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_errorCode\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_summaryState\\) [a-z0-9]{8,}
@@ -137,6 +132,7 @@ Verify MTDome revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_elMotion\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_azTarget\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_elTarget\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_operationalMode\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_brakesEngaged\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_lockingPinsEngaged\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_interlocks\\) [a-z0-9]{8,}
