@@ -36,6 +36,7 @@ Salgen MTM1M3TS Validate
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_ackcmd.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_thermalData.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_mixingValve.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_abort.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
@@ -51,6 +52,7 @@ Salgen MTM1M3TS Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setReHeaterGains.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_reset.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_power.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setMixingValve.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingVersions.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_errorCode.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_summaryState.idl
@@ -69,6 +71,8 @@ Salgen MTM1M3TS Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_thermalInfo.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_thermalWarning.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_powerStatus.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_thermalSettings.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_mixingValveSettings.idl
 
 Verify MTM1M3TS revCodes File
     [Documentation]    Ensure MTM1M3TS_revCodes.tcl contains 1 revcode per topic.
@@ -89,6 +93,7 @@ Verify MTM1M3TS revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setReHeaterGains\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_reset\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_power\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setMixingValve\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_settingVersions\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_errorCode\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_summaryState\\) [a-z0-9]{8,}
@@ -107,7 +112,10 @@ Verify MTM1M3TS revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_thermalInfo\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_thermalWarning\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_powerStatus\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_thermalSettings\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_mixingValveSettings\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_thermalData\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_mixingValve\\) [a-z0-9]{8,}
 
 Salgen MTM1M3TS IDL
     [Documentation]    Generate the revCoded IDL for ${subSystem}

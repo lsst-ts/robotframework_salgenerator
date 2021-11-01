@@ -73,6 +73,10 @@ Salgen MTMount Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_authList.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_largeFileObjectAvailable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_availableSettings.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_controllerSettingsName.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_azimuthControllerSettings.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_elevationControllerSettings.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_cameraCableWrapControllerSettings.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_azimuthSystemState.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_elevationSystemState.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_cameraCableWrapSystemState.idl
@@ -150,6 +154,10 @@ Verify MTMount revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_authList\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_largeFileObjectAvailable\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_availableSettings\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_controllerSettingsName\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_azimuthControllerSettings\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_elevationControllerSettings\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_cameraCableWrapControllerSettings\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_azimuthSystemState\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_elevationSystemState\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_cameraCableWrapSystemState\\) [a-z0-9]{8,}
@@ -336,6 +344,14 @@ Verify MTMount C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_largeFileObjectAvailable_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_availableSettings_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_availableSettings_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_controllerSettingsName_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_controllerSettingsName_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_azimuthControllerSettings_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_azimuthControllerSettings_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_elevationControllerSettings_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_elevationControllerSettings_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_cameraCableWrapControllerSettings_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_cameraCableWrapControllerSettings_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_azimuthSystemState_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_azimuthSystemState_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_elevationSystemState_send
