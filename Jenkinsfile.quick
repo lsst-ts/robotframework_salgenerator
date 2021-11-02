@@ -90,8 +90,8 @@ pipeline {
         }//Copy XML
         stage('Install IDL and XML python libraries') {
             steps {
-                sh label: 'IDL library', script: '#!/bin/bash -x \n' + 'cd ts_idl && pip install --user .'
-                sh label: 'XML library', script: '#!/bin/bash -x \n' + 'cd ts_xml && pip install --user .'
+                sh label: 'IDL library', script: '#!/bin/bash -x \n' + 'cd ts_idl && pip install -e . --ignore-installed --no-deps'
+                sh label: 'XML library', script: '#!/bin/bash -x \n' + 'cd ts_xml && pip install -e . --ignore-installed --no-deps'
             }
         }//IDL & XML
         stage('Validate') {
