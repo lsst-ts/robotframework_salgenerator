@@ -27,3 +27,8 @@ Verify Java Camera Unit Tests
     Should Not Contain    ${output.stdout}    BUILD FAILURE
     Should Not Contain    ${output.stdout}    [ERROR]
     Should Contain    ${output.stdout}    [INFO] BUILD SUCCESS
+
+Verify salobj_to_minimal_controllers
+    [Tags]    smoke
+    ${output}=    Run Process    python3    sal_tests/test_salobj_to_minimal_controllers.py    shell=True    cwd=${EXECDIR}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
+    Log Many    ${output.stdout}    ${output.stderr}
