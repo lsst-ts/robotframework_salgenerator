@@ -5,7 +5,36 @@
 #  email:  rbovill@lsst.org
 
 #  VARIABLES
+added_generics_mandatory_commands=("setAuthList",)
 
+added_generics_mandatory_events=("authList", "heartbeat", "softwareVersions",)
+
+added_generics_csc_commands=(
+    "disable",
+    "enable",
+    "exitControl",
+    "setLogLevel",
+    "standby",
+    "start",
+)
+
+added_generics_csc_events=(
+    "errorCode",
+    "simulationMode",
+    "summaryState",
+)
+
+added_generics_log_commands=()
+
+added_generics_log_events=("logLevel", "logMessage",)
+
+added_generics_configurable_commands=()
+
+added_generics_configurable_events=(
+    "appliedSettingsMatchStart",
+    "settingsApplied",
+    "settingVersions",
+)
 
 #  FUNCTIONS
 function getRuntimeLanguages() {
@@ -38,7 +67,7 @@ function getTelemetryTopics() {
 function getCommandTopics() {
     # This function takes the $subsystem (CSC) as an argument and returns the values for all the
     # <EFDB_Topic> fields in the ts_xml/sal_interfaces/${subSystem}/${subSystem}_Commands.xml file
-    # AND the selected values from the <Generics> field of ts_xml/sal_interfaces/SALSubsystems.xml.
+    # AND the selected values from the <AddedGenerics> field of ts_xml/sal_interfaces/SALSubsystems.xml.
     #
     # It expects the files to be in the $HOME/trunk/ts_xml/sal_interfaces/${subSystem} directory.
     #
@@ -48,31 +77,38 @@ function getCommandTopics() {
     local generic_commands=""
     ## First, get all the CSC defined commands from the interface definition.
     if test -f $HOME/trunk/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Commands.xml; then
-        local commands=$( xml sel -t -m "//SALCommandSet/SALCommand/EFDB_Topic" -v . -n $HOME/trunk/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Commands.xml |sed "s/${subSystem}_command_//" |tr '\r\n' ' ' )
+        local commands=$( xml sel -t -m "//SALCommandSet/SALCommand/EFDB_Topic" -v . -n $HOME/trunk/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Commands.xml |sed "s/${subSystem}_command_//" |tr '\r\n' ',' )
     fi
     ## Now, get the desired Generic commands.
-    ### If <Generics> is "yes", then grab them all.  If "no", grab none.  If comma-delimited list, just grab the "*command*" items.
-    if [[ $( xml sel -t -m "//SALSubsystemSet/SALSubsystem[Name='$subSystem']" -v Generics $HOME/trunk/ts_xml/sal_interfaces/SALSubsystems.xml ) == "yes" ]]; then
-        local generic_commands=$( xml sel -t -m "//SALObjects/SALCommandSet/SALCommand/EFDB_Topic" -v . -n $HOME/trunk/ts_xml/sal_interfaces/SALGenerics.xml |sed "s/SALGeneric_command_//" |tr '\r\n' ' ' )
-    elif [[ $( xml sel -t -m "//SALSubsystemSet/SALSubsystem[Name='$subSystem']" -v Generics $HOME/trunk/ts_xml/sal_interfaces/SALSubsystems.xml ) == "no" ]]; then
-        local generic_commands=()
-    else
-        local array=($(xml sel -t -m "//SALSubsystemSet/SALSubsystem[Name='$subSystem']" -v Generics $HOME/trunk/ts_xml/sal_interfaces/SALSubsystems.xml |sed 's/,//g' ))
-        for topic in ${array[@]}; do
-            if [[ "$topic" == *"command_"* ]]; then
-                generic_commands+=$(echo "$topic " |sed 's/command_//g')
-            fi 
-        done
+    ### If <AddedGenerics> contains "csc," then add the added_generics_csc_commands.  If it contains "log," add the added_generics_log_commands. If it contains "configurable," add the added_generics_configurable_commands.  If it contains individual, comma-delimited topics, just grab the "*command*" items.
+    local generic_commands=(${added_generics_mandatory_commands[@]})
+    if [[ $( xml sel -t -m "//SALSubsystemSet/SALSubsystem[Name='$subSystem']" -v AddedGenerics $HOME/trunk/ts_xml/sal_interfaces/SALSubsystems.xml ) == "csc" ]]; then
+        generic_commands+=(${added_generics_csc_commands[@]})
     fi
+    if [[ $( xml sel -t -m "//SALSubsystemSet/SALSubsystem[Name='$subSystem']" -v AddedGenerics $HOME/trunk/ts_xml/sal_interfaces/SALSubsystems.xml ) == "log" ]]; then
+        generic_commands+=(${added_generics_log_commands[@]})
+    fi
+    if [[ $( xml sel -t -m "//SALSubsystemSet/SALSubsystem[Name='$subSystem']" -v AddedGenerics $HOME/trunk/ts_xml/sal_interfaces/SALSubsystems.xml ) == "configurable" ]]; then
+        generic_commands+=(${added_generics_configurable_commands[@]})
+    fi
+    
+    # Now add the individual topics.
+    local array=($(xml sel -t -m "//SALSubsystemSet/SALSubsystem[Name='$subSystem']" -v AddedGenerics $HOME/trunk/ts_xml/sal_interfaces/SALSubsystems.xml |sed 's/,//g' ))
+    for topic in ${array[@]}; do
+        if [[ "$topic" == *"command_"* ]]; then
+            str=$(echo "$topic," |sed 's/command_//g')
+            generic_commands+=("$str")
+        fi 
+    done
     ## Return the list.
-    echo "$generic_commands $commands"
+    echo "${generic_commands[@]}${commands[@]}" |sed "s/,/ /g"
 }
 
 
 function getEventTopics() {
     # This function takes the $subsystem (CSC) as an argument and returns the values for all the
     # <EFDB_Topic> fields in the ts_xml/sal_interfaces/${subSystem}/${subSystem}_Events.xml file
-    # AND the selected values from the <Generics> field of ts_xml/sal_interfaces/SALSubsystems.xml.
+    # AND the selected values from the <AddedGenerics> field of ts_xml/sal_interfaces/SALSubsystems.xml.
     #
     # It expects the files to be in the $HOME/trunk/ts_xml/sal_interfaces/${subSystem} directory.
     #
@@ -82,24 +118,31 @@ function getEventTopics() {
     local generic_events=""
     ## First, get all the CSC defined events from the interface definition.
     if test -f $HOME/trunk/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Events.xml; then
-        local events=$( xml sel -t -m "//SALEventSet/SALEvent/EFDB_Topic" -v . -n $HOME/trunk/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Events.xml |sed "s/${subSystem}_logevent_//" |tr '\r\n' ' ')
+        local events=$( xml sel -t -m "//SALEventSet/SALEvent/EFDB_Topic" -v . -n $HOME/trunk/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Events.xml |sed "s/${subSystem}_logevent_//" |tr '\r\n' ',')
     fi
     ## Now, get the desired Generic events.
-    ### If <Generics> is "yes", then grab them all.  If "no", grab none.  If comma-delimited list, just grab the "*logevent*" items.
-    if [[ $( xml sel -t -m "//SALSubsystemSet/SALSubsystem[Name='$subSystem']" -v Generics $HOME/trunk/ts_xml/sal_interfaces/SALSubsystems.xml ) == "yes" ]]; then
-        local generic_events=$( xml sel -t -m "//SALObjects/SALEventSet/SALEvent/EFDB_Topic" -v . -n $HOME/trunk/ts_xml/sal_interfaces/SALGenerics.xml |sed "s/SALGeneric_logevent_//" |tr '\r\n' ' ' )
-    elif [[ $( xml sel -t -m "//SALSubsystemSet/SALSubsystem[Name='$subSystem']" -v Generics $HOME/trunk/ts_xml/sal_interfaces/SALSubsystems.xml ) == "no" ]]; then
-        local generic_events=()
-    else
-        local array=($(xml sel -t -m "//SALSubsystemSet/SALSubsystem[Name='$subSystem']" -v Generics $HOME/trunk/ts_xml/sal_interfaces/SALSubsystems.xml |sed 's/,//g' ))
-        for topic in ${array[@]}; do
-            if [[ "$topic" == *"logevent_"* ]]; then
-                generic_events+=$(echo "$topic " |sed 's/logevent_//g')
-            fi
-        done
+    ### If <AddedGenerics> contains "csc," then add the added_generics_csc_events.  If it contains "log," add the added_generics_log_events. If it contains "configurable," add the added_generics_configurable_events.  If it contains individual, comma-delimited topics, just grab the "*logevent*" items.
+    generic_events=(${added_generics_mandatory_events[@]})
+    if [[ $( xml sel -t -m "//SALSubsystemSet/SALSubsystem[Name='$subSystem']" -v AddedGenerics $HOME/trunk/ts_xml/sal_interfaces/SALSubsystems.xml ) =~ "csc" ]]; then
+        generic_events+=("${added_generics_csc_events[@]}")
     fi
+    if [[ $( xml sel -t -m "//SALSubsystemSet/SALSubsystem[Name='$subSystem']" -v AddedGenerics $HOME/trunk/ts_xml/sal_interfaces/SALSubsystems.xml ) =~ "log" ]]; then
+        generic_events+=("${added_generics_log_events[@]}")
+    fi
+    if [[ $( xml sel -t -m "//SALSubsystemSet/SALSubsystem[Name='$subSystem']" -v AddedGenerics $HOME/trunk/ts_xml/sal_interfaces/SALSubsystems.xml ) =~ "configurable" ]]; then
+        generic_events+=("${added_generics_configurable_events[@]}")
+    fi
+
+    # Now add the individual topics.
+    local array=($(xml sel -t -m "//SALSubsystemSet/SALSubsystem[Name='$subSystem']" -v AddedGenerics $HOME/trunk/ts_xml/sal_interfaces/SALSubsystems.xml |sed 's/,//g' ))
+    for topic in ${array[@]}; do
+        if [[ "$topic" == *"logevent_"* ]]; then
+            str=$(echo "$topic," |sed 's/logevent_//g')
+            generic_events+=("$str")
+        fi
+    done
     ## Return the list.
-    echo "$generic_events $events"
+    echo "${generic_events[@]}${events[@]}" |sed "s/,/ /g"
 }
 
 
