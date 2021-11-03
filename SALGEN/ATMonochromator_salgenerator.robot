@@ -37,21 +37,20 @@ Salgen ATMonochromator Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_ackcmd.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_timestamp.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_loopTime.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setAuthList.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_changeWavelength.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_calibrateWavelength.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_power.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_selectGrating.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_changeSlitWidth.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_updateMonochromatorSetup.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_authList.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_heartbeat.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_logLevel.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_logMessage.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_softwareVersions.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_authList.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_errorCode.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_simulationMode.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_summaryState.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_logLevel.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_logMessage.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_appliedSettingsMatchStart.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingsApplied.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingVersions.idl
@@ -77,21 +76,20 @@ Verify ATMonochromator revCodes File
     [Documentation]    Ensure ATMonochromator_revCodes.tcl contains 1 revcode per topic.
     [Tags]    doc    
     ${output}=    Log File    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setAuthList\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_changeWavelength\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_calibrateWavelength\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_power\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_selectGrating\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_changeSlitWidth\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_updateMonochromatorSetup\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_authList\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_heartbeat\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_logLevel\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_logMessage\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_softwareVersions\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_authList\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_errorCode\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_simulationMode\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_summaryState\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_logLevel\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_logMessage\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_appliedSettingsMatchStart\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_settingsApplied\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_settingVersions\\) [a-z0-9]{8,}

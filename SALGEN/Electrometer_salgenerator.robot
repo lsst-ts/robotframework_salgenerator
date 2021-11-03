@@ -34,7 +34,6 @@ Salgen Electrometer Validate
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_ackcmd.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setAuthList.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_performZeroCalib.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setDigitalFilter.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setIntegrationTime.idl
@@ -43,14 +42,14 @@ Salgen Electrometer Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_startScan.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_startScanDt.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_stopScan.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_authList.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_heartbeat.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_logLevel.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_logMessage.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_softwareVersions.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_authList.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_errorCode.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_simulationMode.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_summaryState.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_logLevel.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_logMessage.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_appliedSettingsMatchStart.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingsApplied.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingVersions.idl
@@ -69,7 +68,6 @@ Verify Electrometer revCodes File
     [Documentation]    Ensure Electrometer_revCodes.tcl contains 1 revcode per topic.
     [Tags]    doc    
     ${output}=    Log File    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setAuthList\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_performZeroCalib\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setDigitalFilter\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setIntegrationTime\\) [a-z0-9]{8,}
@@ -78,14 +76,14 @@ Verify Electrometer revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_startScan\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_startScanDt\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_stopScan\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_authList\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_heartbeat\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_logLevel\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_logMessage\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_softwareVersions\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_authList\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_errorCode\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_simulationMode\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_summaryState\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_logLevel\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_logMessage\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_appliedSettingsMatchStart\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_settingsApplied\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_settingVersions\\) [a-z0-9]{8,}
