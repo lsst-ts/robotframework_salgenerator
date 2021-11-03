@@ -783,6 +783,7 @@ function createTestSuite() {
     # Create and verify Java interfaces.
     if [[ ${rtlang[@]} =~ "Java" ]]; then
         salgenJava
+        salgenMaven
     fi
     # Move/Generate the SAL libraries.
     salgenLib "${rtlang[@]}"
@@ -794,10 +795,6 @@ function createTestSuite() {
     if [[ ${rtlang[@]} =~ "CPP" ]]; then
         echo "Verify Test RPM is disabled until SAL v6.0 is released."
         #verifyTestRPM ${#commandArray[@]} ${#eventArray[@]} ${#telemetryArray[@]} 
-    fi
-    # Run the Maven tests.
-    if [[ ${rtlang[@]} =~ "Java" ]]; then
-        salgenMaven
     fi
     # Indicate completion of the test suite.
     cleanupOutputs
