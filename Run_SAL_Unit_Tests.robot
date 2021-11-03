@@ -9,16 +9,6 @@ Resource    Global_Vars.resource
 ${timeout}    10s
 
 *** Test Cases ***
-Verify Python Unit Tests
-    [Documentation]    Run the SAL PyTest unit tests.
-    [Tags]    smoke
-    ${output}=    Run Process    pytest    tests/*.py    shell=True    cwd=${SALInstall}    stdout=${EXECDIR}${/}stdout.txt    stderr=${EXECDIR}${/}stderr.txt
-    Log Many    ${output.stdout}    ${output.stderr}
-    Should Not Contain    ${output.stdout}    FAILURES
-    Should Contain    ${output.stdout}    test session starts
-    Should Contain    ${output.stdout}    tests/test_lsst_dds_partition_prefix.py
-    Should Contain    ${output.stdout}    tests/test_sal.py
-
 Verify Java Camera Unit Tests
     [Documentation]    Run the Java Camera unit tests.
     [Tags]    smoke
