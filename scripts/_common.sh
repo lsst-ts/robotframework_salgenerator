@@ -5,28 +5,31 @@
 #  email:  rbovill@lsst.org
 
 #  VARIABLES
-added_generics_mandatory_commands=("setAuthList",)
+added_generics_mandatory_commands=()
 
-added_generics_mandatory_events=("authList", "heartbeat", "softwareVersions",)
+added_generics_mandatory_events=(
+    "heartbeat",
+    "logLevel",
+    "logMessage",
+    "softwareVersions",
+)
 
 added_generics_csc_commands=(
     "disable",
     "enable",
     "exitControl",
+    "setAuthList",
     "setLogLevel",
     "standby",
     "start",
 )
 
 added_generics_csc_events=(
+    "authList",
     "errorCode",
     "simulationMode",
     "summaryState",
 )
-
-added_generics_log_commands=()
-
-added_generics_log_events=("logLevel", "logMessage",)
 
 added_generics_configurable_commands=()
 
@@ -85,9 +88,6 @@ function getCommandTopics() {
     if [[ $( xml sel -t -m "//SALSubsystemSet/SALSubsystem[Name='$subSystem']" -v AddedGenerics $HOME/trunk/ts_xml/sal_interfaces/SALSubsystems.xml ) == "csc" ]]; then
         generic_commands+=(${added_generics_csc_commands[@]})
     fi
-    if [[ $( xml sel -t -m "//SALSubsystemSet/SALSubsystem[Name='$subSystem']" -v AddedGenerics $HOME/trunk/ts_xml/sal_interfaces/SALSubsystems.xml ) == "log" ]]; then
-        generic_commands+=(${added_generics_log_commands[@]})
-    fi
     if [[ $( xml sel -t -m "//SALSubsystemSet/SALSubsystem[Name='$subSystem']" -v AddedGenerics $HOME/trunk/ts_xml/sal_interfaces/SALSubsystems.xml ) == "configurable" ]]; then
         generic_commands+=(${added_generics_configurable_commands[@]})
     fi
@@ -125,9 +125,6 @@ function getEventTopics() {
     generic_events=(${added_generics_mandatory_events[@]})
     if [[ $( xml sel -t -m "//SALSubsystemSet/SALSubsystem[Name='$subSystem']" -v AddedGenerics $HOME/trunk/ts_xml/sal_interfaces/SALSubsystems.xml ) =~ "csc" ]]; then
         generic_events+=("${added_generics_csc_events[@]}")
-    fi
-    if [[ $( xml sel -t -m "//SALSubsystemSet/SALSubsystem[Name='$subSystem']" -v AddedGenerics $HOME/trunk/ts_xml/sal_interfaces/SALSubsystems.xml ) =~ "log" ]]; then
-        generic_events+=("${added_generics_log_events[@]}")
     fi
     if [[ $( xml sel -t -m "//SALSubsystemSet/SALSubsystem[Name='$subSystem']" -v AddedGenerics $HOME/trunk/ts_xml/sal_interfaces/SALSubsystems.xml ) =~ "configurable" ]]; then
         generic_events+=("${added_generics_configurable_events[@]}")
