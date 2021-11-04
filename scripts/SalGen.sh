@@ -793,8 +793,7 @@ function createTestSuite() {
     salgenRPM "${rtlang[@]}"
     verifyRPM ${#commandArray[@]} ${#eventArray[@]} ${#telemetryArray[@]} "${rtlang[@]}"
     if [[ ${rtlang[@]} =~ "CPP" ]]; then
-        echo "Verify Test RPM is disabled until SAL v6.0 is released."
-        #verifyTestRPM ${#commandArray[@]} ${#eventArray[@]} ${#telemetryArray[@]} 
+        verifyTestRPM ${#commandArray[@]} ${#eventArray[@]} ${#telemetryArray[@]} 
     fi
     # Indicate completion of the test suite.
     cleanupOutputs
