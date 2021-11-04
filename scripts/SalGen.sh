@@ -487,6 +487,10 @@ function salgenRPM() {
     echo "Salgen $subSystemUp RPM" >> $testSuite
     echo "    [Documentation]    Generate the SAL runtime RPM for \${subSystem}" >> $testSuite
     echo "    [Tags]    rpm$skipped" >> $testSuite
+    if [[ $subSystemUp == "Test" ]]; then
+        echo "    Comment    Append -SNAPSHOT to the Build_Number variable for the Test CSC, to accommodate RPM packaging." >> $testSuite
+        echo "    Set Test Variable    \${Build_Number}    \${Build_Number}\${MavenVersion}" >> $testSuite
+    fi
     echo "    Log Many    \${XMLVersion}    \${SALVersion}    \${Build_Number}    \${DIST}" >> $testSuite
     echo "    \${output}=    Run Process    \${SALHome}/bin/salgenerator    \${subSystem}    rpm    version\\=\${Build_Number}    \
 shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.txt    stderr=\${EXECDIR}\${/}\${subSystem}_stderr.txt" >> $testSuite
