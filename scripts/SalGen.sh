@@ -627,7 +627,8 @@ function verifyTestRPM() {
     echo "    ...    Set Test Variable    \${dot}    \${EMPTY}" >> $testSuite
     echo "    Run Keyword Unless    \"\${Build_Number}\" == \"\"" >> $testSuite
     echo "    ...    Set Test Variable    \${dot}    ." >> $testSuite
-    echo "    \${output}=    Run Process    rpm    -qpl    \${subSystem}_test-\${XMLVersion}-\${SALVersion}\${dot}\${Build_Number}\${DIST}.x86_64.rpm    cwd=\${SALWorkDir}/rpmbuild/RPMS/x86_64" >> $testSuite
+    echo "    \${output}=    Run Process    rpm    -qpl    \${subSystem}_test-\${XMLVersion}-\${SALVersion}\${dot}\${Build_Number}\${DIST}.x86_64.rpm    \
+shell=True    cwd=\${SALWorkDir}/rpmbuild/RPMS/x86_64    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.txt    stderr=\${EXECDIR}\${/}\${subSystem}_stderr.txt" >> $testSuite
     echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
     echo "    Should Not Contain    \${output.stderr}    error" >> $testSuite
     echo "    Should Not Contain    \${output.stderr}    No such file or directory" >> $testSuite
