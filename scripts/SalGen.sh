@@ -295,7 +295,7 @@ function salgenJava() {
     echo "    [Documentation]    Generate Java libraries." >> $testSuite
     echo "    [Tags]    java$skipped" >> $testSuite
     if [[ $subSystemUp == "Test" ]]; then
-        echo "    Comment    The Test CSC is not a true Java artifact and as such is never published as such. Remove the MavenVersion append to accommodate RPM packaging." >> $testSuite
+        echo "    Comment    The Test CSC is not a true Java artifact and is never published as such. Remove the MavenVersion string to accommodate RPM packaging." >> $testSuite
         echo "    Set Suite Variable    \${MavenVersion}    \${EMPTY}" >> $testSuite
     fi
     echo "    \${output}=    Run Process    \${SALHome}/bin/salgenerator    \${subSystem}    sal    java    version\\=\${Build_Number}\${MavenVersion}    \

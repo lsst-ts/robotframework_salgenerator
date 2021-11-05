@@ -316,7 +316,7 @@ Verify Script TEST RPM Contents
     ...    Set Test Variable    ${dot}    ${EMPTY}
     Run Keyword Unless    "${Build_Number}" == ""
     ...    Set Test Variable    ${dot}    .
-    ${output}=    Run Process    rpm    -qpl    ${subSystem}_test-${XMLVersion}-${SALVersion}${dot}${Build_Number}${DIST}.x86_64.rpm    cwd=${SALWorkDir}/rpmbuild/RPMS/x86_64
+    ${output}=    Run Process    rpm    -qpl    ${subSystem}_test-${XMLVersion}-${SALVersion}${dot}${Build_Number}${DIST}.x86_64.rpm    shell=True    cwd=${SALWorkDir}/rpmbuild/RPMS/x86_64    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Not Contain    ${output.stderr}    error
     Should Not Contain    ${output.stderr}    No such file or directory
