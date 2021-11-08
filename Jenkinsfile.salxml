@@ -440,6 +440,10 @@ pipeline {
                 'mvn -DskipTests=true -B deploy \n' +
                 'cd ' + _home + '/trunk/ts_sal/test/maven/CCHeaderService-' + XML_Version + "_" + SAL_Version + Build_Param + MavenVersion + ' \n' +
                 'mvn -DskipTests=true -B deploy \n' +
+                'cd ' + _home + '/trunk/ts_sal/test/maven/GCHeaderService-' + XML_Version + "_" + SAL_Version + Build_Param + MavenVersion + ' \n' +
+                'mvn -DskipTests=true -B deploy \n' +
+                'cd ' + _home + '/trunk/ts_sal/test/maven/MTRotator-' + XML_Version + "_" + SAL_Version + Build_Param + MavenVersion + ' \n' +
+                'mvn -DskipTests=true -B deploy \n' +
                 'Result=$? \n' +
                 'if [ $Result -eq 0 ]; then echo "=== Java deploy complete ==="; else exit $Result; fi'
             }
