@@ -266,7 +266,7 @@ Salgen Test LabVIEW
 Salgen Test Java
     [Documentation]    Generate Java libraries.
     [Tags]    java
-    Comment    The Test CSC is not a true Java artifact and as such is never published as such. Remove the MavenVersion append to accommodate RPM packaging.
+    Comment    The Test CSC is not a true Java artifact and is never published as such. Remove the MavenVersion string to accommodate RPM packaging.
     Set Suite Variable    ${MavenVersion}    ${EMPTY}
     ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    sal    java    version\=${Build_Number}${MavenVersion}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
