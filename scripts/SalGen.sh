@@ -294,6 +294,10 @@ function salgenJava() {
     echo "Salgen $subSystemUp Java" >> $testSuite
     echo "    [Documentation]    Generate Java libraries." >> $testSuite
     echo "    [Tags]    java$skipped" >> $testSuite
+    if [[ $subSystemUp == "Test" ]]; then
+        echo "    Comment    The Test CSC is not a true Java artifact and is never published as such. Remove the MavenVersion string to accommodate RPM packaging." >> $testSuite
+        echo "    Set Suite Variable    \${MavenVersion}    \${EMPTY}" >> $testSuite
+    fi
     echo "    \${output}=    Run Process    \${SALHome}/bin/salgenerator    \${subSystem}    sal    java    version\\=\${Build_Number}\${MavenVersion}    \
 shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.txt    stderr=\${EXECDIR}\${/}\${subSystem}_stderr.txt" >> $testSuite
     echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
@@ -623,7 +627,8 @@ function verifyTestRPM() {
     echo "    ...    Set Test Variable    \${dot}    \${EMPTY}" >> $testSuite
     echo "    Run Keyword Unless    \"\${Build_Number}\" == \"\"" >> $testSuite
     echo "    ...    Set Test Variable    \${dot}    ." >> $testSuite
-    echo "    \${output}=    Run Process    rpm    -qpl    \${subSystem}_test-\${XMLVersion}-\${SALVersion}\${dot}\${Build_Number}\${DIST}.x86_64.rpm    cwd=\${SALWorkDir}/rpmbuild/RPMS/x86_64" >> $testSuite
+    echo "    \${output}=    Run Process    rpm    -qpl    \${subSystem}_test-\${XMLVersion}-\${SALVersion}\${dot}\${Build_Number}\${DIST}.x86_64.rpm    \
+shell=True    cwd=\${SALWorkDir}/rpmbuild/RPMS/x86_64    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.txt    stderr=\${EXECDIR}\${/}\${subSystem}_stderr.txt" >> $testSuite
     echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
     echo "    Should Not Contain    \${output.stderr}    error" >> $testSuite
     echo "    Should Not Contain    \${output.stderr}    No such file or directory" >> $testSuite
@@ -793,8 +798,7 @@ function createTestSuite() {
     salgenRPM "${rtlang[@]}"
     verifyRPM ${#commandArray[@]} ${#eventArray[@]} ${#telemetryArray[@]} "${rtlang[@]}"
     if [[ ${rtlang[@]} =~ "CPP" ]]; then
-        echo "Verify Test RPM is disabled until SAL v6.0 is released."
-        #verifyTestRPM ${#commandArray[@]} ${#eventArray[@]} ${#telemetryArray[@]} 
+        verifyTestRPM ${#commandArray[@]} ${#eventArray[@]} ${#telemetryArray[@]} 
     fi
     # Indicate completion of the test suite.
     cleanupOutputs
