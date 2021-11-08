@@ -15,7 +15,7 @@ pipeline {
     parameters {
         booleanParam defaultValue: params.Messaging ?:true, description: 'Run SAL messaging tests?', name: 'Messaging'
         booleanParam defaultValue: params.Push ?:true, description: 'Push RPMs and Jars to Nexus3 repos?', name: 'Push'
-        booleanParam defaultValue: params.Trigger ?:true, description: 'Trigger the DevEnv and Conda workflows?', name: 'Push'
+        booleanParam defaultValue: params.Trigger ?:true, description: 'Trigger the DevEnv and Conda workflows?', name: 'Trigger'
         booleanParam defaultValue: params.Bleed ?:false, description: 'Is this a "bleeding edge" build?', name: 'Bleed'
         booleanParam defaultValue: params.Daily ?:false, description: 'Is this a Daily build?', name: 'Daily'
         booleanParam defaultValue: params.Release ?:false, description: 'Is this a Release build?', name: 'Release'
