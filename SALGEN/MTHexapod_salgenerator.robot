@@ -38,7 +38,6 @@ Salgen MTHexapod Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_actuators.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_application.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_electrical.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enterControl.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_clearError.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_configureAcceleration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_configureLimits.idl
@@ -74,7 +73,6 @@ Verify MTHexapod revCodes File
     [Documentation]    Ensure MTHexapod_revCodes.tcl contains 1 revcode per topic.
     [Tags]    doc    
     ${output}=    Log File    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_enterControl\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_clearError\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_configureAcceleration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_configureLimits\\) [a-z0-9]{8,}

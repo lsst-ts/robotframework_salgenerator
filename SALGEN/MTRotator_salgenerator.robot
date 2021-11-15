@@ -39,7 +39,6 @@ Salgen MTRotator Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_rotation.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_electrical.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_motors.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enterControl.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_configureAcceleration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_configureVelocity.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_fault.idl
@@ -72,7 +71,6 @@ Verify MTRotator revCodes File
     [Documentation]    Ensure MTRotator_revCodes.tcl contains 1 revcode per topic.
     [Tags]    doc    
     ${output}=    Log File    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_enterControl\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_configureAcceleration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_configureVelocity\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_fault\\) [a-z0-9]{8,}
@@ -172,8 +170,6 @@ Verify MTRotator C++ Telemetry Interfaces
 Verify MTRotator C++ Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enterControl_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enterControl_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_configureAcceleration_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_configureAcceleration_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_configureVelocity_commander
@@ -377,8 +373,6 @@ Verify MTRotator TEST RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_all_logger
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_all_publisher
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_all_subscriber
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_enterControl_commander
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_enterControl_controller
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_configureAcceleration_commander
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_configureAcceleration_controller
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_configureVelocity_commander
