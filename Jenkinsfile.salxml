@@ -431,22 +431,14 @@ pipeline {
             }
             steps {
                 sh label: 'Java Artifacts', script: '#!/bin/bash -x\n' +
-                'cd ' + _home + '/trunk/ts_sal/test/maven/ATCamera-' + XML_Version + "_" + SAL_Version + Build_Param + MavenVersion + ' \n' +
-                'mvn -DskipTests=true -B deploy \n' +
-                'cd ' + _home + '/trunk/ts_sal/test/maven/CCCamera-' + XML_Version + "_" + SAL_Version + Build_Param + MavenVersion + ' \n' +
-                'mvn -DskipTests=true -B deploy \n' +
-                'cd ' + _home + '/trunk/ts_sal/test/maven/MTCamera-' + XML_Version + "_" + SAL_Version + Build_Param + MavenVersion + ' \n' +
-                'mvn -DskipTests=true -B deploy \n' +
-                'cd ' + _home + '/trunk/ts_sal/test/maven/ATHeaderService-' + XML_Version + "_" + SAL_Version + Build_Param + MavenVersion + ' \n' +
-                'mvn -DskipTests=true -B deploy \n' +
-                'cd ' + _home + '/trunk/ts_sal/test/maven/CCHeaderService-' + XML_Version + "_" + SAL_Version + Build_Param + MavenVersion + ' \n' +
-                'mvn -DskipTests=true -B deploy \n' +
-                'cd ' + _home + '/trunk/ts_sal/test/maven/GCHeaderService-' + XML_Version + "_" + SAL_Version + Build_Param + MavenVersion + ' \n' +
-                'mvn -DskipTests=true -B deploy \n' +
-                'cd ' + _home + '/trunk/ts_sal/test/maven/MTRotator-' + XML_Version + "_" + SAL_Version + Build_Param + MavenVersion + ' \n' +
-                'mvn -DskipTests=true -B deploy \n' +
+                'declare -a JavaCSCs=($( xmlstarlet sel -t -m "//SALSubsystemSet/SALSubsystem/RuntimeLanguages[text()[contains(.,\'Java\')]]/../Name" -v . -n $HOME/trunk/ts_xml/sal_interfaces/SALSubsystems.xml )) \n' +
+                'echo ${JavaCSCs[@]}\n' +
+                'for csc in ${JavaCSCs[@]}; do\n' +
+                '\tcd ' + _home + '/trunk/ts_sal/test/maven/${csc}-' + XML_Version + "_" + SAL_Version + Build_Param + MavenVersion + ' \n' +
+                '\tmvn -DskipTests=true -B deploy \n' +
+                'done\n' +
                 'Result=$? \n' +
-                'if [ $Result -eq 0 ]; then echo "=== Java deploy complete ==="; else exit $Result; fi'
+                'if [ $Result -eq 0 ]; then echo "=== Java artifact uploads complete ==="; else exit $Result; fi'
             }
         }//Java artifacts
         stage('Trigger Jobs') {
