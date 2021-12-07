@@ -15,6 +15,7 @@ ${SALHome}              ${SalInstall}
 ${SALWorkDir}           ${SalInstall}/test
 ${SALVersion}           4.0
 ${XMLVersion}           4.8.0
+${XMLHome}              /home/appuser/trunk/ts_xml
 ${Build_Number}         001
 ${OpenspliceRelease}    Vortex OpenSplice HDE Release
 ${OpenspliceVersion}    6.7.170523OSS

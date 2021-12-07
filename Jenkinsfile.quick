@@ -117,7 +117,7 @@ pipeline {
                 'pwd \n' +
                 'robot --variable ContInt:true -e skipped --skiponfailure TSS* --skiponfailure DM* --variable SALVersion:' + SAL_Version + ' ' +
                     '--variable SALInstall:' + _home + '/trunk/ts_sal --variable OpenspliceRelease:\'OpenSplice HDE Release\' ' + 
-                    '--variable OpenspliceVersion:' + _ospl_version + ' --variable OpenspliceDate:' + _ospl_date + 
+                    '--variable OpenspliceVersion:' + _ospl_version + ' --variable OpenspliceDate:' + _ospl_date + ' --variable XMLHome:' + _home + '/trunk/ts_xml ' +
                     ' --variable MvnVersion:"Apache Maven ' + _mvn_version + '" --variable PythonVersion:\'Python ' + _python_version + '\' ' +
                     '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:' + Build_Param + ' ' + 
                     '--name Validate --output VALIDATE --outputdir ' + _home + '/trunk/Reports ' + _home + '/trunk/robotframework_salgenerator/Verify_SAL_Setup.robot ' +
@@ -144,7 +144,7 @@ pipeline {
                         'echo ========= Execute SAL messaging tests ========= \n' +
                         'robot --outputdir ' + _home + '/trunk/Reports --variable ContInt:true -e skipped --skiponfailure TSS* --skiponfailure DM* ' +
                             '--variable SALVersion:' + SAL_Version + ' --variable SALInstall:' + _home + '/trunk/ts_sal ' +
-                            '--variable OpenspliceRelease:\'OpenSplice HDE Release\' ' +
+                            '--variable OpenspliceRelease:\'OpenSplice HDE Release\' ' + ' --variable XMLHome:' + _home + '/trunk/ts_xml ' +
                             '--variable OpenspliceVersion:' + _ospl_version + ' --variable OpenspliceDate:' + _ospl_date + 
                             ' --variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + 
                             ' --variable MvnVersion:"Apache Maven ' + _mvn_version + '" --variable PythonVersion:\'Python ' + _python_version + '\' ' +
@@ -162,7 +162,7 @@ pipeline {
                         'echo Start \n' +
                         'robot --outputdir ' + _home + '/trunk/Reports --variable ContInt:true -e skipped --skiponfailure TSS* --skiponfailure DM* ' +
                             '--variable SALVersion:' + SAL_Version + ' --variable SALInstall:' + _home + '/trunk/ts_sal ' +
-                            '--variable OpenspliceRelease:\'OpenSplice HDE Release\' ' +
+                            '--variable OpenspliceRelease:\'OpenSplice HDE Release\' ' + ' --variable XMLHome:' + _home + '/trunk/ts_xml ' +
                             '--variable OpenspliceVersion:' + _ospl_version + ' --variable OpenspliceDate:' + _ospl_date +
                             ' --variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version +
                             ' --variable MvnVersion:"Apache Maven ' + _mvn_version + '" --variable PythonVersion:\'Python ' + _python_version + '\' ' +
@@ -192,7 +192,7 @@ pipeline {
                         'echo ========= Execute SAL Java messaging tests ========= \n' +
                         'robot --outputdir ' + _home + '/trunk/Reports --variable ContInt:true -e skipped --skiponfailure TSS* --skiponfailure DM* ' +
                             '--variable SALVersion:' + SAL_Version + ' --variable SALInstall:' + _home + '/trunk/ts_sal ' +
-                            '--variable OpenspliceRelease:\'OpenSplice HDE Release\' ' +
+                            '--variable OpenspliceRelease:\'OpenSplice HDE Release\' ' + ' --variable XMLHome:' + _home + '/trunk/ts_xml ' +
                             '--variable OpenspliceVersion:' + _ospl_version + ' --variable OpenspliceDate:' + _ospl_date +
                             ' --variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version +
                             ' --variable Build_Number:' + Build_Param + 
@@ -211,7 +211,7 @@ pipeline {
                         'echo ========= Execute SAL messaging tests ========= \n' +
                         'robot --outputdir ' + _home + '/trunk/Reports --variable ContInt:true -e skipped --skiponfailure TSS* --skiponfailure DM* ' +
                             '--variable SALVersion:' + SAL_Version + ' --variable SALInstall:' + _home + '/trunk/ts_sal ' +
-                            '--variable OpenspliceRelease:\'OpenSplice HDE Release\' ' +
+                            '--variable OpenspliceRelease:\'OpenSplice HDE Release\' ' + ' --variable XMLHome:' + _home + '/trunk/ts_xml ' +
                             '--variable OpenspliceVersion:' + _ospl_version + ' --variable OpenspliceDate:' + _ospl_date +
                             ' --variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version +
                             ' --variable Build_Number:' + Build_Param + 
@@ -239,7 +239,7 @@ pipeline {
                 'echo ========= Execute SAL C++ AuthList tests ========= \n' +
                 'robot --outputdir ' + _home + '/trunk/Reports --variable ContInt:true -e skipped --skiponfailure TSS* --skiponfailure DM* ' +
                     '--variable SALVersion:' + SAL_Version + ' --variable SALInstall:' + _home + '/trunk/ts_sal ' +
-                    '--variable OpenspliceRelease:\'OpenSplice HDE Release\' ' +
+                    '--variable OpenspliceRelease:\'OpenSplice HDE Release\' ' + ' --variable XMLHome:' + _home + '/trunk/ts_xml ' +
                     '--variable OpenspliceVersion:' + _ospl_version + ' --variable OpenspliceDate:' + _ospl_date +
                     ' --variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version +
                     ' --variable Build_Number:' + Build_Param +
