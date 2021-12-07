@@ -55,8 +55,8 @@ pipeline {
                 println("The container home dir: " + _home);
                 println("The Python version: " + _python_version);
                 script {
-                    SAL_Version = readFile("${WORKSPACE}/ts_sal/VERSION").trim()
-                    XML_Version = readFile("${WORKSPACE}/ts_xml/VERSION").trim()
+                    SAL_Version = sh(returnStdout: true, script: "cd /home/appuser/trunk/ts_sal && git describe |cut -c 2-").trim()
+                    XML_Version = sh(returnStdout: true, script: "cd /home/appuser/trunk/ts_xml && git describe |cut -c 2-").trim()
                     if ( params.SAL_BRANCH == 'master') {
                         // Maven and RPM release artifacts simply use the version numbers.
                         MavenVersion = ''
