@@ -48,19 +48,24 @@ Verify OpenSplice Version
 
 Verify XML Version
     [Tags]    smoke    version
-    ${output}=    Run Process    git    describe
+    File Should Exist    ${SALInstall}/test/VERSION
+    ${output}=    Get File    ${SALInstall}/test/VERSION
     Log    ${output}
-    Should Contain    ${output}    v${XMLVersion}
+    Should Contain    ${output}    ${XMLVersion}
 
 Verify SAL Version file exists
     [Tags]    smoke    version
+    File Should Exist    ${SALInstall}/VERSION
     File Should Exist    ${SALInstall}/lsstsal/scripts/sal_version.tcl
 
 Verify SAL Version file contents
     [Tags]    smoke    version
+    ${output}=    Get File    ${SALInstall}/VERSION
+    Log    ${output}
+    Should Contain    ${output}    ${SALVersion}
     ${output}=    Get File    ${SALInstall}/lsstsal/scripts/sal_version.tcl
     Log    ${output}
-    Should Contain    ${output}    [string trim [exec git describe --tags --dirty] "v"]
+    Should Contain    ${output}    set SALVERSION [exec cat $env(LSST_SDK_INSTALL)${/}VERSION]
 
 Verify SAL CSC list exists
     [Tags]    smoke
