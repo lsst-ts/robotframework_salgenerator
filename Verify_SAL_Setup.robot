@@ -48,7 +48,7 @@ Verify OpenSplice Version
 
 Verify XML Version
     [Tags]    smoke    version
-    ${output}=    Run Process    git    describe
+    ${output}=    Run Process    git    describe    cwd=${XMLHome}
     Log    ${output.stdout}
     Should Contain    ${output.stdout}    v${XMLVersion}
 
