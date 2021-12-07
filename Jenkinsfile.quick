@@ -67,7 +67,7 @@ pipeline {
                         MavenVersion = '-SNAPSHOT'
                         // RPM develop/daily/etc artifacts add 'pre' and the Build Number string.
                         Build_Param = "pre${BUILD_NUMBER}"
-                        RPM_Version = XML_Version + "-" + SAL_Version + "." + Build_Param
+                        RPM_Version = XML_Version + "-" + SAL_Version + Build_Param
                     }
                 }
                 sh 'mkdir -pv "${WORKSPACE}/Reports"'
@@ -85,7 +85,6 @@ pipeline {
                 sh label: 'XML files', script: '#!/bin/bash \n' + 'cp -v ${WORKSPACE}/ts_xml/sal_interfaces/*/*.xml ts_sal/test'
                 sh label: 'SAL Subsystems', script: '#!/bin/bash \n' + 'cp -v ${WORKSPACE}/ts_xml/sal_interfaces/SALSubsystems.xml ts_sal/test'
                 sh label: 'SAL Generics', script: '#!/bin/bash \n' + 'cp -v ${WORKSPACE}/ts_xml/sal_interfaces/SALGenerics.xml ts_sal/test'
-                sh label: 'XML Version', script: '#!/bin/bash \n' + 'cp -v ${WORKSPACE}/ts_xml/VERSION ts_sal/test'
             }
         }//Copy XML
         stage('Install IDL and XML python libraries') {
@@ -115,8 +114,9 @@ pipeline {
                 'echo cd ' + _home + '/trunk/robotframework_salgenerator \n' +
                 'cd ' + _home + '/trunk/robotframework_salgenerator \n' +
                 'pwd \n' +
-                'robot --variable ContInt:true -e skipped --skiponfailure TSS* --skiponfailure DM* --variable SALVersion:' + SAL_Version + ' ' +
-                    '--variable SALInstall:' + _home + '/trunk/ts_sal --variable OpenspliceRelease:\'OpenSplice HDE Release\' ' + 
+                'robot --variable ContInt:true -e skipped --skiponfailure TSS* --skiponfailure DM* --variable SALVersion:' + SAL_Version + 
+                    ' --variable SALVersionBase:' + SAL_Version_Base + ' --variable XMLVersionBase:' + XML_Version_Base + 
+                    ' --variable SALInstall:' + _home + '/trunk/ts_sal --variable OpenspliceRelease:\'OpenSplice HDE Release\' ' + 
                     '--variable OpenspliceVersion:' + _ospl_version + ' --variable OpenspliceDate:' + _ospl_date + ' --variable XMLHome:' + _home + '/trunk/ts_xml ' +
                     ' --variable MvnVersion:"Apache Maven ' + _mvn_version + '" --variable PythonVersion:\'Python ' + _python_version + '\' ' +
                     '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:' + Build_Param + ' ' + 
