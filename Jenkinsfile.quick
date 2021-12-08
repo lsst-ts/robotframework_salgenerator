@@ -275,5 +275,8 @@ pipeline {
                 recipients: "rbovill@lsst.org dmills@lsst.org",
                 sendToIndividuals: true])
         }
+        success {
+            cleanWs cleanWhenAborted: false, cleanWhenFailure: false, cleanWhenUnstable: false, deleteDirs: true, disableDeferredWipeout: true, notFailBuild: true
+        }
     }//post
 }//pipeline
