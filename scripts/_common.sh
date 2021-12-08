@@ -85,10 +85,10 @@ function getCommandTopics() {
     ## Now, get the desired Generic commands.
     ### If <AddedGenerics> contains "csc," then add the added_generics_csc_commands.  If it contains "log," add the added_generics_log_commands. If it contains "configurable," add the added_generics_configurable_commands.  If it contains individual, comma-delimited topics, just grab the "*command*" items.
     local generic_commands=(${added_generics_mandatory_commands[@]})
-    if [[ $( xml sel -t -m "//SALSubsystemSet/SALSubsystem[Name='$subSystem']" -v AddedGenerics $HOME/trunk/ts_xml/sal_interfaces/SALSubsystems.xml ) == "csc" ]]; then
+    if [[ $( xml sel -t -m "//SALSubsystemSet/SALSubsystem[Name='$subSystem']" -v AddedGenerics $HOME/trunk/ts_xml/sal_interfaces/SALSubsystems.xml ) =~ "csc" ]]; then
         generic_commands+=(${added_generics_csc_commands[@]})
     fi
-    if [[ $( xml sel -t -m "//SALSubsystemSet/SALSubsystem[Name='$subSystem']" -v AddedGenerics $HOME/trunk/ts_xml/sal_interfaces/SALSubsystems.xml ) == "configurable" ]]; then
+    if [[ $( xml sel -t -m "//SALSubsystemSet/SALSubsystem[Name='$subSystem']" -v AddedGenerics $HOME/trunk/ts_xml/sal_interfaces/SALSubsystems.xml ) =~ "configurable" ]]; then
         generic_commands+=(${added_generics_configurable_commands[@]})
     fi
     
