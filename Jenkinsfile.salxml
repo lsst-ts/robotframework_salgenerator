@@ -173,7 +173,7 @@ pipeline {
         stage('Validate') {
             steps {
                 // Validate the SAL/XML state using Test/Script CSCs
-                sh label: 'Validate', script: '#!/bin/bash -x \n' + 'source ' + _home + '/.bash_profile \n' +
+                sh label: 'Validate', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' + 'set -x \n' +
                 'echo OSPL_URI: $OSPL_URI \n' +
                 'echo DDS_QOS: $DDS_QOS \n' +
                 'echo ========= Move to robotframework_salgenerator directory ========= \n' +
