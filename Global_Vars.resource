@@ -13,10 +13,8 @@ ${MavenVersion}         -SNAPSHOT
 ${SALInstall}           /opt/sal
 ${SALHome}              ${SalInstall}
 ${SALWorkDir}           ${SalInstall}/test
-${SALVersion}           6.0.0-1-gabcdefg
-${SALVersionBase}       6.0.0
-${XMLVersion}           10.0.0-1-gabcdefg
-${XMLVersionBase}       10.0.0
+${SALVersion}           6.0.0
+${XMLVersion}           10.1.0
 ${XMLHome}              /home/appuser/trunk/ts_xml
 ${Build_Number}         001
 ${OpenspliceRelease}    Vortex OpenSplice HDE Release
