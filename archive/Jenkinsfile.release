@@ -25,12 +25,12 @@ node {
     }
     stage('Define SAL and XML Checkouts') {
         if ( SAL_tag == "" ) {
-            SAL_Checkout = "*/master"
+            SAL_Checkout = "*/main"
         } else {
             SAL_Checkout = "refs/tags/" + SAL_tag
         }
         if ( XML_tag == "" ) {
-            XML_Checkout = "*/master"
+            XML_Checkout = "*/main"
         } else {
             XML_Checkout = "refs/tags/" + XML_tag
         }
@@ -50,9 +50,9 @@ node {
                 // Get some code from a GitHub repository
                 checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: SAL_Checkout]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'SAL']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/ts_sal']]]
                 checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: XML_Checkout]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'XML']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/ts_xml']]]
-                checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'IDL']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/ts_idl']]]
-                checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'rbtsalgen']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/robotframework_salgenerator']]]
-                checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'rbtsalmsg']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/robotframework_SAL']]]
+                checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'IDL']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/ts_idl']]]
+                checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'rbtsalgen']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/robotframework_salgenerator']]]
+                checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'rbtsalmsg']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/robotframework_SAL']]]
             }
             stage('Define SAL and XML version variables') {
                 SAL_Version = readFile("${WORKSPACE}/SAL/VERSION").trim()
@@ -197,7 +197,7 @@ node {
             stage('Push RPMs to AWS S3 bucket') {
                 if (Push == 'true') {
                     sh label: 'Push RPMs to Nexus3', script: '#!/bin/bash -x\n ' + 
-                        'aws --no-progress s3 cp ' + _home + '/trunk/ts_sal/test/rpmbuild/RPMS/x86_64/ s3://sal-objects/master ' +
+                        'aws --no-progress s3 cp ' + _home + '/trunk/ts_sal/test/rpmbuild/RPMS/x86_64/ s3://sal-objects/main ' +
                         '--acl public-read --recursive --exclude "dbsimulate/*" --exclude "salgenerator/*"'
                     println('Pushed RPMs to S3 bucket')
                 } else {
@@ -221,7 +221,7 @@ node {
                 if (Push == 'true') {
                     def RPM_LIST = sh (
                         label: 'Push RPMs to Nexus3', script: '#!/bin/bash -x\n' + 
-                        'aws s3 ls s3://sal-objects/master/ |grep -v debuginfo |grep ' + SAL_Version + 
+                        'aws s3 ls s3://sal-objects/main/ |grep -v debuginfo |grep ' + SAL_Version + 
                         ' |grep ' + XML_Version + ' |cut -c 32-',
                         returnStdout: true
                     ).trim()
@@ -234,7 +234,7 @@ node {
                         // Iterate over RPMs and push to Nexus3 yum repo.
                         for(file in array) {
                             sh 'echo "========= Downloading ' + file + ' from s3 bucket ========="'
-                            sh 'set -x ; aws --no-progress s3 cp s3://sal-objects/master/' + file + ' /tmp'
+                            sh 'set -x ; aws --no-progress s3 cp s3://sal-objects/main/' + file + ' /tmp'
                             sh 'echo "=== Pushing ' + file + ' to Nexus3 yum repo ==="'
                             sh 'set -x ; curl --write-out %{http_code} -Ss -u $nexus_username:$nexus_passwd -T ${WORKSPACE}/RPMs/' + file + ' https://repo-nexus.lsst.org/nexus/repository/ts_yum/releases/'
                             sh 'echo "=== CSC RPM push complete ==="'
