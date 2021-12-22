@@ -35,6 +35,7 @@ Salgen ESS Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_ackcmd.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_airTurbulence.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_airFlow.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_pressure.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_temperature.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_cloudRainLight.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_hx85a.idl
@@ -82,6 +83,7 @@ Verify ESS revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_settingVersions\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_airTurbulence\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_airFlow\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_pressure\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_temperature\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_cloudRainLight\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_hx85a\\) [a-z0-9]{8,}
