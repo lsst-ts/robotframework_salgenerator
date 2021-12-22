@@ -327,15 +327,14 @@ pipeline {
                 'echo ========= Execute SAL C++ AuthList tests ========= \n' +
                 'robot --outputdir ' + _home + '/trunk/Reports --variable ContInt:true -e skipped --skiponfailure TSS* --skiponfailure DM* ' +
                     '--variable SALVersion:' + SAL_Version + ' --variable SALInstall:' + _home + '/trunk/ts_sal ' +
-                    ' --variable SALVersionBase:' + SAL_Version_Base + ' --variable XMLVersionBase:' + XML_Version_Base +
-                    ' --variable OpenspliceRelease:\'OpenSplice HDE Release\' ' + ' --variable XMLHome:' + _home + '/trunk/ts_xml ' +
+                    '--variable OpenspliceRelease:\'OpenSplice HDE Release\' ' +
                     '--variable OpenspliceVersion:' + _ospl_version + ' --variable OpenspliceDate:' + _ospl_date +
                     ' --variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version +
                     ' --variable Build_Number:' + Build_Param +
                     ' --variable MvnVersion:"Apache Maven ' + _mvn_version + '" --variable PythonVersion:\'Python ' + _python_version + '\' ' +
                     '--name CppAuthList --output CppAuthList ' +
                     '-A ' + _home + '/trunk/robotframework_SAL/CppAuthList_Tests.list \n' +
-                    'exit 0'
+                'exit 0'
             }
         }//CppAuthList
         stage('JavaAuthlist') {
@@ -352,8 +351,7 @@ pipeline {
                 'echo ========= Execute SAL C++ AuthList tests ========= \n' +
                 'robot --outputdir ' + _home + '/trunk/Reports --variable ContInt:true -e skipped --skiponfailure TSS* --skiponfailure DM* ' +
                     '--variable SALVersion:' + SAL_Version + ' --variable SALInstall:' + _home + '/trunk/ts_sal ' +
-                    ' --variable SALVersionBase:' + SAL_Version_Base + ' --variable XMLVersionBase:' + XML_Version_Base +
-                    ' --variable OpenspliceRelease:\'OpenSplice HDE Release\' ' + ' --variable XMLHome:' + _home + '/trunk/ts_xml ' +
+                    '--variable OpenspliceRelease:\'OpenSplice HDE Release\' ' +
                     '--variable OpenspliceVersion:' + _ospl_version + ' --variable OpenspliceDate:' + _ospl_date +
                     ' --variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version +
                     ' --variable Build_Number:' + Build_Param +
