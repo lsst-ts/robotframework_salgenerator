@@ -44,7 +44,7 @@ pipeline {
                 script {
                     SAL_Version = readFile("${WORKSPACE}/ts_sal/VERSION").trim()
                     XML_Version = readFile("${WORKSPACE}/ts_xml/VERSION").trim()
-                    if ("${GIT_BRANCH}" == 'master') {
+                    if ("${GIT_BRANCH}" == 'main') {
                         // Maven release artifacts simply use the version numbers.
                         MavenVersion = ''
                     } else {
