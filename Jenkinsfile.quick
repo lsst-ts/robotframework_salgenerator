@@ -57,8 +57,8 @@ pipeline {
                 script {
                     SAL_Version = sh(returnStdout: true, script: "cd /home/appuser/trunk/ts_sal && git describe |sed s/v//g").trim()
                     XML_Version = sh(returnStdout: true, script: "cd /home/appuser/trunk/ts_xml && git describe |sed s/v//g").trim()
-                    SAL_Version_Base = sh(returnStdout: true, script: "echo " + SAL_Version + " |cut -d '-' -f1 |sed s/v//g").trim()
-                    XML_Version_Base = sh(returnStdout: true, script: "echo " + XML_Version + " |cut -d '-' -f1 |sed s/v//g").trim()
+                    SAL_Version_Base = sh(returnStdout: true, script: "echo " + SAL_Version + " |cut -d '-' -f1 |cut -d '_' -f1 |sed s/v//g").trim()
+                    XML_Version_Base = sh(returnStdout: true, script: "echo " + XML_Version + " |cut -d '-' -f1 |cut -d '_' -f1 |sed s/v//g").trim()
                     if ( params.SAL_BRANCH == 'main') {
                         // Maven and RPM release artifacts simply use the version numbers.
                         MavenVersion = ''
@@ -76,7 +76,9 @@ pipeline {
                 sh 'mkdir -pv ' + _home + '/trunk/Reports'
                 echo "The Branch Name: ${GIT_BRANCH}"
                 echo "The SAL version: " + SAL_Version
+                echo "The SAL base version: " + SAL_Version_Base
                 echo "The XML version: " + XML_Version
+                echo "The XML base version: " + XML_Version_Base
                 echo "The Maven version: " + MavenVersion
                 echo "The RPM Version: " + RPM_Version 
             }
