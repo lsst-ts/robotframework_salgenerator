@@ -515,10 +515,13 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     echo "    Directory Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/" >> $testSuite
     echo "    @{files}=    List Directory    \${SALWorkDir}/rpmbuild/RPMS/x86_64/" >> $testSuite
     echo "    Log Many    @{files}" >> $testSuite
-    echo "    Run Keyword If    \"\${Build_Number}\" == \"\"" >> $testSuite
-    echo "    ...    Set Test Variable    \${dot}    \${EMPTY}" >> $testSuite
-    echo "    Run Keyword Unless    \"\${Build_Number}\" == \"\"" >> $testSuite
-    echo "    ...    Set Test Variable    \${dot}    ." >> $testSuite
+    echo "    IF    \"\${Build_Number}\" == \"\"" >> $testSuite
+    echo "        Set Test Variable    \${dot}    \${EMPTY}" >> $testSuite
+    echo "    ELSE IF \"\${Build_Number}\" == \"*RC*\"" >> $testSuite
+    echo "        Set Test Variable    \${dot}    \${EMPTY}" >> $testSuite
+    echo "    ELSE    \"\${Build_Number}\" == \"\"" >> $testSuite
+    echo "        Set Test Variable    \${dot}    ." >> $testSuite
+    echo "    END" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/rpmbuild/SPECS/ts_sal_\${subSystem}.spec" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/rpmbuild/SOURCES/\${subSystem}-\${XMLVersionBase}.tgz" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_runtime-\${XMLVersionBase}-\${SALVersionBase}*\${DIST}.x86_64.rpm" >> $testSuite
@@ -548,10 +551,13 @@ function verifyRPM() {
     echo "    [Documentation]    Verify the \${subSystem} RPM contains all the expected libraries" >> $testSuite
     echo "    [Tags]    rpm$skipped" >> $testSuite
     echo "    Comment    Re-run the {dot} process, so this test case can run independently." >> $testSuite
-    echo "    Run Keyword If    \"\${Build_Number}\" == \"\"" >> $testSuite
-    echo "    ...    Set Test Variable    \${dot}    \${EMPTY}" >> $testSuite
-    echo "    Run Keyword Unless    \"\${Build_Number}\" == \"\"" >> $testSuite
-    echo "    ...    Set Test Variable    \${dot}    ." >> $testSuite
+    echo "    IF    \"\${Build_Number}\" == \"\"" >> $testSuite
+    echo "        Set Test Variable    \${dot}    \${EMPTY}" >> $testSuite
+    echo "    ELSE IF \"\${Build_Number}\" == \"*RC*\"" >> $testSuite
+    echo "        Set Test Variable    \${dot}    \${EMPTY}" >> $testSuite
+    echo "    ELSE    \"\${Build_Number}\" == \"\"" >> $testSuite
+    echo "        Set Test Variable    \${dot}    ." >> $testSuite
+    echo "    END" >> $testSuite
     echo "    \${output}=    Run Process    rpm    -qpl    \${subSystem}-\${XMLVersionBase}-\${SALVersionBase}\${dot}\${Build_Number}\${DIST}.x86_64.rpm    cwd=\${SALWorkDir}/rpmbuild/RPMS/x86_64" >> $testSuite
     echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
     echo "    Should Not Contain    \${output.stderr}    error" >> $testSuite
@@ -623,10 +629,13 @@ function verifyTestRPM() {
     echo "    [Documentation]    Verify the \${subSystem} TEST RPM contains all the expected libraries" >> $testSuite
     echo "    [Tags]    rpm$skipped" >> $testSuite
     echo "    Comment    Re-run the {dot} process, so this test case can run independently." >> $testSuite
-    echo "    Run Keyword If    \"\${Build_Number}\" == \"\"" >> $testSuite
-    echo "    ...    Set Test Variable    \${dot}    \${EMPTY}" >> $testSuite
-    echo "    Run Keyword Unless    \"\${Build_Number}\" == \"\"" >> $testSuite
-    echo "    ...    Set Test Variable    \${dot}    ." >> $testSuite
+    echo "    IF    \"\${Build_Number}\" == \"\"" >> $testSuite
+    echo "        Set Test Variable    \${dot}    \${EMPTY}" >> $testSuite
+    echo "    ELSE IF \"\${Build_Number}\" == \"*RC*\"" >> $testSuite
+    echo "        Set Test Variable    \${dot}    \${EMPTY}" >> $testSuite
+    echo "    ELSE    \"\${Build_Number}\" == \"\"" >> $testSuite
+    echo "        Set Test Variable    \${dot}    ." >> $testSuite
+    echo "    END" >> $testSuite
     echo "    \${output}=    Run Process    rpm    -qpl    \${subSystem}_test-\${XMLVersionBase}-\${SALVersionBase}\${dot}\${Build_Number}\${DIST}.x86_64.rpm    \
 shell=True    cwd=\${SALWorkDir}/rpmbuild/RPMS/x86_64    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.txt    stderr=\${EXECDIR}\${/}\${subSystem}_stderr.txt" >> $testSuite
     echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
