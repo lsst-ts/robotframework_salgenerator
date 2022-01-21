@@ -34,22 +34,11 @@ Salgen CCArchiver Validate
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_ackcmd.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_exitControl.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setAuthList.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setLogLevel.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_standby.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_start.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_resetFromFault.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_heartbeat.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_logLevel.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_logMessage.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_softwareVersions.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_authList.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_errorCode.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_simulationMode.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_summaryState.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_imageRetrievalForArchiving.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_imageInOODS.idl
 
@@ -57,22 +46,11 @@ Verify CCArchiver revCodes File
     [Documentation]    Ensure CCArchiver_revCodes.tcl contains 1 revcode per topic.
     [Tags]    doc    
     ${output}=    Log File    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_disable\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_enable\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_exitControl\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setAuthList\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setLogLevel\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_standby\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_start\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_resetFromFault\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_heartbeat\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_logLevel\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_logMessage\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_softwareVersions\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_authList\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_errorCode\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_simulationMode\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_summaryState\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_imageRetrievalForArchiving\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_imageInOODS\\) [a-z0-9]{8,}
 
@@ -128,10 +106,13 @@ Salgen CCArchiver RPM
     Directory Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/
     @{files}=    List Directory    ${SALWorkDir}/rpmbuild/RPMS/x86_64/
     Log Many    @{files}
-    Run Keyword If    "${Build_Number}" == ""
-    ...    Set Test Variable    ${dot}    ${EMPTY}
-    Run Keyword Unless    "${Build_Number}" == ""
-    ...    Set Test Variable    ${dot}    .
+    IF    "${Build_Number}" == ""
+        Set Test Variable    ${dot}    ${EMPTY}
+    ELSE IF    ${{'RC' in '${Build_Number}'}}
+        Set Test Variable    ${dot}    ${EMPTY}
+    ELSE
+        Set Test Variable    ${dot}    .
+    END
     File Should Exist    ${SALWorkDir}/rpmbuild/SPECS/ts_sal_${subSystem}.spec
     File Should Exist    ${SALWorkDir}/rpmbuild/SOURCES/${subSystem}-${XMLVersionBase}.tgz
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_runtime-${XMLVersionBase}-${SALVersionBase}*${DIST}.x86_64.rpm
@@ -144,10 +125,13 @@ Verify CCArchiver RPM Contents
     [Documentation]    Verify the ${subSystem} RPM contains all the expected libraries
     [Tags]    rpm
     Comment    Re-run the {dot} process, so this test case can run independently.
-    Run Keyword If    "${Build_Number}" == ""
-    ...    Set Test Variable    ${dot}    ${EMPTY}
-    Run Keyword Unless    "${Build_Number}" == ""
-    ...    Set Test Variable    ${dot}    .
+    IF    "${Build_Number}" == ""
+        Set Test Variable    ${dot}    ${EMPTY}
+    ELSE IF    ${{'RC' in '${Build_Number}'}}
+        Set Test Variable    ${dot}    ${EMPTY}
+    ELSE
+        Set Test Variable    ${dot}    .
+    END
     ${output}=    Run Process    rpm    -qpl    ${subSystem}-${XMLVersionBase}-${SALVersionBase}${dot}${Build_Number}${DIST}.x86_64.rpm    cwd=${SALWorkDir}/rpmbuild/RPMS/x86_64
     Log Many    ${output.stdout}    ${output.stderr}
     Should Not Contain    ${output.stderr}    error

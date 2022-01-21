@@ -104,10 +104,13 @@ Salgen LOVE RPM
     Directory Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/
     @{files}=    List Directory    ${SALWorkDir}/rpmbuild/RPMS/x86_64/
     Log Many    @{files}
-    Run Keyword If    "${Build_Number}" == ""
-    ...    Set Test Variable    ${dot}    ${EMPTY}
-    Run Keyword Unless    "${Build_Number}" == ""
-    ...    Set Test Variable    ${dot}    .
+    IF    "${Build_Number}" == ""
+        Set Test Variable    ${dot}    ${EMPTY}
+    ELSE IF    ${{'RC' in '${Build_Number}'}}
+        Set Test Variable    ${dot}    ${EMPTY}
+    ELSE
+        Set Test Variable    ${dot}    .
+    END
     File Should Exist    ${SALWorkDir}/rpmbuild/SPECS/ts_sal_${subSystem}.spec
     File Should Exist    ${SALWorkDir}/rpmbuild/SOURCES/${subSystem}-${XMLVersionBase}.tgz
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_runtime-${XMLVersionBase}-${SALVersionBase}*${DIST}.x86_64.rpm
@@ -120,10 +123,13 @@ Verify LOVE RPM Contents
     [Documentation]    Verify the ${subSystem} RPM contains all the expected libraries
     [Tags]    rpm
     Comment    Re-run the {dot} process, so this test case can run independently.
-    Run Keyword If    "${Build_Number}" == ""
-    ...    Set Test Variable    ${dot}    ${EMPTY}
-    Run Keyword Unless    "${Build_Number}" == ""
-    ...    Set Test Variable    ${dot}    .
+    IF    "${Build_Number}" == ""
+        Set Test Variable    ${dot}    ${EMPTY}
+    ELSE IF    ${{'RC' in '${Build_Number}'}}
+        Set Test Variable    ${dot}    ${EMPTY}
+    ELSE
+        Set Test Variable    ${dot}    .
+    END
     ${output}=    Run Process    rpm    -qpl    ${subSystem}-${XMLVersionBase}-${SALVersionBase}${dot}${Build_Number}${DIST}.x86_64.rpm    cwd=${SALWorkDir}/rpmbuild/RPMS/x86_64
     Log Many    ${output.stdout}    ${output.stderr}
     Should Not Contain    ${output.stderr}    error

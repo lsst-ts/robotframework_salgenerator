@@ -40,13 +40,6 @@ Salgen MTMount Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_cameraCableWrap.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_elevation.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_elevationDrives.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_exitControl.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setAuthList.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setLogLevel.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_standby.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_start.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_closeMirrorCovers.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_openMirrorCovers.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disableCameraCableWrapFollowing.idl
@@ -61,18 +54,7 @@ Salgen MTMount Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_logLevel.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_logMessage.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_softwareVersions.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_authList.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_errorCode.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_simulationMode.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_summaryState.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_appliedSettingsMatchStart.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingVersions.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_availableSettings.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_controllerSettingsName.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_azimuthControllerSettings.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_elevationControllerSettings.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_cameraCableWrapControllerSettings.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_azimuthSystemState.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_elevationSystemState.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_cameraCableWrapSystemState.idl
@@ -117,13 +99,6 @@ Verify MTMount revCodes File
     [Documentation]    Ensure MTMount_revCodes.tcl contains 1 revcode per topic.
     [Tags]    doc    
     ${output}=    Log File    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_disable\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_enable\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_exitControl\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setAuthList\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setLogLevel\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_standby\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_start\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_closeMirrorCovers\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_openMirrorCovers\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_disableCameraCableWrapFollowing\\) [a-z0-9]{8,}
@@ -138,18 +113,7 @@ Verify MTMount revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_logLevel\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_logMessage\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_softwareVersions\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_authList\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_errorCode\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_simulationMode\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_summaryState\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_appliedSettingsMatchStart\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_settingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_settingVersions\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_availableSettings\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_controllerSettingsName\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_azimuthControllerSettings\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_elevationControllerSettings\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_cameraCableWrapControllerSettings\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_azimuthSystemState\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_elevationSystemState\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_cameraCableWrapSystemState\\) [a-z0-9]{8,}
@@ -266,20 +230,6 @@ Verify MTMount C++ Telemetry Interfaces
 Verify MTMount C++ Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_disable_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_disable_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enable_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enable_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_exitControl_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_exitControl_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setAuthList_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setAuthList_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setLogLevel_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setLogLevel_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_standby_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_standby_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_start_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_start_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_closeMirrorCovers_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_closeMirrorCovers_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_openMirrorCovers_commander
@@ -312,30 +262,8 @@ Verify MTMount C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_logMessage_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_softwareVersions_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_softwareVersions_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_authList_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_authList_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_errorCode_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_errorCode_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_simulationMode_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_simulationMode_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_summaryState_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_summaryState_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_appliedSettingsMatchStart_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_appliedSettingsMatchStart_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsApplied_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingsApplied_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingVersions_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_settingVersions_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_availableSettings_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_availableSettings_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_controllerSettingsName_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_controllerSettingsName_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_azimuthControllerSettings_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_azimuthControllerSettings_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_elevationControllerSettings_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_elevationControllerSettings_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_cameraCableWrapControllerSettings_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_cameraCableWrapControllerSettings_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_azimuthSystemState_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_azimuthSystemState_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_elevationSystemState_send
@@ -472,10 +400,13 @@ Salgen MTMount RPM
     Directory Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/
     @{files}=    List Directory    ${SALWorkDir}/rpmbuild/RPMS/x86_64/
     Log Many    @{files}
-    Run Keyword If    "${Build_Number}" == ""
-    ...    Set Test Variable    ${dot}    ${EMPTY}
-    Run Keyword Unless    "${Build_Number}" == ""
-    ...    Set Test Variable    ${dot}    .
+    IF    "${Build_Number}" == ""
+        Set Test Variable    ${dot}    ${EMPTY}
+    ELSE IF    ${{'RC' in '${Build_Number}'}}
+        Set Test Variable    ${dot}    ${EMPTY}
+    ELSE
+        Set Test Variable    ${dot}    .
+    END
     File Should Exist    ${SALWorkDir}/rpmbuild/SPECS/ts_sal_${subSystem}.spec
     File Should Exist    ${SALWorkDir}/rpmbuild/SOURCES/${subSystem}-${XMLVersionBase}.tgz
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_runtime-${XMLVersionBase}-${SALVersionBase}*${DIST}.x86_64.rpm
@@ -489,10 +420,13 @@ Verify MTMount RPM Contents
     [Documentation]    Verify the ${subSystem} RPM contains all the expected libraries
     [Tags]    rpm
     Comment    Re-run the {dot} process, so this test case can run independently.
-    Run Keyword If    "${Build_Number}" == ""
-    ...    Set Test Variable    ${dot}    ${EMPTY}
-    Run Keyword Unless    "${Build_Number}" == ""
-    ...    Set Test Variable    ${dot}    .
+    IF    "${Build_Number}" == ""
+        Set Test Variable    ${dot}    ${EMPTY}
+    ELSE IF    ${{'RC' in '${Build_Number}'}}
+        Set Test Variable    ${dot}    ${EMPTY}
+    ELSE
+        Set Test Variable    ${dot}    .
+    END
     ${output}=    Run Process    rpm    -qpl    ${subSystem}-${XMLVersionBase}-${SALVersionBase}${dot}${Build_Number}${DIST}.x86_64.rpm    cwd=${SALWorkDir}/rpmbuild/RPMS/x86_64
     Log Many    ${output.stdout}    ${output.stderr}
     Should Not Contain    ${output.stderr}    error
@@ -529,10 +463,13 @@ Verify MTMount TEST RPM Contents
     [Documentation]    Verify the ${subSystem} TEST RPM contains all the expected libraries
     [Tags]    rpm
     Comment    Re-run the {dot} process, so this test case can run independently.
-    Run Keyword If    "${Build_Number}" == ""
-    ...    Set Test Variable    ${dot}    ${EMPTY}
-    Run Keyword Unless    "${Build_Number}" == ""
-    ...    Set Test Variable    ${dot}    .
+    IF    "${Build_Number}" == ""
+        Set Test Variable    ${dot}    ${EMPTY}
+    ELSE IF    ${{'RC' in '${Build_Number}'}}
+        Set Test Variable    ${dot}    ${EMPTY}
+    ELSE
+        Set Test Variable    ${dot}    .
+    END
     ${output}=    Run Process    rpm    -qpl    ${subSystem}_test-${XMLVersionBase}-${SALVersionBase}${dot}${Build_Number}${DIST}.x86_64.rpm    shell=True    cwd=${SALWorkDir}/rpmbuild/RPMS/x86_64    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Not Contain    ${output.stderr}    error
@@ -546,20 +483,6 @@ Verify MTMount TEST RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_all_logger
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_all_publisher
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_all_subscriber
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_disable_commander
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_disable_controller
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_enable_commander
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_enable_controller
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_exitControl_commander
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_exitControl_controller
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_setAuthList_commander
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_setAuthList_controller
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_setLogLevel_commander
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_setLogLevel_controller
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_standby_commander
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_standby_controller
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_start_commander
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_start_controller
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_closeMirrorCovers_commander
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_closeMirrorCovers_controller
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_openMirrorCovers_commander
@@ -588,30 +511,8 @@ Verify MTMount TEST RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_logMessage_log
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_softwareVersions_send
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_softwareVersions_log
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_authList_send
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_authList_log
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_errorCode_send
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_errorCode_log
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_simulationMode_send
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_simulationMode_log
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_summaryState_send
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_summaryState_log
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_appliedSettingsMatchStart_send
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_appliedSettingsMatchStart_log
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_settingsApplied_send
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_settingsApplied_log
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_settingVersions_send
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_settingVersions_log
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_availableSettings_send
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_availableSettings_log
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_controllerSettingsName_send
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_controllerSettingsName_log
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_azimuthControllerSettings_send
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_azimuthControllerSettings_log
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_elevationControllerSettings_send
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_elevationControllerSettings_log
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_cameraCableWrapControllerSettings_send
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_cameraCableWrapControllerSettings_log
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_azimuthSystemState_send
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_azimuthSystemState_log
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_elevationSystemState_send

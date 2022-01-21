@@ -517,9 +517,9 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     echo "    Log Many    @{files}" >> $testSuite
     echo "    IF    \"\${Build_Number}\" == \"\"" >> $testSuite
     echo "        Set Test Variable    \${dot}    \${EMPTY}" >> $testSuite
-    echo "    ELSE IF \"\${Build_Number}\" == \"*RC*\"" >> $testSuite
+    echo "    ELSE IF    \${{'RC' in '\${Build_Number}'}}" >> $testSuite
     echo "        Set Test Variable    \${dot}    \${EMPTY}" >> $testSuite
-    echo "    ELSE    \"\${Build_Number}\" == \"\"" >> $testSuite
+    echo "    ELSE" >> $testSuite
     echo "        Set Test Variable    \${dot}    ." >> $testSuite
     echo "    END" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/rpmbuild/SPECS/ts_sal_\${subSystem}.spec" >> $testSuite
@@ -553,9 +553,9 @@ function verifyRPM() {
     echo "    Comment    Re-run the {dot} process, so this test case can run independently." >> $testSuite
     echo "    IF    \"\${Build_Number}\" == \"\"" >> $testSuite
     echo "        Set Test Variable    \${dot}    \${EMPTY}" >> $testSuite
-    echo "    ELSE IF \"\${Build_Number}\" == \"*RC*\"" >> $testSuite
+    echo "    ELSE IF    \${{'RC' in '\${Build_Number}'}}" >> $testSuite
     echo "        Set Test Variable    \${dot}    \${EMPTY}" >> $testSuite
-    echo "    ELSE    \"\${Build_Number}\" == \"\"" >> $testSuite
+    echo "    ELSE" >> $testSuite
     echo "        Set Test Variable    \${dot}    ." >> $testSuite
     echo "    END" >> $testSuite
     echo "    \${output}=    Run Process    rpm    -qpl    \${subSystem}-\${XMLVersionBase}-\${SALVersionBase}\${dot}\${Build_Number}\${DIST}.x86_64.rpm    cwd=\${SALWorkDir}/rpmbuild/RPMS/x86_64" >> $testSuite
@@ -631,9 +631,9 @@ function verifyTestRPM() {
     echo "    Comment    Re-run the {dot} process, so this test case can run independently." >> $testSuite
     echo "    IF    \"\${Build_Number}\" == \"\"" >> $testSuite
     echo "        Set Test Variable    \${dot}    \${EMPTY}" >> $testSuite
-    echo "    ELSE IF \"\${Build_Number}\" == \"*RC*\"" >> $testSuite
+    echo "    ELSE IF    \${{'RC' in '\${Build_Number}'}}" >> $testSuite
     echo "        Set Test Variable    \${dot}    \${EMPTY}" >> $testSuite
-    echo "    ELSE    \"\${Build_Number}\" == \"\"" >> $testSuite
+    echo "    ELSE" >> $testSuite
     echo "        Set Test Variable    \${dot}    ." >> $testSuite
     echo "    END" >> $testSuite
     echo "    \${output}=    Run Process    rpm    -qpl    \${subSystem}_test-\${XMLVersionBase}-\${SALVersionBase}\${dot}\${Build_Number}\${DIST}.x86_64.rpm    \
