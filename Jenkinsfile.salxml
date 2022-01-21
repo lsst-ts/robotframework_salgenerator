@@ -133,9 +133,15 @@ pipeline {
                     SAL_Version_Base = sh(returnStdout: true, script: "echo " + SAL_Version + " |cut -d '-' -f1 |cut -d '_' -f1 |sed s/v//g").trim()
                     XML_Version_Base = sh(returnStdout: true, script: "echo " + XML_Version + " |cut -d '-' -f1 |cut -d '_' -f1 |sed s/v//g").trim()
                     if ( params.Release == true) {
+                        if ( XML_Version.contains('RC') ) {
+                            Build_Param = "_" + sh(returnStdout: true, script: "echo " + XML_Version + " |cut -d '_' -f2").trim()
+                        } else if ( SAL_Version.contains('RC') ) {
+                            Build_Param = "_" + sh(returnStdout: true, script: "echo " + SAL_Version + " |cut -d '_' -f2").trim()
+                        } else {
+                            Build_Param = ""
+                        } 
                         // Maven and RPM release artifacts simply use the version numbers.
                         MavenVersion = ''
-                        Build_Param = ''
                         RPM_Version = XML_Version_Base + "-" + SAL_Version_Base
                     } else {
                         // Maven develop/daily/etc artifacts add the -SNAPSHOT string.
@@ -153,6 +159,7 @@ pipeline {
                 echo "The Base SAL version: " + SAL_Version_Base
                 echo "The Base XML version: " + XML_Version_Base
                 echo "The Maven version: " + MavenVersion
+                echo "The Version modifier: " + Build_Param 
                 echo "The RPM Version: " + RPM_Version 
             }
         }//Define SAL & XML variables
