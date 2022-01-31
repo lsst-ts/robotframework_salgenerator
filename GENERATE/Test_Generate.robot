@@ -25,7 +25,7 @@ Verify Test XML Defintions exist
 Salgen Test Generate
     [Documentation]    Execute the combined build process generate on ${subSystem}.
     [Tags]    validate
-    ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    python    generate    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
+    ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    labview    generate    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Set Suite Variable    ${output.stdout}    ${output.stdout}
     Set Suite Variable    ${output.stderr}    ${output.stderr}
@@ -168,6 +168,19 @@ Verify Test C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_scalars_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_arrays_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_arrays_log
+
+Verify Salgen Test LabVIEW Build Step
+    [Documentation]    Verify the  low-level LabView interfaces were properly created.
+    [Tags]    labview
+    Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
+    Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
+    Directory Should Exist    ${SALWorkDir}/${subSystem}/labview
+    @{files}=    List Directory    ${SALWorkDir}/${subSystem}/labview
+    Log Many    @{files}
+    File Should Exist    ${SALWorkDir}/${subSystem}/labview/SAL_${subSystem}_salShmMonitor.cpp
+    File Should Exist    ${SALWorkDir}/${subSystem}/labview/SAL_${subSystem}_shmem.h
+    File Should Exist    ${SALWorkDir}/${subSystem}/labview/SALLV_${subSystem}.so
+    File Should Exist    ${SALWorkDir}/${subSystem}/labview/SALLV_${subSystem}_Monitor
 
 Verify Salgen Test Lib Build Step
     [Documentation]    Verify the SAL shared libraries for ${subSystem} made to the lib directory.
