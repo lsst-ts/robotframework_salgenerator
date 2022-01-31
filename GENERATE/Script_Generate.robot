@@ -138,62 +138,6 @@ Verify Script C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_state_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_state_log
 
-Verify Salgen Script Python Build Process
-    [Documentation]    Verify Python process.
-    [Tags]    python
-    Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
-    Should Contain    ${output.stdout}    Generating Python SAL support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating Python bindings
-    Should Contain    ${output.stdout}    python : Done SALPY_${subSystem}.so
-    Directory Should Exist    ${SALWorkDir}/${subSystem}/python
-    @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
-    Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/SALPY_${subSystem}.so
-
-Verify Script Python Command Interfaces
-    [Documentation]    Verify the Python interfaces were properly created.
-    [Tags]    python
-    @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
-    Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_setAuthList.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setAuthList.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_setLogLevel.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setLogLevel.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_configure.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_configure.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_run.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_run.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_resume.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_resume.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_setGroupId.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setGroupId.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_setCheckpoints.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_setCheckpoints.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Commander_stop.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Controller_stop.py
-
-Verify Script Python Event Interfaces
-    [Documentation]    Verify the Python interfaces were properly created.
-    [Tags]    python
-    @{files}=    List Directory    ${SALWorkDir}/${subSystem}/python    pattern=*${subSystem}*
-    Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_authList.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_authList.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_heartbeat.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_heartbeat.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_logLevel.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_logLevel.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_logMessage.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_logMessage.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_checkpoints.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_checkpoints.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_description.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_description.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_metadata.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_metadata.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_Event_state.py
-    File Should Exist    ${SALWorkDir}/${subSystem}/python/${subSystem}_EventLogger_state.py
-
 Verify Salgen Script Lib Build Step
     [Documentation]    Verify the SAL shared libraries for ${subSystem} made to the lib directory.
     [Tags]    lib
@@ -204,7 +148,6 @@ Verify Salgen Script Lib Build Step
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/lib/libsacpp_${subSystem}_types.so
     File Should Exist    ${SALWorkDir}/lib/libSAL_${subSystem}.so
-    File Should Exist    ${SALWorkDir}/lib/SALPY_${subSystem}.so
     File Should Exist    ${SALWorkDir}/lib/libsacpp_${subSystem}_types.so
     File Should Exist    ${SALWorkDir}/lib/libSAL_${subSystem}.so
 
