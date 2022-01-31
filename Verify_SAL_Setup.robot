@@ -89,7 +89,6 @@ Verify Proper SAL Setup - bin
     Directory Should Exist   ${SALInstall}/bin
     File Should Exist   ${SALInstall}/bin/buildsharedlib
     File Should Exist   ${SALInstall}/bin/make_idl_files.py
-    File Should Exist   ${SALInstall}/bin/make_salpy_libs.py
     File Should Exist   ${SALInstall}/bin/make_salUtils
     File Should Exist   ${SALInstall}/bin/salgenerator
     File Should Exist   ${SALInstall}/bin/set-tai
@@ -111,7 +110,6 @@ Verify Proper SAL Setup - lsstsal
     File Should Exist   ${SALInstall}/lsstsal/scripts/code/templates/SALDDS.cpp.template
     File Should Exist   ${SALInstall}/lsstsal/scripts/code/templates/SALDDS.h.template
     File Should Exist   ${SALInstall}/lsstsal/scripts/code/templates/SALDDS.java.template
-    File Should Exist   ${SALInstall}/lsstsal/scripts/code/templates/SALDDS_pybind11.cpp.template
 
 Verify Proper SAL Setup - scripts
     [Documentation]    There are a few dozen files that are necessary for SAL and salgenerator to function properly. This test verifies those files exist in the correct locations.
