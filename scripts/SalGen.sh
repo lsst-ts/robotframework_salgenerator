@@ -345,81 +345,6 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
 }
 
 
-function salgenPython() {
-    # Creates the salgenerator Python test case.
-    #  Verifies the SAL/DDS Python library was created.
-    #
-    skipped=$(checkIfSkipped $subSystem "python")
-    echo "Salgen $subSystemUp Python" >> $testSuite
-    echo "    [Documentation]    Generate Python libraries." >> $testSuite
-    echo "    [Tags]    python$skipped" >> $testSuite
-    echo "    \${output}=    Run Process    \${SALHome}/bin/salgenerator    \${subSystem}    sal    python    \
-shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.txt    stderr=\${EXECDIR}\${/}\${subSystem}_stderr.txt" >> $testSuite
-    echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
-    echo "    Should Contain    \${output.stdout}    SAL generator - \${SALVersion}" >> $testSuite
-    echo "    Should Contain    \${output.stdout}    XMLVERSION = \${XMLVersion}" >> $testSuite
-    echo "    Should Contain    \${output.stdout}    Generating Python SAL support for \${subSystem}" >> $testSuite
-    echo "    Should Contain    \${output.stdout}    Generating Python bindings" >> $testSuite
-    echo "    Should Contain    \${output.stdout}    python : Done SALPY_\${subSystem}.so" >> $testSuite
-    echo "    Directory Should Exist    \${SALWorkDir}/\${subSystem}/python" >> $testSuite
-    echo "    @{files}=    List Directory    \${SALWorkDir}/\${subSystem}/python    pattern=*\${subSystem}*" >> $testSuite
-    echo "    Log Many    @{files}" >> $testSuite
-    echo "    File Should Exist    \${SALWorkDir}/\${subSystem}/cpp/src/SALPY_\${subSystem}.so" >> $testSuite
-    echo "" >> $testSuite
-}
-
-
-function verifyPythonTelemetryInterfaces() {
-    # Creates the test case to verify the expected
-    # Python Telemetry files were created.
-    #
-    echo "Verify $subSystemUp Python Telemetry Interfaces" >> $testSuite
-    echo "    [Documentation]    Verify the Python interfaces were properly created." >> $testSuite
-    echo "    [Tags]    python" >> $testSuite
-    echo "    @{files}=    List Directory    \${SALWorkDir}/\${subSystem}/python    pattern=*\${subSystem}*" >> $testSuite
-    echo "    Log Many    @{files}" >> $testSuite
-    for topic in "${telemetryArray[@]}"; do
-        echo "    File Should Exist    \${SALWorkDir}/\${subSystem}/python/\${subSystem}_${topic}_Publisher.py" >> $testSuite
-        echo "    File Should Exist    \${SALWorkDir}/\${subSystem}/python/\${subSystem}_${topic}_Subscriber.py" >> $testSuite
-    done
-    echo "" >> $testSuite
-}
-
-
-function verifyPythonCommandInterfaces() {
-    # Creates the test case to verify the expected
-    # Python Command files were created.
-    #
-    echo "Verify $subSystemUp Python Command Interfaces" >> $testSuite
-    echo "    [Documentation]    Verify the Python interfaces were properly created." >> $testSuite
-    echo "    [Tags]    python" >> $testSuite
-    echo "    @{files}=    List Directory    \${SALWorkDir}/\${subSystem}/python    pattern=*\${subSystem}*" >> $testSuite
-    echo "    Log Many    @{files}" >> $testSuite
-    for topic in "${commandArray[@]}"; do
-        echo "    File Should Exist    \${SALWorkDir}/\${subSystem}/python/\${subSystem}_Commander_${topic}.py" >> $testSuite
-        echo "    File Should Exist    \${SALWorkDir}/\${subSystem}/python/\${subSystem}_Controller_${topic}.py" >> $testSuite
-    done
-    echo "" >> $testSuite
-}
-
-
-function verifyPythonEventInterfaces() {
-    # Creates the test case to verify the expected
-    # Python Command files were created.
-    #
-    echo "Verify $subSystemUp Python Event Interfaces" >> $testSuite
-    echo "    [Documentation]    Verify the Python interfaces were properly created." >> $testSuite
-    echo "    [Tags]    python" >> $testSuite
-    echo "    @{files}=    List Directory    \${SALWorkDir}/\${subSystem}/python    pattern=*\${subSystem}*" >> $testSuite
-    echo "    Log Many    @{files}" >> $testSuite
-    for topic in "${eventArray[@]}"; do
-        echo "    File Should Exist    \${SALWorkDir}/\${subSystem}/python/\${subSystem}_Event_${topic}.py" >> $testSuite
-        echo "    File Should Exist    \${SALWorkDir}/\${subSystem}/python/\${subSystem}_EventLogger_${topic}.py" >> $testSuite
-    done
-    echo "" >> $testSuite
-}
-
-
 function salgenLabview() {
     # Creates the salgenerator LabVIEW test case.
     #  Verifies the SAL/DDS LabVIEW libraries are created.
@@ -468,9 +393,6 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
         echo "    File Should Exist    \${SALWorkDir}/lib/libSAL_\${subSystem}.so" >> $testSuite
         echo "    File Should Exist    \${SALWorkDir}/lib/libSAL_\${subSystem}.a" >> $testSuite
         echo "    File Should Exist    \${SALWorkDir}/lib/libsacpp_\${subSystem}_types.so" >> $testSuite
-    fi
-    if [[ ${langs[@]} =~ "SALPY" ]]; then
-        echo "    File Should Exist    \${SALWorkDir}/lib/SALPY_\${subSystem}.so" >> $testSuite
     fi
     if [[ ${langs[@]} =~ "LabVIEW" ]]; then
         echo "    File Should Exist    \${SALWorkDir}/lib/SALLV_\${subSystem}.so" >> $testSuite
@@ -575,9 +497,6 @@ function verifyRPM() {
         echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_sal/include/sal_\${subSystem}Dcps.h" >> $testSuite
         echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_sal/include/sal_\${subSystem}Dcps_impl.h" >> $testSuite
         echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_sal/include/sal_\${subSystem}SplDcps.h" >> $testSuite
-    fi
-    if [[ "$@" =~ "SALPY" ]]; then
-        echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_sal/lib/SALPY_\${subSystem}.so" >> $testSuite
     fi
     if [[ "$@" =~ "LabVIEW" ]]; then
         echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_sal/bin/SALLV_\${subSystem}_Monitor" >> $testSuite
@@ -731,16 +650,16 @@ function createTestSuite() {
     # required to build. This is defined in the 
     # ts_xml/sal_interfaces/SALSubsystems.xml file.
     #
-    # Requiring the SALPY or LabVIEW libraries
-    # inherently requires the C++ library. The 'if'
-    # statement ensures the C++ process is run
-    # in the case SALPY and/or LabVIEW are defined
-    # but CPP is not explicitly defined.
+    # Requiring the LabVIEW libraries inherently 
+    # requires the C++ library. The 'if' statement 
+    # ensures the C++ process is run in the case 
+    # LabVIEW is defined but CPP is not explicitly
+    # defined.
     #
     temp=$(getRuntimeLanguages $subSystem)
     IFS=', ' read -r -a rtlang <<< "${temp[0]}"
     if ! [[ ${rtlang[@]} =~ "CPP" ]]; then
-        if [[ ${rtlang[@]} =~ "SALPY" || ${rtlang[@]} =~ "LabVIEW" ]]; then
+        if [[ ${rtlang[@]} =~ "LabVIEW" ]]; then
             rtlang+=('CPP')
         fi
     fi
@@ -759,7 +678,7 @@ function createTestSuite() {
     # Create and verfiy the RevCoded IDL files.
     salgenIDL
     # Create and verify C++ interfaces.
-    if [[ ${rtlang[@]} =~ "CPP" || ${rtlang[@]} =~ "SALPY" || ${rtlang[@]} =~ "LabVIEW" ]]; then
+    if [[ ${rtlang[@]} =~ "CPP" || ${rtlang[@]} =~ "LabVIEW" ]]; then
         salgenCPP
         verifyCppDirectories
         if [[ ${#telemetryArray[@]} -ne 0 ]]; then
@@ -771,19 +690,6 @@ function createTestSuite() {
         fi
         if [[ ${#eventArray[@]} -ne 0 ]]; then
             verifyCppEventInterfaces
-        fi
-    fi
-    # Create and verify Python interfaces.
-    if [[ ${rtlang[@]} =~ "SALPY" ]]; then
-        salgenPython
-        if [[ ${#telemetryArray[@]} -ne 0 ]]; then
-            verifyPythonTelemetryInterfaces
-        fi
-        if [[ ${#commandArray[@]} -ne 0 ]]; then
-            verifyPythonCommandInterfaces
-        fi
-        if [[ ${#eventArray[@]} -ne 0 ]]; then
-            verifyPythonEventInterfaces
         fi
     fi
     # Create LabVIEW interfaces.  NOTE: There are NO such Scheduler or EFD interfaces.
