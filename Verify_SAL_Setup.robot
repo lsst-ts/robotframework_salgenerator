@@ -117,7 +117,6 @@ Verify Proper SAL Setup - scripts
     [Documentation]    There are a few dozen files that are necessary for SAL and salgenerator to function properly. This test verifies those files exist in the correct locations.
     Directory Should Exist   ${SALInstall}/scripts
     File Should Exist   ${SALInstall}/scripts/buildJavaLibraries.sh
-    File Should Exist   ${SALInstall}/scripts/buildPythonLibraries.sh
 
 Verify Proper SAL Setup - ups
     [Documentation]    There are a few dozen files that are necessary for SAL and salgenerator to function properly. This test verifies those files exist in the correct locations.
