@@ -172,7 +172,6 @@ Salgen Script Lib
     File Should Exist    ${SALWorkDir}/lib/libSAL_${subSystem}.so
     File Should Exist    ${SALWorkDir}/lib/libSAL_${subSystem}.a
     File Should Exist    ${SALWorkDir}/lib/libsacpp_${subSystem}_types.so
-    File Should Exist    ${SALWorkDir}/lib/SALPY_${subSystem}.so
 
 Salgen Script RPM
     [Documentation]    Generate the SAL runtime RPM for ${subSystem}
@@ -243,7 +242,6 @@ Verify Script RPM Contents
     Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/sal_${subSystem}Dcps.h
     Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/sal_${subSystem}Dcps_impl.h
     Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/sal_${subSystem}SplDcps.h
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/lib/SALPY_${subSystem}.so
     Comment    Verify the interface definition files are included.
     Should Contain     ${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Generics.xml
     Should Contain     ${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Commands.xml

@@ -269,7 +269,6 @@ Salgen Test Lib
     File Should Exist    ${SALWorkDir}/lib/libSAL_${subSystem}.so
     File Should Exist    ${SALWorkDir}/lib/libSAL_${subSystem}.a
     File Should Exist    ${SALWorkDir}/lib/libsacpp_${subSystem}_types.so
-    File Should Exist    ${SALWorkDir}/lib/SALPY_${subSystem}.so
     File Should Exist    ${SALWorkDir}/lib/SALLV_${subSystem}.so
     File Should Exist    ${SALWorkDir}/lib/saj_${subSystem}_types.jar
 
@@ -342,7 +341,6 @@ Verify Test RPM Contents
     Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/sal_${subSystem}Dcps.h
     Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/sal_${subSystem}Dcps_impl.h
     Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/sal_${subSystem}SplDcps.h
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/lib/SALPY_${subSystem}.so
     Should Contain     ${output.stdout}    /opt/lsst/ts_sal/bin/SALLV_${subSystem}_Monitor
     Should Contain     ${output.stdout}    /opt/lsst/ts_sal/labview/lib/SALLV_${subSystem}.so
     Should Contain     ${output.stdout}    /opt/lsst/ts_sal/labview/sal_${subSystem}.idl
