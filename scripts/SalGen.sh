@@ -394,9 +394,6 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
         echo "    File Should Exist    \${SALWorkDir}/lib/libSAL_\${subSystem}.a" >> $testSuite
         echo "    File Should Exist    \${SALWorkDir}/lib/libsacpp_\${subSystem}_types.so" >> $testSuite
     fi
-    if [[ ${langs[@]} =~ "SALPY" ]]; then
-        echo "    File Should Exist    \${SALWorkDir}/lib/SALPY_\${subSystem}.so" >> $testSuite
-    fi
     if [[ ${langs[@]} =~ "LabVIEW" ]]; then
         echo "    File Should Exist    \${SALWorkDir}/lib/SALLV_\${subSystem}.so" >> $testSuite
     fi
@@ -500,9 +497,6 @@ function verifyRPM() {
         echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_sal/include/sal_\${subSystem}Dcps.h" >> $testSuite
         echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_sal/include/sal_\${subSystem}Dcps_impl.h" >> $testSuite
         echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_sal/include/sal_\${subSystem}SplDcps.h" >> $testSuite
-    fi
-    if [[ "$@" =~ "SALPY" ]]; then
-        echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_sal/lib/SALPY_\${subSystem}.so" >> $testSuite
     fi
     if [[ "$@" =~ "LabVIEW" ]]; then
         echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_sal/bin/SALLV_\${subSystem}_Monitor" >> $testSuite
@@ -656,16 +650,16 @@ function createTestSuite() {
     # required to build. This is defined in the 
     # ts_xml/sal_interfaces/SALSubsystems.xml file.
     #
-    # Requiring the SALPY or LabVIEW libraries
-    # inherently requires the C++ library. The 'if'
-    # statement ensures the C++ process is run
-    # in the case SALPY and/or LabVIEW are defined
-    # but CPP is not explicitly defined.
+    # Requiring the LabVIEW libraries inherently 
+    # requires the C++ library. The 'if' statement 
+    # ensures the C++ process is run in the case 
+    # LabVIEW is defined but CPP is not explicitly
+    # defined.
     #
     temp=$(getRuntimeLanguages $subSystem)
     IFS=', ' read -r -a rtlang <<< "${temp[0]}"
     if ! [[ ${rtlang[@]} =~ "CPP" ]]; then
-        if [[ ${rtlang[@]} =~ "SALPY" || ${rtlang[@]} =~ "LabVIEW" ]]; then
+        if [[ ${rtlang[@]} =~ "LabVIEW" ]]; then
             rtlang+=('CPP')
         fi
     fi
@@ -684,7 +678,7 @@ function createTestSuite() {
     # Create and verfiy the RevCoded IDL files.
     salgenIDL
     # Create and verify C++ interfaces.
-    if [[ ${rtlang[@]} =~ "CPP" || ${rtlang[@]} =~ "SALPY" || ${rtlang[@]} =~ "LabVIEW" ]]; then
+    if [[ ${rtlang[@]} =~ "CPP" || ${rtlang[@]} =~ "LabVIEW" ]]; then
         salgenCPP
         verifyCppDirectories
         if [[ ${#telemetryArray[@]} -ne 0 ]]; then
