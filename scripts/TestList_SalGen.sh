@@ -28,4 +28,3 @@ echo "# List of test suites" >> $argfile
 # Find test suites and add them to the argument file.
 echo "Verify_SAL_Setup.robot" >> $argfile
 ls -1 $HOME/trunk/robotframework_salgenerator/SALGEN |sed 's/^/SALGEN\//' >> $argfile
-echo "Run_SAL_Unit_Tests.robot" >> $argfile 
