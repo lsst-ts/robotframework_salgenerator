@@ -125,8 +125,8 @@ pipeline {
                     '--variable OpenspliceVersion:' + _ospl_version + ' --variable OpenspliceDate:' + _ospl_date + ' --variable XMLHome:' + _home + '/trunk/ts_xml ' +
                     ' --variable MvnVersion:"Apache Maven ' + _mvn_version + '" --variable PythonVersion:\'Python ' + _python_version + '\' ' +
                     '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:' + Build_Param + ' ' + 
-                    '--name Validate --output VALIDATE --outputdir ' + _home + '/trunk/Reports ' + _home + '/trunk/robotframework_salgenerator/Verify_SAL_Setup.robot ' +
-                    script_test_path + ' ' + test_test_path + ' ' + _home + '/trunk/robotframework_salgenerator/Run_SAL_Unit_Tests.robot \n' +
+                    '--name Validate --output VALIDATE --outputdir ' + _home + '/trunk/Reports ' + 
+                    _home + '/trunk/robotframework_salgenerator/Verify_SAL_Setup.robot ' + script_test_path + ' ' + test_test_path + '\n' +
                 'Result=$? \n' +
                 'if [ $Result -eq 0 ]; then echo Validation complete; else exit $Result; fi'
             }

@@ -69,4 +69,3 @@ SALGEN/Test_salgenerator.robot
 SALGEN/TunableLaser_salgenerator.robot
 SALGEN/Watcher_salgenerator.robot
 SALGEN/WeatherStation_salgenerator.robot
-Run_SAL_Unit_Tests.robot
