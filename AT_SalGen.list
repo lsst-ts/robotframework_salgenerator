@@ -39,7 +39,6 @@ SALGEN/LinearStage_salgenerator.robot
 SALGEN/LOVE_salgenerator.robot
 SALGEN/OCPS_salgenerator.robot
 SALGEN/PMD_salgenerator.robot
-SALGEN/PromptProcessing_salgenerator.robot
 SALGEN/Scheduler_salgenerator.robot
 SALGEN/ScriptQueue_salgenerator.robot
 SALGEN/TunableLaser_salgenerator.robot
