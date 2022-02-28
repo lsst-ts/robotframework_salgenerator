@@ -19,7 +19,8 @@ Verify SAL Version
     Comment    Verify SAL version.
     Log Many    ${versionData.stdout}    ${versionData.stderr}    ${versionData.rc}
     Should Contain    ${versionData.stdout}    SAL development environment is configured
-    Should Contain    ${versionData.stdout}    LSST middleware toolset environment v${SALVersion} is configured
+    Should Contain    ${versionData.stdout}    LSST middleware toolset environment
+    Should Contain    ${versionData.stdout}    v${SALVersion}
 
 Verify Python Version
     [Documentation]    Verify the system Python version.
@@ -28,6 +29,14 @@ Verify Python Version
     ${stdout}=    Run Process    python3     --version
     Log    ${stdout.stdout}
     Should Match    ${stdout.stdout}    ${PythonVersion}
+
+Verify Astropy Version
+    [Documentation]    Verify the Astropy library version.
+    [Tags]    smoke    version
+    Comment    Verify Astropy version.
+    ${stdout}=    Run Process    pip    freeze
+    Log    ${stdout.stdout}
+    Should Contain    ${stdout.stdout}    astropy==${AstropyVersion}
 
 Verify Maven Version
     [Documentation]    Verify the system Maven version.
