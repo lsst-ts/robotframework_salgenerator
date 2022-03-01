@@ -8,4 +8,5 @@
 #
 f = open("/etc/rpm/macros.dist")
 array = f.read().split()
-DIST = array[10]
+index = [i for i in range(len(array)) if "%dist" == array[i]][0]
+DIST = array[index + 1]

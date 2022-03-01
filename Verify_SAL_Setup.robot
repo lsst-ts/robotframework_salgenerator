@@ -19,7 +19,8 @@ Verify SAL Version
     Comment    Verify SAL version.
     Log Many    ${versionData.stdout}    ${versionData.stderr}    ${versionData.rc}
     Should Contain    ${versionData.stdout}    SAL development environment is configured
-    Should Contain    ${versionData.stdout}    LSST middleware toolset environment v${SALVersion} is configured
+    Should Contain    ${versionData.stdout}    LSST middleware toolset environment
+    Should Contain    ${versionData.stdout}    v${SALVersion}
 
 Verify Python Version
     [Documentation]    Verify the system Python version.
@@ -28,6 +29,14 @@ Verify Python Version
     ${stdout}=    Run Process    python3     --version
     Log    ${stdout.stdout}
     Should Match    ${stdout.stdout}    ${PythonVersion}
+
+Verify Astropy Version
+    [Documentation]    Verify the Astropy library version.
+    [Tags]    smoke    version
+    Comment    Verify Astropy version.
+    ${stdout}=    Run Process    pip    freeze
+    Log    ${stdout.stdout}
+    Should Contain    ${stdout.stdout}    astropy==${AstropyVersion}
 
 Verify Maven Version
     [Documentation]    Verify the system Maven version.
@@ -89,7 +98,6 @@ Verify Proper SAL Setup - bin
     Directory Should Exist   ${SALInstall}/bin
     File Should Exist   ${SALInstall}/bin/buildsharedlib
     File Should Exist   ${SALInstall}/bin/make_idl_files.py
-    File Should Exist   ${SALInstall}/bin/make_salpy_libs.py
     File Should Exist   ${SALInstall}/bin/make_salUtils
     File Should Exist   ${SALInstall}/bin/salgenerator
     File Should Exist   ${SALInstall}/bin/set-tai
@@ -111,13 +119,11 @@ Verify Proper SAL Setup - lsstsal
     File Should Exist   ${SALInstall}/lsstsal/scripts/code/templates/SALDDS.cpp.template
     File Should Exist   ${SALInstall}/lsstsal/scripts/code/templates/SALDDS.h.template
     File Should Exist   ${SALInstall}/lsstsal/scripts/code/templates/SALDDS.java.template
-    File Should Exist   ${SALInstall}/lsstsal/scripts/code/templates/SALDDS_pybind11.cpp.template
 
 Verify Proper SAL Setup - scripts
     [Documentation]    There are a few dozen files that are necessary for SAL and salgenerator to function properly. This test verifies those files exist in the correct locations.
     Directory Should Exist   ${SALInstall}/scripts
     File Should Exist   ${SALInstall}/scripts/buildJavaLibraries.sh
-    File Should Exist   ${SALInstall}/scripts/buildPythonLibraries.sh
 
 Verify Proper SAL Setup - ups
     [Documentation]    There are a few dozen files that are necessary for SAL and salgenerator to function properly. This test verifies those files exist in the correct locations.

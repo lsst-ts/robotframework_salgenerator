@@ -15,4 +15,3 @@
 Verify_SAL_Setup.robot
 SALGEN/Script_salgenerator.robot
 SALGEN/Test_salgenerator.robot
-Run_SAL_Unit_Tests.robot

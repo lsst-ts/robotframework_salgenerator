@@ -366,7 +366,7 @@ pipeline {
                 'echo ========= Move to robotframework_SAL directory ========= \n' +
                 'echo cd ' + _home + '/trunk/robotframework_SAL \n' +
                 'cd ' + _home + '/trunk/robotframework_SAL \n' +
-                'echo ========= Execute SAL C++ AuthList tests ========= \n' +
+                'echo ========= Execute SAL Java AuthList tests ========= \n' +
                 'robot --outputdir ' + _home + '/trunk/Reports --variable ContInt:true -e skipped --skiponfailure TSS* --skiponfailure DM* ' +
                     '--variable SALVersion:' + SAL_Version + ' --variable SALInstall:' + _home + '/trunk/ts_sal ' +
                     ' --variable SALVersionBase:' + SAL_Version_Base + ' --variable XMLVersionBase:' + XML_Version_Base +
