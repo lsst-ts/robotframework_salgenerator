@@ -121,86 +121,92 @@ Salgen CCCamera Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_startRotateCarousel.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_imageReadoutParameters.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focalPlaneSummaryInfo.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcsSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_LinearEncoderSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_LinearEncoder_LimitsSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_PeriodicTasksSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_PeriodicTasks_timersSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_StepperMotorSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_StepperMotor_LimitsSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_StepperMotor_MotorSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_bonn_shutter_Device_GeneralSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_bonn_shutter_Device_LimitsSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_bonn_shutter_GeneralSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_bonn_shutter_PeriodicTasksSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_bonn_shutter_PeriodicTasks_timersSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_daq_monitor_PeriodicTasksSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_daq_monitor_PeriodicTasks_timersSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_daq_monitor_Stats_StatisticsSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_daq_monitor_Stats_buildSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_daq_monitor_StoreSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_daq_monitor_Store_LimitsSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_daq_monitor_Store_StoreSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rebpowerSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rebpower_EmergencyResponseManagerSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rebpower_PeriodicTasksSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rebpower_PeriodicTasks_timersSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rebpower_RebSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rebpower_Reb_LimitsSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rebpower_Rebps_LimitsSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rebpower_Rebps_PowerSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_Cold1_CryoconSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_Cold1_LimitsSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_Cold2_CryoconSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_Cold2_LimitsSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_Cryo_CryoconSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_Cryo_LimitsSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_IonPumps_CryoSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_IonPumps_LimitsSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_PeriodicTasksSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_PeriodicTasks_timersSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_Rtds_DeviceSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_Rtds_LimitsSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_TurboSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_Turbo_LimitsSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_VQMonitor_CryoSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_VQMonitor_LimitsSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_VacPluto_DeviceSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_quadbox_BFR_LimitsSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_quadbox_BFR_QuadboxSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_quadbox_PDU_24VC_LimitsSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_quadbox_PDU_24VC_QuadboxSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_quadbox_PDU_24VD_LimitsSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_quadbox_PDU_24VD_QuadboxSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_quadbox_PDU_48V_LimitsSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_quadbox_PDU_48V_QuadboxSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_quadbox_PDU_5V_LimitsSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_quadbox_PDU_5V_QuadboxSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_quadbox_PeriodicTasksSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_quadbox_PeriodicTasks_timersSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_quadbox_REB_Bulk_PS_QuadboxSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focal_plane_Ccd_HardwareIdSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focal_plane_Ccd_LimitsSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focal_plane_Ccd_RaftsSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focal_plane_ImageDatabaseServiceSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focal_plane_ImageNameServiceSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focal_plane_InstrumentConfig_InstrumentSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focal_plane_PeriodicTasksSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focal_plane_PeriodicTasks_timersSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focal_plane_Raft_HardwareIdSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focal_plane_Raft_RaftTempControlSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focal_plane_Raft_RaftTempControlStatusSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focal_plane_RebTotalPower_LimitsSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focal_plane_Reb_HardwareIdSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focal_plane_Reb_LimitsSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focal_plane_Reb_RaftsSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focal_plane_Reb_RaftsLimitsSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focal_plane_Reb_RaftsPowerSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focal_plane_Reb_timersSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focal_plane_Segment_LimitsSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focal_plane_SequencerConfig_DAQSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focal_plane_SequencerConfig_SequencerSettingsApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focal_plane_WebHooksConfig_VisualizationSettingsApplied.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_LinearEncoderConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_LinearEncoder_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_PeriodicTasksConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_PeriodicTasks_timersConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_StepperMotorConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_StepperMotor_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_StepperMotor_MotorConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_bonn_shutter_Device_GeneralConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_bonn_shutter_Device_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_bonn_shutter_GeneralConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_bonn_shutter_PeriodicTasksConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_bonn_shutter_PeriodicTasks_timersConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_daq_monitor_PeriodicTasksConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_daq_monitor_PeriodicTasks_timersConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_daq_monitor_Stats_StatisticsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_daq_monitor_Stats_buildConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_daq_monitor_StoreConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_daq_monitor_Store_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_daq_monitor_Store_StoreConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rebpowerConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rebpower_EmergencyResponseManagerConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rebpower_PeriodicTasksConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rebpower_PeriodicTasks_timersConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rebpower_RebConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rebpower_Reb_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rebpower_Rebps_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rebpower_Rebps_PowerConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_Cold1_CryoconConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_Cold1_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_Cold2_CryoconConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_Cold2_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_Cryo_CryoconConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_Cryo_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_IonPumps_CryoConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_IonPumps_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_PeriodicTasksConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_PeriodicTasks_timersConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_Rtds_DeviceConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_Rtds_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_TurboConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_Turbo_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_VQMonitor_CryoConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_VQMonitor_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_VacPluto_DeviceConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_quadbox_BFR_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_quadbox_BFR_QuadboxConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_quadbox_PDU_24VC_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_quadbox_PDU_24VC_QuadboxConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_quadbox_PDU_24VD_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_quadbox_PDU_24VD_QuadboxConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_quadbox_PDU_48V_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_quadbox_PDU_48V_QuadboxConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_quadbox_PDU_5V_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_quadbox_PDU_5V_QuadboxConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_quadbox_PeriodicTasksConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_quadbox_PeriodicTasks_timersConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_quadbox_REB_Bulk_PS_QuadboxConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focal_plane_Ccd_HardwareIdConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focal_plane_Ccd_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focal_plane_Ccd_RaftsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focal_plane_ImageDatabaseServiceConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focal_plane_ImageNameServiceConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focal_plane_InstrumentConfig_InstrumentConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focal_plane_PeriodicTasksConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focal_plane_PeriodicTasks_timersConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focal_plane_Raft_HardwareIdConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focal_plane_Raft_RaftTempControlConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focal_plane_Raft_RaftTempControlStatusConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focal_plane_RebTotalPower_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focal_plane_Reb_HardwareIdConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focal_plane_Reb_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focal_plane_Reb_RaftsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focal_plane_Reb_RaftsLimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focal_plane_Reb_RaftsPowerConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focal_plane_Reb_timersConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focal_plane_Segment_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focal_plane_SequencerConfig_DAQConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focal_plane_SequencerConfig_SequencerConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focal_plane_WebHooksConfig_VisualizationConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_image_handling_ImageHandler_DAQConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_image_handling_ImageHandler_FitsHandlingConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_image_handling_PeriodicTasksConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_image_handling_PeriodicTasks_timersConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_image_handling_RebConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_image_handling_Reb_FitsHandlingConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_shutterBladeMotionProfile.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_imageStored.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fitsFilesWritten.idl
@@ -276,86 +282,92 @@ Verify CCCamera revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_startRotateCarousel\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_imageReadoutParameters\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focalPlaneSummaryInfo\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcsSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_LinearEncoderSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_LinearEncoder_LimitsSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_PeriodicTasksSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_PeriodicTasks_timersSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_StepperMotorSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_StepperMotor_LimitsSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_StepperMotor_MotorSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_bonn_shutter_Device_GeneralSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_bonn_shutter_Device_LimitsSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_bonn_shutter_GeneralSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_bonn_shutter_PeriodicTasksSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_bonn_shutter_PeriodicTasks_timersSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_daq_monitor_PeriodicTasksSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_daq_monitor_PeriodicTasks_timersSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_daq_monitor_Stats_StatisticsSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_daq_monitor_Stats_buildSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_daq_monitor_StoreSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_daq_monitor_Store_LimitsSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_daq_monitor_Store_StoreSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rebpowerSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rebpower_EmergencyResponseManagerSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rebpower_PeriodicTasksSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rebpower_PeriodicTasks_timersSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rebpower_RebSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rebpower_Reb_LimitsSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rebpower_Rebps_LimitsSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rebpower_Rebps_PowerSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_Cold1_CryoconSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_Cold1_LimitsSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_Cold2_CryoconSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_Cold2_LimitsSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_Cryo_CryoconSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_Cryo_LimitsSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_IonPumps_CryoSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_IonPumps_LimitsSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_PeriodicTasksSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_PeriodicTasks_timersSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_Rtds_DeviceSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_Rtds_LimitsSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_TurboSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_Turbo_LimitsSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_VQMonitor_CryoSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_VQMonitor_LimitsSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_VacPluto_DeviceSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_quadbox_BFR_LimitsSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_quadbox_BFR_QuadboxSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_quadbox_PDU_24VC_LimitsSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_quadbox_PDU_24VC_QuadboxSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_quadbox_PDU_24VD_LimitsSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_quadbox_PDU_24VD_QuadboxSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_quadbox_PDU_48V_LimitsSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_quadbox_PDU_48V_QuadboxSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_quadbox_PDU_5V_LimitsSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_quadbox_PDU_5V_QuadboxSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_quadbox_PeriodicTasksSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_quadbox_PeriodicTasks_timersSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_quadbox_REB_Bulk_PS_QuadboxSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focal_plane_Ccd_HardwareIdSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focal_plane_Ccd_LimitsSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focal_plane_Ccd_RaftsSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focal_plane_ImageDatabaseServiceSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focal_plane_ImageNameServiceSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focal_plane_InstrumentConfig_InstrumentSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focal_plane_PeriodicTasksSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focal_plane_PeriodicTasks_timersSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focal_plane_Raft_HardwareIdSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focal_plane_Raft_RaftTempControlSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focal_plane_Raft_RaftTempControlStatusSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focal_plane_RebTotalPower_LimitsSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focal_plane_Reb_HardwareIdSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focal_plane_Reb_LimitsSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focal_plane_Reb_RaftsSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focal_plane_Reb_RaftsLimitsSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focal_plane_Reb_RaftsPowerSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focal_plane_Reb_timersSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focal_plane_Segment_LimitsSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focal_plane_SequencerConfig_DAQSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focal_plane_SequencerConfig_SequencerSettingsApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focal_plane_WebHooksConfig_VisualizationSettingsApplied\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_LinearEncoderConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_LinearEncoder_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_PeriodicTasksConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_PeriodicTasks_timersConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_StepperMotorConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_StepperMotor_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_StepperMotor_MotorConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_bonn_shutter_Device_GeneralConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_bonn_shutter_Device_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_bonn_shutter_GeneralConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_bonn_shutter_PeriodicTasksConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_bonn_shutter_PeriodicTasks_timersConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_daq_monitor_PeriodicTasksConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_daq_monitor_PeriodicTasks_timersConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_daq_monitor_Stats_StatisticsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_daq_monitor_Stats_buildConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_daq_monitor_StoreConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_daq_monitor_Store_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_daq_monitor_Store_StoreConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rebpowerConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rebpower_EmergencyResponseManagerConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rebpower_PeriodicTasksConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rebpower_PeriodicTasks_timersConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rebpower_RebConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rebpower_Reb_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rebpower_Rebps_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rebpower_Rebps_PowerConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_Cold1_CryoconConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_Cold1_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_Cold2_CryoconConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_Cold2_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_Cryo_CryoconConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_Cryo_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_IonPumps_CryoConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_IonPumps_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_PeriodicTasksConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_PeriodicTasks_timersConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_Rtds_DeviceConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_Rtds_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_TurboConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_Turbo_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_VQMonitor_CryoConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_VQMonitor_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_VacPluto_DeviceConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_quadbox_BFR_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_quadbox_BFR_QuadboxConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_quadbox_PDU_24VC_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_quadbox_PDU_24VC_QuadboxConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_quadbox_PDU_24VD_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_quadbox_PDU_24VD_QuadboxConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_quadbox_PDU_48V_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_quadbox_PDU_48V_QuadboxConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_quadbox_PDU_5V_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_quadbox_PDU_5V_QuadboxConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_quadbox_PeriodicTasksConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_quadbox_PeriodicTasks_timersConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_quadbox_REB_Bulk_PS_QuadboxConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focal_plane_Ccd_HardwareIdConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focal_plane_Ccd_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focal_plane_Ccd_RaftsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focal_plane_ImageDatabaseServiceConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focal_plane_ImageNameServiceConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focal_plane_InstrumentConfig_InstrumentConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focal_plane_PeriodicTasksConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focal_plane_PeriodicTasks_timersConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focal_plane_Raft_HardwareIdConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focal_plane_Raft_RaftTempControlConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focal_plane_Raft_RaftTempControlStatusConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focal_plane_RebTotalPower_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focal_plane_Reb_HardwareIdConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focal_plane_Reb_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focal_plane_Reb_RaftsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focal_plane_Reb_RaftsLimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focal_plane_Reb_RaftsPowerConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focal_plane_Reb_timersConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focal_plane_Segment_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focal_plane_SequencerConfig_DAQConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focal_plane_SequencerConfig_SequencerConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focal_plane_WebHooksConfig_VisualizationConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_image_handling_ImageHandler_DAQConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_image_handling_ImageHandler_FitsHandlingConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_image_handling_PeriodicTasksConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_image_handling_PeriodicTasks_timersConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_image_handling_RebConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_image_handling_Reb_FitsHandlingConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_shutterBladeMotionProfile\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_imageStored\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fitsFilesWritten\\) [a-z0-9]{8,}

@@ -73,6 +73,7 @@ Salgen Scheduler Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_slewConfig.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_opticsLoopCorrConfig.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_parkConfig.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_observation.idl
 
 Verify Scheduler revCodes File
     [Documentation]    Ensure Scheduler_revCodes.tcl contains 1 revcode per topic.
@@ -115,6 +116,7 @@ Verify Scheduler revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_slewConfig\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_opticsLoopCorrConfig\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_parkConfig\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_observation\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_observatoryState\\) [a-z0-9]{8,}
 
 Salgen Scheduler IDL
