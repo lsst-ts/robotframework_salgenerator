@@ -209,6 +209,7 @@ pipeline {
                         'cd ' + _home + '/trunk/robotframework_salgenerator \n' +
                         'pwd \n' +
                         'echo ========= Execute AuxTel salgenerator tests ========= \n' +
+                        'sleep 1 \n' +
                         'robot --variable ContInt:true -e skipped --skiponfailure TSS* --skiponfailure DM* --variable SALVersion:' + SAL_Version + ' ' +
                             ' --variable SALVersionBase:' + SAL_Version_Base + ' --variable XMLVersionBase:' + XML_Version_Base +
                             ' --variable SALInstall:' + _home + '/trunk/ts_sal --variable OpenspliceRelease:\'OpenSplice HDE Release\' ' +

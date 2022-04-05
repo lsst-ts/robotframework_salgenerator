@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation    This suite builds the various interfaces for the MTM1M3TS.
+Documentation    This suite builds the various interfaces for the MTAirCompressor.
 Force Tags    salgen    
 Suite Setup    Log Many    ${Host}    ${subSystem}    ${timeout}
 Library    OperatingSystem
@@ -7,22 +7,22 @@ Library    Process
 Resource    ../Global_Vars.resource
 
 *** Variables ***
-${subSystem}    MTM1M3TS
+${subSystem}    MTAirCompressor
 ${timeout}    1200s
 
 *** Test Cases ***
-Verify MTM1M3TS XML Defintions exist
+Verify MTAirCompressor XML Defintions exist
     [Tags]
     Comment    Verify the CSC XML definition files exist.
     ${output}    Run Process    ls     ${SALWorkDir}/${subSystem}_*xml    shell=True
     Log Many    ${output.stdout}    ${output.stderr}
     Should Not Be Empty    ${output.stdout}
-    File Should Exist    ${SALWorkDir}/MTM1M3TS_Commands.xml
-    File Should Exist    ${SALWorkDir}/MTM1M3TS_Events.xml
-    File Should Exist    ${SALWorkDir}/MTM1M3TS_Telemetry.xml
+    File Should Exist    ${SALWorkDir}/MTAirCompressor_Commands.xml
+    File Should Exist    ${SALWorkDir}/MTAirCompressor_Events.xml
+    File Should Exist    ${SALWorkDir}/MTAirCompressor_Telemetry.xml
 
-Salgen MTM1M3TS Validate
-    [Documentation]    Validate the MTM1M3TS XML definitions.
+Salgen MTAirCompressor Validate
+    [Documentation]    Validate the MTAirCompressor XML definitions.
     [Tags]    validate
     ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    validate    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
@@ -35,8 +35,7 @@ Salgen MTM1M3TS Validate
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_ackcmd.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_thermalData.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_mixingValve.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_analogData.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_exitControl.idl
@@ -44,13 +43,7 @@ Salgen MTM1M3TS Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setLogLevel.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_standby.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_start.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setEngineeringMode.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_applySetpoint.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_heaterFanDemand.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setReHeaterGains.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_reset.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_power.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setMixingValve.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_heartbeat.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_logLevel.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_logMessage.idl
@@ -59,20 +52,12 @@ Salgen MTM1M3TS Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_errorCode.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_simulationMode.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_summaryState.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_configurationApplied.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_configurationsAvailable.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_engineeringMode.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_appliedSetpoint.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_reHeaterGains.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_enabledILC.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_thermalInfo.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_thermalWarning.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_powerStatus.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_thermalSettings.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_mixingValveSettings.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_status.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_compressorInfo.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_timerInfo.idl
 
-Verify MTM1M3TS revCodes File
-    [Documentation]    Ensure MTM1M3TS_revCodes.tcl contains 1 revcode per topic.
+Verify MTAirCompressor revCodes File
+    [Documentation]    Ensure MTAirCompressor_revCodes.tcl contains 1 revcode per topic.
     [Tags]    doc    
     ${output}=    Log File    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_disable\\) [a-z0-9]{8,}
@@ -82,13 +67,7 @@ Verify MTM1M3TS revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setLogLevel\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_standby\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_start\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setEngineeringMode\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_applySetpoint\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_heaterFanDemand\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setReHeaterGains\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_reset\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_power\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setMixingValve\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_heartbeat\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_logLevel\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_logMessage\\) [a-z0-9]{8,}
@@ -97,21 +76,12 @@ Verify MTM1M3TS revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_errorCode\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_simulationMode\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_summaryState\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_configurationApplied\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_configurationsAvailable\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_engineeringMode\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_appliedSetpoint\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_reHeaterGains\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_enabledILC\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_thermalInfo\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_thermalWarning\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_powerStatus\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_thermalSettings\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_mixingValveSettings\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_thermalData\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_mixingValve\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_status\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_compressorInfo\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_timerInfo\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_analogData\\) [a-z0-9]{8,}
 
-Salgen MTM1M3TS IDL
+Salgen MTAirCompressor IDL
     [Documentation]    Generate the revCoded IDL for ${subSystem}
     [Tags]    idl
     ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    sal    idl    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
@@ -125,7 +95,7 @@ Salgen MTM1M3TS IDL
     File Should Exist    ${SALWorkDir}/idl-templates/validated/sal/sal_${subSystem}.idl
     File Should Exist    ${SALWorkDir}/idl-templates/validated/sal/sal_revCoded_${subSystem}.idl
 
-Salgen MTM1M3TS Lib
+Salgen MTAirCompressor Lib
     [Documentation]    Generate the SAL shared library for ${subSystem}
     [Tags]    lib
     ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    lib    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
@@ -137,7 +107,7 @@ Salgen MTM1M3TS Lib
     @{files}=    List Directory    ${SALWorkDir}/lib    pattern=*${subSystem}*
     Log Many    @{files}
 
-Salgen MTM1M3TS RPM
+Salgen MTAirCompressor RPM
     [Documentation]    Generate the SAL runtime RPM for ${subSystem}
     [Tags]    rpm
     Log Many    ${XMLVersion}    ${SALVersion}    ${Build_Number}    ${DIST}
@@ -178,7 +148,7 @@ Salgen MTM1M3TS RPM
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}-${XMLVersionBase}-${SALVersionBase}${dot}${Build_Number}${DIST}.x86_64.rpm
     Should Not Contain    ${output.stdout}    child process exited abnormally
 
-Verify MTM1M3TS RPM Contents
+Verify MTAirCompressor RPM Contents
     [Documentation]    Verify the ${subSystem} RPM contains all the expected libraries
     [Tags]    rpm
     Comment    Re-run the {dot} process, so this test case can run independently.

@@ -35,16 +35,11 @@ Salgen ATWhiteLight Validate
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_ackcmd.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_timestamp.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_loopTime.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_bulbhour.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_bulbWatthour.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_chillerFansSpeed.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_chillerUpTime.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_chillerTempSensors.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_chillerProcessFlow.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_chillerTECBankCurrent.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_chillerTEDriveLevel.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_chillerFanSpeeds.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_chillerTemperatures.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_chillerCoolantFlow.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_chillerTECBankCurrents.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_chillerTECDrive.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_exitControl.idl
@@ -52,13 +47,13 @@ Salgen ATWhiteLight Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setLogLevel.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_standby.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_start.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_powerLightOn.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_powerLightOff.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_emergencyPowerLightOff.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setLightPower.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_turnLampOn.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_turnLampOff.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_openShutter.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_closeShutter.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setChillerTemperature.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_startCooling.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_stopCooling.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_startChiller.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_stopChiller.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_heartbeat.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_logLevel.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_logMessage.idl
@@ -69,17 +64,14 @@ Salgen ATWhiteLight Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_summaryState.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_configurationApplied.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_configurationsAvailable.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_loopTimeOutOfRange.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rejectedCommand.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_whiteLightStatus.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_chillerLowFlowWarning.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_chillerFluidLevelWarning.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_chillerSwitchToSupplyTempWarning.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_chillerHighControlTempWarning.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_chillerLowControlTempWarning.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_chillerHighAmbientTempWarning.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_chillerLowAmbientTempWarning.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_chillerTempReached.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_lampConnected.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_lampState.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_lampOnHours.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_chillerConnected.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_chillerAlarms.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_chillerWarnings.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_chillerWatchdog.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_shutterState.idl
 
 Verify ATWhiteLight revCodes File
     [Documentation]    Ensure ATWhiteLight_revCodes.tcl contains 1 revcode per topic.
@@ -92,13 +84,13 @@ Verify ATWhiteLight revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setLogLevel\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_standby\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_start\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_powerLightOn\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_powerLightOff\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_emergencyPowerLightOff\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setLightPower\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_turnLampOn\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_turnLampOff\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_openShutter\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_closeShutter\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setChillerTemperature\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_startCooling\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_stopCooling\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_startChiller\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_stopChiller\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_heartbeat\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_logLevel\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_logMessage\\) [a-z0-9]{8,}
@@ -109,27 +101,19 @@ Verify ATWhiteLight revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_summaryState\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_configurationApplied\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_configurationsAvailable\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_loopTimeOutOfRange\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rejectedCommand\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_whiteLightStatus\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_chillerLowFlowWarning\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_chillerFluidLevelWarning\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_chillerSwitchToSupplyTempWarning\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_chillerHighControlTempWarning\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_chillerLowControlTempWarning\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_chillerHighAmbientTempWarning\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_chillerLowAmbientTempWarning\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_chillerTempReached\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_timestamp\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_loopTime\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_bulbhour\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_bulbWatthour\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_chillerFansSpeed\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_chillerUpTime\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_chillerTempSensors\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_chillerProcessFlow\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_chillerTECBankCurrent\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_chillerTEDriveLevel\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_lampConnected\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_lampState\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_lampOnHours\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_chillerConnected\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_chillerAlarms\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_chillerWarnings\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_chillerWatchdog\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_shutterState\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_chillerFanSpeeds\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_chillerTemperatures\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_chillerCoolantFlow\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_chillerTECBankCurrents\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_chillerTECDrive\\) [a-z0-9]{8,}
 
 Salgen ATWhiteLight IDL
     [Documentation]    Generate the revCoded IDL for ${subSystem}

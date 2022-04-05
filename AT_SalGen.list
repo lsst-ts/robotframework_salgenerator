@@ -1,6 +1,6 @@
 ###  Test Suite list ###
 #  Change the title of the test results
---name AuxTel
+--name AuxTel&Facility
 --output AUXTEL
 
 # List of test suites
@@ -20,6 +20,7 @@ SALGEN/ATPneumatics_salgenerator.robot
 SALGEN/ATPtg_salgenerator.robot
 SALGEN/ATSpectrograph_salgenerator.robot
 SALGEN/ATWhiteLight_salgenerator.robot
+SALGEN/Authorize_salgenerator.robot
 SALGEN/CBP_salgenerator.robot
 SALGEN/CCArchiver_salgenerator.robot
 SALGEN/CCCamera_salgenerator.robot
@@ -29,17 +30,23 @@ SALGEN/CatchupArchiver_salgenerator.robot
 SALGEN/DIMM_salgenerator.robot
 SALGEN/DREAM_salgenerator.robot
 SALGEN/DSM_salgenerator.robot
+SALGEN/EAS_salgenerator.robot
 SALGEN/Electrometer_salgenerator.robot
+SALGEN/ESS_salgenerator.robot
 SALGEN/FiberSpectrograph_salgenerator.robot
 SALGEN/GCHeaderService_salgenerator.robot
 SALGEN/GenericCamera_salgenerator.robot
 SALGEN/GIS_salgenerator.robot
 SALGEN/Guider_salgenerator.robot
+SALGEN/HVAC_salgenerator.robot
+SALGEN/IOTA_salgenerator.robot
 SALGEN/LinearStage_salgenerator.robot
 SALGEN/LOVE_salgenerator.robot
 SALGEN/OCPS_salgenerator.robot
 SALGEN/PMD_salgenerator.robot
 SALGEN/Scheduler_salgenerator.robot
 SALGEN/ScriptQueue_salgenerator.robot
+SALGEN/SummitFacility_salgenerator.robot
 SALGEN/TunableLaser_salgenerator.robot
+SALGEN/Watcher_salgenerator.robot
 SALGEN/WeatherStation_salgenerator.robot
