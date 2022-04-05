@@ -37,6 +37,7 @@ Salgen MTM1M3TS Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_ackcmd.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_thermalData.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_mixingValve.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_glycolLoopTemperature.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_exitControl.idl
@@ -110,6 +111,7 @@ Verify MTM1M3TS revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_mixingValveSettings\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_thermalData\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_mixingValve\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_glycolLoopTemperature\\) [a-z0-9]{8,}
 
 Salgen MTM1M3TS IDL
     [Documentation]    Generate the revCoded IDL for ${subSystem}
