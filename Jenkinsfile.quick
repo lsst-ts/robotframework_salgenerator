@@ -20,7 +20,7 @@ pipeline {
         AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
         OSPL_URI = "file:///opt/OpenSpliceDDS/V${_ospl_version}/HDE/x86_64.linux/etc/config/ospl_sp_ddsi.xml"
-        DDS_QOS = "file://${_home}/trunk/ts_ddsconfig/qos/QoS.xml"
+        DDS_QOS = "file://${_home}/trunk/ts_ddsconfig/python/lsst/ts/ddsconfig/data/qos/QoS.xml"
     }
     agent {
         docker { 
