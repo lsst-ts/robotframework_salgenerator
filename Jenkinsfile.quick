@@ -272,7 +272,7 @@ pipeline {
             //Email Notification
             step([$class: 'Mailer',
                 notifyEveryUnstableBuild: false,
-                recipients: "rbovill@lsst.org dmills@lsst.org",
+                recipients: "rbovill@lsst.org",
                 sendToIndividuals: true])
         }
         success {
