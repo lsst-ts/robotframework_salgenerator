@@ -1,8 +1,8 @@
 // Define variables
-def _python_version="3.8.8"
+def _python_version="3.10.4"
 def _mvn_version="3.6.3"
 def _ospl_version="6.10.4p2"
-def _ospl_date="2020-10-09"
+def _ospl_date="2020-10-12"
 def _user="appuser"
 def _home="/home/" + _user
 
@@ -14,6 +14,7 @@ properties(
 pipeline {
     parameters {
         booleanParam defaultValue: params.Messaging ?:true, description: 'Run SAL messaging tests?', name: 'Messaging'
+        booleanParam defaultValue: params.Authlist ?:true, description: 'Run SAL messaging tests?', name: 'Authlist'
         booleanParam defaultValue: params.Push ?:true, description: 'Push RPMs and Jars to Nexus3 repos?', name: 'Push'
         booleanParam defaultValue: params.Trigger ?:true, description: 'Trigger the DevEnv and Conda workflows?', name: 'Trigger'
         booleanParam defaultValue: params.Bleed ?:false, description: 'Is this a "bleeding edge" build?', name: 'Bleed'
@@ -125,6 +126,7 @@ pipeline {
                 println("The Python version: " + _python_version);
                 println("Push build artifacts? " + params.Push);
                 println("Run messaging tests? " + params.Messaging);
+                println("Run authlist tests? " + params.Authlist);
                 script {
                     SAL_Version = sh(returnStdout: true, script: "cd /home/appuser/trunk/ts_sal && git describe |sed s/v//g").trim()
                     XML_Version = sh(returnStdout: true, script: "cd /home/appuser/trunk/ts_xml && git describe |sed s/v//g").trim()
@@ -331,7 +333,7 @@ pipeline {
         stage('CppAuthlist') {
             when {
                 expression {
-                    return params.Messaging
+                    return params.Authlist
                 }
             }//when
             steps {
@@ -356,7 +358,7 @@ pipeline {
         stage('JavaAuthlist') {
             when {
                 expression {
-                    return params.Messaging
+                    return params.Authlist
                 }
             }//when
             steps {
