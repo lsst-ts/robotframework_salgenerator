@@ -4,7 +4,6 @@
 --output AUXTEL
 
 # List of test suites
-SALGEN/AdamSensors_salgenerator.robot
 SALGEN/ATAOS_salgenerator.robot
 SALGEN/ATArchiver_salgenerator.robot
 SALGEN/ATBuilding_salgenerator.robot
