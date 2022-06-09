@@ -46,6 +46,7 @@ Salgen Scheduler Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_resume.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_stop.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_load.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_computePredictedSchedule.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_heartbeat.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_logLevel.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_logMessage.idl
@@ -74,6 +75,9 @@ Salgen Scheduler Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_opticsLoopCorrConfig.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_parkConfig.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_observation.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_generalInfo.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_timeToNextTarget.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_predictedSchedule.idl
 
 Verify Scheduler revCodes File
     [Documentation]    Ensure Scheduler_revCodes.tcl contains 1 revcode per topic.
@@ -89,6 +93,7 @@ Verify Scheduler revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_resume\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_stop\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_load\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_computePredictedSchedule\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_heartbeat\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_logLevel\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_logMessage\\) [a-z0-9]{8,}
@@ -117,6 +122,9 @@ Verify Scheduler revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_opticsLoopCorrConfig\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_parkConfig\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_observation\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_generalInfo\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_timeToNextTarget\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_predictedSchedule\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_observatoryState\\) [a-z0-9]{8,}
 
 Salgen Scheduler IDL
