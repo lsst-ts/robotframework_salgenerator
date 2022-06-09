@@ -40,6 +40,8 @@ Salgen ESS Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_cloudRainLight.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_hx85a.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_hx85ba.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_accelerometer.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_accelerometerPSD.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_exitControl.idl
@@ -86,6 +88,8 @@ Verify ESS revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_cloudRainLight\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_hx85a\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_hx85ba\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_accelerometer\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_accelerometerPSD\\) [a-z0-9]{8,}
 
 Salgen ESS IDL
     [Documentation]    Generate the revCoded IDL for ${subSystem}
