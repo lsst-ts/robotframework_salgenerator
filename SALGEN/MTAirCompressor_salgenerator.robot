@@ -55,6 +55,8 @@ Salgen MTAirCompressor Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_status.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_compressorInfo.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_timerInfo.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_errors.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_warnings.idl
 
 Verify MTAirCompressor revCodes File
     [Documentation]    Ensure MTAirCompressor_revCodes.tcl contains 1 revcode per topic.
@@ -79,6 +81,8 @@ Verify MTAirCompressor revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_status\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_compressorInfo\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_timerInfo\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_errors\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_warnings\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_analogData\\) [a-z0-9]{8,}
 
 Salgen MTAirCompressor IDL
