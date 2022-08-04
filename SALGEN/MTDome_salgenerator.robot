@@ -63,6 +63,8 @@ Salgen MTDome Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setOperationalMode.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_resetDrivesAz.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setZeroAz.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_resetDrivesShutter.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_searchZeroShutter.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_heartbeat.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_logLevel.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_logMessage.idl
@@ -75,8 +77,10 @@ Salgen MTDome Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_configurationsAvailable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_azEnabled.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_elEnabled.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_shutterEnabled.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_azMotion.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_elMotion.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_shutterMotion.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_azTarget.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_elTarget.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_operationalMode.idl
@@ -111,6 +115,8 @@ Verify MTDome revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setOperationalMode\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_resetDrivesAz\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setZeroAz\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_resetDrivesShutter\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_searchZeroShutter\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_heartbeat\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_logLevel\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_logMessage\\) [a-z0-9]{8,}
@@ -123,8 +129,10 @@ Verify MTDome revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_configurationsAvailable\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_azEnabled\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_elEnabled\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_shutterEnabled\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_azMotion\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_elMotion\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_shutterMotion\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_azTarget\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_elTarget\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_operationalMode\\) [a-z0-9]{8,}
