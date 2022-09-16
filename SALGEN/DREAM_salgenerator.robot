@@ -17,6 +17,8 @@ Verify DREAM XML Defintions exist
     ${output}    Run Process    ls     ${SALWorkDir}/${subSystem}_*xml    shell=True
     Log Many    ${output.stdout}    ${output.stderr}
     Should Not Be Empty    ${output.stdout}
+    File Should Exist    ${SALWorkDir}/DREAM_Commands.xml
+    File Should Exist    ${SALWorkDir}/DREAM_Events.xml
     File Should Exist    ${SALWorkDir}/DREAM_Telemetry.xml
 
 Salgen DREAM Validate
@@ -33,7 +35,10 @@ Salgen DREAM Validate
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_ackcmd.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_status.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_environment.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_powerSupply.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_dome.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_ups.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_exitControl.idl
@@ -41,6 +46,8 @@ Salgen DREAM Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setLogLevel.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_standby.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_start.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_pause.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_resume.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_heartbeat.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_logLevel.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_logMessage.idl
@@ -52,6 +59,11 @@ Salgen DREAM Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_configurationApplied.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_configurationsAvailable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_largeFileObjectAvailable.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_status.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_temperatureControl.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_ups.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_alerts.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_errors.idl
 
 Verify DREAM revCodes File
     [Documentation]    Ensure DREAM_revCodes.tcl contains 1 revcode per topic.
@@ -64,6 +76,8 @@ Verify DREAM revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setLogLevel\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_standby\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_start\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_pause\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_resume\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_heartbeat\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_logLevel\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_logMessage\\) [a-z0-9]{8,}
@@ -75,7 +89,15 @@ Verify DREAM revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_configurationApplied\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_configurationsAvailable\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_largeFileObjectAvailable\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_status\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_status\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_temperatureControl\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_ups\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_alerts\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_errors\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_environment\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_powerSupply\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_dome\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_ups\\) [a-z0-9]{8,}
 
 Salgen DREAM IDL
     [Documentation]    Generate the revCoded IDL for ${subSystem}
@@ -163,7 +185,9 @@ Verify DREAM RPM Contents
     Should Contain     ${output.stdout}    /opt/lsst/ts_sal/scripts/${subSystem}_revCodes.tcl
     Comment    Verify the interface definition files are included.
     Should Contain     ${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Generics.xml
+    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Commands.xml
     Should Contain     ${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Commands.html
+    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Events.xml
     Should Contain     ${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Events.html
     Should Contain     ${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Telemetry.xml
     Should Contain     ${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Telemetry.html
