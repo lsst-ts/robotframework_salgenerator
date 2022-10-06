@@ -64,7 +64,7 @@ Salgen MTDome Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_resetDrivesAz.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setZeroAz.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_resetDrivesShutter.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_searchZeroShutter.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_home.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_heartbeat.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_logLevel.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_logMessage.idl
@@ -116,7 +116,7 @@ Verify MTDome revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_resetDrivesAz\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setZeroAz\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_resetDrivesShutter\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_searchZeroShutter\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_home\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_heartbeat\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_logLevel\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_logMessage\\) [a-z0-9]{8,}
