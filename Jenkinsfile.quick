@@ -268,7 +268,7 @@ pipeline {
                 '-r rpm_report.html ${array[@]} \n' +
             'echo Processing Robot-Framework results complete'
             //Publish results to Jenkins.
-            robot outputPath: 'Reports', logFileName: 'rpm_log.html', outputFileName: 'rpm_output.xml', reportFileName: 'rpm_report.html', passThreshold: 99.5, unstableThreshold: 99.0
+            robot onlyCritical: false, outputPath: 'Reports', logFileName: 'rpm_log.html', outputFileName: 'rpm_output.xml', reportFileName: 'rpm_report.html', passThreshold: 99.5, unstableThreshold: 99.0
             //Email Notification
             step([$class: 'Mailer',
                 notifyEveryUnstableBuild: false,
