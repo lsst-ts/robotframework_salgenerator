@@ -5,6 +5,7 @@ Suite Setup    Log Many    ${Host}    ${subSystem}    ${timeout}
 Library    OperatingSystem
 Library    Process
 Resource    ../Global_Vars.resource
+Force Tags    CAP-933
 
 *** Variables ***
 ${subSystem}    MTCamera
