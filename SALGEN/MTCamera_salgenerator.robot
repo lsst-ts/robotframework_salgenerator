@@ -1,11 +1,10 @@
 *** Settings ***
 Documentation    This suite builds the various interfaces for the MTCamera.
-Force Tags    salgen    CAP-933
+Force Tags    salgen    
 Suite Setup    Log Many    ${Host}    ${subSystem}    ${timeout}
 Library    OperatingSystem
 Library    Process
 Resource    ../Global_Vars.resource
-Force Tags    CAP-933
 
 *** Variables ***
 ${subSystem}    MTCamera
