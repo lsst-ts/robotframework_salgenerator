@@ -47,6 +47,10 @@ Salgen Scheduler Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_stop.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_load.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_computePredictedSchedule.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_addBlock.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_removeBlock.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_validateBlock.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_getBlockStatus.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_heartbeat.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_logLevel.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_logMessage.idl
@@ -78,6 +82,9 @@ Salgen Scheduler Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_generalInfo.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_timeToNextTarget.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_predictedSchedule.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_observingMode.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_blockStatus.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_blockInventory.idl
 
 Verify Scheduler revCodes File
     [Documentation]    Ensure Scheduler_revCodes.tcl contains 1 revcode per topic.
@@ -94,6 +101,10 @@ Verify Scheduler revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_stop\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_load\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_computePredictedSchedule\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_addBlock\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_removeBlock\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_validateBlock\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_getBlockStatus\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_heartbeat\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_logLevel\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_logMessage\\) [a-z0-9]{8,}
@@ -125,6 +136,9 @@ Verify Scheduler revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_generalInfo\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_timeToNextTarget\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_predictedSchedule\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_observingMode\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_blockStatus\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_blockInventory\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_observatoryState\\) [a-z0-9]{8,}
 
 Salgen Scheduler IDL
