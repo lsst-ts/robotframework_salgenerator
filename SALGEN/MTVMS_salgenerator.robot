@@ -56,6 +56,7 @@ Salgen MTVMS Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_configurationApplied.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_configurationsAvailable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_acquisitionRate.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_timeSynchronization.idl
 
 Verify MTVMS revCodes File
     [Documentation]    Ensure MTVMS_revCodes.tcl contains 1 revcode per topic.
@@ -80,6 +81,7 @@ Verify MTVMS revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_configurationApplied\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_configurationsAvailable\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_acquisitionRate\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_timeSynchronization\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_data\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_psd\\) [a-z0-9]{8,}
 
