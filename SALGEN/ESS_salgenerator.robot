@@ -17,6 +17,7 @@ Verify ESS XML Defintions exist
     ${output}    Run Process    ls     ${SALWorkDir}/${subSystem}_*xml    shell=True
     Log Many    ${output.stdout}    ${output.stderr}
     Should Not Be Empty    ${output.stdout}
+    File Should Exist    ${SALWorkDir}/ESS_Events.xml
     File Should Exist    ${SALWorkDir}/ESS_Telemetry.xml
 
 Salgen ESS Validate
@@ -35,11 +36,13 @@ Salgen ESS Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_ackcmd.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_airTurbulence.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_airFlow.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_dewPoint.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_pressure.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_rainRate.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_relativeHumidity.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_snowRate.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_solarRadiation.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_temperature.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_cloudRainLight.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_hx85a.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_hx85ba.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_accelerometer.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_accelerometerPSD.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
@@ -59,6 +62,9 @@ Salgen ESS Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_summaryState.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_configurationApplied.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_configurationsAvailable.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_lightningStrike.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_precipitation.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_sensorStatus.idl
 
 Verify ESS revCodes File
     [Documentation]    Ensure ESS_revCodes.tcl contains 1 revcode per topic.
@@ -81,13 +87,18 @@ Verify ESS revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_summaryState\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_configurationApplied\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_configurationsAvailable\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_lightningStrike\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_precipitation\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_sensorStatus\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_airTurbulence\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_airFlow\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_dewPoint\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_pressure\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_rainRate\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_relativeHumidity\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_snowRate\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_solarRadiation\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_temperature\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_cloudRainLight\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_hx85a\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_hx85ba\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_accelerometer\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_accelerometerPSD\\) [a-z0-9]{8,}
 
@@ -178,6 +189,7 @@ Verify ESS RPM Contents
     Comment    Verify the interface definition files are included.
     Should Contain     ${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Generics.xml
     Should Contain     ${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Commands.html
+    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Events.xml
     Should Contain     ${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Events.html
     Should Contain     ${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Telemetry.xml
     Should Contain     ${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Telemetry.html
