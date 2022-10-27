@@ -48,4 +48,5 @@ SALGEN/ScriptQueue_salgenerator.robot
 SALGEN/SummitFacility_salgenerator.robot
 SALGEN/TunableLaser_salgenerator.robot
 SALGEN/Watcher_salgenerator.robot
+SALGEN/WeatherForecast_salgenerator.robot
 SALGEN/WeatherStation_salgenerator.robot
