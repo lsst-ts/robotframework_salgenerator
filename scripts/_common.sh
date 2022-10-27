@@ -202,7 +202,8 @@ function subsystemArray() {
     MTM1M3 MTM1M3TS MTM2 MTMount MTPtg 
     MTRotator MTVMS OCPS PMD 
     Scheduler Script ScriptQueue SummitFacility 
-    Test TunableLaser Watcher WeatherStation"
+    Test TunableLaser 
+    Watcher WeatherForecast WeatherStation"
 }
 
 
