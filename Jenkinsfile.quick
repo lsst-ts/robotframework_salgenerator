@@ -112,6 +112,8 @@ pipeline {
                 // Validate the SAL/XML state using Test/Script CSCs
                 sh label: 'Validate', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' + 'set -x \n' +
                 'echo LSST_DDS_QOS: $LSST_DDS_QOS \n' +
+                'echo TS_SAL_DIR: $TS_SAL_DIR \n' +
+                'echo TS_XML_DIR: $TS_XML_DIR \n' +
                 'echo ========= Move to robotframework_salgenerator directory ========= \n' +
                 'echo cd ' + _home + '/trunk/robotframework_salgenerator \n' +
                 'cd ' + _home + '/trunk/robotframework_salgenerator \n' +
