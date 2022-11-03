@@ -81,7 +81,7 @@ function verifyXMLDefinitions() {
     echo "    [Tags]" >> $testSuite
     echo "    Comment    Verify the CSC XML definition files exist." >> $testSuite
     if [[ "${xmls[0]}" == "README.md" ]]; then
-        echo "    \${output}    Get File    \${EXECDIR}/../ts_xml/sal_interfaces/$subSystem/README.md" >> $testSuite
+        echo "    \${output}    Get File    \${EXECDIR}/../ts_xml/python/lsst/ts/xml/data/sal_interfaces/$subSystem/README.md" >> $testSuite
         echo "    Log    \${output}" >> $testSuite
         echo "    Should Contain     \${output}    \# \${subSystem}" >> $testSuite
         echo "    Should Contain     \${output}    This SAL Component only uses generic topics." >> $testSuite
@@ -509,19 +509,19 @@ function verifyRPM() {
     fi
     echo "    Comment    Verify the interface definition files are included." >> $testSuite
     echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/\${subSystem}/\${subSystem}_Generics.xml" >> $testSuite
-    if test -f $HOME/trunk/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Commands.xml; then
+    if test -f $HOME/trunk/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subSystem}/${subSystem}_Commands.xml; then
         echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/\${subSystem}/\${subSystem}_Commands.xml" >> $testSuite
     fi
     if [[ $commandsLen -ne 0 ]]; then
         echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/\${subSystem}/\${subSystem}_Commands.html" >> $testSuite
     fi
-    if test -f $HOME/trunk/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Events.xml; then
+    if test -f $HOME/trunk/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subSystem}/${subSystem}_Events.xml; then
         echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/\${subSystem}/\${subSystem}_Events.xml" >> $testSuite
     fi
     if [[ $eventsLen -ne 0 ]]; then
         echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/\${subSystem}/\${subSystem}_Events.html" >> $testSuite
     fi
-    if test -f $HOME/trunk/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Telemetry.xml; then
+    if test -f $HOME/trunk/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subSystem}/${subSystem}_Telemetry.xml; then
         echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/\${subSystem}/\${subSystem}_Telemetry.xml" >> $testSuite
     fi
     if [[ $telemetryLen -ne 0 ]]; then
@@ -633,7 +633,7 @@ function createTestSuite() {
     clearTestSuites $subSystem "SALGEN" 
         
     # Get XML topic definitions.  Not all subsystems have all types of topics.
-    declare -a xmls=($(ls $HOME/trunk/ts_xml/sal_interfaces/$subSystem))
+    declare -a xmls=($(ls $HOME/trunk/ts_xml/python/lsst/ts/xml/data/sal_interfaces/$subSystem))
     # Declare topic arrays.
     declare -a telemetryArray=($(getTelemetryTopics $subSystem))
     #echo ${telemetryArray[@]}
@@ -648,7 +648,7 @@ function createTestSuite() {
     # Get list of languages to build. Each CSC lists
     # which language-specific libraries it is 
     # required to build. This is defined in the 
-    # ts_xml/sal_interfaces/SALSubsystems.xml file.
+    # ts_xml/python/lsst/ts/xml/data/sal_interfaces/SALSubsystems.xml file.
     #
     # Requiring the LabVIEW libraries inherently 
     # requires the C++ library. The 'if' statement 
