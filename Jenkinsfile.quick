@@ -85,9 +85,9 @@ pipeline {
         stage('Copy XML files') {
             steps {
                 // Move XML definition files to the SAL working directory.
-                sh label: 'XML files', script: '#!/bin/bash \n' + 'cp -v ${WORKSPACE}/ts_xml/sal_interfaces/*/*.xml ts_sal/test'
-                sh label: 'SAL Subsystems', script: '#!/bin/bash \n' + 'cp -v ${WORKSPACE}/ts_xml/sal_interfaces/SALSubsystems.xml ts_sal/test'
-                sh label: 'SAL Generics', script: '#!/bin/bash \n' + 'cp -v ${WORKSPACE}/ts_xml/sal_interfaces/SALGenerics.xml ts_sal/test'
+                sh label: 'XML files', script: '#!/bin/bash \n' + 'cp -v ${WORKSPACE}/ts_xml/python/lsst/ts/xml/data/sal_interfaces/*/*.xml ts_sal/test'
+                sh label: 'SAL Subsystems', script: '#!/bin/bash \n' + 'cp -v ${WORKSPACE}/ts_xml/python/lsst/ts/xml/data/sal_interfaces/SALSubsystems.xml ts_sal/test'
+                sh label: 'SAL Generics', script: '#!/bin/bash \n' + 'cp -v ${WORKSPACE}/ts_xml/python/lsst/ts/xml/data/sal_interfaces/SALGenerics.xml ts_sal/test'
             }
         }//Copy XML
         stage('Install IDL and XML python libraries') {
