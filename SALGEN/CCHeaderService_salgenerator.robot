@@ -14,7 +14,7 @@ ${timeout}    1200s
 Verify CCHeaderService XML Defintions exist
     [Tags]
     Comment    Verify the CSC XML definition files exist.
-    ${output}    Get File    ${EXECDIR}/../ts_xml/sal_interfaces/CCHeaderService/README.md
+    ${output}    Get File    ${EXECDIR}/../ts_xml/python/lsst/ts/xml/data/sal_interfaces/CCHeaderService/README.md
     Log    ${output}
     Should Contain     ${output}    \# ${subSystem}
     Should Contain     ${output}    This SAL Component only uses generic topics.
