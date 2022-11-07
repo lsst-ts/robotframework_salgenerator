@@ -47,7 +47,6 @@ ENV OSPL_HOME=/opt/OpenSpliceDDS/V6.10.4/HDE/x86_64.linux
 
 RUN echo "" >> ${HOME}/.bash_profile && \
 echo 'source /etc/profile.d/maven.sh' >> ${HOME}/.bash_profile && \
-echo 'source $LSST_SDK_INSTALL/setup.env' >> ${HOME}/.bash_profile && \
-echo 'export TS_XML_DIR=$LSST_SDK_INSTALL/../ts_xml/python/lsst/ts/xml/data' >> ${HOME}/.bash_profile
+echo 'source $LSST_SDK_INSTALL/setup.env' >> ${HOME}/.bash_profile
 
 ENV LSST_DDS_PARTITION_PREFIX=citest
