@@ -47,7 +47,7 @@ USER ${USER}
 RUN mkdir bin && mkdir trunk && mkdir Reports
 ENV PATH $PATH:${HOME}/bin:${HOME}/.local/bin
 ENV ROBOTFRAMEWORK_SAL_DIR ${HOME}/trunk/robotframework_SAL
-ENV TS_XML_DIR ${HOME}/trunk/ts_xml
+ENV TS_XML_DIR ${HOME}/trunk/ts_xml/python/lsst/ts/xml/data
 
 # Apparently Docker does not support variable expansion in the ADD and COPY context.
 # ... Therefore, the ownership must be hardcoded.
