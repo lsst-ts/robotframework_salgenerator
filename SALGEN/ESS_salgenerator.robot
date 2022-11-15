@@ -45,6 +45,8 @@ Salgen ESS Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_temperature.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_accelerometer.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_accelerometerPSD.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_electricFieldStrength.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_lightningStrikeStatus.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_exitControl.idl
@@ -63,6 +65,7 @@ Salgen ESS Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_configurationApplied.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_configurationsAvailable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_lightningStrike.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_highElectricField.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_precipitation.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_sensorStatus.idl
 
@@ -88,6 +91,7 @@ Verify ESS revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_configurationApplied\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_configurationsAvailable\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_lightningStrike\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_highElectricField\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_precipitation\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_sensorStatus\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_airTurbulence\\) [a-z0-9]{8,}
@@ -101,6 +105,8 @@ Verify ESS revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_temperature\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_accelerometer\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_accelerometerPSD\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_electricFieldStrength\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_lightningStrikeStatus\\) [a-z0-9]{8,}
 
 Salgen ESS IDL
     [Documentation]    Generate the revCoded IDL for ${subSystem}

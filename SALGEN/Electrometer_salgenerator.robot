@@ -49,6 +49,7 @@ Salgen Electrometer Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_startScan.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_startScanDt.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_stopScan.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setVoltageSource.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_heartbeat.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_logLevel.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_logMessage.idl
@@ -69,6 +70,7 @@ Salgen Electrometer Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingsAppliedReadSets.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingsAppliedSerConf.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_deviceErrorCode.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_voltageSourceChanged.idl
 
 Verify Electrometer revCodes File
     [Documentation]    Ensure Electrometer_revCodes.tcl contains 1 revcode per topic.
@@ -89,6 +91,7 @@ Verify Electrometer revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_startScan\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_startScanDt\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_stopScan\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setVoltageSource\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_heartbeat\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_logLevel\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_logMessage\\) [a-z0-9]{8,}
@@ -109,6 +112,7 @@ Verify Electrometer revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_settingsAppliedReadSets\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_settingsAppliedSerConf\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_deviceErrorCode\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_voltageSourceChanged\\) [a-z0-9]{8,}
 
 Salgen Electrometer IDL
     [Documentation]    Generate the revCoded IDL for ${subSystem}
