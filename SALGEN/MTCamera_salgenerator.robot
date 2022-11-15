@@ -86,6 +86,62 @@ Salgen MTCamera Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_focal_plane_Reb.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_focal_plane_RebTotalPower.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_focal_plane_Segment.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_AcSensorsGateway.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_AcTruckXminus.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_AcTruckXminusController.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_AcTruckXplus.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_AcTruckXplusController.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Accelerobf.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Ai814.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Autochanger.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_AutochangerTrucks.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_BrakeSystemGateway.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Carousel.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_CarouselController.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Carrier.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_CarrierController.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_CcsVersions.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_ClampXminus1.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_ClampXminus2.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_ClampXminus3.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_ClampXminus4.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_ClampXminus5.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_ClampXminusController.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_ClampXplus1.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_ClampXplus2.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_ClampXplus3.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_ClampXplus4.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_ClampXplus5.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_ClampXplusController.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Config.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Hooks.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_HooksController.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Hyttc580.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_LatchXminus.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_LatchXminusController.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_LatchXplus.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_LatchXplusController.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Latches.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Loader.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_LoaderPlutoGateway.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_OnlineClampXminus.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_OnlineClampXminusController.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_OnlineClampXplus.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_OnlineClampXplusController.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_OnlineClampYminus.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_OnlineClampYminusController.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_OnlineClamps.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_OnlineStrainGauge.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_ProximitySensorsDevice.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Pt100.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_RuntimeInfo.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Socket1.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Socket2.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Socket3.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Socket4.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Socket5.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_TempSensorsDevice1.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_TempSensorsDevice2.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_exitControl.idl
@@ -292,6 +348,39 @@ Salgen MTCamera Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_image_handling_PeriodicTasks_timersConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_image_handling_Reb_FitsHandlingConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_image_handling_Reb_GeneralConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_Loader_sensorConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_LockOutSensors_sensorConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_LockOutShunt_sensorConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_LpmEngineeringKeySensors_sensorConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_LpmLatchesStatus_sensorConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_LpmLinearRail1Status_sensorConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_LpmLinearRail2Status_sensorConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_LpmOnlineClampsStatus_sensorConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_OUT_AF0_Sensors_sensorConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_OUT_AF1_Sensors_sensorConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_OUT_AF3_Sensors_sensorConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_OUT_AIN_sensorConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_OUT_AOL_sensorConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_OUT_AP1_Sensors_sensorConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_OUT_AP2_Sensors_sensorConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_OUT_AP3_Sensors_sensorConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_PeriodicTasks_GeneralConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_PeriodicTasks_timersConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_Seneca1_DevicesConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_Seneca2_DevicesConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_TcpProxy_canbusConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_TcpProxy_controllerConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_TcpProxy_nodeIDConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_TcpProxy_sensorConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_TcpProxy_serialNBConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_TempCellXminus_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_TempClampMotorXminus_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_TempClampMotorXplus_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_TempClampMotorYminus_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_TempFrontBox_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_TempLinearRailMotorXminus_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_TempLinearRailMotorXplus_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_TempRearBox_LimitsConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_summaryStatus.idl
 
 Verify MTCamera revCodes File
@@ -504,6 +593,39 @@ Verify MTCamera revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_image_handling_PeriodicTasks_timersConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_image_handling_Reb_FitsHandlingConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_image_handling_Reb_GeneralConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_Loader_sensorConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_LockOutSensors_sensorConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_LockOutShunt_sensorConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_LpmEngineeringKeySensors_sensorConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_LpmLatchesStatus_sensorConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_LpmLinearRail1Status_sensorConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_LpmLinearRail2Status_sensorConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_LpmOnlineClampsStatus_sensorConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_OUT_AF0_Sensors_sensorConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_OUT_AF1_Sensors_sensorConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_OUT_AF3_Sensors_sensorConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_OUT_AIN_sensorConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_OUT_AOL_sensorConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_OUT_AP1_Sensors_sensorConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_OUT_AP2_Sensors_sensorConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_OUT_AP3_Sensors_sensorConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_PeriodicTasks_GeneralConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_PeriodicTasks_timersConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_Seneca1_DevicesConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_Seneca2_DevicesConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_TcpProxy_canbusConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_TcpProxy_controllerConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_TcpProxy_nodeIDConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_TcpProxy_sensorConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_TcpProxy_serialNBConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_TempCellXminus_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_TempClampMotorXminus_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_TempClampMotorXplus_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_TempClampMotorYminus_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_TempFrontBox_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_TempLinearRailMotorXminus_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_TempLinearRailMotorXplus_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_TempRearBox_LimitsConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_summaryStatus\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_quadbox_BFR\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_quadbox_PDU_24VC\\) [a-z0-9]{8,}
@@ -556,6 +678,62 @@ Verify MTCamera revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_focal_plane_Reb\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_focal_plane_RebTotalPower\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_focal_plane_Segment\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_AcSensorsGateway\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_AcTruckXminus\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_AcTruckXminusController\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_AcTruckXplus\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_AcTruckXplusController\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Accelerobf\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Ai814\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Autochanger\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_AutochangerTrucks\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_BrakeSystemGateway\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Carousel\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_CarouselController\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Carrier\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_CarrierController\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_CcsVersions\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_ClampXminus1\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_ClampXminus2\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_ClampXminus3\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_ClampXminus4\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_ClampXminus5\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_ClampXminusController\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_ClampXplus1\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_ClampXplus2\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_ClampXplus3\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_ClampXplus4\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_ClampXplus5\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_ClampXplusController\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Config\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Hooks\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_HooksController\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Hyttc580\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_LatchXminus\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_LatchXminusController\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_LatchXplus\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_LatchXplusController\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Latches\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Loader\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_LoaderPlutoGateway\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_OnlineClampXminus\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_OnlineClampXminusController\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_OnlineClampXplus\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_OnlineClampXplusController\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_OnlineClampYminus\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_OnlineClampYminusController\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_OnlineClamps\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_OnlineStrainGauge\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_ProximitySensorsDevice\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Pt100\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_RuntimeInfo\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Socket1\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Socket2\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Socket3\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Socket4\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Socket5\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_TempSensorsDevice1\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_TempSensorsDevice2\\) [a-z0-9]{8,}
 
 Salgen MTCamera IDL
     [Documentation]    Generate the revCoded IDL for ${subSystem}
@@ -630,8 +808,64 @@ Salgen MTCamera Java
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_focal_plane_Reb.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_focal_plane_RebTotalPower.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_focal_plane_Segment.idl
-    Should Contain X Times    ${output.stdout}    javac : Done Publisher    51
-    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    51
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_AcSensorsGateway.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_AcTruckXminus.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_AcTruckXminusController.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_AcTruckXplus.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_AcTruckXplusController.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Accelerobf.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Ai814.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Autochanger.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_AutochangerTrucks.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_BrakeSystemGateway.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Carousel.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_CarouselController.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Carrier.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_CarrierController.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_CcsVersions.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_ClampXminus1.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_ClampXminus2.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_ClampXminus3.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_ClampXminus4.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_ClampXminus5.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_ClampXminusController.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_ClampXplus1.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_ClampXplus2.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_ClampXplus3.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_ClampXplus4.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_ClampXplus5.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_ClampXplusController.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Config.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Hooks.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_HooksController.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Hyttc580.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_LatchXminus.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_LatchXminusController.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_LatchXplus.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_LatchXplusController.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Latches.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Loader.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_LoaderPlutoGateway.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_OnlineClampXminus.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_OnlineClampXminusController.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_OnlineClampXplus.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_OnlineClampXplusController.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_OnlineClampYminus.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_OnlineClampYminusController.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_OnlineClamps.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_OnlineStrainGauge.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_ProximitySensorsDevice.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Pt100.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_RuntimeInfo.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Socket1.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Socket2.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Socket3.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Socket4.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Socket5.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_TempSensorsDevice1.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_TempSensorsDevice2.idl
+    Should Contain X Times    ${output.stdout}    javac : Done Publisher    107
+    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    107
     Directory Should Exist    ${SALWorkDir}/${subSystem}/java
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
@@ -725,13 +959,13 @@ Verify MTCamera RPM Contents
     Should Contain     ${output.stdout}    /opt/lsst/ts_sal/idl/sal_revCoded_${subSystem}.idl
     Should Contain     ${output.stdout}    /opt/lsst/ts_sal/scripts/${subSystem}_revCodes.tcl
     Comment    Verify the interface definition files are included.
-    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Generics.xml
-    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Commands.xml
-    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Commands.html
-    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Events.xml
-    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Events.html
-    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Telemetry.xml
-    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Telemetry.html
+    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subSystem}/${subSystem}_Generics.xml
+    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subSystem}/${subSystem}_Commands.xml
+    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subSystem}/${subSystem}_Commands.html
+    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subSystem}/${subSystem}_Events.xml
+    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subSystem}/${subSystem}_Events.html
+    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subSystem}/${subSystem}_Telemetry.xml
+    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subSystem}/${subSystem}_Telemetry.html
 
 Cleanup stdout and stderr Files
     [Tags]

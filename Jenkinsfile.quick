@@ -85,9 +85,9 @@ pipeline {
         stage('Copy XML files') {
             steps {
                 // Move XML definition files to the SAL working directory.
-                sh label: 'XML files', script: '#!/bin/bash \n' + 'cp -v ${WORKSPACE}/ts_xml/sal_interfaces/*/*.xml ts_sal/test'
-                sh label: 'SAL Subsystems', script: '#!/bin/bash \n' + 'cp -v ${WORKSPACE}/ts_xml/sal_interfaces/SALSubsystems.xml ts_sal/test'
-                sh label: 'SAL Generics', script: '#!/bin/bash \n' + 'cp -v ${WORKSPACE}/ts_xml/sal_interfaces/SALGenerics.xml ts_sal/test'
+                sh label: 'XML files', script: '#!/bin/bash \n' + 'cp -v ${WORKSPACE}/ts_xml/python/lsst/ts/xml/data/sal_interfaces/*/*.xml ts_sal/test'
+                sh label: 'SAL Subsystems', script: '#!/bin/bash \n' + 'cp -v ${WORKSPACE}/ts_xml/python/lsst/ts/xml/data/sal_interfaces/SALSubsystems.xml ts_sal/test'
+                sh label: 'SAL Generics', script: '#!/bin/bash \n' + 'cp -v ${WORKSPACE}/ts_xml/python/lsst/ts/xml/data/sal_interfaces/SALGenerics.xml ts_sal/test'
             }
         }//Copy XML
         stage('Install IDL and XML python libraries') {
@@ -112,6 +112,8 @@ pipeline {
                 // Validate the SAL/XML state using Test/Script CSCs
                 sh label: 'Validate', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' + 'set -x \n' +
                 'echo LSST_DDS_QOS: $LSST_DDS_QOS \n' +
+                'echo TS_SAL_DIR: $TS_SAL_DIR \n' +
+                'echo TS_XML_DIR: $TS_XML_DIR \n' +
                 'echo ========= Move to robotframework_salgenerator directory ========= \n' +
                 'echo cd ' + _home + '/trunk/robotframework_salgenerator \n' +
                 'cd ' + _home + '/trunk/robotframework_salgenerator \n' +

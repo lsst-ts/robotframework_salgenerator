@@ -14,7 +14,7 @@ ${timeout}    1200s
 Verify MTHeaderService XML Defintions exist
     [Tags]
     Comment    Verify the CSC XML definition files exist.
-    ${output}    Get File    ${EXECDIR}/../ts_xml/sal_interfaces/MTHeaderService/README.md
+    ${output}    Get File    ${EXECDIR}/../ts_xml/python/lsst/ts/xml/data/sal_interfaces/MTHeaderService/README.md
     Log    ${output}
     Should Contain     ${output}    \# ${subSystem}
     Should Contain     ${output}    This SAL Component only uses generic topics.
@@ -188,9 +188,9 @@ Verify MTHeaderService RPM Contents
     Should Contain     ${output.stdout}    /opt/lsst/ts_sal/idl/sal_revCoded_${subSystem}.idl
     Should Contain     ${output.stdout}    /opt/lsst/ts_sal/scripts/${subSystem}_revCodes.tcl
     Comment    Verify the interface definition files are included.
-    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Generics.xml
-    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Commands.html
-    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/sal_interfaces/${subSystem}/${subSystem}_Events.html
+    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subSystem}/${subSystem}_Generics.xml
+    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subSystem}/${subSystem}_Commands.html
+    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subSystem}/${subSystem}_Events.html
 
 Cleanup stdout and stderr Files
     [Tags]
