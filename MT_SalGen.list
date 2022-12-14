@@ -4,10 +4,10 @@
 --output MAINTEL
 
 # List of test suites
+SALGEN/LaserTracker_salgenerator.robot
 SALGEN/MTHexapod_salgenerator.robot
 SALGEN/MTAOS_salgenerator.robot
 SALGEN/MTAirCompressor_salgenerator.robot
-SALGEN/MTAlignment_salgenerator.robot
 SALGEN/MTCamera_salgenerator.robot
 SALGEN/MTDome_salgenerator.robot
 SALGEN/MTDomeTrajectory_salgenerator.robot
