@@ -196,8 +196,8 @@ function subsystemArray() {
     CatchupArchiver CBP DIMM DREAM DSM
     EAS Electrometer ESS FiberSpectrograph 
     GCHeaderService GenericCamera GIS Guider IOTA 
-    MTHexapod HVAC LinearStage LOVE MTAirCompressor
-    MTAOS MTAlignment MTCamera MTDome 
+    MTHexapod HVAC LaserTracker LinearStage LOVE 
+    MTAirCompressor MTAOS MTCamera MTDome 
     MTDomeTrajectory MTEEC MTHeaderService
     MTM1M3 MTM1M3TS MTM2 MTMount MTPtg 
     MTRotator MTVMS OCPS PMD 

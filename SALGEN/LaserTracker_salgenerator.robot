@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation    This suite builds the various interfaces for the MTAlignment.
+Documentation    This suite builds the various interfaces for the LaserTracker.
 Force Tags    salgen    
 Suite Setup    Log Many    ${Host}    ${subSystem}    ${timeout}
 Library    OperatingSystem
@@ -7,22 +7,22 @@ Library    Process
 Resource    ../Global_Vars.resource
 
 *** Variables ***
-${subSystem}    MTAlignment
+${subSystem}    LaserTracker
 ${timeout}    1200s
 
 *** Test Cases ***
-Verify MTAlignment XML Defintions exist
+Verify LaserTracker XML Defintions exist
     [Tags]
     Comment    Verify the CSC XML definition files exist.
     ${output}    Run Process    ls     ${SALWorkDir}/${subSystem}_*xml    shell=True
     Log Many    ${output.stdout}    ${output.stderr}
     Should Not Be Empty    ${output.stdout}
-    File Should Exist    ${SALWorkDir}/MTAlignment_Commands.xml
-    File Should Exist    ${SALWorkDir}/MTAlignment_Events.xml
-    File Should Exist    ${SALWorkDir}/MTAlignment_Telemetry.xml
+    File Should Exist    ${SALWorkDir}/LaserTracker_Commands.xml
+    File Should Exist    ${SALWorkDir}/LaserTracker_Events.xml
+    File Should Exist    ${SALWorkDir}/LaserTracker_Telemetry.xml
 
-Salgen MTAlignment Validate
-    [Documentation]    Validate the MTAlignment XML definitions.
+Salgen LaserTracker Validate
+    [Documentation]    Validate the LaserTracker XML definitions.
     [Tags]    validate
     ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    validate    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
@@ -72,8 +72,8 @@ Salgen MTAlignment Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_positionPublish.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_t2saError.idl
 
-Verify MTAlignment revCodes File
-    [Documentation]    Ensure MTAlignment_revCodes.tcl contains 1 revcode per topic.
+Verify LaserTracker revCodes File
+    [Documentation]    Ensure LaserTracker_revCodes.tcl contains 1 revcode per topic.
     [Tags]    doc    
     ${output}=    Log File    ${SALWorkDir}/idl-templates/validated/${subSystem}_revCodes.tcl
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_disable\\) [a-z0-9]{8,}
@@ -113,7 +113,7 @@ Verify MTAlignment revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_t2saError\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_trackertemp\\) [a-z0-9]{8,}
 
-Salgen MTAlignment IDL
+Salgen LaserTracker IDL
     [Documentation]    Generate the revCoded IDL for ${subSystem}
     [Tags]    idl
     ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    sal    idl    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
@@ -127,7 +127,7 @@ Salgen MTAlignment IDL
     File Should Exist    ${SALWorkDir}/idl-templates/validated/sal/sal_${subSystem}.idl
     File Should Exist    ${SALWorkDir}/idl-templates/validated/sal/sal_revCoded_${subSystem}.idl
 
-Salgen MTAlignment Lib
+Salgen LaserTracker Lib
     [Documentation]    Generate the SAL shared library for ${subSystem}
     [Tags]    lib
     ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    lib    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
@@ -139,7 +139,7 @@ Salgen MTAlignment Lib
     @{files}=    List Directory    ${SALWorkDir}/lib    pattern=*${subSystem}*
     Log Many    @{files}
 
-Salgen MTAlignment RPM
+Salgen LaserTracker RPM
     [Documentation]    Generate the SAL runtime RPM for ${subSystem}
     [Tags]    rpm
     Log Many    ${XMLVersion}    ${SALVersion}    ${Build_Number}    ${DIST}
@@ -180,7 +180,7 @@ Salgen MTAlignment RPM
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}-${XMLVersionBase}-${SALVersionBase}${dot}${Build_Number}${DIST}.x86_64.rpm
     Should Not Contain    ${output.stdout}    child process exited abnormally
 
-Verify MTAlignment RPM Contents
+Verify LaserTracker RPM Contents
     [Documentation]    Verify the ${subSystem} RPM contains all the expected libraries
     [Tags]    rpm
     Comment    Re-run the {dot} process, so this test case can run independently.
