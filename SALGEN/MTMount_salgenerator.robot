@@ -55,7 +55,7 @@ Salgen MTMount Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_mainPowerSupply.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_topEndChiller.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_auxiliaryBoxes.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_oSS.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_oilSupplySystem.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_compressedAir.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_cooling.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_dynaleneCooling.idl
@@ -88,6 +88,7 @@ Salgen MTMount Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_summaryState.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_configurationApplied.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_configurationsAvailable.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_clockOffset.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_availableSettings.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_controllerSettingsName.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_azimuthControllerSettings.idl
@@ -168,6 +169,7 @@ Verify MTMount revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_summaryState\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_configurationApplied\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_configurationsAvailable\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_clockOffset\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_availableSettings\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_controllerSettingsName\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_azimuthControllerSettings\\) [a-z0-9]{8,}
@@ -235,7 +237,7 @@ Verify MTMount revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_mainPowerSupply\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_topEndChiller\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_auxiliaryBoxes\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_oSS\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_oilSupplySystem\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_compressedAir\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_cooling\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_dynaleneCooling\\) [a-z0-9]{8,}
@@ -285,7 +287,7 @@ Salgen MTMount C++
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_mainPowerSupply.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_topEndChiller.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_auxiliaryBoxes.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_oSS.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_oilSupplySystem.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_compressedAir.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_cooling.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_dynaleneCooling.idl
@@ -329,7 +331,7 @@ Verify MTMount Telemetry directories
     Directory Should Exist    ${SALWorkDir}/${subSystem}_mainPowerSupply
     Directory Should Exist    ${SALWorkDir}/${subSystem}_topEndChiller
     Directory Should Exist    ${SALWorkDir}/${subSystem}_auxiliaryBoxes
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_oSS
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_oilSupplySystem
     Directory Should Exist    ${SALWorkDir}/${subSystem}_compressedAir
     Directory Should Exist    ${SALWorkDir}/${subSystem}_cooling
     Directory Should Exist    ${SALWorkDir}/${subSystem}_dynaleneCooling
@@ -378,8 +380,8 @@ Verify MTMount C++ Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}_topEndChiller/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_auxiliaryBoxes/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_auxiliaryBoxes/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_oSS/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_oSS/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_oilSupplySystem/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_oilSupplySystem/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_compressedAir/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_compressedAir/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_cooling/cpp/standalone/sacpp_${subSystem}_pub
@@ -452,6 +454,8 @@ Verify MTMount C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_configurationApplied_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_configurationsAvailable_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_configurationsAvailable_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_clockOffset_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_clockOffset_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_availableSettings_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_availableSettings_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_controllerSettingsName_send
@@ -743,6 +747,8 @@ Verify MTMount TEST RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_configurationApplied_log
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_configurationsAvailable_send
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_configurationsAvailable_log
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_clockOffset_send
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_clockOffset_log
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_availableSettings_send
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_availableSettings_log
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_controllerSettingsName_send
@@ -877,8 +883,8 @@ Verify MTMount TEST RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_topEndChiller_subscriber
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_auxiliaryBoxes_publisher
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_auxiliaryBoxes_subscriber
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_oSS_publisher
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_oSS_subscriber
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_oilSupplySystem_publisher
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_oilSupplySystem_subscriber
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_compressedAir_publisher
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_compressedAir_subscriber
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_cooling_publisher

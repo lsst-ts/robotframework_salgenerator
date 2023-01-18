@@ -52,12 +52,13 @@ Salgen MTM1M3TS Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_heaterFanDemand.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setReHeaterGains.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_reset.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_power.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_fanCoilsHeatersPower.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_coolantPumpPower.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setMixingValve.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_pumpStart.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_pumpStop.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_pumpFrequency.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_pumpReset.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_coolantPumpStart.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_coolantPumpStop.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_coolantPumpFrequency.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_coolantPumpReset.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_heartbeat.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_logLevel.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_logMessage.idl
@@ -97,12 +98,13 @@ Verify MTM1M3TS revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_heaterFanDemand\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setReHeaterGains\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_reset\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_power\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_fanCoilsHeatersPower\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_coolantPumpPower\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setMixingValve\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_pumpStart\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_pumpStop\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_pumpFrequency\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_pumpReset\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_coolantPumpStart\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_coolantPumpStop\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_coolantPumpFrequency\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_coolantPumpReset\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_heartbeat\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_logLevel\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_logMessage\\) [a-z0-9]{8,}
