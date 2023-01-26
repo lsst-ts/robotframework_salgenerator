@@ -12,7 +12,7 @@ ADD lv_includes.tgz /
 ADD mavenrepo69.tgz /root
 ADD mavenrepo69.tgz ${HOME}
 ADD settings.xml ${HOME}/.m2
-RUN chown -R 1003:1003 ${HOME}/.m2 
+RUN chown -R 73006:73006 ${HOME}/.m2 
 
 RUN python3.10 -m pip install awscli --upgrade
 
@@ -38,8 +38,8 @@ RUN yum -y install ${HOME}/OpenSpliceDDS-6.10.4-2.el8.x86_64.rpm
 
 USER ${USER}
 
-COPY --chown=1003:1003 start.sh ${HOME}/.
-COPY --chown=1003:1003 rpmmacros ${HOME}/.rpmmacros
+COPY --chown=73006:73006 start.sh ${HOME}/.
+COPY --chown=73006:73006 rpmmacros ${HOME}/.rpmmacros
 COPY --chown=0:0 rpmmacros /root/.rpmmacros
 
 ENV LSST_SDK_INSTALL=$HOME/trunk/ts_sal

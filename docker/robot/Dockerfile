@@ -5,9 +5,9 @@ ARG HOME=/home/${USER}
 
 USER root
 
-RUN groupadd -r -g 1003 ${USER} && \
+RUN groupadd -r -g 73006 ${USER} && \
 groupadd -r -g 993 docker && \
-useradd -r -u 1003 -g ${USER} -G docker -m ${USER} -d ${HOME} && \
+useradd -r -u 73006 -g ${USER} -G docker -m ${USER} -d ${HOME} && \
 chown ${USER}:docker ${HOME}
 
 RUN dnf -y update
@@ -51,6 +51,6 @@ ENV TS_XML_DIR ${HOME}/trunk/ts_xml/python/lsst/ts/xml/data
 
 # Apparently Docker does not support variable expansion in the ADD and COPY context.
 # ... Therefore, the ownership must be hardcoded.
-COPY --chown=1003:1003 Test_Vars.txt ${HOME}/bin/Test_Vars.txt
-COPY --chown=1003:1003 bash_profile ${HOME}/.bash_profile
+COPY --chown=73006:73006 Test_Vars.txt ${HOME}/bin/Test_Vars.txt
+COPY --chown=73006:73006 bash_profile ${HOME}/.bash_profile
 RUN echo 'source ~/.bash_profile' >> ${HOME}/.bashrc
