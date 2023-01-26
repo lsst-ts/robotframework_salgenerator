@@ -7,7 +7,7 @@ ${UserName}             saluser
 ${PassWord}             ${EMPTY}
 ${KeyFile}              ${EMPTY}
 ${PythonVersion}        Python 3.10.4
-${AstropyVersion}       5.1
+${AstropyVersion}       5.2.1
 ${MvnVersion}           Apache Maven 3.6.3
 ${MavenVersion}         -SNAPSHOT
 ${MavenVersion}         -SNAPSHOT
