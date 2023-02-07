@@ -188,11 +188,11 @@ function subsystemArray() {
     # generate this list, it is better to have an independent list, such that
     # the thing being tested is not used to test the thing.
     #
-    echo "ATAOS ATArchiver ATBuilding ATCamera 
+    echo "ATAOS ATBuilding ATCamera 
     ATDome ATDomeTrajectory ATHeaderService ATHexapod 
     ATMCS ATMonochromator ATOODS ATPneumatics 
     ATPtg ATSpectrograph ATWhiteLight Authorize
-    CCArchiver CCCamera CCHeaderService CCOODS
+    CCCamera CCHeaderService CCOODS
     CatchupArchiver CBP DIMM DREAM DSM
     EAS Electrometer ESS FiberSpectrograph 
     GCHeaderService GenericCamera GIS Guider IOTA 
