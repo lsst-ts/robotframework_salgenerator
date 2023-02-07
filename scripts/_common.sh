@@ -192,8 +192,8 @@ function subsystemArray() {
     ATDome ATDomeTrajectory ATHeaderService ATHexapod 
     ATMCS ATMonochromator ATOODS ATPneumatics 
     ATPtg ATSpectrograph ATWhiteLight Authorize
-    CCCamera CCHeaderService CCOODS
-    CatchupArchiver CBP DIMM DREAM DSM
+    CCCamera CCHeaderService CCOODS CBP 
+    DIMM DREAM DSM
     EAS Electrometer ESS FiberSpectrograph 
     GCHeaderService GenericCamera GIS Guider IOTA 
     MTHexapod HVAC LaserTracker LinearStage LOVE 
