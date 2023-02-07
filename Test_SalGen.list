@@ -6,7 +6,6 @@
 # List of test suites
 Verify_SAL_Setup.robot
 SALGEN/ATAOS_salgenerator.robot
-SALGEN/ATArchiver_salgenerator.robot
 SALGEN/ATBuilding_salgenerator.robot
 SALGEN/ATCamera_salgenerator.robot
 SALGEN/ATDomeTrajectory_salgenerator.robot
@@ -22,11 +21,9 @@ SALGEN/ATSpectrograph_salgenerator.robot
 SALGEN/ATWhiteLight_salgenerator.robot
 SALGEN/Authorize_salgenerator.robot
 SALGEN/CBP_salgenerator.robot
-SALGEN/CCArchiver_salgenerator.robot
 SALGEN/CCCamera_salgenerator.robot
 SALGEN/CCHeaderService_salgenerator.robot
 SALGEN/CCOODS_salgenerator.robot
-SALGEN/CatchupArchiver_salgenerator.robot
 SALGEN/DIMM_salgenerator.robot
 SALGEN/DREAM_salgenerator.robot
 SALGEN/DSM_salgenerator.robot
