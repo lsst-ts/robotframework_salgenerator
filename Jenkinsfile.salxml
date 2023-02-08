@@ -456,7 +456,7 @@ pipeline {
                 'declare -a JavaCSCs=($( xmlstarlet sel -t -m "//SALSubsystemSet/SALSubsystem/RuntimeLanguages[text()[contains(.,\'Java\')]]/../Name" -v . -n $HOME/trunk/ts_xml/python/lsst/ts/xml/data/sal_interfaces/SALSubsystems.xml )) \n' +
                 'echo ${JavaCSCs[@]}\n' +
                 'for csc in ${JavaCSCs[@]}; do\n' +
-                '\tcd ' + _home + '/trunk/ts_sal/test/maven/${csc}-' + XML_Version + "_" + SAL_Version + Build_Param + MavenVersion + ' \n' +
+                '\tcd ' + _home + '/trunk/ts_sal/test/maven/${csc}-' + XML_Version_Base + "_" + SAL_Version_Base + Build_Param + MavenVersion + ' \n' +
                 '\tmvn -DskipTests=true -B deploy \n' +
                 'done\n' +
                 'Result=$? \n' +
