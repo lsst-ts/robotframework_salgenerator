@@ -54,6 +54,7 @@ Salgen ATDomeTrajectory Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_configurationsAvailable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_algorithm.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_followingMode.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_telescopeVignetted.idl
 
 Verify ATDomeTrajectory revCodes File
     [Documentation]    Ensure ATDomeTrajectory_revCodes.tcl contains 1 revcode per topic.
@@ -79,6 +80,7 @@ Verify ATDomeTrajectory revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_configurationsAvailable\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_algorithm\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_followingMode\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_telescopeVignetted\\) [a-z0-9]{8,}
 
 Salgen ATDomeTrajectory IDL
     [Documentation]    Generate the revCoded IDL for ${subSystem}
