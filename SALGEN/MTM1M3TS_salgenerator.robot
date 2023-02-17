@@ -50,8 +50,6 @@ Salgen MTM1M3TS Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setEngineeringMode.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_applySetpoint.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_heaterFanDemand.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setReHeaterGains.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_reset.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_fanCoilsHeatersPower.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_coolantPumpPower.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setMixingValve.idl
@@ -71,7 +69,6 @@ Salgen MTM1M3TS Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_configurationsAvailable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_engineeringMode.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_appliedSetpoint.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_reHeaterGains.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_enabledILC.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_thermalInfo.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_thermalWarning.idl
@@ -96,8 +93,6 @@ Verify MTM1M3TS revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setEngineeringMode\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_applySetpoint\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_heaterFanDemand\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setReHeaterGains\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_reset\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_fanCoilsHeatersPower\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_coolantPumpPower\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setMixingValve\\) [a-z0-9]{8,}
@@ -117,7 +112,6 @@ Verify MTM1M3TS revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_configurationsAvailable\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_engineeringMode\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_appliedSetpoint\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_reHeaterGains\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_enabledILC\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_thermalInfo\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_thermalWarning\\) [a-z0-9]{8,}
