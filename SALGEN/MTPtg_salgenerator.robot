@@ -115,6 +115,7 @@ Salgen MTPtg Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_validatedTarget.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_offsetSummary.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_pointData.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_observatoryLocation.idl
 
 Verify MTPtg revCodes File
     [Documentation]    Ensure MTPtg_revCodes.tcl contains 1 revcode per topic.
@@ -193,6 +194,7 @@ Verify MTPtg revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_validatedTarget\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_offsetSummary\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_pointData\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_observatoryLocation\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_currentTargetStatus\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_guiding\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_timeAndDate\\) [a-z0-9]{8,}
@@ -430,6 +432,8 @@ Verify MTPtg C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_offsetSummary_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_pointData_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_pointData_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_observatoryLocation_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_observatoryLocation_log
 
 Salgen MTPtg Lib
     [Documentation]    Generate the SAL shared library for ${subSystem}
@@ -694,6 +698,8 @@ Verify MTPtg TEST RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_offsetSummary_log
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_pointData_send
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_pointData_log
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_observatoryLocation_send
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_observatoryLocation_log
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_currentTargetStatus_publisher
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_currentTargetStatus_subscriber
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_guiding_publisher
