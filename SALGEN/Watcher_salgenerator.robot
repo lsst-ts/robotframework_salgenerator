@@ -57,6 +57,7 @@ Salgen Watcher Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_configurationApplied.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_configurationsAvailable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_alarm.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_notification.idl
 
 Verify Watcher revCodes File
     [Documentation]    Ensure Watcher_revCodes.tcl contains 1 revcode per topic.
@@ -85,6 +86,7 @@ Verify Watcher revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_configurationApplied\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_configurationsAvailable\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_alarm\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_notification\\) [a-z0-9]{8,}
 
 Salgen Watcher IDL
     [Documentation]    Generate the revCoded IDL for ${subSystem}
