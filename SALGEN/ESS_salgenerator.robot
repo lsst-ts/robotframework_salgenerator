@@ -47,6 +47,7 @@ Salgen ESS Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_accelerometerPSD.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_electricFieldStrength.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_lightningStrikeStatus.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_spectrumAnalyzer.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_exitControl.idl
@@ -107,6 +108,7 @@ Verify ESS revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_accelerometerPSD\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_electricFieldStrength\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_lightningStrikeStatus\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_spectrumAnalyzer\\) [a-z0-9]{8,}
 
 Salgen ESS IDL
     [Documentation]    Generate the revCoded IDL for ${subSystem}
@@ -122,6 +124,51 @@ Salgen ESS IDL
     File Should Exist    ${SALWorkDir}/idl-templates/validated/sal/sal_${subSystem}.idl
     File Should Exist    ${SALWorkDir}/idl-templates/validated/sal/sal_revCoded_${subSystem}.idl
 
+Salgen ESS Java
+    [Documentation]    Generate Java libraries.
+    [Tags]    java
+    ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    sal    java    version\=${Build_Number}${MavenVersion}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
+    Log Many    ${output.stdout}    ${output.stderr}
+    Should Not Contain    ${output.stdout}    ERROR : Failed to generate Java DDS types
+    Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
+    Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_airTurbulence.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_airFlow.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_dewPoint.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_pressure.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_rainRate.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_relativeHumidity.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_snowRate.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_solarRadiation.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_temperature.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_accelerometer.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_accelerometerPSD.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_electricFieldStrength.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_lightningStrikeStatus.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_spectrumAnalyzer.idl
+    Should Contain X Times    ${output.stdout}    javac : Done Publisher    14
+    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    14
+    Directory Should Exist    ${SALWorkDir}/${subSystem}/java
+    @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
+    File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
+    File Should Exist    ${SALWorkDir}/${subSystem}/java/saj_${subSystem}_types.jar
+    File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
+
+Salgen ESS Maven
+    [Documentation]    Generate the Maven repository.
+    [Tags]    java
+    ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    maven    version\=${Build_Number}${MavenVersion}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
+    Log Many    ${output.stdout}    ${output.stderr}
+    Should Contain    ${output.stdout}    argv = ${subSystem} maven version=${Build_Number}${MavenVersion}
+    Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
+    Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
+    Should Contain    ${output.stdout}    Running maven install
+    Should Contain    ${output.stdout}    [INFO] Building sal_${subSystem} ${XMLVersion}_${SALVersion}${Build_Number}${MavenVersion}
+    Should Contain X Times    ${output.stdout}    [INFO] BUILD SUCCESS    1
+    Should Contain X Times    ${output.stdout}    [INFO] Finished at:    1
+    @{files}=    List Directory    ${SALWorkDir}/maven
+    File Should Exist    ${SALWorkDir}/maven/${subSystem}-${XMLVersion}_${SALVersion}${Build_Number}${MavenVersion}/pom.xml
+
 Salgen ESS Lib
     [Documentation]    Generate the SAL shared library for ${subSystem}
     [Tags]    lib
@@ -133,6 +180,7 @@ Salgen ESS Lib
     Directory Should Exist    ${SALWorkDir}/lib
     @{files}=    List Directory    ${SALWorkDir}/lib    pattern=*${subSystem}*
     Log Many    @{files}
+    File Should Exist    ${SALWorkDir}/lib/saj_${subSystem}_types.jar
 
 Salgen ESS RPM
     [Documentation]    Generate the SAL runtime RPM for ${subSystem}
