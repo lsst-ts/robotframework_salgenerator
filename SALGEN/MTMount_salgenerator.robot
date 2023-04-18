@@ -40,7 +40,7 @@ Salgen MTMount Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_elevation.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_lockingPins.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_deployablePlatforms.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_cabinet0101.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_cabinet0101Thermal.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_azimuthCableWrap.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_cameraCableWrap.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_balancing.idl
@@ -49,12 +49,12 @@ Salgen MTMount Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_elevationDrives.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_elevationDrivesThermal.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_encoder.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_mountControlMainCabinet.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_mainCabinetThermal.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_mirrorCoverLocks.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_mirrorCover.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_mainPowerSupply.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_topEndChiller.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_auxiliaryBoxes.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_auxiliaryCabinetsThermal.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_oilSupplySystem.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_compressedAir.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_cooling.idl
@@ -73,6 +73,7 @@ Salgen MTMount Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enableCameraCableWrapFollowing.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_homeBothAxes.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_moveToTarget.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setThermal.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_startTracking.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_trackTarget.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_stopTracking.idl
@@ -108,8 +109,8 @@ Salgen MTMount Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_oilSupplySystemState.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_azimuthDrivesThermalSystemState.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_elevationDrivesThermalSystemState.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_az0101CabinetThermalSystemState.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_modbusTemperatureControllersSystemState.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_cabinet0101ThermalSystemState.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_auxiliaryCabinetsThermalSystemState.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_mainCabinetThermalSystemState.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_mainAxesPowerSupplySystemState.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_topEndChillerSystemState.idl
@@ -154,6 +155,7 @@ Verify MTMount revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_enableCameraCableWrapFollowing\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_homeBothAxes\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_moveToTarget\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setThermal\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_startTracking\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_trackTarget\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_stopTracking\\) [a-z0-9]{8,}
@@ -189,8 +191,8 @@ Verify MTMount revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_oilSupplySystemState\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_azimuthDrivesThermalSystemState\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_elevationDrivesThermalSystemState\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_az0101CabinetThermalSystemState\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_modbusTemperatureControllersSystemState\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_cabinet0101ThermalSystemState\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_auxiliaryCabinetsThermalSystemState\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_mainCabinetThermalSystemState\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_mainAxesPowerSupplySystemState\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_topEndChillerSystemState\\) [a-z0-9]{8,}
@@ -222,7 +224,7 @@ Verify MTMount revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_elevation\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_lockingPins\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_deployablePlatforms\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_cabinet0101\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_cabinet0101Thermal\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_azimuthCableWrap\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_cameraCableWrap\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_balancing\\) [a-z0-9]{8,}
@@ -231,12 +233,12 @@ Verify MTMount revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_elevationDrives\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_elevationDrivesThermal\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_encoder\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_mountControlMainCabinet\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_mainCabinetThermal\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_mirrorCoverLocks\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_mirrorCover\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_mainPowerSupply\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_topEndChiller\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_auxiliaryBoxes\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_auxiliaryCabinetsThermal\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_oilSupplySystem\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_compressedAir\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_cooling\\) [a-z0-9]{8,}
@@ -272,7 +274,7 @@ Salgen MTMount C++
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_elevation.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_lockingPins.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_deployablePlatforms.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_cabinet0101.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_cabinet0101Thermal.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_azimuthCableWrap.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_cameraCableWrap.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_balancing.idl
@@ -281,12 +283,12 @@ Salgen MTMount C++
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_elevationDrives.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_elevationDrivesThermal.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_encoder.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_mountControlMainCabinet.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_mainCabinetThermal.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_mirrorCoverLocks.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_mirrorCover.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_mainPowerSupply.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_topEndChiller.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_auxiliaryBoxes.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_auxiliaryCabinetsThermal.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_oilSupplySystem.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_compressedAir.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_cooling.idl
@@ -316,7 +318,7 @@ Verify MTMount Telemetry directories
     Directory Should Exist    ${SALWorkDir}/${subSystem}_elevation
     Directory Should Exist    ${SALWorkDir}/${subSystem}_lockingPins
     Directory Should Exist    ${SALWorkDir}/${subSystem}_deployablePlatforms
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_cabinet0101
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_cabinet0101Thermal
     Directory Should Exist    ${SALWorkDir}/${subSystem}_azimuthCableWrap
     Directory Should Exist    ${SALWorkDir}/${subSystem}_cameraCableWrap
     Directory Should Exist    ${SALWorkDir}/${subSystem}_balancing
@@ -325,12 +327,12 @@ Verify MTMount Telemetry directories
     Directory Should Exist    ${SALWorkDir}/${subSystem}_elevationDrives
     Directory Should Exist    ${SALWorkDir}/${subSystem}_elevationDrivesThermal
     Directory Should Exist    ${SALWorkDir}/${subSystem}_encoder
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_mountControlMainCabinet
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_mainCabinetThermal
     Directory Should Exist    ${SALWorkDir}/${subSystem}_mirrorCoverLocks
     Directory Should Exist    ${SALWorkDir}/${subSystem}_mirrorCover
     Directory Should Exist    ${SALWorkDir}/${subSystem}_mainPowerSupply
     Directory Should Exist    ${SALWorkDir}/${subSystem}_topEndChiller
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_auxiliaryBoxes
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_auxiliaryCabinetsThermal
     Directory Should Exist    ${SALWorkDir}/${subSystem}_oilSupplySystem
     Directory Should Exist    ${SALWorkDir}/${subSystem}_compressedAir
     Directory Should Exist    ${SALWorkDir}/${subSystem}_cooling
@@ -350,8 +352,8 @@ Verify MTMount C++ Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}_lockingPins/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_deployablePlatforms/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_deployablePlatforms/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_cabinet0101/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_cabinet0101/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_cabinet0101Thermal/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_cabinet0101Thermal/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_azimuthCableWrap/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_azimuthCableWrap/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_cameraCableWrap/cpp/standalone/sacpp_${subSystem}_pub
@@ -368,8 +370,8 @@ Verify MTMount C++ Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}_elevationDrivesThermal/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_encoder/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_encoder/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_mountControlMainCabinet/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_mountControlMainCabinet/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_mainCabinetThermal/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_mainCabinetThermal/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_mirrorCoverLocks/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_mirrorCoverLocks/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_mirrorCover/cpp/standalone/sacpp_${subSystem}_pub
@@ -378,8 +380,8 @@ Verify MTMount C++ Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}_mainPowerSupply/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_topEndChiller/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_topEndChiller/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_auxiliaryBoxes/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_auxiliaryBoxes/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_auxiliaryCabinetsThermal/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_auxiliaryCabinetsThermal/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_oilSupplySystem/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_oilSupplySystem/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_compressedAir/cpp/standalone/sacpp_${subSystem}_pub
@@ -420,6 +422,8 @@ Verify MTMount C++ Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_homeBothAxes_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_moveToTarget_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_moveToTarget_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setThermal_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setThermal_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_startTracking_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_startTracking_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_trackTarget_commander
@@ -494,10 +498,10 @@ Verify MTMount C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_azimuthDrivesThermalSystemState_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_elevationDrivesThermalSystemState_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_elevationDrivesThermalSystemState_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_az0101CabinetThermalSystemState_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_az0101CabinetThermalSystemState_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_modbusTemperatureControllersSystemState_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_modbusTemperatureControllersSystemState_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_cabinet0101ThermalSystemState_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_cabinet0101ThermalSystemState_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_auxiliaryCabinetsThermalSystemState_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_auxiliaryCabinetsThermalSystemState_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_mainCabinetThermalSystemState_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_mainCabinetThermalSystemState_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_mainAxesPowerSupplySystemState_send
@@ -717,6 +721,8 @@ Verify MTMount TEST RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_homeBothAxes_controller
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_moveToTarget_commander
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_moveToTarget_controller
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_setThermal_commander
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_setThermal_controller
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_startTracking_commander
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_startTracking_controller
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_trackTarget_commander
@@ -787,10 +793,10 @@ Verify MTMount TEST RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_azimuthDrivesThermalSystemState_log
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_elevationDrivesThermalSystemState_send
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_elevationDrivesThermalSystemState_log
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_az0101CabinetThermalSystemState_send
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_az0101CabinetThermalSystemState_log
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_modbusTemperatureControllersSystemState_send
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_modbusTemperatureControllersSystemState_log
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_cabinet0101ThermalSystemState_send
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_cabinet0101ThermalSystemState_log
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_auxiliaryCabinetsThermalSystemState_send
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_auxiliaryCabinetsThermalSystemState_log
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_mainCabinetThermalSystemState_send
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_mainCabinetThermalSystemState_log
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_mainAxesPowerSupplySystemState_send
@@ -853,8 +859,8 @@ Verify MTMount TEST RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_lockingPins_subscriber
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_deployablePlatforms_publisher
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_deployablePlatforms_subscriber
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_cabinet0101_publisher
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_cabinet0101_subscriber
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_cabinet0101Thermal_publisher
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_cabinet0101Thermal_subscriber
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_azimuthCableWrap_publisher
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_azimuthCableWrap_subscriber
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_cameraCableWrap_publisher
@@ -871,8 +877,8 @@ Verify MTMount TEST RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_elevationDrivesThermal_subscriber
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_encoder_publisher
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_encoder_subscriber
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_mountControlMainCabinet_publisher
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_mountControlMainCabinet_subscriber
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_mainCabinetThermal_publisher
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_mainCabinetThermal_subscriber
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_mirrorCoverLocks_publisher
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_mirrorCoverLocks_subscriber
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_mirrorCover_publisher
@@ -881,8 +887,8 @@ Verify MTMount TEST RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_mainPowerSupply_subscriber
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_topEndChiller_publisher
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_topEndChiller_subscriber
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_auxiliaryBoxes_publisher
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_auxiliaryBoxes_subscriber
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_auxiliaryCabinetsThermal_publisher
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_auxiliaryCabinetsThermal_subscriber
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_oilSupplySystem_publisher
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_oilSupplySystem_subscriber
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_compressedAir_publisher

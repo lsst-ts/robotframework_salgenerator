@@ -51,6 +51,8 @@ Salgen GenericCamera Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_startAutoExposure.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_stopAutoExposure.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setValue.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_startStreamingMode.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_stopStreamingMode.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_heartbeat.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_logLevel.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_logMessage.idl
@@ -94,6 +96,8 @@ Salgen GenericCamera Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_ccsConfigured.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_autoExposureStarted.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_autoExposureStopped.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_streamingModeStarted.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_streamingModeStopped.idl
 
 Verify GenericCamera revCodes File
     [Documentation]    Ensure GenericCamera_revCodes.tcl contains 1 revcode per topic.
@@ -114,6 +118,8 @@ Verify GenericCamera revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_startAutoExposure\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_stopAutoExposure\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setValue\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_startStreamingMode\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_stopStreamingMode\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_heartbeat\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_logLevel\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_logMessage\\) [a-z0-9]{8,}
@@ -157,6 +163,8 @@ Verify GenericCamera revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_ccsConfigured\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_autoExposureStarted\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_autoExposureStopped\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_streamingModeStarted\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_streamingModeStopped\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_temperature\\) [a-z0-9]{8,}
 
 Salgen GenericCamera IDL

@@ -52,6 +52,7 @@ pipeline {
                     XML_Checkout = "*/develop"
                     IDL_Checkout = "*/develop"
                     DDSCONFIG_Checkout = "*/develop"
+                    SIMPLESAL_Checkout = "*/develop"
                     RFSALGEN_Checkout = "*/develop"
                     RFSALMSGs_Checkout = "*/develop"
                 }
@@ -69,6 +70,7 @@ pipeline {
                     SAL_Checkout = "*/main"
                     XML_Checkout = "*/develop"
                     IDL_Checkout = "*/main"
+                    SIMPLESAL_Checkout = "*/main"
                     DDSCONFIG_Checkout = "*/main"
                     RFSALGEN_Checkout = "*/sal_develop"
                     RFSALMSGs_Checkout = "*/sal_develop"
@@ -96,6 +98,7 @@ pipeline {
                     }
                     IDL_Checkout = "*/main"
                     DDSCONFIG_Checkout = "*/main"
+                    SIMPLESAL_Checkout = "*/main"
                     RFSALGEN_Checkout = "*/main"
                     RFSALMSGs_Checkout = "*/main"
                 }
@@ -108,6 +111,7 @@ pipeline {
                 echo "The XML Checkout: " + XML_Checkout
                 echo "The IDL Checkout: " + IDL_Checkout
                 echo "The DDSCONFIG Checkout: " + DDSCONFIG_Checkout
+                echo "The SIMPLESAL Checkout: " + SIMPLESAL_Checkout
                 echo "The RFSALGEN Checkout: " + RFSALGEN_Checkout
                 echo "The RFSALMSGs Checkout: " + RFSALMSGs_Checkout
                 // Checkout the SAL, XML, IDL and Salgenerator and SAL Messaging test repos.
@@ -117,6 +121,7 @@ pipeline {
                 checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: DDSCONFIG_Checkout]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'ts_ddsconfig']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/ts_ddsconfig']]]
                 checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: RFSALGEN_Checkout]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'robotframework_salgenerator']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/robotframework_salgenerator']]]
                 checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: RFSALMSGs_Checkout]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'robotframework_SAL']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/robotframework_SAL']]]
+                checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: SIMPLESAL_Checkout]], extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'simple_sal']], userRemoteConfigs: [[credentialsId: '14e4c262-1fb1-4b73-b395-5fe617420c85', url: 'https://github.com/lsst-camera-ccs/org-lsst-camera-simple-sal.git']]]
             }
         }//Git repos
         stage('Setup: Define variables and create directories') {
@@ -199,6 +204,23 @@ pipeline {
                 'if [ $Result -eq 0 ]; then echo Validation complete; else exit $Result; fi'
             }
         }//Validate
+        stage('Run simple-sal tests') {
+            when {
+                not {
+                    expression {
+                        return params.Generate
+                    }
+                }
+            }   
+            steps {
+                sh label: 'Simple-SAL', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' + 'set -x \n' +
+                        'echo ========= Move to simple-sal directory ========= \n' +
+                        'echo cd ' + _home + '/trunk/simple_sal  \n' +
+                        'cd ' + _home + '/trunk/simple_sal \n' +
+                        'echo ========= Execute simple-sal tests ========= \n' +
+                        'mvn -B clean install'
+            }
+        }//simple-sal
         stage('Generate the RPMs') {
             parallel {
                stage('AuxTel') {
@@ -456,7 +478,7 @@ pipeline {
                 'declare -a JavaCSCs=($( xmlstarlet sel -t -m "//SALSubsystemSet/SALSubsystem/RuntimeLanguages[text()[contains(.,\'Java\')]]/../Name" -v . -n $HOME/trunk/ts_xml/python/lsst/ts/xml/data/sal_interfaces/SALSubsystems.xml )) \n' +
                 'echo ${JavaCSCs[@]}\n' +
                 'for csc in ${JavaCSCs[@]}; do\n' +
-                '\tcd ' + _home + '/trunk/ts_sal/test/maven/${csc}-' + XML_Version + "_" + SAL_Version + Build_Param + MavenVersion + ' \n' +
+                '\tcd ' + _home + '/trunk/ts_sal/test/maven/${csc}-' + XML_Version_Base + "_" + SAL_Version_Base + MavenVersion + ' \n' +
                 '\tmvn -DskipTests=true -B deploy \n' +
                 'done\n' +
                 'Result=$? \n' +
