@@ -71,6 +71,8 @@ Salgen LaserTracker Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_offsetsPublish.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_positionPublish.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_t2saError.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_t2saStatus.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_laserStatus.idl
 
 Verify LaserTracker revCodes File
     [Documentation]    Ensure LaserTracker_revCodes.tcl contains 1 revcode per topic.
@@ -111,6 +113,8 @@ Verify LaserTracker revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_offsetsPublish\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_positionPublish\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_t2saError\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_t2saStatus\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_laserStatus\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_trackertemp\\) [a-z0-9]{8,}
 
 Salgen LaserTracker IDL
