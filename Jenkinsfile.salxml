@@ -354,56 +354,6 @@ pipeline {
                 }//JavaEvents
             }//parallel
         }//RunJavaMessagingTests
-        stage('CppAuthlist') {
-            when {
-                expression {
-                    return params.Authlist
-                }
-            }//when
-            steps {
-                sh label: 'CppAuthList', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' + 'set -x \n' +
-                'echo ========= Move to robotframework_SAL directory ========= \n' +
-                'echo cd ' + _home + '/trunk/robotframework_SAL \n' +
-                'cd ' + _home + '/trunk/robotframework_SAL \n' +
-                'echo ========= Execute SAL C++ AuthList tests ========= \n' +
-                'robot --outputdir ' + _home + '/trunk/Reports --variable ContInt:true -e skipped --skiponfailure CAP-933 --skiponfailure TSS* --skiponfailure DM* ' +
-                    '--variable SALVersion:' + SAL_Version + ' --variable SALInstall:' + _home + '/trunk/ts_sal ' +
-                    ' --variable SALVersionBase:' + SAL_Version_Base + ' --variable XMLVersionBase:' + XML_Version_Base +
-                    ' --variable OpenspliceRelease:\'OpenSplice HDE Release\' ' + ' --variable XMLHome:' + _home + '/trunk/ts_xml ' +
-                    '--variable OpenspliceVersion:' + _ospl_version + ' --variable OpenspliceDate:' + _ospl_date +
-                    ' --variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version +
-                    ' --variable Build_Number:' + Build_Param +
-                    ' --variable MvnVersion:"Apache Maven ' + _mvn_version + '" --variable PythonVersion:\'Python ' + _python_version + '\' ' +
-                    '--name CppAuthList --output CppAuthList ' +
-                    '-A ' + _home + '/trunk/robotframework_SAL/CppAuthList_Tests.list \n' +
-                'exit 0'
-            }
-        }//CppAuthList
-        stage('JavaAuthlist') {
-            when {
-                expression {
-                    return params.Authlist
-                }
-            }//when
-            steps {
-                sh label: 'JavaAuthList', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' + 'set -x \n' +
-                'echo ========= Move to robotframework_SAL directory ========= \n' +
-                'echo cd ' + _home + '/trunk/robotframework_SAL \n' +
-                'cd ' + _home + '/trunk/robotframework_SAL \n' +
-                'echo ========= Execute SAL Java AuthList tests ========= \n' +
-                'robot --outputdir ' + _home + '/trunk/Reports --variable ContInt:true -e skipped --skiponfailure CAP-933 --skiponfailure TSS* --skiponfailure DM* ' +
-                    '--variable SALVersion:' + SAL_Version + ' --variable SALInstall:' + _home + '/trunk/ts_sal ' +
-                    ' --variable SALVersionBase:' + SAL_Version_Base + ' --variable XMLVersionBase:' + XML_Version_Base +
-                    ' --variable OpenspliceRelease:\'OpenSplice HDE Release\' ' + ' --variable XMLHome:' + _home + '/trunk/ts_xml ' +
-                    '--variable OpenspliceVersion:' + _ospl_version + ' --variable OpenspliceDate:' + _ospl_date +
-                    ' --variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version +
-                    ' --variable Build_Number:' + Build_Param +
-                    ' --variable MvnVersion:"Apache Maven ' + _mvn_version + '" --variable PythonVersion:\'Python ' + _python_version + '\' ' +
-                    '--name JavaAuthList --output JavaAuthList ' +
-                    '-A ' + _home + '/trunk/robotframework_SAL/JavaAuthList_Tests.list \n' +
-                'exit 0'
-            }
-        }//JavaAuthlist
         stage('Push RPMs to Nexus3') {
             when {
                 expression { 
@@ -510,7 +460,7 @@ pipeline {
         always {
             //Process Robot-Framework results.
             sh label: 'Results', script: '#!/bin/bash \n' + 'echo "# Check for output files."\n' +
-            'declare -a outputs=(VALIDATE.xml AUXTEL.xml MAINTEL.xml CombinedCppTelemetry.xml CombinedCppEvents.xml CombinedJavaTelemetry.xml CombinedJavaEvents.xml CppAuthList.xml JavaAuthList.xml ) \n' + 
+            'declare -a outputs=(VALIDATE.xml AUXTEL.xml MAINTEL.xml CombinedCppTelemetry.xml CombinedCppEvents.xml CombinedJavaTelemetry.xml CombinedJavaEvents.xml) \n' + 
             'echo ${outputs[@]}\n' +
             'i=0\n echo i=$i\n' + 'for item in "${outputs[@]}"; do\n' +
             '\tif test -f ' + _home + '/trunk/Reports/$item; then array[$i]=' + _home + '/trunk/Reports/$item; else echo ' +
