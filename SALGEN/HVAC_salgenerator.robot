@@ -107,7 +107,18 @@ Salgen HVAC Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_manejadoraConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_manejadoraLowerConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_dynaleneState.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_dynaleneSafetyState.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_dynaleneTankLevel.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_dynTMAalarm.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_dynTMAalarmCMD.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_dynTMAalarmMonitor.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_dynTAalarm.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_dynTAalarmCMD.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_dynTAalarmMonitor.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_dynMainGridAlarm.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_dynMainGridAlarmCMD.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_dynMainGridFailureFlag.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_dynTankLevelAlarmCMD.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_dynSafetyResetFlag.idl
 
 Verify HVAC revCodes File
     [Documentation]    Ensure HVAC_revCodes.tcl contains 1 revcode per topic.
@@ -142,7 +153,18 @@ Verify HVAC revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_manejadoraConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_manejadoraLowerConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_dynaleneState\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_dynaleneSafetyState\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_dynaleneTankLevel\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_dynTMAalarm\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_dynTMAalarmCMD\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_dynTMAalarmMonitor\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_dynTAalarm\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_dynTAalarmCMD\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_dynTAalarmMonitor\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_dynMainGridAlarm\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_dynMainGridAlarmCMD\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_dynMainGridFailureFlag\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_dynTankLevelAlarmCMD\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_dynSafetyResetFlag\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_bombaAguaFriaP01\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_chiller01P01\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_chiller02P01\\) [a-z0-9]{8,}
