@@ -71,8 +71,8 @@ pipeline {
                     IDL_Checkout = "*/main"
                     SIMPLESAL_Checkout = "*/main"
                     DDSCONFIG_Checkout = "*/main"
-                    RFSALGEN_Checkout = "*/sal_develop"
-                    RFSALMSGs_Checkout = "*/sal_develop"
+                    RFSALGEN_Checkout = "*/develop"
+                    RFSALMSGs_Checkout = "*/develop"
                 }
             }
         }
