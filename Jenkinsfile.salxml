@@ -138,7 +138,7 @@ pipeline {
                     SAL_Version_RC = sh(returnStdout: true, script: "echo " + SAL_Version + " |cut -d '-' -f1,2 |sed s/v//g").trim()
                     XML_Version_RC = sh(returnStdout: true, script: "echo " + XML_Version + " |cut -d '-' -f1,2 |sed s/v//g").trim()
 
-                    if (params.SAL_BRANCH == 'main' || params.XML_BRANCH == 'main') {
+                    if (BuildType == "Release" || params.SAL_BRANCH == 'main' || params.XML_BRANCH == 'main') {
                         println("This is a RELEASE build.")
                         // Maven and RPM release artifacts simply use the version numbers.
                         MavenVersion = ''
@@ -228,7 +228,7 @@ pipeline {
                         'echo cd ' + _home + '/trunk/simple_sal  \n' +
                         'cd ' + _home + '/trunk/simple_sal \n' +
                         'echo ========= Execute simple-sal tests ========= \n' +
-                        'mvn -B clean install'
+                        'mvn --no-transfer-progress -B clean install'
             }
         }//simple-sal
         stage('Generate the RPMs') {
