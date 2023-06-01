@@ -63,7 +63,7 @@ pipeline {
                     SAL_Version_RC = sh(returnStdout: true, script: "echo " + SAL_Version + " |cut -d '-' -f1,2 |sed s/v//g").trim()
                     XML_Version_RC = sh(returnStdout: true, script: "echo " + XML_Version + " |cut -d '-' -f1,2 |sed s/v//g").trim()
 
-                    if (BuildType == "Release" || params.SAL_BRANCH == 'main' || params.XML_BRANCH == 'main') {
+                    if (params.SAL_BRANCH == 'main' || params.XML_BRANCH == 'main') {
                         println("This is a RELEASE build.")
                         // Maven and RPM release artifacts simply use the version numbers.
                         MavenVersion = ''
