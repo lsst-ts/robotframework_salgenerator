@@ -203,7 +203,7 @@ function subsystemArray() {
     MTRotator MTVMS OCPS PMD 
     Scheduler Script ScriptQueue SummitFacility 
     Test TunableLaser 
-    Watcher WeatherForecast WeatherStation"
+    Watcher WeatherForecast"
 }
 
 
