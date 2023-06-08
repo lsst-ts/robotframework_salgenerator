@@ -424,10 +424,10 @@ Salgen ATMCS RPM
     Log Many    @{files}
     IF    "${Build_Number}" == ""
         Set Test Variable    ${dot}    ${EMPTY}
-    ELSE IF    ${{'RC' in '${Build_Number}'}}
-        Set Test Variable    ${dot}    ${EMPTY}
-    ELSE
+    ELSE IF    'rc' in '${Build_Number}'.lower()
         Set Test Variable    ${dot}    .
+    ELSE
+        Set Test Variable    ${dot}    ${EMPTY}
     END
     File Should Exist    ${SALWorkDir}/rpmbuild/SPECS/ts_sal_${subSystem}.spec
     File Should Exist    ${SALWorkDir}/rpmbuild/SOURCES/${subSystem}-${XMLVersionBase}.tgz
@@ -444,10 +444,10 @@ Verify ATMCS RPM Contents
     Comment    Re-run the {dot} process, so this test case can run independently.
     IF    "${Build_Number}" == ""
         Set Test Variable    ${dot}    ${EMPTY}
-    ELSE IF    ${{'RC' in '${Build_Number}'}}
-        Set Test Variable    ${dot}    ${EMPTY}
-    ELSE
+    ELSE IF    'rc' in '${Build_Number}'.lower()
         Set Test Variable    ${dot}    .
+    ELSE
+        Set Test Variable    ${dot}    ${EMPTY}
     END
     ${output}=    Run Process    rpm    -qpl    ${subSystem}-${XMLVersionBase}-${SALVersionBase}${dot}${Build_Number}${DIST}.x86_64.rpm    cwd=${SALWorkDir}/rpmbuild/RPMS/x86_64
     Log Many    ${output.stdout}    ${output.stderr}
@@ -487,10 +487,10 @@ Verify ATMCS TEST RPM Contents
     Comment    Re-run the {dot} process, so this test case can run independently.
     IF    "${Build_Number}" == ""
         Set Test Variable    ${dot}    ${EMPTY}
-    ELSE IF    ${{'RC' in '${Build_Number}'}}
-        Set Test Variable    ${dot}    ${EMPTY}
-    ELSE
+    ELSE IF    'rc' in '${Build_Number}'.lower()
         Set Test Variable    ${dot}    .
+    ELSE
+        Set Test Variable    ${dot}    ${EMPTY}
     END
     ${output}=    Run Process    rpm    -qpl    ${subSystem}_test-${XMLVersionBase}-${SALVersionBase}${dot}${Build_Number}${DIST}.x86_64.rpm    shell=True    cwd=${SALWorkDir}/rpmbuild/RPMS/x86_64    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}

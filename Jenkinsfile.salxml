@@ -135,27 +135,29 @@ pipeline {
                     XML_Version = sh(returnStdout: true, script: "cd /home/appuser/trunk/ts_xml && git describe |sed s/v//g").trim()
                     SAL_Version_Base = sh(returnStdout: true, script: "echo " + SAL_Version + " |cut -d '-' -f1 |sed s/v//g").trim()
                     XML_Version_Base = sh(returnStdout: true, script: "echo " + XML_Version + " |cut -d '-' -f1 |sed s/v//g").trim()
-                    SAL_Version_RC = sh(returnStdout: true, script: "echo " + SAL_Version + " |cut -d '-' -f1,2 |sed s/v//g").trim()
                     XML_Version_RC = sh(returnStdout: true, script: "echo " + XML_Version + " |cut -d '-' -f1,2 |sed s/v//g").trim()
+                    SAL_Version_RC = sh(returnStdout: true, script: "echo " + SAL_Version + " |cut -d '-' -f1,2 |sed s/v//g").trim()
 
                     if (BuildType == "Release" || params.SAL_BRANCH == 'main' || params.XML_BRANCH == 'main') {
-                        println("This is a RELEASE build.")
-                        // Maven and RPM release artifacts simply use the version numbers.
-                        MavenVersion = ''
-                        Build_Param = ''
-                        RPM_Version = XML_Version_Base + "-" + SAL_Version_Base
-                    } else if (XML_Version_RC.contains('rc')) {
-                        println("This is an XML RELEASE CANDIDATE build.")
-                        // Maven and RPM release candidate artifacts simply use the version numbers.
-                        MavenVersion = '-SNAPSHOT'
-                        Build_Param = sh(returnStdout: true, script: "echo " + XML_Version_RC + " |cut -d '-' -f2").trim()
-                        RPM_Version = XML_Version_Base + "-" + SAL_Version_Base + Build_Param
-                    } else if (SAL_Version_RC.contains('rc')) {
-                        println("This is a SAL RELEASE CANDIDATE build.")
-                        // Maven and RPM release candidate artifacts simply use the version numbers.
-                        MavenVersion = '-SNAPSHOT'
-                        Build_Param = sh(returnStdout: true, script: "echo " + SAL_Version_RC + " |cut -d '-' -f2").trim()
-                        RPM_Version = XML_Version_Base + "-" + SAL_Version_Base + Build_Param
+                        if (XML_Version_RC.contains('rc')) {
+                            println("This is an XML RELEASE CANDIDATE build.")
+                            // Maven and RPM release candidate artifacts simply use the version numbers.
+                            MavenVersion = '-SNAPSHOT'
+                            Build_Param = sh(returnStdout: true, script: "echo " + XML_Version_RC + " |cut -d '-' -f2").trim()
+                            RPM_Version = XML_Version_Base + "-" + SAL_Version_Base + Build_Param
+                        } else if (SAL_Version_RC.contains('rc')) {
+                            println("This is a SAL RELEASE CANDIDATE build.")
+                            // Maven and RPM release candidate artifacts simply use the version numbers.
+                            MavenVersion = '-SNAPSHOT'
+                            Build_Param = sh(returnStdout: true, script: "echo " + SAL_Version_RC + " |cut -d '-' -f2").trim()
+                            RPM_Version = XML_Version_Base + "-" + SAL_Version_Base + Build_Param
+                        } else {
+                            println("This is a RELEASE build.")
+                            // Maven and RPM release artifacts simply use the version numbers.
+                            MavenVersion = ''
+                            Build_Param = ''
+                            RPM_Version = XML_Version_Base + "-" + SAL_Version_Base
+                        }
                     } else {
                         println("This is a daily build.")
                         // Maven develop/daily/etc artifacts add the -SNAPSHOT string.
