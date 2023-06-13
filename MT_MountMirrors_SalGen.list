@@ -1,0 +1,10 @@
+###  Test Suite list ###
+#  Change the title of the test results
+--name MainTelMountMirrors
+--output MAINTELMountMirrors
+
+# List of test suites
+SALGEN/MTM1M3_salgenerator.robot
+SALGEN/MTM1M3TS_salgenerator.robot
+SALGEN/MTM2_salgenerator.robot
+SALGEN/MTMount_salgenerator.robot

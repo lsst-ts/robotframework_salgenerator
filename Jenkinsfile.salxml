@@ -144,18 +144,18 @@ pipeline {
                         MavenVersion = ''
                         Build_Param = ''
                         RPM_Version = XML_Version_Base + "-" + SAL_Version_Base
-                    } else if (SAL_Version_RC.contains('rc')) {
-                        println("This is a SAL RELEASE CANDIDATE build.")
-                        // Maven and RPM release candidate artifacts simply use the version numbers.
-                        MavenVersion = ''
-                        Build_Param = ''
-                        RPM_Version = XML_Version_Base + "-" + SAL_Version_RC
                     } else if (XML_Version_RC.contains('rc')) {
                         println("This is an XML RELEASE CANDIDATE build.")
                         // Maven and RPM release candidate artifacts simply use the version numbers.
-                        MavenVersion = ''
-                        Build_Param = ''
-                        RPM_Version = XML_Version_RC + "-" + SAL_Version_Base
+                        MavenVersion = '-SNAPSHOT'
+                        Build_Param = sh(returnStdout: true, script: "echo " + XML_Version_RC + " |cut -d '-' -f2").trim()
+                        RPM_Version = XML_Version_Base + "-" + SAL_Version_Base + Build_Param
+                    } else if (SAL_Version_RC.contains('rc')) {
+                        println("This is a SAL RELEASE CANDIDATE build.")
+                        // Maven and RPM release candidate artifacts simply use the version numbers.
+                        MavenVersion = '-SNAPSHOT'
+                        Build_Param = sh(returnStdout: true, script: "echo " + SAL_Version_RC + " |cut -d '-' -f2").trim()
+                        RPM_Version = XML_Version_Base + "-" + SAL_Version_Base + Build_Param
                     } else {
                         println("This is a daily build.")
                         // Maven develop/daily/etc artifacts add the -SNAPSHOT string.
@@ -272,6 +272,25 @@ pipeline {
                         'exit 0'
                     }
                 }//MainTel
+                stage('MainTel Mount and Mirrors') {
+                    steps {
+                        // Generate the MainTel Mount and Mirror CSC RPMs
+                        sh label: 'MainTel_MountMirrors', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' + 'set -x \n' +
+                        'echo ========= Move to robotframework_salgenerator directory ========= \n' +
+                        'echo cd ' + _home + '/trunk/robotframework_salgenerator \n' +
+                        'cd ' + _home + '/trunk/robotframework_salgenerator \n' +
+                        'pwd \n' +
+                        'echo ========= Execute MainTel Mount and Mirrors salgenerator tests ========= \n' +
+                        'robot --variable ContInt:true -e skipped --skiponfailure CAP-933 --skiponfailure TSS* --skiponfailure DM* --variable SALVersion:' + SAL_Version + ' ' +
+                            ' --variable SALVersionBase:' + SAL_Version_Base + ' --variable XMLVersionBase:' + XML_Version_Base +
+                            ' --variable SALInstall:' + _home + '/trunk/ts_sal --variable OpenspliceRelease:\'OpenSplice HDE Release\' ' +
+                            '--variable OpenspliceVersion:' + _ospl_version + ' --variable OpenspliceDate:' + _ospl_date + ' --variable XMLHome:' + _home + '/trunk/ts_xml ' +
+                            ' --variable MvnVersion:"Apache Maven ' + _mvn_version + '" --variable PythonVersion:"Python ' + _python_version + '" ' +
+                            '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:' + Build_Param + ' ' +
+                            '--name MainTel --output MAINTEL --outputdir ' + _home + '/trunk/Reports -A ' + _home + '/trunk/robotframework_salgenerator/MT_MountMirrors_SalGen.list \n' +
+                        'exit 0'
+                    }
+                }//MainTelMountMirrors
             }//parallel
         }//Generate_RPMs
         stage('Run C++ Messaging Tests') {
@@ -326,6 +345,24 @@ pipeline {
                 }
             }
             parallel {
+                stage('MTCameraJavaTelemetry') {
+                    steps {
+                        sh label: 'JavaTelemetry', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' + 'set -x \n' +
+                        'echo ========= Move to robotframework_SAL directory ========= \n' +
+                        'echo cd ' + _home + '/trunk/robotframework_SAL \n' +
+                        'cd ' + _home + '/trunk/robotframework_SAL \n' + 
+                        'echo ========= Execute SAL Java MTCamera messaging tests ========= \n' +
+                        'robot --outputdir ' + _home + '/trunk/Reports --variable ContInt:true -e skipped --skiponfailure CAP-933 --skiponfailure TSS* --skiponfailure DM* ' +
+                            '--variable SALVersion:' + SAL_Version + ' --variable SALInstall:' + _home + '/trunk/ts_sal ' +
+                            ' --variable SALVersionBase:' + SAL_Version_Base + ' --variable XMLVersionBase:' + XML_Version_Base +
+                            ' --variable OpenspliceRelease:\'OpenSplice HDE Release\' ' + ' --variable XMLHome:' + _home + '/trunk/ts_xml ' +
+                            '--variable OpenspliceVersion:' + _ospl_version + ' --variable OpenspliceDate:' + _ospl_date +
+                            ' --variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:' + Build_Param +
+                            ' --variable MvnVersion:"Apache Maven ' + _mvn_version + '" --variable PythonVersion:"Python ' + _python_version + '" ' +
+                            '-A ' + _home + '/trunk/robotframework_SAL/CombinedJavaMTCameraTelemetry_Tests.list \n' +
+                        'exit 0'
+                    }
+                }//MTCameraJavaTelemetry
                 stage('JavaTelemetry') {
                     steps {
                         sh label: 'JavaTelemetry', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' + 'set -x \n' +
@@ -470,7 +507,7 @@ pipeline {
         always {
             //Process Robot-Framework results.
             sh label: 'Results', script: '#!/bin/bash \n' + 'echo "# Check for output files."\n' +
-            'declare -a outputs=(VALIDATE.xml AUXTEL.xml MAINTEL.xml CombinedCppTelemetry.xml CombinedCppEvents.xml CombinedJavaTelemetry.xml CombinedJavaEvents.xml) \n' + 
+            'declare -a outputs=(VALIDATE.xml AUXTEL.xml MAINTEL.xml MAINTELMountMirrors.xml CombinedCppTelemetry.xml CombinedCppEvents.xml CombinedJavaMTCameraTelemetry.xml CombinedJavaTelemetry.xml CombinedJavaEvents.xml) \n' + 
             'echo ${outputs[@]}\n' +
             'i=0\n echo i=$i\n' + 'for item in "${outputs[@]}"; do\n' +
             '\tif test -f ' + _home + '/trunk/Reports/$item; then array[$i]=' + _home + '/trunk/Reports/$item; else echo ' +
