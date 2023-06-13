@@ -10,14 +10,13 @@ ${PythonVersion}        Python 3.10.4
 ${AstropyVersion}       5.2.1
 ${MvnVersion}           Apache Maven 3.6.3
 ${MavenVersion}         -SNAPSHOT
-${MavenVersion}         -SNAPSHOT
 ${SALInstall}           /opt/sal
 ${SALHome}              ${SalInstall}
 ${SALWorkDir}           ${SalInstall}/test
-${SALVersion}           6.1.0-1-gabcdefg
-${SALVersionBase}       6.1.0
-${XMLVersion}           11.1.1-1-gabcdefg
-${XMLVersionBase}       11.1.1
+${SALVersion}           7.3.0
+${SALVersionBase}       7.3.0
+${XMLVersion}           17.0.0
+${XMLVersionBase}       17.0.0
 ${XMLHome}              /home/appuser/trunk/ts_xml
 ${Build_Number}         001
 ${OpenspliceRelease}    Vortex OpenSplice HDE Release

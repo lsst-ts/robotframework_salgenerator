@@ -165,7 +165,7 @@ pipeline {
                         'echo cd ' + _home + '/trunk/simple_sal  \n' +
                         'cd ' + _home + '/trunk/simple_sal \n' +
                         'echo ========= Execute simple-sal tests ========= \n' +
-                        'mvn -B clean install'
+                        'mvn --no-transfer-progress -B clean install'
             }
         }//simple-sal
         stage('Run C++ Messaging Tests') {

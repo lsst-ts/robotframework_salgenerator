@@ -71,8 +71,8 @@ pipeline {
                     IDL_Checkout = "*/main"
                     SIMPLESAL_Checkout = "*/main"
                     DDSCONFIG_Checkout = "*/main"
-                    RFSALGEN_Checkout = "*/sal_develop"
-                    RFSALMSGs_Checkout = "*/sal_develop"
+                    RFSALGEN_Checkout = "*/develop"
+                    RFSALMSGs_Checkout = "*/develop"
                 }
             }
         }
@@ -130,32 +130,34 @@ pipeline {
                 println("The Python version: " + _python_version);
                 println("Push build artifacts? " + params.Push);
                 println("Run messaging tests? " + params.Messaging);
-                script {
+            script {
                     SAL_Version = sh(returnStdout: true, script: "cd /home/appuser/trunk/ts_sal && git describe |sed s/v//g").trim()
                     XML_Version = sh(returnStdout: true, script: "cd /home/appuser/trunk/ts_xml && git describe |sed s/v//g").trim()
                     SAL_Version_Base = sh(returnStdout: true, script: "echo " + SAL_Version + " |cut -d '-' -f1 |sed s/v//g").trim()
                     XML_Version_Base = sh(returnStdout: true, script: "echo " + XML_Version + " |cut -d '-' -f1 |sed s/v//g").trim()
-                    SAL_Version_RC = sh(returnStdout: true, script: "echo " + SAL_Version + " |cut -d '-' -f1,2 |sed s/v//g").trim()
                     XML_Version_RC = sh(returnStdout: true, script: "echo " + XML_Version + " |cut -d '-' -f1,2 |sed s/v//g").trim()
+                    SAL_Version_RC = sh(returnStdout: true, script: "echo " + SAL_Version + " |cut -d '-' -f1,2 |sed s/v//g").trim()
 
-                    if (params.SAL_BRANCH == 'main' || params.XML_BRANCH == 'main') {
-                        println("This is a RELEASE build.")
-                        // Maven and RPM release artifacts simply use the version numbers.
-                        MavenVersion = ''
-                        Build_Param = ''
-                        RPM_Version = XML_Version_Base + "-" + SAL_Version_Base
-                    } else if (SAL_Version_RC.contains('rc')) {
-                        println("This is a SAL RELEASE CANDIDATE build.")
-                        // Maven and RPM release candidate artifacts simply use the version numbers.
-                        MavenVersion = ''
-                        Build_Param = ''
-                        RPM_Version = XML_Version_Base + "-" + SAL_Version_RC
-                    } else if (XML_Version_RC.contains('rc')) {
-                        println("This is an XML RELEASE CANDIDATE build.")
-                        // Maven and RPM release candidate artifacts simply use the version numbers.
-                        MavenVersion = ''
-                        Build_Param = ''
-                        RPM_Version = XML_Version_RC + "-" + SAL_Version_Base
+                    if (BuildType == "Release" || params.SAL_BRANCH == 'main' || params.XML_BRANCH == 'main') {
+                        if (XML_Version_RC.contains('rc')) {
+                            println("This is an XML RELEASE CANDIDATE build.")
+                            // Maven and RPM release candidate artifacts simply use the version numbers.
+                            MavenVersion = '-SNAPSHOT'
+                            Build_Param = sh(returnStdout: true, script: "echo " + XML_Version_RC + " |cut -d '-' -f2").trim()
+                            RPM_Version = XML_Version_Base + "-" + SAL_Version_Base + Build_Param
+                        } else if (SAL_Version_RC.contains('rc')) {
+                            println("This is a SAL RELEASE CANDIDATE build.")
+                            // Maven and RPM release candidate artifacts simply use the version numbers.
+                            MavenVersion = '-SNAPSHOT'
+                            Build_Param = sh(returnStdout: true, script: "echo " + SAL_Version_RC + " |cut -d '-' -f2").trim()
+                            RPM_Version = XML_Version_Base + "-" + SAL_Version_Base + Build_Param
+                        } else {
+                            println("This is a RELEASE build.")
+                            // Maven and RPM release artifacts simply use the version numbers.
+                            MavenVersion = ''
+                            Build_Param = ''
+                            RPM_Version = XML_Version_Base + "-" + SAL_Version_Base
+                        }
                     } else {
                         println("This is a daily build.")
                         // Maven develop/daily/etc artifacts add the -SNAPSHOT string.
@@ -228,7 +230,7 @@ pipeline {
                         'echo cd ' + _home + '/trunk/simple_sal  \n' +
                         'cd ' + _home + '/trunk/simple_sal \n' +
                         'echo ========= Execute simple-sal tests ========= \n' +
-                        'mvn -B clean install'
+                        'mvn --no-transfer-progress -B clean install'
             }
         }//simple-sal
         stage('Generate the RPMs') {
@@ -272,16 +274,53 @@ pipeline {
                         'exit 0'
                     }
                 }//MainTel
+                stage('MainTel Mount and Mirrors') {
+                    steps {
+                        // Generate the MainTel Mount and Mirror CSC RPMs
+                        sh label: 'MainTel_MountMirrors', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' + 'set -x \n' +
+                        'echo ========= Move to robotframework_salgenerator directory ========= \n' +
+                        'echo cd ' + _home + '/trunk/robotframework_salgenerator \n' +
+                        'cd ' + _home + '/trunk/robotframework_salgenerator \n' +
+                        'pwd \n' +
+                        'echo ========= Execute MainTel Mount and Mirrors salgenerator tests ========= \n' +
+                        'robot --variable ContInt:true -e skipped --skiponfailure CAP-933 --skiponfailure TSS* --skiponfailure DM* --variable SALVersion:' + SAL_Version + ' ' +
+                            ' --variable SALVersionBase:' + SAL_Version_Base + ' --variable XMLVersionBase:' + XML_Version_Base +
+                            ' --variable SALInstall:' + _home + '/trunk/ts_sal --variable OpenspliceRelease:\'OpenSplice HDE Release\' ' +
+                            '--variable OpenspliceVersion:' + _ospl_version + ' --variable OpenspliceDate:' + _ospl_date + ' --variable XMLHome:' + _home + '/trunk/ts_xml ' +
+                            ' --variable MvnVersion:"Apache Maven ' + _mvn_version + '" --variable PythonVersion:"Python ' + _python_version + '" ' +
+                            '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:' + Build_Param + ' ' +
+                            '--name MTMountMirrors --output MTMountMirrors --outputdir ' + _home + '/trunk/Reports -A ' + _home + '/trunk/robotframework_salgenerator/MT_MountMirrors_SalGen.list \n' +
+                        'exit 0'
+                    }
+                }//MainTelMountMirrors
             }//parallel
         }//Generate_RPMs
-        stage('Run C++ Messaging Tests') {
+        stage('Run Messaging Tests') {
             when {
                 expression { 
                     return params.Messaging 
                 }
             }
             parallel {
-                stage('CppTelemetry') {
+                stage('MTCameraJavaTelemetry') {
+                    steps {
+                        sh label: 'JavaTelemetry', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' + 'set -x \n' +
+                        'echo ========= Move to robotframework_SAL directory ========= \n' +
+                        'echo cd ' + _home + '/trunk/robotframework_SAL \n' +
+                        'cd ' + _home + '/trunk/robotframework_SAL \n' + 
+                        'echo ========= Execute SAL Java MTCamera messaging tests ========= \n' +
+                        'robot --outputdir ' + _home + '/trunk/Reports --variable ContInt:true -e skipped --skiponfailure CAP-933 --skiponfailure TSS* --skiponfailure DM* ' +
+                            '--variable SALVersion:' + SAL_Version + ' --variable SALInstall:' + _home + '/trunk/ts_sal ' +
+                            ' --variable SALVersionBase:' + SAL_Version_Base + ' --variable XMLVersionBase:' + XML_Version_Base +
+                            ' --variable OpenspliceRelease:\'OpenSplice HDE Release\' ' + ' --variable XMLHome:' + _home + '/trunk/ts_xml ' +
+                            '--variable OpenspliceVersion:' + _ospl_version + ' --variable OpenspliceDate:' + _ospl_date +
+                            ' --variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:' + Build_Param +
+                            ' --variable MvnVersion:"Apache Maven ' + _mvn_version + '" --variable PythonVersion:"Python ' + _python_version + '" ' +
+                            '-A ' + _home + '/trunk/robotframework_SAL/CombinedJavaMTCameraTelemetry_Tests.list \n' +
+                        'exit 0'
+                    }
+                }//MTCameraJavaTelemetry
+                stage('All Other Messaging') {
                     steps {
                         sh label: 'CppTelemetry', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' + 'set -x \n' +
                         'echo ========= Move to robotframework_SAL directory ========= \n' +
@@ -297,10 +336,6 @@ pipeline {
                             ' --variable MvnVersion:"Apache Maven ' + _mvn_version + '" --variable PythonVersion:"Python ' + _python_version + '" ' +
                             '-A ' + _home + '/trunk/robotframework_SAL/CombinedCppTelemetry_Tests.list \n' +
                         'exit 0'
-                    }
-                }//CppTelemetry
-                stage('CppEvents') {
-                    steps {
                         sh label: 'CppEvents', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' + 'set -x \n' +
                         'echo ========= Move to robotframework_SAL directory ========= \n' +
                         'echo cd ' + _home + '/trunk/robotframework_SAL \n' +
@@ -315,19 +350,6 @@ pipeline {
                             ' --variable MvnVersion:"Apache Maven ' + _mvn_version + '" --variable PythonVersion:"Python ' + _python_version + '" ' +
                             '-A ' + _home + '/trunk/robotframework_SAL/CombinedCppEvents_Tests.list \n' +
                         'exit 0'
-                    }
-                }//CppEvents
-            }//parallel
-        }//RunCppMessagingTests
-        stage('Run Java Messaging Tests') {
-            when {
-                expression { 
-                    return params.Messaging 
-                }
-            }
-            parallel {
-                stage('JavaTelemetry') {
-                    steps {
                         sh label: 'JavaTelemetry', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' + 'set -x \n' +
                         'echo ========= Move to robotframework_SAL directory ========= \n' +
                         'echo cd ' + _home + '/trunk/robotframework_SAL \n' +
@@ -342,10 +364,6 @@ pipeline {
                             ' --variable MvnVersion:"Apache Maven ' + _mvn_version + '" --variable PythonVersion:"Python ' + _python_version + '" ' +
                             '-A ' + _home + '/trunk/robotframework_SAL/CombinedJavaTelemetry_Tests.list \n' +
                         'exit 0'
-                    }
-                }//JavaTelemetry
-                stage('JavaEvents') {
-                    steps {
                         sh label: 'JavaEvents', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' + 'set -x \n' +
                         'echo ========= Move to robotframework_SAL directory ========= \n' +
                         'echo cd ' + _home + '/trunk/robotframework_SAL \n' +
@@ -361,9 +379,9 @@ pipeline {
                             '-A ' + _home + '/trunk/robotframework_SAL/CombinedJavaEvents_Tests.list \n' +
                         'exit 0'
                     }
-                }//JavaEvents
+                }//AllOtherMessaging
             }//parallel
-        }//RunJavaMessagingTests
+        }//RunMessagingTests
         stage('Push RPMs to Nexus3') {
             when {
                 expression { 
@@ -470,7 +488,7 @@ pipeline {
         always {
             //Process Robot-Framework results.
             sh label: 'Results', script: '#!/bin/bash \n' + 'echo "# Check for output files."\n' +
-            'declare -a outputs=(VALIDATE.xml AUXTEL.xml MAINTEL.xml CombinedCppTelemetry.xml CombinedCppEvents.xml CombinedJavaTelemetry.xml CombinedJavaEvents.xml) \n' + 
+            'declare -a outputs=(VALIDATE.xml AUXTEL.xml MAINTEL.xml MTMountMirrors.xml CombinedCppTelemetry.xml CombinedCppEvents.xml CombinedJavaMTCameraTelemetry.xml CombinedJavaTelemetry.xml CombinedJavaEvents.xml) \n' + 
             'echo ${outputs[@]}\n' +
             'i=0\n echo i=$i\n' + 'for item in "${outputs[@]}"; do\n' +
             '\tif test -f ' + _home + '/trunk/Reports/$item; then array[$i]=' + _home + '/trunk/Reports/$item; else echo ' +
