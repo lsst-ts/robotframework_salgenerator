@@ -439,7 +439,7 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     echo "    Log Many    @{files}" >> $testSuite
     echo "    IF    \"\${Build_Number}\" == \"\"" >> $testSuite
     echo "        Set Test Variable    \${dot}    \${EMPTY}" >> $testSuite
-    echo "    ELSE IF    'rc' in '\${Build_Number}'.lower()" >> $testSuite
+    echo "    ELSE IF    any(item in '\${Build_Number}' for item in ('pre', 'rc'))" >> $testSuite
     echo "        Set Test Variable    \${dot}    ." >> $testSuite
     echo "    ELSE" >> $testSuite
     echo "        Set Test Variable    \${dot}    \${EMPTY}" >> $testSuite
@@ -475,7 +475,7 @@ function verifyRPM() {
     echo "    Comment    Re-run the {dot} process, so this test case can run independently." >> $testSuite
     echo "    IF    \"\${Build_Number}\" == \"\"" >> $testSuite
     echo "        Set Test Variable    \${dot}    \${EMPTY}" >> $testSuite
-    echo "    ELSE IF    'rc' in '\${Build_Number}'.lower()" >> $testSuite
+    echo "    ELSE IF    any(item in '\${Build_Number}' for item in ('pre', 'rc'))" >> $testSuite
     echo "        Set Test Variable    \${dot}    ." >> $testSuite
     echo "    ELSE" >> $testSuite
     echo "        Set Test Variable    \${dot}    \${EMPTY}" >> $testSuite
@@ -550,7 +550,7 @@ function verifyTestRPM() {
     echo "    Comment    Re-run the {dot} process, so this test case can run independently." >> $testSuite
     echo "    IF    \"\${Build_Number}\" == \"\"" >> $testSuite
     echo "        Set Test Variable    \${dot}    \${EMPTY}" >> $testSuite
-    echo "    ELSE IF    'rc' in '\${Build_Number}'.lower()" >> $testSuite
+    echo "    ELSE IF    any(item in '\${Build_Number}' for item in ('pre', 'rc'))" >> $testSuite
     echo "        Set Test Variable    \${dot}    ." >> $testSuite
     echo "    ELSE" >> $testSuite
     echo "        Set Test Variable    \${dot}    \${EMPTY}" >> $testSuite
