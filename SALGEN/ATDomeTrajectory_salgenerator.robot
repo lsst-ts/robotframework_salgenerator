@@ -136,7 +136,7 @@ Salgen ATDomeTrajectory RPM
     Log Many    @{files}
     IF    "${Build_Number}" == ""
         Set Test Variable    ${dot}    ${EMPTY}
-    ELSE IF    'rc' in '${Build_Number}'.lower()
+    ELSE IF    any(item in '${Build_Number}' for item in ('pre', 'rc'))
         Set Test Variable    ${dot}    .
     ELSE
         Set Test Variable    ${dot}    ${EMPTY}
@@ -155,7 +155,7 @@ Verify ATDomeTrajectory RPM Contents
     Comment    Re-run the {dot} process, so this test case can run independently.
     IF    "${Build_Number}" == ""
         Set Test Variable    ${dot}    ${EMPTY}
-    ELSE IF    'rc' in '${Build_Number}'.lower()
+    ELSE IF    any(item in '${Build_Number}' for item in ('pre', 'rc'))
         Set Test Variable    ${dot}    .
     ELSE
         Set Test Variable    ${dot}    ${EMPTY}

@@ -99,6 +99,7 @@ Salgen MTM1M3 Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disableForceActuator.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enableForceActuator.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enableAllForceActuators.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enableDisableForceComponent.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_heartbeat.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_logLevel.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_logMessage.idl
@@ -216,6 +217,7 @@ Verify MTM1M3 revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_disableForceActuator\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_enableForceActuator\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_enableAllForceActuators\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_enableDisableForceComponent\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_heartbeat\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_logLevel\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_logMessage\\) [a-z0-9]{8,}
@@ -520,6 +522,8 @@ Verify MTM1M3 C++ Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enableForceActuator_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enableAllForceActuators_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enableAllForceActuators_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enableDisableForceComponent_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enableDisableForceComponent_controller
 
 Verify MTM1M3 C++ Event Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -702,7 +706,7 @@ Salgen MTM1M3 RPM
     Log Many    @{files}
     IF    "${Build_Number}" == ""
         Set Test Variable    ${dot}    ${EMPTY}
-    ELSE IF    'rc' in '${Build_Number}'.lower()
+    ELSE IF    any(item in '${Build_Number}' for item in ('pre', 'rc'))
         Set Test Variable    ${dot}    .
     ELSE
         Set Test Variable    ${dot}    ${EMPTY}
@@ -722,7 +726,7 @@ Verify MTM1M3 RPM Contents
     Comment    Re-run the {dot} process, so this test case can run independently.
     IF    "${Build_Number}" == ""
         Set Test Variable    ${dot}    ${EMPTY}
-    ELSE IF    'rc' in '${Build_Number}'.lower()
+    ELSE IF    any(item in '${Build_Number}' for item in ('pre', 'rc'))
         Set Test Variable    ${dot}    .
     ELSE
         Set Test Variable    ${dot}    ${EMPTY}
@@ -758,7 +762,7 @@ Verify MTM1M3 TEST RPM Contents
     Comment    Re-run the {dot} process, so this test case can run independently.
     IF    "${Build_Number}" == ""
         Set Test Variable    ${dot}    ${EMPTY}
-    ELSE IF    'rc' in '${Build_Number}'.lower()
+    ELSE IF    any(item in '${Build_Number}' for item in ('pre', 'rc'))
         Set Test Variable    ${dot}    .
     ELSE
         Set Test Variable    ${dot}    ${EMPTY}
@@ -866,6 +870,8 @@ Verify MTM1M3 TEST RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_enableForceActuator_controller
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_enableAllForceActuators_commander
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_enableAllForceActuators_controller
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_enableDisableForceComponent_commander
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_enableDisableForceComponent_controller
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_heartbeat_send
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_heartbeat_log
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_logLevel_send

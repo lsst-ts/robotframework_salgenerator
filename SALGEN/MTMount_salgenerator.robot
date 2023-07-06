@@ -35,6 +35,7 @@ Salgen MTMount Validate
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_ackcmd.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_telemetryClientHeartbeat.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_azimuth.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_safetySystem.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_elevation.idl
@@ -219,6 +220,7 @@ Verify MTMount revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_safetyInterlocks\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_target\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_warning\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_telemetryClientHeartbeat\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_azimuth\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_safetySystem\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_elevation\\) [a-z0-9]{8,}
@@ -269,6 +271,7 @@ Salgen MTMount C++
     Should Not Contain    ${output.stdout}    Error 1
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_telemetryClientHeartbeat.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_azimuth.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_safetySystem.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_elevation.idl
@@ -294,8 +297,8 @@ Salgen MTMount C++
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_cooling.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_dynaleneCooling.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_generalPurposeGlycolWater.idl
-    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    25
-    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    25
+    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    26
+    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    26
     Should Contain X Times    ${output.stdout}    cpp : Done Commander    1
     Should Contain X Times    ${output.stdout}    cpp : Done Event/Logger    1
 
@@ -313,6 +316,7 @@ Verify MTMount Telemetry directories
     [Tags]    cpp
     @{files}=    List Directory    ${SALWorkDir}    pattern=*${subSystem}*
     Log Many    @{files}
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_telemetryClientHeartbeat
     Directory Should Exist    ${SALWorkDir}/${subSystem}_azimuth
     Directory Should Exist    ${SALWorkDir}/${subSystem}_safetySystem
     Directory Should Exist    ${SALWorkDir}/${subSystem}_elevation
@@ -342,6 +346,8 @@ Verify MTMount Telemetry directories
 Verify MTMount C++ Telemetry Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
     [Tags]    cpp
+    File Should Exist    ${SALWorkDir}/${subSystem}_telemetryClientHeartbeat/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_telemetryClientHeartbeat/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_azimuth/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_azimuth/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_safetySystem/cpp/standalone/sacpp_${subSystem}_pub
@@ -614,7 +620,7 @@ Salgen MTMount RPM
     Log Many    @{files}
     IF    "${Build_Number}" == ""
         Set Test Variable    ${dot}    ${EMPTY}
-    ELSE IF    'rc' in '${Build_Number}'.lower()
+    ELSE IF    any(item in '${Build_Number}' for item in ('pre', 'rc'))
         Set Test Variable    ${dot}    .
     ELSE
         Set Test Variable    ${dot}    ${EMPTY}
@@ -634,7 +640,7 @@ Verify MTMount RPM Contents
     Comment    Re-run the {dot} process, so this test case can run independently.
     IF    "${Build_Number}" == ""
         Set Test Variable    ${dot}    ${EMPTY}
-    ELSE IF    'rc' in '${Build_Number}'.lower()
+    ELSE IF    any(item in '${Build_Number}' for item in ('pre', 'rc'))
         Set Test Variable    ${dot}    .
     ELSE
         Set Test Variable    ${dot}    ${EMPTY}
@@ -677,7 +683,7 @@ Verify MTMount TEST RPM Contents
     Comment    Re-run the {dot} process, so this test case can run independently.
     IF    "${Build_Number}" == ""
         Set Test Variable    ${dot}    ${EMPTY}
-    ELSE IF    'rc' in '${Build_Number}'.lower()
+    ELSE IF    any(item in '${Build_Number}' for item in ('pre', 'rc'))
         Set Test Variable    ${dot}    .
     ELSE
         Set Test Variable    ${dot}    ${EMPTY}
@@ -849,6 +855,8 @@ Verify MTMount TEST RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_target_log
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_warning_send
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_warning_log
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_telemetryClientHeartbeat_publisher
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_telemetryClientHeartbeat_subscriber
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_azimuth_publisher
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_azimuth_subscriber
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_safetySystem_publisher
