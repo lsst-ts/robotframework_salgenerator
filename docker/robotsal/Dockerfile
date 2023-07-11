@@ -1,4 +1,4 @@
-FROM lsstts/robot:latest
+FROM lsstts/robot:kafka
 MAINTAINER Rob Bovill (trekkie2@gmail.com)
 ARG USER=appuser
 ARG HOME=/home/${USER}
@@ -26,11 +26,9 @@ rpm-build && \
 yum clean all && \
 rm -rf /var/cache/yum
 
-RUN dnf -y install yum-utils
-RUN dnf -y install epel-release && \
-dnf config-manager --set-enabled crb
+RUN dnf -y install yum-utils epel-release
 
-RUN yum -y --enablerepo="epel" install jansson \
+RUN dnf -y --enablerepo="epel" install jansson \
 boost1.78 && \
 yum clean all && \
 rm -rf /var/cache/yum
