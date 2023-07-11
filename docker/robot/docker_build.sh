@@ -1,3 +1,3 @@
-docker build --tag lsstts/robot:latest .
+docker build --tag lsstts/robot:kafka .
 echo -e "\n\nHere's the command to push to image: \n"
 echo -e "docker image push lsstts/robot:latest"
