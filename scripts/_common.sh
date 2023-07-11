@@ -195,7 +195,7 @@ function subsystemArray() {
     CCCamera CCHeaderService CCOODS CBP 
     DIMM DREAM DSM
     EAS Electrometer ESS FiberSpectrograph 
-    GCHeaderService GenericCamera GIS Guider IOTA 
+    GCHeaderService GenericCamera GIS Guider 
     MTHexapod HVAC LaserTracker LinearStage LOVE 
     MTAirCompressor MTAOS MTCamera MTDome 
     MTDomeTrajectory MTEEC MTHeaderService
