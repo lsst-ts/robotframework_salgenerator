@@ -1,4 +1,4 @@
-FROM almalinux:latest
+FROM almalinux:8
 MAINTAINER Rob Bovill (trekkie2@gmail.com)
 ARG USER=appuser
 ARG HOME=/home/${USER}
