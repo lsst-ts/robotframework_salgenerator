@@ -16,11 +16,11 @@ RUN chown -R 73006:73006 ${HOME}/.m2
 
 RUN python3.11 -m pip install awscli --upgrade
 
-RUN yum -y install tk tk-devel \
+RUN dnf -y install tk tk-devel \
 ncurses-libs xterm \
 xorg-x11-fonts-misc \
 maven java-1.8.0-openjdk-devel \
-gnome-terminal \
+gnome-terminal iproute \
 mariadb make gcc-c++ \
 rpm-build && \
 yum clean all && \
@@ -43,6 +43,8 @@ COPY --chown=0:0 rpmmacros /root/.rpmmacros
 
 ENV LSST_SDK_INSTALL=$HOME/trunk/ts_sal
 ENV OSPL_HOME=/opt/OpenSpliceDDS/V6.10.4/HDE/x86_64.linux
+ENV JAVA_HOME=/etc/alternatives/java_sdk_1.8.0_openjdk
+ENV LSST_DDS_DOMAIN=citest
 
 RUN echo "" >> ${HOME}/.bash_profile && \
 echo 'source /etc/profile.d/maven.sh' >> ${HOME}/.bash_profile && \
