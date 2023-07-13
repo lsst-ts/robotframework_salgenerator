@@ -6,6 +6,7 @@ alias h=history
 alias ll='ls -ll'
 alias ls='ls -GFh'
 alias sudo='sudo -H'
+alias pip='pip3.11'
 
 # PATH
 export PATH=$PATH:~/bin:~/.local/bin
