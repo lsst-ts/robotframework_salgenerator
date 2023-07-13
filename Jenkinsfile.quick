@@ -1,6 +1,6 @@
 // Define variables
-def _python_version="3.10.4"
-def _mvn_version="3.6.3"
+def _python_version="3.11.4"
+def _mvn_version="3.9.3"
 def _ospl_version="6.10.4p2"
 def _ospl_date="2020-10-12"
 def _user="appuser"
@@ -13,13 +13,16 @@ pipeline {
         string defaultValue: 'main', description: 'The branch of ts_idl to test.', name: 'IDL_BRANCH', trim: true
         string defaultValue: 'main', description: 'The branch of ts_ddsconfig to test.', name: 'DDSCONFIG_BRANCH', trim: true
         string defaultValue: 'develop', description: 'The branch of lsst-camera-ccs/org-lsst-camera-simple-sal to test.', name: 'SIMPLESAL_BRANCH', trim: true
-        string defaultValue: '${CHANGE_BRANCH}', description: 'The branch of robotframework_salgenerator to test.', name: 'SALGEN_BRANCH', trim: true
+        string defaultValue: '${BRANCH_NAME}', description: 'The branch of robotframework_salgenerator to test.', name: 'SALGEN_BRANCH', trim: true
         string defaultValue: 'develop', description: 'The branch of robotframework_SAL to test.', name: 'SALMSG_BRANCH', trim: true
         booleanParam defaultValue: params.Generate ?:false, description: 'Run the "salgenerator generate" tests?', name: 'Generate'
     }
     environment {
         AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
+    }
+    options {
+        disableConcurrentBuilds()
     }
     agent {
         docker { 
@@ -113,8 +116,8 @@ pipeline {
         }//Copy XML
         stage('Install IDL and XML python libraries') {
             steps {
-                sh label: 'IDL library', script: '#!/bin/bash -x \n' + 'cd ts_idl && pip install -e . --ignore-installed --no-deps'
-                sh label: 'XML library', script: '#!/bin/bash -x \n' + 'cd ts_xml && pip install -e . --ignore-installed --no-deps'
+                sh label: 'IDL library', script: '#!/bin/bash -x \n' + 'cd ts_idl && pip3.11 install -e . --ignore-installed --no-deps'
+                sh label: 'XML library', script: '#!/bin/bash -x \n' + 'cd ts_xml && pip3.11 install -e . --ignore-installed --no-deps'
             }
         }//IDL & XML
         stage('Validate') {
