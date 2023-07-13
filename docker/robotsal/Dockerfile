@@ -26,6 +26,15 @@ rpm-build && \
 yum clean all && \
 rm -rf /var/cache/yum
 
+RUN dnf -y install yum-utils
+RUN dnf -y install epel-release && \
+dnf config-manager --set-enabled crb
+
+RUN yum -y --enablerepo="epel" install jansson \
+boost1.78 && \
+yum clean all && \
+rm -rf /var/cache/yum
+
 ADD maven.sh /etc/profile.d/
 RUN wget -P /tmp https://mirrors.gigenet.com/apache/maven/maven-3/3.9.3/binaries/apache-maven-3.9.3-bin.tar.gz
 RUN tar xf /tmp/apache-maven-3.9.3-bin.tar.gz -C /opt && \
