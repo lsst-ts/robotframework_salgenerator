@@ -21,6 +21,8 @@ Verify SAL Version
     Should Contain    ${versionData.stdout}    SAL development environment is configured
     Should Contain    ${versionData.stdout}    LSST middleware toolset environment
     Should Contain    ${versionData.stdout}    v${SALVersion}
+    Should Be Empty    ${versionData.stderr}
+    Should Be Equal As Integers    ${versionData.rc}    ${0}
 
 Verify Python Version
     [Documentation]    Verify the system Python version.
@@ -34,7 +36,7 @@ Verify Astropy Version
     [Documentation]    Verify the Astropy library version.
     [Tags]    smoke    version
     Comment    Verify Astropy version.
-    ${stdout}=    Run Process    pip    freeze
+    ${stdout}=    Run Process    pip3.11    freeze
     Log    ${stdout.stdout}
     Should Contain    ${stdout.stdout}    astropy==${AstropyVersion}
 

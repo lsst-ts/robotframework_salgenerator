@@ -4,15 +4,14 @@ It creates an image based on the lsstts/robot:latest image, and installs all SAL
 
 * tk
 * tk-devel 
-* swig 
 * ncurses-libs 
 * xterm
 * xorg-x11-fonts-misc
 * maven
 * java-1.8.0-openjdk-devel
 * gnome-terminal
+* iproute 
 * mariadb
-* mariadb-devel
 * make
 * gcc-c++
 
@@ -21,6 +20,7 @@ The image is also configured with the necessary SAL Environment Variables.
 * LSST_SDK_INSTALL=$HOME/trunk/ts_sal
 * OSPL_HOME=$HOME/trunk/ts_opensplice/OpenSpliceDDS/V6.4.1/HDE/x86_64.linux
 * LSST_DDS_DOMAIN=citest
+* JAVA_HOME=/etc/alternatives/java_sdk_1.8.0_openjdk
 
 The user is appuser and testing should done with that account.
 
