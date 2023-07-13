@@ -21,6 +21,9 @@ pipeline {
         AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
     }
+    options {
+        disableConcurrentBuilds()
+    }
     agent {
         docker { 
             image 'ts-dockerhub.lsst.org/robotsal:latest'
@@ -113,8 +116,8 @@ pipeline {
         }//Copy XML
         stage('Install IDL and XML python libraries') {
             steps {
-                sh label: 'IDL library', script: '#!/bin/bash -x \n' + 'cd ts_idl && pip install -e . --ignore-installed --no-deps'
-                sh label: 'XML library', script: '#!/bin/bash -x \n' + 'cd ts_xml && pip install -e . --ignore-installed --no-deps'
+                sh label: 'IDL library', script: '#!/bin/bash -x \n' + 'cd ts_idl && pip3.11 install -e . --ignore-installed --no-deps'
+                sh label: 'XML library', script: '#!/bin/bash -x \n' + 'cd ts_xml && pip3.11 install -e . --ignore-installed --no-deps'
             }
         }//IDL & XML
         stage('Validate') {
