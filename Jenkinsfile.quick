@@ -13,7 +13,7 @@ pipeline {
         string defaultValue: 'main', description: 'The branch of ts_idl to test.', name: 'IDL_BRANCH', trim: true
         string defaultValue: 'main', description: 'The branch of ts_ddsconfig to test.', name: 'DDSCONFIG_BRANCH', trim: true
         string defaultValue: 'develop', description: 'The branch of lsst-camera-ccs/org-lsst-camera-simple-sal to test.', name: 'SIMPLESAL_BRANCH', trim: true
-        string defaultValue: '${CHANGE_BRANCH}', description: 'The branch of robotframework_salgenerator to test.', name: 'SALGEN_BRANCH', trim: true
+        string defaultValue: '${BRANCH_NAME}', description: 'The branch of robotframework_salgenerator to test.', name: 'SALGEN_BRANCH', trim: true
         string defaultValue: 'develop', description: 'The branch of robotframework_SAL to test.', name: 'SALMSG_BRANCH', trim: true
         booleanParam defaultValue: params.Generate ?:false, description: 'Run the "salgenerator generate" tests?', name: 'Generate'
     }
