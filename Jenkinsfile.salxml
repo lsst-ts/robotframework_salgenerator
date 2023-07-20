@@ -225,7 +225,7 @@ pipeline {
             when {
                 not {
                     expression {
-                        return params.Generate
+                        return (params.Generate || params.csc_include_flags)
                     }
                 }
             }   
@@ -461,7 +461,7 @@ pipeline {
                 'declare -a JavaCSCs=($( xmlstarlet sel -t -m "//SALSubsystemSet/SALSubsystem/RuntimeLanguages[text()[contains(.,\'Java\')]]/../Name" -v . -n $HOME/trunk/ts_xml/python/lsst/ts/xml/data/sal_interfaces/SALSubsystems.xml )) \n' +
                 'echo ${JavaCSCs[@]}\n' +
                 'for csc in ${JavaCSCs[@]}; do\n' +
-                '\tcd ' + _home + '/trunk/ts_sal/test/maven/${csc}-' + XML_Version_Base + "_" + SAL_Version_Base + MavenVersion + ' \n' +
+                '\tcd ' + _home + '/trunk/ts_sal/test/maven/${csc}-' + XML_Version_Base + "_" + SAL_Version_Base + MavenVersion + ' || {echo "No Java artifacts for ${csc}"; continue;} \n' +
                 '\tmvn -DskipTests=true -B deploy \n' +
                 'done\n' +
                 'Result=$? \n' +
