@@ -465,8 +465,9 @@ pipeline {
                 }
             }
             steps {
+                // Find and upload all the Java artifacts. Skip the Test CSC, as it is not a true Java CSC.
                 sh label: 'Java Artifacts', script: '#!/bin/bash -x\n' +
-                'declare -a JavaCSCs=($( xmlstarlet sel -t -m "//SALSubsystemSet/SALSubsystem/RuntimeLanguages[text()[contains(.,\'Java\')]]/../Name" -v . -n $HOME/trunk/ts_xml/python/lsst/ts/xml/data/sal_interfaces/SALSubsystems.xml )) \n' +
+                'declare -a JavaCSCs=($( xmlstarlet sel -t -m "//SALSubsystemSet/SALSubsystem/RuntimeLanguages[text()[contains(.,\'Java\')]]/../Name" -v . -n $HOME/trunk/ts_xml/python/lsst/ts/xml/data/sal_interfaces/SALSubsystems.xml |sed \'/Test/d\' )) \n' +
                 'echo ${JavaCSCs[@]}\n' +
                 'for csc in ${JavaCSCs[@]}; do\n' +
                 '\tcd ' + _home + '/trunk/ts_sal/test/maven/${csc}-' + XML_Version_Base + "_" + SAL_Version_Base + MavenVersion + ' || { echo "No Java artifacts for ${csc}"; continue; } \n' +
