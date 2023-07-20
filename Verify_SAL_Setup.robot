@@ -6,6 +6,7 @@ Suite Setup    Log Many    ${SALVersion}    ${OpenspliceVersion}    ${Opensplice
 Library        OperatingSystem
 Library        Process
 Resource    Global_Vars.resource
+Force Tags    verify_sal_setup
 
 *** Variables ***
 ${timeout}    10s
