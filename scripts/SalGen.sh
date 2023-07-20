@@ -35,9 +35,10 @@ function createSettings() {
     #  This is where the test suites import the libraries,
     #  especially the Global_Vars.resource file.
     #
+    local subsystem=$(echo "$1" |tr '[:upper:]' '[:lower:]')
     echo "*** Settings ***" >> $testSuite
     echo "Documentation    This suite builds the various interfaces for the $subSystemUp." >> $testSuite
-    echo "Force Tags    salgen    $skipped" >> $testSuite
+    echo "Force Tags    salgen    $subsystem" >> $testSuite
     echo "Suite Setup    Log Many    \${Host}    \${subSystem}    \${timeout}" >> $testSuite
     echo "Library    OperatingSystem" >> $testSuite
     echo "Library    Process" >> $testSuite
@@ -669,7 +670,7 @@ function createTestSuite() {
     # Execution ORDER of these functions is CRITICAL.
     #
     echo Creating $testSuite
-    createSettings
+    createSettings $subSystem
     createVariables $subSystem
     echo "*** Test Cases ***" >> $testSuite
     verifyXMLDefinitions
