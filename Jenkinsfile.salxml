@@ -207,6 +207,8 @@ pipeline {
                         // The Script or Test CSCs can still be included, if specified explicitly in params.csc_include_flags.
                         flags = "-i verify_sal_setup " + params.csc_include_flags
                         echo "The flags are: " + flags
+                    } else {
+                        flags = ""
                     }
                 }
                 // Validate the SAL/XML state using Test/Script CSCs
