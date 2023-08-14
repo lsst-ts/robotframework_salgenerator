@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation    This suite builds the various interfaces for the SummitFacility.
-Force Tags    salgen    
+Force Tags    salgen    summitfacility
 Suite Setup    Log Many    ${Host}    ${subSystem}    ${timeout}
 Library    OperatingSystem
 Library    Process

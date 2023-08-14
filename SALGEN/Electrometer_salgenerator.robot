@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation    This suite builds the various interfaces for the Electrometer.
-Force Tags    salgen    
+Force Tags    salgen    electrometer
 Suite Setup    Log Many    ${Host}    ${subSystem}    ${timeout}
 Library    OperatingSystem
 Library    Process

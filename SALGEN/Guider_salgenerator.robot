@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation    This suite builds the various interfaces for the Guider.
-Force Tags    salgen    
+Force Tags    salgen    guider
 Suite Setup    Log Many    ${Host}    ${subSystem}    ${timeout}
 Library    OperatingSystem
 Library    Process

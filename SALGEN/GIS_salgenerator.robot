@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation    This suite builds the various interfaces for the GIS.
-Force Tags    salgen    
+Force Tags    salgen    gis
 Suite Setup    Log Many    ${Host}    ${subSystem}    ${timeout}
 Library    OperatingSystem
 Library    Process
@@ -52,6 +52,35 @@ Salgen GIS Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_configurationsAvailable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rawStatus.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_systemStatus.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_gisCpuInputs.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_gisCpuOutputs.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_gisCpuReserve.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_afeDecentralizedIOInputs.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_afeDecentralizedIOOutputs.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_afeDecentralizedIOFree.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_laserDecentralizedIOInput.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_laserDecentralizedIOOutputs.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_laserDecentralizedIOFree.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_m2cDecentralizedIOInput.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_m2cDecentralizedIOOutput.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_m2cDecentralizedIOFree.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_pfDecentralizedIoInputs.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_pfDecentralizedIoOutput.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_pfDecentralizedIoFree.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_auxCpuInputs.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_auxCpuOutputs.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_domeCpuInputs.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_domeCpuOutputs.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_m1m3CpuInputs.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_m1m3CpuOutputs.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_tmaCpuInputs.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_tmaCpuOutputs.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_causes.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_causes2.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_causesOverride.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_causes2Override.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_effects.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_effects2.idl
 
 Verify GIS revCodes File
     [Documentation]    Ensure GIS_revCodes.tcl contains 1 revcode per topic.
@@ -76,6 +105,35 @@ Verify GIS revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_configurationsAvailable\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rawStatus\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_systemStatus\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_gisCpuInputs\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_gisCpuOutputs\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_gisCpuReserve\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_afeDecentralizedIOInputs\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_afeDecentralizedIOOutputs\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_afeDecentralizedIOFree\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_laserDecentralizedIOInput\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_laserDecentralizedIOOutputs\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_laserDecentralizedIOFree\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_m2cDecentralizedIOInput\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_m2cDecentralizedIOOutput\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_m2cDecentralizedIOFree\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_pfDecentralizedIoInputs\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_pfDecentralizedIoOutput\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_pfDecentralizedIoFree\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_auxCpuInputs\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_auxCpuOutputs\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_domeCpuInputs\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_domeCpuOutputs\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_m1m3CpuInputs\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_m1m3CpuOutputs\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_tmaCpuInputs\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_tmaCpuOutputs\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_causes\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_causes2\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_causesOverride\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_causes2Override\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_effects\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_effects2\\) [a-z0-9]{8,}
 
 Salgen GIS IDL
     [Documentation]    Generate the revCoded IDL for ${subSystem}

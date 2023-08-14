@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation    This suite builds the various interfaces for the GenericCamera.
-Force Tags    salgen    
+Force Tags    salgen    genericcamera
 Suite Setup    Log Many    ${Host}    ${subSystem}    ${timeout}
 Library    OperatingSystem
 Library    Process

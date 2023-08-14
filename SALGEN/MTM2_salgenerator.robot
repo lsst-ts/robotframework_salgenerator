@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation    This suite builds the various interfaces for the MTM2.
-Force Tags    salgen    
+Force Tags    salgen    mtm2
 Suite Setup    Log Many    ${Host}    ${subSystem}    ${timeout}
 Library    OperatingSystem
 Library    Process
@@ -41,6 +41,7 @@ Salgen MTM2 Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_tangentForce.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_temperature.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_zenithAngle.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_inclinometerAngleTma.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_axialActuatorSteps.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_tangentActuatorSteps.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_axialEncoderPositions.idl
@@ -51,6 +52,8 @@ Salgen MTM2 Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_netForcesTotal.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_netMomentsTotal.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_powerStatus.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_powerStatusRaw.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_forceErrorTangent.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_exitControl.idl
@@ -61,10 +64,17 @@ Salgen MTM2 Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_applyForces.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_positionMirror.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_resetForceOffsets.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_resetActuatorSteps.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_clearErrors.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_switchForceBalanceSystem.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_selectInclinationSource.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setTemperatureOffset.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_bypassErrorCode.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_resetEnabledFaultsMask.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setConfigurationFile.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enableOpenLoopMaxLimit.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_moveActuator.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_actuatorBumpTest.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_heartbeat.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_logLevel.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_logMessage.idl
@@ -86,6 +96,19 @@ Salgen MTM2 Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_forceBalanceSystemStatus.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_inclinationTelemetrySource.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_temperatureOffset.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_scriptExecutionStatus.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_digitalOutput.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_digitalInput.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_config.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_openLoopMaxLimit.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_limitSwitchRetract.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_limitSwitchExtend.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_powerSystemState.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_closedLoopControlMode.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_innerLoopControlMode.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_summaryFaultsStatus.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_enabledFaultsMask.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_configurationFiles.idl
 
 Verify MTM2 revCodes File
     [Documentation]    Ensure MTM2_revCodes.tcl contains 1 revcode per topic.
@@ -101,10 +124,17 @@ Verify MTM2 revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_applyForces\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_positionMirror\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_resetForceOffsets\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_resetActuatorSteps\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_clearErrors\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_switchForceBalanceSystem\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_selectInclinationSource\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setTemperatureOffset\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_bypassErrorCode\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_resetEnabledFaultsMask\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setConfigurationFile\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_enableOpenLoopMaxLimit\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_moveActuator\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_actuatorBumpTest\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_heartbeat\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_logLevel\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_logMessage\\) [a-z0-9]{8,}
@@ -126,12 +156,26 @@ Verify MTM2 revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_forceBalanceSystemStatus\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_inclinationTelemetrySource\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_temperatureOffset\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_scriptExecutionStatus\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_digitalOutput\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_digitalInput\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_config\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_openLoopMaxLimit\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_limitSwitchRetract\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_limitSwitchExtend\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_powerSystemState\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_closedLoopControlMode\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_innerLoopControlMode\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_summaryFaultsStatus\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_enabledFaultsMask\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_configurationFiles\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_position\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_positionIMS\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_axialForce\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_tangentForce\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_temperature\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_zenithAngle\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_inclinometerAngleTma\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_axialActuatorSteps\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_tangentActuatorSteps\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_axialEncoderPositions\\) [a-z0-9]{8,}
@@ -142,6 +186,8 @@ Verify MTM2 revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_netForcesTotal\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_netMomentsTotal\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_powerStatus\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_powerStatusRaw\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_forceErrorTangent\\) [a-z0-9]{8,}
 
 Salgen MTM2 IDL
     [Documentation]    Generate the revCoded IDL for ${subSystem}
@@ -173,6 +219,7 @@ Salgen MTM2 C++
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_tangentForce.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_temperature.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_zenithAngle.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_inclinometerAngleTma.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_axialActuatorSteps.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_tangentActuatorSteps.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_axialEncoderPositions.idl
@@ -183,8 +230,10 @@ Salgen MTM2 C++
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_netForcesTotal.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_netMomentsTotal.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_powerStatus.idl
-    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    16
-    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    16
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_powerStatusRaw.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_forceErrorTangent.idl
+    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    19
+    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    19
     Should Contain X Times    ${output.stdout}    cpp : Done Commander    1
     Should Contain X Times    ${output.stdout}    cpp : Done Event/Logger    1
 
@@ -208,6 +257,7 @@ Verify MTM2 Telemetry directories
     Directory Should Exist    ${SALWorkDir}/${subSystem}_tangentForce
     Directory Should Exist    ${SALWorkDir}/${subSystem}_temperature
     Directory Should Exist    ${SALWorkDir}/${subSystem}_zenithAngle
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_inclinometerAngleTma
     Directory Should Exist    ${SALWorkDir}/${subSystem}_axialActuatorSteps
     Directory Should Exist    ${SALWorkDir}/${subSystem}_tangentActuatorSteps
     Directory Should Exist    ${SALWorkDir}/${subSystem}_axialEncoderPositions
@@ -218,6 +268,8 @@ Verify MTM2 Telemetry directories
     Directory Should Exist    ${SALWorkDir}/${subSystem}_netForcesTotal
     Directory Should Exist    ${SALWorkDir}/${subSystem}_netMomentsTotal
     Directory Should Exist    ${SALWorkDir}/${subSystem}_powerStatus
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_powerStatusRaw
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_forceErrorTangent
 
 Verify MTM2 C++ Telemetry Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -234,6 +286,8 @@ Verify MTM2 C++ Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}_temperature/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_zenithAngle/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_zenithAngle/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_inclinometerAngleTma/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_inclinometerAngleTma/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_axialActuatorSteps/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_axialActuatorSteps/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_tangentActuatorSteps/cpp/standalone/sacpp_${subSystem}_pub
@@ -254,6 +308,10 @@ Verify MTM2 C++ Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}_netMomentsTotal/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_powerStatus/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_powerStatus/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_powerStatusRaw/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_powerStatusRaw/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_forceErrorTangent/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_forceErrorTangent/cpp/standalone/sacpp_${subSystem}_sub
 
 Verify MTM2 C++ Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -278,6 +336,8 @@ Verify MTM2 C++ Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_positionMirror_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_resetForceOffsets_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_resetForceOffsets_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_resetActuatorSteps_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_resetActuatorSteps_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_clearErrors_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_clearErrors_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_switchForceBalanceSystem_commander
@@ -286,6 +346,18 @@ Verify MTM2 C++ Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_selectInclinationSource_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setTemperatureOffset_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setTemperatureOffset_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_bypassErrorCode_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_bypassErrorCode_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_resetEnabledFaultsMask_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_resetEnabledFaultsMask_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setConfigurationFile_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setConfigurationFile_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enableOpenLoopMaxLimit_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enableOpenLoopMaxLimit_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_moveActuator_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_moveActuator_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_actuatorBumpTest_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_actuatorBumpTest_controller
 
 Verify MTM2 C++ Event Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -332,6 +404,32 @@ Verify MTM2 C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_inclinationTelemetrySource_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_temperatureOffset_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_temperatureOffset_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_scriptExecutionStatus_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_scriptExecutionStatus_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_digitalOutput_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_digitalOutput_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_digitalInput_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_digitalInput_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_config_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_config_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_openLoopMaxLimit_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_openLoopMaxLimit_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_limitSwitchRetract_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_limitSwitchRetract_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_limitSwitchExtend_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_limitSwitchExtend_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_powerSystemState_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_powerSystemState_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_closedLoopControlMode_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_closedLoopControlMode_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_innerLoopControlMode_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_innerLoopControlMode_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_summaryFaultsStatus_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_summaryFaultsStatus_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enabledFaultsMask_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enabledFaultsMask_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_configurationFiles_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_configurationFiles_log
 
 Salgen MTM2 LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
@@ -493,6 +591,8 @@ Verify MTM2 TEST RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_positionMirror_controller
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_resetForceOffsets_commander
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_resetForceOffsets_controller
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_resetActuatorSteps_commander
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_resetActuatorSteps_controller
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_clearErrors_commander
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_clearErrors_controller
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_switchForceBalanceSystem_commander
@@ -501,6 +601,18 @@ Verify MTM2 TEST RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_selectInclinationSource_controller
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_setTemperatureOffset_commander
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_setTemperatureOffset_controller
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_bypassErrorCode_commander
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_bypassErrorCode_controller
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_resetEnabledFaultsMask_commander
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_resetEnabledFaultsMask_controller
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_setConfigurationFile_commander
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_setConfigurationFile_controller
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_enableOpenLoopMaxLimit_commander
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_enableOpenLoopMaxLimit_controller
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_moveActuator_commander
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_moveActuator_controller
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_actuatorBumpTest_commander
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_actuatorBumpTest_controller
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_heartbeat_send
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_heartbeat_log
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_logLevel_send
@@ -543,6 +655,32 @@ Verify MTM2 TEST RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_inclinationTelemetrySource_log
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_temperatureOffset_send
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_temperatureOffset_log
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_scriptExecutionStatus_send
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_scriptExecutionStatus_log
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_digitalOutput_send
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_digitalOutput_log
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_digitalInput_send
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_digitalInput_log
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_config_send
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_config_log
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_openLoopMaxLimit_send
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_openLoopMaxLimit_log
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_limitSwitchRetract_send
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_limitSwitchRetract_log
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_limitSwitchExtend_send
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_limitSwitchExtend_log
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_powerSystemState_send
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_powerSystemState_log
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_closedLoopControlMode_send
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_closedLoopControlMode_log
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_innerLoopControlMode_send
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_innerLoopControlMode_log
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_summaryFaultsStatus_send
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_summaryFaultsStatus_log
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_enabledFaultsMask_send
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_enabledFaultsMask_log
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_configurationFiles_send
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_configurationFiles_log
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_position_publisher
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_position_subscriber
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_positionIMS_publisher
@@ -555,6 +693,8 @@ Verify MTM2 TEST RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_temperature_subscriber
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_zenithAngle_publisher
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_zenithAngle_subscriber
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_inclinometerAngleTma_publisher
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_inclinometerAngleTma_subscriber
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_axialActuatorSteps_publisher
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_axialActuatorSteps_subscriber
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_tangentActuatorSteps_publisher
@@ -575,6 +715,10 @@ Verify MTM2 TEST RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_netMomentsTotal_subscriber
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_powerStatus_publisher
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_powerStatus_subscriber
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_powerStatusRaw_publisher
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_powerStatusRaw_subscriber
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_forceErrorTangent_publisher
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_forceErrorTangent_subscriber
 
 Cleanup stdout and stderr Files
     [Tags]
