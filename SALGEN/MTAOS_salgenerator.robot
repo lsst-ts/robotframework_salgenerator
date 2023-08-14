@@ -19,6 +19,7 @@ Verify MTAOS XML Defintions exist
     Should Not Be Empty    ${output.stdout}
     File Should Exist    ${SALWorkDir}/MTAOS_Commands.xml
     File Should Exist    ${SALWorkDir}/MTAOS_Events.xml
+    File Should Exist    ${SALWorkDir}/MTAOS_Telemetry.xml
 
 Salgen MTAOS Validate
     [Documentation]    Validate the MTAOS XML definitions.
@@ -34,6 +35,8 @@ Salgen MTAOS Validate
     @{files}=    List Directory    ${SALWorkDir}/idl-templates    pattern=*${subSystem}*
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_ackcmd.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_m1m3BendingModes.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_m2BendingModes.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_exitControl.idl
@@ -50,6 +53,8 @@ Salgen MTAOS Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_runWEP.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_runOFC.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_addAberration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_offsetDOF.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_resetOffsetDOF.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_heartbeat.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_logLevel.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_logMessage.idl
@@ -95,6 +100,8 @@ Verify MTAOS revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_runWEP\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_runOFC\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_addAberration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_offsetDOF\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_resetOffsetDOF\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_heartbeat\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_logLevel\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_logMessage\\) [a-z0-9]{8,}
@@ -119,6 +126,8 @@ Verify MTAOS revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rejectedM2Correction\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_wepDuration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_ofcDuration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_m1m3BendingModes\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_m2BendingModes\\) [a-z0-9]{8,}
 
 Salgen MTAOS IDL
     [Documentation]    Generate the revCoded IDL for ${subSystem}
@@ -210,6 +219,8 @@ Verify MTAOS RPM Contents
     Should Contain     ${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subSystem}/${subSystem}_Commands.html
     Should Contain     ${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subSystem}/${subSystem}_Events.xml
     Should Contain     ${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subSystem}/${subSystem}_Events.html
+    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subSystem}/${subSystem}_Telemetry.xml
+    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subSystem}/${subSystem}_Telemetry.html
 
 Cleanup stdout and stderr Files
     [Tags]
