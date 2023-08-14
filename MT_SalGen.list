@@ -13,6 +13,7 @@ SALGEN/MTDome_salgenerator.robot
 SALGEN/MTDomeTrajectory_salgenerator.robot
 SALGEN/MTEEC_salgenerator.robot
 SALGEN/MTHeaderService_salgenerator.robot
+SALGEN/MTOODS_salgenerator.robot
 SALGEN/MTPtg_salgenerator.robot
 SALGEN/MTVMS_salgenerator.robot
 SALGEN/MTRotator_salgenerator.robot

@@ -199,7 +199,7 @@ function subsystemArray() {
     MTHexapod HVAC LaserTracker LinearStage LOVE 
     MTAirCompressor MTAOS MTCamera MTDome 
     MTDomeTrajectory MTEEC MTHeaderService
-    MTM1M3 MTM1M3TS MTM2 MTMount MTPtg 
+    MTM1M3 MTM1M3TS MTM2 MTMount MTOODS MTPtg 
     MTRotator MTVMS OCPS PMD 
     Scheduler Script ScriptQueue SummitFacility 
     Test TunableLaser 
