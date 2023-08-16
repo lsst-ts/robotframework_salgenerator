@@ -438,20 +438,20 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     echo "    @{files}=    List Directory    \${SALWorkDir}/rpmbuild/RPMS/x86_64/" >> $testSuite
     echo "    Log Many    @{files}" >> $testSuite
     echo "    IF    \"\${Build_Number}\" == \"\"" >> $testSuite
-    echo "        Set Test Variable    \${dot}    \${EMPTY}" >> $testSuite
+    echo "        Set Test Variable    \${sep}    \${EMPTY}" >> $testSuite
     echo "    ELSE IF    any(item in '\${Build_Number}' for item in ('pre', 'rc'))" >> $testSuite
-    echo "        Set Test Variable    \${dot}    ." >> $testSuite
+    echo "        Set Test Variable    \${sep}    -" >> $testSuite
     echo "    ELSE" >> $testSuite
-    echo "        Set Test Variable    \${dot}    \${EMPTY}" >> $testSuite
+    echo "        Set Test Variable    \${sep}    \${EMPTY}" >> $testSuite
     echo "    END" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/rpmbuild/SPECS/ts_sal_\${subSystem}.spec" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/rpmbuild/SOURCES/\${subSystem}-\${XMLVersionBase}.tgz" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_runtime-\${XMLVersionBase}-\${SALVersionBase}*\${DIST}.x86_64.rpm" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_ATruntime-\${XMLVersionBase}-\${SALVersionBase}*\${DIST}.x86_64.rpm" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_utils-\${SALVersionBase}-1.x86_64.rpm" >> $testSuite
-    echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/\${subSystem}-\${XMLVersionBase}-\${SALVersionBase}\${dot}\${Build_Number}\${DIST}.x86_64.rpm" >> $testSuite
+    echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/\${subSystem}-\${XMLVersionBase}-\${SALVersionBase}\${sep}\${Build_Number}\${DIST}.x86_64.rpm" >> $testSuite
     if [[ "$@" =~ "CPP" ]]; then
-        echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/\${subSystem}_test-\${XMLVersionBase}-\${SALVersionBase}\${dot}\${Build_Number}\${DIST}.x86_64.rpm" >> $testSuite
+        echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/\${subSystem}_test-\${XMLVersionBase}-\${SALVersionBase}\${sep}\${Build_Number}\${DIST}.x86_64.rpm" >> $testSuite
     fi
     echo "    Should Not Contain    \${output.stdout}    child process exited abnormally" >> $testSuite
     echo "" >> $testSuite
@@ -472,15 +472,15 @@ function verifyRPM() {
     echo "Verify $subSystemUp RPM Contents" >> $testSuite
     echo "    [Documentation]    Verify the \${subSystem} RPM contains all the expected libraries" >> $testSuite
     echo "    [Tags]    rpm$skipped" >> $testSuite
-    echo "    Comment    Re-run the {dot} process, so this test case can run independently." >> $testSuite
+    echo "    Comment    Re-run the {sep} process, so this test case can run independently." >> $testSuite
     echo "    IF    \"\${Build_Number}\" == \"\"" >> $testSuite
-    echo "        Set Test Variable    \${dot}    \${EMPTY}" >> $testSuite
+    echo "        Set Test Variable    \${sep}    \${EMPTY}" >> $testSuite
     echo "    ELSE IF    any(item in '\${Build_Number}' for item in ('pre', 'rc'))" >> $testSuite
-    echo "        Set Test Variable    \${dot}    ." >> $testSuite
+    echo "        Set Test Variable    \${sep}    -" >> $testSuite
     echo "    ELSE" >> $testSuite
-    echo "        Set Test Variable    \${dot}    \${EMPTY}" >> $testSuite
+    echo "        Set Test Variable    \${sep}    \${EMPTY}" >> $testSuite
     echo "    END" >> $testSuite
-    echo "    \${output}=    Run Process    rpm    -qpl    \${subSystem}-\${XMLVersionBase}-\${SALVersionBase}\${dot}\${Build_Number}\${DIST}.x86_64.rpm    cwd=\${SALWorkDir}/rpmbuild/RPMS/x86_64" >> $testSuite
+    echo "    \${output}=    Run Process    rpm    -qpl    \${subSystem}-\${XMLVersionBase}-\${SALVersionBase}\${sep}\${Build_Number}\${DIST}.x86_64.rpm    cwd=\${SALWorkDir}/rpmbuild/RPMS/x86_64" >> $testSuite
     echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
     echo "    Should Not Contain    \${output.stderr}    error" >> $testSuite
     echo "    Should Not Contain    \${output.stderr}    No such file or directory" >> $testSuite
@@ -547,15 +547,15 @@ function verifyTestRPM() {
     echo "Verify $subSystemUp TEST RPM Contents" >> $testSuite
     echo "    [Documentation]    Verify the \${subSystem} TEST RPM contains all the expected libraries" >> $testSuite
     echo "    [Tags]    rpm$skipped" >> $testSuite
-    echo "    Comment    Re-run the {dot} process, so this test case can run independently." >> $testSuite
+    echo "    Comment    Re-run the {sep} process, so this test case can run independently." >> $testSuite
     echo "    IF    \"\${Build_Number}\" == \"\"" >> $testSuite
-    echo "        Set Test Variable    \${dot}    \${EMPTY}" >> $testSuite
+    echo "        Set Test Variable    \${sep}    \${EMPTY}" >> $testSuite
     echo "    ELSE IF    any(item in '\${Build_Number}' for item in ('pre', 'rc'))" >> $testSuite
-    echo "        Set Test Variable    \${dot}    ." >> $testSuite
+    echo "        Set Test Variable    \${sep}    -" >> $testSuite
     echo "    ELSE" >> $testSuite
-    echo "        Set Test Variable    \${dot}    \${EMPTY}" >> $testSuite
+    echo "        Set Test Variable    \${sep}    \${EMPTY}" >> $testSuite
     echo "    END" >> $testSuite
-    echo "    \${output}=    Run Process    rpm    -qpl    \${subSystem}_test-\${XMLVersionBase}-\${SALVersionBase}\${dot}\${Build_Number}\${DIST}.x86_64.rpm    \
+    echo "    \${output}=    Run Process    rpm    -qpl    \${subSystem}_test-\${XMLVersionBase}-\${SALVersionBase}\${sep}\${Build_Number}\${DIST}.x86_64.rpm    \
 shell=True    cwd=\${SALWorkDir}/rpmbuild/RPMS/x86_64    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.txt    stderr=\${EXECDIR}\${/}\${subSystem}_stderr.txt" >> $testSuite
     echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
     echo "    Should Not Contain    \${output.stderr}    error" >> $testSuite
