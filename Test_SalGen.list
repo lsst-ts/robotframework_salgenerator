@@ -36,7 +36,6 @@ SALGEN/GIS_salgenerator.robot
 SALGEN/GenericCamera_salgenerator.robot
 SALGEN/Guider_salgenerator.robot
 SALGEN/HVAC_salgenerator.robot
-SALGEN/IOTA_salgenerator.robot
 SALGEN/LaserTracker_salgenerator.robot
 SALGEN/LinearStage_salgenerator.robot
 SALGEN/LOVE_salgenerator.robot
@@ -51,6 +50,7 @@ SALGEN/MTM1M3TS_salgenerator.robot
 SALGEN/MTM1M3_salgenerator.robot
 SALGEN/MTM2_salgenerator.robot
 SALGEN/MTMount_salgenerator.robot
+SALGEN/MTOODS_salgenerator.robot
 SALGEN/MTPtg_salgenerator.robot
 SALGEN/MTRotator_salgenerator.robot
 SALGEN/MTVMS_salgenerator.robot

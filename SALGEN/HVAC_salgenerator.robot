@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation    This suite builds the various interfaces for the HVAC.
-Force Tags    salgen    
+Force Tags    salgen    hvac
 Suite Setup    Log Many    ${Host}    ${subSystem}    ${timeout}
 Library    OperatingSystem
 Library    Process
@@ -92,6 +92,14 @@ Salgen HVAC Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_configFancoils.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_configManejadoras.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_configManejadoraLowers.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_dynCH1PressRemoteSP.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_dynCH2PressRemoteSP.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_dynSystOnOff.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_dynTaRemoteSP.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_dynTmaRemoteSP.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_dynExtAirRemoteSP.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_dynPierFansOnOff.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_dynTelemetryEnable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_heartbeat.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_logLevel.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_logMessage.idl
@@ -106,6 +114,14 @@ Salgen HVAC Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fancoilConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_manejadoraConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_manejadoraLowerConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_dynCH1PressRemoteSP.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_dynCH2PressRemoteSP.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_dynSystOnOff.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_dynTaRemoteSP.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_dynTmaRemoteSP.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_dynExtAirRemoteSP.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_dynPierFansOnOff.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_dynTelemetryEnable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_dynaleneState.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_dynaleneTankLevel.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_dynTMAalarm.idl
@@ -119,6 +135,12 @@ Salgen HVAC Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_dynMainGridFailureFlag.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_dynTankLevelAlarmCMD.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_dynSafetyResetFlag.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_dynSysFault.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_dynSysWarning.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_dynSysOK.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_dynRemoteLocalModeStatus.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_dynAmbientDeltaModeStatus.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_dynExhaustAirBackupModeStatus.idl
 
 Verify HVAC revCodes File
     [Documentation]    Ensure HVAC_revCodes.tcl contains 1 revcode per topic.
@@ -138,6 +160,14 @@ Verify HVAC revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_configFancoils\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_configManejadoras\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_configManejadoraLowers\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_dynCH1PressRemoteSP\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_dynCH2PressRemoteSP\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_dynSystOnOff\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_dynTaRemoteSP\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_dynTmaRemoteSP\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_dynExtAirRemoteSP\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_dynPierFansOnOff\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_dynTelemetryEnable\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_heartbeat\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_logLevel\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_logMessage\\) [a-z0-9]{8,}
@@ -152,6 +182,14 @@ Verify HVAC revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fancoilConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_manejadoraConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_manejadoraLowerConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_dynCH1PressRemoteSP\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_dynCH2PressRemoteSP\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_dynSystOnOff\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_dynTaRemoteSP\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_dynTmaRemoteSP\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_dynExtAirRemoteSP\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_dynPierFansOnOff\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_dynTelemetryEnable\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_dynaleneState\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_dynaleneTankLevel\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_dynTMAalarm\\) [a-z0-9]{8,}
@@ -165,6 +203,12 @@ Verify HVAC revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_dynMainGridFailureFlag\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_dynTankLevelAlarmCMD\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_dynSafetyResetFlag\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_dynSysFault\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_dynSysWarning\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_dynSysOK\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_dynRemoteLocalModeStatus\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_dynAmbientDeltaModeStatus\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_dynExhaustAirBackupModeStatus\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_bombaAguaFriaP01\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_chiller01P01\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_chiller02P01\\) [a-z0-9]{8,}

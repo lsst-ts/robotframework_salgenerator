@@ -1,6 +1,6 @@
 // Define variables
-def _python_version="3.10.4"
-def _mvn_version="3.6.3"
+def _python_version="3.11.4"
+def _mvn_version="3.9.3"
 def _ospl_version="6.10.4p2"
 def _ospl_date="2020-10-12"
 def _user="appuser"
@@ -21,12 +21,17 @@ pipeline {
         booleanParam defaultValue: params.Release ?:false, description: 'Is this a Release build?', name: 'Release'
         string defaultValue: '', description: '', name: 'SAL_tag', trim: true
         string defaultValue: '', description: '', name: 'XML_tag', trim: true
+        text description: '''Using the Robot-Framework include tag syntax, create a space-delimited list of CSC tags (all lowercase text equal to the CSC name) with the -i switch for EACH CSC to build. The Script and Test CSCs, part of the Validate stage, are skipped by default; simply add them explicitly to this parameter to include them. Syntax:
+-i csc_1 -i csc_2 ...''', name: 'csc_include_flags'
     }
     environment {
         AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
         NEXUS_USER = credentials('nexus_username')
         NEXUS_PASS = credentials('nexus_password')
+    }
+    options {
+        disableConcurrentBuilds()
     }
     agent {
         docker { 
@@ -130,7 +135,7 @@ pipeline {
                 println("The Python version: " + _python_version);
                 println("Push build artifacts? " + params.Push);
                 println("Run messaging tests? " + params.Messaging);
-            script {
+                script {
                     SAL_Version = sh(returnStdout: true, script: "cd /home/appuser/trunk/ts_sal && git describe |sed s/v//g").trim()
                     XML_Version = sh(returnStdout: true, script: "cd /home/appuser/trunk/ts_xml && git describe |sed s/v//g").trim()
                     SAL_Version_Base = sh(returnStdout: true, script: "echo " + SAL_Version + " |cut -d '-' -f1 |sed s/v//g").trim()
@@ -190,12 +195,22 @@ pipeline {
         }//Copy XML
         stage('Install IDL and XML python libraries') {
             steps {
-                sh label: 'IDL library', script: '#!/bin/bash -x \n' + 'cd ts_idl && pip install -e . --ignore-installed --no-deps'
-                sh label: 'XML library', script: '#!/bin/bash -x \n' + 'cd ts_xml && pip install -e . --ignore-installed --no-deps'
+                sh label: 'IDL library', script: '#!/bin/bash -x \n' + 'cd ts_idl && pip3.11 install -e . --ignore-installed --no-deps'
+                sh label: 'XML library', script: '#!/bin/bash -x \n' + 'cd ts_xml && pip3.11 install -e . --ignore-installed --no-deps'
             }
         }//IDL & XML
         stage('Validate') {
             steps {
+                script {
+                    if (params.csc_include_flags) {
+                        // If only building a subset of CSCs, only run the Verify_SAL_Setup.robot suite.
+                        // The Script or Test CSCs can still be included, if specified explicitly in params.csc_include_flags.
+                        flags = "-i verify_sal_setup " + params.csc_include_flags
+                        echo "The flags are: " + flags
+                    } else {
+                        flags = ""
+                    }
+                }
                 // Validate the SAL/XML state using Test/Script CSCs
                 sh label: 'Validate', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' + 'set -x \n' +
                 'echo LSST_DDS_QOS: $LSST_DDS_QOS \n' +
@@ -211,7 +226,7 @@ pipeline {
                     '--variable OpenspliceVersion:' + _ospl_version + ' --variable OpenspliceDate:' + _ospl_date + ' --variable XMLHome:' + _home + '/trunk/ts_xml ' +
                     ' --variable MvnVersion:"Apache Maven ' + _mvn_version + '" --variable PythonVersion:"Python ' + _python_version + '" ' +
                     ' --variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:' + Build_Param + 
-                    ' --name Validate --output VALIDATE --outputdir ' + _home + '/trunk/Reports -A ' + _home + '/trunk/robotframework_salgenerator/Validate_SAL.list \n' +
+                    ' --name Validate --output VALIDATE --outputdir ' + _home + '/trunk/Reports ' + flags + ' -A ' + _home + '/trunk/robotframework_salgenerator/Validate_SAL.list \n' +
                 'Result=$? \n' +
                 'if [ $Result -eq 0 ]; then echo Validation complete; else exit $Result; fi'
             }
@@ -220,7 +235,7 @@ pipeline {
             when {
                 not {
                     expression {
-                        return params.Generate
+                        return (params.Generate || params.csc_include_flags)
                     }
                 }
             }   
@@ -251,7 +266,7 @@ pipeline {
                             '--variable OpenspliceVersion:' + _ospl_version + ' --variable OpenspliceDate:' + _ospl_date + ' --variable XMLHome:' + _home + '/trunk/ts_xml ' +
                             ' --variable MvnVersion:"Apache Maven ' + _mvn_version + '" --variable PythonVersion:"Python ' + _python_version + '" ' +
                             '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:' + Build_Param + ' ' +
-                            '--name AuxTel --output AUXTEL --outputdir ' + _home + '/trunk/Reports -A ' + _home + '/trunk/robotframework_salgenerator/AT_SalGen.list \n' +
+                            '--name AuxTel --output AUXTEL --outputdir ' + _home + '/trunk/Reports ' + params.csc_include_flags + ' -A ' + _home + '/trunk/robotframework_salgenerator/AT_SalGen.list \n' +
                         'exit 0' 
                     }
                 }//AuxTel
@@ -270,7 +285,7 @@ pipeline {
                             '--variable OpenspliceVersion:' + _ospl_version + ' --variable OpenspliceDate:' + _ospl_date + ' --variable XMLHome:' + _home + '/trunk/ts_xml ' +
                             ' --variable MvnVersion:"Apache Maven ' + _mvn_version + '" --variable PythonVersion:"Python ' + _python_version + '" ' +
                             '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:' + Build_Param + ' ' +
-                            '--name MainTel --output MAINTEL --outputdir ' + _home + '/trunk/Reports -A ' + _home + '/trunk/robotframework_salgenerator/MT_SalGen.list \n' +
+                            '--name MainTel --output MAINTEL --outputdir ' + _home + '/trunk/Reports ' + params.csc_include_flags + ' -A ' + _home + '/trunk/robotframework_salgenerator/MT_SalGen.list \n' +
                         'exit 0'
                     }
                 }//MainTel
@@ -289,7 +304,7 @@ pipeline {
                             '--variable OpenspliceVersion:' + _ospl_version + ' --variable OpenspliceDate:' + _ospl_date + ' --variable XMLHome:' + _home + '/trunk/ts_xml ' +
                             ' --variable MvnVersion:"Apache Maven ' + _mvn_version + '" --variable PythonVersion:"Python ' + _python_version + '" ' +
                             '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:' + Build_Param + ' ' +
-                            '--name MTMountMirrors --output MTMountMirrors --outputdir ' + _home + '/trunk/Reports -A ' + _home + '/trunk/robotframework_salgenerator/MT_MountMirrors_SalGen.list \n' +
+                            '--name MTMountMirrors --output MTMountMirrors --outputdir ' + _home + '/trunk/Reports ' + params.csc_include_flags + ' -A ' + _home + '/trunk/robotframework_salgenerator/MT_MountMirrors_SalGen.list \n' +
                         'exit 0'
                     }
                 }//MainTelMountMirrors
@@ -316,7 +331,7 @@ pipeline {
                             '--variable OpenspliceVersion:' + _ospl_version + ' --variable OpenspliceDate:' + _ospl_date +
                             ' --variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:' + Build_Param +
                             ' --variable MvnVersion:"Apache Maven ' + _mvn_version + '" --variable PythonVersion:"Python ' + _python_version + '" ' +
-                            '-A ' + _home + '/trunk/robotframework_SAL/CombinedJavaMTCameraTelemetry_Tests.list \n' +
+                            params.csc_include_flags + ' -A ' + _home + '/trunk/robotframework_SAL/CombinedJavaMTCameraTelemetry_Tests.list \n' +
                         'exit 0'
                     }
                 }//MTCameraJavaTelemetry
@@ -334,7 +349,7 @@ pipeline {
                             '--variable OpenspliceVersion:' + _ospl_version + ' --variable OpenspliceDate:' + _ospl_date + 
                             ' --variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + 
                             ' --variable MvnVersion:"Apache Maven ' + _mvn_version + '" --variable PythonVersion:"Python ' + _python_version + '" ' +
-                            '-A ' + _home + '/trunk/robotframework_SAL/CombinedCppTelemetry_Tests.list \n' +
+                            params.csc_include_flags + ' -A ' + _home + '/trunk/robotframework_SAL/CombinedCppTelemetry_Tests.list \n' +
                         'exit 0'
                         sh label: 'CppEvents', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' + 'set -x \n' +
                         'echo ========= Move to robotframework_SAL directory ========= \n' +
@@ -348,7 +363,7 @@ pipeline {
                             '--variable OpenspliceVersion:' + _ospl_version + ' --variable OpenspliceDate:' + _ospl_date +
                             ' --variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + 
                             ' --variable MvnVersion:"Apache Maven ' + _mvn_version + '" --variable PythonVersion:"Python ' + _python_version + '" ' +
-                            '-A ' + _home + '/trunk/robotframework_SAL/CombinedCppEvents_Tests.list \n' +
+                            params.csc_include_flags + ' -A ' + _home + '/trunk/robotframework_SAL/CombinedCppEvents_Tests.list \n' +
                         'exit 0'
                         sh label: 'JavaTelemetry', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' + 'set -x \n' +
                         'echo ========= Move to robotframework_SAL directory ========= \n' +
@@ -362,7 +377,7 @@ pipeline {
                             '--variable OpenspliceVersion:' + _ospl_version + ' --variable OpenspliceDate:' + _ospl_date +
                             ' --variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:' + Build_Param + 
                             ' --variable MvnVersion:"Apache Maven ' + _mvn_version + '" --variable PythonVersion:"Python ' + _python_version + '" ' +
-                            '-A ' + _home + '/trunk/robotframework_SAL/CombinedJavaTelemetry_Tests.list \n' +
+                            params.csc_include_flags + ' -A ' + _home + '/trunk/robotframework_SAL/CombinedJavaTelemetry_Tests.list \n' +
                         'exit 0'
                         sh label: 'JavaEvents', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' + 'set -x \n' +
                         'echo ========= Move to robotframework_SAL directory ========= \n' +
@@ -376,7 +391,7 @@ pipeline {
                             '--variable OpenspliceVersion:' + _ospl_version + ' --variable OpenspliceDate:' + _ospl_date +
                             ' --variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:' + Build_Param +
                             ' --variable MvnVersion:"Apache Maven ' + _mvn_version + '" --variable PythonVersion:"Python ' + _python_version + '" ' +
-                            '-A ' + _home + '/trunk/robotframework_SAL/CombinedJavaEvents_Tests.list \n' +
+                            params.csc_include_flags + ' -A ' + _home + '/trunk/robotframework_SAL/CombinedJavaEvents_Tests.list \n' +
                         'exit 0'
                     }
                 }//AllOtherMessaging
@@ -452,11 +467,12 @@ pipeline {
                 }
             }
             steps {
+                // Find and upload all the Java artifacts. Skip the Test CSC, as it is not a true Java CSC.
                 sh label: 'Java Artifacts', script: '#!/bin/bash -x\n' +
-                'declare -a JavaCSCs=($( xmlstarlet sel -t -m "//SALSubsystemSet/SALSubsystem/RuntimeLanguages[text()[contains(.,\'Java\')]]/../Name" -v . -n $HOME/trunk/ts_xml/python/lsst/ts/xml/data/sal_interfaces/SALSubsystems.xml )) \n' +
+                'declare -a JavaCSCs=($( xmlstarlet sel -t -m "//SALSubsystemSet/SALSubsystem/RuntimeLanguages[text()[contains(.,\'Java\')]]/../Name" -v . -n $HOME/trunk/ts_xml/python/lsst/ts/xml/data/sal_interfaces/SALSubsystems.xml |sed \'/Test/d\' )) \n' +
                 'echo ${JavaCSCs[@]}\n' +
                 'for csc in ${JavaCSCs[@]}; do\n' +
-                '\tcd ' + _home + '/trunk/ts_sal/test/maven/${csc}-' + XML_Version_Base + "_" + SAL_Version_Base + MavenVersion + ' \n' +
+                '\tcd ' + _home + '/trunk/ts_sal/test/maven/${csc}-' + XML_Version_Base + "_" + SAL_Version_Base + MavenVersion + ' || { echo "No Java artifacts for ${csc}"; continue; } \n' +
                 '\tmvn -DskipTests=true -B deploy \n' +
                 'done\n' +
                 'Result=$? \n' +
