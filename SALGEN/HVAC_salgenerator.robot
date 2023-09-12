@@ -141,6 +141,29 @@ Salgen HVAC Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_dynRemoteLocalModeStatus.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_dynAmbientDeltaModeStatus.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_dynExhaustAirBackupModeStatus.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_chiller01P01.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_chiller02P01.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_chiller03P01.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_crack01P02.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_crack02P02.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fancoil01P02.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fancoil02P02.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fancoil03P02.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fancoil04P02.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fancoil05P02.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fancoil06P02.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fancoil07P02.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fancoil08P02.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fancoil09P02.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fancoil10P02.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fancoil11P02.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fancoil12P02.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_manejadoraSblancaP04.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_manejadoraSlimpiaP04.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_manejadoraLower01P05.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_manejadoraLower02P05.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_manejadoraLower03P05.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_manejadoraLower04P05.idl
 
 Verify HVAC revCodes File
     [Documentation]    Ensure HVAC_revCodes.tcl contains 1 revcode per topic.
@@ -209,6 +232,29 @@ Verify HVAC revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_dynRemoteLocalModeStatus\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_dynAmbientDeltaModeStatus\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_dynExhaustAirBackupModeStatus\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_chiller01P01\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_chiller02P01\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_chiller03P01\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_crack01P02\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_crack02P02\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fancoil01P02\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fancoil02P02\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fancoil03P02\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fancoil04P02\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fancoil05P02\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fancoil06P02\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fancoil07P02\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fancoil08P02\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fancoil09P02\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fancoil10P02\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fancoil11P02\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fancoil12P02\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_manejadoraSblancaP04\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_manejadoraSlimpiaP04\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_manejadoraLower01P05\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_manejadoraLower02P05\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_manejadoraLower03P05\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_manejadoraLower04P05\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_bombaAguaFriaP01\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_chiller01P01\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_chiller02P01\\) [a-z0-9]{8,}
