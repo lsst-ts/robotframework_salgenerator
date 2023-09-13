@@ -52,4 +52,5 @@ ENV TS_XML_DIR ${HOME}/trunk/ts_xml/python/lsst/ts/xml/data
 # ... Therefore, the ownership must be hardcoded.
 COPY --chown=73006:73006 Test_Vars.txt ${HOME}/bin/Test_Vars.txt
 COPY --chown=73006:73006 bash_profile ${HOME}/.bash_profile
+RUN echo 'export TS_XML_DIR=${HOME}/trunk/ts_xml/python/lsst/ts/xml/data' >> ${HOME}/.bash_profile
 RUN echo 'source ~/.bash_profile' >> ${HOME}/.bashrc

@@ -48,6 +48,7 @@ ENV LSST_DDS_DOMAIN=citest
 
 RUN echo "" >> ${HOME}/.bash_profile && \
 echo 'source /etc/profile.d/maven.sh' >> ${HOME}/.bash_profile && \
-echo 'source $LSST_SDK_INSTALL/setup.env' >> ${HOME}/.bash_profile
+echo 'source $LSST_SDK_INSTALL/setup.env' >> ${HOME}/.bash_profile && \
+echo 'export TS_XML_DIR=${HOME}/trunk/ts_xml/python/lsst/ts/xml/data' >> ${HOME}/.bash_profile
 
 ENV LSST_DDS_PARTITION_PREFIX=citest
