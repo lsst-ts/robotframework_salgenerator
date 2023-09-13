@@ -41,6 +41,7 @@ Salgen MTDome Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_louvers.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_interlocks.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_thermal.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_rearAccessDoor.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_exitControl.idl
@@ -146,6 +147,7 @@ Verify MTDome revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_louvers\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_interlocks\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_thermal\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_rearAccessDoor\\) [a-z0-9]{8,}
 
 Salgen MTDome IDL
     [Documentation]    Generate the revCoded IDL for ${subSystem}
