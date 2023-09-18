@@ -27,9 +27,9 @@ yum clean all && \
 rm -rf /var/cache/yum
 
 ADD maven.sh /etc/profile.d/
-RUN wget -P /tmp https://mirrors.gigenet.com/apache/maven/maven-3/3.9.3/binaries/apache-maven-3.9.3-bin.tar.gz
-RUN tar xf /tmp/apache-maven-3.9.3-bin.tar.gz -C /opt && \
-ln -s /opt/apache-maven-3.9.3 /opt/maven && \
+RUN wget -P /tmp https://mirrors.gigenet.com/apache/maven/maven-3/3.9.4/binaries/apache-maven-3.9.4-bin.tar.gz
+RUN tar xf /tmp/apache-maven-3.9.4-bin.tar.gz -C /opt && \
+ln -s /opt/apache-maven-3.9.4 /opt/maven && \
 source /etc/profile.d/maven.sh && mvn --version
 
 ADD OpenSpliceDDS-6.10.4-2.el8.x86_64.rpm ${HOME}
@@ -48,6 +48,7 @@ ENV LSST_DDS_DOMAIN=citest
 
 RUN echo "" >> ${HOME}/.bash_profile && \
 echo 'source /etc/profile.d/maven.sh' >> ${HOME}/.bash_profile && \
-echo 'source $LSST_SDK_INSTALL/setup.env' >> ${HOME}/.bash_profile
+echo 'source $LSST_SDK_INSTALL/setup.env' >> ${HOME}/.bash_profile && \
+echo 'export TS_XML_DIR=${HOME}/trunk/ts_xml' >> ${HOME}/.bash_profile
 
 ENV LSST_DDS_PARTITION_PREFIX=citest

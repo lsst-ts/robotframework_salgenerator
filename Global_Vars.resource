@@ -7,7 +7,7 @@ ${UserName}             saluser
 ${PassWord}             ${EMPTY}
 ${KeyFile}              ${EMPTY}
 ${PythonVersion}        Python 3.11.4
-${AstropyVersion}       5.3.1
+${AstropyVersion}       5.3.3
 ${MvnVersion}           Apache Maven 3.9.3
 ${MavenVersion}         -SNAPSHOT
 ${SALInstall}           /opt/sal
