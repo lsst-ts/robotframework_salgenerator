@@ -440,8 +440,8 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     echo "    Log Many    @{files}" >> $testSuite
     echo "    IF    \"\${Build_Number}\" == \"\"" >> $testSuite
     echo "        Set Test Variable    \${sep}    \${EMPTY}" >> $testSuite
-    echo "    ELSE IF    any(item in '\${Build_Number}' for item in ('pre', 'rc'))" >> $testSuite
-    echo "        Set Test Variable    \${sep}    -" >> $testSuite
+    echo "    ELSE IF    any(item in '\${Build_Number}' for item in ('post', 'pre', 'rc'))" >> $testSuite
+    echo "        Set Test Variable    \${sep}    ." >> $testSuite
     echo "    ELSE" >> $testSuite
     echo "        Set Test Variable    \${sep}    \${EMPTY}" >> $testSuite
     echo "    END" >> $testSuite
@@ -476,8 +476,8 @@ function verifyRPM() {
     echo "    Comment    Re-run the {sep} process, so this test case can run independently." >> $testSuite
     echo "    IF    \"\${Build_Number}\" == \"\"" >> $testSuite
     echo "        Set Test Variable    \${sep}    \${EMPTY}" >> $testSuite
-    echo "    ELSE IF    any(item in '\${Build_Number}' for item in ('pre', 'rc'))" >> $testSuite
-    echo "        Set Test Variable    \${sep}    -" >> $testSuite
+    echo "    ELSE IF    any(item in '\${Build_Number}' for item in ('post', 'pre', 'rc'))" >> $testSuite
+    echo "        Set Test Variable    \${sep}    ." >> $testSuite
     echo "    ELSE" >> $testSuite
     echo "        Set Test Variable    \${sep}    \${EMPTY}" >> $testSuite
     echo "    END" >> $testSuite
@@ -551,8 +551,8 @@ function verifyTestRPM() {
     echo "    Comment    Re-run the {sep} process, so this test case can run independently." >> $testSuite
     echo "    IF    \"\${Build_Number}\" == \"\"" >> $testSuite
     echo "        Set Test Variable    \${sep}    \${EMPTY}" >> $testSuite
-    echo "    ELSE IF    any(item in '\${Build_Number}' for item in ('pre', 'rc'))" >> $testSuite
-    echo "        Set Test Variable    \${sep}    -" >> $testSuite
+    echo "    ELSE IF    any(item in '\${Build_Number}' for item in ('post', 'pre', 'rc'))" >> $testSuite
+    echo "        Set Test Variable    \${sep}    ." >> $testSuite
     echo "    ELSE" >> $testSuite
     echo "        Set Test Variable    \${sep}    \${EMPTY}" >> $testSuite
     echo "    END" >> $testSuite
