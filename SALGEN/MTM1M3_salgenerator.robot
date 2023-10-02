@@ -67,6 +67,8 @@ Salgen MTM1M3 Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_raiseM1M3.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_abortRaiseM1M3.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_lowerM1M3.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_pauseM1M3RaisingLowering.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_resumeM1M3RaisingLowering.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enterEngineering.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_exitEngineering.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_turnAirOn.idl
@@ -190,6 +192,8 @@ Verify MTM1M3 revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_raiseM1M3\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_abortRaiseM1M3\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_lowerM1M3\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_pauseM1M3RaisingLowering\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_resumeM1M3RaisingLowering\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_enterEngineering\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_exitEngineering\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_turnAirOn\\) [a-z0-9]{8,}
@@ -468,6 +472,10 @@ Verify MTM1M3 C++ Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_abortRaiseM1M3_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_lowerM1M3_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_lowerM1M3_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_pauseM1M3RaisingLowering_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_pauseM1M3RaisingLowering_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_resumeM1M3RaisingLowering_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_resumeM1M3RaisingLowering_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enterEngineering_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enterEngineering_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_exitEngineering_commander
@@ -725,33 +733,33 @@ Salgen MTM1M3 RPM
     @{files}=    List Directory    ${SALWorkDir}/rpmbuild/RPMS/x86_64/
     Log Many    @{files}
     IF    "${Build_Number}" == ""
-        Set Test Variable    ${dot}    ${EMPTY}
-    ELSE IF    any(item in '${Build_Number}' for item in ('pre', 'rc'))
-        Set Test Variable    ${dot}    .
+        Set Test Variable    ${sep}    ${EMPTY}
+    ELSE IF    any(item in '${Build_Number}' for item in ('post', 'pre', 'rc'))
+        Set Test Variable    ${sep}    .
     ELSE
-        Set Test Variable    ${dot}    ${EMPTY}
+        Set Test Variable    ${sep}    ${EMPTY}
     END
     File Should Exist    ${SALWorkDir}/rpmbuild/SPECS/ts_sal_${subSystem}.spec
     File Should Exist    ${SALWorkDir}/rpmbuild/SOURCES/${subSystem}-${XMLVersionBase}.tgz
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_runtime-${XMLVersionBase}-${SALVersionBase}*${DIST}.x86_64.rpm
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_ATruntime-${XMLVersionBase}-${SALVersionBase}*${DIST}.x86_64.rpm
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_utils-${SALVersionBase}-1.x86_64.rpm
-    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}-${XMLVersionBase}-${SALVersionBase}${dot}${Build_Number}${DIST}.x86_64.rpm
-    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}_test-${XMLVersionBase}-${SALVersionBase}${dot}${Build_Number}${DIST}.x86_64.rpm
+    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}-${XMLVersionBase}-${SALVersionBase}${sep}${Build_Number}${DIST}.x86_64.rpm
+    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}_test-${XMLVersionBase}-${SALVersionBase}${sep}${Build_Number}${DIST}.x86_64.rpm
     Should Not Contain    ${output.stdout}    child process exited abnormally
 
 Verify MTM1M3 RPM Contents
     [Documentation]    Verify the ${subSystem} RPM contains all the expected libraries
     [Tags]    rpm
-    Comment    Re-run the {dot} process, so this test case can run independently.
+    Comment    Re-run the {sep} process, so this test case can run independently.
     IF    "${Build_Number}" == ""
-        Set Test Variable    ${dot}    ${EMPTY}
-    ELSE IF    any(item in '${Build_Number}' for item in ('pre', 'rc'))
-        Set Test Variable    ${dot}    .
+        Set Test Variable    ${sep}    ${EMPTY}
+    ELSE IF    any(item in '${Build_Number}' for item in ('post', 'pre', 'rc'))
+        Set Test Variable    ${sep}    .
     ELSE
-        Set Test Variable    ${dot}    ${EMPTY}
+        Set Test Variable    ${sep}    ${EMPTY}
     END
-    ${output}=    Run Process    rpm    -qpl    ${subSystem}-${XMLVersionBase}-${SALVersionBase}${dot}${Build_Number}${DIST}.x86_64.rpm    cwd=${SALWorkDir}/rpmbuild/RPMS/x86_64
+    ${output}=    Run Process    rpm    -qpl    ${subSystem}-${XMLVersionBase}-${SALVersionBase}${sep}${Build_Number}${DIST}.x86_64.rpm    cwd=${SALWorkDir}/rpmbuild/RPMS/x86_64
     Log Many    ${output.stdout}    ${output.stderr}
     Should Not Contain    ${output.stderr}    error
     Should Not Contain    ${output.stderr}    No such file or directory
@@ -779,15 +787,15 @@ Verify MTM1M3 RPM Contents
 Verify MTM1M3 TEST RPM Contents
     [Documentation]    Verify the ${subSystem} TEST RPM contains all the expected libraries
     [Tags]    rpm
-    Comment    Re-run the {dot} process, so this test case can run independently.
+    Comment    Re-run the {sep} process, so this test case can run independently.
     IF    "${Build_Number}" == ""
-        Set Test Variable    ${dot}    ${EMPTY}
-    ELSE IF    any(item in '${Build_Number}' for item in ('pre', 'rc'))
-        Set Test Variable    ${dot}    .
+        Set Test Variable    ${sep}    ${EMPTY}
+    ELSE IF    any(item in '${Build_Number}' for item in ('post', 'pre', 'rc'))
+        Set Test Variable    ${sep}    .
     ELSE
-        Set Test Variable    ${dot}    ${EMPTY}
+        Set Test Variable    ${sep}    ${EMPTY}
     END
-    ${output}=    Run Process    rpm    -qpl    ${subSystem}_test-${XMLVersionBase}-${SALVersionBase}${dot}${Build_Number}${DIST}.x86_64.rpm    shell=True    cwd=${SALWorkDir}/rpmbuild/RPMS/x86_64    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
+    ${output}=    Run Process    rpm    -qpl    ${subSystem}_test-${XMLVersionBase}-${SALVersionBase}${sep}${Build_Number}${DIST}.x86_64.rpm    shell=True    cwd=${SALWorkDir}/rpmbuild/RPMS/x86_64    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Not Contain    ${output.stderr}    error
     Should Not Contain    ${output.stderr}    No such file or directory
@@ -826,6 +834,10 @@ Verify MTM1M3 TEST RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_abortRaiseM1M3_controller
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_lowerM1M3_commander
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_lowerM1M3_controller
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_pauseM1M3RaisingLowering_commander
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_pauseM1M3RaisingLowering_controller
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_resumeM1M3RaisingLowering_commander
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_resumeM1M3RaisingLowering_controller
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_enterEngineering_commander
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_enterEngineering_controller
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_exitEngineering_commander
