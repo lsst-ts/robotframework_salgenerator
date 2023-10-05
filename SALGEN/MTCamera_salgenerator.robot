@@ -51,8 +51,6 @@ Salgen MTCamera Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_hex_Cryo4.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_hex_Cryo5.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_hex_Cryo6.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_refrig_Cold1.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_refrig_Cold2.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_refrig_Cryo1.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_refrig_Cryo2.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_refrig_Cryo3.idl
@@ -145,6 +143,8 @@ Salgen MTCamera Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Socket5.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_TempSensorsDevice1.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_TempSensorsDevice2.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_chiller_Chiller.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_chiller_Maq20.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_exitControl.idl
@@ -233,7 +233,6 @@ Salgen MTCamera Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rebpower_Reb_LimitsConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rebpower_Rebps_LimitsConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rebpower_Rebps_PowerConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_hexConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_hex_Cold1_LimitsConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_hex_Cold2_LimitsConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_hex_Cryo1_LimitsConfiguration.idl
@@ -242,36 +241,34 @@ Salgen MTCamera Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_hex_Cryo4_LimitsConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_hex_Cryo5_LimitsConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_hex_Cryo6_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_hex_GeneralConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_hex_Maq20_DeviceConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_hex_Maq20x_DeviceConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_hex_PeriodicTasksConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_hex_Maq20_DevicesConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_hex_PeriodicTasks_GeneralConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_hex_PeriodicTasks_timersConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_refrig_Cold1_CompLimitsConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_refrig_Cold1_DeviceConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_refrig_Cold1_LimitsConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_refrig_Cold2_CompLimitsConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_refrig_Cold2_DeviceConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_refrig_Cold2_LimitsConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_refrig_CoolMaq20_DeviceConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_refrig_Cryo1_CompLimitsConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_refrig_Cryo1_DeviceConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_refrig_Cryo1_DevicesConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_refrig_Cryo1_LimitsConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_refrig_Cryo2_CompLimitsConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_refrig_Cryo2_DeviceConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_refrig_Cryo2_DevicesConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_refrig_Cryo2_LimitsConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_refrig_Cryo3_CompLimitsConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_refrig_Cryo3_DeviceConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_refrig_Cryo3_DevicesConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_refrig_Cryo3_LimitsConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_refrig_Cryo4_CompLimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_refrig_Cryo3_PicConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_refrig_Cryo4_DeviceConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_refrig_Cryo4_DevicesConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_refrig_Cryo4_LimitsConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_refrig_Cryo5_CompLimitsConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_refrig_Cryo5_DeviceConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_refrig_Cryo5_DevicesConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_refrig_Cryo5_LimitsConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_refrig_Cryo6_CompLimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_refrig_Cryo5_PicConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_refrig_Cryo6_DeviceConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_refrig_Cryo6_DevicesConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_refrig_Cryo6_LimitsConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_refrig_PeriodicTasksConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_refrig_CryoCompLimits_CompLimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_refrig_PeriodicTasks_GeneralConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_refrig_PeriodicTasks_PicConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_refrig_PeriodicTasks_timersConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_AgentMonitorServiceConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_CIP1CConfiguration.idl
@@ -317,11 +314,11 @@ Salgen MTCamera Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_TurboVoltageConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_VacPlutoConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_Vacuum_stateConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_daq_monitor_PeriodicTasksConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_daq_monitor_PeriodicTasks_GeneralConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_daq_monitor_PeriodicTasks_timersConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_daq_monitor_Stats_StatisticsConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_daq_monitor_Stats_buildConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_daq_monitor_StoreConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_daq_monitor_Store_DevicesConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_daq_monitor_Store_LimitsConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_daq_monitor_Store_StoreConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focal_plane_Ccd_HardwareIdConfiguration.idl
@@ -392,6 +389,11 @@ Salgen MTCamera Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_TempLinearRailMotorXminus_LimitsConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_TempLinearRailMotorXplus_LimitsConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_TempRearBox_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_chiller_DeviceConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_chiller_DevicesConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_chiller_GeneralConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_chiller_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_chiller_timersConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_summaryStatus.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_alertRaised.idl
 
@@ -487,7 +489,6 @@ Verify MTCamera revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rebpower_Reb_LimitsConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rebpower_Rebps_LimitsConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rebpower_Rebps_PowerConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_hexConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_hex_Cold1_LimitsConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_hex_Cold2_LimitsConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_hex_Cryo1_LimitsConfiguration\\) [a-z0-9]{8,}
@@ -496,36 +497,34 @@ Verify MTCamera revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_hex_Cryo4_LimitsConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_hex_Cryo5_LimitsConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_hex_Cryo6_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_hex_GeneralConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_hex_Maq20_DeviceConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_hex_Maq20x_DeviceConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_hex_PeriodicTasksConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_hex_Maq20_DevicesConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_hex_PeriodicTasks_GeneralConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_hex_PeriodicTasks_timersConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_refrig_Cold1_CompLimitsConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_refrig_Cold1_DeviceConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_refrig_Cold1_LimitsConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_refrig_Cold2_CompLimitsConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_refrig_Cold2_DeviceConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_refrig_Cold2_LimitsConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_refrig_CoolMaq20_DeviceConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_refrig_Cryo1_CompLimitsConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_refrig_Cryo1_DeviceConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_refrig_Cryo1_DevicesConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_refrig_Cryo1_LimitsConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_refrig_Cryo2_CompLimitsConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_refrig_Cryo2_DeviceConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_refrig_Cryo2_DevicesConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_refrig_Cryo2_LimitsConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_refrig_Cryo3_CompLimitsConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_refrig_Cryo3_DeviceConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_refrig_Cryo3_DevicesConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_refrig_Cryo3_LimitsConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_refrig_Cryo4_CompLimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_refrig_Cryo3_PicConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_refrig_Cryo4_DeviceConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_refrig_Cryo4_DevicesConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_refrig_Cryo4_LimitsConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_refrig_Cryo5_CompLimitsConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_refrig_Cryo5_DeviceConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_refrig_Cryo5_DevicesConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_refrig_Cryo5_LimitsConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_refrig_Cryo6_CompLimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_refrig_Cryo5_PicConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_refrig_Cryo6_DeviceConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_refrig_Cryo6_DevicesConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_refrig_Cryo6_LimitsConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_refrig_PeriodicTasksConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_refrig_CryoCompLimits_CompLimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_refrig_PeriodicTasks_GeneralConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_refrig_PeriodicTasks_PicConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_refrig_PeriodicTasks_timersConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_AgentMonitorServiceConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_CIP1CConfiguration\\) [a-z0-9]{8,}
@@ -571,11 +570,11 @@ Verify MTCamera revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_TurboVoltageConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_VacPlutoConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_Vacuum_stateConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_daq_monitor_PeriodicTasksConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_daq_monitor_PeriodicTasks_GeneralConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_daq_monitor_PeriodicTasks_timersConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_daq_monitor_Stats_StatisticsConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_daq_monitor_Stats_buildConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_daq_monitor_StoreConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_daq_monitor_Store_DevicesConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_daq_monitor_Store_LimitsConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_daq_monitor_Store_StoreConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focal_plane_Ccd_HardwareIdConfiguration\\) [a-z0-9]{8,}
@@ -646,6 +645,11 @@ Verify MTCamera revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_TempLinearRailMotorXminus_LimitsConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_TempLinearRailMotorXplus_LimitsConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_TempRearBox_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_chiller_DeviceConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_chiller_DevicesConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_chiller_GeneralConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_chiller_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_chiller_timersConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_summaryStatus\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_alertRaised\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_quadbox_BFR\\) [a-z0-9]{8,}
@@ -664,8 +668,6 @@ Verify MTCamera revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_hex_Cryo4\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_hex_Cryo5\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_hex_Cryo6\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_refrig_Cold1\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_refrig_Cold2\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_refrig_Cryo1\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_refrig_Cryo2\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_refrig_Cryo3\\) [a-z0-9]{8,}
@@ -758,6 +760,8 @@ Verify MTCamera revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Socket5\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_TempSensorsDevice1\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_TempSensorsDevice2\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_chiller_Chiller\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_chiller_Maq20\\) [a-z0-9]{8,}
 
 Salgen MTCamera IDL
     [Documentation]    Generate the revCoded IDL for ${subSystem}
@@ -797,8 +801,6 @@ Salgen MTCamera Java
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_hex_Cryo4.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_hex_Cryo5.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_hex_Cryo6.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_refrig_Cold1.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_refrig_Cold2.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_refrig_Cryo1.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_refrig_Cryo2.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_refrig_Cryo3.idl
@@ -891,6 +893,8 @@ Salgen MTCamera Java
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Socket5.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_TempSensorsDevice1.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_TempSensorsDevice2.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_chiller_Chiller.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_chiller_Maq20.idl
     Should Contain X Times    ${output.stdout}    javac : Done Publisher    110
     Should Contain X Times    ${output.stdout}    javac : Done Subscriber    110
     Directory Should Exist    ${SALWorkDir}/${subSystem}/java
