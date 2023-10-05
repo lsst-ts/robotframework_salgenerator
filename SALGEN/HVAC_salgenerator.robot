@@ -141,6 +141,29 @@ Salgen HVAC Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_dynRemoteLocalModeStatus.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_dynAmbientDeltaModeStatus.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_dynExhaustAirBackupModeStatus.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_chiller01P01.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_chiller02P01.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_chiller03P01.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_crack01P02.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_crack02P02.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fancoil01P02.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fancoil02P02.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fancoil03P02.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fancoil04P02.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fancoil05P02.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fancoil06P02.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fancoil07P02.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fancoil08P02.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fancoil09P02.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fancoil10P02.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fancoil11P02.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fancoil12P02.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_manejadoraSblancaP04.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_manejadoraSlimpiaP04.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_manejadoraLower01P05.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_manejadoraLower02P05.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_manejadoraLower03P05.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_manejadoraLower04P05.idl
 
 Verify HVAC revCodes File
     [Documentation]    Ensure HVAC_revCodes.tcl contains 1 revcode per topic.
@@ -209,6 +232,29 @@ Verify HVAC revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_dynRemoteLocalModeStatus\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_dynAmbientDeltaModeStatus\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_dynExhaustAirBackupModeStatus\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_chiller01P01\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_chiller02P01\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_chiller03P01\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_crack01P02\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_crack02P02\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fancoil01P02\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fancoil02P02\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fancoil03P02\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fancoil04P02\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fancoil05P02\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fancoil06P02\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fancoil07P02\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fancoil08P02\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fancoil09P02\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fancoil10P02\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fancoil11P02\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fancoil12P02\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_manejadoraSblancaP04\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_manejadoraSlimpiaP04\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_manejadoraLower01P05\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_manejadoraLower02P05\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_manejadoraLower03P05\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_manejadoraLower04P05\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_bombaAguaFriaP01\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_chiller01P01\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_chiller02P01\\) [a-z0-9]{8,}
@@ -306,32 +352,32 @@ Salgen HVAC RPM
     @{files}=    List Directory    ${SALWorkDir}/rpmbuild/RPMS/x86_64/
     Log Many    @{files}
     IF    "${Build_Number}" == ""
-        Set Test Variable    ${dot}    ${EMPTY}
-    ELSE IF    any(item in '${Build_Number}' for item in ('pre', 'rc'))
-        Set Test Variable    ${dot}    .
+        Set Test Variable    ${sep}    ${EMPTY}
+    ELSE IF    any(item in '${Build_Number}' for item in ('post', 'pre', 'rc'))
+        Set Test Variable    ${sep}    .
     ELSE
-        Set Test Variable    ${dot}    ${EMPTY}
+        Set Test Variable    ${sep}    ${EMPTY}
     END
     File Should Exist    ${SALWorkDir}/rpmbuild/SPECS/ts_sal_${subSystem}.spec
     File Should Exist    ${SALWorkDir}/rpmbuild/SOURCES/${subSystem}-${XMLVersionBase}.tgz
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_runtime-${XMLVersionBase}-${SALVersionBase}*${DIST}.x86_64.rpm
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_ATruntime-${XMLVersionBase}-${SALVersionBase}*${DIST}.x86_64.rpm
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_utils-${SALVersionBase}-1.x86_64.rpm
-    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}-${XMLVersionBase}-${SALVersionBase}${dot}${Build_Number}${DIST}.x86_64.rpm
+    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}-${XMLVersionBase}-${SALVersionBase}${sep}${Build_Number}${DIST}.x86_64.rpm
     Should Not Contain    ${output.stdout}    child process exited abnormally
 
 Verify HVAC RPM Contents
     [Documentation]    Verify the ${subSystem} RPM contains all the expected libraries
     [Tags]    rpm
-    Comment    Re-run the {dot} process, so this test case can run independently.
+    Comment    Re-run the {sep} process, so this test case can run independently.
     IF    "${Build_Number}" == ""
-        Set Test Variable    ${dot}    ${EMPTY}
-    ELSE IF    any(item in '${Build_Number}' for item in ('pre', 'rc'))
-        Set Test Variable    ${dot}    .
+        Set Test Variable    ${sep}    ${EMPTY}
+    ELSE IF    any(item in '${Build_Number}' for item in ('post', 'pre', 'rc'))
+        Set Test Variable    ${sep}    .
     ELSE
-        Set Test Variable    ${dot}    ${EMPTY}
+        Set Test Variable    ${sep}    ${EMPTY}
     END
-    ${output}=    Run Process    rpm    -qpl    ${subSystem}-${XMLVersionBase}-${SALVersionBase}${dot}${Build_Number}${DIST}.x86_64.rpm    cwd=${SALWorkDir}/rpmbuild/RPMS/x86_64
+    ${output}=    Run Process    rpm    -qpl    ${subSystem}-${XMLVersionBase}-${SALVersionBase}${sep}${Build_Number}${DIST}.x86_64.rpm    cwd=${SALWorkDir}/rpmbuild/RPMS/x86_64
     Log Many    ${output.stdout}    ${output.stderr}
     Should Not Contain    ${output.stderr}    error
     Should Not Contain    ${output.stderr}    No such file or directory

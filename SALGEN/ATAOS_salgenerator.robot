@@ -177,8 +177,8 @@ Salgen ATAOS RPM
     Log Many    @{files}
     IF    "${Build_Number}" == ""
         Set Test Variable    ${sep}    ${EMPTY}
-    ELSE IF    any(item in '${Build_Number}' for item in ('pre', 'rc'))
-        Set Test Variable    ${sep}    -
+    ELSE IF    any(item in '${Build_Number}' for item in ('post', 'pre', 'rc'))
+        Set Test Variable    ${sep}    .
     ELSE
         Set Test Variable    ${sep}    ${EMPTY}
     END
@@ -196,8 +196,8 @@ Verify ATAOS RPM Contents
     Comment    Re-run the {sep} process, so this test case can run independently.
     IF    "${Build_Number}" == ""
         Set Test Variable    ${sep}    ${EMPTY}
-    ELSE IF    any(item in '${Build_Number}' for item in ('pre', 'rc'))
-        Set Test Variable    ${sep}    -
+    ELSE IF    any(item in '${Build_Number}' for item in ('post', 'pre', 'rc'))
+        Set Test Variable    ${sep}    .
     ELSE
         Set Test Variable    ${sep}    ${EMPTY}
     END
