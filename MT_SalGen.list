@@ -5,6 +5,7 @@
 
 # List of test suites
 SALGEN/LaserTracker_salgenerator.robot
+SALGEN/LEDProjector_salgenerator.robot
 SALGEN/MTHexapod_salgenerator.robot
 SALGEN/MTAOS_salgenerator.robot
 SALGEN/MTAirCompressor_salgenerator.robot

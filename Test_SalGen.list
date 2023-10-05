@@ -37,6 +37,7 @@ SALGEN/GenericCamera_salgenerator.robot
 SALGEN/Guider_salgenerator.robot
 SALGEN/HVAC_salgenerator.robot
 SALGEN/LaserTracker_salgenerator.robot
+SALGEN/LEDProjector_salgenerator.robot
 SALGEN/LinearStage_salgenerator.robot
 SALGEN/LOVE_salgenerator.robot
 SALGEN/MTAOS_salgenerator.robot
