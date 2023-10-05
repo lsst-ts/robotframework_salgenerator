@@ -196,9 +196,9 @@ function subsystemArray() {
     DIMM DREAM DSM
     EAS Electrometer ESS FiberSpectrograph 
     GCHeaderService GenericCamera GIS Guider 
-    MTHexapod HVAC LaserTracker LinearStage LOVE 
+    HVAC LaserTracker LEDProjector LinearStage LOVE 
     MTAirCompressor MTAOS MTCamera MTDome 
-    MTDomeTrajectory MTEEC MTHeaderService
+    MTDomeTrajectory MTHexapod MTEEC MTHeaderService
     MTM1M3 MTM1M3TS MTM2 MTMount MTOODS MTPtg 
     MTRotator MTVMS OCPS PMD 
     Scheduler Script ScriptQueue SummitFacility 
