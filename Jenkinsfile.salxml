@@ -408,7 +408,11 @@ pipeline {
                 script {
                     //Define location for artifacts
                     if (params.Release) {
-                        location = "releases"
+                        if (RPM_Version.contains('rc')) {
+                            location = "release_candidates"
+                        } else {
+                            location = "releases"
+                        }
                     } else if (params.Daily) {
                         location = "daily"
                     } else {
