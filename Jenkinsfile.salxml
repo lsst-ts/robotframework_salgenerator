@@ -149,13 +149,13 @@ pipeline {
                             // Maven and RPM release candidate artifacts simply use the version numbers.
                             MavenVersion = '-SNAPSHOT'
                             Build_Param = sh(returnStdout: true, script: "echo " + XML_Version_RC + " |cut -d '-' -f2").trim()
-                            RPM_Version = XML_Version_Base + Build_Param + "-" + SAL_Version_Base
+                            RPM_Version = XML_Version_Base + "~" + Build_Param + "-" + SAL_Version_Base
                         } else if (SAL_Version_RC.contains('rc')) {
                             println("This is a SAL RELEASE CANDIDATE build.")
                             // Maven and RPM release candidate artifacts simply use the version numbers.
                             MavenVersion = '-SNAPSHOT'
                             Build_Param = sh(returnStdout: true, script: "echo " + SAL_Version_RC + " |cut -d '-' -f2").trim()
-                            RPM_Version = XML_Version_Base + Build_Param + "-" + SAL_Version_Base
+                            RPM_Version = XML_Version_Base + "~" + Build_Param + "-" + SAL_Version_Base
                         } else {
                             println("This is a RELEASE build.")
                             // Maven and RPM release artifacts simply use the version numbers.
