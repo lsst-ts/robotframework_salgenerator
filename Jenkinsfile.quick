@@ -89,8 +89,8 @@ pipeline {
                         // Maven develop/daily/etc artifacts add the -SNAPSHOT string.
                         MavenVersion = '-SNAPSHOT'
                         // RPM develop/daily/etc artifacts add 'pre' and the Build Number string.
-                        Build_Param = "pre${BUILD_NUMBER}"
-                        RPM_Version = XML_Version_Base + "-" + SAL_Version_Base + Build_Param
+                        Build_Param = "post${BUILD_NUMBER}"
+                        RPM_Version = XML_Version_Base + "~" + Build_Param + "-" + SAL_Version_Base
                     }
                 }
                 sh 'mkdir -pv "${WORKSPACE}/Reports"'

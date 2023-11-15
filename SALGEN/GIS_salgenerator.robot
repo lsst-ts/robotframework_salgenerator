@@ -189,17 +189,17 @@ Salgen GIS RPM
     Log Many    @{files}
     IF    "${Build_Number}" == ""
         Set Test Variable    ${sep}    ${EMPTY}
-    ELSE IF    any(item in '${Build_Number}' for item in ('post', 'pre', 'rc'))
-        Set Test Variable    ${sep}    .
+    ELSE IF    any(item in '${Build_Number}' for item in ('pre', 'post', 'rc'))
+        Set Test Variable    ${sep}    ~
     ELSE
         Set Test Variable    ${sep}    ${EMPTY}
     END
     File Should Exist    ${SALWorkDir}/rpmbuild/SPECS/ts_sal_${subSystem}.spec
-    File Should Exist    ${SALWorkDir}/rpmbuild/SOURCES/${subSystem}-${XMLVersionBase}.tgz
-    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_runtime-${XMLVersionBase}-${SALVersionBase}*${DIST}.x86_64.rpm
-    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_ATruntime-${XMLVersionBase}-${SALVersionBase}*${DIST}.x86_64.rpm
+    File Should Exist    ${SALWorkDir}/rpmbuild/SOURCES/${subSystem}-${XMLVersionBase}${sep}${Build_Number}.tgz
+    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_runtime-${XMLVersionBase}${sep}${Build_Number}-${SALVersionBase}*${DIST}.x86_64.rpm
+    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_ATruntime-${XMLVersionBase}${sep}${Build_Number}-${SALVersionBase}*${DIST}.x86_64.rpm
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_utils-${SALVersionBase}-1.x86_64.rpm
-    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}-${XMLVersionBase}-${SALVersionBase}${sep}${Build_Number}${DIST}.x86_64.rpm
+    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}-${XMLVersionBase}${sep}${Build_Number}-${SALVersionBase}${DIST}.x86_64.rpm
     Should Not Contain    ${output.stdout}    child process exited abnormally
 
 Verify GIS RPM Contents
@@ -208,12 +208,12 @@ Verify GIS RPM Contents
     Comment    Re-run the {sep} process, so this test case can run independently.
     IF    "${Build_Number}" == ""
         Set Test Variable    ${sep}    ${EMPTY}
-    ELSE IF    any(item in '${Build_Number}' for item in ('post', 'pre', 'rc'))
-        Set Test Variable    ${sep}    .
+    ELSE IF    any(item in '${Build_Number}' for item in ('pre', 'post', 'rc'))
+        Set Test Variable    ${sep}    ~
     ELSE
         Set Test Variable    ${sep}    ${EMPTY}
     END
-    ${output}=    Run Process    rpm    -qpl    ${subSystem}-${XMLVersionBase}-${SALVersionBase}${sep}${Build_Number}${DIST}.x86_64.rpm    cwd=${SALWorkDir}/rpmbuild/RPMS/x86_64
+    ${output}=    Run Process    rpm    -qpl    ${subSystem}-${XMLVersionBase}${sep}${Build_Number}-${SALVersionBase}${DIST}.x86_64.rpm    cwd=${SALWorkDir}/rpmbuild/RPMS/x86_64
     Log Many    ${output.stdout}    ${output.stderr}
     Should Not Contain    ${output.stderr}    error
     Should Not Contain    ${output.stderr}    No such file or directory
