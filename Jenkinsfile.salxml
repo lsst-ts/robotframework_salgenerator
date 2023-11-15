@@ -149,13 +149,13 @@ pipeline {
                             // Maven and RPM release candidate artifacts simply use the version numbers.
                             MavenVersion = '-SNAPSHOT'
                             Build_Param = sh(returnStdout: true, script: "echo " + XML_Version_RC + " |cut -d '-' -f2").trim()
-                            RPM_Version = XML_Version_Base + "-" + SAL_Version_Base + Build_Param
+                            RPM_Version = XML_Version_Base + Build_Param + "-" + SAL_Version_Base
                         } else if (SAL_Version_RC.contains('rc')) {
                             println("This is a SAL RELEASE CANDIDATE build.")
                             // Maven and RPM release candidate artifacts simply use the version numbers.
                             MavenVersion = '-SNAPSHOT'
                             Build_Param = sh(returnStdout: true, script: "echo " + SAL_Version_RC + " |cut -d '-' -f2").trim()
-                            RPM_Version = XML_Version_Base + "-" + SAL_Version_Base + Build_Param
+                            RPM_Version = XML_Version_Base + Build_Param + "-" + SAL_Version_Base
                         } else {
                             println("This is a RELEASE build.")
                             // Maven and RPM release artifacts simply use the version numbers.
@@ -168,8 +168,8 @@ pipeline {
                         // Maven develop/daily/etc artifacts add the -SNAPSHOT string.
                         MavenVersion = '-SNAPSHOT'
                         // RPM develop/daily/etc artifacts add 'pre' and the Build Number string.
-                        Build_Param = "pre${BUILD_NUMBER}"
-                        RPM_Version = XML_Version_Base + "-" + SAL_Version_Base + Build_Param
+                        Build_Param = "post${BUILD_NUMBER}"
+                        RPM_Version = XML_Version_Base + "~" + Build_Param + "-" + SAL_Version_Base
                     }
                 }
                 sh 'mkdir -pv "${WORKSPACE}/Reports"'
@@ -491,9 +491,9 @@ pipeline {
                 }
             }
             steps {
-                echo "Starting the IDL_Conda_package/develop job; SAL_Version: " + SAL_Version_Base + "." + Build_Param + ", XML_Version: " + XML_Version_Base + ", build_type: " + BuildType + ", develop: true"
-                build job: 'IDL_Conda_package/develop', parameters: [string(name: 'SAL_Version', value: SAL_Version_Base + "." + Build_Param), \
-                    string(name: 'XML_Version', value: XML_Version_Base), \
+                echo "Starting the IDL_Conda_package/develop job; SAL_Version: " + SAL_Version_Base + ", XML_Version: " + XML_Version_Base + "~" + Build_Param + ", build_type: " + BuildType + ", develop: true"
+                build job: 'IDL_Conda_package/develop', parameters: [string(name: 'SAL_Version', value: SAL_Version_Base), \
+                    string(name: 'XML_Version', value: XML_Version_Base + "~" + Build_Param), \
                     string(name: 'build_type', value: BuildType), booleanParam(name: 'develop', value: true), \
                     booleanParam(name: 'buildSalObjConda', value: true), booleanParam(name: 'buildCSCConda', value: true)], wait: false
                 echo "Starting the BaseDevImage job; BuildSalobjContainer:true and BuildDevEnv:true"
