@@ -41,7 +41,7 @@ Salgen ATMCS Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_torqueDemand.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_measuredTorque.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_measuredMotorVelocity.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_nasymth_m3_mountMotorEncoders.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_nasmyth_m3_mountMotorEncoders.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_azEl_mountMotorEncoders.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
@@ -168,7 +168,7 @@ Verify ATMCS revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_torqueDemand\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_measuredTorque\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_measuredMotorVelocity\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_nasymth_m3_mountMotorEncoders\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_nasmyth_m3_mountMotorEncoders\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_azEl_mountMotorEncoders\\) [a-z0-9]{8,}
 
 Salgen ATMCS IDL
@@ -201,7 +201,7 @@ Salgen ATMCS C++
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_torqueDemand.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_measuredTorque.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_measuredMotorVelocity.idl
-    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_nasymth_m3_mountMotorEncoders.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_nasmyth_m3_mountMotorEncoders.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_azEl_mountMotorEncoders.idl
     Should Contain X Times    ${output.stdout}    cpp : Done Publisher    8
     Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    8
@@ -228,7 +228,7 @@ Verify ATMCS Telemetry directories
     Directory Should Exist    ${SALWorkDir}/${subSystem}_torqueDemand
     Directory Should Exist    ${SALWorkDir}/${subSystem}_measuredTorque
     Directory Should Exist    ${SALWorkDir}/${subSystem}_measuredMotorVelocity
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_nasymth_m3_mountMotorEncoders
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_nasmyth_m3_mountMotorEncoders
     Directory Should Exist    ${SALWorkDir}/${subSystem}_azEl_mountMotorEncoders
 
 Verify ATMCS C++ Telemetry Interfaces
@@ -246,8 +246,8 @@ Verify ATMCS C++ Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}_measuredTorque/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_measuredMotorVelocity/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_measuredMotorVelocity/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}_nasymth_m3_mountMotorEncoders/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_nasymth_m3_mountMotorEncoders/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_nasmyth_m3_mountMotorEncoders/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_nasmyth_m3_mountMotorEncoders/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_azEl_mountMotorEncoders/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_azEl_mountMotorEncoders/cpp/standalone/sacpp_${subSystem}_sub
 
@@ -639,8 +639,8 @@ Verify ATMCS TEST RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_measuredTorque_subscriber
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_measuredMotorVelocity_publisher
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_measuredMotorVelocity_subscriber
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_nasymth_m3_mountMotorEncoders_publisher
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_nasymth_m3_mountMotorEncoders_subscriber
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_nasmyth_m3_mountMotorEncoders_publisher
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_nasmyth_m3_mountMotorEncoders_subscriber
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_azEl_mountMotorEncoders_publisher
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_azEl_mountMotorEncoders_subscriber
 

@@ -75,6 +75,8 @@ Salgen MTM2 Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enableOpenLoopMaxLimit.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_moveActuator.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_actuatorBumpTest.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_killActuatorBumpTest.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setHardpointList.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_heartbeat.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_logLevel.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_logMessage.idl
@@ -109,6 +111,7 @@ Salgen MTM2 Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_summaryFaultsStatus.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_enabledFaultsMask.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_configurationFiles.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_actuatorBumpTestStatus.idl
 
 Verify MTM2 revCodes File
     [Documentation]    Ensure MTM2_revCodes.tcl contains 1 revcode per topic.
@@ -135,6 +138,8 @@ Verify MTM2 revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_enableOpenLoopMaxLimit\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_moveActuator\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_actuatorBumpTest\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_killActuatorBumpTest\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setHardpointList\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_heartbeat\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_logLevel\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_logMessage\\) [a-z0-9]{8,}
@@ -169,6 +174,7 @@ Verify MTM2 revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_summaryFaultsStatus\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_enabledFaultsMask\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_configurationFiles\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_actuatorBumpTestStatus\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_position\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_positionIMS\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_axialForce\\) [a-z0-9]{8,}
@@ -358,6 +364,10 @@ Verify MTM2 C++ Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_moveActuator_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_actuatorBumpTest_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_actuatorBumpTest_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_killActuatorBumpTest_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_killActuatorBumpTest_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setHardpointList_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_setHardpointList_controller
 
 Verify MTM2 C++ Event Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -430,6 +440,8 @@ Verify MTM2 C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_enabledFaultsMask_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_configurationFiles_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_configurationFiles_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_actuatorBumpTestStatus_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_actuatorBumpTestStatus_log
 
 Salgen MTM2 LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
@@ -613,6 +625,10 @@ Verify MTM2 TEST RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_moveActuator_controller
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_actuatorBumpTest_commander
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_actuatorBumpTest_controller
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_killActuatorBumpTest_commander
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_killActuatorBumpTest_controller
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_setHardpointList_commander
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_setHardpointList_controller
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_heartbeat_send
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_heartbeat_log
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_logLevel_send
@@ -681,6 +697,8 @@ Verify MTM2 TEST RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_enabledFaultsMask_log
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_configurationFiles_send
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_configurationFiles_log
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_actuatorBumpTestStatus_send
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_actuatorBumpTestStatus_log
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_position_publisher
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_position_subscriber
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_positionIMS_publisher
