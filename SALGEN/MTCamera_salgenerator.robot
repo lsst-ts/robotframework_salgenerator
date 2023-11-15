@@ -42,6 +42,7 @@ Salgen MTCamera Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_quadbox_PDU_5V.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_quadbox_REB_Bulk_PS.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_rebpower_Reb.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_rebpower_RebTotalPower.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_rebpower_Rebps.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_hex_Cold1.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_hex_Cold2.idl
@@ -57,28 +58,10 @@ Salgen MTCamera Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_refrig_Cryo4.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_refrig_Cryo5.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_refrig_Cryo6.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vacuum_CIP1_I.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vacuum_CIP1_V.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vacuum_CIP2_I.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vacuum_CIP2_V.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vacuum_CIP3_I.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vacuum_CIP3_V.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vacuum_CIP4_I.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vacuum_CIP4_V.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vacuum_CIP5_I.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vacuum_CIP5_V.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vacuum_CIP6_I.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vacuum_CIP6_V.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vacuum_CryoVac.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vacuum_ForelineVac.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vacuum_Hex1Vac.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vacuum_Hex2Vac.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vacuum_TurboCurrent.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vacuum_TurboPower.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vacuum_TurboPumpTemp.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vacuum_TurboSpeed.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vacuum_TurboVac.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vacuum_TurboVoltage.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vacuum_Cip.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vacuum_Cryo.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vacuum_HX.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vacuum_Inst.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_daq_monitor_Reb_Trending.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_daq_monitor_Store.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_daq_monitor_Sum_Trending.idl
@@ -87,64 +70,56 @@ Salgen MTCamera Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_focal_plane_RebTotalPower.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_focal_plane_RebsAverageTemp6.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_focal_plane_Segment.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_AcSensorsGateway.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_AcTruckXminus.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_AcTruckXminusController.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_AcTruckXplus.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_AcTruckXplusController.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Accelerobf.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Ai814.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Autochanger.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_AutochangerTrucks.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_BrakeSystemGateway.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Carousel.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_CarouselController.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Carrier.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_CarrierController.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_CcsVersions.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_ClampXminus1.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_ClampXminus2.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_ClampXminus3.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_ClampXminus4.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_ClampXminus5.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_ClampXminusController.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_ClampXplus1.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_ClampXplus2.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_ClampXplus3.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_ClampXplus4.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_ClampXplus5.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_ClampXplusController.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Config.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Hooks.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_HooksController.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Hyttc580.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_LatchXminus.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_LatchXminusController.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_LatchXplus.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_LatchXplusController.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Latches.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Loader.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_LoaderPlutoGateway.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_OnlineClampXminus.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_OnlineClampXminusController.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_OnlineClampXplus.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_OnlineClampXplusController.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_OnlineClampYminus.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_OnlineClampYminusController.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_OnlineClamps.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_OnlineStrainGauge.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_ProximitySensorsDevice.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Pt100.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_RuntimeInfo.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Socket1.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Socket2.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Socket3.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Socket4.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Socket5.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_TempSensorsDevice1.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_TempSensorsDevice2.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Autochanger_AutochangerTrucks_Trending.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Autochanger_Latches_Trending.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Autochanger_OnlineClamps_Trending.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Autochanger_Temperatures.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Canbus0_AcSensorsGateway_Trending.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Canbus0_AcTruckXminusController_Trending.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Canbus0_AcTruckXplusController_Trending.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Canbus0_Accelerobf_Trending.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Canbus0_Ai814_Trending.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Canbus0_BrakeSystemGateway_Trending.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Canbus0_CarouselController_Trending.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Canbus0_ClampXminusController_Trending.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Canbus0_ClampXplusController_Trending.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Canbus0_Hyttc580_Trending.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Canbus0_LatchXminusController_Trending.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Canbus0_LatchXplusController_Trending.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Canbus0_OnlineClampXminusController_Trending.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Canbus0_OnlineClampXplusController_Trending.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Canbus0_OnlineClampYminusController_Trending.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Canbus0_OnlineStrainGauge_Trending.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Canbus0_ProximitySensorsDevice_Trending.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Canbus0_Pt100_Trending.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Canbus0_TempSensorsDevice1_Trending.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Canbus0_TempSensorsDevice2_Trending.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Canbus1_CarrierController_Trending.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Canbus1_HooksController_Trending.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Canbus1_LoaderPlutoGateway_Trending.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Carousel_Socket1_Trending.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Carousel_Socket2_Trending.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Carousel_Socket3_Trending.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Carousel_Socket4_Trending.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Carousel_Socket5_Trending.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Carousel_Trending.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Duration_Autochanger_Trending.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Duration_Carousel_Trending.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Duration_Loader_Trending.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Duration_Trending.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Fcs_Mcm_Trending.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Loader_Carrier_Trending.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Loader_Hooks_Trending.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Trending.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_shutter_Trending.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_chiller_Chiller.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_chiller_FParam_Trending.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_chiller_Maq20.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_thermal_Cold_Temp.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_thermal_Cryo_Temp.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_thermal_Rtd.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_thermal_Trim.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_thermal_Trim_Htrs.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_exitControl.idl
@@ -211,28 +186,40 @@ Salgen MTCamera Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_startRotateCarousel.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_imageReadoutParameters.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focalPlaneSummaryInfo.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_quadbox_BFR_DevicesConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_quadbox_BFR_LimitsConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_quadbox_BFR_QuadboxConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_quadbox_Maq20_DeviceConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_quadbox_Maq20_DevicesConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_quadbox_PDU_24VC_DevicesConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_quadbox_PDU_24VC_LimitsConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_quadbox_PDU_24VC_QuadboxConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_quadbox_PDU_24VD_DevicesConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_quadbox_PDU_24VD_LimitsConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_quadbox_PDU_24VD_QuadboxConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_quadbox_PDU_48V_DevicesConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_quadbox_PDU_48V_LimitsConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_quadbox_PDU_48V_QuadboxConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_quadbox_PDU_5V_DevicesConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_quadbox_PDU_5V_LimitsConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_quadbox_PDU_5V_QuadboxConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_quadbox_PeriodicTasksConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_quadbox_PeriodicTasks_GeneralConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_quadbox_PeriodicTasks_timersConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_quadbox_REB_Bulk_PS_DevicesConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_quadbox_REB_Bulk_PS_LimitsConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_quadbox_REB_Bulk_PS_QuadboxConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rebpowerConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rebpower_EmergencyResponseManagerConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rebpower_PeriodicTasksConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rebpower_EmergencyResponseManager_GeneralConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rebpower_GeneralConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rebpower_PeriodicTasks_GeneralConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rebpower_PeriodicTasks_timersConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rebpower_RebConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rebpower_RebTotalPower_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rebpower_Reb_GeneralConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rebpower_Reb_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rebpower_Rebps_DevicesConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rebpower_Rebps_GeneralConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rebpower_Rebps_LimitsConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rebpower_Rebps_PowerConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rebpower_Rebps_buildConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_hex_Cold1_LimitsConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_hex_Cold2_LimitsConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_hex_Cryo1_LimitsConfiguration.idl
@@ -246,6 +233,7 @@ Salgen MTCamera Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_hex_Maq20_DevicesConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_hex_PeriodicTasks_GeneralConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_hex_PeriodicTasks_timersConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_hex_StatusAggregator_GeneralConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_refrig_Cryo1_DeviceConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_refrig_Cryo1_DevicesConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_refrig_Cryo1_LimitsConfiguration.idl
@@ -270,50 +258,43 @@ Salgen MTCamera Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_refrig_PeriodicTasks_GeneralConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_refrig_PeriodicTasks_PicConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_refrig_PeriodicTasks_timersConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_AgentMonitorServiceConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_CIP1CConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_CIP1_IConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_CIP1_VConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_CIP2CConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_CIP2_IConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_CIP2_VConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_CIP3CConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_CIP3_IConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_CIP3_VConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_CIP4CConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_CIP4_IConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_CIP4_VConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_CIP5CConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_CIP5_IConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_CIP5_VConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_CIP6CConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_CIP6_IConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_CIP6_VConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_CryoVacConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_CryoVacGaugeConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_ForelineVacConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_ForelineVacGaugeConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_HeartbeatConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_Hex1VacConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_Hex1VacGaugeConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_Hex2VacConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_Hex2VacGaugeConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_IonPumpsConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_Monitor_checkConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_Monitor_publishConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_Monitor_updateConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_RuntimeInfoConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_SchedulersConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_TurboCurrentConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_TurboPowerConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_TurboPumpConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_TurboPumpTempConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_TurboSpeedConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_TurboVacConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_TurboVacGaugeConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_TurboVoltageConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_VacPlutoConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_Vacuum_stateConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_Cip_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_CryoFlineGauge_CryoConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_CryoFlineGauge_DevicesConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_CryoTurboGauge_CryoConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_CryoTurboGauge_DevicesConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_CryoTurboPump_DevicesConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_CryoTurboPump_GeneralConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_CryoVacGauge_CryoConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_CryoVacGauge_DevicesConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_Cryo_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_HX_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_HexFlineGauge_CryoConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_HexFlineGauge_DevicesConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_HexTurboGauge_CryoConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_HexTurboGauge_DevicesConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_HexTurboPump_DevicesConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_HexTurboPump_GeneralConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_HexVacGauge_CryoConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_HexVacGauge_DevicesConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_InstVacGauge_CryoConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_InstVacGauge_DevicesConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_Inst_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_IonPumps_CryoConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_IonPumps_DevicesConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_Maq20Cryo_DeviceConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_Maq20Cryo_DevicesConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_Maq20Ut_DeviceConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_Maq20Ut_DevicesConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_PDU_DevicesConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_PDU_VacuumConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_PeriodicTasks_GeneralConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_PeriodicTasks_timersConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_PumpCart_CryoConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_PumpCart_DevicesConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_VacPluto_DeviceConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_VacPluto_DevicesConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_VacuumConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_daq_monitor_PeriodicTasks_GeneralConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_daq_monitor_PeriodicTasks_timersConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_daq_monitor_Stats_StatisticsConfiguration.idl
@@ -356,44 +337,46 @@ Salgen MTCamera Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_image_handling_PeriodicTasks_GeneralConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_image_handling_PeriodicTasks_timersConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_image_handling_StatusAggregator_GeneralConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_Autochanger_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_Autochanger_autochangerConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_Autochanger_readRateConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_Autochanger_sensorConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_Canbus0_canbusConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_Canbus0_controllerConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_Canbus0_nodeIDConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_Canbus0_sensorConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_Canbus0_serialNBConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_Canbus1_canbusConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_Canbus1_controllerConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_Canbus1_nodeIDConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_Canbus1_serialNBConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_Carousel_carouselConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_Carousel_readRateConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_Carousel_sensorConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_FilterIdentificator_sensorConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_FilterManager_filterConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_Loader_loaderConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_Loader_readRateConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_Loader_sensorConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_LockOutSensors_sensorConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_LockOutShunt_sensorConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_LpmEngineeringKeySensors_sensorConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_LpmLatchesStatus_sensorConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_LpmLinearRail1Status_sensorConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_LpmLinearRail2Status_sensorConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_LpmOnlineClampsStatus_sensorConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_OUT_AF0_Sensors_sensorConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_OUT_AF1_Sensors_sensorConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_OUT_AF3_Sensors_sensorConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_OUT_AIN_sensorConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_OUT_AOL_sensorConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_OUT_AP1_Sensors_sensorConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_OUT_AP2_Sensors_sensorConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_OUT_AP3_Sensors_sensorConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_PeriodicTasks_GeneralConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_PeriodicTasks_timersConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_Seneca1_DevicesConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_Seneca2_DevicesConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_TcpProxy_canbusConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_TcpProxy_controllerConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_TcpProxy_nodeIDConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_TcpProxy_sensorConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_TcpProxy_serialNBConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_TempCellXminus_LimitsConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_TempClampMotorXminus_LimitsConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_TempClampMotorXplus_LimitsConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_TempClampMotorYminus_LimitsConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_TempFrontBox_LimitsConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_TempLinearRailMotorXminus_LimitsConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_TempLinearRailMotorXplus_LimitsConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_TempRearBox_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_shutter_GeneralConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_shutter_timersConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_chiller_DeviceConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_chiller_DevicesConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_chiller_GeneralConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_chiller_LimitsConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_chiller_timersConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_thermal_DeviceConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_thermal_DevicesConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_thermal_GeneralConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_thermal_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_thermal_PicConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_thermal_RefrigConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_thermal_ThermalLimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_thermal_timersConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_summaryStatus.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_alertRaised.idl
 
@@ -467,28 +450,40 @@ Verify MTCamera revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_startRotateCarousel\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_imageReadoutParameters\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focalPlaneSummaryInfo\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_quadbox_BFR_DevicesConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_quadbox_BFR_LimitsConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_quadbox_BFR_QuadboxConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_quadbox_Maq20_DeviceConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_quadbox_Maq20_DevicesConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_quadbox_PDU_24VC_DevicesConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_quadbox_PDU_24VC_LimitsConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_quadbox_PDU_24VC_QuadboxConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_quadbox_PDU_24VD_DevicesConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_quadbox_PDU_24VD_LimitsConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_quadbox_PDU_24VD_QuadboxConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_quadbox_PDU_48V_DevicesConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_quadbox_PDU_48V_LimitsConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_quadbox_PDU_48V_QuadboxConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_quadbox_PDU_5V_DevicesConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_quadbox_PDU_5V_LimitsConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_quadbox_PDU_5V_QuadboxConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_quadbox_PeriodicTasksConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_quadbox_PeriodicTasks_GeneralConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_quadbox_PeriodicTasks_timersConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_quadbox_REB_Bulk_PS_DevicesConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_quadbox_REB_Bulk_PS_LimitsConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_quadbox_REB_Bulk_PS_QuadboxConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rebpowerConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rebpower_EmergencyResponseManagerConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rebpower_PeriodicTasksConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rebpower_EmergencyResponseManager_GeneralConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rebpower_GeneralConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rebpower_PeriodicTasks_GeneralConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rebpower_PeriodicTasks_timersConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rebpower_RebConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rebpower_RebTotalPower_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rebpower_Reb_GeneralConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rebpower_Reb_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rebpower_Rebps_DevicesConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rebpower_Rebps_GeneralConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rebpower_Rebps_LimitsConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rebpower_Rebps_PowerConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rebpower_Rebps_buildConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_hex_Cold1_LimitsConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_hex_Cold2_LimitsConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_hex_Cryo1_LimitsConfiguration\\) [a-z0-9]{8,}
@@ -502,6 +497,7 @@ Verify MTCamera revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_hex_Maq20_DevicesConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_hex_PeriodicTasks_GeneralConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_hex_PeriodicTasks_timersConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_hex_StatusAggregator_GeneralConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_refrig_Cryo1_DeviceConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_refrig_Cryo1_DevicesConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_refrig_Cryo1_LimitsConfiguration\\) [a-z0-9]{8,}
@@ -526,50 +522,43 @@ Verify MTCamera revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_refrig_PeriodicTasks_GeneralConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_refrig_PeriodicTasks_PicConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_refrig_PeriodicTasks_timersConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_AgentMonitorServiceConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_CIP1CConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_CIP1_IConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_CIP1_VConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_CIP2CConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_CIP2_IConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_CIP2_VConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_CIP3CConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_CIP3_IConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_CIP3_VConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_CIP4CConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_CIP4_IConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_CIP4_VConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_CIP5CConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_CIP5_IConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_CIP5_VConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_CIP6CConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_CIP6_IConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_CIP6_VConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_CryoVacConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_CryoVacGaugeConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_ForelineVacConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_ForelineVacGaugeConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_HeartbeatConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_Hex1VacConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_Hex1VacGaugeConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_Hex2VacConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_Hex2VacGaugeConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_IonPumpsConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_Monitor_checkConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_Monitor_publishConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_Monitor_updateConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_RuntimeInfoConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_SchedulersConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_TurboCurrentConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_TurboPowerConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_TurboPumpConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_TurboPumpTempConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_TurboSpeedConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_TurboVacConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_TurboVacGaugeConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_TurboVoltageConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_VacPlutoConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_Vacuum_stateConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_Cip_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_CryoFlineGauge_CryoConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_CryoFlineGauge_DevicesConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_CryoTurboGauge_CryoConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_CryoTurboGauge_DevicesConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_CryoTurboPump_DevicesConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_CryoTurboPump_GeneralConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_CryoVacGauge_CryoConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_CryoVacGauge_DevicesConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_Cryo_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_HX_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_HexFlineGauge_CryoConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_HexFlineGauge_DevicesConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_HexTurboGauge_CryoConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_HexTurboGauge_DevicesConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_HexTurboPump_DevicesConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_HexTurboPump_GeneralConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_HexVacGauge_CryoConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_HexVacGauge_DevicesConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_InstVacGauge_CryoConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_InstVacGauge_DevicesConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_Inst_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_IonPumps_CryoConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_IonPumps_DevicesConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_Maq20Cryo_DeviceConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_Maq20Cryo_DevicesConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_Maq20Ut_DeviceConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_Maq20Ut_DevicesConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_PDU_DevicesConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_PDU_VacuumConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_PeriodicTasks_GeneralConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_PeriodicTasks_timersConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_PumpCart_CryoConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_PumpCart_DevicesConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_VacPluto_DeviceConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_VacPluto_DevicesConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_VacuumConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_daq_monitor_PeriodicTasks_GeneralConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_daq_monitor_PeriodicTasks_timersConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_daq_monitor_Stats_StatisticsConfiguration\\) [a-z0-9]{8,}
@@ -612,44 +601,46 @@ Verify MTCamera revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_image_handling_PeriodicTasks_GeneralConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_image_handling_PeriodicTasks_timersConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_image_handling_StatusAggregator_GeneralConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_Autochanger_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_Autochanger_autochangerConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_Autochanger_readRateConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_Autochanger_sensorConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_Canbus0_canbusConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_Canbus0_controllerConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_Canbus0_nodeIDConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_Canbus0_sensorConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_Canbus0_serialNBConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_Canbus1_canbusConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_Canbus1_controllerConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_Canbus1_nodeIDConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_Canbus1_serialNBConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_Carousel_carouselConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_Carousel_readRateConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_Carousel_sensorConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_FilterIdentificator_sensorConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_FilterManager_filterConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_Loader_loaderConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_Loader_readRateConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_Loader_sensorConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_LockOutSensors_sensorConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_LockOutShunt_sensorConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_LpmEngineeringKeySensors_sensorConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_LpmLatchesStatus_sensorConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_LpmLinearRail1Status_sensorConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_LpmLinearRail2Status_sensorConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_LpmOnlineClampsStatus_sensorConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_OUT_AF0_Sensors_sensorConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_OUT_AF1_Sensors_sensorConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_OUT_AF3_Sensors_sensorConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_OUT_AIN_sensorConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_OUT_AOL_sensorConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_OUT_AP1_Sensors_sensorConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_OUT_AP2_Sensors_sensorConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_OUT_AP3_Sensors_sensorConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_PeriodicTasks_GeneralConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_PeriodicTasks_timersConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_Seneca1_DevicesConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_Seneca2_DevicesConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_TcpProxy_canbusConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_TcpProxy_controllerConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_TcpProxy_nodeIDConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_TcpProxy_sensorConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_TcpProxy_serialNBConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_TempCellXminus_LimitsConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_TempClampMotorXminus_LimitsConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_TempClampMotorXplus_LimitsConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_TempClampMotorYminus_LimitsConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_TempFrontBox_LimitsConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_TempLinearRailMotorXminus_LimitsConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_TempLinearRailMotorXplus_LimitsConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_TempRearBox_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_shutter_GeneralConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_shutter_timersConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_chiller_DeviceConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_chiller_DevicesConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_chiller_GeneralConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_chiller_LimitsConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_chiller_timersConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_thermal_DeviceConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_thermal_DevicesConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_thermal_GeneralConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_thermal_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_thermal_PicConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_thermal_RefrigConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_thermal_ThermalLimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_thermal_timersConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_summaryStatus\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_alertRaised\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_quadbox_BFR\\) [a-z0-9]{8,}
@@ -659,6 +650,7 @@ Verify MTCamera revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_quadbox_PDU_5V\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_quadbox_REB_Bulk_PS\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_rebpower_Reb\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_rebpower_RebTotalPower\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_rebpower_Rebps\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_hex_Cold1\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_hex_Cold2\\) [a-z0-9]{8,}
@@ -674,28 +666,10 @@ Verify MTCamera revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_refrig_Cryo4\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_refrig_Cryo5\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_refrig_Cryo6\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vacuum_CIP1_I\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vacuum_CIP1_V\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vacuum_CIP2_I\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vacuum_CIP2_V\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vacuum_CIP3_I\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vacuum_CIP3_V\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vacuum_CIP4_I\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vacuum_CIP4_V\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vacuum_CIP5_I\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vacuum_CIP5_V\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vacuum_CIP6_I\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vacuum_CIP6_V\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vacuum_CryoVac\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vacuum_ForelineVac\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vacuum_Hex1Vac\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vacuum_Hex2Vac\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vacuum_TurboCurrent\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vacuum_TurboPower\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vacuum_TurboPumpTemp\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vacuum_TurboSpeed\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vacuum_TurboVac\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vacuum_TurboVoltage\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vacuum_Cip\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vacuum_Cryo\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vacuum_HX\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vacuum_Inst\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_daq_monitor_Reb_Trending\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_daq_monitor_Store\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_daq_monitor_Sum_Trending\\) [a-z0-9]{8,}
@@ -704,64 +678,56 @@ Verify MTCamera revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_focal_plane_RebTotalPower\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_focal_plane_RebsAverageTemp6\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_focal_plane_Segment\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_AcSensorsGateway\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_AcTruckXminus\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_AcTruckXminusController\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_AcTruckXplus\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_AcTruckXplusController\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Accelerobf\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Ai814\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Autochanger\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_AutochangerTrucks\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_BrakeSystemGateway\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Carousel\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_CarouselController\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Carrier\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_CarrierController\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_CcsVersions\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_ClampXminus1\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_ClampXminus2\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_ClampXminus3\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_ClampXminus4\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_ClampXminus5\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_ClampXminusController\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_ClampXplus1\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_ClampXplus2\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_ClampXplus3\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_ClampXplus4\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_ClampXplus5\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_ClampXplusController\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Config\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Hooks\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_HooksController\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Hyttc580\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_LatchXminus\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_LatchXminusController\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_LatchXplus\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_LatchXplusController\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Latches\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Loader\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_LoaderPlutoGateway\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_OnlineClampXminus\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_OnlineClampXminusController\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_OnlineClampXplus\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_OnlineClampXplusController\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_OnlineClampYminus\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_OnlineClampYminusController\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_OnlineClamps\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_OnlineStrainGauge\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_ProximitySensorsDevice\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Pt100\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_RuntimeInfo\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Socket1\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Socket2\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Socket3\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Socket4\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Socket5\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_TempSensorsDevice1\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_TempSensorsDevice2\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Autochanger_AutochangerTrucks_Trending\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Autochanger_Latches_Trending\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Autochanger_OnlineClamps_Trending\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Autochanger_Temperatures\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Canbus0_AcSensorsGateway_Trending\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Canbus0_AcTruckXminusController_Trending\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Canbus0_AcTruckXplusController_Trending\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Canbus0_Accelerobf_Trending\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Canbus0_Ai814_Trending\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Canbus0_BrakeSystemGateway_Trending\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Canbus0_CarouselController_Trending\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Canbus0_ClampXminusController_Trending\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Canbus0_ClampXplusController_Trending\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Canbus0_Hyttc580_Trending\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Canbus0_LatchXminusController_Trending\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Canbus0_LatchXplusController_Trending\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Canbus0_OnlineClampXminusController_Trending\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Canbus0_OnlineClampXplusController_Trending\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Canbus0_OnlineClampYminusController_Trending\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Canbus0_OnlineStrainGauge_Trending\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Canbus0_ProximitySensorsDevice_Trending\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Canbus0_Pt100_Trending\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Canbus0_TempSensorsDevice1_Trending\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Canbus0_TempSensorsDevice2_Trending\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Canbus1_CarrierController_Trending\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Canbus1_HooksController_Trending\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Canbus1_LoaderPlutoGateway_Trending\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Carousel_Socket1_Trending\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Carousel_Socket2_Trending\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Carousel_Socket3_Trending\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Carousel_Socket4_Trending\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Carousel_Socket5_Trending\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Carousel_Trending\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Duration_Autochanger_Trending\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Duration_Carousel_Trending\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Duration_Loader_Trending\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Duration_Trending\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Fcs_Mcm_Trending\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Loader_Carrier_Trending\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Loader_Hooks_Trending\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Trending\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_shutter_Trending\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_chiller_Chiller\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_chiller_FParam_Trending\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_chiller_Maq20\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_thermal_Cold_Temp\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_thermal_Cryo_Temp\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_thermal_Rtd\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_thermal_Trim\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_thermal_Trim_Htrs\\) [a-z0-9]{8,}
 
 Salgen MTCamera IDL
     [Documentation]    Generate the revCoded IDL for ${subSystem}
@@ -792,6 +758,7 @@ Salgen MTCamera Java
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_quadbox_PDU_5V.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_quadbox_REB_Bulk_PS.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_rebpower_Reb.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_rebpower_RebTotalPower.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_rebpower_Rebps.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_hex_Cold1.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_hex_Cold2.idl
@@ -807,28 +774,10 @@ Salgen MTCamera Java
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_refrig_Cryo4.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_refrig_Cryo5.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_refrig_Cryo6.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuum_CIP1_I.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuum_CIP1_V.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuum_CIP2_I.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuum_CIP2_V.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuum_CIP3_I.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuum_CIP3_V.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuum_CIP4_I.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuum_CIP4_V.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuum_CIP5_I.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuum_CIP5_V.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuum_CIP6_I.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuum_CIP6_V.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuum_CryoVac.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuum_ForelineVac.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuum_Hex1Vac.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuum_Hex2Vac.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuum_TurboCurrent.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuum_TurboPower.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuum_TurboPumpTemp.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuum_TurboSpeed.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuum_TurboVac.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuum_TurboVoltage.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuum_Cip.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuum_Cryo.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuum_HX.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuum_Inst.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_daq_monitor_Reb_Trending.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_daq_monitor_Store.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_daq_monitor_Sum_Trending.idl
@@ -837,66 +786,58 @@ Salgen MTCamera Java
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_focal_plane_RebTotalPower.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_focal_plane_RebsAverageTemp6.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_focal_plane_Segment.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_AcSensorsGateway.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_AcTruckXminus.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_AcTruckXminusController.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_AcTruckXplus.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_AcTruckXplusController.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Accelerobf.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Ai814.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Autochanger.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_AutochangerTrucks.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_BrakeSystemGateway.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Carousel.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_CarouselController.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Carrier.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_CarrierController.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_CcsVersions.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_ClampXminus1.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_ClampXminus2.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_ClampXminus3.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_ClampXminus4.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_ClampXminus5.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_ClampXminusController.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_ClampXplus1.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_ClampXplus2.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_ClampXplus3.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_ClampXplus4.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_ClampXplus5.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_ClampXplusController.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Config.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Hooks.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_HooksController.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Hyttc580.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_LatchXminus.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_LatchXminusController.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_LatchXplus.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_LatchXplusController.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Latches.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Loader.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_LoaderPlutoGateway.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_OnlineClampXminus.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_OnlineClampXminusController.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_OnlineClampXplus.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_OnlineClampXplusController.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_OnlineClampYminus.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_OnlineClampYminusController.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_OnlineClamps.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_OnlineStrainGauge.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_ProximitySensorsDevice.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Pt100.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_RuntimeInfo.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Socket1.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Socket2.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Socket3.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Socket4.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Socket5.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_TempSensorsDevice1.idl
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_TempSensorsDevice2.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Autochanger_AutochangerTrucks_Trending.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Autochanger_Latches_Trending.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Autochanger_OnlineClamps_Trending.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Autochanger_Temperatures.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Canbus0_AcSensorsGateway_Trending.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Canbus0_AcTruckXminusController_Trending.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Canbus0_AcTruckXplusController_Trending.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Canbus0_Accelerobf_Trending.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Canbus0_Ai814_Trending.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Canbus0_BrakeSystemGateway_Trending.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Canbus0_CarouselController_Trending.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Canbus0_ClampXminusController_Trending.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Canbus0_ClampXplusController_Trending.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Canbus0_Hyttc580_Trending.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Canbus0_LatchXminusController_Trending.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Canbus0_LatchXplusController_Trending.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Canbus0_OnlineClampXminusController_Trending.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Canbus0_OnlineClampXplusController_Trending.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Canbus0_OnlineClampYminusController_Trending.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Canbus0_OnlineStrainGauge_Trending.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Canbus0_ProximitySensorsDevice_Trending.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Canbus0_Pt100_Trending.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Canbus0_TempSensorsDevice1_Trending.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Canbus0_TempSensorsDevice2_Trending.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Canbus1_CarrierController_Trending.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Canbus1_HooksController_Trending.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Canbus1_LoaderPlutoGateway_Trending.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Carousel_Socket1_Trending.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Carousel_Socket2_Trending.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Carousel_Socket3_Trending.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Carousel_Socket4_Trending.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Carousel_Socket5_Trending.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Carousel_Trending.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Duration_Autochanger_Trending.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Duration_Carousel_Trending.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Duration_Loader_Trending.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Duration_Trending.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Fcs_Mcm_Trending.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Loader_Carrier_Trending.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Loader_Hooks_Trending.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Trending.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_shutter_Trending.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_chiller_Chiller.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_chiller_FParam_Trending.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_chiller_Maq20.idl
-    Should Contain X Times    ${output.stdout}    javac : Done Publisher    110
-    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    110
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_thermal_Cold_Temp.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_thermal_Cryo_Temp.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_thermal_Rtd.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_thermal_Trim.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_thermal_Trim_Htrs.idl
+    Should Contain X Times    ${output.stdout}    javac : Done Publisher    85
+    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    85
     Directory Should Exist    ${SALWorkDir}/${subSystem}/java
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
