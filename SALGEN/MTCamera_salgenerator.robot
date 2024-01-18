@@ -120,6 +120,10 @@ Salgen MTCamera Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_thermal_Rtd.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_thermal_Trim.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_thermal_Trim_Htrs.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_utiltrunk_Body.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_utiltrunk_MPC.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_utiltrunk_UT.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_utiltrunk_VPC.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_exitControl.idl
@@ -304,7 +308,6 @@ Salgen MTCamera Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_daq_monitor_Store_StoreConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focal_plane_Ccd_HardwareIdConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focal_plane_Ccd_LimitsConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focal_plane_Ccd_RaftsConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focal_plane_ImageDatabaseService_GeneralConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focal_plane_ImageNameService_GeneralConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_focal_plane_InstrumentConfig_InstrumentConfiguration.idl
@@ -377,6 +380,31 @@ Salgen MTCamera Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_thermal_RefrigConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_thermal_ThermalLimitsConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_thermal_timersConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_BFR_DevicesConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_BFR_UtilConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_BodyMaq20_DeviceConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_BodyMaq20_DevicesConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_Body_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_CryoMaq20_DeviceConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_CryoMaq20_DevicesConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_MPCFan_PicConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_MPC_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_PDU_48V_DevicesConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_PDU_48V_UtilConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_PeriodicTasks_GeneralConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_PeriodicTasks_PicConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_PeriodicTasks_timersConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_Pluto_DeviceConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_Pluto_DevicesConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_Telescope_DevicesConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_UTFan_PicConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_UT_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_UtMaq20_DeviceConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_UtMaq20_DevicesConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_UtilConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_VPCFan_PicConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_VPCHtrs_VpcConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_VPC_LimitsConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_summaryStatus.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_alertRaised.idl
 
@@ -568,7 +596,6 @@ Verify MTCamera revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_daq_monitor_Store_StoreConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focal_plane_Ccd_HardwareIdConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focal_plane_Ccd_LimitsConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focal_plane_Ccd_RaftsConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focal_plane_ImageDatabaseService_GeneralConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focal_plane_ImageNameService_GeneralConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_focal_plane_InstrumentConfig_InstrumentConfiguration\\) [a-z0-9]{8,}
@@ -641,6 +668,31 @@ Verify MTCamera revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_thermal_RefrigConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_thermal_ThermalLimitsConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_thermal_timersConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_BFR_DevicesConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_BFR_UtilConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_BodyMaq20_DeviceConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_BodyMaq20_DevicesConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_Body_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_CryoMaq20_DeviceConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_CryoMaq20_DevicesConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_MPCFan_PicConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_MPC_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_PDU_48V_DevicesConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_PDU_48V_UtilConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_PeriodicTasks_GeneralConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_PeriodicTasks_PicConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_PeriodicTasks_timersConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_Pluto_DeviceConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_Pluto_DevicesConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_Telescope_DevicesConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_UTFan_PicConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_UT_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_UtMaq20_DeviceConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_UtMaq20_DevicesConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_UtilConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_VPCFan_PicConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_VPCHtrs_VpcConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_VPC_LimitsConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_summaryStatus\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_alertRaised\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_quadbox_BFR\\) [a-z0-9]{8,}
@@ -728,6 +780,10 @@ Verify MTCamera revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_thermal_Rtd\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_thermal_Trim\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_thermal_Trim_Htrs\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_utiltrunk_Body\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_utiltrunk_MPC\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_utiltrunk_UT\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_utiltrunk_VPC\\) [a-z0-9]{8,}
 
 Salgen MTCamera IDL
     [Documentation]    Generate the revCoded IDL for ${subSystem}
@@ -836,8 +892,12 @@ Salgen MTCamera Java
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_thermal_Rtd.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_thermal_Trim.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_thermal_Trim_Htrs.idl
-    Should Contain X Times    ${output.stdout}    javac : Done Publisher    85
-    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    85
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_utiltrunk_Body.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_utiltrunk_MPC.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_utiltrunk_UT.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_utiltrunk_VPC.idl
+    Should Contain X Times    ${output.stdout}    javac : Done Publisher    89
+    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    89
     Directory Should Exist    ${SALWorkDir}/${subSystem}/java
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl

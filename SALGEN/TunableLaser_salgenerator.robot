@@ -51,6 +51,9 @@ Salgen TunableLaser Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setBurstMode.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setContinuousMode.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_triggerBurst.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_changeTempCtrlSetpoint.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_turnOnTempCtrl.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_turnOffTempCtrl.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_heartbeat.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_logLevel.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_logMessage.idl
@@ -67,6 +70,9 @@ Salgen TunableLaser Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_burstModeSet.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_continuousModeSet.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_burstCountSet.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_setPointChanged.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_tempCtrlOn.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_tempCtrlOff.idl
 
 Verify TunableLaser revCodes File
     [Documentation]    Ensure TunableLaser_revCodes.tcl contains 1 revcode per topic.
@@ -86,6 +92,9 @@ Verify TunableLaser revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setBurstMode\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setContinuousMode\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_triggerBurst\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_changeTempCtrlSetpoint\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_turnOnTempCtrl\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_turnOffTempCtrl\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_heartbeat\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_logLevel\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_logMessage\\) [a-z0-9]{8,}
@@ -102,6 +111,9 @@ Verify TunableLaser revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_burstModeSet\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_continuousModeSet\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_burstCountSet\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_setPointChanged\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_tempCtrlOn\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_tempCtrlOff\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_temperature\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_wavelength\\) [a-z0-9]{8,}
 
