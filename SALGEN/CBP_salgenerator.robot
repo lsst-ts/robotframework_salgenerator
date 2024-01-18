@@ -50,6 +50,7 @@ Salgen CBP Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_start.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_move.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_changeMask.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_changeMaskRotation.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setFocus.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_park.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_unpark.idl
@@ -79,6 +80,7 @@ Verify CBP revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_start\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_move\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_changeMask\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_changeMaskRotation\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setFocus\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_park\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_unpark\\) [a-z0-9]{8,}
