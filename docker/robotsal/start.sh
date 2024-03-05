@@ -1,13 +1,25 @@
 #!/bin/bash
 
-source $HOME/.bash_profile
-cp $HOME/trunk/ts_xml/sal_interfaces/*/*.xml $HOME/trunk/ts_sal/test
-cp $HOME/trunk/ts_xml/sal_interfaces/SALSubsystems.xml $HOME/trunk/ts_sal/test
-cp $HOME/trunk/ts_xml/sal_interfaces/SALGenerics.xml $HOME/trunk/ts_sal/test
-cd $HOME/trunk/robotframework_salgenerator/
-robot --outputdir $HOME/Reports --variable ContInt:true -e skipped --noncritical TSS* \
---variable SALVersion:3.8 --variable SALInstall:$HOME/trunk/ts_sal \
---variable OpenspliceRelease:'OpenSplice HDE Release' \
---variable OpenspliceVersion:V6.4.140320OSS --variable OpenspliceDate:2014-03-19 \
---variable PythonVersion:'Python 3.6.6' \
--A $HOME/trunk/robotframework_salgenerator/SalGen_Test.list
+# Setup Avro/Kafka files
+if [ -d $LSST_SDK_INSTALL ]; then
+    echo "Clearing out old build artifacts."
+    find $LSST_SDK_INSTALL/test/* -type d -exec rm -rf {} +
+    find $LSST_SDK_INSTALL/test/* -type f -name "*xml" -exec rm -f {} +
+    echo "Copying the Kafka/Avro libraries into $LSST_SDK_INSTALL"
+    cp -R $LSST_SAL_PREFIX/* $LSST_SDK_INSTALL
+else
+    echo "ERROR: Not found $LSST_SDK_INSTALL"
+fi
+
+# Setup XML files
+if [ -d $TS_XML_DIR ]; then
+    echo "Copying the XML filesinto $LSST_SDK_INSTALL/test"
+    cp $TS_XML_DIR/python/lsst/ts/xml/data/sal_interfaces/*/*.xml $LSST_SDK_INSTALL/test
+    cp $TS_XML_DIR/python/lsst/ts/xml/data/sal_interfaces/SALSubsystems.xml $LSST_SDK_INSTALL/test
+    cp $TS_XML_DIR/python/lsst/ts/xml/data/sal_interfaces/SALGenerics.xml $LSST_SDK_INSTALL/test
+else
+    echo "ERROR: Not found $TS_XML_DIR"
+fi
+
+# Return home
+cd $HOME
