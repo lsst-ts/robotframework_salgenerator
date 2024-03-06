@@ -1,13 +1,26 @@
 #!/bin/bash
 
-source $HOME/.bash_profile
-cp $HOME/trunk/ts_xml/sal_interfaces/*/*.xml $HOME/trunk/ts_sal/test
-cp $HOME/trunk/ts_xml/sal_interfaces/SALSubsystems.xml $HOME/trunk/ts_sal/test
-cp $HOME/trunk/ts_xml/sal_interfaces/SALGenerics.xml $HOME/trunk/ts_sal/test
-cd $HOME/trunk/robotframework_salgenerator/
-robot --outputdir $HOME/Reports --variable ContInt:true -e skipped --noncritical TSS* \
---variable SALVersion:3.8 --variable SALInstall:$HOME/trunk/ts_sal \
---variable OpenspliceRelease:'OpenSplice HDE Release' \
---variable OpenspliceVersion:V6.4.140320OSS --variable OpenspliceDate:2014-03-19 \
---variable PythonVersion:'Python 3.6.6' \
--A $HOME/trunk/robotframework_salgenerator/SalGen_Test.list
+# Setup Avro/Kafka files
+AVRO_RELEASE=1.11.1
+mkdir -p $LSST_SAL_PREFIX/include/avro
+mkdir -p $LSST_SAL_PREFIX/lib
+cd $HOME/external-packages/avro-src-${AVRO_RELEASE}/lang/c++
+cp ./build/lib* $LSST_SAL_PREFIX/lib/.
+cp ./build/avrogencpp $LSST_SAL_PREFIX/bin/.
+cp -r ./api/* $LSST_SAL_PREFIX/include/avro/.
+cp -r ./impl $LSST_SAL_PREFIX/include/.
+cd $HOME/external-packages/avro-src-${AVRO_RELEASE}/lang/c
+cp ./build/avrolib/lib64/lib* $LSST_SAL_PREFIX/lib/.
+cp -r ./build/avrolib/include/* $LSST_SAL_PREFIX/include/.
+cd $HOME/external-packages/avro-src-${AVRO_RELEASE}/lang/java
+cp ./avro/target/avro-1.11.1.jar $LSST_SAL_PREFIX/lib/.
+cp ./compiler/target/avro-compiler-1.11.1.jar $LSST_SAL_PREFIX/lib/.
+cp ./tools/target/avro-tools-1.11.1.jar $LSST_SAL_PREFIX/lib/.
+
+# Setup XML files
+cp $HOME/trunk/ts_xml/python/lsst/ts/xml/data/sal_interfaces/*/*.xml $HOME/trunk/ts_sal/test
+cp $HOME/trunk/ts_xml/python/lsst/ts/xml/data/sal_interfaces/SALSubsystems.xml $HOME/trunk/ts_sal/test
+cp $HOME/trunk/ts_xml/python/lsst/ts/xml/data/sal_interfaces/SALGenerics.xml $HOME/trunk/ts_sal/test
+
+# Return home
+cd $HOME
