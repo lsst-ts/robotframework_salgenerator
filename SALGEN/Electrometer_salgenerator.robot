@@ -71,6 +71,8 @@ Salgen Electrometer Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_settingsAppliedSerConf.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_deviceErrorCode.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_voltageSourceChanged.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_logicTimerStart.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_logicTimerEnd.idl
 
 Verify Electrometer revCodes File
     [Documentation]    Ensure Electrometer_revCodes.tcl contains 1 revcode per topic.
@@ -113,6 +115,8 @@ Verify Electrometer revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_settingsAppliedSerConf\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_deviceErrorCode\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_voltageSourceChanged\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_logicTimerStart\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_logicTimerEnd\\) [a-z0-9]{8,}
 
 Salgen Electrometer IDL
     [Documentation]    Generate the revCoded IDL for ${subSystem}
