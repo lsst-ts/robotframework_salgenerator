@@ -98,6 +98,7 @@ Salgen GenericCamera Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_autoExposureStopped.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_streamingModeStarted.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_streamingModeStopped.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_endOfStreaming.idl
 
 Verify GenericCamera revCodes File
     [Documentation]    Ensure GenericCamera_revCodes.tcl contains 1 revcode per topic.
@@ -165,6 +166,7 @@ Verify GenericCamera revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_autoExposureStopped\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_streamingModeStarted\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_streamingModeStopped\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_endOfStreaming\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_temperature\\) [a-z0-9]{8,}
 
 Salgen GenericCamera IDL
