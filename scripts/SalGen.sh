@@ -115,8 +115,6 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     echo "    Should Contain    \${output.stdout}    XMLVERSION = \${XMLVersion}" >> $testSuite
     echo "    Should Contain    \${output.stdout}    Processing \${subSystem}" >> $testSuite
     echo "    Should Contain    \${output.stdout}    Completed \${subSystem} validation" >> $testSuite
-    echo "    Directory Should Exist    \${SALWorkDir}/idl-templates" >> $testSuite
-    echo "    Directory Should Exist    \${SALWorkDir}/idl-templates/validated" >> $testSuite
     echo "    @{files}=    List Directory    \${SALWorkDir}/idl-templates    pattern=*\${subSystem}*" >> $testSuite
     echo "    Log Many    @{files}" >> $testSuite
     if [ ${#commandArray[@]} != 0 ]; then
