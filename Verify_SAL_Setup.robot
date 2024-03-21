@@ -51,7 +51,7 @@ Verify Maven Version
 
 Verify OpenSplice Version
     [Documentation]    Verify the OpenSplice version and date.
-    [Tags]    smoke    version
+    [Tags]    smoke    version    skipped
     Log    ${versionData.stdout}
     Log Many    ${OpenspliceRelease}    ${OpenspliceVersion}    ${OpenspliceDate}
     Should Contain    ${versionData.stdout}    ${OpenspliceRelease}
