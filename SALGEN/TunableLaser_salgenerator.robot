@@ -37,6 +37,7 @@ Salgen TunableLaser Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_ackcmd.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_temperature.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_wavelength.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_temperature.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_exitControl.idl
@@ -48,6 +49,7 @@ Salgen TunableLaser Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_stopPropagateLaser.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_clearLaserFault.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_changeWavelength.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setOpticalConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setBurstMode.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_setContinuousMode.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_triggerBurst.idl
@@ -67,12 +69,15 @@ Salgen TunableLaser Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_laserInstabilityFlag.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_detailedState.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_wavelengthChanged.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_opticalConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_burstModeSet.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_continuousModeSet.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_burstCountSet.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_setPointChanged.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_tempCtrlOn.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_tempCtrlOff.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_laserFanState.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_interlockState.idl
 
 Verify TunableLaser revCodes File
     [Documentation]    Ensure TunableLaser_revCodes.tcl contains 1 revcode per topic.
@@ -89,6 +94,7 @@ Verify TunableLaser revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_stopPropagateLaser\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_clearLaserFault\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_changeWavelength\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setOpticalConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setBurstMode\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_setContinuousMode\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_triggerBurst\\) [a-z0-9]{8,}
@@ -108,14 +114,18 @@ Verify TunableLaser revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_laserInstabilityFlag\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_detailedState\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_wavelengthChanged\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_opticalConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_burstModeSet\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_continuousModeSet\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_burstCountSet\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_setPointChanged\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_tempCtrlOn\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_tempCtrlOff\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_laserFanState\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_interlockState\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_temperature\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_wavelength\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_temperature\\) [a-z0-9]{8,}
 
 Salgen TunableLaser IDL
     [Documentation]    Generate the revCoded IDL for ${subSystem}

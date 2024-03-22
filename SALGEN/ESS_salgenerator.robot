@@ -48,6 +48,14 @@ Salgen ESS Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_electricFieldStrength.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_lightningStrikeStatus.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_spectrumAnalyzer.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_earthquakeBroadBandHighGain.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_earthquakeBroadBandLowGain.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_earthquakeHighBroadBandHighGain.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_earthquakeHighBroadBandLowGain.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_earthquakeLongPeriodHighGain.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_earthquakeLongPeriodLowGain.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_earthquakeUltraLongPeriodHighGain.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_earthquakeVeryLongPeriodHighGain.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_exitControl.idl
@@ -109,6 +117,14 @@ Verify ESS revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_electricFieldStrength\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_lightningStrikeStatus\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_spectrumAnalyzer\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_earthquakeBroadBandHighGain\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_earthquakeBroadBandLowGain\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_earthquakeHighBroadBandHighGain\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_earthquakeHighBroadBandLowGain\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_earthquakeLongPeriodHighGain\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_earthquakeLongPeriodLowGain\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_earthquakeUltraLongPeriodHighGain\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_earthquakeVeryLongPeriodHighGain\\) [a-z0-9]{8,}
 
 Salgen ESS IDL
     [Documentation]    Generate the revCoded IDL for ${subSystem}
@@ -148,8 +164,16 @@ Salgen ESS C++
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_electricFieldStrength.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_lightningStrikeStatus.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_spectrumAnalyzer.idl
-    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    14
-    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    14
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_earthquakeBroadBandHighGain.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_earthquakeBroadBandLowGain.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_earthquakeHighBroadBandHighGain.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_earthquakeHighBroadBandLowGain.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_earthquakeLongPeriodHighGain.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_earthquakeLongPeriodLowGain.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_earthquakeUltraLongPeriodHighGain.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_earthquakeVeryLongPeriodHighGain.idl
+    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    22
+    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    22
     Should Contain X Times    ${output.stdout}    cpp : Done Commander    1
     Should Contain X Times    ${output.stdout}    cpp : Done Event/Logger    1
 
@@ -181,6 +205,14 @@ Verify ESS Telemetry directories
     Directory Should Exist    ${SALWorkDir}/${subSystem}_electricFieldStrength
     Directory Should Exist    ${SALWorkDir}/${subSystem}_lightningStrikeStatus
     Directory Should Exist    ${SALWorkDir}/${subSystem}_spectrumAnalyzer
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_earthquakeBroadBandHighGain
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_earthquakeBroadBandLowGain
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_earthquakeHighBroadBandHighGain
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_earthquakeHighBroadBandLowGain
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_earthquakeLongPeriodHighGain
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_earthquakeLongPeriodLowGain
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_earthquakeUltraLongPeriodHighGain
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_earthquakeVeryLongPeriodHighGain
 
 Verify ESS C++ Telemetry Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -213,6 +245,22 @@ Verify ESS C++ Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}_lightningStrikeStatus/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_spectrumAnalyzer/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_spectrumAnalyzer/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_earthquakeBroadBandHighGain/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_earthquakeBroadBandHighGain/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_earthquakeBroadBandLowGain/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_earthquakeBroadBandLowGain/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_earthquakeHighBroadBandHighGain/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_earthquakeHighBroadBandHighGain/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_earthquakeHighBroadBandLowGain/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_earthquakeHighBroadBandLowGain/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_earthquakeLongPeriodHighGain/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_earthquakeLongPeriodHighGain/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_earthquakeLongPeriodLowGain/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_earthquakeLongPeriodLowGain/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_earthquakeUltraLongPeriodHighGain/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_earthquakeUltraLongPeriodHighGain/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_earthquakeVeryLongPeriodHighGain/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_earthquakeVeryLongPeriodHighGain/cpp/standalone/sacpp_${subSystem}_sub
 
 Verify ESS C++ Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -286,8 +334,16 @@ Salgen ESS Java
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_electricFieldStrength.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_lightningStrikeStatus.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_spectrumAnalyzer.idl
-    Should Contain X Times    ${output.stdout}    javac : Done Publisher    14
-    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    14
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_earthquakeBroadBandHighGain.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_earthquakeBroadBandLowGain.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_earthquakeHighBroadBandHighGain.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_earthquakeHighBroadBandLowGain.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_earthquakeLongPeriodHighGain.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_earthquakeLongPeriodLowGain.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_earthquakeUltraLongPeriodHighGain.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_earthquakeVeryLongPeriodHighGain.idl
+    Should Contain X Times    ${output.stdout}    javac : Done Publisher    22
+    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    22
     Directory Should Exist    ${SALWorkDir}/${subSystem}/java
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
@@ -496,6 +552,22 @@ Verify ESS TEST RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_lightningStrikeStatus_subscriber
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_spectrumAnalyzer_publisher
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_spectrumAnalyzer_subscriber
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_earthquakeBroadBandHighGain_publisher
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_earthquakeBroadBandHighGain_subscriber
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_earthquakeBroadBandLowGain_publisher
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_earthquakeBroadBandLowGain_subscriber
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_earthquakeHighBroadBandHighGain_publisher
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_earthquakeHighBroadBandHighGain_subscriber
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_earthquakeHighBroadBandLowGain_publisher
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_earthquakeHighBroadBandLowGain_subscriber
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_earthquakeLongPeriodHighGain_publisher
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_earthquakeLongPeriodHighGain_subscriber
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_earthquakeLongPeriodLowGain_publisher
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_earthquakeLongPeriodLowGain_subscriber
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_earthquakeUltraLongPeriodHighGain_publisher
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_earthquakeUltraLongPeriodHighGain_subscriber
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_earthquakeVeryLongPeriodHighGain_publisher
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_earthquakeVeryLongPeriodHighGain_subscriber
 
 Cleanup stdout and stderr Files
     [Tags]
