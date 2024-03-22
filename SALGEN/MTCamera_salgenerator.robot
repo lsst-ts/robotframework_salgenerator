@@ -61,6 +61,7 @@ Salgen MTCamera Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vacuum_Cip.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vacuum_Cryo.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vacuum_HX.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vacuum_Hip.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vacuum_Inst.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_daq_monitor_Reb_Trending.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_daq_monitor_Store.idl
@@ -70,6 +71,14 @@ Salgen MTCamera Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_focal_plane_RebTotalPower.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_focal_plane_RebsAverageTemp6.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_focal_plane_Segment.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_mpm_CLP_RTD_03.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_mpm_CLP_RTD_05.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_mpm_CLP_RTD_50.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_mpm_CLP_RTD_55.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_mpm_CYP_RTD_12.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_mpm_CYP_RTD_14.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_mpm_CYP_RTD_31.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_mpm_CYP_RTD_43.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Autochanger_AutochangerTrucks_Trending.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Autochanger_Latches_Trending.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_fcs_Autochanger_OnlineClamps_Trending.idl
@@ -146,6 +155,7 @@ Salgen MTCamera Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_play.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_playlist.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_alert.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_wakeFilterChanger.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_heartbeat.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_logLevel.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_logMessage.idl
@@ -281,6 +291,7 @@ Salgen MTCamera Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_HexTurboPump_GeneralConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_HexVacGauge_CryoConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_HexVacGauge_DevicesConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_Hip_LimitsConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_InstVacGauge_CryoConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_InstVacGauge_DevicesConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_vacuum_Inst_LimitsConfiguration.idl
@@ -340,6 +351,18 @@ Salgen MTCamera Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_image_handling_PeriodicTasks_GeneralConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_image_handling_PeriodicTasks_timersConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_image_handling_StatusAggregator_GeneralConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_mpm_CLP_RTD_03_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_mpm_CLP_RTD_05_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_mpm_CLP_RTD_50_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_mpm_CLP_RTD_55_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_mpm_CYP_RTD_12_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_mpm_CYP_RTD_14_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_mpm_CYP_RTD_31_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_mpm_CYP_RTD_43_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_mpm_PeriodicTasks_GeneralConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_mpm_PeriodicTasks_timersConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_mpm_Pluto_DeviceConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_mpm_Pluto_DevicesConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_Autochanger_LimitsConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_Autochanger_autochangerConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_fcs_Autochanger_readRateConfiguration.idl
@@ -407,6 +430,7 @@ Salgen MTCamera Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_VPC_LimitsConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_summaryStatus.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_alertRaised.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_filterChangerPowerStatus.idl
 
 Verify MTCamera revCodes File
     [Documentation]    Ensure MTCamera_revCodes.tcl contains 1 revcode per topic.
@@ -434,6 +458,7 @@ Verify MTCamera revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_play\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_playlist\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_alert\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_wakeFilterChanger\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_heartbeat\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_logLevel\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_logMessage\\) [a-z0-9]{8,}
@@ -569,6 +594,7 @@ Verify MTCamera revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_HexTurboPump_GeneralConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_HexVacGauge_CryoConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_HexVacGauge_DevicesConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_Hip_LimitsConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_InstVacGauge_CryoConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_InstVacGauge_DevicesConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_vacuum_Inst_LimitsConfiguration\\) [a-z0-9]{8,}
@@ -628,6 +654,18 @@ Verify MTCamera revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_image_handling_PeriodicTasks_GeneralConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_image_handling_PeriodicTasks_timersConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_image_handling_StatusAggregator_GeneralConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_mpm_CLP_RTD_03_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_mpm_CLP_RTD_05_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_mpm_CLP_RTD_50_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_mpm_CLP_RTD_55_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_mpm_CYP_RTD_12_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_mpm_CYP_RTD_14_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_mpm_CYP_RTD_31_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_mpm_CYP_RTD_43_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_mpm_PeriodicTasks_GeneralConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_mpm_PeriodicTasks_timersConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_mpm_Pluto_DeviceConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_mpm_Pluto_DevicesConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_Autochanger_LimitsConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_Autochanger_autochangerConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_fcs_Autochanger_readRateConfiguration\\) [a-z0-9]{8,}
@@ -695,6 +733,7 @@ Verify MTCamera revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_VPC_LimitsConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_summaryStatus\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_alertRaised\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_filterChangerPowerStatus\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_quadbox_BFR\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_quadbox_PDU_24VC\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_quadbox_PDU_24VD\\) [a-z0-9]{8,}
@@ -721,6 +760,7 @@ Verify MTCamera revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vacuum_Cip\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vacuum_Cryo\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vacuum_HX\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vacuum_Hip\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vacuum_Inst\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_daq_monitor_Reb_Trending\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_daq_monitor_Store\\) [a-z0-9]{8,}
@@ -730,6 +770,14 @@ Verify MTCamera revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_focal_plane_RebTotalPower\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_focal_plane_RebsAverageTemp6\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_focal_plane_Segment\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_mpm_CLP_RTD_03\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_mpm_CLP_RTD_05\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_mpm_CLP_RTD_50\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_mpm_CLP_RTD_55\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_mpm_CYP_RTD_12\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_mpm_CYP_RTD_14\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_mpm_CYP_RTD_31\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_mpm_CYP_RTD_43\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Autochanger_AutochangerTrucks_Trending\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Autochanger_Latches_Trending\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_fcs_Autochanger_OnlineClamps_Trending\\) [a-z0-9]{8,}
@@ -833,6 +881,7 @@ Salgen MTCamera Java
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuum_Cip.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuum_Cryo.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuum_HX.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuum_Hip.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuum_Inst.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_daq_monitor_Reb_Trending.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_daq_monitor_Store.idl
@@ -842,6 +891,14 @@ Salgen MTCamera Java
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_focal_plane_RebTotalPower.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_focal_plane_RebsAverageTemp6.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_focal_plane_Segment.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_mpm_CLP_RTD_03.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_mpm_CLP_RTD_05.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_mpm_CLP_RTD_50.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_mpm_CLP_RTD_55.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_mpm_CYP_RTD_12.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_mpm_CYP_RTD_14.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_mpm_CYP_RTD_31.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_mpm_CYP_RTD_43.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Autochanger_AutochangerTrucks_Trending.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Autochanger_Latches_Trending.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Autochanger_OnlineClamps_Trending.idl
@@ -896,8 +953,8 @@ Salgen MTCamera Java
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_utiltrunk_MPC.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_utiltrunk_UT.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_utiltrunk_VPC.idl
-    Should Contain X Times    ${output.stdout}    javac : Done Publisher    89
-    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    89
+    Should Contain X Times    ${output.stdout}    javac : Done Publisher    98
+    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    98
     Directory Should Exist    ${SALWorkDir}/${subSystem}/java
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl

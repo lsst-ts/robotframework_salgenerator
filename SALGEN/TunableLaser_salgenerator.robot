@@ -37,6 +37,7 @@ Salgen TunableLaser Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_ackcmd.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_temperature.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_wavelength.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_temperature.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_exitControl.idl
@@ -75,6 +76,8 @@ Salgen TunableLaser Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_setPointChanged.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_tempCtrlOn.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_tempCtrlOff.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_laserFanState.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_interlockState.idl
 
 Verify TunableLaser revCodes File
     [Documentation]    Ensure TunableLaser_revCodes.tcl contains 1 revcode per topic.
@@ -118,8 +121,11 @@ Verify TunableLaser revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_setPointChanged\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_tempCtrlOn\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_tempCtrlOff\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_laserFanState\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_interlockState\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_temperature\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_wavelength\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_temperature\\) [a-z0-9]{8,}
 
 Salgen TunableLaser IDL
     [Documentation]    Generate the revCoded IDL for ${subSystem}
