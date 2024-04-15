@@ -40,6 +40,7 @@ Salgen HVAC Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_chiller02P01.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_chiller03P01.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_generalP01.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_glycolSensor.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_valvulaP01.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vea01P01.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_vec01P01.idl
@@ -260,6 +261,7 @@ Verify HVAC revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_chiller02P01\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_chiller03P01\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_generalP01\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_glycolSensor\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_valvulaP01\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vea01P01\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_vec01P01\\) [a-z0-9]{8,}
