@@ -32,9 +32,6 @@ Salgen Script Validate
     Directory Should Exist    ${SALWorkDir}/avro-templates
     @{files}=    List Directory    ${SALWorkDir}/avro-templates
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}_cmddef.tcl
-    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}_evtdef.tcl
-    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}_tlmdef.tcl
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}_metadata.tcl
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}_revCodes.tcl
     Directory Should Exist    ${SALWorkDir}/avro-templates/${subSystem}
@@ -44,15 +41,25 @@ Salgen Script Validate
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_Commands.xml
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_Events.xml
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_Generics.xml
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}_evtdef.tcl
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_heartbeat.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}_evtdef.tcl
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_logLevel.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}_evtdef.tcl
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_logMessage.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}_evtdef.tcl
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_softwareVersions.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}_evtdef.tcl
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_authList.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}_evtdef.tcl
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_largeFileObjectAvailable.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}_evtdef.tcl
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_checkpoints.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}_evtdef.tcl
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_description.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}_evtdef.tcl
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_metadata.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}_evtdef.tcl
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_state.json
 
 Salgen Script C++

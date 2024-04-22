@@ -1,0 +1,20 @@
+###  Test Suite list ###
+#  Change the title of the test results
+--name MainTel
+--output MAINTEL
+
+# List of test suites
+DDS_SALGEN/LaserTracker_salgenerator.robot
+DDS_SALGEN/LEDProjector_salgenerator.robot
+DDS_SALGEN/MTHexapod_salgenerator.robot
+DDS_SALGEN/MTAOS_salgenerator.robot
+DDS_SALGEN/MTAirCompressor_salgenerator.robot
+DDS_SALGEN/MTCamera_salgenerator.robot
+DDS_SALGEN/MTDome_salgenerator.robot
+DDS_SALGEN/MTDomeTrajectory_salgenerator.robot
+DDS_SALGEN/MTEEC_salgenerator.robot
+DDS_SALGEN/MTHeaderService_salgenerator.robot
+DDS_SALGEN/MTOODS_salgenerator.robot
+DDS_SALGEN/MTPtg_salgenerator.robot
+DDS_SALGEN/MTVMS_salgenerator.robot
+DDS_SALGEN/MTRotator_salgenerator.robot

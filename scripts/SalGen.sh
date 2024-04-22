@@ -118,9 +118,6 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     echo "    Directory Should Exist    \${SALWorkDir}/avro-templates" >> $testSuite
     echo "    @{files}=    List Directory    \${SALWorkDir}/avro-templates" >> $testSuite
     echo "    Log Many    @{files}" >> $testSuite
-    echo "    File Should Exist    \${SALWorkDir}/avro-templates/\${subSystem}_cmddef.tcl" >> $testSuite
-    echo "    File Should Exist    \${SALWorkDir}/avro-templates/\${subSystem}_evtdef.tcl" >> $testSuite
-    echo "    File Should Exist    \${SALWorkDir}/avro-templates/\${subSystem}_tlmdef.tcl" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/avro-templates/\${subSystem}_metadata.tcl" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/avro-templates/\${subSystem}_revCodes.tcl" >> $testSuite
     echo "    Directory Should Exist    \${SALWorkDir}/avro-templates/\${subSystem}" >> $testSuite
@@ -134,12 +131,15 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
         echo "    File Should Exist    \${SALWorkDir}/avro-templates/\${subSystem}/\${subSystem}_Telemetry.xml" >> $testSuite
     fi
     for topic in "${commandsArray[@]}"; do
+        echo "    File Should Exist    \${SALWorkDir}/avro-templates/\${subSystem}_cmddef.tcl" >> $testSuite
         echo "    File Should Exist    \${SALWorkDir}/avro-templates/\${subSystem}/\${subSystem}_command_${topic}.json" >> $testSuite
     done
     for topic in "${eventArray[@]}"; do
+        echo "    File Should Exist    \${SALWorkDir}/avro-templates/\${subSystem}_evtdef.tcl" >> $testSuite
         echo "    File Should Exist    \${SALWorkDir}/avro-templates/\${subSystem}/\${subSystem}_logevent_${topic}.json" >> $testSuite
     done
     for topic in "${telemetryArray[@]}"; do
+        echo "    File Should Exist    \${SALWorkDir}/avro-templates/\${subSystem}_tlmdef.tcl" >> $testSuite
         echo "    File Should Exist    \${SALWorkDir}/avro-templates/\${subSystem}/\${subSystem}_${topic}.json/" >> $testSuite
     done
     echo "" >> $testSuite
@@ -596,10 +596,10 @@ function createTestSuite() {
     #  desired capitalization format.
     #
     subSystemUp=$(capitializeSubsystem $subSystem)
-    testSuite=$workDir/KAFKA_SALGEN/${subSystemUp}_salgeneratorKafka.robot
+    testSuite=$workDir/SALGEN/${subSystemUp}_salgeneratorKafka.robot
         
     # Check to see if the TestSuite exists then, if it does, delete it.
-    clearTestSuites $subSystem "KAFKA_SALGEN" 
+    clearTestSuites $subSystem "SALGEN" 
         
     # Get XML topic definitions.  Not all subsystems have all types of topics.
     declare -a xmls=($(ls $HOME/trunk/ts_xml/python/lsst/ts/xml/data/sal_interfaces/$subSystem))

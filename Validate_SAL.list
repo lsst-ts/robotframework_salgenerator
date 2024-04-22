@@ -12,6 +12,6 @@
 --output VALIDATE
 
 # List of test suites
-Verify_SAL_DDS_Setup.robot
-DDS_SALGEN/Script_salgenerator.robot
-DDS_SALGEN/Test_salgenerator.robot
+Verify_SAL_Setup.robot
+SALGEN/Script_salgenerator.robot
+SALGEN/Test_salgenerator.robot
