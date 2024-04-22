@@ -22,6 +22,7 @@ Verify SAL Version
     Should Contain    ${versionData.stdout}    SAL development environment is configured
     Should Contain    ${versionData.stdout}    LSST middleware toolset environment
     Should Contain    ${versionData.stdout}    v${SALVersion}
+    Should Contain    ${versionData.stdout}    (Kafka) is configured.
     Should Be Empty    ${versionData.stderr}
     Should Be Equal As Integers    ${versionData.rc}    ${0}
 

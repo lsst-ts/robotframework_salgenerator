@@ -33,19 +33,19 @@ Salgen ATCamera Validate
     Directory Should Exist    ${SALWorkDir}/avro-templates
     @{files}=    List Directory    ${SALWorkDir}/avro-templates
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}_cmddef.tcl
-    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}_evtdef.tcl
-    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}_tlmdef.tcl
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}_metadata.tcl
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}_revCodes.tcl
     Directory Should Exist    ${SALWorkDir}/avro-templates/${subSystem}
     @{files}=    List Directory    ${SALWorkDir}/avro-templates/${subSystem}
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_hash_table.json
-    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_Commands.xml
-    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_Events.xml
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_Generics.xml
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_Commands.xml
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}_cmddef.tcl
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_Events.xml
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}_evtdef.tcl
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_Telemetry.xml
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}_tlmdef.tcl
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_heartbeat.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_logLevel.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_logMessage.json
@@ -193,23 +193,45 @@ Salgen ATCamera Java
     Should Not Contain    ${output.stdout}    error: package org.apache.kafka* does not exist
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_focal_plane_Ccd.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_focal_plane_Ccd java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_focal_plane_Ccd/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_focal_plane_Reb.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_focal_plane_Reb java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_focal_plane_Reb/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_focal_plane_RebTotalPower.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_focal_plane_RebTotalPower java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_focal_plane_RebTotalPower/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_focal_plane_RebsAverageTemp6.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_focal_plane_RebsAverageTemp6 java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_focal_plane_RebsAverageTemp6/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_daq_monitor_Reb_Trending.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_daq_monitor_Reb_Trending java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_daq_monitor_Reb_Trending/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_daq_monitor_Store.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_daq_monitor_Store java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_daq_monitor_Store/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_daq_monitor_Sum_Trending.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_daq_monitor_Sum_Trending java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_daq_monitor_Sum_Trending/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_power.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_power java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_power/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuum.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_vacuum java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_vacuum/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_bonn_shutter_Device.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_bonn_shutter_Device java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_bonn_shutter_Device/java/src/org/lsst/sal/salUtils.class
     Directory Should Exist    ${SALWorkDir}/${subSystem}/java
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/${subSystem}/java/src/saj_${subSystem}_types.jar
     File Should Exist    ${SALWorkDir}/${subSystem}/java/src/org/lsst/sal/SAL_${subSystem}.java
     File Should Exist    ${SALWorkDir}/${subSystem}/java/src/org/lsst/sal/salActor.java
     File Should Exist    ${SALWorkDir}/${subSystem}/java/src/org/lsst/sal/salUtils.java
+    File Should Exist    ${SALWorkDir}/${subSystem}/java/src/classes/org/lsst/sal//salUtils.class
     File Should Exist    ${SALWorkDir}/salUtils/libsalUtils.so
+    File Should Exist    ${SALWorkDir}/lib/org/lsst/sal/salUtils.class 
 
 Salgen ATCamera Maven
     [Documentation]    Generate the Maven repository.
@@ -237,6 +259,8 @@ Salgen ATCamera Lib
     Directory Should Exist    ${SALWorkDir}/lib
     @{files}=    List Directory    ${SALWorkDir}/lib    pattern=*${subSystem}*
     Log Many    @{files}
+    File Should Exist    ${SALWorkDir}/lib/libsalUtils.so
+    File Should Exist    ${SALWorkDir}/lib/org/lsst/sal/salUtils.class 
     File Should Exist    ${SALWorkDir}/lib/saj_${subSystem}_types.jar
 
 Salgen ATCamera RPM
@@ -278,6 +302,8 @@ Salgen ATCamera RPM
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_ATruntime-${XMLVersionBase}${sep}${Build_Number}-${SALVersionBase}*${DIST}.x86_64.rpm
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_utils-${SALVersionBase}-1.x86_64.rpm
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}-${XMLVersionBase}${sep}${Build_Number}-${SALVersionBase}${DIST}.x86_64.rpm
+    File Should Exist    ${SALWorkDir}/lib/org/lsst/sal/salUtils.class
+    File Should Exist    ${SALWorkDir}/lib/libsalUtils.so
     Should Not Contain    ${output.stdout}    child process exited abnormally
 
 Verify ATCamera RPM Contents

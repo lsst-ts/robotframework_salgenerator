@@ -33,19 +33,19 @@ Salgen Test Validate
     Directory Should Exist    ${SALWorkDir}/avro-templates
     @{files}=    List Directory    ${SALWorkDir}/avro-templates
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}_cmddef.tcl
-    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}_evtdef.tcl
-    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}_tlmdef.tcl
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}_metadata.tcl
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}_revCodes.tcl
     Directory Should Exist    ${SALWorkDir}/avro-templates/${subSystem}
     @{files}=    List Directory    ${SALWorkDir}/avro-templates/${subSystem}
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_hash_table.json
-    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_Commands.xml
-    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_Events.xml
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_Generics.xml
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_Commands.xml
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}_cmddef.tcl
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_Events.xml
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}_evtdef.tcl
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_Telemetry.xml
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}_tlmdef.tcl
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_heartbeat.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_logLevel.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_logMessage.json
@@ -211,15 +211,21 @@ Salgen Test Java
     Should Not Contain    ${output.stdout}    error: package org.apache.kafka* does not exist
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_scalars.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_scalars java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_scalars/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_arrays.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_arrays java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_arrays/java/src/org/lsst/sal/salUtils.class
     Directory Should Exist    ${SALWorkDir}/${subSystem}/java
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/${subSystem}/java/src/saj_${subSystem}_types.jar
     File Should Exist    ${SALWorkDir}/${subSystem}/java/src/org/lsst/sal/SAL_${subSystem}.java
     File Should Exist    ${SALWorkDir}/${subSystem}/java/src/org/lsst/sal/salActor.java
     File Should Exist    ${SALWorkDir}/${subSystem}/java/src/org/lsst/sal/salUtils.java
+    File Should Exist    ${SALWorkDir}/${subSystem}/java/src/classes/org/lsst/sal//salUtils.class
     File Should Exist    ${SALWorkDir}/salUtils/libsalUtils.so
+    File Should Exist    ${SALWorkDir}/lib/org/lsst/sal/salUtils.class 
 
 Salgen Test Maven
     [Documentation]    Generate the Maven repository.
@@ -291,6 +297,8 @@ Salgen Test RPM
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_ATruntime-${XMLVersionBase}${sep}${Build_Number}-${SALVersionBase}*${DIST}.x86_64.rpm
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_utils-${SALVersionBase}-1.x86_64.rpm
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}-${XMLVersionBase}${sep}${Build_Number}-${SALVersionBase}${DIST}.x86_64.rpm
+    File Should Exist    ${SALWorkDir}/lib/org/lsst/sal/salUtils.class
+    File Should Exist    ${SALWorkDir}/lib/libsalUtils.so
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}_test-${XMLVersionBase}${sep}${Build_Number}-${SALVersionBase}${DIST}.x86_64.rpm
     Should Not Contain    ${output.stdout}    child process exited abnormally
 
@@ -312,7 +320,7 @@ Verify Test RPM Contents
     Should Contain     ${output.stdout}    /opt/lsst/ts_sal/scripts/${subSystem}_revCodes.tcl
     Should Contain     ${output.stdout}    /opt/lsst/ts_sal/lib/libSAL_${subSystem}.a
     Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/SAL_${subSystem}.h
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/Test_ackcmd.hh
+    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_ackcmd.hh
     Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_scalars.hh
     Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_arrays.hh
     Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_disable.hh

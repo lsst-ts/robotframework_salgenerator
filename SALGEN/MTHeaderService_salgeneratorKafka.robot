@@ -32,17 +32,12 @@ Salgen MTHeaderService Validate
     Directory Should Exist    ${SALWorkDir}/avro-templates
     @{files}=    List Directory    ${SALWorkDir}/avro-templates
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}_cmddef.tcl
-    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}_evtdef.tcl
-    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}_tlmdef.tcl
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}_metadata.tcl
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}_revCodes.tcl
     Directory Should Exist    ${SALWorkDir}/avro-templates/${subSystem}
     @{files}=    List Directory    ${SALWorkDir}/avro-templates/${subSystem}
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_hash_table.json
-    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_Commands.xml
-    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_Events.xml
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_Generics.xml
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_heartbeat.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_logLevel.json
@@ -71,7 +66,9 @@ Salgen MTHeaderService Java
     File Should Exist    ${SALWorkDir}/${subSystem}/java/src/org/lsst/sal/SAL_${subSystem}.java
     File Should Exist    ${SALWorkDir}/${subSystem}/java/src/org/lsst/sal/salActor.java
     File Should Exist    ${SALWorkDir}/${subSystem}/java/src/org/lsst/sal/salUtils.java
+    File Should Exist    ${SALWorkDir}/${subSystem}/java/src/classes/org/lsst/sal//salUtils.class
     File Should Exist    ${SALWorkDir}/salUtils/libsalUtils.so
+    File Should Exist    ${SALWorkDir}/lib/org/lsst/sal/salUtils.class 
 
 Salgen MTHeaderService Maven
     [Documentation]    Generate the Maven repository.
@@ -99,6 +96,8 @@ Salgen MTHeaderService Lib
     Directory Should Exist    ${SALWorkDir}/lib
     @{files}=    List Directory    ${SALWorkDir}/lib    pattern=*${subSystem}*
     Log Many    @{files}
+    File Should Exist    ${SALWorkDir}/lib/libsalUtils.so
+    File Should Exist    ${SALWorkDir}/lib/org/lsst/sal/salUtils.class 
     File Should Exist    ${SALWorkDir}/lib/saj_${subSystem}_types.jar
 
 Salgen MTHeaderService RPM
@@ -140,6 +139,8 @@ Salgen MTHeaderService RPM
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_ATruntime-${XMLVersionBase}${sep}${Build_Number}-${SALVersionBase}*${DIST}.x86_64.rpm
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_utils-${SALVersionBase}-1.x86_64.rpm
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}-${XMLVersionBase}${sep}${Build_Number}-${SALVersionBase}${DIST}.x86_64.rpm
+    File Should Exist    ${SALWorkDir}/lib/org/lsst/sal/salUtils.class
+    File Should Exist    ${SALWorkDir}/lib/libsalUtils.so
     Should Not Contain    ${output.stdout}    child process exited abnormally
 
 Verify MTHeaderService RPM Contents

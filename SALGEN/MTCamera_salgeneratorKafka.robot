@@ -33,19 +33,19 @@ Salgen MTCamera Validate
     Directory Should Exist    ${SALWorkDir}/avro-templates
     @{files}=    List Directory    ${SALWorkDir}/avro-templates
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}_cmddef.tcl
-    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}_evtdef.tcl
-    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}_tlmdef.tcl
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}_metadata.tcl
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}_revCodes.tcl
     Directory Should Exist    ${SALWorkDir}/avro-templates/${subSystem}
     @{files}=    List Directory    ${SALWorkDir}/avro-templates/${subSystem}
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_hash_table.json
-    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_Commands.xml
-    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_Events.xml
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_Generics.xml
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_Commands.xml
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}_cmddef.tcl
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_Events.xml
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}_evtdef.tcl
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_Telemetry.xml
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}_tlmdef.tcl
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_heartbeat.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_logLevel.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_logMessage.json
@@ -430,111 +430,309 @@ Salgen MTCamera Java
     Should Not Contain    ${output.stdout}    error: package org.apache.kafka* does not exist
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating java type support for ${subSystem}
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_quadbox_BFR.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_quadbox_BFR java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_quadbox_BFR/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_quadbox_PDU_24VC.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_quadbox_PDU_24VC java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_quadbox_PDU_24VC/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_quadbox_PDU_24VD.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_quadbox_PDU_24VD java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_quadbox_PDU_24VD/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_quadbox_PDU_48V.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_quadbox_PDU_48V java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_quadbox_PDU_48V/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_quadbox_PDU_5V.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_quadbox_PDU_5V java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_quadbox_PDU_5V/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_quadbox_REB_Bulk_PS.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_quadbox_REB_Bulk_PS java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_quadbox_REB_Bulk_PS/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_rebpower_Reb.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_rebpower_Reb java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_rebpower_Reb/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_rebpower_RebTotalPower.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_rebpower_RebTotalPower java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_rebpower_RebTotalPower/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_rebpower_Rebps.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_rebpower_Rebps java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_rebpower_Rebps/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_hex_Cold1.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_hex_Cold1 java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_hex_Cold1/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_hex_Cold2.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_hex_Cold2 java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_hex_Cold2/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_hex_Cryo1.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_hex_Cryo1 java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_hex_Cryo1/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_hex_Cryo2.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_hex_Cryo2 java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_hex_Cryo2/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_hex_Cryo3.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_hex_Cryo3 java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_hex_Cryo3/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_hex_Cryo4.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_hex_Cryo4 java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_hex_Cryo4/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_hex_Cryo5.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_hex_Cryo5 java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_hex_Cryo5/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_hex_Cryo6.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_hex_Cryo6 java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_hex_Cryo6/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_refrig_Cryo1.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_refrig_Cryo1 java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_refrig_Cryo1/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_refrig_Cryo2.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_refrig_Cryo2 java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_refrig_Cryo2/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_refrig_Cryo3.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_refrig_Cryo3 java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_refrig_Cryo3/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_refrig_Cryo4.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_refrig_Cryo4 java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_refrig_Cryo4/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_refrig_Cryo5.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_refrig_Cryo5 java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_refrig_Cryo5/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_refrig_Cryo6.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_refrig_Cryo6 java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_refrig_Cryo6/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuum_Cip.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_vacuum_Cip java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_vacuum_Cip/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuum_Cryo.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_vacuum_Cryo java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_vacuum_Cryo/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuum_HX.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_vacuum_HX java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_vacuum_HX/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuum_Hip.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_vacuum_Hip java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_vacuum_Hip/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_vacuum_Inst.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_vacuum_Inst java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_vacuum_Inst/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_daq_monitor_Reb_Trending.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_daq_monitor_Reb_Trending java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_daq_monitor_Reb_Trending/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_daq_monitor_Store.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_daq_monitor_Store java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_daq_monitor_Store/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_daq_monitor_Sum_Trending.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_daq_monitor_Sum_Trending java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_daq_monitor_Sum_Trending/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_focal_plane_Ccd.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_focal_plane_Ccd java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_focal_plane_Ccd/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_focal_plane_Reb.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_focal_plane_Reb java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_focal_plane_Reb/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_focal_plane_RebTotalPower.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_focal_plane_RebTotalPower java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_focal_plane_RebTotalPower/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_focal_plane_RebsAverageTemp6.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_focal_plane_RebsAverageTemp6 java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_focal_plane_RebsAverageTemp6/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_focal_plane_Segment.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_focal_plane_Segment java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_focal_plane_Segment/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_mpm_CLP_RTD_03.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_mpm_CLP_RTD_03 java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_mpm_CLP_RTD_03/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_mpm_CLP_RTD_05.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_mpm_CLP_RTD_05 java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_mpm_CLP_RTD_05/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_mpm_CLP_RTD_50.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_mpm_CLP_RTD_50 java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_mpm_CLP_RTD_50/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_mpm_CLP_RTD_55.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_mpm_CLP_RTD_55 java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_mpm_CLP_RTD_55/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_mpm_CYP_RTD_12.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_mpm_CYP_RTD_12 java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_mpm_CYP_RTD_12/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_mpm_CYP_RTD_14.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_mpm_CYP_RTD_14 java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_mpm_CYP_RTD_14/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_mpm_CYP_RTD_31.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_mpm_CYP_RTD_31 java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_mpm_CYP_RTD_31/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_mpm_CYP_RTD_43.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_mpm_CYP_RTD_43 java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_mpm_CYP_RTD_43/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Autochanger_AutochangerTrucks_Trending.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_fcs_Autochanger_AutochangerTrucks_Trending java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_fcs_Autochanger_AutochangerTrucks_Trending/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Autochanger_Latches_Trending.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_fcs_Autochanger_Latches_Trending java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_fcs_Autochanger_Latches_Trending/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Autochanger_OnlineClamps_Trending.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_fcs_Autochanger_OnlineClamps_Trending java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_fcs_Autochanger_OnlineClamps_Trending/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Autochanger_Temperatures.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_fcs_Autochanger_Temperatures java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_fcs_Autochanger_Temperatures/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Canbus0_AcSensorsGateway_Trending.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_fcs_Canbus0_AcSensorsGateway_Trending java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_fcs_Canbus0_AcSensorsGateway_Trending/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Canbus0_AcTruckXminusController_Trending.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_fcs_Canbus0_AcTruckXminusController_Trending java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_fcs_Canbus0_AcTruckXminusController_Trending/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Canbus0_AcTruckXplusController_Trending.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_fcs_Canbus0_AcTruckXplusController_Trending java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_fcs_Canbus0_AcTruckXplusController_Trending/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Canbus0_Accelerobf_Trending.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_fcs_Canbus0_Accelerobf_Trending java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_fcs_Canbus0_Accelerobf_Trending/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Canbus0_Ai814_Trending.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_fcs_Canbus0_Ai814_Trending java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_fcs_Canbus0_Ai814_Trending/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Canbus0_BrakeSystemGateway_Trending.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_fcs_Canbus0_BrakeSystemGateway_Trending java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_fcs_Canbus0_BrakeSystemGateway_Trending/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Canbus0_CarouselController_Trending.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_fcs_Canbus0_CarouselController_Trending java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_fcs_Canbus0_CarouselController_Trending/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Canbus0_ClampXminusController_Trending.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_fcs_Canbus0_ClampXminusController_Trending java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_fcs_Canbus0_ClampXminusController_Trending/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Canbus0_ClampXplusController_Trending.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_fcs_Canbus0_ClampXplusController_Trending java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_fcs_Canbus0_ClampXplusController_Trending/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Canbus0_Hyttc580_Trending.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_fcs_Canbus0_Hyttc580_Trending java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_fcs_Canbus0_Hyttc580_Trending/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Canbus0_LatchXminusController_Trending.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_fcs_Canbus0_LatchXminusController_Trending java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_fcs_Canbus0_LatchXminusController_Trending/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Canbus0_LatchXplusController_Trending.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_fcs_Canbus0_LatchXplusController_Trending java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_fcs_Canbus0_LatchXplusController_Trending/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Canbus0_OnlineClampXminusController_Trending.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_fcs_Canbus0_OnlineClampXminusController_Trending java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_fcs_Canbus0_OnlineClampXminusController_Trending/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Canbus0_OnlineClampXplusController_Trending.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_fcs_Canbus0_OnlineClampXplusController_Trending java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_fcs_Canbus0_OnlineClampXplusController_Trending/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Canbus0_OnlineClampYminusController_Trending.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_fcs_Canbus0_OnlineClampYminusController_Trending java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_fcs_Canbus0_OnlineClampYminusController_Trending/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Canbus0_OnlineStrainGauge_Trending.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_fcs_Canbus0_OnlineStrainGauge_Trending java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_fcs_Canbus0_OnlineStrainGauge_Trending/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Canbus0_ProximitySensorsDevice_Trending.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_fcs_Canbus0_ProximitySensorsDevice_Trending java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_fcs_Canbus0_ProximitySensorsDevice_Trending/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Canbus0_Pt100_Trending.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_fcs_Canbus0_Pt100_Trending java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_fcs_Canbus0_Pt100_Trending/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Canbus0_TempSensorsDevice1_Trending.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_fcs_Canbus0_TempSensorsDevice1_Trending java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_fcs_Canbus0_TempSensorsDevice1_Trending/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Canbus0_TempSensorsDevice2_Trending.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_fcs_Canbus0_TempSensorsDevice2_Trending java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_fcs_Canbus0_TempSensorsDevice2_Trending/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Canbus1_CarrierController_Trending.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_fcs_Canbus1_CarrierController_Trending java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_fcs_Canbus1_CarrierController_Trending/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Canbus1_HooksController_Trending.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_fcs_Canbus1_HooksController_Trending java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_fcs_Canbus1_HooksController_Trending/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Canbus1_LoaderPlutoGateway_Trending.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_fcs_Canbus1_LoaderPlutoGateway_Trending java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_fcs_Canbus1_LoaderPlutoGateway_Trending/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Carousel_Socket1_Trending.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_fcs_Carousel_Socket1_Trending java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_fcs_Carousel_Socket1_Trending/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Carousel_Socket2_Trending.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_fcs_Carousel_Socket2_Trending java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_fcs_Carousel_Socket2_Trending/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Carousel_Socket3_Trending.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_fcs_Carousel_Socket3_Trending java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_fcs_Carousel_Socket3_Trending/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Carousel_Socket4_Trending.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_fcs_Carousel_Socket4_Trending java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_fcs_Carousel_Socket4_Trending/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Carousel_Socket5_Trending.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_fcs_Carousel_Socket5_Trending java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_fcs_Carousel_Socket5_Trending/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Carousel_Trending.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_fcs_Carousel_Trending java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_fcs_Carousel_Trending/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Duration_Autochanger_Trending.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_fcs_Duration_Autochanger_Trending java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_fcs_Duration_Autochanger_Trending/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Duration_Carousel_Trending.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_fcs_Duration_Carousel_Trending java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_fcs_Duration_Carousel_Trending/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Duration_Loader_Trending.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_fcs_Duration_Loader_Trending java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_fcs_Duration_Loader_Trending/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Duration_Trending.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_fcs_Duration_Trending java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_fcs_Duration_Trending/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Fcs_Mcm_Trending.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_fcs_Fcs_Mcm_Trending java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_fcs_Fcs_Mcm_Trending/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Loader_Carrier_Trending.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_fcs_Loader_Carrier_Trending java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_fcs_Loader_Carrier_Trending/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Loader_Hooks_Trending.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_fcs_Loader_Hooks_Trending java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_fcs_Loader_Hooks_Trending/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_fcs_Trending.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_fcs_Trending java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_fcs_Trending/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_shutter_Trending.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_shutter_Trending java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_shutter_Trending/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_chiller_Chiller.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_chiller_Chiller java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_chiller_Chiller/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_chiller_FParam_Trending.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_chiller_FParam_Trending java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_chiller_FParam_Trending/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_chiller_Maq20.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_chiller_Maq20 java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_chiller_Maq20/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_thermal_Cold_Temp.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_thermal_Cold_Temp java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_thermal_Cold_Temp/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_thermal_Cryo_Temp.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_thermal_Cryo_Temp java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_thermal_Cryo_Temp/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_thermal_Rtd.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_thermal_Rtd java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_thermal_Rtd/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_thermal_Trim.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_thermal_Trim java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_thermal_Trim/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_thermal_Trim_Htrs.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_thermal_Trim_Htrs java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_thermal_Trim_Htrs/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_utiltrunk_Body.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_utiltrunk_Body java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_utiltrunk_Body/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_utiltrunk_MPC.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_utiltrunk_MPC java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_utiltrunk_MPC/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_utiltrunk_UT.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_utiltrunk_UT java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_utiltrunk_UT/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_utiltrunk_VPC.json
+    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_utiltrunk_VPC java ${subSystem}
+    File Should Exist    ${SALWorkDir}/${subSystem}_utiltrunk_VPC/java/src/org/lsst/sal/salUtils.class
     Directory Should Exist    ${SALWorkDir}/${subSystem}/java
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/${subSystem}/java/src/saj_${subSystem}_types.jar
     File Should Exist    ${SALWorkDir}/${subSystem}/java/src/org/lsst/sal/SAL_${subSystem}.java
     File Should Exist    ${SALWorkDir}/${subSystem}/java/src/org/lsst/sal/salActor.java
     File Should Exist    ${SALWorkDir}/${subSystem}/java/src/org/lsst/sal/salUtils.java
+    File Should Exist    ${SALWorkDir}/${subSystem}/java/src/classes/org/lsst/sal//salUtils.class
     File Should Exist    ${SALWorkDir}/salUtils/libsalUtils.so
+    File Should Exist    ${SALWorkDir}/lib/org/lsst/sal/salUtils.class 
 
 Salgen MTCamera Maven
     [Documentation]    Generate the Maven repository.
@@ -562,6 +760,8 @@ Salgen MTCamera Lib
     Directory Should Exist    ${SALWorkDir}/lib
     @{files}=    List Directory    ${SALWorkDir}/lib    pattern=*${subSystem}*
     Log Many    @{files}
+    File Should Exist    ${SALWorkDir}/lib/libsalUtils.so
+    File Should Exist    ${SALWorkDir}/lib/org/lsst/sal/salUtils.class 
     File Should Exist    ${SALWorkDir}/lib/saj_${subSystem}_types.jar
 
 Salgen MTCamera RPM
@@ -603,6 +803,8 @@ Salgen MTCamera RPM
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_ATruntime-${XMLVersionBase}${sep}${Build_Number}-${SALVersionBase}*${DIST}.x86_64.rpm
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_utils-${SALVersionBase}-1.x86_64.rpm
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}-${XMLVersionBase}${sep}${Build_Number}-${SALVersionBase}${DIST}.x86_64.rpm
+    File Should Exist    ${SALWorkDir}/lib/org/lsst/sal/salUtils.class
+    File Should Exist    ${SALWorkDir}/lib/libsalUtils.so
     Should Not Contain    ${output.stdout}    child process exited abnormally
 
 Verify MTCamera RPM Contents
