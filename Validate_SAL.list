@@ -13,5 +13,5 @@
 
 # List of test suites
 Verify_SAL_Setup.robot
-SALGEN/Script_salgenerator.robot
-SALGEN/Test_salgenerator.robot
+SALGEN/Script_salgeneratorKafka.robot
+SALGEN/Test_salgeneratorKafka.robot
