@@ -687,9 +687,9 @@ function createTestSuite() {
     # Generate the CSC documentation
     #salgenDOC
     # Generate the as-built SAL libraries RPM.
-    salgenRPM "${rtlang[@]}"
-    verifyRPM ${#commandArray[@]} ${#eventArray[@]} ${#telemetryArray[@]} "${rtlang[@]}"
     if [[ ${rtlang[@]} =~ "CPP" ]]; then
+        salgenRPM "${rtlang[@]}"
+        verifyRPM ${#commandArray[@]} ${#eventArray[@]} ${#telemetryArray[@]} "${rtlang[@]}"
         verifyTestRPM ${#commandArray[@]} ${#eventArray[@]} ${#telemetryArray[@]} 
     fi
     # Indicate completion of the test suite.
