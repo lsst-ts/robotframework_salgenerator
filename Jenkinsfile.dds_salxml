@@ -52,12 +52,12 @@ pipeline {
             steps {
                 script {
                     BuildType = "Bleed"
-                    SAL_Checkout = "*/develop"
+                    SAL_Checkout = "*/davemills/SALKafka_V2"
                     XML_Checkout = "*/develop"
                     IDL_Checkout = "*/develop"
                     DDSCONFIG_Checkout = "*/develop"
                     SIMPLESAL_Checkout = "*/develop"
-                    RFSALGEN_Checkout = "*/develop"
+                    RFSALGEN_Checkout = "*/tickets/DM-43997"
                     RFSALMSGs_Checkout = "*/develop"
                 }
             }
