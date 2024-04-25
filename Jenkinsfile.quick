@@ -149,7 +149,7 @@ pipeline {
                     ' --variable MvnVersion:"Apache Maven ' + _mvn_version + '" --variable PythonVersion:\'Python ' + _python_version + '\' ' +
                     '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:' + Build_Param + ' ' + 
                     '--name Validate --output VALIDATE --outputdir ' + _home + '/trunk/Reports ' + 
-                    _home + '/trunk/robotframework_salgenerator/Verify_SAL_Setup.robot ' + script_test_path + ' ' + test_test_path + '\n' +
+                    _home + '/trunk/robotframework_salgenerator/Verify_SAL_DDS_Setup.robot ' + script_test_path + ' ' + test_test_path + '\n' +
                 'Result=$? \n' +
                 'if [ $Result -eq 0 ]; then echo Validation complete; else exit $Result; fi'
             }
