@@ -628,10 +628,10 @@ function createTestSuite() {
     #  desired capitalization format.
     #
     subSystemUp=$(capitializeSubsystem $subSystem)
-    testSuite=$workDir/SALGEN/${subSystemUp}_salgenerator.robot
+    testSuite=$workDir/DDS_SALGEN/${subSystemUp}_salgenerator.robot
         
     # Check to see if the TestSuite exists then, if it does, delete it.
-    clearTestSuites $subSystem "SALGEN" 
+    clearTestSuites $subSystem "DDS_SALGEN" 
         
     # Get XML topic definitions.  Not all subsystems have all types of topics.
     declare -a xmls=($(ls $HOME/trunk/ts_xml/python/lsst/ts/xml/data/sal_interfaces/$subSystem))

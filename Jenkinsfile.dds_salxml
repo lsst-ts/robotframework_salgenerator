@@ -35,7 +35,7 @@ pipeline {
     }
     agent {
         docker { 
-            image 'ts-dockerhub.lsst.org/robotsal:kafka'
+            image 'ts-dockerhub.lsst.org/robotsal:latest'
             args '-w ' + _home + ' -e AWS_ACCESS_KEY_ID=$aws_key_id -e AWS_SECRET_ACCESS_KEY=$aws_secret_key ' + 
             '-e NEXUS_USER=$nexus_user -e NEXUS_PASS=$nexus_pass ' +
             '-e LSST_DDS_PARTITION_PREFIX=citest -v ${WORKSPACE}:' + _home + '/trunk'
@@ -52,12 +52,12 @@ pipeline {
             steps {
                 script {
                     BuildType = "Bleed"
-                    SAL_Checkout = "*/develop"
+                    SAL_Checkout = "*/davemills/SALKafka_V2"
                     XML_Checkout = "*/develop"
                     IDL_Checkout = "*/develop"
                     DDSCONFIG_Checkout = "*/develop"
                     SIMPLESAL_Checkout = "*/develop"
-                    RFSALGEN_Checkout = "*/develop"
+                    RFSALGEN_Checkout = "*/tickets/DM-43997"
                     RFSALMSGs_Checkout = "*/develop"
                 }
             }
@@ -226,7 +226,7 @@ pipeline {
                     '--variable OpenspliceVersion:' + _ospl_version + ' --variable OpenspliceDate:' + _ospl_date + ' --variable XMLHome:' + _home + '/trunk/ts_xml ' +
                     ' --variable MvnVersion:"Apache Maven ' + _mvn_version + '" --variable PythonVersion:"Python ' + _python_version + '" ' +
                     ' --variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:' + Build_Param + 
-                    ' --name Validate --output VALIDATE --outputdir ' + _home + '/trunk/Reports ' + flags + ' -A ' + _home + '/trunk/robotframework_salgenerator/Validate_SAL.list \n' +
+                    ' --name Validate --output VALIDATE --outputdir ' + _home + '/trunk/Reports ' + flags + ' -A ' + _home + '/trunk/robotframework_salgenerator/Validate_SAL_DDS.list \n' +
                 'Result=$? \n' +
                 'if [ $Result -eq 0 ]; then echo Validation complete; else exit $Result; fi'
             }
@@ -266,7 +266,7 @@ pipeline {
                             '--variable OpenspliceVersion:' + _ospl_version + ' --variable OpenspliceDate:' + _ospl_date + ' --variable XMLHome:' + _home + '/trunk/ts_xml ' +
                             ' --variable MvnVersion:"Apache Maven ' + _mvn_version + '" --variable PythonVersion:"Python ' + _python_version + '" ' +
                             '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:' + Build_Param + ' ' +
-                            '--name AuxTel --output AUXTEL --outputdir ' + _home + '/trunk/Reports ' + params.csc_include_flags + ' -A ' + _home + '/trunk/robotframework_salgenerator/AT_SalGen.list \n' +
+                            '--name AuxTel --output AUXTEL --outputdir ' + _home + '/trunk/Reports ' + params.csc_include_flags + ' -A ' + _home + '/trunk/robotframework_salgenerator/AT_DDS_SalGen.list \n' +
                         'exit 0' 
                     }
                 }//AuxTel
@@ -285,7 +285,7 @@ pipeline {
                             '--variable OpenspliceVersion:' + _ospl_version + ' --variable OpenspliceDate:' + _ospl_date + ' --variable XMLHome:' + _home + '/trunk/ts_xml ' +
                             ' --variable MvnVersion:"Apache Maven ' + _mvn_version + '" --variable PythonVersion:"Python ' + _python_version + '" ' +
                             '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:' + Build_Param + ' ' +
-                            '--name MainTel --output MAINTEL --outputdir ' + _home + '/trunk/Reports ' + params.csc_include_flags + ' -A ' + _home + '/trunk/robotframework_salgenerator/MT_SalGen.list \n' +
+                            '--name MainTel --output MAINTEL --outputdir ' + _home + '/trunk/Reports ' + params.csc_include_flags + ' -A ' + _home + '/trunk/robotframework_salgenerator/MT_DDS_SalGen.list \n' +
                         'exit 0'
                     }
                 }//MainTel
@@ -304,7 +304,7 @@ pipeline {
                             '--variable OpenspliceVersion:' + _ospl_version + ' --variable OpenspliceDate:' + _ospl_date + ' --variable XMLHome:' + _home + '/trunk/ts_xml ' +
                             ' --variable MvnVersion:"Apache Maven ' + _mvn_version + '" --variable PythonVersion:"Python ' + _python_version + '" ' +
                             '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:' + Build_Param + ' ' +
-                            '--name MTMountMirrors --output MTMountMirrors --outputdir ' + _home + '/trunk/Reports ' + params.csc_include_flags + ' -A ' + _home + '/trunk/robotframework_salgenerator/MT_MountMirrors_SalGen.list \n' +
+                            '--name MTMountMirrors --output MTMountMirrors --outputdir ' + _home + '/trunk/Reports ' + params.csc_include_flags + ' -A ' + _home + '/trunk/robotframework_salgenerator/MT_DDS_MountMirrors_SalGen.list \n' +
                         'exit 0'
                     }
                 }//MainTelMountMirrors

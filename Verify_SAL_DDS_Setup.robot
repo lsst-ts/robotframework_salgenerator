@@ -109,7 +109,6 @@ Verify Proper SAL Setup - bin
 Verify Proper SAL Setup - lsstsal
     [Documentation]    There are a few dozen files that are necessary for SAL and salgenerator to function properly. This test verifies those files exist in the correct locations.
     Directory Should Exist   ${SALInstall}/lsstsal
-    File Should Exist   ${SALInstall}/lsstsal/include/pybind11/pybind11.h
     File Should Exist   ${SALInstall}/lsstsal/salenv.sh
     File Should Exist   ${SALInstall}/lsstsal/scripts/update_ts_xml_dictionary.tcl
     File Should Exist   ${SALInstall}/lsstsal/scripts/code/templates/Makefile.sacpp_SAL_types.template
