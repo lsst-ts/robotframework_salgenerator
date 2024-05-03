@@ -127,8 +127,8 @@ pipeline {
                         script_test_path = _home + '/trunk/robotframework_salgenerator/GENERATE/Script_Generate.robot'
                         test_test_path = _home + '/trunk/robotframework_salgenerator/GENERATE/Test_Generate.robot'
                     } else {
-                        script_test_path = _home + '/trunk/robotframework_salgenerator/SALGEN/Script_salgenerator.robot'
-                        test_test_path = _home + '/trunk/robotframework_salgenerator/SALGEN/Test_salgenerator.robot'
+                        script_test_path = _home + '/trunk/robotframework_salgenerator/DDS_SALGEN/Script_salgenerator.robot'
+                        test_test_path = _home + '/trunk/robotframework_salgenerator/DDS_SALGEN/Test_salgenerator.robot'
                     }
                 }
                 echo "Script test suite: " + script_test_path
