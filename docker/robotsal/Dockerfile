@@ -73,22 +73,22 @@ ENV JACKSON_RELEASE=2.15.2
 ENV LSST_SAL_PREFIX=$HOME/ts_sal_stage
 ENV LSST_KAFKA_CLASSDIR=${LSST_SAL_PREFIX}/lib
 ENV LSST_KAFKA_PREFIX=lsst.sal
-ENV LSST_KAFKA_HOST=localhost
-ENV LSST_KAFKA_IP=localhost
-ENV LSST_KAFKA_LOCAL_SCHEMAS=${LSST_SDK_INSTALL}/test
+ENV LSST_KAFKA_HOST=broker
+ENV LSST_KAFKA_LOCAL_SCHEMAS=${LSST_SAL_PREFIX}/avro-templates
 ENV LSST_KAFKA_BROKER_PORT=9092
-ENV LSST_KAFKA_BROKER_ADDR=localhost
-ENV LSST_SCHEMA_REGISTRY_URL=https://localhost:8081
+ENV LSST_KAFKA_BROKER_ADDR=broker:${LSST_KAFKA_BROKER_PORT}
+ENV LSST_SCHEMA_REGISTRY_URL=http://schema-registry:8081
 ENV AVRO_CLASSPATH=lsst/sal
-ENV AVRO_INCL=${LSST_SDK_INSTALL}/lsstsal/include/avro
-ENV AVRO_HOME=${LSST_SDK_INSTALL}/lsstsal/lib
+ENV AVRO_INCL=${LSST_SAL_PREFIX}/include/avro
+ENV AVRO_HOME=${LSST_SAL_PREFIX}/lib
 ENV AVRO_PREFIX=lsst.sal
 ENV LD_LIBRARY_PATH=${LSST_SAL_PREFIX}/lib:$LD_LIBRARY_PATH
 ENV CPPFLAGS="-I $LSST_SAL_PREFIX/include/avro"
 
 # Install Avro
 ARG AVRO_RELEASE=1.11.1
-RUN mkdir $HOME/external-packages && mkdir -p $LSST_SAL_PREFIX/include/avro && mkdir $LSST_SAL_PREFIX/lib && mkdir $LSST_SAL_PREFIX/bin
+RUN mkdir $HOME/external-packages && mkdir -p $LSST_SAL_PREFIX/include/avro && mkdir $LSST_SAL_PREFIX/lib && \
+mkdir $LSST_SAL_PREFIX/bin && ln -s $LSST_SDK_INSTALL/test/avro-templates $LSST_SAL_PREFIX/avro-templates
 WORKDIR $HOME/external-packages
 RUN wget https://archive.apache.org/dist/avro/avro-${AVRO_RELEASE}/avro-src-${AVRO_RELEASE}.tar.gz
 RUN tar xvzf avro-src-${AVRO_RELEASE}.tar.gz
