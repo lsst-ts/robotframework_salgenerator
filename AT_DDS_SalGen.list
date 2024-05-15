@@ -18,7 +18,6 @@ DDS_SALGEN/ATPneumatics_salgenerator.robot
 DDS_SALGEN/ATPtg_salgenerator.robot
 DDS_SALGEN/ATSpectrograph_salgenerator.robot
 DDS_SALGEN/ATWhiteLight_salgenerator.robot
-DDS_SALGEN/Authorize_salgenerator.robot
 DDS_SALGEN/CBP_salgenerator.robot
 DDS_SALGEN/CCCamera_salgenerator.robot
 DDS_SALGEN/CCHeaderService_salgenerator.robot

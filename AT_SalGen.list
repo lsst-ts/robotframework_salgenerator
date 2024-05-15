@@ -18,7 +18,6 @@ SALGEN/ATPneumatics_salgeneratorKafka.robot
 SALGEN/ATPtg_salgeneratorKafka.robot
 SALGEN/ATSpectrograph_salgeneratorKafka.robot
 SALGEN/ATWhiteLight_salgeneratorKafka.robot
-SALGEN/Authorize_salgeneratorKafka.robot
 SALGEN/CBP_salgeneratorKafka.robot
 SALGEN/CCCamera_salgeneratorKafka.robot
 SALGEN/CCHeaderService_salgeneratorKafka.robot

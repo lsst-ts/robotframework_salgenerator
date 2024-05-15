@@ -191,7 +191,7 @@ function subsystemArray() {
     echo "ATAOS ATBuilding ATCamera 
     ATDome ATDomeTrajectory ATHeaderService ATHexapod 
     ATMCS ATMonochromator ATOODS ATPneumatics 
-    ATPtg ATSpectrograph ATWhiteLight Authorize
+    ATPtg ATSpectrograph ATWhiteLight
     CCCamera CCHeaderService CCOODS CBP 
     DIMM DREAM DSM
     EAS Electrometer ESS FiberSpectrograph 

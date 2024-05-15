@@ -19,7 +19,6 @@ SALGEN/ATPneumatics_salgenerator.robot
 SALGEN/ATPtg_salgenerator.robot
 SALGEN/ATSpectrograph_salgenerator.robot
 SALGEN/ATWhiteLight_salgenerator.robot
-SALGEN/Authorize_salgenerator.robot
 SALGEN/CBP_salgenerator.robot
 SALGEN/CCCamera_salgenerator.robot
 SALGEN/CCHeaderService_salgenerator.robot
