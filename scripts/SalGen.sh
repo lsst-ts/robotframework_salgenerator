@@ -481,10 +481,6 @@ function verifyRPM() {
             echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_sal/include/\${subSystem}_logevent_${topic}.hh" >> $testSuite
         done
     fi
-    if [[ "$@" =~ "LabVIEW" ]]; then
-        echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_sal/include/SAL_\${subSystem}C.h" >> $testSuite
-        echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_sal/include/SAL_\${subSystem}LV.h" >> $testSuite
-    fi
     echo "    Comment    Verify the interface definition files are included." >> $testSuite
     echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/\${subSystem}/\${subSystem}_Generics.xml" >> $testSuite
     if test -f $HOME/trunk/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subSystem}/${subSystem}_Commands.xml; then
@@ -605,19 +601,7 @@ function createTestSuite() {
     # required to build. This is defined in the 
     # ts_xml/python/lsst/ts/xml/data/sal_interfaces/SALSubsystems.xml file.
     #
-    # Requiring the LabVIEW libraries inherently 
-    # requires the C++ library. The 'if' statement 
-    # ensures the C++ process is run in the case 
-    # LabVIEW is defined but CPP is not explicitly
-    # defined.
-    #
-    temp=$(getRuntimeLanguages $subSystem)
-    IFS=', ' read -r -a rtlang <<< "${temp[0]}"
-    if ! [[ ${rtlang[@]} =~ "CPP" ]]; then
-        if [[ ${rtlang[@]} =~ "LabVIEW" ]]; then
-            rtlang+=('CPP')
-        fi
-    fi
+    rtlang=$(getRuntimeLanguages $subSystem)
     echo "Runtime languages to build: ${rtlang[@]}"
 
     # Create test suite.
@@ -631,7 +615,7 @@ function createTestSuite() {
     salgenValidate
     # Create and verfiy the RevCoded IDL files.
     # Create and verify C++ interfaces.
-    if [[ ${rtlang[@]} =~ "CPP" || ${rtlang[@]} =~ "LabVIEW" ]]; then
+    if [[ ${rtlang[@]} =~ "CPP" ]]; then
         salgenCPP
         verifyCppDirectories
         if [[ ${#telemetryArray[@]} -ne 0 ]]; then
