@@ -352,30 +352,6 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
 }
 
 
-function salgenLabview() {
-    # Creates the salgenerator LabVIEW test case.
-    #  Verifies the SAL/DDS LabVIEW libraries are created.
-    #
-    skipped=$(checkIfSkipped $subSystem "labview")
-    echo "Salgen $subSystemUp LabVIEW" >> $testSuite
-    echo "    [Documentation]    Generate \${subSystem} low-level LabView interfaces." >> $testSuite
-    echo "    [Tags]    labview$skipped" >> $testSuite
-    echo "    \${output}=    Run Process    \${SALHome}/bin/salgeneratorKafka    \${subSystem}    labview    \
-shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.txt    stderr=\${EXECDIR}\${/}\${subSystem}_stderr.txt" >> $testSuite
-    echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
-    echo "    Should Contain    \${output.stdout}    SAL generator - \${SALVersion}" >> $testSuite
-    echo "    Should Contain    \${output.stdout}    XMLVERSION = \${XMLVersion}" >> $testSuite
-    echo "    Directory Should Exist    \${SALWorkDir}/\${subSystem}/labview" >> $testSuite
-    echo "    @{files}=    List Directory    \${SALWorkDir}/\${subSystem}/labview" >> $testSuite
-    echo "    Log Many    @{files}" >> $testSuite
-    echo "    File Should Exist    \${SALWorkDir}/\${subSystem}/labview/SAL_\${subSystem}_salShmMonitor.cpp" >> $testSuite
-    echo "    File Should Exist    \${SALWorkDir}/\${subSystem}/labview/SAL_\${subSystem}_shmem.h" >> $testSuite
-    echo "    File Should Exist    \${SALWorkDir}/\${subSystem}/labview/SALLV_\${subSystem}.so" >> $testSuite
-    echo "    File Should Exist    \${SALWorkDir}/\${subSystem}/labview/SALLV_\${subSystem}_Monitor" >> $testSuite
-    echo "" >> $testSuite
-}
-
-
 function salgenLib() {
     # Creates the salgenerator Lib test case.
     #  Verifies all the expected SAL/DDS
@@ -505,10 +481,6 @@ function verifyRPM() {
             echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_sal/include/\${subSystem}_logevent_${topic}.hh" >> $testSuite
         done
     fi
-    if [[ "$@" =~ "LabVIEW" ]]; then
-        echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_sal/include/SAL_\${subSystem}C.h" >> $testSuite
-        echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_sal/include/SAL_\${subSystem}LV.h" >> $testSuite
-    fi
     echo "    Comment    Verify the interface definition files are included." >> $testSuite
     echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/\${subSystem}/\${subSystem}_Generics.xml" >> $testSuite
     if test -f $HOME/trunk/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subSystem}/${subSystem}_Commands.xml; then
@@ -629,19 +601,7 @@ function createTestSuite() {
     # required to build. This is defined in the 
     # ts_xml/python/lsst/ts/xml/data/sal_interfaces/SALSubsystems.xml file.
     #
-    # Requiring the LabVIEW libraries inherently 
-    # requires the C++ library. The 'if' statement 
-    # ensures the C++ process is run in the case 
-    # LabVIEW is defined but CPP is not explicitly
-    # defined.
-    #
-    temp=$(getRuntimeLanguages $subSystem)
-    IFS=', ' read -r -a rtlang <<< "${temp[0]}"
-    if ! [[ ${rtlang[@]} =~ "CPP" ]]; then
-        if [[ ${rtlang[@]} =~ "LabVIEW" ]]; then
-            rtlang+=('CPP')
-        fi
-    fi
+    rtlang=$(getRuntimeLanguages $subSystem)
     echo "Runtime languages to build: ${rtlang[@]}"
 
     # Create test suite.
@@ -655,7 +615,7 @@ function createTestSuite() {
     salgenValidate
     # Create and verfiy the RevCoded IDL files.
     # Create and verify C++ interfaces.
-    if [[ ${rtlang[@]} =~ "CPP" || ${rtlang[@]} =~ "LabVIEW" ]]; then
+    if [[ ${rtlang[@]} =~ "CPP" ]]; then
         salgenCPP
         verifyCppDirectories
         if [[ ${#telemetryArray[@]} -ne 0 ]]; then
@@ -667,14 +627,6 @@ function createTestSuite() {
         fi
         if [[ ${#eventArray[@]} -ne 0 ]]; then
             verifyCppEventInterfaces
-        fi
-    fi
-    # Create LabVIEW interfaces.  NOTE: There are NO such Scheduler or EFD interfaces.
-    if [[ ${rtlang[@]} =~ "LabVIEW" ]]; then
-        if [ "$subSystem" == "scheduler" ]; then
-            echo "Skipping LabVIEW step for the Scheduler."
-        else
-            salgenLabview
         fi
     fi
     # Create and verify Java interfaces.
