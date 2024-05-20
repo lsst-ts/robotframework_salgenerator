@@ -192,7 +192,7 @@ function subsystemArray() {
     ATPtg ATSpectrograph ATWhiteLight
     CCCamera CCHeaderService CCOODS CBP 
     DIMM DREAM DSM
-    EAS Electrometer ESS FiberSpectrograph 
+    EAS Electrometer EPM ESS FiberSpectrograph 
     GCHeaderService GenericCamera GIS Guider 
     HVAC LaserTracker LEDProjector LinearStage LOVE 
     MTAirCompressor MTAOS MTCamera MTDome 

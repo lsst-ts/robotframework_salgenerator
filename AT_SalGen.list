@@ -27,6 +27,7 @@ SALGEN/DREAM_salgeneratorKafka.robot
 SALGEN/DSM_salgeneratorKafka.robot
 SALGEN/EAS_salgeneratorKafka.robot
 SALGEN/Electrometer_salgeneratorKafka.robot
+SALGEN/EPM_salgeneratorKafka.robot
 SALGEN/ESS_salgeneratorKafka.robot
 SALGEN/FiberSpectrograph_salgeneratorKafka.robot
 SALGEN/GCHeaderService_salgeneratorKafka.robot

@@ -27,6 +27,7 @@ DDS_SALGEN/DREAM_salgenerator.robot
 DDS_SALGEN/DSM_salgenerator.robot
 DDS_SALGEN/EAS_salgenerator.robot
 DDS_SALGEN/Electrometer_salgenerator.robot
+DDS_SALGEN/EPM_salgenerator.robot
 DDS_SALGEN/ESS_salgenerator.robot
 DDS_SALGEN/FiberSpectrograph_salgenerator.robot
 DDS_SALGEN/GCHeaderService_salgenerator.robot
