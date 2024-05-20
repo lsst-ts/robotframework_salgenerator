@@ -194,7 +194,7 @@ pipeline {
                             ' --variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + 
                             ' --variable MvnVersion:"Apache Maven ' + _mvn_version + '" --variable PythonVersion:\'Python ' + _python_version + '\' ' +
                             '--name CombinedCppTelemetry --output CombinedCppTelemetry ' +
-                            _home + '/trunk/robotframework_SAL/Combined/CPP/Telemetry/Test_Telemetry.robot \n' +
+                            _home + '/trunk/robotframework_SAL/Combined/DDS_CPP/Telemetry/Test_Telemetry.robot \n' +
                         'exit 0'
                     }
                 }//CppTelemetry
@@ -212,8 +212,8 @@ pipeline {
                             ' --variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version +
                             ' --variable MvnVersion:"Apache Maven ' + _mvn_version + '" --variable PythonVersion:\'Python ' + _python_version + '\' ' +
                             '--name CombinedCppEvents --output CombinedCppEvents ' +
-                            _home + '/trunk/robotframework_SAL/Combined/CPP/Events/Script_Events.robot ' +
-                            _home + '/trunk/robotframework_SAL/Combined/CPP/Events/Test_Events.robot \n' +
+                            _home + '/trunk/robotframework_SAL/Combined/DDS_CPP/Events/Script_Events.robot ' +
+                            _home + '/trunk/robotframework_SAL/Combined/DDS_CPP/Events/Test_Events.robot \n' +
                         'exit 0'
                     }
                 }//CppEvents
@@ -244,7 +244,7 @@ pipeline {
                             ' --variable Build_Number:' + Build_Param + 
                             ' --variable MvnVersion:"Apache Maven ' + _mvn_version + '" --variable PythonVersion:\'Python ' + _python_version + '\' ' +
                             '--name CombinedJavaTelemetry --output CombinedJavaTelemetry ' +
-                            _home + '/trunk/robotframework_SAL/Combined/JAVA/Telemetry/Test_Telemetry.robot \n' +
+                            _home + '/trunk/robotframework_SAL/Combined/DDS_JAVA/Telemetry/Test_Telemetry.robot \n' +
                         'exit 0'
                     }
                 }//JavaTelemetry
@@ -264,7 +264,7 @@ pipeline {
                             ' --variable Build_Number:' + Build_Param + 
                             ' --variable MvnVersion:"Apache Maven ' + _mvn_version + '" --variable PythonVersion:\'Python ' + _python_version + '\' ' +
                             '--name CombinedJavaEvents --output CombinedJavaEvents ' +
-                            _home + '/trunk/robotframework_SAL/Combined/JAVA/Events/Test_Events.robot \n' +
+                            _home + '/trunk/robotframework_SAL/Combined/DDS_JAVA/Events/Test_Events.robot \n' +
                         'exit 0'
                     }
                 }//JavaEvents
