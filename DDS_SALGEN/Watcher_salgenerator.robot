@@ -41,6 +41,7 @@ Salgen Watcher Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_standby.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_start.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_acknowledge.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_makeLogEntry.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_mute.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_showAlarms.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_unacknowledge.idl
@@ -68,6 +69,7 @@ Verify Watcher revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_standby\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_start\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_acknowledge\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_makeLogEntry\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_mute\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_showAlarms\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_unacknowledge\\) [a-z0-9]{8,}
