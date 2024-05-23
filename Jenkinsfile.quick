@@ -127,8 +127,8 @@ pipeline {
                         script_test_path = _home + '/trunk/robotframework_salgenerator/GENERATE/Script_Generate.robot'
                         test_test_path = _home + '/trunk/robotframework_salgenerator/GENERATE/Test_Generate.robot'
                     } else {
-                        script_test_path = _home + '/trunk/robotframework_salgenerator/SALGEN/Script_salgenerator.robot'
-                        test_test_path = _home + '/trunk/robotframework_salgenerator/SALGEN/Test_salgenerator.robot'
+                        script_test_path = _home + '/trunk/robotframework_salgenerator/DDS_SALGEN/Script_salgenerator.robot'
+                        test_test_path = _home + '/trunk/robotframework_salgenerator/DDS_SALGEN/Test_salgenerator.robot'
                     }
                 }
                 echo "Script test suite: " + script_test_path
@@ -149,7 +149,7 @@ pipeline {
                     ' --variable MvnVersion:"Apache Maven ' + _mvn_version + '" --variable PythonVersion:\'Python ' + _python_version + '\' ' +
                     '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:' + Build_Param + ' ' + 
                     '--name Validate --output VALIDATE --outputdir ' + _home + '/trunk/Reports ' + 
-                    _home + '/trunk/robotframework_salgenerator/Verify_SAL_Setup.robot ' + script_test_path + ' ' + test_test_path + '\n' +
+                    _home + '/trunk/robotframework_salgenerator/Verify_SAL_DDS_Setup.robot ' + script_test_path + ' ' + test_test_path + '\n' +
                 'Result=$? \n' +
                 'if [ $Result -eq 0 ]; then echo Validation complete; else exit $Result; fi'
             }
@@ -194,7 +194,7 @@ pipeline {
                             ' --variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + 
                             ' --variable MvnVersion:"Apache Maven ' + _mvn_version + '" --variable PythonVersion:\'Python ' + _python_version + '\' ' +
                             '--name CombinedCppTelemetry --output CombinedCppTelemetry ' +
-                            _home + '/trunk/robotframework_SAL/Combined/CPP/Telemetry/Test_Telemetry.robot \n' +
+                            _home + '/trunk/robotframework_SAL/Combined/DDS_CPP/Telemetry/Test_Telemetry.robot \n' +
                         'exit 0'
                     }
                 }//CppTelemetry
@@ -212,8 +212,8 @@ pipeline {
                             ' --variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version +
                             ' --variable MvnVersion:"Apache Maven ' + _mvn_version + '" --variable PythonVersion:\'Python ' + _python_version + '\' ' +
                             '--name CombinedCppEvents --output CombinedCppEvents ' +
-                            _home + '/trunk/robotframework_SAL/Combined/CPP/Events/Script_Events.robot ' +
-                            _home + '/trunk/robotframework_SAL/Combined/CPP/Events/Test_Events.robot \n' +
+                            _home + '/trunk/robotframework_SAL/Combined/DDS_CPP/Events/Script_Events.robot ' +
+                            _home + '/trunk/robotframework_SAL/Combined/DDS_CPP/Events/Test_Events.robot \n' +
                         'exit 0'
                     }
                 }//CppEvents
@@ -244,7 +244,7 @@ pipeline {
                             ' --variable Build_Number:' + Build_Param + 
                             ' --variable MvnVersion:"Apache Maven ' + _mvn_version + '" --variable PythonVersion:\'Python ' + _python_version + '\' ' +
                             '--name CombinedJavaTelemetry --output CombinedJavaTelemetry ' +
-                            _home + '/trunk/robotframework_SAL/Combined/JAVA/Telemetry/Test_Telemetry.robot \n' +
+                            _home + '/trunk/robotframework_SAL/Combined/DDS_JAVA/Telemetry/Test_Telemetry.robot \n' +
                         'exit 0'
                     }
                 }//JavaTelemetry
@@ -264,7 +264,7 @@ pipeline {
                             ' --variable Build_Number:' + Build_Param + 
                             ' --variable MvnVersion:"Apache Maven ' + _mvn_version + '" --variable PythonVersion:\'Python ' + _python_version + '\' ' +
                             '--name CombinedJavaEvents --output CombinedJavaEvents ' +
-                            _home + '/trunk/robotframework_SAL/Combined/JAVA/Events/Test_Events.robot \n' +
+                            _home + '/trunk/robotframework_SAL/Combined/DDS_JAVA/Events/Test_Events.robot \n' +
                         'exit 0'
                     }
                 }//JavaEvents

@@ -4,7 +4,7 @@
 --output MTMountMirrors
 
 # List of test suites
-SALGEN/MTM1M3_salgenerator.robot
-SALGEN/MTM1M3TS_salgenerator.robot
-SALGEN/MTM2_salgenerator.robot
-SALGEN/MTMount_salgenerator.robot
+SALGEN/MTM1M3_salgeneratorKafka.robot
+SALGEN/MTM1M3TS_salgeneratorKafka.robot
+SALGEN/MTM2_salgeneratorKafka.robot
+SALGEN/MTMount_salgeneratorKafka.robot

@@ -4,17 +4,17 @@
 --output MAINTEL
 
 # List of test suites
-SALGEN/LaserTracker_salgenerator.robot
-SALGEN/LEDProjector_salgenerator.robot
-SALGEN/MTHexapod_salgenerator.robot
-SALGEN/MTAOS_salgenerator.robot
-SALGEN/MTAirCompressor_salgenerator.robot
-SALGEN/MTCamera_salgenerator.robot
-SALGEN/MTDome_salgenerator.robot
-SALGEN/MTDomeTrajectory_salgenerator.robot
-SALGEN/MTEEC_salgenerator.robot
-SALGEN/MTHeaderService_salgenerator.robot
-SALGEN/MTOODS_salgenerator.robot
-SALGEN/MTPtg_salgenerator.robot
-SALGEN/MTVMS_salgenerator.robot
-SALGEN/MTRotator_salgenerator.robot
+SALGEN/LaserTracker_salgeneratorKafka.robot
+SALGEN/LEDProjector_salgeneratorKafka.robot
+SALGEN/MTHexapod_salgeneratorKafka.robot
+SALGEN/MTAOS_salgeneratorKafka.robot
+SALGEN/MTAirCompressor_salgeneratorKafka.robot
+SALGEN/MTCamera_salgeneratorKafka.robot
+SALGEN/MTDome_salgeneratorKafka.robot
+SALGEN/MTDomeTrajectory_salgeneratorKafka.robot
+SALGEN/MTEEC_salgeneratorKafka.robot
+SALGEN/MTHeaderService_salgeneratorKafka.robot
+SALGEN/MTOODS_salgeneratorKafka.robot
+SALGEN/MTPtg_salgeneratorKafka.robot
+SALGEN/MTVMS_salgeneratorKafka.robot
+SALGEN/MTRotator_salgeneratorKafka.robot

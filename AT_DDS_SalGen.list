@@ -1,0 +1,47 @@
+###  Test Suite list ###
+#  Change the title of the test results
+--name AuxTel&Facility
+--output AUXTEL
+
+# List of test suites
+DDS_SALGEN/ATAOS_salgenerator.robot
+DDS_SALGEN/ATBuilding_salgenerator.robot
+DDS_SALGEN/ATCamera_salgenerator.robot
+DDS_SALGEN/ATDome_salgenerator.robot
+DDS_SALGEN/ATDomeTrajectory_salgenerator.robot
+DDS_SALGEN/ATHeaderService_salgenerator.robot
+DDS_SALGEN/ATHexapod_salgenerator.robot
+DDS_SALGEN/ATMCS_salgenerator.robot
+DDS_SALGEN/ATMonochromator_salgenerator.robot
+DDS_SALGEN/ATOODS_salgenerator.robot
+DDS_SALGEN/ATPneumatics_salgenerator.robot
+DDS_SALGEN/ATPtg_salgenerator.robot
+DDS_SALGEN/ATSpectrograph_salgenerator.robot
+DDS_SALGEN/ATWhiteLight_salgenerator.robot
+DDS_SALGEN/CBP_salgenerator.robot
+DDS_SALGEN/CCCamera_salgenerator.robot
+DDS_SALGEN/CCHeaderService_salgenerator.robot
+DDS_SALGEN/CCOODS_salgenerator.robot
+DDS_SALGEN/DIMM_salgenerator.robot
+DDS_SALGEN/DREAM_salgenerator.robot
+DDS_SALGEN/DSM_salgenerator.robot
+DDS_SALGEN/EAS_salgenerator.robot
+DDS_SALGEN/Electrometer_salgenerator.robot
+DDS_SALGEN/EPM_salgenerator.robot
+DDS_SALGEN/ESS_salgenerator.robot
+DDS_SALGEN/FiberSpectrograph_salgenerator.robot
+DDS_SALGEN/GCHeaderService_salgenerator.robot
+DDS_SALGEN/GenericCamera_salgenerator.robot
+DDS_SALGEN/GIS_salgenerator.robot
+DDS_SALGEN/Guider_salgenerator.robot
+DDS_SALGEN/HVAC_salgenerator.robot
+DDS_SALGEN/LinearStage_salgenerator.robot
+DDS_SALGEN/LOVE_salgenerator.robot
+DDS_SALGEN/OCPS_salgenerator.robot
+DDS_SALGEN/PMD_salgenerator.robot
+DDS_SALGEN/Scheduler_salgenerator.robot
+DDS_SALGEN/ScriptQueue_salgenerator.robot
+DDS_SALGEN/SummitFacility_salgenerator.robot
+DDS_SALGEN/TunableLaser_salgenerator.robot
+DDS_SALGEN/Watcher_salgenerator.robot
+DDS_SALGEN/WeatherForecast_salgenerator.robot
