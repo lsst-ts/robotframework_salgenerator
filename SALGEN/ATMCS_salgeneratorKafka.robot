@@ -488,8 +488,6 @@ Verify ATMCS RPM Contents
     Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_azimuthBrake2.hh
     Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_nasmyth1Brake.hh
     Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_nasmyth2Brake.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/SAL_${subSystem}C.h
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/SAL_${subSystem}LV.h
     Comment    Verify the interface definition files are included.
     Should Contain     ${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subSystem}/${subSystem}_Generics.xml
     Should Contain     ${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subSystem}/${subSystem}_Commands.xml

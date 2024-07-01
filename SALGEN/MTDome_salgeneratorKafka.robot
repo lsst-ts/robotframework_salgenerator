@@ -69,6 +69,7 @@ Salgen MTDome Validate
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_interlocks.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_azConfigurationApplied.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_powerManagementMode.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_capacitorBanks.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_azimuth.json/
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_lightWindScreen.json/
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_apertureShutter.json/
