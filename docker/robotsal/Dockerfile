@@ -54,6 +54,9 @@ COPY --chown=73006:73006 start.sh ${HOME}/.
 COPY --chown=73006:73006 rpmmacros ${HOME}/.rpmmacros
 COPY --chown=0:0 rpmmacros /root/.rpmmacros
 
+# Set safe.directory
+RUN git config --global --add safe.directory ${HOME}/trunk/ts_sal && git config --global --add safe.directory ${HOME}/trunk/ts_xml
+
 # SAL/XML ENVs
 ENV LSST_SDK_INSTALL=$HOME/trunk/ts_sal
 ENV OSPL_HOME=/opt/OpenSpliceDDS/V6.10.4/HDE/x86_64.linux
