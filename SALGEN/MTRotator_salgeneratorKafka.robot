@@ -245,25 +245,91 @@ Salgen MTRotator Java
     Should Not Contain    ${output.stdout}    error: package org.apache.kafka* does not exist
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_ccwFollowingError.json
-    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_ccwFollowingError java ${subSystem}
-    File Should Exist    ${SALWorkDir}/${subSystem}_ccwFollowingError/java/src/org/lsst/sal/salUtils.class
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_rotation.json
-    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_rotation java ${subSystem}
-    File Should Exist    ${SALWorkDir}/${subSystem}_rotation/java/src/org/lsst/sal/salUtils.class
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_electrical.json
-    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_electrical java ${subSystem}
-    File Should Exist    ${SALWorkDir}/${subSystem}_electrical/java/src/org/lsst/sal/salUtils.class
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_motors.json
-    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_motors java ${subSystem}
-    File Should Exist    ${SALWorkDir}/${subSystem}_motors/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    calling salavrogen ${subSystem} cpp
+    Should Contain    ${output.stdout}    Generating cpp type support for ${subSystem}
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_ccwFollowingError.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_ccwFollowingError.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_rotation.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_rotation.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_electrical.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_electrical.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_motors.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_motors.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_heartbeat.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_logevent_heartbeat.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_logLevel.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_logevent_logLevel.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_logMessage.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_logevent_logMessage.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_softwareVersions.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_logevent_softwareVersions.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_errorCode.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_logevent_errorCode.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_simulationMode.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_logevent_simulationMode.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_summaryState.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_logevent_summaryState.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_configurationApplied.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_logevent_configurationApplied.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_configurationsAvailable.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_logevent_configurationsAvailable.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_clockOffset.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_logevent_clockOffset.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_controllerState.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_logevent_controllerState.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_connected.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_logevent_connected.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_interlock.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_logevent_interlock.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_target.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_logevent_target.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_tracking.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_logevent_tracking.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_inPosition.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_logevent_inPosition.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_configuration.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_logevent_configuration.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_commandableByDDS.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_logevent_commandableByDDS.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_disable.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_command_disable.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_enable.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_command_enable.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_exitControl.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_command_exitControl.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_setLogLevel.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_command_setLogLevel.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_standby.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_command_standby.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_start.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_command_start.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_configureAcceleration.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_command_configureAcceleration.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_configureVelocity.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_command_configureVelocity.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_configureJerk.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_command_configureJerk.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_configureEmergencyAcceleration.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_command_configureEmergencyAcceleration.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_configureEmergencyJerk.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_command_configureEmergencyJerk.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_fault.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_command_fault.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_move.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_command_move.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_track.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_command_track.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_trackStart.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_command_trackStart.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_stop.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_command_stop.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Configuring ${subSystem}/java/src/org/lsst/sal/SAL_${subSystem}.java
     Directory Should Exist    ${SALWorkDir}/${subSystem}/java
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/${subSystem}/java/src/saj_${subSystem}_types.jar
     File Should Exist    ${SALWorkDir}/${subSystem}/java/src/org/lsst/sal/SAL_${subSystem}.java
     File Should Exist    ${SALWorkDir}/${subSystem}/java/src/org/lsst/sal/salActor.java
     File Should Exist    ${SALWorkDir}/${subSystem}/java/src/org/lsst/sal/salUtils.java
-    File Should Exist    ${SALWorkDir}/${subSystem}/java/src/classes/org/lsst/sal//salUtils.class
     File Should Exist    ${SALWorkDir}/salUtils/libsalUtils.so
     File Should Exist    ${SALWorkDir}/lib/org/lsst/sal/salUtils.class 
 
