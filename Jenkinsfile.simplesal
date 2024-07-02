@@ -22,8 +22,6 @@ pipeline {
         string defaultValue: '', description: '', name: 'SAL_tag', trim: true
         string defaultValue: '', description: '', name: 'XML_tag', trim: true
         string defaultValue: '', description: '', name: 'simple_sal_tag', trim: true
-        text description: '''Using the Robot-Framework include tag syntax, create a space-delimited list of CSC tags (all lowercase text equal to the CSC name) with the -i switch for EACH CSC to build. The Script and Test CSCs, part of the Validate stage, are skipped by default; simply add them explicitly to this parameter to include them. Syntax:
--i csc_1 -i csc_2 ...''', name: 'csc_include_flags'
     }
     environment {
         AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
@@ -229,7 +227,7 @@ pipeline {
                     '--variable OpenspliceVersion:' + _ospl_version + ' --variable OpenspliceDate:' + _ospl_date + ' --variable XMLHome:' + _home + '/trunk/ts_xml ' +
                     ' --variable MvnVersion:"Apache Maven ' + _mvn_version + '" --variable PythonVersion:"Python ' + _python_version + '" ' +
                     ' --variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:' + Build_Param +
-                    ' --name Validate --output VALIDATE --outputdir ' + _home + '/trunk/Reports ' + flags + ' -A ' + _home + '/trunk/robotframework_salgenerator/Build_SimpleSAL_Artifacts.list \n' +
+                    ' --name Validate --output VALIDATE --outputdir ' + _home + '/trunk/Reports ' + ' -A ' + _home + '/trunk/robotframework_salgenerator/Build_SimpleSAL_Artifacts.list \n' +
                 'Result=$? \n' +
                 'if [ $Result -eq 0 ]; then echo Validation complete; else exit $Result; fi'
             }
@@ -238,7 +236,7 @@ pipeline {
             when {
                 not {
                     expression {
-                        return (params.Generate || params.csc_include_flags)
+                        return (params.Generate)
                     }
                 }
             }
@@ -255,7 +253,7 @@ pipeline {
             when {
                 not {
                     expression {
-                        return (params.Generate || params.csc_include_flags)
+                        return (params.Generate)
                     }
                 }
             }
