@@ -198,6 +198,20 @@ pipeline {
                 echo "The RPM Version: " + RPM_Version
             }
         }//Define SAL & XML variables
+        stage('Copy XML files') {
+            steps {
+                // Move XML definition files to the SAL working directory.
+                sh label: 'XML files', script: '#!/bin/bash \n' + 'cp -v ${WORKSPACE}/ts_xml/python/lsst/ts/xml/data/sal_interfaces/*/*.xml ts_sal/test'
+                sh label: 'SAL Subsystems', script: '#!/bin/bash \n' + 'cp -v ${WORKSPACE}/ts_xml/python/lsst/ts/xml/data/sal_interfaces/SALSubsystems.xml ts_sal/test'
+                sh label: 'SAL Generics', script: '#!/bin/bash \n' + 'cp -v ${WORKSPACE}/ts_xml/python/lsst/ts/xml/data/sal_interfaces/SALGenerics.xml ts_sal/test'
+            }
+        }//Copy XML
+        stage('Install IDL and XML python libraries') {
+            steps {
+                sh label: 'IDL library', script: '#!/bin/bash -x \n' + 'cd ts_idl && pip3.11 install -e . --ignore-installed --no-deps'
+                sh label: 'XML library', script: '#!/bin/bash -x \n' + 'cd ts_xml && pip3.11 install -e . --ignore-installed --no-deps'
+            }
+        }//IDL & XML
         stage('Simple-Sal Setup Build') {
             steps {
                 // Run the SAL/XML builds necessary for Simple-SAL
@@ -220,20 +234,6 @@ pipeline {
                 'if [ $Result -eq 0 ]; then echo Validation complete; else exit $Result; fi'
             }
         }//Simple-SAL Setup
-        stage('Copy XML files') {
-            steps {
-                // Move XML definition files to the SAL working directory.
-                sh label: 'XML files', script: '#!/bin/bash \n' + 'cp -v ${WORKSPACE}/ts_xml/python/lsst/ts/xml/data/sal_interfaces/*/*.xml ts_sal/test'
-                sh label: 'SAL Subsystems', script: '#!/bin/bash \n' + 'cp -v ${WORKSPACE}/ts_xml/python/lsst/ts/xml/data/sal_interfaces/SALSubsystems.xml ts_sal/test'
-                sh label: 'SAL Generics', script: '#!/bin/bash \n' + 'cp -v ${WORKSPACE}/ts_xml/python/lsst/ts/xml/data/sal_interfaces/SALGenerics.xml ts_sal/test'
-            }
-        }//Copy XML
-        stage('Install IDL and XML python libraries') {
-            steps {
-                sh label: 'IDL library', script: '#!/bin/bash -x \n' + 'cd ts_idl && pip3.11 install -e . --ignore-installed --no-deps'
-                sh label: 'XML library', script: '#!/bin/bash -x \n' + 'cd ts_xml && pip3.11 install -e . --ignore-installed --no-deps'
-            }
-        }//IDL & XML
         stage('Run standalong simple-sal tests') {
             when {
                 not {
@@ -265,8 +265,7 @@ pipeline {
                         'echo cd ' + _home + '/trunk/simple_sal  \n' +
                         'cd ' + _home + '/trunk/simple_sal \n' +
                         'echo ========= Execute simple-sal tests ========= \n' +
-                         mvn -Dorg.lsst.sal.implementation=dds clean install
-                        'mvn --no-transfer-progress -B clean install'
+                        'mvn --no-transfer-progress -B -Dorg.lsst.sal.implementation=dds clean install'
             }
         }//dds-simple-sal
     }//stages
