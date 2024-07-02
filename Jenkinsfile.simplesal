@@ -21,7 +21,7 @@ pipeline {
         booleanParam defaultValue: params.Release ?:false, description: 'Is this a Release build?', name: 'Release'
         string defaultValue: '', description: '', name: 'SAL_tag', trim: true
         string defaultValue: '', description: '', name: 'XML_tag', trim: true
-        string defaultValue: '', description: '', name: 'simple-sal_tag', trim: true
+        string defaultValue: '', description: '', name: 'simple_sal_tag', trim: true
         text description: '''Using the Robot-Framework include tag syntax, create a space-delimited list of CSC tags (all lowercase text equal to the CSC name) with the -i switch for EACH CSC to build. The Script and Test CSCs, part of the Validate stage, are skipped by default; simply add them explicitly to this parameter to include them. Syntax:
 -i csc_1 -i csc_2 ...''', name: 'csc_include_flags'
     }
@@ -59,10 +59,10 @@ pipeline {
                     DDSCONFIG_Checkout = "*/develop"
                     RFSALGEN_Checkout = "*/develop"
                     RFSALMSGs_Checkout = "*/develop"
-                    if ( simple-sal_tag == "" ) {
+                    if ( simple_sal_tag == "" ) {
                         SIMPLESAL_Checkout = "*/develop"
                     } else {
-                        SIMPLESAL_Checkout = "refs/tags/" + simple-sal_tag
+                        SIMPLESAL_Checkout = "refs/tags/" + simple_sal_tag
                     }
                 }
             }
@@ -82,10 +82,10 @@ pipeline {
                     DDSCONFIG_Checkout = "*/main"
                     RFSALGEN_Checkout = "*/develop"
                     RFSALMSGs_Checkout = "*/develop"
-                    if ( simple-sal_tag == "" ) {
+                    if ( simple_sal_tag == "" ) {
                         SIMPLESAL_Checkout = "*/main"
                     } else {
-                        SIMPLESAL_Checkout = "refs/tags/" + simple-sal_tag
+                        SIMPLESAL_Checkout = "refs/tags/" + simple_sal_tag
                     }
                 }
             }
@@ -113,10 +113,10 @@ pipeline {
                     DDSCONFIG_Checkout = "*/main"
                     RFSALGEN_Checkout = "*/main"
                     RFSALMSGs_Checkout = "*/main"
-                    if ( simple-sal_tag == "" ) {
+                    if ( simple_sal_tag == "" ) {
                         SIMPLESAL_Checkout = "*/main"
                     } else {
-                        SIMPLESAL_Checkout = "refs/tags/" + simple-sal_tag
+                        SIMPLESAL_Checkout = "refs/tags/" + simple_sal_tag
                     }
                 }
             }
