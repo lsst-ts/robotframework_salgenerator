@@ -122,7 +122,6 @@ pipeline {
                 // Checkout the SAL, XML, IDL and Salgenerator and SAL Messaging test repos.
                 checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: SAL_Checkout]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'ts_sal']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/ts_sal']]]
                 checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: XML_Checkout]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'ts_xml']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/ts_xml']]]
-                checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: IDL_Checkout]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'ts_idl']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/ts_idl']]]
                 checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: DDSCONFIG_Checkout]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'ts_ddsconfig']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/ts_ddsconfig']]]
                 checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: RFSALGEN_Checkout]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'robotframework_salgenerator']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/robotframework_salgenerator']]]
                 checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: RFSALMSGs_Checkout]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'robotframework_SAL']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/robotframework_SAL']]]
@@ -194,12 +193,11 @@ pipeline {
                 sh label: 'SAL Generics', script: '#!/bin/bash \n' + 'cp -v ${WORKSPACE}/ts_xml/python/lsst/ts/xml/data/sal_interfaces/SALGenerics.xml ts_sal/test'
             }
         }//Copy XML
-        stage('Install IDL and XML python libraries') {
+        stage('Install XML python library') {
             steps {
-                sh label: 'IDL library', script: '#!/bin/bash -x \n' + 'cd ts_idl && pip3.11 install -e . --ignore-installed --no-deps'
                 sh label: 'XML library', script: '#!/bin/bash -x \n' + 'cd ts_xml && pip3.11 install -e . --ignore-installed --no-deps'
             }
-        }//IDL & XML
+        }//XML
         stage('Validate') {
             steps {
                 script {
@@ -232,23 +230,6 @@ pipeline {
                 'if [ $Result -eq 0 ]; then echo Validation complete; else exit $Result; fi'
             }
         }//Validate
-        stage('Run simple-sal tests') {
-            when {
-                not {
-                    expression {
-                        return (params.Generate || params.csc_include_flags)
-                    }
-                }
-            }   
-            steps {
-                sh label: 'Simple-SAL', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' + 'set -x \n' +
-                        'echo ========= Move to simple-sal directory ========= \n' +
-                        'echo cd ' + _home + '/trunk/simple_sal  \n' +
-                        'cd ' + _home + '/trunk/simple_sal \n' +
-                        'echo ========= Execute simple-sal tests ========= \n' +
-                        'mvn --no-transfer-progress -B clean install'
-            }
-        }//simple-sal
         stage('Generate the RPMs') {
             parallel {
                stage('AuxTel') {
@@ -311,6 +292,23 @@ pipeline {
                 }//MainTelMountMirrors
             }//parallel
         }//Generate_RPMs
+        stage('Run simple-sal tests') {
+            when {
+                not {
+                    expression {
+                        return (params.Generate || params.csc_include_flags)
+                    }
+                }
+            }   
+            steps {
+                sh label: 'Simple-SAL', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' + 'set -x \n' +
+                        'echo ========= Move to simple-sal directory ========= \n' +
+                        'echo cd ' + _home + '/trunk/simple_sal  \n' +
+                        'cd ' + _home + '/trunk/simple_sal \n' + 
+                        'echo ========= Execute simple-sal tests ========= \n' +
+                        'mvn --no-transfer-progress -B clean install' 
+            }       
+        }//simple-sal
         stage('Run Messaging Tests') {
             when {
                 expression { 
