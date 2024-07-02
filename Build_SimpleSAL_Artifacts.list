@@ -1,0 +1,21 @@
+###  Test Suite list ###
+#
+## This is the minimum set of tests to run
+## to quickly validate SAL updates.
+## It runs the setup verification tests,
+## Script and Test CSC salgenerator tests,
+## and the SAL unit tests, which require 
+## the Script and Test CSCs to run.
+#
+#  Change the title of the test results
+--name SimpleSalSetup
+--output SimpleSalSetup
+
+# List of test suites
+DDS_SALGEN/ATCamera_salgenerator.robot
+DDS_SALGEN/CCCamera_salgenerator.robot
+DDS_SALGEN/MTCamera_salgenerator.robot
+DDS_SALGEN/ATHeaderService_salgenerator.robot
+DDS_SALGEN/CCHeaderService_salgenerator.robot
+DDS_SALGEN/MTHeaderService_salgenerator.robot
+DDS_SALGEN/GCHeaderService_salgenerator.robot
