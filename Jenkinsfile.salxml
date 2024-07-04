@@ -21,6 +21,7 @@ pipeline {
         booleanParam defaultValue: params.Release ?:false, description: 'Is this a Release build?', name: 'Release'
         string defaultValue: '', description: '', name: 'SAL_tag', trim: true
         string defaultValue: '', description: '', name: 'XML_tag', trim: true
+        string defaultValue: '', description: '', name: 'simple_sal_tag', trim: true
         text description: '''Using the Robot-Framework include tag syntax, create a space-delimited list of CSC tags (all lowercase text equal to the CSC name) with the -i switch for EACH CSC to build. The Script and Test CSCs, part of the Validate stage, are skipped by default; simply add them explicitly to this parameter to include them. Syntax:
 -i csc_1 -i csc_2 ...''', name: 'csc_include_flags'
     }
@@ -55,11 +56,14 @@ pipeline {
                     BuildType = "Bleed"
                     SAL_Checkout = "*/develop"
                     XML_Checkout = "*/develop"
-                    IDL_Checkout = "*/develop"
                     DDSCONFIG_Checkout = "*/develop"
-                    SIMPLESAL_Checkout = "*/develop"
                     RFSALGEN_Checkout = "*/develop"
                     RFSALMSGs_Checkout = "*/develop"
+                    if ( simple_sal_tag == "" ) {
+                        SIMPLESAL_Checkout = "*/develop"
+                    } else {
+                        SIMPLESAL_Checkout = "refs/tags/" + simple_sal_tag
+                    }
                 }
             }
         }
@@ -74,11 +78,14 @@ pipeline {
                     BuildType = "Daily"
                     SAL_Checkout = "*/main"
                     XML_Checkout = "*/develop"
-                    IDL_Checkout = "*/main"
-                    SIMPLESAL_Checkout = "*/main"
                     DDSCONFIG_Checkout = "*/main"
                     RFSALGEN_Checkout = "*/develop"
                     RFSALMSGs_Checkout = "*/develop"
+                    if ( simple_sal_tag == "" ) {
+                        SIMPLESAL_Checkout = "*/main"
+                    } else {
+                        SIMPLESAL_Checkout = "refs/tags/" + simple_sal_tag
+                    }
                 }
             }
         }
@@ -101,11 +108,14 @@ pipeline {
                     } else {
                         XML_Checkout = "refs/tags/" + XML_tag
                     }
-                    IDL_Checkout = "*/main"
                     DDSCONFIG_Checkout = "*/main"
-                    SIMPLESAL_Checkout = "*/main"
                     RFSALGEN_Checkout = "*/main"
                     RFSALMSGs_Checkout = "*/main"
+                    if ( simple_sal_tag == "" ) {
+                        SIMPLESAL_Checkout = "*/main"
+                    } else {
+                        SIMPLESAL_Checkout = "refs/tags/" + simple_sal_tag
+                    }
                 }
             }
         }
@@ -114,12 +124,11 @@ pipeline {
                 println("This is a " + BuildType + " build.")
                 echo "The SAL Checkout: " + SAL_Checkout
                 echo "The XML Checkout: " + XML_Checkout
-                echo "The IDL Checkout: " + IDL_Checkout
                 echo "The DDSCONFIG Checkout: " + DDSCONFIG_Checkout
                 echo "The SIMPLESAL Checkout: " + SIMPLESAL_Checkout
                 echo "The RFSALGEN Checkout: " + RFSALGEN_Checkout
                 echo "The RFSALMSGs Checkout: " + RFSALMSGs_Checkout
-                // Checkout the SAL, XML, IDL and Salgenerator and SAL Messaging test repos.
+                // Checkout the SAL, XML, and Salgenerator and SAL Messaging test repos.
                 checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: SAL_Checkout]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'ts_sal']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/ts_sal']]]
                 checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: XML_Checkout]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'ts_xml']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/ts_xml']]]
                 checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: DDSCONFIG_Checkout]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'ts_ddsconfig']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/ts_ddsconfig']]]
@@ -309,6 +318,23 @@ pipeline {
                         'mvn --no-transfer-progress -B clean install' 
             }       
         }//simple-sal
+        stage('Run Kafka simple-sal tests') {
+            when {
+                not {
+                    expression {
+                        return (params.Generate)
+                    }
+                }
+            }
+            steps {
+                sh label: 'Simple-SAL', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' + 'set -x \n' +
+                        'echo ========= Move to simple-sal directory ========= \n' +
+                        'echo cd ' + _home + '/trunk/simple_sal  \n' +
+                        'cd ' + _home + '/trunk/simple_sal \n' +
+                        'echo ========= Execute Kafka simple-sal tests ========= \n' +
+                        'mvn --no-transfer-progress -B -Dorg.lsst.sal.implementation=kafka clean install'
+            }
+        }//Kafka-simple-sal
         stage('Run Messaging Tests') {
             when {
                 expression { 
