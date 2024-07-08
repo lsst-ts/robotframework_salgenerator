@@ -34,6 +34,7 @@ make altinstall && \
 ln /usr/local/bin/python3.11 /usr/local/bin/python3 && \
 python3 --version && pip3.11 --version
 
+# Install required Python packages
 RUN python3.11 -m pip install --upgrade pip setuptools numpy && \
 python3.11 -m pip install robotframework && \
 python3.11 -m pip install astropy pytest gnureadline
