@@ -198,7 +198,7 @@ function subsystemArray() {
     MTAirCompressor MTAOS MTCamera MTDome 
     MTDomeTrajectory MTHexapod MTEEC MTHeaderService
     MTM1M3 MTM1M3TS MTM2 MTMount MTOODS MTPtg 
-    MTRotator MTVMS OCPS PMD 
+    MTReflector MTRotator MTVMS OCPS PMD 
     Scheduler Script ScriptQueue SummitFacility 
     Test TunableLaser 
     Watcher WeatherForecast"
