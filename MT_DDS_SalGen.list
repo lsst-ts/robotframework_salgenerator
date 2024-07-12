@@ -17,4 +17,5 @@ DDS_SALGEN/MTHeaderService_salgenerator.robot
 DDS_SALGEN/MTOODS_salgenerator.robot
 DDS_SALGEN/MTPtg_salgenerator.robot
 DDS_SALGEN/MTVMS_salgenerator.robot
+DDS_SALGEN/MTReflector_salgenerator.robot
 DDS_SALGEN/MTRotator_salgenerator.robot
