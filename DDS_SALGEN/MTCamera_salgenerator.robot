@@ -224,6 +224,7 @@ Salgen MTCamera Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rebpower_GeneralConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rebpower_PeriodicTasks_GeneralConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rebpower_PeriodicTasks_timersConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rebpower_Power_timersConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rebpower_RebTotalPower_LimitsConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rebpower_Reb_GeneralConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rebpower_Reb_LimitsConfiguration.idl
@@ -405,27 +406,114 @@ Salgen MTCamera Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_BFR_UtilConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_BodyMaq20_DeviceConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_BodyMaq20_DevicesConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_Body_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_Body_AmbAirtemp_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_Body_AverageTemp_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_Body_BackFlngXMinusTemp_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_Body_BackFlngXPlusTemp_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_Body_BackFlngYMinusTemp_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_Body_CamBodyXPlusTemp_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_Body_CamBodyYMinusTemp_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_Body_CamBodyYPlusTemp_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_Body_CamHousXMinusTemp_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_Body_CamHousXPlusTemp_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_Body_CamHousYMinusTemp_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_Body_CamHousYPlusTemp_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_Body_ChgrYMinusRtnAirTemp_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_Body_ChgrYMinusRtnAirVel_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_Body_DomeXMinusTemp_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_Body_DomeYMinusTemp_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_Body_L1XMinusTemp_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_Body_L1YMinusTemp_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_Body_L2XMinusTemp_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_Body_L2XPlusTemp_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_Body_L2YMinusTemp_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_Body_L2YPlusTemp_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_Body_ShrdRngXMinusTemp_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_Body_ShrdRngXPlusTemp_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_Body_ShrdRngYMinusTemp_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_Body_ShrdRngYPlusTemp_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_Body_ShtrEboxRtnAirTemp_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_Body_ShtrEboxRtnAirVel_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_Body_ShtrMtrRtnAirTemp_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_Body_ShtrMtrRtnAirVel_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_Body_VPPlenumInTemp_LimitsConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_CryoMaq20_DeviceConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_CryoMaq20_DevicesConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_MPCFan_PicConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_MPC_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_MPC_AvgAirtempOut_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_MPC_DeltaPressFilt_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_MPC_DeltaPressTotal_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_MPC_DeltaTempAct_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_MPC_FanRunTime_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_MPC_FanSpeed_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_MPC_Humidity_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_MPC_PreFiltPress_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_MPC_RetnAirTemp_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_MPC_RetnPress_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_MPC_SplyAirTemp_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_MPC_SplyPress_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_MPC_ValvePosn_LimitsConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_PDU_48V_DevicesConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_PDU_48V_UtilConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_PeriodicTasks_GeneralConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_PeriodicTasks_PicConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_PeriodicTasks_timersConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_PeriodicTasks_AgentMonitorService_timersConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_PeriodicTasks_BodyMaq20_check_status_timersConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_PeriodicTasks_CryoMaq20_check_status_timersConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_PeriodicTasks_Fan_loop_MPCFan_PicConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_PeriodicTasks_Fan_loop_UTFan_PicConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_PeriodicTasks_Fan_loop_VPCFan_PicConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_PeriodicTasks_Heartbeat_timersConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_PeriodicTasks_Monitor_check_timersConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_PeriodicTasks_Monitor_publish_timersConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_PeriodicTasks_Monitor_update_timersConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_PeriodicTasks_RuntimeInfo_timersConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_PeriodicTasks_Schedulers_GeneralConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_PeriodicTasks_UT_alarms_timersConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_PeriodicTasks_UT_state_timersConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_PeriodicTasks_UtMaq20_check_status_timersConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_PeriodicTasks_Vpc_loop_VPCHtrs_timersConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_Pluto_DeviceConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_Pluto_DevicesConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_Telescope_DevicesConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_UTFan_PicConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_UT_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_UT_AverageTemp_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_UT_CoolFlowRate_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_UT_CoolPipeRetnTemp_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_UT_CoolPipeSplyTemp_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_UT_CoolReturnPrs_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_UT_CoolSupplyPrs_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_UT_DomeXMinusTemp_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_UT_DomeYMinusTemp_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_UT_FanInletTemp_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_UT_FanRunTime_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_UT_FanSpeed_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_UT_MidXMinusTemp_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_UT_MidXPlusTemp_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_UT_SuppXMinusTemp_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_UT_SuppXPlusTemp_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_UT_TopXMinusTemp_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_UT_TopXPlusTemp_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_UT_ValvePosn_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_UT_W2Q1Temp_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_UT_W4Q3Temp_LimitsConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_UtMaq20_DeviceConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_UtMaq20_DevicesConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_UtilConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_VPCFan_PicConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_VPCHtrs_VpcConfiguration.idl
-    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_VPC_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_VPC_DeltaPressFilt_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_VPC_DeltaPressTotal_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_VPC_DeltaTempAct_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_VPC_FanRunTime_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_VPC_FanSpeed_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_VPC_HtrCurrent_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_VPC_Humidity_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_VPC_PreFiltPress_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_VPC_RetnAirTemp_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_VPC_RetnPress_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_VPC_SplyAirTemp_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_VPC_SplyAirVel_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_VPC_SplyPress_LimitsConfiguration.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_utiltrunk_VPC_ValvePosn_LimitsConfiguration.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_summaryStatus.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_alertRaised.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_filterChangerPowerStatus.idl
@@ -525,6 +613,7 @@ Verify MTCamera revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rebpower_GeneralConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rebpower_PeriodicTasks_GeneralConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rebpower_PeriodicTasks_timersConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rebpower_Power_timersConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rebpower_RebTotalPower_LimitsConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rebpower_Reb_GeneralConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rebpower_Reb_LimitsConfiguration\\) [a-z0-9]{8,}
@@ -706,27 +795,114 @@ Verify MTCamera revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_BFR_UtilConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_BodyMaq20_DeviceConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_BodyMaq20_DevicesConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_Body_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_Body_AmbAirtemp_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_Body_AverageTemp_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_Body_BackFlngXMinusTemp_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_Body_BackFlngXPlusTemp_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_Body_BackFlngYMinusTemp_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_Body_CamBodyXPlusTemp_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_Body_CamBodyYMinusTemp_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_Body_CamBodyYPlusTemp_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_Body_CamHousXMinusTemp_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_Body_CamHousXPlusTemp_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_Body_CamHousYMinusTemp_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_Body_CamHousYPlusTemp_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_Body_ChgrYMinusRtnAirTemp_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_Body_ChgrYMinusRtnAirVel_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_Body_DomeXMinusTemp_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_Body_DomeYMinusTemp_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_Body_L1XMinusTemp_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_Body_L1YMinusTemp_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_Body_L2XMinusTemp_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_Body_L2XPlusTemp_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_Body_L2YMinusTemp_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_Body_L2YPlusTemp_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_Body_ShrdRngXMinusTemp_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_Body_ShrdRngXPlusTemp_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_Body_ShrdRngYMinusTemp_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_Body_ShrdRngYPlusTemp_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_Body_ShtrEboxRtnAirTemp_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_Body_ShtrEboxRtnAirVel_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_Body_ShtrMtrRtnAirTemp_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_Body_ShtrMtrRtnAirVel_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_Body_VPPlenumInTemp_LimitsConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_CryoMaq20_DeviceConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_CryoMaq20_DevicesConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_MPCFan_PicConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_MPC_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_MPC_AvgAirtempOut_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_MPC_DeltaPressFilt_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_MPC_DeltaPressTotal_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_MPC_DeltaTempAct_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_MPC_FanRunTime_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_MPC_FanSpeed_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_MPC_Humidity_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_MPC_PreFiltPress_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_MPC_RetnAirTemp_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_MPC_RetnPress_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_MPC_SplyAirTemp_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_MPC_SplyPress_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_MPC_ValvePosn_LimitsConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_PDU_48V_DevicesConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_PDU_48V_UtilConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_PeriodicTasks_GeneralConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_PeriodicTasks_PicConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_PeriodicTasks_timersConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_PeriodicTasks_AgentMonitorService_timersConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_PeriodicTasks_BodyMaq20_check_status_timersConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_PeriodicTasks_CryoMaq20_check_status_timersConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_PeriodicTasks_Fan_loop_MPCFan_PicConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_PeriodicTasks_Fan_loop_UTFan_PicConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_PeriodicTasks_Fan_loop_VPCFan_PicConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_PeriodicTasks_Heartbeat_timersConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_PeriodicTasks_Monitor_check_timersConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_PeriodicTasks_Monitor_publish_timersConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_PeriodicTasks_Monitor_update_timersConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_PeriodicTasks_RuntimeInfo_timersConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_PeriodicTasks_Schedulers_GeneralConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_PeriodicTasks_UT_alarms_timersConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_PeriodicTasks_UT_state_timersConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_PeriodicTasks_UtMaq20_check_status_timersConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_PeriodicTasks_Vpc_loop_VPCHtrs_timersConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_Pluto_DeviceConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_Pluto_DevicesConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_Telescope_DevicesConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_UTFan_PicConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_UT_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_UT_AverageTemp_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_UT_CoolFlowRate_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_UT_CoolPipeRetnTemp_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_UT_CoolPipeSplyTemp_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_UT_CoolReturnPrs_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_UT_CoolSupplyPrs_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_UT_DomeXMinusTemp_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_UT_DomeYMinusTemp_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_UT_FanInletTemp_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_UT_FanRunTime_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_UT_FanSpeed_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_UT_MidXMinusTemp_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_UT_MidXPlusTemp_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_UT_SuppXMinusTemp_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_UT_SuppXPlusTemp_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_UT_TopXMinusTemp_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_UT_TopXPlusTemp_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_UT_ValvePosn_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_UT_W2Q1Temp_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_UT_W4Q3Temp_LimitsConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_UtMaq20_DeviceConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_UtMaq20_DevicesConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_UtilConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_VPCFan_PicConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_VPCHtrs_VpcConfiguration\\) [a-z0-9]{8,}
-    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_VPC_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_VPC_DeltaPressFilt_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_VPC_DeltaPressTotal_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_VPC_DeltaTempAct_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_VPC_FanRunTime_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_VPC_FanSpeed_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_VPC_HtrCurrent_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_VPC_Humidity_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_VPC_PreFiltPress_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_VPC_RetnAirTemp_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_VPC_RetnPress_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_VPC_SplyAirTemp_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_VPC_SplyAirVel_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_VPC_SplyPress_LimitsConfiguration\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_utiltrunk_VPC_ValvePosn_LimitsConfiguration\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_summaryStatus\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_alertRaised\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_filterChangerPowerStatus\\) [a-z0-9]{8,}
