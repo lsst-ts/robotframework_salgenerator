@@ -1,15 +1,17 @@
-FROM almalinux:8
+FROM almalinux:9
 MAINTAINER Rob Bovill (trekkie2@gmail.com)
 ARG USER=appuser
 ARG HOME=/home/${USER}
 
 USER root
 
+# Setup users
 RUN groupadd -r -g 73006 ${USER} && \
 groupadd -r -g 993 docker && \
 useradd -r -u 73006 -g ${USER} -G docker -m ${USER} -d ${HOME} && \
 chown ${USER}:docker ${HOME}
 
+# Install packages and dependencies
 RUN dnf -y update
 RUN dnf -y groupinstall "Development Tools"
 RUN dnf -y install wget make
@@ -21,6 +23,7 @@ rm -rf /var/cache/dnf
 
 RUN updatedb
 
+# Python3.11
 RUN cd /tmp && \
 wget https://www.python.org/ftp/python/3.11.4/Python-3.11.4.tgz && \
 tar xvf Python-3.11.4.tgz
@@ -36,10 +39,17 @@ python3.11 -m pip install robotframework && \
 python3.11 -m pip install astropy && \
 python3.11 -m pip install pytest
 
+# Java17 Azul
+ADD zulu17.50.19-ca-jdk17.0.11-linux.x86_64.rpm ${HOME}
+RUN dnf -y install ${HOME}/zulu17.50.19-ca-jdk17.0.11-linux.x86_64.rpm
+RUN rm ${HOME}/zulu17.50.19-ca-jdk17.0.11-linux.x86_64.rpm
+
+# XMLStarlet
 RUN cd /tmp && \
 curl -s http://dl.fedoraproject.org/pub/epel/7/x86_64/Packages/x/xmlstarlet-1.6.1-1.el7.x86_64.rpm --output xmlstarlet-1.6.1-1.el7.x86_64.rpm && \
 yum -y install xmlstarlet-1.6.1-1.el7.x86_64.rpm
 
+# Setup environment
 WORKDIR ${HOME}
 USER ${USER}
 
