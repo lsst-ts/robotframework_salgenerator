@@ -40,8 +40,9 @@ python3.11 -m pip install astropy && \
 python3.11 -m pip install pytest
 
 # Java17 Azul
-ADD zulu17.50.19-ca-jdk17.0.11-linux.x86_64.rpm
-RUN yum install zulu17.50.19-ca-jdk17.0.11-linux.x86_64.rpm
+ADD zulu17.50.19-ca-jdk17.0.11-linux.x86_64.rpm ${HOME}
+RUN dnf -y install ${HOME}/zulu17.50.19-ca-jdk17.0.11-linux.x86_64.rpm
+RUN rm ${HOME}/zulu17.50.19-ca-jdk17.0.11-linux.x86_64.rpm
 
 # XMLStarlet
 RUN cd /tmp && \
