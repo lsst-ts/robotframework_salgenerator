@@ -14,36 +14,43 @@ ADD mavenrepo69.tgz ${HOME}
 ADD settings.xml ${HOME}/.m2
 RUN chown -R 73006:73006 ${HOME}/.m2 
 
+# AWS CLI
 RUN python3.11 -m pip install awscli --upgrade
 
+# Install packages and dependencies
 RUN dnf -y install tk tk-devel \
 ncurses-libs xterm \
 xorg-x11-fonts-misc \
-maven java-1.8.0-openjdk-devel \
 gnome-terminal iproute \
 mariadb make gcc-c++ \
 rpm-build && \
 yum clean all && \
 rm -rf /var/cache/yum
 
+# Maven
 ADD maven.sh /etc/profile.d/
 RUN wget -P /tmp https://mirrors.gigenet.com/apache/maven/maven-3/3.9.4/binaries/apache-maven-3.9.4-bin.tar.gz
 RUN tar xf /tmp/apache-maven-3.9.4-bin.tar.gz -C /opt && \
 ln -s /opt/apache-maven-3.9.4 /opt/maven && \
 source /etc/profile.d/maven.sh && mvn --version
 
+# OpenSplice
 ADD OpenSpliceDDS-6.10.4-2.el8.x86_64.rpm ${HOME}
 RUN yum -y install ${HOME}/OpenSpliceDDS-6.10.4-2.el8.x86_64.rpm
 
+# Setup environment
 USER ${USER}
 
 COPY --chown=73006:73006 start.sh ${HOME}/.
 COPY --chown=73006:73006 rpmmacros ${HOME}/.rpmmacros
 COPY --chown=0:0 rpmmacros /root/.rpmmacros
 
+# Set safe.directory
+RUN git config --global --add safe.directory ${HOME}/trunk/ts_sal && git config --global --add safe.directory ${HOME}/trunk/ts_xml
+
 ENV LSST_SDK_INSTALL=$HOME/trunk/ts_sal
 ENV OSPL_HOME=/opt/OpenSpliceDDS/V6.10.4/HDE/x86_64.linux
-ENV JAVA_HOME=/etc/alternatives/java_sdk_1.8.0_openjdk
+ENV JAVA_HOME=/usr/lib/jvm/java-17-zulu-openjdk-jdk
 ENV LSST_DDS_DOMAIN=citest
 
 RUN echo "" >> ${HOME}/.bash_profile && \
