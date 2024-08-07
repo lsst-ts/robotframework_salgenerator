@@ -495,7 +495,9 @@ pipeline {
                 build job: 'IDL_Conda_package/develop', parameters: [string(name: 'SAL_Version', value: SAL_Version_Base), \
                     string(name: 'XML_Version', value: XML_Version_Base + "~" + Build_Param), \
                     string(name: 'build_type', value: BuildType), booleanParam(name: 'develop', value: true), \
-                    booleanParam(name: 'buildSalObjConda', value: true), booleanParam(name: 'buildCSCConda', value: true)], wait: false
+                    booleanParam(name: 'buildXmlConda', value: true), \
+                    booleanParam(name: 'buildSalObjConda', value: true), \
+                    booleanParam(name: 'buildCSCConda', value: true)], wait: false
                 echo "Starting the BaseDevImage job; BuildSalobjContainer:true and BuildDevEnv:true"
                 build job: 'BaseDevImage', parameters: [booleanParam(name: 'BuildSalobjContainer', value: true), \
                     booleanParam(name: 'SalobjContainerDevelop', value: true), \
