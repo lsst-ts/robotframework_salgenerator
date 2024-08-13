@@ -25,10 +25,10 @@ RUN updatedb
 
 # Python3.11
 RUN cd /tmp && \
-wget https://www.python.org/ftp/python/3.11.4/Python-3.11.4.tgz && \
-tar xvf Python-3.11.4.tgz
+wget https://www.python.org/ftp/python/3.11.9/Python-3.11.9.tgz && \
+tar xvf Python-3.11.9.tgz
 
-RUN cd /tmp/Python-3.11.4 && \
+RUN cd /tmp/Python-3.11.9 && \
 ./configure --enable-optimizations && \
 make altinstall && \
 ln /usr/local/bin/python3.11 /usr/local/bin/python3 && \
@@ -36,17 +36,16 @@ python3 --version && pip3.11 --version
 
 RUN python3.11 -m pip install --upgrade pip setuptools numpy && \
 python3.11 -m pip install robotframework && \
-python3.11 -m pip install astropy && \
-python3.11 -m pip install pytest
+python3.11 -m pip install astropy pytest gnureadline
 
 # Java17 Azul
-ADD zulu17.50.19-ca-jdk17.0.11-linux.x86_64.rpm ${HOME}
-RUN dnf -y install ${HOME}/zulu17.50.19-ca-jdk17.0.11-linux.x86_64.rpm
-RUN rm ${HOME}/zulu17.50.19-ca-jdk17.0.11-linux.x86_64.rpm
+ADD zulu17.52.17-ca-jdk17.0.12-linux.x86_64.rpm ${HOME}
+RUN dnf -y install ${HOME}/zulu17.52.17-ca-jdk17.0.12-linux.x86_64.rpm
+RUN rm ${HOME}/zulu17.52.17-ca-jdk17.0.12-linux.x86_64.rpm
 
 # XMLStarlet
 RUN cd /tmp && \
-curl -s http://dl.fedoraproject.org/pub/epel/7/x86_64/Packages/x/xmlstarlet-1.6.1-1.el7.x86_64.rpm --output xmlstarlet-1.6.1-1.el7.x86_64.rpm && \
+curl -s https://archives.fedoraproject.org/pub/archive/epel/7/x86_64/Packages/x/xmlstarlet-1.6.1-1.el7.x86_64.rpm --output xmlstarlet-1.6.1-1.el7.x86_64.rpm && \
 yum -y install xmlstarlet-1.6.1-1.el7.x86_64.rpm
 
 # Setup environment
