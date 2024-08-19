@@ -1,8 +1,8 @@
 // Define variables
 def _python_version="3.11.9"
-def _mvn_version="3.9.4"
+def _mvn_version="3.9.8"
 def _ospl_version="6.10.4p2"
-def _ospl_date="2020-10-12"
+def _ospl_date="2020-10-09"
 def _user="appuser"
 def _home="/home/" + _user
 
