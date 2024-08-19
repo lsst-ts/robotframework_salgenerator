@@ -21,6 +21,6 @@ ${XMLHome}              /home/appuser/trunk/ts_xml
 ${Build_Number}         001
 ${OpenspliceRelease}    Vortex OpenSplice HDE Release
 ${OpenspliceVersion}    6.10.4p2
-${OpenspliceDate}       2020-10-12
+${OpenspliceDate}       2020-10-09
 ${Prompt}               ]$
 ${Host}                 0.0.0.0
