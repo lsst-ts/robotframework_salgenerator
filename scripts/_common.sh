@@ -179,7 +179,7 @@ function clearTestSuites() {
 }
 
 
-function subsystemArray() {
+function subsystemArrayDDS() {
     # Independent definition of all the CSCs (called Subsystems in SalGen.sh).
     #
     # While it is possible to use ts_xml/python/lsst/ts/xml/data/sal_interfaces/SALSubsystems.xml to 
@@ -202,6 +202,22 @@ function subsystemArray() {
     Scheduler Script ScriptQueue SummitFacility 
     Test TunableLaser 
     Watcher WeatherForecast"
+}
+
+
+function subsystemArray() {
+    # Independent definition of all the CSCs (called Subsystems in SalGen.sh)
+    # to build under Kafka.
+    #
+    # While it is possible to use ts_xml/python/lsst/ts/xml/data/sal_interfaces/SALSubsystems.xml to 
+    # generate this list, it is better to have an independent list, such that
+    # the thing being tested is not used to test the thing.
+    #
+    echo "ATCamera ATHeaderService ATMCS ATPtg 
+    CCCamera CCHeaderService
+    ESS GCHeaderService Guider MTM1M3 
+    MTCamera MTHeaderService
+    MTMount MTPtg MTRotator MTVMS Test"
 }
 
 
