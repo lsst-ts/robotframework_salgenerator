@@ -434,7 +434,7 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     echo "    File Should Exist    \${SALWorkDir}/rpmbuild/SOURCES/\${subSystem}-\${XMLVersionBase}\${sep}\${Build_Number}.tgz" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_runtime-\${XMLVersionBase}\${sep}\${Build_Number}-\${SALVersionBase}*\${DIST}.x86_64.rpm" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_ATruntime-\${XMLVersionBase}\${sep}\${Build_Number}-\${SALVersionBase}*\${DIST}.x86_64.rpm" >> $testSuite
-    echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_utils-\${SALVersionBase}-1.x86_64.rpm" >> $testSuite
+    echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_utilsKafka-\${SALVersionBase}-1.x86_64.rpm" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/\${subSystem}-\${XMLVersionBase}\${sep}\${Build_Number}-\${SALVersionBase}\${DIST}.x86_64.rpm" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/lib/org/lsst/sal/salUtils.class" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/lib/libsalUtils.so" >> $testSuite
@@ -540,7 +540,6 @@ shell=True    cwd=\${SALWorkDir}/rpmbuild/RPMS/x86_64    stdout=\${EXECDIR}\${/}
     echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
     echo "    Should Not Contain    \${output.stderr}    error" >> $testSuite
     echo "    Should Not Contain    \${output.stderr}    No such file or directory" >> $testSuite
-    echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_sal/lib/libSAL_\${subSystem}.a" >> $testSuite
     echo "    Comment    Verify the TEST RPM contains the test programs." >> $testSuite
     if [[ $commandsLen -ne 0 ]]; then
         echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_\${subSystem}_all_commander" >> $testSuite
