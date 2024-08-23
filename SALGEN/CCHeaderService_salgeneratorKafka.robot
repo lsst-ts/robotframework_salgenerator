@@ -16,9 +16,9 @@ Verify CCHeaderService XML Defintions exist
     Comment    Verify the CSC XML definition files exist.
     ${output}    Get File    ${EXECDIR}/../ts_xml/python/lsst/ts/xml/data/sal_interfaces/CCHeaderService/README.md
     Log    ${output}
-    Should Contain     ${output}    \# ${subSystem}
-    Should Contain     ${output}    This SAL Component only uses generic topics.
-    Should Contain     ${output}    This directory is intentionally left empty.
+    Should Contain    ${output}    \# ${subSystem}
+    Should Contain    ${output}    This SAL Component only uses generic topics.
+    Should Contain    ${output}    This directory is intentionally left empty.
 
 Salgen CCHeaderService Validate
     [Documentation]    Validate the CCHeaderService XML definitions.
@@ -37,8 +37,17 @@ Salgen CCHeaderService Validate
     Directory Should Exist    ${SALWorkDir}/avro-templates/${subSystem}
     @{files}=    List Directory    ${SALWorkDir}/avro-templates/${subSystem}
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_hash_table.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_Generics.xml
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_ackcmd.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_field_enums.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_global_enums.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_hash_table.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_disable.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_enable.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_exitControl.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_setLogLevel.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_standby.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_start.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_heartbeat.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_logLevel.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_logMessage.json
