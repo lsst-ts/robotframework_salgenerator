@@ -85,42 +85,8 @@ COPY --chown=0:0 rpmmacros /root/.rpmmacros
 # Set safe.directory
 RUN git config --global --add safe.directory ${HOME}/trunk/ts_sal && git config --global --add safe.directory ${HOME}/trunk/ts_xml
 
-<<<<<<< HEAD
-# SAL/XML ENVs
-ENV LSST_SDK_INSTALL=$HOME/trunk/ts_sal
-ENV OSPL_HOME=/opt/OpenSpliceDDS/V6.10.4/HDE/x86_64.linux
-ENV LSST_DDS_DOMAIN=citest
-ENV LSST_DDS_PARTITION_PREFIX=citest
-ENV PYTHONPATH=$PYTHONPATH:$TS_XML_DIR/python
-
-# SAL Kafka/Avro EnvVars
-## Version variables
-ENV MAVEN_RELEASE=3.9.8
-ENV AVRO_RELEASE=1.11.1
-ENV BOOST_RELEASE=1.78
-ENV JDK_RELEASE=11
-ENV KAFKA_RELEASE=7.6
-ENV JACKSON_RELEASE=2.15.2
-## Path variables
-ENV LSST_SAL_PREFIX=$HOME/ts_sal_stage
-ENV LSST_KAFKA_CLASSDIR=${LSST_SAL_PREFIX}/lib
-ENV LSST_KAFKA_PREFIX=lsst.sal
-ENV LSST_KAFKA_HOST=broker
-ENV LSST_KAFKA_LOCAL_SCHEMAS=${LSST_SAL_PREFIX}/avro-templates
-ENV LSST_KAFKA_BROKER_PORT=9092
-ENV LSST_KAFKA_BROKER_ADDR=broker:${LSST_KAFKA_BROKER_PORT}
-ENV LSST_SCHEMA_REGISTRY_URL=http://schema-registry:8081
-ENV AVRO_CLASSPATH=lsst/sal
-ENV AVRO_INCL=${LSST_SAL_PREFIX}/include/avro
-ENV AVRO_HOME=${LSST_SAL_PREFIX}/lib
-ENV AVRO_PREFIX=lsst.sal
-ENV LD_LIBRARY_PATH=${LSST_SAL_PREFIX}/lib:$LD_LIBRARY_PATH
-ENV CPPFLAGS="-I $LSST_SAL_PREFIX/include/avro"
-
-=======
->>>>>>> 6fa2597... Moved the EnvVar definitions earlier in docker/robotsal/Dockerfile. Install boost1.78-devel. Applied fixes for the libserdes install.
 # Install Avro
-ARG AVRO_RELEASE=1.11.1
+ARG AVRO_RELEASE=${AVRO_RELEASE}
 RUN mkdir $HOME/external-packages && mkdir -p $LSST_SAL_PREFIX/include/avro && mkdir $LSST_SAL_PREFIX/lib && \
 mkdir $LSST_SAL_PREFIX/bin && ln -s $LSST_SDK_INSTALL/test/avro-templates $LSST_SAL_PREFIX/avro-templates
 WORKDIR $HOME/external-packages
@@ -136,15 +102,15 @@ WORKDIR $HOME/external-packages/avro-src-${AVRO_RELEASE}/lang/c++
 RUN ./build.sh test
 RUN cp build/lib* $LSST_SAL_PREFIX/lib/. && \
 cp build/avrogencpp $LSST_SAL_PREFIX/bin/. && \
-cp -r api/* $LSST_SAL_PREFIX/include/avro/. && \
+cp -r include/avro/* $LSST_SAL_PREFIX/include/avro/. && \
 cp -r impl $LSST_SAL_PREFIX/include/.
 #Build Java
 WORKDIR $HOME/external-packages/avro-src-${AVRO_RELEASE}/lang/java
 RUN ./build.sh test && ./build.sh dist
-RUN cp ./avro/target/avro-1.11.1.jar $LSST_SAL_PREFIX/lib/. && \
-cp ./compiler/target/avro-compiler-1.11.1.jar $LSST_SAL_PREFIX/lib/. && \
-cp ./maven-plugin/target/avro-maven-plugin-1.11.1.jar $LSST_SAL_PREFIX/lib/. && \
-cp ./tools/target/avro-tools-1.11.1.jar $LSST_SAL_PREFIX/lib/.
+RUN cp ./avro/target/avro-${AVRO_RELEASE}.jar $LSST_SAL_PREFIX/lib/. && \
+cp ./compiler/target/avro-compiler-${AVRO_RELEASE}.jar $LSST_SAL_PREFIX/lib/. && \
+cp ./maven-plugin/target/avro-maven-plugin-${AVRO_RELEASE}.jar $LSST_SAL_PREFIX/lib/. && \
+cp ./tools/target/avro-tools-${AVRO_RELEASE}.jar $LSST_SAL_PREFIX/lib/.
 
 # Install Kafka
 ARG KAFKA_RELEASE=7.6
