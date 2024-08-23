@@ -3,6 +3,41 @@ MAINTAINER Rob Bovill (trekkie2@gmail.com)
 ARG USER=appuser
 ARG HOME=/home/${USER}
 
+# System EnvVars
+ENV PYTHONPATH="$PYTHONPATH:$TS_XML_DIR/python"
+ENV JAVA_HOME=/usr/lib/jvm/java-17-zulu-openjdk-jdk
+ENV MAVEN_HOME=/opt/maven
+ENV M2_HOME=${MAVEN_HOME}
+ENV PATH=${MAVEN_HOME}/bin:${PATH}
+
+# SAL/XML EnvVars
+ENV LSST_SDK_INSTALL=$HOME/trunk/ts_sal
+ENV OSPL_HOME=/opt/OpenSpliceDDS/V6.10.4/HDE/x86_64.linux
+ENV LSST_DDS_DOMAIN=citest
+ENV LSST_DDS_PARTITION_PREFIX=citest
+## Version variables
+ENV MAVEN_RELEASE=3.9.8
+ENV AVRO_RELEASE=1.12.0
+ENV BOOST_RELEASE=1.78
+ENV JDK_RELEASE=11
+ENV KAFKA_RELEASE=7.6
+ENV JACKSON_RELEASE=2.15.2
+## Path variables
+ENV LSST_SAL_PREFIX=$HOME/ts_sal_stage
+ENV LSST_KAFKA_CLASSDIR=${LSST_SAL_PREFIX}/lib
+ENV LSST_KAFKA_PREFIX=lsst.sal
+ENV LSST_KAFKA_HOST=broker
+ENV LSST_KAFKA_LOCAL_SCHEMAS=${LSST_SAL_PREFIX}/avro-templates
+ENV LSST_KAFKA_BROKER_PORT=9092
+ENV LSST_KAFKA_BROKER_ADDR=broker:${LSST_KAFKA_BROKER_PORT}
+ENV LSST_SCHEMA_REGISTRY_URL=http://schema-registry:8081
+ENV AVRO_CLASSPATH=lsst/sal
+ENV AVRO_INCL=${LSST_SAL_PREFIX}/include/avro
+ENV AVRO_HOME=${LSST_SAL_PREFIX}/lib
+ENV AVRO_PREFIX=lsst.sal
+ENV LD_LIBRARY_PATH="/usr/lib64/boost1.78:${LSST_SAL_PREFIX}/lib:$LD_LIBRARY_PATH"
+ENV CPPFLAGS="-I $LSST_SAL_PREFIX/include/avro"
+
 USER root
 WORKDIR /
 
@@ -26,7 +61,8 @@ ncurses-libs xterm \
 xorg-x11-fonts-misc \
 gnome-terminal iproute \
 make cmake gcc-c++ \
-boost-devel jansson-devel \
+fmt fmt-devel \
+boost${BOOST_RELEASE}-devel jansson-devel \
 snappy-devel libcurl-devel \
 rpm-build && \
 dnf clean all && \
@@ -36,8 +72,7 @@ rm -rf /var/cache/dnf
 ADD maven.sh /etc/profile.d/
 RUN wget -P /tmp https://mirrors.gigenet.com/apache/maven/maven-3/3.9.8/binaries/apache-maven-3.9.8-bin.tar.gz
 RUN tar xf /tmp/apache-maven-3.9.8-bin.tar.gz -C /opt && \
-ln -s /opt/apache-maven-3.9.8 /opt/maven && \
-source /etc/profile.d/maven.sh
+ln -s /opt/apache-maven-3.9.8 /opt/maven
 
 # Switch to image user and complete setup
 USER ${USER}
@@ -50,6 +85,7 @@ COPY --chown=0:0 rpmmacros /root/.rpmmacros
 # Set safe.directory
 RUN git config --global --add safe.directory ${HOME}/trunk/ts_sal && git config --global --add safe.directory ${HOME}/trunk/ts_xml
 
+<<<<<<< HEAD
 # SAL/XML ENVs
 ENV LSST_SDK_INSTALL=$HOME/trunk/ts_sal
 ENV OSPL_HOME=/opt/OpenSpliceDDS/V6.10.4/HDE/x86_64.linux
@@ -81,6 +117,8 @@ ENV AVRO_PREFIX=lsst.sal
 ENV LD_LIBRARY_PATH=${LSST_SAL_PREFIX}/lib:$LD_LIBRARY_PATH
 ENV CPPFLAGS="-I $LSST_SAL_PREFIX/include/avro"
 
+=======
+>>>>>>> 6fa2597... Moved the EnvVar definitions earlier in docker/robotsal/Dockerfile. Install boost1.78-devel. Applied fixes for the libserdes install.
 # Install Avro
 ARG AVRO_RELEASE=1.11.1
 RUN mkdir $HOME/external-packages && mkdir -p $LSST_SAL_PREFIX/include/avro && mkdir $LSST_SAL_PREFIX/lib && \
@@ -137,9 +175,12 @@ RUN cd librdkafka && ./configure --prefix=$LSST_SAL_PREFIX && \
 make && make install
 
 # Download and build libserdes
+RUN ln -sf /usr/include/boost${BOOST_RELEASE}/boost $LSST_SAL_PREFIX/include/boost
 RUN git clone https://github.com/confluentinc/libserdes
 RUN cd libserdes && ./configure --prefix=$LSST_SAL_PREFIX --includedir=$LSST_SAL_PREFIX/include --libdir=$LSST_SAL_PREFIX/lib && \
-make && make install
+make || true && \
+cd src-cpp && g++ -MD -MP  -I$LSST_SAL_PREFIX/include/avro -I$LSST_SAL_PREFIX/include -g -O2 -fPIC -Wall -Wsign-compare -Wfloat-equal -Wpointer-arith -Wcast-align -I../src  -Wno-non-virtual-dtor  -std=c++17 -c Serdes.cpp -o Serdes.o && make && \
+cd ../ && make install
 
 # Setup startup environment
 USER ${USER}
