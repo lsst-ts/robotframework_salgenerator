@@ -66,6 +66,7 @@ Salgen MTAOS Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_wavefrontError.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rejectedWavefrontError.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_degreeOfFreedom.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_mirrorStresses.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rejectedDegreeOfFreedom.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_m2HexapodCorrection.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_rejectedM2HexapodCorrection.idl
@@ -111,6 +112,7 @@ Verify MTAOS revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_wavefrontError\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rejectedWavefrontError\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_degreeOfFreedom\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_mirrorStresses\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rejectedDegreeOfFreedom\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_m2HexapodCorrection\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_rejectedM2HexapodCorrection\\) [a-z0-9]{8,}
