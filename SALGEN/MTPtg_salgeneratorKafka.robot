@@ -14,7 +14,7 @@ ${timeout}    1200s
 Verify MTPtg XML Defintions exist
     [Tags]    validate
     Comment    Verify the CSC XML definition files exist.
-    ${output}    Run Process    ls     ${SALWorkDir}/${subSystem}_*xml    shell=True
+    ${output}    Run Process    ls    ${SALWorkDir}/${subSystem}_*xml    shell=True
     Log Many    ${output.stdout}    ${output.stderr}
     Should Not Be Empty    ${output.stdout}
     File Should Exist    ${SALWorkDir}/MTPtg_Commands.xml
@@ -38,7 +38,6 @@ Salgen MTPtg Validate
     Directory Should Exist    ${SALWorkDir}/avro-templates/${subSystem}
     @{files}=    List Directory    ${SALWorkDir}/avro-templates/${subSystem}
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_hash_table.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_Generics.xml
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_Commands.xml
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}_cmddef.tcl
@@ -46,6 +45,47 @@ Salgen MTPtg Validate
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}_evtdef.tcl
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_Telemetry.xml
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}_tlmdef.tcl
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_ackcmd.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_field_enums.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_global_enums.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_hash_table.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_disable.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_enable.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_exitControl.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_setLogLevel.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_standby.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_start.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_pointCloseFile.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_poriginAbsorb.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_guideClear.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_collOffset.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_rotOffset.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_clearCollOffset.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_poriginXY.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_iersUpdate.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_offsetRADec.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_pointAddData.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_guideControl.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_offsetAbsorb.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_ephemTarget.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_wavelength.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_pointLoadModel.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_azCurrentWrap.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_debugLevel.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_raDecTarget.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_offsetPA.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_rotCurrentWrap.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_poriginOffset.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_offsetClear.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_offsetAzEl.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_azElTarget.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_planetTarget.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_pointNewFile.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_poriginClear.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_focusName.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_amLimitSet.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_stopTracking.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_startTracking.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_heartbeat.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_logLevel.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_logMessage.json
@@ -434,7 +474,7 @@ Salgen MTPtg RPM
     File Should Exist    ${SALWorkDir}/rpmbuild/SOURCES/${subSystem}-${XMLVersionBase}${sep}${Build_Number}.tgz
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_runtime-${XMLVersionBase}${sep}${Build_Number}-${SALVersionBase}*${DIST}.x86_64.rpm
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_ATruntime-${XMLVersionBase}${sep}${Build_Number}-${SALVersionBase}*${DIST}.x86_64.rpm
-    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_utils-${SALVersionBase}-1.x86_64.rpm
+    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_utilsKafka-${SALVersionBase}-1.x86_64.rpm
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}-${XMLVersionBase}${sep}${Build_Number}-${SALVersionBase}${DIST}.x86_64.rpm
     File Should Exist    ${SALWorkDir}/lib/org/lsst/sal/salUtils.class
     File Should Exist    ${SALWorkDir}/lib/libsalUtils.so
@@ -456,97 +496,180 @@ Verify MTPtg RPM Contents
     Log Many    ${output.stdout}    ${output.stderr}
     Should Not Contain    ${output.stderr}    error
     Should Not Contain    ${output.stderr}    No such file or directory
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/scripts/${subSystem}_revCodes.tcl
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/lib/libSAL_${subSystem}.a
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/SAL_${subSystem}.h
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_ackcmd.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_currentTargetStatus.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_guiding.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_timeAndDate.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_mountStatus.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_skyEnvironment.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_namedAzEl.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_mountPosition.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_disable.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_enable.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_exitControl.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_setLogLevel.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_standby.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_start.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_pointCloseFile.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_poriginAbsorb.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_guideClear.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_collOffset.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_rotOffset.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_clearCollOffset.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_poriginXY.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_iersUpdate.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_offsetRADec.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_pointAddData.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_guideControl.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_offsetAbsorb.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_ephemTarget.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_wavelength.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_pointLoadModel.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_azCurrentWrap.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_debugLevel.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_raDecTarget.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_offsetPA.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_rotCurrentWrap.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_poriginOffset.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_offsetClear.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_offsetAzEl.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_azElTarget.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_planetTarget.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_pointNewFile.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_poriginClear.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_focusName.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_amLimitSet.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_stopTracking.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_startTracking.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_heartbeat.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_logLevel.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_logMessage.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_softwareVersions.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_errorCode.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_simulationMode.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_summaryState.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_focusNameSelected.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_sunProximityWarning.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_detailedState.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_azWrapWarning.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_wavelength.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_objectSetWarning.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_pointingModel.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_airmassWarning.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_weatherDataInvalid.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_focusNameInconsistentWarning.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_currentTarget.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_iersOutOfDate.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_weatherDataApplied.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_currentDebugLevel.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_mountDataWarning.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_rotWrapWarning.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_iers.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_moonProximityWarning.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_trackPosting.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_ptgAzCurrentWrap.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_ptgRotCurrentWrap.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_elLimitWarning.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_pointingFile.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_timesOfLimits.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_validatedTarget.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_offsetSummary.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_pointData.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_observatoryLocation.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/scripts/${subSystem}_revCodes.tcl
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_ackcmd.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_field_enums.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_global_enums.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_hash_table.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_command_disable.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_command_enable.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_command_exitControl.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_command_setLogLevel.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_command_standby.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_command_start.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_command_pointCloseFile.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_command_poriginAbsorb.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_command_guideClear.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_command_collOffset.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_command_rotOffset.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_command_clearCollOffset.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_command_poriginXY.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_command_iersUpdate.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_command_offsetRADec.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_command_pointAddData.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_command_guideControl.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_command_offsetAbsorb.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_command_ephemTarget.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_command_wavelength.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_command_pointLoadModel.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_command_azCurrentWrap.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_command_debugLevel.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_command_raDecTarget.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_command_offsetPA.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_command_rotCurrentWrap.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_command_poriginOffset.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_command_offsetClear.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_command_offsetAzEl.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_command_azElTarget.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_command_planetTarget.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_command_pointNewFile.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_command_poriginClear.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_command_focusName.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_command_amLimitSet.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_command_stopTracking.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_command_startTracking.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_heartbeat.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_logLevel.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_logMessage.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_softwareVersions.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_errorCode.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_simulationMode.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_summaryState.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_focusNameSelected.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_sunProximityWarning.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_detailedState.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_azWrapWarning.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_wavelength.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_objectSetWarning.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_pointingModel.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_airmassWarning.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_weatherDataInvalid.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_focusNameInconsistentWarning.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_currentTarget.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_iersOutOfDate.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_weatherDataApplied.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_currentDebugLevel.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_mountDataWarning.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_rotWrapWarning.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_iers.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_moonProximityWarning.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_trackPosting.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_ptgAzCurrentWrap.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_ptgRotCurrentWrap.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_elLimitWarning.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_pointingFile.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_timesOfLimits.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_validatedTarget.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_offsetSummary.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_pointData.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_observatoryLocation.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_currentTargetStatus.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_guiding.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_timeAndDate.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_mountStatus.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_skyEnvironment.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_namedAzEl.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_mountPosition.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/lib/libSAL_${subSystem}.a
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/SAL_${subSystem}.h
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_ackcmd.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_currentTargetStatus.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_guiding.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_timeAndDate.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_mountStatus.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_skyEnvironment.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_namedAzEl.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_mountPosition.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_disable.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_enable.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_exitControl.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_setLogLevel.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_standby.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_start.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_pointCloseFile.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_poriginAbsorb.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_guideClear.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_collOffset.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_rotOffset.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_clearCollOffset.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_poriginXY.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_iersUpdate.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_offsetRADec.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_pointAddData.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_guideControl.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_offsetAbsorb.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_ephemTarget.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_wavelength.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_pointLoadModel.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_azCurrentWrap.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_debugLevel.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_raDecTarget.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_offsetPA.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_rotCurrentWrap.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_poriginOffset.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_offsetClear.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_offsetAzEl.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_azElTarget.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_planetTarget.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_pointNewFile.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_poriginClear.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_focusName.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_amLimitSet.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_stopTracking.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_startTracking.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_heartbeat.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_logLevel.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_logMessage.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_softwareVersions.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_errorCode.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_simulationMode.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_summaryState.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_focusNameSelected.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_sunProximityWarning.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_detailedState.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_azWrapWarning.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_wavelength.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_objectSetWarning.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_pointingModel.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_airmassWarning.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_weatherDataInvalid.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_focusNameInconsistentWarning.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_currentTarget.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_iersOutOfDate.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_weatherDataApplied.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_currentDebugLevel.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_mountDataWarning.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_rotWrapWarning.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_iers.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_moonProximityWarning.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_trackPosting.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_ptgAzCurrentWrap.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_ptgRotCurrentWrap.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_elLimitWarning.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_pointingFile.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_timesOfLimits.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_validatedTarget.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_offsetSummary.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_pointData.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_observatoryLocation.hh
     Comment    Verify the interface definition files are included.
-    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subSystem}/${subSystem}_Generics.xml
-    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subSystem}/${subSystem}_Commands.xml
-    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subSystem}/${subSystem}_Commands.html
-    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subSystem}/${subSystem}_Events.xml
-    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subSystem}/${subSystem}_Events.html
-    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subSystem}/${subSystem}_Telemetry.xml
-    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subSystem}/${subSystem}_Telemetry.html
+    Should Contain    ${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subSystem}/${subSystem}_Generics.xml
+    Should Contain    ${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subSystem}/${subSystem}_Commands.xml
+    Should Contain    ${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subSystem}/${subSystem}_Commands.html
+    Should Contain    ${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subSystem}/${subSystem}_Events.xml
+    Should Contain    ${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subSystem}/${subSystem}_Events.html
+    Should Contain    ${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subSystem}/${subSystem}_Telemetry.xml
+    Should Contain    ${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subSystem}/${subSystem}_Telemetry.html
 
 Verify MTPtg TEST RPM Contents
     [Documentation]    Verify the ${subSystem} TEST RPM contains all the expected libraries
@@ -563,7 +686,6 @@ Verify MTPtg TEST RPM Contents
     Log Many    ${output.stdout}    ${output.stderr}
     Should Not Contain    ${output.stderr}    error
     Should Not Contain    ${output.stderr}    No such file or directory
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/lib/libSAL_${subSystem}.a
     Comment    Verify the TEST RPM contains the test programs.
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_all_commander
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_all_controller

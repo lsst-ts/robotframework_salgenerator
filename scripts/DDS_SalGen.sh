@@ -18,14 +18,14 @@
 # workDir : 'string'
 #       Defines the working directory.
 #
-# subSystemArray : 'string' array
-#       Array of all the CSCs, as defined in the 
-#       _common.sh>subsystemArray() function.
+# subSystemArrayDDS : 'string' array
+#       Array of all the DDS CSCs, as defined in the 
+#       _common.sh>subsystemArrayDDS() function.
 #
 arg=${1-all}
 workDir=$HOME/trunk/robotframework_salgenerator
 source $workDir/scripts/_common.sh
-declare -a subSystemArray=($(subsystemArray))
+declare -a subSystemArray=($(subsystemArrayDDS))
 
 
 ###  FUNCTIONS ###

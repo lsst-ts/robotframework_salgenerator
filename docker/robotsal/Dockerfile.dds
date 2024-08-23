@@ -32,7 +32,7 @@ ADD maven.sh /etc/profile.d/
 RUN wget -P /tmp https://mirrors.gigenet.com/apache/maven/maven-3/3.9.8/binaries/apache-maven-3.9.8-bin.tar.gz
 RUN tar xf /tmp/apache-maven-3.9.8-bin.tar.gz -C /opt && \
 ln -s /opt/apache-maven-3.9.8 /opt/maven && \
-source /etc/profile.d/maven.sh && mvn --version
+source /etc/profile.d/maven.sh
 
 # OpenSplice
 ADD OpenSpliceDDS-6.10.4-18.el9.x86_64.rpm /tmp

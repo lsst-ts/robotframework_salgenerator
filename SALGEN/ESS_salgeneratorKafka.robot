@@ -14,7 +14,7 @@ ${timeout}    1200s
 Verify ESS XML Defintions exist
     [Tags]    validate
     Comment    Verify the CSC XML definition files exist.
-    ${output}    Run Process    ls     ${SALWorkDir}/${subSystem}_*xml    shell=True
+    ${output}    Run Process    ls    ${SALWorkDir}/${subSystem}_*xml    shell=True
     Log Many    ${output.stdout}    ${output.stderr}
     Should Not Be Empty    ${output.stdout}
     File Should Exist    ${SALWorkDir}/ESS_Events.xml
@@ -37,12 +37,21 @@ Salgen ESS Validate
     Directory Should Exist    ${SALWorkDir}/avro-templates/${subSystem}
     @{files}=    List Directory    ${SALWorkDir}/avro-templates/${subSystem}
     Log Many    @{files}
-    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_hash_table.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_Generics.xml
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_Events.xml
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}_evtdef.tcl
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_Telemetry.xml
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}_tlmdef.tcl
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_ackcmd.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_field_enums.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_global_enums.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_hash_table.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_disable.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_enable.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_exitControl.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_setLogLevel.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_standby.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_start.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_heartbeat.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_logLevel.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_logMessage.json
@@ -300,79 +309,97 @@ Salgen ESS Java
     Should Not Contain    ${output.stdout}    error: package org.apache.kafka* does not exist
     Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
     Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_airTurbulence.json
-    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_airTurbulence java ${subSystem}
-    File Should Exist    ${SALWorkDir}/${subSystem}_airTurbulence/java/src/org/lsst/sal/salUtils.class
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_airFlow.json
-    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_airFlow java ${subSystem}
-    File Should Exist    ${SALWorkDir}/${subSystem}_airFlow/java/src/org/lsst/sal/salUtils.class
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_dewPoint.json
-    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_dewPoint java ${subSystem}
-    File Should Exist    ${SALWorkDir}/${subSystem}_dewPoint/java/src/org/lsst/sal/salUtils.class
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_pressure.json
-    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_pressure java ${subSystem}
-    File Should Exist    ${SALWorkDir}/${subSystem}_pressure/java/src/org/lsst/sal/salUtils.class
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_rainRate.json
-    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_rainRate java ${subSystem}
-    File Should Exist    ${SALWorkDir}/${subSystem}_rainRate/java/src/org/lsst/sal/salUtils.class
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_relativeHumidity.json
-    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_relativeHumidity java ${subSystem}
-    File Should Exist    ${SALWorkDir}/${subSystem}_relativeHumidity/java/src/org/lsst/sal/salUtils.class
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_snowRate.json
-    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_snowRate java ${subSystem}
-    File Should Exist    ${SALWorkDir}/${subSystem}_snowRate/java/src/org/lsst/sal/salUtils.class
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_solarRadiation.json
-    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_solarRadiation java ${subSystem}
-    File Should Exist    ${SALWorkDir}/${subSystem}_solarRadiation/java/src/org/lsst/sal/salUtils.class
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_temperature.json
-    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_temperature java ${subSystem}
-    File Should Exist    ${SALWorkDir}/${subSystem}_temperature/java/src/org/lsst/sal/salUtils.class
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_accelerometer.json
-    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_accelerometer java ${subSystem}
-    File Should Exist    ${SALWorkDir}/${subSystem}_accelerometer/java/src/org/lsst/sal/salUtils.class
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_accelerometerPSD.json
-    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_accelerometerPSD java ${subSystem}
-    File Should Exist    ${SALWorkDir}/${subSystem}_accelerometerPSD/java/src/org/lsst/sal/salUtils.class
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_electricFieldStrength.json
-    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_electricFieldStrength java ${subSystem}
-    File Should Exist    ${SALWorkDir}/${subSystem}_electricFieldStrength/java/src/org/lsst/sal/salUtils.class
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_lightningStrikeStatus.json
-    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_lightningStrikeStatus java ${subSystem}
-    File Should Exist    ${SALWorkDir}/${subSystem}_lightningStrikeStatus/java/src/org/lsst/sal/salUtils.class
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_spectrumAnalyzer.json
-    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_spectrumAnalyzer java ${subSystem}
-    File Should Exist    ${SALWorkDir}/${subSystem}_spectrumAnalyzer/java/src/org/lsst/sal/salUtils.class
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_earthquakeBroadBandHighGain.json
-    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_earthquakeBroadBandHighGain java ${subSystem}
-    File Should Exist    ${SALWorkDir}/${subSystem}_earthquakeBroadBandHighGain/java/src/org/lsst/sal/salUtils.class
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_earthquakeBroadBandLowGain.json
-    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_earthquakeBroadBandLowGain java ${subSystem}
-    File Should Exist    ${SALWorkDir}/${subSystem}_earthquakeBroadBandLowGain/java/src/org/lsst/sal/salUtils.class
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_earthquakeHighBroadBandHighGain.json
-    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_earthquakeHighBroadBandHighGain java ${subSystem}
-    File Should Exist    ${SALWorkDir}/${subSystem}_earthquakeHighBroadBandHighGain/java/src/org/lsst/sal/salUtils.class
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_earthquakeHighBroadBandLowGain.json
-    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_earthquakeHighBroadBandLowGain java ${subSystem}
-    File Should Exist    ${SALWorkDir}/${subSystem}_earthquakeHighBroadBandLowGain/java/src/org/lsst/sal/salUtils.class
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_earthquakeLongPeriodHighGain.json
-    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_earthquakeLongPeriodHighGain java ${subSystem}
-    File Should Exist    ${SALWorkDir}/${subSystem}_earthquakeLongPeriodHighGain/java/src/org/lsst/sal/salUtils.class
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_earthquakeLongPeriodLowGain.json
-    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_earthquakeLongPeriodLowGain java ${subSystem}
-    File Should Exist    ${SALWorkDir}/${subSystem}_earthquakeLongPeriodLowGain/java/src/org/lsst/sal/salUtils.class
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_earthquakeUltraLongPeriodHighGain.json
-    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_earthquakeUltraLongPeriodHighGain java ${subSystem}
-    File Should Exist    ${SALWorkDir}/${subSystem}_earthquakeUltraLongPeriodHighGain/java/src/org/lsst/sal/salUtils.class
-    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_earthquakeVeryLongPeriodHighGain.json
-    Should Contain    ${output.stdout}    done addSALKAFKAtypes ${subSystem}_earthquakeVeryLongPeriodHighGain java ${subSystem}
-    File Should Exist    ${SALWorkDir}/${subSystem}_earthquakeVeryLongPeriodHighGain/java/src/org/lsst/sal/salUtils.class
+    Should Contain    ${output.stdout}    calling salavrogen ${subSystem} cpp
+    Should Contain    ${output.stdout}    Generating cpp type support for ${subSystem}
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_airTurbulence.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_airTurbulence.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_airFlow.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_airFlow.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_dewPoint.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_dewPoint.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_pressure.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_pressure.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_rainRate.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_rainRate.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_relativeHumidity.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_relativeHumidity.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_snowRate.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_snowRate.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_solarRadiation.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_solarRadiation.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_temperature.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_temperature.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_accelerometer.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_accelerometer.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_accelerometerPSD.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_accelerometerPSD.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_electricFieldStrength.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_electricFieldStrength.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_lightningStrikeStatus.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_lightningStrikeStatus.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_spectrumAnalyzer.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_spectrumAnalyzer.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_earthquakeBroadBandHighGain.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_earthquakeBroadBandHighGain.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_earthquakeBroadBandLowGain.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_earthquakeBroadBandLowGain.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_earthquakeHighBroadBandHighGain.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_earthquakeHighBroadBandHighGain.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_earthquakeHighBroadBandLowGain.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_earthquakeHighBroadBandLowGain.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_earthquakeLongPeriodHighGain.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_earthquakeLongPeriodHighGain.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_earthquakeLongPeriodLowGain.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_earthquakeLongPeriodLowGain.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_earthquakeUltraLongPeriodHighGain.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_earthquakeUltraLongPeriodHighGain.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_earthquakeVeryLongPeriodHighGain.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_earthquakeVeryLongPeriodHighGain.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_heartbeat.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_logevent_heartbeat.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_logLevel.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_logevent_logLevel.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_logMessage.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_logevent_logMessage.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_softwareVersions.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_logevent_softwareVersions.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_errorCode.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_logevent_errorCode.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_simulationMode.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_logevent_simulationMode.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_summaryState.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_logevent_summaryState.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_configurationApplied.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_logevent_configurationApplied.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_configurationsAvailable.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_logevent_configurationsAvailable.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_lightningStrike.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_logevent_lightningStrike.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_highElectricField.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_logevent_highElectricField.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_precipitation.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_logevent_precipitation.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_sensorStatus.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_logevent_sensorStatus.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_disable.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_command_disable.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_enable.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_command_enable.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_exitControl.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_command_exitControl.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_setLogLevel.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_command_setLogLevel.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_standby.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_command_standby.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_start.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_command_start.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Configuring ${subSystem}/java/src/org/lsst/sal/SAL_${subSystem}.java
     Directory Should Exist    ${SALWorkDir}/${subSystem}/java
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/${subSystem}/java/src/saj_${subSystem}_types.jar
     File Should Exist    ${SALWorkDir}/${subSystem}/java/src/org/lsst/sal/SAL_${subSystem}.java
     File Should Exist    ${SALWorkDir}/${subSystem}/java/src/org/lsst/sal/salActor.java
     File Should Exist    ${SALWorkDir}/${subSystem}/java/src/org/lsst/sal/salUtils.java
-    File Should Exist    ${SALWorkDir}/${subSystem}/java/src/classes/org/lsst/sal//salUtils.class
     File Should Exist    ${SALWorkDir}/salUtils/libsalUtils.so
     File Should Exist    ${SALWorkDir}/lib/org/lsst/sal/salUtils.class 
 
@@ -444,7 +471,7 @@ Salgen ESS RPM
     File Should Exist    ${SALWorkDir}/rpmbuild/SOURCES/${subSystem}-${XMLVersionBase}${sep}${Build_Number}.tgz
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_runtime-${XMLVersionBase}${sep}${Build_Number}-${SALVersionBase}*${DIST}.x86_64.rpm
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_ATruntime-${XMLVersionBase}${sep}${Build_Number}-${SALVersionBase}*${DIST}.x86_64.rpm
-    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_utils-${SALVersionBase}-1.x86_64.rpm
+    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_utilsKafka-${SALVersionBase}-1.x86_64.rpm
     File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}-${XMLVersionBase}${sep}${Build_Number}-${SALVersionBase}${DIST}.x86_64.rpm
     File Should Exist    ${SALWorkDir}/lib/org/lsst/sal/salUtils.class
     File Should Exist    ${SALWorkDir}/lib/libsalUtils.so
@@ -466,58 +493,103 @@ Verify ESS RPM Contents
     Log Many    ${output.stdout}    ${output.stderr}
     Should Not Contain    ${output.stderr}    error
     Should Not Contain    ${output.stderr}    No such file or directory
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/scripts/${subSystem}_revCodes.tcl
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/lib/libSAL_${subSystem}.a
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/SAL_${subSystem}.h
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_ackcmd.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_airTurbulence.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_airFlow.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_dewPoint.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_pressure.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_rainRate.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_relativeHumidity.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_snowRate.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_solarRadiation.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_temperature.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_accelerometer.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_accelerometerPSD.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_electricFieldStrength.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_lightningStrikeStatus.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_spectrumAnalyzer.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_earthquakeBroadBandHighGain.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_earthquakeBroadBandLowGain.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_earthquakeHighBroadBandHighGain.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_earthquakeHighBroadBandLowGain.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_earthquakeLongPeriodHighGain.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_earthquakeLongPeriodLowGain.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_earthquakeUltraLongPeriodHighGain.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_earthquakeVeryLongPeriodHighGain.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_disable.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_enable.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_exitControl.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_setLogLevel.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_standby.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_start.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_heartbeat.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_logLevel.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_logMessage.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_softwareVersions.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_errorCode.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_simulationMode.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_summaryState.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_configurationApplied.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_configurationsAvailable.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_lightningStrike.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_highElectricField.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_precipitation.hh
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_sensorStatus.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/scripts/${subSystem}_revCodes.tcl
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_ackcmd.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_field_enums.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_global_enums.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_hash_table.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_command_disable.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_command_enable.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_command_exitControl.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_command_setLogLevel.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_command_standby.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_command_start.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_heartbeat.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_logLevel.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_logMessage.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_softwareVersions.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_errorCode.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_simulationMode.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_summaryState.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_configurationApplied.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_configurationsAvailable.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_lightningStrike.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_highElectricField.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_precipitation.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_sensorStatus.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_airTurbulence.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_airFlow.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_dewPoint.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_pressure.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_rainRate.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_relativeHumidity.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_snowRate.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_solarRadiation.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_temperature.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_accelerometer.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_accelerometerPSD.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_electricFieldStrength.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_lightningStrikeStatus.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_spectrumAnalyzer.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_earthquakeBroadBandHighGain.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_earthquakeBroadBandLowGain.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_earthquakeHighBroadBandHighGain.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_earthquakeHighBroadBandLowGain.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_earthquakeLongPeriodHighGain.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_earthquakeLongPeriodLowGain.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_earthquakeUltraLongPeriodHighGain.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_earthquakeVeryLongPeriodHighGain.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/lib/libSAL_${subSystem}.a
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/SAL_${subSystem}.h
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_ackcmd.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_airTurbulence.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_airFlow.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_dewPoint.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_pressure.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_rainRate.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_relativeHumidity.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_snowRate.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_solarRadiation.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_temperature.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_accelerometer.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_accelerometerPSD.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_electricFieldStrength.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_lightningStrikeStatus.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_spectrumAnalyzer.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_earthquakeBroadBandHighGain.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_earthquakeBroadBandLowGain.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_earthquakeHighBroadBandHighGain.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_earthquakeHighBroadBandLowGain.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_earthquakeLongPeriodHighGain.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_earthquakeLongPeriodLowGain.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_earthquakeUltraLongPeriodHighGain.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_earthquakeVeryLongPeriodHighGain.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_disable.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_enable.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_exitControl.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_setLogLevel.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_standby.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_start.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_heartbeat.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_logLevel.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_logMessage.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_softwareVersions.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_errorCode.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_simulationMode.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_summaryState.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_configurationApplied.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_configurationsAvailable.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_lightningStrike.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_highElectricField.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_precipitation.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_sensorStatus.hh
     Comment    Verify the interface definition files are included.
-    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subSystem}/${subSystem}_Generics.xml
-    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subSystem}/${subSystem}_Commands.html
-    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subSystem}/${subSystem}_Events.xml
-    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subSystem}/${subSystem}_Events.html
-    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subSystem}/${subSystem}_Telemetry.xml
-    Should Contain     ${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subSystem}/${subSystem}_Telemetry.html
+    Should Contain    ${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subSystem}/${subSystem}_Generics.xml
+    Should Contain    ${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subSystem}/${subSystem}_Commands.html
+    Should Contain    ${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subSystem}/${subSystem}_Events.xml
+    Should Contain    ${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subSystem}/${subSystem}_Events.html
+    Should Contain    ${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subSystem}/${subSystem}_Telemetry.xml
+    Should Contain    ${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subSystem}/${subSystem}_Telemetry.html
 
 Verify ESS TEST RPM Contents
     [Documentation]    Verify the ${subSystem} TEST RPM contains all the expected libraries
@@ -534,7 +606,6 @@ Verify ESS TEST RPM Contents
     Log Many    ${output.stdout}    ${output.stderr}
     Should Not Contain    ${output.stderr}    error
     Should Not Contain    ${output.stderr}    No such file or directory
-    Should Contain     ${output.stdout}    /opt/lsst/ts_sal/lib/libSAL_${subSystem}.a
     Comment    Verify the TEST RPM contains the test programs.
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_all_commander
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_all_controller

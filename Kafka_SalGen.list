@@ -1,0 +1,22 @@
+###  Test Suite list ###
+#  Change the title of the test results
+--name AuxTel&Facility
+--output AUXTEL
+
+# List of test suites
+SALGEN/ATCamera_salgeneratorKafka.robot
+SALGEN/ATHeaderService_salgeneratorKafka.robot
+SALGEN/ATMCS_salgeneratorKafka.robot
+SALGEN/ATPtg_salgeneratorKafka.robot
+SALGEN/CCCamera_salgeneratorKafka.robot
+SALGEN/CCHeaderService_salgeneratorKafka.robot
+SALGEN/ESS_salgeneratorKafka.robot
+SALGEN/GCHeaderService_salgeneratorKafka.robot
+SALGEN/Guider_salgeneratorKafka.robot
+SALGEN/MTCamera_salgeneratorKafka.robot
+SALGEN/MTHeaderService_salgeneratorKafka.robot
+SALGEN/MTM1M3_salgeneratorKafka.robot
+SALGEN/MTMount_salgeneratorKafka.robot
+SALGEN/MTPtg_salgeneratorKafka.robot
+SALGEN/MTRotator_salgeneratorKafka.robot
+SALGEN/MTVMS_salgeneratorKafka.robot

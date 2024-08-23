@@ -84,11 +84,11 @@ function verifyXMLDefinitions() {
     if [[ "${xmls[0]}" == "README.md" ]]; then
         echo "    \${output}    Get File    \${EXECDIR}/../ts_xml/python/lsst/ts/xml/data/sal_interfaces/$subSystem/README.md" >> $testSuite
         echo "    Log    \${output}" >> $testSuite
-        echo "    Should Contain     \${output}    \# \${subSystem}" >> $testSuite
-        echo "    Should Contain     \${output}    This SAL Component only uses generic topics." >> $testSuite
-        echo "    Should Contain     \${output}    This directory is intentionally left empty." >> $testSuite
+        echo "    Should Contain    \${output}    \# \${subSystem}" >> $testSuite
+        echo "    Should Contain    \${output}    This SAL Component only uses generic topics." >> $testSuite
+        echo "    Should Contain    \${output}    This directory is intentionally left empty." >> $testSuite
     else
-        echo "    \${output}    Run Process    ls     \${SALWorkDir}/\${subSystem}_*xml    shell=True" >> $testSuite
+        echo "    \${output}    Run Process    ls    \${SALWorkDir}/\${subSystem}_*xml    shell=True" >> $testSuite
         echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
         echo "    Should Not Be Empty    \${output.stdout}" >> $testSuite
         for file in "${xmls[@]}"; do
@@ -123,7 +123,6 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     echo "    Directory Should Exist    \${SALWorkDir}/avro-templates/\${subSystem}" >> $testSuite
     echo "    @{files}=    List Directory    \${SALWorkDir}/avro-templates/\${subSystem}" >> $testSuite
     echo "    Log Many    @{files}" >> $testSuite
-    echo "    File Should Exist    \${SALWorkDir}/avro-templates/\${subSystem}/\${subSystem}_hash_table.json" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/avro-templates/\${subSystem}/\${subSystem}_Generics.xml" >> $testSuite
     if test -f $HOME/trunk/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subSystem}/${subSystem}_Commands.xml; then
         echo "    File Should Exist    \${SALWorkDir}/avro-templates/\${subSystem}/\${subSystem}_Commands.xml" >> $testSuite
@@ -137,7 +136,12 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
         echo "    File Should Exist    \${SALWorkDir}/avro-templates/\${subSystem}/\${subSystem}_Telemetry.xml" >> $testSuite
         echo "    File Should Exist    \${SALWorkDir}/avro-templates/\${subSystem}_tlmdef.tcl" >> $testSuite
     fi
-    for topic in "${commandsArray[@]}"; do
+    # Validate avro-template files
+    echo "    File Should Exist    \${SALWorkDir}/avro-templates/\${subSystem}/\${subSystem}_ackcmd.json" >> $testSuite
+    echo "    File Should Exist    \${SALWorkDir}/avro-templates/\${subSystem}/\${subSystem}_field_enums.json" >> $testSuite
+    echo "    File Should Exist    \${SALWorkDir}/avro-templates/\${subSystem}/\${subSystem}_global_enums.json" >> $testSuite
+    echo "    File Should Exist    \${SALWorkDir}/avro-templates/\${subSystem}/\${subSystem}_hash_table.json" >> $testSuite
+    for topic in "${commandArray[@]}"; do
         echo "    File Should Exist    \${SALWorkDir}/avro-templates/\${subSystem}/\${subSystem}_command_${topic}.json" >> $testSuite
     done
     for topic in "${eventArray[@]}"; do
@@ -307,22 +311,28 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     echo "    Should Contain    \${output.stdout}    XMLVERSION = \${XMLVersion}" >> $testSuite
     if [ ${#telemetryArray[@]} -eq 0 ]; then
         echo "    Should Contain    \${output.stdout}    WARNING : No Telemetry definitions found for \${subSystem}" >> $testSuite
-    else
-        for topic in "${telemetryArray[@]}"; do
-            echo "    Should Contain    \${output.stdout}    Generating SAL Java code for \${subSystem}_${topic}.json" >> $testSuite
-            echo "    Should Contain    \${output.stdout}    done addSALKAFKAtypes \${subSystem}_${topic} java \${subSystem}" >> $testSuite
-            echo "    File Should Exist    \${SALWorkDir}/\${subSystem}_${topic}/java/src/org/lsst/sal/salUtils.class" >> $testSuite
-        done
-        #echo "    Should Contain X Times    \${output.stdout}    javac : Done Publisher    ${#telemetryArray[@]}" >> $testSuite
-        #echo "    Should Contain X Times    \${output.stdout}    javac : Done Subscriber    ${#telemetryArray[@]}" >> $testSuite
     fi
+    echo "    Should Contain    \${output.stdout}    calling salavrogen \${subSystem} cpp" >> $testSuite
+    echo "    Should Contain    \${output.stdout}    Generating cpp type support for \${subSystem}" >> $testSuite
+    for topic in "${telemetryArray[@]}"; do
+        echo "    Should Contain    \${output.stdout}    Processing \${SALWorkDir}/avro-templates/\${subSystem}/\${subSystem}_${topic}.json" >> $testSuite
+        echo "    Should Contain    \${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/\${subSystem}/cpp/src/\${subSystem}_${topic}.hh to sal_\${subSystem} code fragments" >> $testSuite
+    done
+    for topic in "${eventArray[@]}"; do
+        echo "    Should Contain    \${output.stdout}    Processing \${SALWorkDir}/avro-templates/\${subSystem}/\${subSystem}_logevent_${topic}.json" >> $testSuite
+        echo "    Should Contain    \${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/\${subSystem}/cpp/src/\${subSystem}_logevent_${topic}.hh to sal_\${subSystem} code fragments" >> $testSuite
+    done
+    for topic in "${commandArray[@]}"; do
+        echo "    Should Contain    \${output.stdout}    Processing \${SALWorkDir}/avro-templates/\${subSystem}/\${subSystem}_command_${topic}.json" >> $testSuite
+        echo "    Should Contain    \${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/\${subSystem}/cpp/src/\${subSystem}_command_${topic}.hh to sal_\${subSystem} code fragments" >> $testSuite
+    done
+    echo "    Should Contain    \${output.stdout}    Configuring \${subSystem}/java/src/org/lsst/sal/SAL_\${subSystem}.java" >> $testSuite
     echo "    Directory Should Exist    \${SALWorkDir}/\${subSystem}/java" >> $testSuite
     echo "    @{files}=    List Directory    \${SALWorkDir}/\${subSystem}/java    pattern=*\${subSystem}*" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/\${subSystem}/java/src/saj_\${subSystem}_types.jar" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/\${subSystem}/java/src/org/lsst/sal/SAL_\${subSystem}.java" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/\${subSystem}/java/src/org/lsst/sal/salActor.java" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/\${subSystem}/java/src/org/lsst/sal/salUtils.java" >> $testSuite
-    echo "    File Should Exist    \${SALWorkDir}/\${subSystem}/java/src/classes/org/lsst/sal//salUtils.class" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/salUtils/libsalUtils.so" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/lib/org/lsst/sal/salUtils.class " >> $testSuite
     echo "" >> $testSuite
@@ -428,7 +438,7 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     echo "    File Should Exist    \${SALWorkDir}/rpmbuild/SOURCES/\${subSystem}-\${XMLVersionBase}\${sep}\${Build_Number}.tgz" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_runtime-\${XMLVersionBase}\${sep}\${Build_Number}-\${SALVersionBase}*\${DIST}.x86_64.rpm" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_ATruntime-\${XMLVersionBase}\${sep}\${Build_Number}-\${SALVersionBase}*\${DIST}.x86_64.rpm" >> $testSuite
-    echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_utils-\${SALVersionBase}-1.x86_64.rpm" >> $testSuite
+    echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_utilsKafka-\${SALVersionBase}-1.x86_64.rpm" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/\${subSystem}-\${XMLVersionBase}\${sep}\${Build_Number}-\${SALVersionBase}\${DIST}.x86_64.rpm" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/lib/org/lsst/sal/salUtils.class" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/lib/libsalUtils.so" >> $testSuite
@@ -466,40 +476,55 @@ function verifyRPM() {
     echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
     echo "    Should Not Contain    \${output.stderr}    error" >> $testSuite
     echo "    Should Not Contain    \${output.stderr}    No such file or directory" >> $testSuite
-    echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_sal/scripts/\${subSystem}_revCodes.tcl" >> $testSuite
+    echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_sal/scripts/\${subSystem}_revCodes.tcl" >> $testSuite
+    # Validate avro-template files
+    echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_sal/avro-templates/\${subSystem}/\${subSystem}_ackcmd.json" >> $testSuite
+    echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_sal/avro-templates/\${subSystem}/\${subSystem}_field_enums.json" >> $testSuite
+    echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_sal/avro-templates/\${subSystem}/\${subSystem}_global_enums.json" >> $testSuite
+    echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_sal/avro-templates/\${subSystem}/\${subSystem}_hash_table.json" >> $testSuite
+    for topic in "${commandArray[@]}"; do
+        echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_sal/avro-templates/\${subSystem}/\${subSystem}_command_${topic}.json" >> $testSuite
+    done
+    for topic in "${eventArray[@]}"; do
+        echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_sal/avro-templates/\${subSystem}/\${subSystem}_logevent_${topic}.json" >> $testSuite
+    done
+    for topic in "${telemetryArray[@]}"; do
+        echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_sal/avro-templates/\${subSystem}/\${subSystem}_${topic}.json" >> $testSuite
+    done
+    # Validate C++, Java and/or LabVIEW libraries.
     if [[ "$@" =~ "CPP" ]]; then
-        echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_sal/lib/libSAL_\${subSystem}.a" >> $testSuite
-        echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_sal/include/SAL_\${subSystem}.h" >> $testSuite
-        echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_sal/include/\${subSystem}_ackcmd.hh" >> $testSuite
+        echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_sal/lib/libSAL_\${subSystem}.a" >> $testSuite
+        echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_sal/include/SAL_\${subSystem}.h" >> $testSuite
+        echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_sal/include/\${subSystem}_ackcmd.hh" >> $testSuite
         for topic in "${telemetryArray[@]}"; do
-            echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_sal/include/\${subSystem}_${topic}.hh" >> $testSuite
+            echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_sal/include/\${subSystem}_${topic}.hh" >> $testSuite
         done
         for topic in "${commandArray[@]}"; do
-            echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_sal/include/\${subSystem}_command_${topic}.hh" >> $testSuite
+            echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_sal/include/\${subSystem}_command_${topic}.hh" >> $testSuite
         done
         for topic in "${eventArray[@]}"; do
-            echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_sal/include/\${subSystem}_logevent_${topic}.hh" >> $testSuite
+            echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_sal/include/\${subSystem}_logevent_${topic}.hh" >> $testSuite
         done
     fi
     echo "    Comment    Verify the interface definition files are included." >> $testSuite
-    echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/\${subSystem}/\${subSystem}_Generics.xml" >> $testSuite
+    echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/\${subSystem}/\${subSystem}_Generics.xml" >> $testSuite
     if test -f $HOME/trunk/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subSystem}/${subSystem}_Commands.xml; then
-        echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/\${subSystem}/\${subSystem}_Commands.xml" >> $testSuite
+        echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/\${subSystem}/\${subSystem}_Commands.xml" >> $testSuite
     fi
     if [[ $commandsLen -ne 0 ]]; then
-        echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/\${subSystem}/\${subSystem}_Commands.html" >> $testSuite
+        echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/\${subSystem}/\${subSystem}_Commands.html" >> $testSuite
     fi
     if test -f $HOME/trunk/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subSystem}/${subSystem}_Events.xml; then
-        echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/\${subSystem}/\${subSystem}_Events.xml" >> $testSuite
+        echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/\${subSystem}/\${subSystem}_Events.xml" >> $testSuite
     fi
     if [[ $eventsLen -ne 0 ]]; then
-        echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/\${subSystem}/\${subSystem}_Events.html" >> $testSuite
+        echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/\${subSystem}/\${subSystem}_Events.html" >> $testSuite
     fi
     if test -f $HOME/trunk/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subSystem}/${subSystem}_Telemetry.xml; then
-        echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/\${subSystem}/\${subSystem}_Telemetry.xml" >> $testSuite
+        echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/\${subSystem}/\${subSystem}_Telemetry.xml" >> $testSuite
     fi
     if [[ $telemetryLen -ne 0 ]]; then
-        echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/\${subSystem}/\${subSystem}_Telemetry.html" >> $testSuite
+        echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/\${subSystem}/\${subSystem}_Telemetry.html" >> $testSuite
     fi
     echo "" >> $testSuite
 }
@@ -534,7 +559,6 @@ shell=True    cwd=\${SALWorkDir}/rpmbuild/RPMS/x86_64    stdout=\${EXECDIR}\${/}
     echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
     echo "    Should Not Contain    \${output.stderr}    error" >> $testSuite
     echo "    Should Not Contain    \${output.stderr}    No such file or directory" >> $testSuite
-    echo "    Should Contain     \${output.stdout}    /opt/lsst/ts_sal/lib/libSAL_\${subSystem}.a" >> $testSuite
     echo "    Comment    Verify the TEST RPM contains the test programs." >> $testSuite
     if [[ $commandsLen -ne 0 ]]; then
         echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_\${subSystem}_all_commander" >> $testSuite
