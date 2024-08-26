@@ -1,0 +1,10 @@
+###  Test Suite list ###
+#  Change the title of the test results
+--name MainTel
+--output MAINTEL
+
+# List of test suites
+SALGEN/MTMount_salgeneratorKafka.robot
+SALGEN/MTPtg_salgeneratorKafka.robot
+SALGEN/MTRotator_salgeneratorKafka.robot
+SALGEN/MTVMS_salgeneratorKafka.robot
