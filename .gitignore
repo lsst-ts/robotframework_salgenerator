@@ -11,6 +11,7 @@ __pycache__/
 
 # Private files
 OpenSplice*rpm
+zulu17*rpm
 
 # Distribution / packaging
 .Python
