@@ -1,8 +1,4 @@
 // Define variables
-def _python_version="3.11.9"
-def _mvn_version="3.9.8"
-def _ospl_version="6.10.4p2"
-def _ospl_date="2020-10-12"
 def _user="appuser"
 def _home="/home/" + _user
 
@@ -142,12 +138,11 @@ pipeline {
                 'echo cd ' + _home + '/trunk/robotframework_salgenerator \n' +
                 'cd ' + _home + '/trunk/robotframework_salgenerator \n' +
                 'pwd \n' +
-                'robot --variable ContInt:true -e skipped --skiponfailure TSS* --skiponfailure DM* --loglevel TRACE:INFO --variable SALVersion:' + SAL_Version + 
-                    ' --variable SALVersionBase:' + SAL_Version_Base + ' --variable XMLVersionBase:' + XML_Version_Base + 
-                    ' --variable SALInstall:' + _home + '/trunk/ts_sal --variable OpenspliceRelease:\'OpenSplice HDE Release\' ' + 
-                    '--variable OpenspliceVersion:' + _ospl_version + ' --variable OpenspliceDate:' + _ospl_date + ' --variable XMLHome:' + _home + '/trunk/ts_xml ' +
-                    ' --variable MvnVersion:"Apache Maven ' + _mvn_version + '" --variable PythonVersion:\'Python ' + _python_version + '\' ' +
-                    '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:' + Build_Param + ' ' + 
+                'robot --variable ContInt:true -e skipped --skiponfailure TSS* --skiponfailure DM* --loglevel TRACE:INFO' +
+                    ' --variable SALVersion:' + SAL_Version + ' --variable SALVersionBase:' + SAL_Version_Base +
+                    ' --variable XMLVersion:' + XML_Version + ' --variable XMLVersionBase:' + XML_Version_Base + 
+                    ' --variable SALInstall:' + _home + '/trunk/ts_sal --variable XMLHome:' + _home + '/trunk/ts_xml' +
+                    ' --variable MavenVersion:' + MavenVersion + ' --variable Build_Number:' + Build_Param + ' ' + 
                     '--name Validate --output VALIDATE --outputdir ' + _home + '/trunk/Reports ' + 
                     _home + '/trunk/robotframework_salgenerator/Verify_SAL_DDS_Setup.robot ' + script_test_path + ' ' + test_test_path + '\n' +
                 'Result=$? \n' +
@@ -187,13 +182,11 @@ pipeline {
                         'echo cd ' + _home + '/trunk/robotframework_SAL \n' +
                         'cd ' + _home + '/trunk/robotframework_SAL \n' +
                         'echo ========= Execute SAL messaging tests ========= \n' +
-                        'robot --outputdir ' + _home + '/trunk/Reports --variable ContInt:true -e skipped --skiponfailure TSS* --skiponfailure DM* ' +
-                            '--loglevel TRACE:INFO --variable SALVersion:' + SAL_Version + ' --variable SALInstall:' + _home + '/trunk/ts_sal ' +
-                            '--variable OpenspliceRelease:\'OpenSplice HDE Release\' ' + ' --variable XMLHome:' + _home + '/trunk/ts_xml ' +
-                            '--variable OpenspliceVersion:' + _ospl_version + ' --variable OpenspliceDate:' + _ospl_date + 
-                            ' --variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + 
-                            ' --variable MvnVersion:"Apache Maven ' + _mvn_version + '" --variable PythonVersion:\'Python ' + _python_version + '\' ' +
-                            '--name CombinedCppTelemetry --output CombinedCppTelemetry ' +
+                        'robot --variable ContInt:true -e skipped --skiponfailure DM* --loglevel TRACE:INFO' +
+                            ' --variable SALVersion:' + SAL_Version + ' --variable XMLVersion:' + XML_Version +
+                            ' --variable SALInstall:' + _home + '/trunk/ts_sal --variable XMLHome:' + _home + '/trunk/ts_xml ' +
+                            ' --variable MavenVersion:' + MavenVersion + ' --variable Build_Number:' + Build_Param +
+                            ' --outputdir ' + _home + '/trunk/Reports --name CombinedCppTelemetry --output CombinedCppTelemetry ' +
                             _home + '/trunk/robotframework_SAL/Combined/DDS_CPP/Telemetry/Test_Telemetry.robot \n' +
                         'exit 0'
                     }
@@ -205,13 +198,11 @@ pipeline {
                         'echo cd ' + _home + '/trunk/robotframework_SAL \n' +
                         'cd ' + _home + '/trunk/robotframework_SAL \n' +
                         'echo Start \n' +
-                        'robot --outputdir ' + _home + '/trunk/Reports --variable ContInt:true -e skipped --skiponfailure TSS* --skiponfailure DM* ' +
-                            '--loglevel TRACE:INFO --variable SALVersion:' + SAL_Version + ' --variable SALInstall:' + _home + '/trunk/ts_sal ' +
-                            '--variable OpenspliceRelease:\'OpenSplice HDE Release\' ' + ' --variable XMLHome:' + _home + '/trunk/ts_xml ' +
-                            '--variable OpenspliceVersion:' + _ospl_version + ' --variable OpenspliceDate:' + _ospl_date +
-                            ' --variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version +
-                            ' --variable MvnVersion:"Apache Maven ' + _mvn_version + '" --variable PythonVersion:\'Python ' + _python_version + '\' ' +
-                            '--name CombinedCppEvents --output CombinedCppEvents ' +
+                        'robot --variable ContInt:true -e skipped --skiponfailure DM* --loglevel TRACE:INFO' +
+                            ' --variable SALVersion:' + SAL_Version + ' --variable XMLVersion:' + XML_Version +
+                            ' --variable SALInstall:' + _home + '/trunk/ts_sal --variable XMLHome:' + _home + '/trunk/ts_xml ' +
+                            ' --variable MavenVersion:' + MavenVersion + ' --variable Build_Number:' + Build_Param +
+                            ' --outputdir ' + _home + '/trunk/Reports --name CombinedCppEvents --output CombinedCppEvents ' +
                             _home + '/trunk/robotframework_SAL/Combined/DDS_CPP/Events/Script_Events.robot ' +
                             _home + '/trunk/robotframework_SAL/Combined/DDS_CPP/Events/Test_Events.robot \n' +
                         'exit 0'
@@ -235,15 +226,12 @@ pipeline {
                         'echo cd ' + _home + '/trunk/robotframework_SAL \n' +
                         'cd ' + _home + '/trunk/robotframework_SAL \n' +
                         'echo ========= Execute SAL Java messaging tests ========= \n' +
-                        'robot --outputdir ' + _home + '/trunk/Reports --variable ContInt:true -e skipped --skiponfailure TSS* --skiponfailure DM* ' +
-                            '--loglevel TRACE:INFO --variable SALVersion:' + SAL_Version + ' --variable SALVersionBase:' + SAL_Version_Base + 
-                            ' --variable SALInstall:' + _home + '/trunk/ts_sal ' +
-                            '--variable OpenspliceRelease:\'OpenSplice HDE Release\' ' + ' --variable XMLHome:' + _home + '/trunk/ts_xml ' +
-                            '--variable OpenspliceVersion:' + _ospl_version + ' --variable OpenspliceDate:' + _ospl_date +
-                            ' --variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable XMLVersionBase:' + XML_Version_Base +
-                            ' --variable Build_Number:' + Build_Param + 
-                            ' --variable MvnVersion:"Apache Maven ' + _mvn_version + '" --variable PythonVersion:\'Python ' + _python_version + '\' ' +
-                            '--name CombinedJavaTelemetry --output CombinedJavaTelemetry ' +
+                        'robot --variable ContInt:true -e skipped --skiponfailure DM* --loglevel TRACE:INFO' +
+                            ' --variable SALVersion:' + SAL_Version + ' --variable SALVersionBase:' + SAL_Version_Base + 
+                            ' --variable XMLVersion:' + XML_Version + ' --variable XMLVersionBase:' + XML_Version_Base +
+                            ' --variable SALInstall:' + _home + '/trunk/ts_sal --variable XMLHome:' + _home + '/trunk/ts_xml ' +
+                            ' --variable MavenVersion:' + MavenVersion + ' --variable Build_Number:' + Build_Param + 
+                            ' --outputdir ' + _home + '/trunk/Reports --name CombinedJavaTelemetry --output CombinedJavaTelemetry ' +
                             _home + '/trunk/robotframework_SAL/Combined/DDS_JAVA/Telemetry/Test_Telemetry.robot \n' +
                         'exit 0'
                     }
@@ -255,15 +243,12 @@ pipeline {
                         'echo cd ' + _home + '/trunk/robotframework_SAL \n' +
                         'cd ' + _home + '/trunk/robotframework_SAL \n' +
                         'echo ========= Execute SAL messaging tests ========= \n' +
-                        'robot --outputdir ' + _home + '/trunk/Reports --variable ContInt:true -e skipped --skiponfailure TSS* --skiponfailure DM* ' +
-                            '--loglevel TRACE:INFO --variable SALVersion:' + SAL_Version + ' --variable SALVersionBase:' + SAL_Version_Base + 
-                            ' --variable SALInstall:' + _home + '/trunk/ts_sal ' +
-                            '--variable OpenspliceRelease:\'OpenSplice HDE Release\' ' + ' --variable XMLHome:' + _home + '/trunk/ts_xml ' +
-                            '--variable OpenspliceVersion:' + _ospl_version + ' --variable OpenspliceDate:' + _ospl_date +
-                            ' --variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable XMLVersionBase:' + XML_Version_Base +
-                            ' --variable Build_Number:' + Build_Param + 
-                            ' --variable MvnVersion:"Apache Maven ' + _mvn_version + '" --variable PythonVersion:\'Python ' + _python_version + '\' ' +
-                            '--name CombinedJavaEvents --output CombinedJavaEvents ' +
+                        'robot --variable ContInt:true -e skipped --skiponfailure DM* --loglevel TRACE:INFO' +
+                            ' --variable SALVersion:' + SAL_Version + ' --variable SALVersionBase:' + SAL_Version_Base + 
+                            ' --variable XMLVersion:' + XML_Version + ' --variable XMLVersionBase:' + XML_Version_Base +
+                            ' --variable SALInstall:' + _home + '/trunk/ts_sal --variable XMLHome:' + _home + '/trunk/ts_xml ' +
+                            ' --variable MavenVersion:' + MavenVersion + ' --variable Build_Number:' + Build_Param + 
+                            ' --outputdir ' + _home + '/trunk/Reports --name CombinedJavaEvents --output CombinedJavaEvents ' +
                             _home + '/trunk/robotframework_SAL/Combined/DDS_JAVA/Events/Test_Events.robot \n' +
                         'exit 0'
                     }
