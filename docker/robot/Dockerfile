@@ -1,5 +1,5 @@
-FROM almalinux:9
-MAINTAINER Rob Bovill (trekkie2@gmail.com)
+FROM almalinux:8
+LABEL org.opencontainers.image.authors="trekkie2@gmail.com"
 ARG USER=appuser
 ARG HOME=/home/${USER}
 
@@ -54,9 +54,9 @@ WORKDIR ${HOME}
 USER ${USER}
 
 RUN mkdir bin && mkdir trunk && mkdir Reports
-ENV PATH $PATH:${HOME}/bin:${HOME}/.local/bin
-ENV ROBOTFRAMEWORK_SAL_DIR ${HOME}/trunk/robotframework_SAL
-ENV TS_XML_DIR ${HOME}/trunk/ts_xml
+ENV PATH=$PATH:${HOME}/bin:${HOME}/.local/bin
+ENV ROBOTFRAMEWORK_SAL_DIR=${HOME}/trunk/robotframework_SAL
+ENV TS_XML_DIR=${HOME}/trunk/ts_xml
 
 # Apparently Docker does not support variable expansion in the ADD and COPY context.
 # ... Therefore, the ownership must be hardcoded.
