@@ -1,4 +1,4 @@
-FROM lsstts/robot:latest
+FROM lsstts/robot:kafka
 LABEL org.opencontainers.image.authors="trekkie2@gmail.com"
 ARG USER=appuser
 ARG HOME=/home/${USER}
@@ -27,8 +27,9 @@ ENV LSST_SAL_PREFIX=$HOME/ts_sal_stage
 ENV LSST_KAFKA_CLASSDIR=${LSST_SAL_PREFIX}/lib
 ENV LSST_KAFKA_PREFIX=lsst.sal
 ENV LSST_KAFKA_HOST=broker
-ENV LSST_KAFKA_LOCAL_SCHEMAS=${LSST_SAL_PREFIX}/avro-templates
-ENV LSST_KAFKA_BROKER_PORT=9092
+ENV LSST_KAFKA_LOCAL_SCHEMAS=${LSST_SAL_PREFIX}
+ENV LSST_AVRO_TEMPLATES=${LSST_SAL_PREFIX}/avro
+ENV LSST_KAFKA_BROKER_PORT=29092
 ENV LSST_KAFKA_BROKER_ADDR=broker:${LSST_KAFKA_BROKER_PORT}
 ENV LSST_SCHEMA_REGISTRY_URL=http://schema-registry:8081
 ENV AVRO_CLASSPATH=lsst/sal
@@ -90,41 +91,10 @@ COPY --chown=0:0 rpmmacros /root/.rpmmacros
 # Set safe.directory
 RUN git config --global --add safe.directory ${HOME}/trunk/ts_sal && git config --global --add safe.directory ${HOME}/trunk/ts_xml
 
-# SAL/XML ENVs
-ENV LSST_SDK_INSTALL=$HOME/trunk/ts_sal
-ENV OSPL_HOME=/opt/OpenSpliceDDS/V6.10.4/HDE/x86_64.linux
-ENV LSST_DDS_DOMAIN=citest
-ENV LSST_DDS_PARTITION_PREFIX=citest
-ENV PYTHONPATH="$PYTHONPATH:$TS_XML_DIR/python"
-
-# SAL Kafka/Avro EnvVars
-## Version variables
-ENV MAVEN_RELEASE=3.9.8
-ENV AVRO_RELEASE=1.12.0
-ENV BOOST_RELEASE=1.78
-ENV JDK_RELEASE=11
-ENV KAFKA_RELEASE=7.6
-ENV JACKSON_RELEASE=2.15.2
-## Path variables
-ENV LSST_SAL_PREFIX=$HOME/ts_sal_stage
-ENV LSST_KAFKA_CLASSDIR=${LSST_SAL_PREFIX}/lib
-ENV LSST_KAFKA_PREFIX=lsst.sal
-ENV LSST_KAFKA_HOST=broker
-ENV LSST_KAFKA_LOCAL_SCHEMAS=${LSST_SAL_PREFIX}/avro-templates
-ENV LSST_KAFKA_BROKER_PORT=9092
-ENV LSST_KAFKA_BROKER_ADDR=broker:${LSST_KAFKA_BROKER_PORT}
-ENV LSST_SCHEMA_REGISTRY_URL=http://schema-registry:8081
-ENV AVRO_CLASSPATH=lsst/sal
-ENV AVRO_INCL=${LSST_SAL_PREFIX}/include/avro
-ENV AVRO_HOME=${LSST_SAL_PREFIX}/lib
-ENV AVRO_PREFIX=lsst.sal
-ENV LD_LIBRARY_PATH="${LSST_SAL_PREFIX}/lib:$LD_LIBRARY_PATH"
-ENV CPPFLAGS="-I $LSST_SAL_PREFIX/include/avro"
-
 # Install Avro
 ARG AVRO_RELEASE=${AVRO_RELEASE}
 RUN mkdir $HOME/external-packages && mkdir -p $LSST_SAL_PREFIX/include/avro && mkdir $LSST_SAL_PREFIX/lib && \
-mkdir $LSST_SAL_PREFIX/bin && ln -s $LSST_SDK_INSTALL/test/avro-templates $LSST_SAL_PREFIX/avro-templates
+mkdir $LSST_SAL_PREFIX/bin && ln -s $LSST_SDK_INSTALL/test/avro-templates $LSST_SAL_PREFIX/avro
 WORKDIR $HOME/external-packages
 RUN wget https://archive.apache.org/dist/avro/avro-${AVRO_RELEASE}/avro-src-${AVRO_RELEASE}.tar.gz
 RUN tar xvzf avro-src-${AVRO_RELEASE}.tar.gz
