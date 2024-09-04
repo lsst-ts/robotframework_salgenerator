@@ -1,4 +1,4 @@
-FROM almalinux:9
+FROM almalinux:8
 LABEL org.opencontainers.image.authors="trekkie2@gmail.com"
 ARG USER=appuser
 ARG HOME=/home/${USER}
