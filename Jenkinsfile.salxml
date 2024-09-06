@@ -234,30 +234,74 @@ pipeline {
                     '--variable OpenspliceVersion:' + _ospl_version + ' --variable OpenspliceDate:' + _ospl_date + ' --variable XMLHome:' + _home + '/trunk/ts_xml ' +
                     ' --variable MvnVersion:"Apache Maven ' + _mvn_version + '" --variable PythonVersion:"Python ' + _python_version + '" ' +
                     ' --variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:' + Build_Param + 
-                    ' --name Validate --output VALIDATE --outputdir ' + _home + '/trunk/Reports ' + flags + ' -A ' + _home + '/trunk/robotframework_salgenerator/Validate_SAL.list \n' +
+                    ' --outputdir ' + _home + '/trunk/Reports ' + flags + ' -A ' + _home + '/trunk/robotframework_salgenerator/Validate_SAL.list \n' +
                 'Result=$? \n' +
                 'if [ $Result -eq 0 ]; then echo Validation complete; else exit $Result; fi'
             }
         }//Validate
         stage('Generate the RPMs') {
-            steps {
-                // Generate the AuxTel CSC RPMs
-                sh label: 'Kafka_Generation', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' + 'set -x \n' +
-                'echo ========= Move to robotframework_salgenerator directory ========= \n' +
-                'echo cd ' + _home + '/trunk/robotframework_salgenerator \n' +
-                'cd ' + _home + '/trunk/robotframework_salgenerator \n' +
-                'pwd \n' +
-                'echo ========= Execute AuxTel salgenerator tests ========= \n' +
-                'sleep 1 \n' +
-                'robot --variable ContInt:true -e skipped --skiponfailure TSS* --skiponfailure DM* --variable SALVersion:' + SAL_Version + ' ' +
-                    ' --variable SALVersionBase:' + SAL_Version_Base + ' --variable XMLVersionBase:' + XML_Version_Base +
-                    ' --variable SALInstall:' + _home + '/trunk/ts_sal --variable OpenspliceRelease:\'OpenSplice HDE Release\' ' +
-                    '--variable OpenspliceVersion:' + _ospl_version + ' --variable OpenspliceDate:' + _ospl_date + ' --variable XMLHome:' + _home + '/trunk/ts_xml ' +
-                    ' --variable MvnVersion:"Apache Maven ' + _mvn_version + '" --variable PythonVersion:"Python ' + _python_version + '" ' +
-                    '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:' + Build_Param + ' ' +
-                    '--name Kafka --output KAFKA --outputdir ' + _home + '/trunk/Reports ' + params.csc_include_flags + ' -A ' + _home + '/trunk/robotframework_salgenerator/Kafka_SalGen.list \n' +
-                'exit 0' 
-            }
+            parallel {
+               stage('AuxTel') {
+                    steps {
+                        // Generate the AuxTel CSC RPMs
+                        sh label: 'Kafka_Generation', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' + 'set -x \n' +
+                        'echo ========= Move to robotframework_salgenerator directory ========= \n' +
+                        'echo cd ' + _home + '/trunk/robotframework_salgenerator \n' +
+                        'cd ' + _home + '/trunk/robotframework_salgenerator \n' +
+                        'pwd \n' +
+                        'echo ========= Execute AuxTel salgenerator tests ========= \n' +
+                        'sleep 1 \n' +
+                        'robot --variable ContInt:true -e skipped --skiponfailure TSS* --skiponfailure DM* --variable SALVersion:' + SAL_Version + ' ' +
+                            ' --variable SALVersionBase:' + SAL_Version_Base + ' --variable XMLVersionBase:' + XML_Version_Base +
+                            ' --variable SALInstall:' + _home + '/trunk/ts_sal --variable OpenspliceRelease:\'OpenSplice HDE Release\' ' +
+                            '--variable OpenspliceVersion:' + _ospl_version + ' --variable OpenspliceDate:' + _ospl_date + ' --variable XMLHome:' + _home + '/trunk/ts_xml ' +
+                            ' --variable MvnVersion:"Apache Maven ' + _mvn_version + '" --variable PythonVersion:"Python ' + _python_version + '" ' +
+                            '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:' + Build_Param + ' ' +
+                            '--outputdir ' + _home + '/trunk/Reports ' + params.csc_include_flags + ' -A ' + _home + '/trunk/robotframework_salgenerator/AT_SalGen.list \n' +
+                        'exit 0' 
+                    }
+                }//AuxTel
+                stage('MainTel') {
+                    steps {
+                        // Generate the AuxTel CSC RPMs
+                        sh label: 'Kafka_Generation', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' + 'set -x \n' +
+                        'echo ========= Move to robotframework_salgenerator directory ========= \n' +
+                        'echo cd ' + _home + '/trunk/robotframework_salgenerator \n' +
+                        'cd ' + _home + '/trunk/robotframework_salgenerator \n' +
+                        'pwd \n' +
+                        'echo ========= Execute AuxTel salgenerator tests ========= \n' +
+                        'sleep 1 \n' +
+                        'robot --variable ContInt:true -e skipped --skiponfailure TSS* --skiponfailure DM* --variable SALVersion:' + SAL_Version + ' ' +
+                            ' --variable SALVersionBase:' + SAL_Version_Base + ' --variable XMLVersionBase:' + XML_Version_Base +
+                            ' --variable SALInstall:' + _home + '/trunk/ts_sal --variable OpenspliceRelease:\'OpenSplice HDE Release\' ' +
+                            '--variable OpenspliceVersion:' + _ospl_version + ' --variable OpenspliceDate:' + _ospl_date + ' --variable XMLHome:' + _home + '/trunk/ts_xml ' +
+                            ' --variable MvnVersion:"Apache Maven ' + _mvn_version + '" --variable PythonVersion:"Python ' + _python_version + '" ' +
+                            '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:' + Build_Param + ' ' +
+                            '--outputdir ' + _home + '/trunk/Reports ' + params.csc_include_flags + ' -A ' + _home + '/trunk/robotframework_salgenerator/MT_SalGen.list \n' +
+                        'exit 0'
+                    }
+                }//MainTel
+                stage('MainTel Cameras and Mirror') {
+                    steps {
+                        // Generate the MT Camera and Mirror CSC RPMs
+                        sh label: 'MT_CamMir_Generation', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' + 'set -x \n' +
+                        'echo ========= Move to robotframework_salgenerator directory ========= \n' +
+                        'echo cd ' + _home + '/trunk/robotframework_salgenerator \n' +
+                        'cd ' + _home + '/trunk/robotframework_salgenerator \n' +
+                        'pwd \n' +
+                        'echo ========= Execute AuxTel salgenerator tests ========= \n' +
+                        'sleep 1 \n' +
+                        'robot --variable ContInt:true -e skipped --skiponfailure TSS* --skiponfailure DM* --variable SALVersion:' + SAL_Version + ' ' +
+                            ' --variable SALVersionBase:' + SAL_Version_Base + ' --variable XMLVersionBase:' + XML_Version_Base +
+                            ' --variable SALInstall:' + _home + '/trunk/ts_sal --variable OpenspliceRelease:\'OpenSplice HDE Release\' ' +
+                            '--variable OpenspliceVersion:' + _ospl_version + ' --variable OpenspliceDate:' + _ospl_date + ' --variable XMLHome:' + _home + '/trunk/ts_xml ' +
+                            ' --variable MvnVersion:"Apache Maven ' + _mvn_version + '" --variable PythonVersion:"Python ' + _python_version + '" ' +
+                            '--variable MavenVersion:' + MavenVersion + ' --variable XMLVersion:' + XML_Version + ' --variable Build_Number:' + Build_Param + ' ' +
+                            '--outputdir ' + _home + '/trunk/Reports ' + params.csc_include_flags + ' -A ' + _home + '/trunk/robotframework_salgenerator/MT_CameraMirror_SalGen.list \n' +
+                        'exit 0'
+                    }
+                }//MT_CameraMirror
+            }//parallel
         }//Generate_RPMs
         stage('Run simple-sal tests') {
             when {
@@ -493,7 +537,7 @@ pipeline {
         always {
             //Process Robot-Framework results.
             sh label: 'Results', script: '#!/bin/bash \n' + 'echo "# Check for output files."\n' +
-            'declare -a outputs=(VALIDATE.xml AUXTEL.xml MAINTEL.xml MTMountMirrors.xml CombinedCppTelemetry.xml CombinedCppEvents.xml CombinedJavaMTCameraTelemetry.xml CombinedJavaTelemetry.xml CombinedJavaEvents.xml) \n' + 
+            'declare -a outputs=(VALIDATE.xml AUXTEL.xml MAINTEL.xml MTCAMERA_AND_MIRROR.xml CombinedCppTelemetry.xml CombinedCppEvents.xml CombinedJavaMTCameraTelemetry.xml CombinedJavaTelemetry.xml CombinedJavaEvents.xml) \n' + 
             'echo ${outputs[@]}\n' +
             'i=0\n echo i=$i\n' + 'for item in "${outputs[@]}"; do\n' +
             '\tif test -f ' + _home + '/trunk/Reports/$item; then array[$i]=' + _home + '/trunk/Reports/$item; else echo ' +

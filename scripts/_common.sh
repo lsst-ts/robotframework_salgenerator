@@ -233,3 +233,37 @@ function checkIfSkipped() {
     skipped=""
     echo -e "$skipped"
 }
+
+function fieldEnums() {
+    local subsystem=$1
+    local topicType=$2
+    if [ ${topicType} != "Telemetry" ]; then
+        topicSet=${topicType%?}
+    fi
+    if [ -f $HOME/trunk/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subsystem}/${subsystem}_${topicType}.xml ]; then
+        if [ "$(xmlstarlet sel -t -m "//SAL${topicSet}Set/SAL${topicSet}/item/Enumeration" -v . -n $HOME/trunk/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subsystem}/${subsystem}_${topicType}.xml)" != "" ]; then 
+            echo 1 
+        else
+            echo 0
+        fi
+    else
+        echo 0
+     fi
+}
+
+function globalEnums() {
+    local subsystem=$1
+    local topicType=$2
+    if [ "${topicType}" != "Telemetry" ]; then
+        topicSet=${topicType%?}
+    fi
+    if [ -f $HOME/trunk/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subsystem}/${subsystem}_${topicType}.xml ]; then
+        if [ "$(xmlstarlet sel -t -m "//SAL${topicSet}Set/Enumeration" -v . -n $HOME/trunk/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subsystem}/${subsystem}_${topicType}.xml)" != "" ]; then
+            echo 1
+        else
+            echo 0
+        fi
+    else
+        echo 0
+     fi
+}

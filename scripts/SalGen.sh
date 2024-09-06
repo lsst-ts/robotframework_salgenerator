@@ -138,8 +138,12 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     fi
     # Validate avro-template files
     echo "    File Should Exist    \${SALWorkDir}/avro-templates/\${subSystem}/\${subSystem}_ackcmd.json" >> $testSuite
-    echo "    File Should Exist    \${SALWorkDir}/avro-templates/\${subSystem}/\${subSystem}_field_enums.json" >> $testSuite
-    echo "    File Should Exist    \${SALWorkDir}/avro-templates/\${subSystem}/\${subSystem}_global_enums.json" >> $testSuite
+    if [ $(fieldEnums ${subSystem} "Commands") == 1 ] || [ $(fieldEnums ${subSystem} "Events") == 1 ] || [ $(fieldEnums ${subSystem} "Telemetry") == 1 ]; then
+        echo "    File Should Exist    \${SALWorkDir}/avro-templates/\${subSystem}/\${subSystem}_field_enums.json" >> $testSuite
+    fi
+    if [ $(globalEnums ${subSystem} "Commands") == 1 ] || [ $(globalEnums ${subSystem} "Events") == 1 ] || [ $(globalEnums ${subSystem} "Telemetry") == 1 ]; then
+        echo "    File Should Exist    \${SALWorkDir}/avro-templates/\${subSystem}/\${subSystem}_global_enums.json" >> $testSuite
+    fi
     echo "    File Should Exist    \${SALWorkDir}/avro-templates/\${subSystem}/\${subSystem}_hash_table.json" >> $testSuite
     for topic in "${commandArray[@]}"; do
         echo "    File Should Exist    \${SALWorkDir}/avro-templates/\${subSystem}/\${subSystem}_command_${topic}.json" >> $testSuite
@@ -346,7 +350,7 @@ function salgenMaven() {
     echo "Salgen $subSystemUp Maven" >> $testSuite
     echo "    [Documentation]    Generate the Maven repository." >> $testSuite
     echo "    [Tags]    java$skipped" >> $testSuite
-    echo "    \${output}=    Run Process    \${SALHome}/bin/salgeneratorKafka    \${subSystem}    maven    version\\=\${MavenVersion}    \
+    echo "    \${output}=    Run Process    \${SALHome}/bin/salgeneratorKafka    \${subSystem}    maven    version\=\${MavenVersion}    \
 shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.txt    stderr=\${EXECDIR}\${/}\${subSystem}_stderr.txt" >> $testSuite
     echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
     echo "    Should Contain    \${output.stdout}    argv = \${subSystem} maven version=\${MavenVersion}" >> $testSuite
@@ -358,6 +362,7 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     echo "    Should Contain X Times    \${output.stdout}    [INFO] Finished at:    1" >> $testSuite
     echo "    @{files}=    List Directory    \${SALWorkDir}/maven" >> $testSuite
     echo "    File Should Exist    \${SALWorkDir}/maven/\${subSystem}-\${XMLVersionBase}_\${SALVersionBase}\${MavenVersion}/pom.xml" >> $testSuite
+    echo "    File Should Exist    \${SALWorkDir}/maven/\${subSystem}-\${XMLVersionBase}_\${SALVersionBase}\${MavenVersion}/target/sal_\${subSystem}-\${XMLVersionBase}_\${SALVersionBase}\${MavenVersion}.jar" >> $testSuite
     echo "" >> $testSuite
 }
 
@@ -479,8 +484,12 @@ function verifyRPM() {
     echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_sal/scripts/\${subSystem}_revCodes.tcl" >> $testSuite
     # Validate avro-template files
     echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_sal/avro-templates/\${subSystem}/\${subSystem}_ackcmd.json" >> $testSuite
-    echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_sal/avro-templates/\${subSystem}/\${subSystem}_field_enums.json" >> $testSuite
-    echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_sal/avro-templates/\${subSystem}/\${subSystem}_global_enums.json" >> $testSuite
+    if [ $(fieldEnums ${subSystem} "Commands") == 1 ] || [ $(fieldEnums ${subSystem} "Events") == 1 ] || [ $(fieldEnums ${subSystem} "Telemetry") == 1 ]; then
+        echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_sal/avro-templates/\${subSystem}/\${subSystem}_field_enums.json" >> $testSuite
+    fi
+    if [ $(globalEnums ${subSystem} "Commands") == 1 ] || [ $(globalEnums ${subSystem} "Events") == 1 ] || [ $(globalEnums ${subSystem} "Telemetry") == 1 ]; then
+        echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_sal/avro-templates/\${subSystem}/\${subSystem}_global_enums.json" >> $testSuite
+    fi
     echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_sal/avro-templates/\${subSystem}/\${subSystem}_hash_table.json" >> $testSuite
     for topic in "${commandArray[@]}"; do
         echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_sal/avro-templates/\${subSystem}/\${subSystem}_command_${topic}.json" >> $testSuite
