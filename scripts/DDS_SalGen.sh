@@ -341,8 +341,8 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     echo "    Should Contain X Times    \${output.stdout}    [INFO] BUILD SUCCESS    1" >> $testSuite
     echo "    Should Contain X Times    \${output.stdout}    [INFO] Finished at:    1" >> $testSuite
     echo "    @{files}=    List Directory    \${SALWorkDir}/maven" >> $testSuite
-    echo "    File Should Exist    \${SALWorkDir}/maven/\${subSystem}-\${XMLVersionBase}_\${SALVersionBase}\${MavenVersion}/pom.xml" >> $testSuite
-    echo "    File Should Exist    \${SALWorkDir}/maven/\${subSystem}-\${XMLVersionBase}_\${SALVersionBase}\${MavenVersion}/target/sal_\${subSystem}-\${XMLVersionBase}_\${SALVersionBase}\${MavenVersion}.jar" >> $testSuite
+    echo "    File Should Exist    \${SALWorkDir}/maven/\${subSystem}_dds-\${XMLVersionBase}_\${SALVersionBase}\${MavenVersion}/pom.xml" >> $testSuite
+    echo "    File Should Exist    \${SALWorkDir}/maven/\${subSystem}_dds-\${XMLVersionBase}_\${SALVersionBase}\${MavenVersion}/target/sal_\${subSystem}_dds-\${XMLVersionBase}_\${SALVersionBase}\${MavenVersion}.jar" >> $testSuite
     echo "" >> $testSuite
 }
 
@@ -446,14 +446,14 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     echo "    ELSE" >> $testSuite
     echo "        Set Test Variable    \${sep}    \${EMPTY}" >> $testSuite
     echo "    END" >> $testSuite
-    echo "    File Should Exist    \${SALWorkDir}/rpmbuild/SPECS/ts_sal_\${subSystem}.spec" >> $testSuite
-    echo "    File Should Exist    \${SALWorkDir}/rpmbuild/SOURCES/\${subSystem}-\${XMLVersionBase}\${sep}\${Build_Number}.tgz" >> $testSuite
-    echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_runtime-\${XMLVersionBase}\${sep}\${Build_Number}-\${SALVersionBase}*\${DIST}.x86_64.rpm" >> $testSuite
-    echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_ATruntime-\${XMLVersionBase}\${sep}\${Build_Number}-\${SALVersionBase}*\${DIST}.x86_64.rpm" >> $testSuite
-    echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_utils-\${SALVersionBase}-1.x86_64.rpm" >> $testSuite
-    echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/\${subSystem}-\${XMLVersionBase}\${sep}\${Build_Number}-\${SALVersionBase}\${DIST}.x86_64.rpm" >> $testSuite
+    echo "    File Should Exist    \${SALWorkDir}/rpmbuild/SPECS/ts_sal_\${subSystem}_dds.spec" >> $testSuite
+    echo "    File Should Exist    \${SALWorkDir}/rpmbuild/SOURCES/\${subSystem}_dds-\${XMLVersionBase}\${sep}\${Build_Number}.tgz" >> $testSuite
+    echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_runtime_dds-\${XMLVersionBase}\${sep}\${Build_Number}-\${SALVersionBase}*\${DIST}.x86_64.rpm" >> $testSuite
+    echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_ATruntime_dds-\${XMLVersionBase}\${sep}\${Build_Number}-\${SALVersionBase}*\${DIST}.x86_64.rpm" >> $testSuite
+    echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_utils_dds-\${SALVersionBase}-1.x86_64.rpm" >> $testSuite
+    echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/\${subSystem}_dds-\${XMLVersionBase}\${sep}\${Build_Number}-\${SALVersionBase}\${DIST}.x86_64.rpm" >> $testSuite
     if [[ "$@" =~ "CPP" ]]; then
-        echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/\${subSystem}_test-\${XMLVersionBase}\${sep}\${Build_Number}-\${SALVersionBase}\${DIST}.x86_64.rpm" >> $testSuite
+        echo "    File Should Exist    \${SALWorkDir}/rpmbuild/RPMS/x86_64/\${subSystem}_dds_test-\${XMLVersionBase}\${sep}\${Build_Number}-\${SALVersionBase}\${DIST}.x86_64.rpm" >> $testSuite
     fi
     echo "    Should Not Contain    \${output.stdout}    child process exited abnormally" >> $testSuite
     echo "" >> $testSuite
@@ -482,7 +482,7 @@ function verifyRPM() {
     echo "    ELSE" >> $testSuite
     echo "        Set Test Variable    \${sep}    \${EMPTY}" >> $testSuite
     echo "    END" >> $testSuite
-    echo "    \${output}=    Run Process    rpm    -qpl    \${subSystem}-\${XMLVersionBase}\${sep}\${Build_Number}-\${SALVersionBase}\${DIST}.x86_64.rpm    cwd=\${SALWorkDir}/rpmbuild/RPMS/x86_64" >> $testSuite
+    echo "    \${output}=    Run Process    rpm    -qpl    \${subSystem}_dds-\${XMLVersionBase}\${sep}\${Build_Number}-\${SALVersionBase}\${DIST}.x86_64.rpm    cwd=\${SALWorkDir}/rpmbuild/RPMS/x86_64" >> $testSuite
     echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
     echo "    Should Not Contain    \${output.stderr}    error" >> $testSuite
     echo "    Should Not Contain    \${output.stderr}    No such file or directory" >> $testSuite
@@ -557,7 +557,7 @@ function verifyTestRPM() {
     echo "    ELSE" >> $testSuite
     echo "        Set Test Variable    \${sep}    \${EMPTY}" >> $testSuite
     echo "    END" >> $testSuite
-    echo "    \${output}=    Run Process    rpm    -qpl    \${subSystem}_test-\${XMLVersionBase}\${sep}\${Build_Number}-\${SALVersionBase}\${DIST}.x86_64.rpm    \
+    echo "    \${output}=    Run Process    rpm    -qpl    \${subSystem}_dds_test-\${XMLVersionBase}\${sep}\${Build_Number}-\${SALVersionBase}\${DIST}.x86_64.rpm    \
 shell=True    cwd=\${SALWorkDir}/rpmbuild/RPMS/x86_64    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.txt    stderr=\${EXECDIR}\${/}\${subSystem}_stderr.txt" >> $testSuite
     echo "    Log Many    \${output.stdout}    \${output.stderr}" >> $testSuite
     echo "    Should Not Contain    \${output.stderr}    error" >> $testSuite
