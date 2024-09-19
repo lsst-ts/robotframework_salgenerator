@@ -94,7 +94,7 @@ RUN git config --global --add safe.directory ${HOME}/trunk/ts_sal && git config 
 # Install Avro
 ARG AVRO_RELEASE=${AVRO_RELEASE}
 RUN mkdir $HOME/external-packages && mkdir -p $LSST_SAL_PREFIX/include/avro && mkdir $LSST_SAL_PREFIX/lib && \
-mkdir $LSST_SAL_PREFIX/bin && ln -s $LSST_SDK_INSTALL/test/avro-templates $LSST_SAL_PREFIX/avro
+mkdir $LSST_SAL_PREFIX/bin && ln -s $LSST_SDK_INSTALL/test/avro-templates $LSST_SAL_PREFIX/avro-templates
 WORKDIR $HOME/external-packages
 RUN wget https://archive.apache.org/dist/avro/avro-${AVRO_RELEASE}/avro-src-${AVRO_RELEASE}.tar.gz
 RUN tar xvzf avro-src-${AVRO_RELEASE}.tar.gz
