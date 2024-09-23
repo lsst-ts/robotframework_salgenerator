@@ -56,6 +56,10 @@ Salgen ESS Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_earthquakeLongPeriodLowGain.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_earthquakeUltraLongPeriodHighGain.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_earthquakeVeryLongPeriodHighGain.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_pdu.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_schneiderPm5xxx.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_xups.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_aircraftTrack.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_exitControl.idl
@@ -121,6 +125,10 @@ Verify ESS revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_earthquakeLongPeriodLowGain\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_earthquakeUltraLongPeriodHighGain\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_earthquakeVeryLongPeriodHighGain\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_pdu\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_schneiderPm5xxx\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_xups\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_aircraftTrack\\) [a-z0-9]{8,}
 
 Salgen ESS IDL
     [Documentation]    Generate the revCoded IDL for ${subSystem}
@@ -168,8 +176,12 @@ Salgen ESS C++
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_earthquakeLongPeriodLowGain.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_earthquakeUltraLongPeriodHighGain.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_earthquakeVeryLongPeriodHighGain.idl
-    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    22
-    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    22
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_pdu.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_schneiderPm5xxx.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_xups.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_aircraftTrack.idl
+    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    26
+    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    26
     Should Contain X Times    ${output.stdout}    cpp : Done Commander    1
     Should Contain X Times    ${output.stdout}    cpp : Done Event/Logger    1
 
@@ -209,6 +221,10 @@ Verify ESS Telemetry directories
     Directory Should Exist    ${SALWorkDir}/${subSystem}_earthquakeLongPeriodLowGain
     Directory Should Exist    ${SALWorkDir}/${subSystem}_earthquakeUltraLongPeriodHighGain
     Directory Should Exist    ${SALWorkDir}/${subSystem}_earthquakeVeryLongPeriodHighGain
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_pdu
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_schneiderPm5xxx
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_xups
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_aircraftTrack
 
 Verify ESS C++ Telemetry Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -257,6 +273,14 @@ Verify ESS C++ Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}_earthquakeUltraLongPeriodHighGain/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_earthquakeVeryLongPeriodHighGain/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_earthquakeVeryLongPeriodHighGain/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_pdu/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_pdu/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_schneiderPm5xxx/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_schneiderPm5xxx/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_xups/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_xups/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_aircraftTrack/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_aircraftTrack/cpp/standalone/sacpp_${subSystem}_sub
 
 Verify ESS C++ Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -334,8 +358,12 @@ Salgen ESS Java
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_earthquakeLongPeriodLowGain.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_earthquakeUltraLongPeriodHighGain.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_earthquakeVeryLongPeriodHighGain.idl
-    Should Contain X Times    ${output.stdout}    javac : Done Publisher    22
-    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    22
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_pdu.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_schneiderPm5xxx.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_xups.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_aircraftTrack.idl
+    Should Contain X Times    ${output.stdout}    javac : Done Publisher    26
+    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    26
     Directory Should Exist    ${SALWorkDir}/${subSystem}/java
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
@@ -557,6 +585,14 @@ Verify ESS TEST RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_earthquakeUltraLongPeriodHighGain_subscriber
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_earthquakeVeryLongPeriodHighGain_publisher
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_earthquakeVeryLongPeriodHighGain_subscriber
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_pdu_publisher
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_pdu_subscriber
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_schneiderPm5xxx_publisher
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_schneiderPm5xxx_subscriber
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_xups_publisher
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_xups_subscriber
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_aircraftTrack_publisher
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_aircraftTrack_subscriber
 
 Cleanup stdout and stderr Files
     [Tags]

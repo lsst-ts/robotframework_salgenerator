@@ -85,6 +85,10 @@ Salgen ESS Validate
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_earthquakeLongPeriodLowGain.json/
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_earthquakeUltraLongPeriodHighGain.json/
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_earthquakeVeryLongPeriodHighGain.json/
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_pdu.json/
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_schneiderPm5xxx.json/
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_xups.json/
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_aircraftTrack.json/
 
 Salgen ESS C++
     [Documentation]    Generate C++ libraries.
@@ -118,8 +122,12 @@ Salgen ESS C++
     Should Contain    ${output.stdout}    Generating cpp type support for ${subSystem}
     Should Contain    ${output.stdout}    Generating cpp type support for ${subSystem}
     Should Contain    ${output.stdout}    Generating cpp type support for ${subSystem}
-    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    22
-    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    22
+    Should Contain    ${output.stdout}    Generating cpp type support for ${subSystem}
+    Should Contain    ${output.stdout}    Generating cpp type support for ${subSystem}
+    Should Contain    ${output.stdout}    Generating cpp type support for ${subSystem}
+    Should Contain    ${output.stdout}    Generating cpp type support for ${subSystem}
+    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    26
+    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    26
     Should Contain X Times    ${output.stdout}    cpp : Done Commander    1
     Should Contain X Times    ${output.stdout}    cpp : Done Event/Logger    1
 
@@ -160,6 +168,10 @@ Verify ESS Telemetry directories
     Directory Should Exist    ${SALWorkDir}/${subSystem}_earthquakeLongPeriodLowGain
     Directory Should Exist    ${SALWorkDir}/${subSystem}_earthquakeUltraLongPeriodHighGain
     Directory Should Exist    ${SALWorkDir}/${subSystem}_earthquakeVeryLongPeriodHighGain
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_pdu
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_schneiderPm5xxx
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_xups
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_aircraftTrack
 
 Verify ESS C++ Telemetry Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -230,6 +242,18 @@ Verify ESS C++ Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}_earthquakeVeryLongPeriodHighGain/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_earthquakeVeryLongPeriodHighGain/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/${subSystem}_earthquakeVeryLongPeriodHighGain.hh
+    File Should Exist    ${SALWorkDir}/${subSystem}_pdu/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_pdu/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/${subSystem}_pdu.hh
+    File Should Exist    ${SALWorkDir}/${subSystem}_schneiderPm5xxx/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_schneiderPm5xxx/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/${subSystem}_schneiderPm5xxx.hh
+    File Should Exist    ${SALWorkDir}/${subSystem}_xups/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_xups/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/${subSystem}_xups.hh
+    File Should Exist    ${SALWorkDir}/${subSystem}_aircraftTrack/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_aircraftTrack/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/${subSystem}_aircraftTrack.hh
 
 Verify ESS C++ Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -353,6 +377,14 @@ Salgen ESS Java
     Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_earthquakeUltraLongPeriodHighGain.hh to sal_${subSystem} code fragments
     Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_earthquakeVeryLongPeriodHighGain.json
     Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_earthquakeVeryLongPeriodHighGain.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_pdu.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_pdu.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_schneiderPm5xxx.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_schneiderPm5xxx.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_xups.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_xups.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_aircraftTrack.json
+    Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_aircraftTrack.hh to sal_${subSystem} code fragments
     Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_heartbeat.json
     Should Contain    ${output.stdout}    Adding /home/appuser/trunk/ts_sal/test/${subSystem}/cpp/src/${subSystem}_logevent_heartbeat.hh to sal_${subSystem} code fragments
     Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_logLevel.json
@@ -536,6 +568,10 @@ Verify ESS RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_earthquakeLongPeriodLowGain.json
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_earthquakeUltraLongPeriodHighGain.json
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_earthquakeVeryLongPeriodHighGain.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_pdu.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_schneiderPm5xxx.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_xups.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_aircraftTrack.json
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/lib/libSAL_${subSystem}.a
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/SAL_${subSystem}.h
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_ackcmd.hh
@@ -561,6 +597,10 @@ Verify ESS RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_earthquakeLongPeriodLowGain.hh
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_earthquakeUltraLongPeriodHighGain.hh
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_earthquakeVeryLongPeriodHighGain.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_pdu.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_schneiderPm5xxx.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_xups.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_aircraftTrack.hh
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_disable.hh
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_enable.hh
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_exitControl.hh
@@ -692,6 +732,14 @@ Verify ESS TEST RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_earthquakeUltraLongPeriodHighGain_subscriber
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_earthquakeVeryLongPeriodHighGain_publisher
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_earthquakeVeryLongPeriodHighGain_subscriber
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_pdu_publisher
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_pdu_subscriber
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_schneiderPm5xxx_publisher
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_schneiderPm5xxx_subscriber
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_xups_publisher
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_xups_subscriber
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_aircraftTrack_publisher
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_aircraftTrack_subscriber
 
 Cleanup stdout and stderr Files
     [Tags]
