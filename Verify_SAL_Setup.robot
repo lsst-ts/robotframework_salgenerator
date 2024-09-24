@@ -50,15 +50,6 @@ Verify Maven Version
     Log    ${stdout.stdout}
     Should Contain    ${stdout.stdout}    ${MvnVersion}
 
-Verify OpenSplice Version
-    [Documentation]    Verify the OpenSplice version and date.
-    [Tags]    smoke    version    skipped
-    Log    ${versionData.stdout}
-    Log Many    ${OpenspliceRelease}    ${OpenspliceVersion}    ${OpenspliceDate}
-    Should Contain    ${versionData.stdout}    ${OpenspliceRelease}
-    Should Contain    ${versionData.stdout}    ${OpenspliceVersion} For x86_64.linux
-    Should Contain    ${versionData.stdout}    Date ${OpenspliceDate}
-
 Verify XML Version
     [Tags]    smoke    version
     ${output}=    Run Process    git    describe    cwd=${XMLHome}
