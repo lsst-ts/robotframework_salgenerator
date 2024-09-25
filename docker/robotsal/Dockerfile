@@ -17,9 +17,9 @@ ENV LSST_DDS_DOMAIN=citest
 ENV LSST_DDS_PARTITION_PREFIX=citest
 ## Version variables
 ENV MAVEN_RELEASE=3.9.8
-ENV AVRO_RELEASE=1.12.0
+ENV AVRO_RELEASE=1.11.0
 ENV BOOST_RELEASE=1.78
-ENV JDK_RELEASE=11
+ENV JDK_RELEASE=17
 ENV KAFKA_RELEASE=7.6
 ENV JACKSON_RELEASE=2.15.2
 ## Path variables
@@ -56,23 +56,26 @@ RUN python3.11 -m pip install awscli --upgrade
 # Enable EPEL repo for fmt packages.
 RUN dnf -y install epel-release
 
-# Enable the CodeReady Builder repo for snappy and jansson packages
-RUN dnf config-manager --set-enabled crb
+## Enable the CodeReady Builder repo for snappy and jansson packages on Alma9
+#RUN dnf config-manager --set-enabled crb
+# Enable the Powertools repo for snappy and jansson packages on Alma8
+RUN dnf config-manager -y --set-enabled powertools && dnf -y update
 
 # Install packages and dependencies
 RUN dnf -y install tk-devel \
 ncurses-libs xterm \
 xorg-x11-fonts-misc \
 gnome-terminal iproute \
-make cmake gcc-c++ \
+ant make cmake \
 fmt fmt-devel \
-boost${BOOST_RELEASE}-devel jansson-devel \
-snappy-devel libcurl-devel \
+boost${BOOST_RELEASE}-devel \
+snappy-devel csnappy-devel \
+jansson-devel libcurl-devel \
 rpm-build && \
 dnf clean all && \
 rm -rf /var/cache/dnf
 
-RUN dnf -y install gcc-toolset-12 && source scl_source enable gcc-toolset-12
+#RUN dnf -y install gcc-toolset-12 && source scl_source enable gcc-toolset-12
 
 # Maven
 ADD maven.sh /etc/profile.d/
@@ -98,18 +101,18 @@ mkdir $LSST_SAL_PREFIX/bin && ln -s $LSST_SDK_INSTALL/test/avro-templates $LSST_
 WORKDIR $HOME/external-packages
 RUN wget https://archive.apache.org/dist/avro/avro-${AVRO_RELEASE}/avro-src-${AVRO_RELEASE}.tar.gz
 RUN tar xvzf avro-src-${AVRO_RELEASE}.tar.gz
-# Build C
-WORKDIR $HOME/external-packages/avro-src-${AVRO_RELEASE}/lang/c
-RUN ./build.sh test && ./cmake_avrolib.sh || true
-RUN cp build/avrolib/lib64/lib* $LSST_SAL_PREFIX/lib/. && \
-cp -r build/avrolib/include/* $LSST_SAL_PREFIX/include/.
 # Build C++
 WORKDIR $HOME/external-packages/avro-src-${AVRO_RELEASE}/lang/c++
 RUN ./build.sh test
 RUN cp build/lib* $LSST_SAL_PREFIX/lib/. && \
 cp build/avrogencpp $LSST_SAL_PREFIX/bin/. && \
-cp -r include/avro/* $LSST_SAL_PREFIX/include/avro/. && \
+cp -r api/* $LSST_SAL_PREFIX/include/avro/. && \
 cp -r impl $LSST_SAL_PREFIX/include/.
+# Build C
+WORKDIR $HOME/external-packages/avro-src-${AVRO_RELEASE}/lang/c
+RUN ./build.sh test && ./cmake_avrolib.sh || true
+RUN cp build/avrolib/lib64/lib* $LSST_SAL_PREFIX/lib/. && \
+cp -r build/avrolib/include/* $LSST_SAL_PREFIX/include/.
 
 # Install Kafka
 ARG KAFKA_RELEASE=7.6
@@ -136,7 +139,7 @@ mv jackson-dataformat-avro-${JACKSON_RELEASE}.jar ${LSST_SAL_PREFIX}/lib/.
 # Download and build librdkafka
 WORKDIR $HOME/external-packages
 RUN git clone https://github.com/confluentinc/librdkafka
-RUN cd librdkafka && ./configure --prefix=$LSST_SAL_PREFIX && \
+RUN cd librdkafka && git checkout v1.9.0 && ./configure --prefix=$LSST_SAL_PREFIX && \
 make && make install
 
 # Download and build libserdes
