@@ -17,7 +17,7 @@ ENV LSST_DDS_DOMAIN=citest
 ENV LSST_DDS_PARTITION_PREFIX=citest
 ## Version variables
 ENV MAVEN_RELEASE=3.9.8
-ENV AVRO_RELEASE=1.11.0
+ENV AVRO_RELEASE=1.11.1
 ENV BOOST_RELEASE=1.78
 ENV JDK_RELEASE=17
 ENV KAFKA_RELEASE=7.6
@@ -113,6 +113,11 @@ WORKDIR $HOME/external-packages/avro-src-${AVRO_RELEASE}/lang/c
 RUN ./build.sh test && ./cmake_avrolib.sh || true
 RUN cp build/avrolib/lib64/lib* $LSST_SAL_PREFIX/lib/. && \
 cp -r build/avrolib/include/* $LSST_SAL_PREFIX/include/.
+
+# Avro library workarount. TEMPORARY
+ADD libavrocpp.so $LSST_SAL_PREFIX/lib/.
+ADD libavrocpp.so.1.11.1 $LSST_SAL_PREFIX/lib/.
+ADD libavrocpp_s.a $LSST_SAL_PREFIX/lib/.
 
 # Install Kafka
 ARG KAFKA_RELEASE=7.6
