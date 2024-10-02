@@ -117,6 +117,11 @@ RUN ./build.sh test && ./cmake_avrolib.sh || true
 RUN cp build/avrolib/lib64/lib* $LSST_SAL_PREFIX/lib/. && \
 cp -r build/avrolib/include/* $LSST_SAL_PREFIX/include/.
 
+# Avro library workarount. TEMPORARY
+ADD libavrocpp.so $LSST_SAL_PREFIX/lib/.
+ADD libavrocpp.so.1.11.1 $LSST_SAL_PREFIX/lib/.
+ADD libavrocpp_s.a $LSST_SAL_PREFIX/lib/.
+
 # Install Kafka
 ARG KAFKA_RELEASE=7.6
 WORKDIR $HOME/external-packages
