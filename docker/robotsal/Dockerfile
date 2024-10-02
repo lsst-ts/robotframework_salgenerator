@@ -17,7 +17,7 @@ ENV LSST_DDS_DOMAIN=citest
 ENV LSST_DDS_PARTITION_PREFIX=citest
 ## Version variables
 ENV MAVEN_RELEASE=3.9.8
-ENV AVRO_RELEASE=1.11.0
+ENV AVRO_RELEASE=1.11.1
 ENV BOOST_RELEASE=1.78
 ENV JDK_RELEASE=17
 ENV KAFKA_RELEASE=7.6
@@ -36,7 +36,7 @@ ENV AVRO_CLASSPATH=lsst/sal
 ENV AVRO_INCL=${LSST_SAL_PREFIX}/include/avro
 ENV AVRO_HOME=${LSST_SAL_PREFIX}/lib
 ENV AVRO_PREFIX=lsst.sal
-ENV LD_LIBRARY_PATH="/usr/lib64/boost1.78:${LSST_SAL_PREFIX}/lib:$LD_LIBRARY_PATH"
+ENV LD_LIBRARY_PATH="/usr/lib64/boost1.78:${LSST_SAL_PREFIX}/lib:/usr/local/lib:$LD_LIBRARY_PATH"
 ENV CPPFLAGS="-I $LSST_SAL_PREFIX/include/avro"
 
 USER root
@@ -103,8 +103,11 @@ RUN wget https://archive.apache.org/dist/avro/avro-${AVRO_RELEASE}/avro-src-${AV
 RUN tar xvzf avro-src-${AVRO_RELEASE}.tar.gz
 # Build C++
 WORKDIR $HOME/external-packages/avro-src-${AVRO_RELEASE}/lang/c++
-RUN ./build.sh test
+USER root
+RUN ./build.sh install
+USER ${USER}
 RUN cp build/lib* $LSST_SAL_PREFIX/lib/. && \
+cp --no-preserve=mode,ownership /usr/local/lib/libavrocpp.so.${AVRO_RELEASE} $LSST_SAL_PREFIX/lib/. && \
 cp build/avrogencpp $LSST_SAL_PREFIX/bin/. && \
 cp -r api/* $LSST_SAL_PREFIX/include/avro/. && \
 cp -r impl $LSST_SAL_PREFIX/include/.
