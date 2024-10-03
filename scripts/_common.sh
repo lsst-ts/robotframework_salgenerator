@@ -195,7 +195,7 @@ function subsystemArrayDDS() {
     EAS Electrometer EPM ESS FiberSpectrograph 
     GCHeaderService GenericCamera GIS Guider 
     HVAC LaserTracker LEDProjector LinearStage LOVE 
-    MTAirCompressor MTAOS MTCamera MTDome 
+    MOSS MTAirCompressor MTAOS MTCamera MTDome 
     MTDomeTrajectory MTHexapod MTEEC MTHeaderService
     MTM1M3 MTM1M3TS MTM2 MTMount MTOODS MTPtg 
     MTReflector MTRotator MTVMS OCPS PMD 

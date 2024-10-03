@@ -37,6 +37,7 @@ DDS_SALGEN/Guider_salgenerator.robot
 DDS_SALGEN/HVAC_salgenerator.robot
 DDS_SALGEN/LinearStage_salgenerator.robot
 DDS_SALGEN/LOVE_salgenerator.robot
+DDS_SALGEN/MOSS_salgenerator.robot
 DDS_SALGEN/OCPS_salgenerator.robot
 DDS_SALGEN/PMD_salgenerator.robot
 DDS_SALGEN/Scheduler_salgenerator.robot
