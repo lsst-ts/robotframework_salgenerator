@@ -22,6 +22,7 @@ ENV BOOST_RELEASE=1.78
 ENV JDK_RELEASE=17
 ENV KAFKA_RELEASE=7.6
 ENV JACKSON_RELEASE=2.15.2
+ENV LIBRDKAFKA_RELEASE=1.9.0
 ## Path variables
 ENV LSST_SAL_PREFIX=$HOME/ts_sal_stage
 ENV LSST_KAFKA_CLASSDIR=${LSST_SAL_PREFIX}/lib
@@ -69,7 +70,7 @@ gnome-terminal iproute \
 ant make cmake \
 fmt fmt-devel \
 boost${BOOST_RELEASE}-devel \
-snappy-devel csnappy-devel \
+snappy snappy-devel csnappy \
 jansson-devel libcurl-devel \
 rpm-build && \
 dnf clean all && \
@@ -142,7 +143,7 @@ mv jackson-dataformat-avro-${JACKSON_RELEASE}.jar ${LSST_SAL_PREFIX}/lib/.
 # Download and build librdkafka
 WORKDIR $HOME/external-packages
 RUN git clone https://github.com/confluentinc/librdkafka
-RUN cd librdkafka && git checkout v1.9.0 && ./configure --prefix=$LSST_SAL_PREFIX && \
+RUN cd librdkafka && git checkout v${LIBRDKAFKA_RELEASE} && ./configure --prefix=$LSST_SAL_PREFIX && \
 make && make install
 
 # Download and build libserdes
