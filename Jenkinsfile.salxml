@@ -503,7 +503,7 @@ pipeline {
         always {
             //Process Robot-Framework results.
             sh label: 'Results', script: '#!/bin/bash \n' + 'echo "# Check for output files."\n' +
-            'declare -a outputs=(VALIDATE.xml AUXTEL.xml MAINTEL.xml MTCAMERA_AND_MIRROR.xml CombinedCppTelemetry.xml CombinedCppEvents.xml CombinedJavaMTCameraTelemetry.xml CombinedJavaTelemetry.xml CombinedJavaEvents.xml) \n' + 
+            'declare -a outputs=(VALIDATE.xml AUXTEL.xml MAINTEL.xml MTCAMERA_AND_MIRROR.xml CombinedCppTelemetry.xml CombinedCppEvents.xml CombinedCppCommands.xml) \n' + 
             'echo ${outputs[@]}\n' +
             'i=0\n echo i=$i\n' + 'for item in "${outputs[@]}"; do\n' +
             '\tif test -f ' + _home + '/trunk/Reports/$item; then array[$i]=' + _home + '/trunk/Reports/$item; else echo ' +
