@@ -6,7 +6,7 @@
 #  email:  rbovill@lsst.org
 
 # Source common functions
-workDir=$HOME/trunk/robotframework_salgenerator
+workDir=$HOME/repos/robotframework_salgenerator
 source $workDir/scripts/_common.sh
 
 #  Define variables to be used in script

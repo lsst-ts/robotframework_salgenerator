@@ -1,6 +1,6 @@
 FROM lsstts/robot:kafka
 LABEL org.opencontainers.image.authors="trekkie2@gmail.com"
-ARG USER=appuser
+ARG USER=saluser
 ARG HOME=/home/${USER}
 
 # System EnvVars
@@ -11,7 +11,7 @@ ENV M2_HOME=${MAVEN_HOME}
 ENV PATH=${MAVEN_HOME}/bin:${PATH}
 
 # SAL/XML EnvVars
-ENV LSST_SDK_INSTALL=$HOME/trunk/ts_sal
+ENV LSST_SDK_INSTALL=$HOME/repos/ts_sal
 ENV OSPL_HOME=/opt/OpenSpliceDDS/V6.10.4/HDE/x86_64.linux
 ENV LSST_DDS_DOMAIN=citest
 ENV LSST_DDS_PARTITION_PREFIX=citest
@@ -92,7 +92,7 @@ COPY --chown=73006:73006 rpmmacros ${HOME}/.rpmmacros
 COPY --chown=0:0 rpmmacros /root/.rpmmacros
 
 # Set safe.directory
-RUN git config --global --add safe.directory ${HOME}/trunk/ts_sal && git config --global --add safe.directory ${HOME}/trunk/ts_xml
+RUN git config --global --add safe.directory ${HOME}/repos/ts_sal && git config --global --add safe.directory ${HOME}/repos/ts_xml
 
 # Install Avro
 ARG AVRO_RELEASE=${AVRO_RELEASE}

@@ -1,7 +1,7 @@
 # vi:syntax=cmake 
 #  Arguments file for testing the SAL XML definition files
 #  Output directory
--d /home/appuser/Reports
+-d /home/saluser/Reports
 
 #  Specify tags to NOT run
 -e skipped
