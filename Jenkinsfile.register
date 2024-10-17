@@ -1,0 +1,32 @@
+pipeline {
+    parameters {
+        string defaultValue: '', description: 'The version of ts_xml.', name: 'XML_VERSION', trim: true
+    }
+    options {
+        disableConcurrentBuilds()
+    }
+    agent {
+        docker { 
+            image 'lsstts/robotint:latest'
+            args '--entrypoint="" --network=kafka -e LSST_TOPIC_SUBNAME=sal'
+            label 'Node2_8CPU || CSC_Conda_Node'
+         }
+    }
+    stages {
+        stage('Install SalObj and XML') {
+            steps {
+                sh """
+                    cd /home/saluser
+                    source miniconda3/bin/activate
+                    conda install -y -c conda-forge -c lsstts -c lsstts/label/dev -c lsstts/label/rc ts-salobj=8.0.0b23 ts-xml=${XML_VERSION}
+                    create_topics --all
+                """
+            }
+        }//Register
+    }//stages
+    post { 
+        success {
+            cleanWs cleanWhenAborted: false, cleanWhenFailure: false, cleanWhenUnstable: false, deleteDirs: true, disableDeferredWipeout: true, notFailBuild: true
+        }
+    }//post
+}//pipeline
