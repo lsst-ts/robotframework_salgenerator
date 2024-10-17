@@ -6,7 +6,7 @@
 #  email:  rbovill@lsst.org
 
 # Define filename
-argfile=$HOME/trunk/robotframework_salgenerator/Test_SalGen.list
+argfile=$HOME/repos/robotframework_salgenerator/Test_SalGen.list
 
 # Find and remove old argument file.
 ls $argfile 1>/dev/null
@@ -27,4 +27,4 @@ echo "# List of test suites" >> $argfile
 
 # Find test suites and add them to the argument file.
 echo "Verify_SAL_Setup.robot" >> $argfile
-ls -1 $HOME/trunk/robotframework_salgenerator/SALGEN |sed 's/^/SALGEN\//' >> $argfile
+ls -1 $HOME/repos/robotframework_salgenerator/SALGEN |sed 's/^/SALGEN\//' >> $argfile

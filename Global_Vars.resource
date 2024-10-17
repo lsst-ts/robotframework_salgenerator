@@ -17,7 +17,7 @@ ${SALVersion}           7.3.0
 ${SALVersionBase}       7.3.0
 ${XMLVersion}           17.1.0
 ${XMLVersionBase}       17.1.0
-${XMLHome}              /home/appuser/trunk/ts_xml
+${XMLHome}              /home/saluser/repos/ts_xml
 ${Build_Number}         001
 ${OpenspliceRelease}    Vortex OpenSplice HDE Release
 ${OpenspliceVersion}    6.10.4p2

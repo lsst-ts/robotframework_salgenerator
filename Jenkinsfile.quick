@@ -1,5 +1,5 @@
 // Define variables
-def _user="appuser"
+def _user="saluser"
 def _home="/home/" + _user
 
 pipeline {
@@ -25,7 +25,7 @@ pipeline {
             image 'ts-dockerhub.lsst.org/robotsal:latest'
             args '-w ' + _home + ' -e AWS_ACCESS_KEY_ID=$aws_key_id -e AWS_SECRET_ACCESS_KEY=$aws_secret_key ' + 
             '-e NEXUS_USER=$nexus_user -e NEXUS_PASS=$nexus_pass ' +
-            '-e LSST_DDS_PARTITION_PREFIX=citest_${BRANCH_NAME} -v ${WORKSPACE}:' + _home + '/trunk'
+            '-e LSST_DDS_PARTITION_PREFIX=citest_${BRANCH_NAME} -v ${WORKSPACE}:' + _home + '/repos'
             label 'Node1_4CPU || Node3_4CPU'
          }
     }
@@ -54,8 +54,8 @@ pipeline {
                 println("The container user: " + _user);
                 println("The container home dir: " + _home);
                 script {
-                    SAL_Version = sh(returnStdout: true, script: "cd /home/appuser/trunk/ts_sal && git describe |sed s/v//g").trim()
-                    XML_Version = sh(returnStdout: true, script: "cd /home/appuser/trunk/ts_xml && git describe |sed s/v//g").trim()
+                    SAL_Version = sh(returnStdout: true, script: "cd /home/saluser/repos/ts_sal && git describe |sed s/v//g").trim()
+                    XML_Version = sh(returnStdout: true, script: "cd /home/saluser/repos/ts_xml && git describe |sed s/v//g").trim()
                     SAL_Version_Base = sh(returnStdout: true, script: "echo " + SAL_Version + " |cut -d '-' -f1 |sed s/v//g").trim()
                     XML_Version_Base = sh(returnStdout: true, script: "echo " + XML_Version + " |cut -d '-' -f1 |sed s/v//g").trim()
                     SAL_Version_RC = sh(returnStdout: true, script: "echo " + SAL_Version + " |cut -d '-' -f1,2 |sed s/v//g").trim()
@@ -89,7 +89,7 @@ pipeline {
                     }
                 }
                 sh 'mkdir -pv "${WORKSPACE}/Reports"'
-                sh 'mkdir -pv ' + _home + '/trunk/Reports'
+                sh 'mkdir -pv ' + _home + '/repos/Reports'
                 echo "The Branch Name: ${GIT_BRANCH}"
                 echo "The SAL version: " + SAL_Version
                 echo "The SAL base version: " + SAL_Version_Base
@@ -119,11 +119,11 @@ pipeline {
             steps {
                 script {
                     if ( params.Generate ) {
-                        script_test_path = _home + '/trunk/robotframework_salgenerator/GENERATE/Script_Generate.robot'
-                        test_test_path = _home + '/trunk/robotframework_salgenerator/GENERATE/Test_Generate.robot'
+                        script_test_path = _home + '/repos/robotframework_salgenerator/GENERATE/Script_Generate.robot'
+                        test_test_path = _home + '/repos/robotframework_salgenerator/GENERATE/Test_Generate.robot'
                     } else {
-                        script_test_path = _home + '/trunk/robotframework_salgenerator/DDS_SALGEN/Script_salgenerator.robot'
-                        test_test_path = _home + '/trunk/robotframework_salgenerator/DDS_SALGEN/Test_salgenerator.robot'
+                        script_test_path = _home + '/repos/robotframework_salgenerator/DDS_SALGEN/Script_salgenerator.robot'
+                        test_test_path = _home + '/repos/robotframework_salgenerator/DDS_SALGEN/Test_salgenerator.robot'
                     }
                 }
                 echo "Script test suite: " + script_test_path
@@ -134,16 +134,16 @@ pipeline {
                 'echo TS_SAL_DIR: $TS_SAL_DIR \n' +
                 'echo TS_XML_DIR: $TS_XML_DIR \n' +
                 'echo ========= Move to robotframework_salgenerator directory ========= \n' +
-                'echo cd ' + _home + '/trunk/robotframework_salgenerator \n' +
-                'cd ' + _home + '/trunk/robotframework_salgenerator \n' +
+                'echo cd ' + _home + '/repos/robotframework_salgenerator \n' +
+                'cd ' + _home + '/repos/robotframework_salgenerator \n' +
                 'pwd \n' +
                 'robot --variable ContInt:true -e skipped --skiponfailure TSS* --skiponfailure DM* --loglevel TRACE:INFO' +
                     ' --variable SALVersion:' + SAL_Version + ' --variable SALVersionBase:' + SAL_Version_Base +
                     ' --variable XMLVersion:' + XML_Version + ' --variable XMLVersionBase:' + XML_Version_Base + 
-                    ' --variable SALInstall:' + _home + '/trunk/ts_sal --variable XMLHome:' + _home + '/trunk/ts_xml' +
+                    ' --variable SALInstall:' + _home + '/repos/ts_sal --variable XMLHome:' + _home + '/repos/ts_xml' +
                     ' --variable MavenVersion:' + MavenVersion + ' --variable Build_Number:' + Build_Param + ' ' + 
-                    '--name Validate --output VALIDATE --outputdir ' + _home + '/trunk/Reports ' + 
-                    _home + '/trunk/robotframework_salgenerator/Verify_SAL_DDS_Setup.robot ' + script_test_path + ' ' + test_test_path + '\n' +
+                    '--name Validate --output VALIDATE --outputdir ' + _home + '/repos/Reports ' + 
+                    _home + '/repos/robotframework_salgenerator/Verify_SAL_DDS_Setup.robot ' + script_test_path + ' ' + test_test_path + '\n' +
                 'Result=$? \n' +
                 'if [ $Result -eq 0 ]; then echo Validation complete; else exit $Result; fi'
             }
@@ -159,8 +159,8 @@ pipeline {
             steps {
                 sh label: 'Simple-SAL', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' + 'set -x \n' +
                         'echo ========= Move to simple-sal directory ========= \n' +
-                        'echo cd ' + _home + '/trunk/simple_sal  \n' +
-                        'cd ' + _home + '/trunk/simple_sal \n' +
+                        'echo cd ' + _home + '/repos/simple_sal  \n' +
+                        'cd ' + _home + '/repos/simple_sal \n' +
                         'echo ========= Execute simple-sal tests ========= \n' +
                         'mvn --no-transfer-progress -B clean install'
             }
@@ -178,15 +178,15 @@ pipeline {
                     steps {
                         sh label: 'CppTelemetry', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' + 'set -x \n' +
                         'echo ========= Move to robotframework_SAL directory ========= \n' +
-                        'echo cd ' + _home + '/trunk/robotframework_SAL \n' +
-                        'cd ' + _home + '/trunk/robotframework_SAL \n' +
+                        'echo cd ' + _home + '/repos/robotframework_SAL \n' +
+                        'cd ' + _home + '/repos/robotframework_SAL \n' +
                         'echo ========= Execute SAL messaging tests ========= \n' +
                         'robot --variable ContInt:true -e skipped --skiponfailure DM* --loglevel TRACE:INFO' +
                             ' --variable SALVersion:' + SAL_Version + ' --variable XMLVersion:' + XML_Version +
-                            ' --variable SALInstall:' + _home + '/trunk/ts_sal --variable XMLHome:' + _home + '/trunk/ts_xml ' +
+                            ' --variable SALInstall:' + _home + '/repos/ts_sal --variable XMLHome:' + _home + '/repos/ts_xml ' +
                             ' --variable MavenVersion:' + MavenVersion + ' --variable Build_Number:' + Build_Param +
-                            ' --outputdir ' + _home + '/trunk/Reports --name CombinedCppTelemetry --output CombinedCppTelemetry ' +
-                            _home + '/trunk/robotframework_SAL/Combined/DDS_CPP/Telemetry/Test_Telemetry.robot \n' +
+                            ' --outputdir ' + _home + '/repos/Reports --name CombinedCppTelemetry --output CombinedCppTelemetry ' +
+                            _home + '/repos/robotframework_SAL/Combined/DDS_CPP/Telemetry/Test_Telemetry.robot \n' +
                         'exit 0'
                     }
                 }//CppTelemetry
@@ -194,16 +194,16 @@ pipeline {
                     steps {
                         sh label: 'CppEvents', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' + 'set -x \n' +
                         'echo ========= Move to robotframework_SAL directory ========= \n' +
-                        'echo cd ' + _home + '/trunk/robotframework_SAL \n' +
-                        'cd ' + _home + '/trunk/robotframework_SAL \n' +
+                        'echo cd ' + _home + '/repos/robotframework_SAL \n' +
+                        'cd ' + _home + '/repos/robotframework_SAL \n' +
                         'echo Start \n' +
                         'robot --variable ContInt:true -e skipped --skiponfailure DM* --loglevel TRACE:INFO' +
                             ' --variable SALVersion:' + SAL_Version + ' --variable XMLVersion:' + XML_Version +
-                            ' --variable SALInstall:' + _home + '/trunk/ts_sal --variable XMLHome:' + _home + '/trunk/ts_xml ' +
+                            ' --variable SALInstall:' + _home + '/repos/ts_sal --variable XMLHome:' + _home + '/repos/ts_xml ' +
                             ' --variable MavenVersion:' + MavenVersion + ' --variable Build_Number:' + Build_Param +
-                            ' --outputdir ' + _home + '/trunk/Reports --name CombinedCppEvents --output CombinedCppEvents ' +
-                            _home + '/trunk/robotframework_SAL/Combined/DDS_CPP/Events/Script_Events.robot ' +
-                            _home + '/trunk/robotframework_SAL/Combined/DDS_CPP/Events/Test_Events.robot \n' +
+                            ' --outputdir ' + _home + '/repos/Reports --name CombinedCppEvents --output CombinedCppEvents ' +
+                            _home + '/repos/robotframework_SAL/Combined/DDS_CPP/Events/Script_Events.robot ' +
+                            _home + '/repos/robotframework_SAL/Combined/DDS_CPP/Events/Test_Events.robot \n' +
                         'exit 0'
                     }
                 }//CppEvents
@@ -222,16 +222,16 @@ pipeline {
                     steps {
                         sh label: 'JavaTelemetry', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' + 'set -x \n' +
                         'echo ========= Move to robotframework_SAL directory ========= \n' +
-                        'echo cd ' + _home + '/trunk/robotframework_SAL \n' +
-                        'cd ' + _home + '/trunk/robotframework_SAL \n' +
+                        'echo cd ' + _home + '/repos/robotframework_SAL \n' +
+                        'cd ' + _home + '/repos/robotframework_SAL \n' +
                         'echo ========= Execute SAL Java messaging tests ========= \n' +
                         'robot --variable ContInt:true -e skipped --skiponfailure DM* --loglevel TRACE:INFO' +
                             ' --variable SALVersion:' + SAL_Version + ' --variable SALVersionBase:' + SAL_Version_Base + 
                             ' --variable XMLVersion:' + XML_Version + ' --variable XMLVersionBase:' + XML_Version_Base +
-                            ' --variable SALInstall:' + _home + '/trunk/ts_sal --variable XMLHome:' + _home + '/trunk/ts_xml ' +
+                            ' --variable SALInstall:' + _home + '/repos/ts_sal --variable XMLHome:' + _home + '/repos/ts_xml ' +
                             ' --variable MavenVersion:' + MavenVersion + ' --variable Build_Number:' + Build_Param + 
-                            ' --outputdir ' + _home + '/trunk/Reports --name CombinedJavaTelemetry --output CombinedJavaTelemetry ' +
-                            _home + '/trunk/robotframework_SAL/Combined/DDS_JAVA/Telemetry/Test_Telemetry.robot \n' +
+                            ' --outputdir ' + _home + '/repos/Reports --name CombinedJavaTelemetry --output CombinedJavaTelemetry ' +
+                            _home + '/repos/robotframework_SAL/Combined/DDS_JAVA/Telemetry/Test_Telemetry.robot \n' +
                         'exit 0'
                     }
                 }//JavaTelemetry
@@ -239,16 +239,16 @@ pipeline {
                     steps {
                         sh label: 'JavaEvents', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' + 'set -x \n' +
                         'echo ========= Move to robotframework_SAL directory ========= \n' +
-                        'echo cd ' + _home + '/trunk/robotframework_SAL \n' +
-                        'cd ' + _home + '/trunk/robotframework_SAL \n' +
+                        'echo cd ' + _home + '/repos/robotframework_SAL \n' +
+                        'cd ' + _home + '/repos/robotframework_SAL \n' +
                         'echo ========= Execute SAL messaging tests ========= \n' +
                         'robot --variable ContInt:true -e skipped --skiponfailure DM* --loglevel TRACE:INFO' +
                             ' --variable SALVersion:' + SAL_Version + ' --variable SALVersionBase:' + SAL_Version_Base + 
                             ' --variable XMLVersion:' + XML_Version + ' --variable XMLVersionBase:' + XML_Version_Base +
-                            ' --variable SALInstall:' + _home + '/trunk/ts_sal --variable XMLHome:' + _home + '/trunk/ts_xml ' +
+                            ' --variable SALInstall:' + _home + '/repos/ts_sal --variable XMLHome:' + _home + '/repos/ts_xml ' +
                             ' --variable MavenVersion:' + MavenVersion + ' --variable Build_Number:' + Build_Param + 
-                            ' --outputdir ' + _home + '/trunk/Reports --name CombinedJavaEvents --output CombinedJavaEvents ' +
-                            _home + '/trunk/robotframework_SAL/Combined/DDS_JAVA/Events/Test_Events.robot \n' +
+                            ' --outputdir ' + _home + '/repos/Reports --name CombinedJavaEvents --output CombinedJavaEvents ' +
+                            _home + '/repos/robotframework_SAL/Combined/DDS_JAVA/Events/Test_Events.robot \n' +
                         'exit 0'
                     }
                 }//JavaEvents
@@ -262,12 +262,12 @@ pipeline {
             'declare -a outputs=(VALIDATE.xml CombinedCppTelemetry.xml CombinedCppEvents.xml CombinedJavaTelemetry.xml CombinedJavaEvents.xml )\n' + 
             'echo ${outputs[@]}\n' +
             'i=0\n echo i=$i\n' + 'for item in "${outputs[@]}"; do\n' +
-            '\tif test -f ' + _home + '/trunk/Reports/$item; then array[$i]=' + _home + '/trunk/Reports/$item; else echo ' +
-                _home + '/trunk/Reports/$item does not exist!; fi\n' +
+            '\tif test -f ' + _home + '/repos/Reports/$item; then array[$i]=' + _home + '/repos/Reports/$item; else echo ' +
+                _home + '/repos/Reports/$item does not exist!; fi\n' +
             '\t(( i++ ))\n' + 'done\n' +
             'echo ========= Generate the reports =========\n' + 'set -x \n' +
             'rebot --nostatusrc --removekeywords wuks ' + 
-                '--outputdir ' + _home + '/trunk/Reports --name SAL_Test_Quick -o rpm_output.xml -l rpm_log.html ' +
+                '--outputdir ' + _home + '/repos/Reports --name SAL_Test_Quick -o rpm_output.xml -l rpm_log.html ' +
                 '-r rpm_report.html ${array[@]} \n' +
             'echo Processing Robot-Framework results complete'
             //Publish results to Jenkins.

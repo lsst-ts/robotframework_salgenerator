@@ -33,7 +33,7 @@ Use local Variable files to overwrite specific variables for each test run (SAL 
 
     # Arguments file for testing the SAL XML definition files
     # Output directory
-    -d /home/appuser/Reports
+    -d /home/saluser/Reports
     
     # Specify tags to NOT run
     -e skipped
@@ -50,7 +50,7 @@ Use local Variable files to overwrite specific variables for each test run (SAL 
     --variable OpenspliceRelease:Vortex OpenSplice HDE Release
     --variable OpenspliceVersion:6.11.0
     --variable OpenspliceDate:2021-03-04
-    --variable SALInstall:/home/appuser/trunk/ts_sal
+    --variable SALInstall:/home/saluser/repos/ts_sal
     --variable SALVersion:6.0.0
     --variable XMLVersion:9.0.0
     --variable Build_Number:pre999
@@ -96,7 +96,7 @@ The SalGen.sh script starts out by deleting the current test-suite file, then ge
 
 > Before executing SalGen.sh, **ensure** you have checked out and updated the correct branch of ts_xml.
 
-> SalGen.sh expects ts_xml to reside in the $HOME/trunk directory.
+> SalGen.sh expects ts_xml to reside in the $HOME/repos directory.
 
 The test-suites are added to the SALGEN/ directory, if you should wish to examine them, for example, after doing an update, to make sure everything looks right.
 

@@ -1,6 +1,6 @@
 FROM almalinux:8
 LABEL org.opencontainers.image.authors="trekkie2@gmail.com"
-ARG USER=appuser
+ARG USER=saluser
 ARG HOME=/home/${USER}
 
 USER root
@@ -53,14 +53,14 @@ RUN dnf -y install xmlstarlet
 WORKDIR ${HOME}
 USER ${USER}
 
-RUN mkdir bin && mkdir trunk && mkdir Reports
+RUN mkdir bin && mkdir repos && mkdir Reports
 ENV PATH=$PATH:${HOME}/bin:${HOME}/.local/bin
-ENV ROBOTFRAMEWORK_SAL_DIR=${HOME}/trunk/robotframework_SAL
-ENV TS_XML_DIR=${HOME}/trunk/ts_xml
+ENV ROBOTFRAMEWORK_SAL_DIR=${HOME}/repos/robotframework_SAL
+ENV TS_XML_DIR=${HOME}/repos/ts_xml
 
 # Apparently Docker does not support variable expansion in the ADD and COPY context.
 # ... Therefore, the ownership must be hardcoded.
 COPY --chown=73006:73006 Test_Vars.txt ${HOME}/bin/Test_Vars.txt
 COPY --chown=73006:73006 bash_profile ${HOME}/.bash_profile
-RUN echo 'export TS_XML_DIR=${HOME}/trunk/ts_xml' >> ${HOME}/.bash_profile
+RUN echo 'export TS_XML_DIR=${HOME}/repos/ts_xml' >> ${HOME}/.bash_profile
 RUN echo 'source ~/.bash_profile' >> ${HOME}/.bashrc
