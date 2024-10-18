@@ -25,6 +25,8 @@ pipeline {
         stage('Register SAL Kafka Topics') {
             steps {
                 sh """
+                    cd /home/saluser
+                    source miniconda3/bin/activate
                     create_sal_topics --all
                 """
                 }
