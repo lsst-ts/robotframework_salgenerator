@@ -15,19 +15,18 @@ pipeline {
     stages {
         stage('Install SalObj and XML') {
             steps {
-                script {
-                    sh """
-                        conda install -y -c conda-forge -c lsstts -c lsstts/label/dev -c lsstts/label/rc ts-salobj=8 ts-xml=${XML_VERSION}
-                    """
-                } 
+                sh """
+                    cd /home/saluser
+                    source miniconda3/bin/activate
+                    conda install -y -c conda-forge -c lsstts -c lsstts/label/dev -c lsstts/label/rc ts-salobj=8 ts-xml=${XML_VERSION}
+                """
             }
         }//Install
         stage('Register SAL Kafka Topics') {
             steps {
-                script {
-                    sh """
-                        create_sal_topics --all
-                    """
+                sh """
+                    create_sal_topics --all
+                """
                 }
             }
         }//Register
