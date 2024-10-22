@@ -44,10 +44,9 @@ RUN dnf -y install ${HOME}/zulu17.52.17-ca-jdk17.0.12-linux.x86_64.rpm
 RUN rm ${HOME}/zulu17.52.17-ca-jdk17.0.12-linux.x86_64.rpm
 
 # XMLStarlet
-RUN dnf -y install xmlstarlet
-#RUN cd /tmp && \
-#curl -s https://archives.fedoraproject.org/pub/archive/epel/7/x86_64/Packages/x/xmlstarlet-1.6.1-1.el7.x86_64.rpm --output xmlstarlet-1.6.1-1.el7.x86_64.rpm && \
-#yum -y install xmlstarlet-1.6.1-1.el7.x86_64.rpm
+RUN cd /tmp && \
+curl -s https://archives.fedoraproject.org/pub/archive/epel/7/x86_64/Packages/x/xmlstarlet-1.6.1-1.el7.x86_64.rpm --output xmlstarlet-1.6.1-1.el7.x86_64.rpm && \
+yum -y install xmlstarlet-1.6.1-1.el7.x86_64.rpm
 
 # Setup environment
 WORKDIR ${HOME}

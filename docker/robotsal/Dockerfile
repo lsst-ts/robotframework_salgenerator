@@ -57,21 +57,18 @@ RUN python3.11 -m pip install awscli --upgrade
 # Enable EPEL repo for fmt packages.
 RUN dnf -y install epel-release
 
-## Enable the CodeReady Builder repo for snappy and jansson packages on Alma9
-#RUN dnf config-manager --set-enabled crb
-# Enable the Powertools repo for snappy and jansson packages on Alma8
-RUN dnf config-manager -y --set-enabled powertools && dnf -y update
+# Enable the CodeReady Builder repo for snappy and jansson packages
+RUN dnf config-manager --set-enabled crb
 
 # Install packages and dependencies
 RUN dnf -y install tk-devel \
 ncurses-libs xterm \
 xorg-x11-fonts-misc \
 gnome-terminal iproute \
-ant make cmake \
+make cmake gcc-c++ \
 fmt fmt-devel \
-boost${BOOST_RELEASE}-devel \
-snappy snappy-devel csnappy \
-jansson-devel libcurl-devel \
+boost${BOOST_RELEASE}-devel jansson-devel \
+snappy-devel libcurl-devel \
 rpm-build && \
 dnf clean all && \
 rm -rf /var/cache/dnf
@@ -98,7 +95,7 @@ RUN git config --global --add safe.directory ${HOME}/repos/ts_sal && git config 
 # Install Avro
 ARG AVRO_RELEASE=${AVRO_RELEASE}
 RUN mkdir $HOME/external-packages && mkdir -p $LSST_SAL_PREFIX/include/avro && mkdir $LSST_SAL_PREFIX/lib && \
-mkdir $LSST_SAL_PREFIX/bin && ln -s $LSST_SDK_INSTALL/test/avro-templates $LSST_SAL_PREFIX/avro-templates
+mkdir $LSST_SAL_PREFIX/bin && ln -s $LSST_SDK_INSTALL/test/avro-templates $LSST_SAL_PREFIX/avro
 WORKDIR $HOME/external-packages
 RUN wget https://archive.apache.org/dist/avro/avro-${AVRO_RELEASE}/avro-src-${AVRO_RELEASE}.tar.gz
 RUN tar xvzf avro-src-${AVRO_RELEASE}.tar.gz
