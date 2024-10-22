@@ -1,6 +1,6 @@
 FROM almalinux:8
 LABEL org.opencontainers.image.authors="trekkie2@gmail.com"
-ARG USER=appuser
+ARG USER=saluser
 ARG HOME=/home/${USER}
 
 USER root
@@ -14,9 +14,8 @@ chown ${USER}:docker ${HOME}
 # Install packages and dependencies
 RUN dnf -y update
 RUN dnf -y groupinstall "Development Tools"
-RUN dnf -y install wget make
 
-RUN dnf -y install git which mlocate \
+RUN dnf -y install git which mlocate wget \
 openssl-devel make gcc-c++ bzip2-devel libffi-devel zlib-devel && \
 dnf clean all && \
 rm -rf /var/cache/dnf
@@ -53,14 +52,14 @@ yum -y install xmlstarlet-1.6.1-1.el7.x86_64.rpm
 WORKDIR ${HOME}
 USER ${USER}
 
-RUN mkdir bin && mkdir trunk && mkdir Reports
+RUN mkdir bin && mkdir repos && mkdir Reports
 ENV PATH=$PATH:${HOME}/bin:${HOME}/.local/bin
-ENV ROBOTFRAMEWORK_SAL_DIR=${HOME}/trunk/robotframework_SAL
-ENV TS_XML_DIR=${HOME}/trunk/ts_xml
+ENV ROBOTFRAMEWORK_SAL_DIR=${HOME}/repos/robotframework_SAL
+ENV TS_XML_DIR=${HOME}/repos/ts_xml
 
 # Apparently Docker does not support variable expansion in the ADD and COPY context.
 # ... Therefore, the ownership must be hardcoded.
 COPY --chown=73006:73006 Test_Vars.txt ${HOME}/bin/Test_Vars.txt
 COPY --chown=73006:73006 bash_profile ${HOME}/.bash_profile
-RUN echo 'export TS_XML_DIR=${HOME}/trunk/ts_xml' >> ${HOME}/.bash_profile
+RUN echo 'export TS_XML_DIR=${HOME}/repos/ts_xml' >> ${HOME}/.bash_profile
 RUN echo 'source ~/.bash_profile' >> ${HOME}/.bashrc

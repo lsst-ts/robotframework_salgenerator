@@ -40,6 +40,7 @@ SALGEN/LaserTracker_salgenerator.robot
 SALGEN/LEDProjector_salgenerator.robot
 SALGEN/LinearStage_salgenerator.robot
 SALGEN/LOVE_salgenerator.robot
+SALGEN/MOSS_salgenerator.robot
 SALGEN/MTAOS_salgenerator.robot
 SALGEN/MTCamera_salgenerator.robot
 SALGEN/MTDomeTrajectory_salgenerator.robot

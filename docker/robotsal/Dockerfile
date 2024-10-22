@@ -1,6 +1,6 @@
 FROM lsstts/robot:kafka
 LABEL org.opencontainers.image.authors="trekkie2@gmail.com"
-ARG USER=appuser
+ARG USER=saluser
 ARG HOME=/home/${USER}
 
 # System EnvVars
@@ -11,17 +11,18 @@ ENV M2_HOME=${MAVEN_HOME}
 ENV PATH=${MAVEN_HOME}/bin:${PATH}
 
 # SAL/XML EnvVars
-ENV LSST_SDK_INSTALL=$HOME/trunk/ts_sal
+ENV LSST_SDK_INSTALL=$HOME/repos/ts_sal
 ENV OSPL_HOME=/opt/OpenSpliceDDS/V6.10.4/HDE/x86_64.linux
 ENV LSST_DDS_DOMAIN=citest
 ENV LSST_DDS_PARTITION_PREFIX=citest
 ## Version variables
 ENV MAVEN_RELEASE=3.9.8
-ENV AVRO_RELEASE=1.12.0
+ENV AVRO_RELEASE=1.11.1
 ENV BOOST_RELEASE=1.78
-ENV JDK_RELEASE=11
+ENV JDK_RELEASE=17
 ENV KAFKA_RELEASE=7.6
 ENV JACKSON_RELEASE=2.15.2
+ENV LIBRDKAFKA_RELEASE=1.9.0
 ## Path variables
 ENV LSST_SAL_PREFIX=$HOME/ts_sal_stage
 ENV LSST_KAFKA_CLASSDIR=${LSST_SAL_PREFIX}/lib
@@ -36,7 +37,7 @@ ENV AVRO_CLASSPATH=lsst/sal
 ENV AVRO_INCL=${LSST_SAL_PREFIX}/include/avro
 ENV AVRO_HOME=${LSST_SAL_PREFIX}/lib
 ENV AVRO_PREFIX=lsst.sal
-ENV LD_LIBRARY_PATH="/usr/lib64/boost1.78:${LSST_SAL_PREFIX}/lib:$LD_LIBRARY_PATH"
+ENV LD_LIBRARY_PATH="/usr/lib64/boost1.78:${LSST_SAL_PREFIX}/lib:/usr/local/lib:$LD_LIBRARY_PATH"
 ENV CPPFLAGS="-I $LSST_SAL_PREFIX/include/avro"
 
 USER root
@@ -72,7 +73,7 @@ rpm-build && \
 dnf clean all && \
 rm -rf /var/cache/dnf
 
-RUN dnf -y install gcc-toolset-12 && source scl_source enable gcc-toolset-12
+#RUN dnf -y install gcc-toolset-12 && source scl_source enable gcc-toolset-12
 
 # Maven
 ADD maven.sh /etc/profile.d/
@@ -89,7 +90,7 @@ COPY --chown=73006:73006 rpmmacros ${HOME}/.rpmmacros
 COPY --chown=0:0 rpmmacros /root/.rpmmacros
 
 # Set safe.directory
-RUN git config --global --add safe.directory ${HOME}/trunk/ts_sal && git config --global --add safe.directory ${HOME}/trunk/ts_xml
+RUN git config --global --add safe.directory ${HOME}/repos/ts_sal && git config --global --add safe.directory ${HOME}/repos/ts_xml
 
 # Install Avro
 ARG AVRO_RELEASE=${AVRO_RELEASE}
@@ -98,18 +99,21 @@ mkdir $LSST_SAL_PREFIX/bin && ln -s $LSST_SDK_INSTALL/test/avro-templates $LSST_
 WORKDIR $HOME/external-packages
 RUN wget https://archive.apache.org/dist/avro/avro-${AVRO_RELEASE}/avro-src-${AVRO_RELEASE}.tar.gz
 RUN tar xvzf avro-src-${AVRO_RELEASE}.tar.gz
+# Build C++
+WORKDIR $HOME/external-packages/avro-src-${AVRO_RELEASE}/lang/c++
+USER root
+RUN ./build.sh install
+USER ${USER}
+RUN cp build/lib* $LSST_SAL_PREFIX/lib/. && \
+cp --no-preserve=mode,ownership /usr/local/lib/libavrocpp.so.${AVRO_RELEASE} $LSST_SAL_PREFIX/lib/. && \
+cp build/avrogencpp $LSST_SAL_PREFIX/bin/. && \
+cp -r api/* $LSST_SAL_PREFIX/include/avro/. && \
+cp -r impl $LSST_SAL_PREFIX/include/.
 # Build C
 WORKDIR $HOME/external-packages/avro-src-${AVRO_RELEASE}/lang/c
 RUN ./build.sh test && ./cmake_avrolib.sh || true
 RUN cp build/avrolib/lib64/lib* $LSST_SAL_PREFIX/lib/. && \
 cp -r build/avrolib/include/* $LSST_SAL_PREFIX/include/.
-# Build C++
-WORKDIR $HOME/external-packages/avro-src-${AVRO_RELEASE}/lang/c++
-RUN ./build.sh test
-RUN cp build/lib* $LSST_SAL_PREFIX/lib/. && \
-cp build/avrogencpp $LSST_SAL_PREFIX/bin/. && \
-cp -r include/avro/* $LSST_SAL_PREFIX/include/avro/. && \
-cp -r impl $LSST_SAL_PREFIX/include/.
 
 # Install Kafka
 ARG KAFKA_RELEASE=7.6
@@ -136,7 +140,7 @@ mv jackson-dataformat-avro-${JACKSON_RELEASE}.jar ${LSST_SAL_PREFIX}/lib/.
 # Download and build librdkafka
 WORKDIR $HOME/external-packages
 RUN git clone https://github.com/confluentinc/librdkafka
-RUN cd librdkafka && ./configure --prefix=$LSST_SAL_PREFIX && \
+RUN cd librdkafka && git checkout v${LIBRDKAFKA_RELEASE} && ./configure --prefix=$LSST_SAL_PREFIX && \
 make && make install
 
 # Download and build libserdes

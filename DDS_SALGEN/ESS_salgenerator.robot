@@ -56,6 +56,11 @@ Salgen ESS Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_earthquakeLongPeriodLowGain.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_earthquakeUltraLongPeriodHighGain.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_earthquakeVeryLongPeriodHighGain.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_netbooter.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_raritan.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_schneiderPm5xxx.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_xups.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_aircraftTrack.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_disable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_enable.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_exitControl.idl
@@ -121,6 +126,11 @@ Verify ESS revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_earthquakeLongPeriodLowGain\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_earthquakeUltraLongPeriodHighGain\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_earthquakeVeryLongPeriodHighGain\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_netbooter\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_raritan\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_schneiderPm5xxx\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_xups\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_aircraftTrack\\) [a-z0-9]{8,}
 
 Salgen ESS IDL
     [Documentation]    Generate the revCoded IDL for ${subSystem}
@@ -168,8 +178,13 @@ Salgen ESS C++
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_earthquakeLongPeriodLowGain.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_earthquakeUltraLongPeriodHighGain.idl
     Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_earthquakeVeryLongPeriodHighGain.idl
-    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    22
-    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    22
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_netbooter.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_raritan.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_schneiderPm5xxx.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_xups.idl
+    Should Contain    ${output.stdout}    Generating SAL CPP code for ${subSystem}_aircraftTrack.idl
+    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    27
+    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    27
     Should Contain X Times    ${output.stdout}    cpp : Done Commander    1
     Should Contain X Times    ${output.stdout}    cpp : Done Event/Logger    1
 
@@ -209,6 +224,11 @@ Verify ESS Telemetry directories
     Directory Should Exist    ${SALWorkDir}/${subSystem}_earthquakeLongPeriodLowGain
     Directory Should Exist    ${SALWorkDir}/${subSystem}_earthquakeUltraLongPeriodHighGain
     Directory Should Exist    ${SALWorkDir}/${subSystem}_earthquakeVeryLongPeriodHighGain
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_netbooter
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_raritan
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_schneiderPm5xxx
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_xups
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_aircraftTrack
 
 Verify ESS C++ Telemetry Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -257,6 +277,16 @@ Verify ESS C++ Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}_earthquakeUltraLongPeriodHighGain/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}_earthquakeVeryLongPeriodHighGain/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_earthquakeVeryLongPeriodHighGain/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_netbooter/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_netbooter/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_raritan/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_raritan/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_schneiderPm5xxx/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_schneiderPm5xxx/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_xups/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_xups/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}_aircraftTrack/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_aircraftTrack/cpp/standalone/sacpp_${subSystem}_sub
 
 Verify ESS C++ Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -334,8 +364,13 @@ Salgen ESS Java
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_earthquakeLongPeriodLowGain.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_earthquakeUltraLongPeriodHighGain.idl
     Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_earthquakeVeryLongPeriodHighGain.idl
-    Should Contain X Times    ${output.stdout}    javac : Done Publisher    22
-    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    22
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_netbooter.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_raritan.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_schneiderPm5xxx.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_xups.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_aircraftTrack.idl
+    Should Contain X Times    ${output.stdout}    javac : Done Publisher    27
+    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    27
     Directory Should Exist    ${SALWorkDir}/${subSystem}/java
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
     File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
@@ -407,13 +442,13 @@ Salgen ESS RPM
     ELSE
         Set Test Variable    ${sep}    ${EMPTY}
     END
-    File Should Exist    ${SALWorkDir}/rpmbuild/SPECS/ts_sal_${subSystem}.spec
-    File Should Exist    ${SALWorkDir}/rpmbuild/SOURCES/${subSystem}-${XMLVersionBase}${sep}${Build_Number}.tgz
-    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_runtime-${XMLVersionBase}${sep}${Build_Number}-${SALVersionBase}*${DIST}.x86_64.rpm
-    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_ATruntime-${XMLVersionBase}${sep}${Build_Number}-${SALVersionBase}*${DIST}.x86_64.rpm
-    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_utils-${SALVersionBase}-1.x86_64.rpm
-    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}-${XMLVersionBase}${sep}${Build_Number}-${SALVersionBase}${DIST}.x86_64.rpm
-    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}_test-${XMLVersionBase}${sep}${Build_Number}-${SALVersionBase}${DIST}.x86_64.rpm
+    File Should Exist    ${SALWorkDir}/rpmbuild/SPECS/ts_sal_${subSystem}_dds.spec
+    File Should Exist    ${SALWorkDir}/rpmbuild/SOURCES/${subSystem}_dds-${XMLVersionBase}${sep}${Build_Number}.tgz
+    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_runtime_dds-${XMLVersionBase}${sep}${Build_Number}-${SALVersionBase}*${DIST}.x86_64.rpm
+    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_ATruntime_dds-${XMLVersionBase}${sep}${Build_Number}-${SALVersionBase}*${DIST}.x86_64.rpm
+    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/ts_sal_utils_dds-${SALVersionBase}-1.x86_64.rpm
+    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}_dds-${XMLVersionBase}${sep}${Build_Number}-${SALVersionBase}${DIST}.x86_64.rpm
+    File Should Exist    ${SALWorkDir}/rpmbuild/RPMS/x86_64/${subSystem}_dds_test-${XMLVersionBase}${sep}${Build_Number}-${SALVersionBase}${DIST}.x86_64.rpm
     Should Not Contain    ${output.stdout}    child process exited abnormally
 
 Verify ESS RPM Contents
@@ -427,7 +462,7 @@ Verify ESS RPM Contents
     ELSE
         Set Test Variable    ${sep}    ${EMPTY}
     END
-    ${output}=    Run Process    rpm    -qpl    ${subSystem}-${XMLVersionBase}${sep}${Build_Number}-${SALVersionBase}${DIST}.x86_64.rpm    cwd=${SALWorkDir}/rpmbuild/RPMS/x86_64
+    ${output}=    Run Process    rpm    -qpl    ${subSystem}_dds-${XMLVersionBase}${sep}${Build_Number}-${SALVersionBase}${DIST}.x86_64.rpm    cwd=${SALWorkDir}/rpmbuild/RPMS/x86_64
     Log Many    ${output.stdout}    ${output.stderr}
     Should Not Contain    ${output.stderr}    error
     Should Not Contain    ${output.stderr}    No such file or directory
@@ -462,7 +497,7 @@ Verify ESS TEST RPM Contents
     ELSE
         Set Test Variable    ${sep}    ${EMPTY}
     END
-    ${output}=    Run Process    rpm    -qpl    ${subSystem}_test-${XMLVersionBase}${sep}${Build_Number}-${SALVersionBase}${DIST}.x86_64.rpm    shell=True    cwd=${SALWorkDir}/rpmbuild/RPMS/x86_64    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
+    ${output}=    Run Process    rpm    -qpl    ${subSystem}_dds_test-${XMLVersionBase}${sep}${Build_Number}-${SALVersionBase}${DIST}.x86_64.rpm    shell=True    cwd=${SALWorkDir}/rpmbuild/RPMS/x86_64    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
     Log Many    ${output.stdout}    ${output.stderr}
     Should Not Contain    ${output.stderr}    error
     Should Not Contain    ${output.stderr}    No such file or directory
@@ -557,6 +592,16 @@ Verify ESS TEST RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_earthquakeUltraLongPeriodHighGain_subscriber
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_earthquakeVeryLongPeriodHighGain_publisher
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_earthquakeVeryLongPeriodHighGain_subscriber
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_netbooter_publisher
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_netbooter_subscriber
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_raritan_publisher
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_raritan_subscriber
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_schneiderPm5xxx_publisher
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_schneiderPm5xxx_subscriber
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_xups_publisher
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_xups_subscriber
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_aircraftTrack_publisher
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_aircraftTrack_subscriber
 
 Cleanup stdout and stderr Files
     [Tags]
