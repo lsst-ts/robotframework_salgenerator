@@ -294,6 +294,16 @@ pipeline {
                 }//MT_CameraMirror
             }//parallel
         }//Generate_RPMs
+        stage('Register Kafka Topics') {
+            steps {
+                script {
+                    Exec_Branch = "Register_Kafka_Topics/" + RFSALGEN_Checkout.replace("*/", "").replace("/", "%2F")
+                    echo "The XML version: ${XML_Version}"
+                    echo "The exec branch: " + Exec_Branch
+                    build wait: true, job: Exec_Branch, parameters: [string(name: 'XML_VERSION', value: XML_Version)]
+                }
+            }
+        }//Register
         stage('Run Kafka simple-sal tests') {
             when {
                 expression {
