@@ -8,7 +8,7 @@ pipeline {
     agent {
         docker { 
             image 'lsstts/robotint:latest'
-            args '--entrypoint="" -e LSST_TOPIC_SUBNAME=sal'
+            args '--entrypoint="" --network=kafka -e LSST_TOPIC_SUBNAME=sal'
             label 'Node2_8CPU || CSC_Conda_Node'
          }
     }
