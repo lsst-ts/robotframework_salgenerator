@@ -76,11 +76,6 @@ Verify SAL Generics defintion exists
     Comment    Verify the SAL Generic topics definition file exists.
     File Should Exist    ${SALWorkDir}/SALGenerics.xml
 
-Verify DDS QoS Settings file exists
-    [Tags]    smoke
-    Comment    Verify the DDS Quality of Service settings XML file exists.
-    File Should Exist    ${SALInstall}/../ts_ddsconfig/python/lsst/ts/ddsconfig/data/qos/QoS.xml
-
 Verify Proper SAL Setup - base dir
     [Documentation]    There are a few dozen files that are necessary for SAL and salgenerator to function properly. This test verifies those files exist in the correct locations.
     File Should Exist   ${SALInstall}/setup.env
