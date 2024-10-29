@@ -13,12 +13,13 @@ pipeline {
          }
     }
     stages {
-        stage('Install SalObj and XML') {
+        stage('Register SAL Kafka Topics') {
             steps {
                 sh """
                     cd /home/saluser
                     source miniconda3/bin/activate
-                    conda install -y -c conda-forge -c lsstts -c lsstts/label/dev -c lsstts/label/rc ts-salobj=8.0.0b23 ts-xml=${XML_VERSION}
+                    conda install -y -c lsstts/label/dev "ts-xml>=${XML_VERSION}"
+                    conda install -y -c lsstts -c lsstts/label/dev -c lsstts/label/rc ts-salobj=8.0.0b23
                     create_topics --all
                 """
             }

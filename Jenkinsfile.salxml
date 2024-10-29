@@ -53,7 +53,6 @@ pipeline {
                     BuildType = "Bleed"
                     SAL_Checkout = "*/develop"
                     XML_Checkout = "*/develop"
-                    DDSCONFIG_Checkout = "*/develop"
                     RFSALGEN_Checkout = "*/develop"
                     RFSALMSGs_Checkout = "*/develop"
                     if ( simple_sal_tag == "" ) {
@@ -75,7 +74,6 @@ pipeline {
                     BuildType = "Daily"
                     SAL_Checkout = "*/main"
                     XML_Checkout = "*/develop"
-                    DDSCONFIG_Checkout = "*/main"
                     RFSALGEN_Checkout = "*/develop"
                     RFSALMSGs_Checkout = "*/develop"
                     if ( simple_sal_tag == "" ) {
@@ -105,7 +103,6 @@ pipeline {
                     } else {
                         XML_Checkout = "refs/tags/" + XML_tag
                     }
-                    DDSCONFIG_Checkout = "*/main"
                     RFSALGEN_Checkout = "*/main"
                     RFSALMSGs_Checkout = "*/main"
                     if ( simple_sal_tag == "" ) {
@@ -121,14 +118,12 @@ pipeline {
                 println("This is a " + BuildType + " build.")
                 echo "The SAL Checkout: " + SAL_Checkout
                 echo "The XML Checkout: " + XML_Checkout
-                echo "The DDSCONFIG Checkout: " + DDSCONFIG_Checkout
                 echo "The SIMPLESAL Checkout: " + SIMPLESAL_Checkout
                 echo "The RFSALGEN Checkout: " + RFSALGEN_Checkout
                 echo "The RFSALMSGs Checkout: " + RFSALMSGs_Checkout
                 // Checkout the SAL, XML, and Salgenerator and SAL Messaging test repos.
                 checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: SAL_Checkout]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'ts_sal']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/ts_sal']]]
                 checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: XML_Checkout]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'ts_xml']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/ts_xml']]]
-                checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: DDSCONFIG_Checkout]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'ts_ddsconfig']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/ts_ddsconfig']]]
                 checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: RFSALGEN_Checkout]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'robotframework_salgenerator']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/robotframework_salgenerator']]]
                 checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: RFSALMSGs_Checkout]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'robotframework_SAL']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/robotframework_SAL']]]
                 checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: SIMPLESAL_Checkout]], extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'simple_sal']], userRemoteConfigs: [[credentialsId: '14e4c262-1fb1-4b73-b395-5fe617420c85', url: 'https://github.com/lsst-camera-ccs/org-lsst-camera-simple-sal.git']]]
@@ -218,7 +213,6 @@ pipeline {
                 }
                 // Validate the SAL/XML state using Test/Script CSCs
                 sh label: 'Validate', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' + 'set -x \n' +
-                'echo LSST_DDS_QOS: $LSST_DDS_QOS \n' +
                 'echo TS_SAL_DIR: $TS_SAL_DIR \n' +
                 'echo TS_XML_DIR: $TS_XML_DIR \n' +
                 'echo ========= Move to robotframework_salgenerator directory ========= \n' +
@@ -300,6 +294,16 @@ pipeline {
                 }//MT_CameraMirror
             }//parallel
         }//Generate_RPMs
+        stage('Register Kafka Topics') {
+            steps {
+                script {
+                    Exec_Branch = "Register_Kafka_Topics/" + RFSALGEN_Checkout.replace("*/", "").replace("/", "%2F")
+                    echo "The XML version: ${XML_Version_Base}"
+                    echo "The exec branch: " + Exec_Branch
+                    build wait: true, job: Exec_Branch, parameters: [string(name: 'XML_VERSION', value: XML_Version_Base)]
+                }
+            }
+        }//Register
         stage('Run Kafka simple-sal tests') {
             when {
                 expression {
@@ -315,87 +319,54 @@ pipeline {
                         'mvn --no-transfer-progress -B -Dorg.lsst.sal.implementation=kafka clean install'
             }
         }//Kafka-simple-sal
-        stage('Run Messaging Tests') {
-            when {
-                expression { 
-                    return params.Messaging 
-                }
+        stage('C++ Telemetry') {
+            steps {
+                sh label: 'CppTelemetry', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' + 'set -x \n' +
+                'echo ========= Move to robotframework_SAL directory ========= \n' +
+                'echo cd ' + _home + '/repos/robotframework_SAL \n' +
+                'cd ' + _home + '/repos/robotframework_SAL \n' +
+                'echo ========= Execute SAL messaging tests ========= \n' +
+                'robot --outputdir ' + _home + '/repos/Reports --variable ContInt:true -e skipped --skiponfailure DM*' +
+                    ' --variable SALVersion:' + SAL_Version + ' --variable SALVersionBase:' + SAL_Version_Base + 
+                    ' --variable XMLVersion:' + XML_Version + ' --variable XMLVersionBase:' + XML_Version_Base +
+                    ' --variable SALInstall:' + _home + '/repos/ts_sal --variable XMLHome:' + _home + '/repos/ts_xml' +
+                    ' --variable MavenVersion:' + MavenVersion + ' --variable Build_Number:' + Build_Param + ' ' +
+                    params.csc_include_flags + ' -A ' + _home + '/repos/robotframework_SAL/CombinedCppTelemetry_Tests.list \n' +
+                'exit 0'
             }
-            parallel {
-                stage('C++ Telemtry') {
-                    steps {
-                        sh label: 'CppTelemetry', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' + 'set -x \n' +
-                        'echo ========= Move to robotframework_SAL directory ========= \n' +
-                        'echo cd ' + _home + '/repos/robotframework_SAL \n' +
-                        'cd ' + _home + '/repos/robotframework_SAL \n' +
-                        'echo ========= Execute SAL messaging tests ========= \n' +
-                        'robot --outputdir ' + _home + '/repos/Reports --variable ContInt:true -e skipped --skiponfailure DM*' +
-                            ' --variable SALVersion:' + SAL_Version + ' --variable SALVersionBase:' + SAL_Version_Base + 
-                            ' --variable XMLVersion:' + XML_Version + ' --variable XMLVersionBase:' + XML_Version_Base +
-                            ' --variable SALInstall:' + _home + '/repos/ts_sal --variable XMLHome:' + _home + '/repos/ts_xml' +
-                            ' --variable MavenVersion:' + MavenVersion + ' --variable Build_Number:' + Build_Param +
-                            params.csc_include_flags + ' -A ' + _home + '/repos/robotframework_SAL/CombinedCppTelemetry_Tests.list \n' +
-                        'exit 0'
-                        sh label: 'CppEvents', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' + 'set -x \n' +
-                        'echo ========= Move to robotframework_SAL directory ========= \n' +
-                        'echo cd ' + _home + '/repos/robotframework_SAL \n' +
-                        'cd ' + _home + '/repos/robotframework_SAL \n' +
-                        'echo Start \n' +
-                        'robot --outputdir ' + _home + '/repos/Reports --variable ContInt:true -e skipped --skiponfailure DM*' +
-                            ' --variable SALVersion:' + SAL_Version + ' --variable SALVersionBase:' + SAL_Version_Base +
-                            ' --variable XMLVersion:' + XML_Version + ' --variable XMLVersionBase:' + XML_Version_Base +
-                            ' --variable SALInstall:' + _home + '/repos/ts_sal --variable XMLHome:' + _home + '/repos/ts_xml' +
-                            ' --variable MavenVersion:' + MavenVersion + ' --variable Build_Number:' + Build_Param +
-                            params.csc_include_flags + ' -A ' + _home + '/repos/robotframework_SAL/CombinedCppEvents_Tests.list \n' +
-                        'exit 0'
-                        sh label: 'JavaTelemetry', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' + 'set -x \n' +
-                        'echo ========= Move to robotframework_SAL directory ========= \n' +
-                        'echo cd ' + _home + '/repos/robotframework_SAL \n' +
-                        'cd ' + _home + '/repos/robotframework_SAL \n' +
-                        'echo Start \n' +
-                        'robot --outputdir ' + _home + '/repos/Reports --variable ContInt:true -e skipped --skiponfailure DM*' +
-                            ' --variable SALVersion:' + SAL_Version + ' --variable SALVersionBase:' + SAL_Version_Base +
-                            ' --variable XMLVersion:' + XML_Version + ' --variable XMLVersionBase:' + XML_Version_Base +
-                            ' --variable SALInstall:' + _home + '/repos/ts_sal --variable XMLHome:' + _home + '/repos/ts_xml' +
-                            ' --variable MavenVersion:' + MavenVersion + ' --variable Build_Number:' + Build_Param +
-                            params.csc_include_flags + ' -A ' + _home + '/repos/robotframework_SAL/CombinedCppCommands_Tests.list \n' +
-                        'exit 0'
-                    }
-                }//CppTelemetry
-                stage('C++ Events') {
-                    steps {
-                        sh label: 'CppEvents', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' + 'set -x \n' +
-                        'echo ========= Move to robotframework_SAL directory ========= \n' +
-                        'echo cd ' + _home + '/repos/robotframework_SAL \n' +
-                        'cd ' + _home + '/repos/robotframework_SAL \n' +
-                        'echo Start \n' +
-                        'robot --outputdir ' + _home + '/repos/Reports --variable ContInt:true -e skipped --skiponfailure DM*' +
-                            ' --variable SALVersion:' + SAL_Version + ' --variable SALVersionBase:' + SAL_Version_Base +
-                            ' --variable XMLVersion:' + XML_Version + ' --variable XMLVersionBase:' + XML_Version_Base +
-                            ' --variable SALInstall:' + _home + '/repos/ts_sal --variable XMLHome:' + _home + '/repos/ts_xml' +
-                            ' --variable MavenVersion:' + MavenVersion + ' --variable Build_Number:' + Build_Param +
-                            params.csc_include_flags + ' -A ' + _home + '/repos/robotframework_SAL/CombinedCppEvents_Tests.list \n' +
-                        'exit 0'
-                    }
-                }//CppEvents
-                stage('C++ Commands') {
-                    steps {
-                        sh label: 'CppCommands', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' + 'set -x \n' +
-                        'echo ========= Move to robotframework_SAL directory ========= \n' +
-                        'echo cd ' + _home + '/repos/robotframework_SAL \n' +
-                        'cd ' + _home + '/repos/robotframework_SAL \n' +
-                        'echo Start \n' +
-                        'robot --outputdir ' + _home + '/repos/Reports --variable ContInt:true -e skipped --skiponfailure DM*' +
-                            ' --variable SALVersion:' + SAL_Version + ' --variable SALVersionBase:' + SAL_Version_Base +
-                            ' --variable XMLVersion:' + XML_Version + ' --variable XMLVersionBase:' + XML_Version_Base +
-                            ' --variable SALInstall:' + _home + '/repos/ts_sal --variable XMLHome:' + _home + '/repos/ts_xml' +
-                            ' --variable MavenVersion:' + MavenVersion + ' --variable Build_Number:' + Build_Param +
-                            params.csc_include_flags + ' -A ' + _home + '/repos/robotframework_SAL/CombinedCppCommands_Tests.list \n' +
-                        'exit 0'
-                    }
-                }//CppCommands
-            }//parallel
-        }//RunMessagingTests
+        }//CppTelemetry
+        stage('C++ Events') {
+            steps {
+                sh label: 'CppEvents', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' + 'set -x \n' +
+                'echo ========= Move to robotframework_SAL directory ========= \n' +
+                'echo cd ' + _home + '/repos/robotframework_SAL \n' +
+                'cd ' + _home + '/repos/robotframework_SAL \n' +
+                'echo Start \n' +
+                'robot --outputdir ' + _home + '/repos/Reports --variable ContInt:true -e skipped --skiponfailure DM*' +
+                    ' --variable SALVersion:' + SAL_Version + ' --variable SALVersionBase:' + SAL_Version_Base +
+                    ' --variable XMLVersion:' + XML_Version + ' --variable XMLVersionBase:' + XML_Version_Base +
+                    ' --variable SALInstall:' + _home + '/repos/ts_sal --variable XMLHome:' + _home + '/repos/ts_xml' +
+                    ' --variable MavenVersion:' + MavenVersion + ' --variable Build_Number:' + Build_Param + ' ' +
+                    params.csc_include_flags + ' -A ' + _home + '/repos/robotframework_SAL/CombinedCppEvents_Tests.list \n' +
+                'exit 0'
+            }
+        }//CppEvents
+        stage('C++ Commands') {
+            steps {
+                sh label: 'CppCommands', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' + 'set -x \n' +
+                'echo ========= Move to robotframework_SAL directory ========= \n' +
+                'echo cd ' + _home + '/repos/robotframework_SAL \n' +
+                'cd ' + _home + '/repos/robotframework_SAL \n' +
+                'echo Start \n' +
+                'robot --outputdir ' + _home + '/repos/Reports --variable ContInt:true -e skipped --skiponfailure DM*' +
+                    ' --variable SALVersion:' + SAL_Version + ' --variable SALVersionBase:' + SAL_Version_Base +
+                    ' --variable XMLVersion:' + XML_Version + ' --variable XMLVersionBase:' + XML_Version_Base +
+                    ' --variable SALInstall:' + _home + '/repos/ts_sal --variable XMLHome:' + _home + '/repos/ts_xml' +
+                    ' --variable MavenVersion:' + MavenVersion + ' --variable Build_Number:' + Build_Param + ' ' +
+                    params.csc_include_flags + ' -A ' + _home + '/repos/robotframework_SAL/CombinedCppCommands_Tests.list \n' +
+                'exit 0'
+            }
+        }//CppCommands
         stage('Push RPMs to Nexus3') {
             when {
                 expression { 
