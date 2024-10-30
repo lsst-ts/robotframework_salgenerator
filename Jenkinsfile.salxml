@@ -300,7 +300,8 @@ pipeline {
                     Exec_Branch = "Register_Kafka_Topics/" + RFSALGEN_Checkout.replace("*/", "").replace("/", "%2F")
                     echo "The XML version: ${XML_Version_Base}"
                     echo "The exec branch: " + Exec_Branch
-                    build wait: true, job: Exec_Branch, parameters: [string(name: 'XML_VERSION', value: XML_Version_Base)]
+                    echo "The build node: " + env.NODE_NAME
+                    build wait: true, job: Exec_Branch, parameters: [string(name: 'BUILD_NODE', value: env.NODE_NAME), string(name: 'XML_VERSION', value: XML_Version_Base)]
                 }
             }
         }//Register
