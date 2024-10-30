@@ -1,6 +1,7 @@
 pipeline {
     parameters {
         string defaultValue: '', description: 'The version of ts_xml.', name: 'XML_VERSION', trim: true
+        choice choices: ['Node2_8CPU', 'CSC_Conda_Node'], description: 'The build node on which to execute this job.', name: 'BUILD_NODE'
     }
     options {
         disableConcurrentBuilds()
@@ -9,7 +10,7 @@ pipeline {
         docker { 
             image 'lsstts/robotint:latest'
             args '--entrypoint="" --network=kafka -e LSST_TOPIC_SUBNAME=sal'
-            label 'Node2_8CPU || CSC_Conda_Node'
+            label params.BUILD_NODE
          }
     }
     stages {
