@@ -10,3 +10,4 @@ SALGEN/GCHeaderService_salgeneratorKafka.robot
 SALGEN/MTCamera_salgeneratorKafka.robot
 SALGEN/MTHeaderService_salgeneratorKafka.robot
 SALGEN/MTM1M3_salgeneratorKafka.robot
+SALGEN/MTM1M3TS_salgeneratorKafka.robot
