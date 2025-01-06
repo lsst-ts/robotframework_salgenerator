@@ -66,6 +66,7 @@ Salgen ATBuilding Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_ventGateState.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_extractionFanDriveState.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_extractionFanDriveFaultCode.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_maximumDriveFrequency.idl
 
 Verify ATBuilding revCodes File
     [Documentation]    Ensure ATBuilding_revCodes.tcl contains 1 revcode per topic.
@@ -99,6 +100,7 @@ Verify ATBuilding revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_ventGateState\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_extractionFanDriveState\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_extractionFanDriveFaultCode\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_maximumDriveFrequency\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_timestamp\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_loopTime\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_extractionFan\\) [a-z0-9]{8,}
