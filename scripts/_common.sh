@@ -215,8 +215,8 @@ function subsystemArray() {
     #
     echo "ATCamera ATHeaderService ATMCS ATPtg 
     CCCamera CCHeaderService
-    ESS GCHeaderService Guider MTM1M3 
-    MTCamera MTHeaderService
+    ESS GCHeaderService Guider 
+    MTM1M3 MTM1M3TS MTCamera MTHeaderService
     MTMount MTPtg MTRotator MTVMS Test"
 }
 
