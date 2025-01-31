@@ -83,6 +83,8 @@ Salgen MTMount Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_stopTracking.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_stop.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_clearError.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_lockMotion.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_command_unlockMotion.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_heartbeat.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_logLevel.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_logMessage.idl
@@ -140,6 +142,7 @@ Salgen MTMount Validate
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_safetyInterlocks.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_target.idl
     File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_warning.idl
+    File Should Exist    ${SALWorkDir}/idl-templates/${subSystem}_logevent_motionLockState.idl
 
 Verify MTMount revCodes File
     [Documentation]    Ensure MTMount_revCodes.tcl contains 1 revcode per topic.
@@ -167,6 +170,8 @@ Verify MTMount revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_stopTracking\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_stop\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_clearError\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_lockMotion\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_command_unlockMotion\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_heartbeat\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_logLevel\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_logMessage\\) [a-z0-9]{8,}
@@ -224,6 +229,7 @@ Verify MTMount revCodes File
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_safetyInterlocks\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_target\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_warning\\) [a-z0-9]{8,}
+    Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_logevent_motionLockState\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_telemetryClientHeartbeat\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_azimuth\\) [a-z0-9]{8,}
     Should Match Regexp    ${output}    set REVCODE\\(${subSystem}_safetySystem\\) [a-z0-9]{8,}
@@ -450,6 +456,10 @@ Verify MTMount C++ Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_stop_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_clearError_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_clearError_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_lockMotion_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_lockMotion_controller
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_unlockMotion_commander
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_unlockMotion_controller
 
 Verify MTMount C++ Event Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -568,6 +578,8 @@ Verify MTMount C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_target_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_warning_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_warning_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_motionLockState_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_motionLockState_log
 
 Salgen MTMount LabVIEW
     [Documentation]    Generate ${subSystem} low-level LabView interfaces.
@@ -584,6 +596,64 @@ Salgen MTMount LabVIEW
     File Should Exist    ${SALWorkDir}/${subSystem}/labview/SALLV_${subSystem}.so
     File Should Exist    ${SALWorkDir}/${subSystem}/labview/SALLV_${subSystem}_Monitor
 
+Salgen MTMount Java
+    [Documentation]    Generate Java libraries.
+    [Tags]    java
+    ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    sal    java    version\=${MavenVersion}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
+    Log Many    ${output.stdout}    ${output.stderr}
+    Should Not Contain    ${output.stdout}    ERROR : Failed to generate Java DDS types
+    Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
+    Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_telemetryClientHeartbeat.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_azimuth.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_safetySystem.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_elevation.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_lockingPins.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_deployablePlatforms.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_cabinet0101Thermal.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_azimuthCableWrap.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_cameraCableWrap.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_balancing.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_azimuthDrives.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_azimuthDrivesThermal.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_elevationDrives.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_elevationDrivesThermal.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_encoder.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_mainCabinetThermal.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_mirrorCoverLocks.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_mirrorCover.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_mainPowerSupply.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_topEndChiller.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_auxiliaryCabinetsThermal.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_oilSupplySystem.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_compressedAir.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_cooling.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_dynaleneCooling.idl
+    Should Contain    ${output.stdout}    Generating SAL Java code for ${subSystem}_generalPurposeGlycolWater.idl
+    Should Contain X Times    ${output.stdout}    javac : Done Publisher    26
+    Should Contain X Times    ${output.stdout}    javac : Done Subscriber    26
+    Directory Should Exist    ${SALWorkDir}/${subSystem}/java
+    @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
+    File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
+    File Should Exist    ${SALWorkDir}/${subSystem}/java/saj_${subSystem}_types.jar
+    File Should Exist    ${SALWorkDir}/${subSystem}/java/sal_${subSystem}.idl
+
+Salgen MTMount Maven
+    [Documentation]    Generate the Maven repository.
+    [Tags]    java
+    ${output}=    Run Process    ${SALHome}/bin/salgenerator    ${subSystem}    maven    version\=${MavenVersion}    shell=True    cwd=${SALWorkDir}    stdout=${EXECDIR}${/}${subSystem}_stdout.txt    stderr=${EXECDIR}${/}${subSystem}_stderr.txt
+    Log Many    ${output.stdout}    ${output.stderr}
+    Should Contain    ${output.stdout}    argv = ${subSystem} maven version=${MavenVersion}
+    Should Contain    ${output.stdout}    SAL generator - ${SALVersion}
+    Should Contain    ${output.stdout}    XMLVERSION = ${XMLVersion}
+    Should Contain    ${output.stdout}    Running maven install
+    Should Contain    ${output.stdout}    [INFO] Building sal_${subSystem} ${XMLVersionBase}_${SALVersionBase}${MavenVersion}
+    Should Contain X Times    ${output.stdout}    [INFO] BUILD SUCCESS    1
+    Should Contain X Times    ${output.stdout}    [INFO] Finished at:    1
+    @{files}=    List Directory    ${SALWorkDir}/maven
+    File Should Exist    ${SALWorkDir}/maven/${subSystem}_dds-${XMLVersionBase}_${SALVersionBase}${MavenVersion}/pom.xml
+    File Should Exist    ${SALWorkDir}/maven/${subSystem}_dds-${XMLVersionBase}_${SALVersionBase}${MavenVersion}/target/sal_${subSystem}_dds-${XMLVersionBase}_${SALVersionBase}${MavenVersion}.jar
+
 Salgen MTMount Lib
     [Documentation]    Generate the SAL shared library for ${subSystem}
     [Tags]    lib
@@ -599,6 +669,7 @@ Salgen MTMount Lib
     File Should Exist    ${SALWorkDir}/lib/libSAL_${subSystem}.a
     File Should Exist    ${SALWorkDir}/lib/libsacpp_${subSystem}_types.so
     File Should Exist    ${SALWorkDir}/lib/SALLV_${subSystem}.so
+    File Should Exist    ${SALWorkDir}/lib/saj_${subSystem}_types.jar
 
 Salgen MTMount RPM
     [Documentation]    Generate the SAL runtime RPM for ${subSystem}
@@ -753,6 +824,10 @@ Verify MTMount TEST RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_stop_controller
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_clearError_commander
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_clearError_controller
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_lockMotion_commander
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_lockMotion_controller
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_unlockMotion_commander
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_unlockMotion_controller
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_heartbeat_send
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_heartbeat_log
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_logLevel_send
@@ -867,6 +942,8 @@ Verify MTMount TEST RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_target_log
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_warning_send
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_warning_log
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_motionLockState_send
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_motionLockState_log
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_telemetryClientHeartbeat_publisher
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_telemetryClientHeartbeat_subscriber
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_azimuth_publisher
