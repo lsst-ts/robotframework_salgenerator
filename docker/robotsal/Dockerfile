@@ -1,4 +1,4 @@
-FROM lsstts/robot:kafka
+FROM lsstts/robot:latest
 LABEL org.opencontainers.image.authors="trekkie2@gmail.com"
 ARG USER=saluser
 ARG HOME=/home/${USER}
