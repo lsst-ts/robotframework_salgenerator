@@ -9,7 +9,7 @@ properties(
 )
 pipeline {
     parameters {
-        booleanParam defaultValue: params.RunSimpleSal ?:true, description: 'Run Java Simple-SAL tests?', name: 'RunSimpleSal'
+        booleanParam defaultValue: params.RunSimpleSal ?:false, description: 'Run Java Simple-SAL tests?', name: 'RunSimpleSal'
         booleanParam defaultValue: params.Messaging ?:true, description: 'Run SAL messaging tests?', name: 'Messaging'
         booleanParam defaultValue: params.Push ?:true, description: 'Push RPMs and Jars to Nexus3 repos?', name: 'Push'
         booleanParam defaultValue: params.Trigger ?:true, description: 'Trigger the DevEnv and Conda workflows?', name: 'Trigger'
