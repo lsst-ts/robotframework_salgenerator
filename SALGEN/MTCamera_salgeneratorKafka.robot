@@ -474,13 +474,13 @@ Salgen MTCamera Validate
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Autochanger_AutochangerTrucks_Trending.json/
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Autochanger_Latches_Trending.json/
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Autochanger_OnlineClamps_Trending.json/
-    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Autochanger_Temperatures.json/
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Autochanger_Temperatures_Trending.json/
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Autochanger_Trending.json/
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Canbus0_AcSensorsGateway_Trending.json/
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Canbus0_AcTruckXminusController_Trending.json/
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Canbus0_AcTruckXplusController_Trending.json/
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Canbus0_Accelerobf_Trending.json/
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Canbus0_Ai814_Trending.json/
-    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Canbus0_BrakeSystemGateway_Trending.json/
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Canbus0_CarouselController_Trending.json/
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Canbus0_ClampXminusController_Trending.json/
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Canbus0_ClampXplusController_Trending.json/
@@ -498,19 +498,26 @@ Salgen MTCamera Validate
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Canbus1_CarrierController_Trending.json/
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Canbus1_HooksController_Trending.json/
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Canbus1_LoaderPlutoGateway_Trending.json/
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Carousel_Brakes_Trending.json/
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Carousel_Socket1_Trending.json/
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Carousel_Socket2_Trending.json/
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Carousel_Socket3_Trending.json/
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Carousel_Socket4_Trending.json/
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Carousel_Socket5_Trending.json/
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Carousel_Trending.json/
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Counters_Autochanger_Trending.json/
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Counters_Carousel_Trending.json/
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Counters_Loader_Trending.json/
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Counters_Trending.json/
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Duration_Autochanger_Trending.json/
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Duration_Carousel_Trending.json/
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Duration_Loader_Trending.json/
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Duration_Trending.json/
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Fcs_Mcm_Trending.json/
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Fcs_Trending.json/
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Loader_Carrier_Trending.json/
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Loader_Hooks_Trending.json/
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Loader_Trending.json/
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Trending.json/
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_shutter_Trending.json/
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_chiller_Chiller.json/
@@ -632,8 +639,10 @@ Salgen MTCamera Java
     Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_fcs_Autochanger_Latches_Trending.hh to sal_${subSystem} code fragments
     Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Autochanger_OnlineClamps_Trending.json
     Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_fcs_Autochanger_OnlineClamps_Trending.hh to sal_${subSystem} code fragments
-    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Autochanger_Temperatures.json
-    Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_fcs_Autochanger_Temperatures.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Autochanger_Temperatures_Trending.json
+    Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_fcs_Autochanger_Temperatures_Trending.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Autochanger_Trending.json
+    Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_fcs_Autochanger_Trending.hh to sal_${subSystem} code fragments
     Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Canbus0_AcSensorsGateway_Trending.json
     Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_fcs_Canbus0_AcSensorsGateway_Trending.hh to sal_${subSystem} code fragments
     Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Canbus0_AcTruckXminusController_Trending.json
@@ -644,8 +653,6 @@ Salgen MTCamera Java
     Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_fcs_Canbus0_Accelerobf_Trending.hh to sal_${subSystem} code fragments
     Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Canbus0_Ai814_Trending.json
     Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_fcs_Canbus0_Ai814_Trending.hh to sal_${subSystem} code fragments
-    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Canbus0_BrakeSystemGateway_Trending.json
-    Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_fcs_Canbus0_BrakeSystemGateway_Trending.hh to sal_${subSystem} code fragments
     Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Canbus0_CarouselController_Trending.json
     Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_fcs_Canbus0_CarouselController_Trending.hh to sal_${subSystem} code fragments
     Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Canbus0_ClampXminusController_Trending.json
@@ -680,6 +687,8 @@ Salgen MTCamera Java
     Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_fcs_Canbus1_HooksController_Trending.hh to sal_${subSystem} code fragments
     Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Canbus1_LoaderPlutoGateway_Trending.json
     Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_fcs_Canbus1_LoaderPlutoGateway_Trending.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Carousel_Brakes_Trending.json
+    Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_fcs_Carousel_Brakes_Trending.hh to sal_${subSystem} code fragments
     Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Carousel_Socket1_Trending.json
     Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_fcs_Carousel_Socket1_Trending.hh to sal_${subSystem} code fragments
     Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Carousel_Socket2_Trending.json
@@ -692,6 +701,14 @@ Salgen MTCamera Java
     Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_fcs_Carousel_Socket5_Trending.hh to sal_${subSystem} code fragments
     Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Carousel_Trending.json
     Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_fcs_Carousel_Trending.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Counters_Autochanger_Trending.json
+    Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_fcs_Counters_Autochanger_Trending.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Counters_Carousel_Trending.json
+    Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_fcs_Counters_Carousel_Trending.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Counters_Loader_Trending.json
+    Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_fcs_Counters_Loader_Trending.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Counters_Trending.json
+    Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_fcs_Counters_Trending.hh to sal_${subSystem} code fragments
     Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Duration_Autochanger_Trending.json
     Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_fcs_Duration_Autochanger_Trending.hh to sal_${subSystem} code fragments
     Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Duration_Carousel_Trending.json
@@ -702,10 +719,14 @@ Salgen MTCamera Java
     Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_fcs_Duration_Trending.hh to sal_${subSystem} code fragments
     Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Fcs_Mcm_Trending.json
     Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_fcs_Fcs_Mcm_Trending.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Fcs_Trending.json
+    Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_fcs_Fcs_Trending.hh to sal_${subSystem} code fragments
     Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Loader_Carrier_Trending.json
     Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_fcs_Loader_Carrier_Trending.hh to sal_${subSystem} code fragments
     Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Loader_Hooks_Trending.json
     Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_fcs_Loader_Hooks_Trending.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Loader_Trending.json
+    Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_fcs_Loader_Trending.hh to sal_${subSystem} code fragments
     Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_fcs_Trending.json
     Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_fcs_Trending.hh to sal_${subSystem} code fragments
     Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_shutter_Trending.json
