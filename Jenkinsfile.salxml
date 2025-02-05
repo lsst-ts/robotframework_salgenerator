@@ -19,6 +19,8 @@ pipeline {
         string defaultValue: '', description: '', name: 'SAL_tag', trim: true
         string defaultValue: '', description: '', name: 'XML_tag', trim: true
         string defaultValue: '', description: '', name: 'simple_sal_tag', trim: true
+        booleanParam(description: "Are we building the SalObj conda package after this?", name: 'buildSalObjConda')
+        booleanParam(description: "Are we going on to building the CSC package after salobj?", name: 'buildCSCConda')
         text description: '''Using the Robot-Framework include tag syntax, create a space-delimited list of CSC tags (all lowercase text equal to the CSC name) with the -i switch for EACH CSC to build. The Script and Test CSCs, part of the Validate stage, are skipped by default; simply add them explicitly to this parameter to include them. Syntax:
 -i csc_1 -i csc_2 ...''', name: 'csc_include_flags'
     }
@@ -295,6 +297,11 @@ pipeline {
             }//parallel
         }//Generate_RPMs
         stage('Register Kafka Topics') {
+            when {
+                expression {
+                    return params.Messaging
+                }
+            }
             steps {
                 script {
                     Exec_Branch = "Register_Kafka_Topics/" + RFSALGEN_Checkout.replace("*/", "").replace("/", "%2F")
@@ -321,6 +328,11 @@ pipeline {
             }
         }//Kafka-simple-sal
         stage('C++ Telemetry') {
+            when {
+                expression {
+                    return params.Messaging
+                }
+            }
             steps {
                 sh label: 'CppTelemetry', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' + 'set -x \n' +
                 'echo ========= Move to robotframework_SAL directory ========= \n' +
@@ -337,6 +349,11 @@ pipeline {
             }
         }//CppTelemetry
         stage('C++ Events') {
+            when {
+                expression {
+                    return params.Messaging
+                }
+            }
             steps {
                 sh label: 'CppEvents', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' + 'set -x \n' +
                 'echo ========= Move to robotframework_SAL directory ========= \n' +
@@ -353,6 +370,11 @@ pipeline {
             }
         }//CppEvents
         stage('C++ Commands') {
+            when {
+                expression {
+                    return params.Messaging
+                }
+            }
             steps {
                 sh label: 'CppCommands', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' + 'set -x \n' +
                 'echo ========= Move to robotframework_SAL directory ========= \n' +
@@ -462,12 +484,12 @@ pipeline {
                 }
             }
             steps {
-                echo "Starting the XmlObj_Conda_package/develop job; SAL_Version: ${params.SAL_Version}, XML_Version: ${params.XML_Version}, buildSalObjConda: ${params.buildSalObjConda}, buildCSCConda: ${params.buildCSCConda}"
+                echo "Starting the XmlObj_Conda_package/develop job; SAL_Version: " + SAL_Version_Base + ", XML_Version: " + XML_Version_Base +", buildSalObjConda: true, buildCSCConda: true"
                 build propagate: false, job: 'XML_conda_package/develop', parameters: [
-                    booleanParam(name: 'buildSalObjConda', value: "${params.buildSalObjConda}" ),
-                    booleanParam(name: 'buildCSCConda', value: "${params.buildCSCConda}" ),
-                    string(name: 'XML_Version',value: "${params.XML_Version}" ),
-                    string(name: 'SAL_Version',value: "${params.SAL_Version}" )
+                    string(name: 'XML_Version',value: XML_Version_Base ),
+                    string(name: 'SAL_Version',value: SAL_Version_Base ),
+                    booleanParam(name: 'buildSalObjConda', value: true), 
+                    booleanParam(name: 'buildCSCConda', value: true), 
                 ], wait: false
                 echo "Starting the BaseDevImage job; BuildSalobjContainer:true and BuildDevEnv:true"
                 build job: 'BaseDevImage', parameters: [booleanParam(name: 'BuildSalobjContainer', value: true), 
