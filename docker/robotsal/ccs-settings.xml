@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings>
+
+  <activeProfiles>
+    <activeProfile>LSST-BUILD-PROFILE</activeProfile>
+    <activeProfile>${env.BuildType}</activeProfile>
+  </activeProfiles>
+
+  <localRepository>${env.WORKSPACE}/m2_repo</localRepository> 
+
+  <profiles>
+      <profile>
+            <id>LSST-BUILD-PROFILE</id>
+            <properties>
+                <org.lsst.ccs.site.generation>${env.BUILD_CAUSE_SCMTRIGGER}</org.lsst.ccs.site.generation>
+		<org.lsst.ccs.graph.generation>${env.BUILD_CAUSE_SCMTRIGGER}</org.lsst.ccs.graph.generation> 
+		<org.lsst.ccs.resource.path>${project.build.testOutputDirectory}|${env.WORKSPACE}/etc/</org.lsst.ccs.resource.path>
+		<java.net.preferIPv4Stack>true</java.net.preferIPv4Stack>
+		<org.lsst.ccs.sonar.activation>false</org.lsst.ccs.sonar.activation>
+            </properties>
+        </profile>	    
+        <profile>
+            <id>Regular</id>
+            <properties>
+                <org.lsst.ccs.include.integration.tests>true</org.lsst.ccs.include.integration.tests>
+		<org.lsst.ccs.sonar.activation>false</org.lsst.ccs.sonar.activation>
+            </properties>
+        </profile>	    
+        <profile>
+            <id>Site</id>
+            <properties>
+                <org.lsst.ccs.site.generation>true</org.lsst.ccs.site.generation>
+		<org.lsst.ccs.graph.generation>true</org.lsst.ccs.graph.generation>
+                <org.lsst.ccs.include.integration.tests>true</org.lsst.ccs.include.integration.tests>
+		<org.lsst.ccs.sonar.activation>false</org.lsst.ccs.sonar.activation>
+            </properties>
+        </profile>	    
+   </profiles>
+
+    <servers>
+        <server>
+            <id>lsst-maven2</id>
+	    <username>ccs-deployment</username>
+	    <password>CCSDepl0ym3nt!</password>            
+        </server>
+        <server>
+            <id>lsst-maven2-snapshots</id>
+	    <username>ccs-deployment</username>
+	    <password>CCSDepl0ym3nt!</password>            
+        </server>
+        <server>
+            <id>lsst-maven2-site</id>
+	    <username>ccs-deployment</username>
+	    <password>CCSDepl0ym3nt!</password>            
+        </server>
+    </servers>
+</settings>
