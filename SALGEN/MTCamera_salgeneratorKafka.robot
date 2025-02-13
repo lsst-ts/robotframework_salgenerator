@@ -70,6 +70,7 @@ Salgen MTCamera Validate
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_playlist.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_alert.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_wakeFilterChanger.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_generic.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_heartbeat.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_logLevel.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_logMessage.json
@@ -113,6 +114,7 @@ Salgen MTCamera Validate
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_startRotateCarousel.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_imageReadoutParameters.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_focalPlaneSummaryInfo.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_rebCond.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_quadbox_BFR_DevicesConfiguration.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_quadbox_BFR_LimitsConfiguration.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_quadbox_BFR_QuadboxConfiguration.json
@@ -279,7 +281,6 @@ Salgen MTCamera Validate
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_mpm_PeriodicTasks_timersConfiguration.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_mpm_Pluto_DeviceConfiguration.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_mpm_Pluto_DevicesConfiguration.json
-    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_fcs_Autochanger_LimitsConfiguration.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_fcs_Autochanger_autochangerConfiguration.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_fcs_Autochanger_readRateConfiguration.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_fcs_Autochanger_sensorConfiguration.json
@@ -302,8 +303,6 @@ Salgen MTCamera Validate
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_fcs_Loader_sensorConfiguration.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_fcs_PeriodicTasks_GeneralConfiguration.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_fcs_PeriodicTasks_timersConfiguration.json
-    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_fcs_Seneca1_DevicesConfiguration.json
-    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_fcs_Seneca2_DevicesConfiguration.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_shutter_GeneralConfiguration.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_shutter_timersConfiguration.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_chiller_DeviceConfiguration.json
@@ -841,6 +840,8 @@ Salgen MTCamera Java
     Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_logevent_imageReadoutParameters.hh to sal_${subSystem} code fragments
     Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_focalPlaneSummaryInfo.json
     Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_logevent_focalPlaneSummaryInfo.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_rebCond.json
+    Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_logevent_rebCond.hh to sal_${subSystem} code fragments
     Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_quadbox_BFR_DevicesConfiguration.json
     Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_logevent_quadbox_BFR_DevicesConfiguration.hh to sal_${subSystem} code fragments
     Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_quadbox_BFR_LimitsConfiguration.json
@@ -1173,8 +1174,6 @@ Salgen MTCamera Java
     Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_logevent_mpm_Pluto_DeviceConfiguration.hh to sal_${subSystem} code fragments
     Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_mpm_Pluto_DevicesConfiguration.json
     Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_logevent_mpm_Pluto_DevicesConfiguration.hh to sal_${subSystem} code fragments
-    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_fcs_Autochanger_LimitsConfiguration.json
-    Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_logevent_fcs_Autochanger_LimitsConfiguration.hh to sal_${subSystem} code fragments
     Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_fcs_Autochanger_autochangerConfiguration.json
     Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_logevent_fcs_Autochanger_autochangerConfiguration.hh to sal_${subSystem} code fragments
     Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_fcs_Autochanger_readRateConfiguration.json
@@ -1219,10 +1218,6 @@ Salgen MTCamera Java
     Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_logevent_fcs_PeriodicTasks_GeneralConfiguration.hh to sal_${subSystem} code fragments
     Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_fcs_PeriodicTasks_timersConfiguration.json
     Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_logevent_fcs_PeriodicTasks_timersConfiguration.hh to sal_${subSystem} code fragments
-    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_fcs_Seneca1_DevicesConfiguration.json
-    Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_logevent_fcs_Seneca1_DevicesConfiguration.hh to sal_${subSystem} code fragments
-    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_fcs_Seneca2_DevicesConfiguration.json
-    Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_logevent_fcs_Seneca2_DevicesConfiguration.hh to sal_${subSystem} code fragments
     Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_shutter_GeneralConfiguration.json
     Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_logevent_shutter_GeneralConfiguration.hh to sal_${subSystem} code fragments
     Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_shutter_timersConfiguration.json
@@ -1513,6 +1508,8 @@ Salgen MTCamera Java
     Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_command_alert.hh to sal_${subSystem} code fragments
     Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_wakeFilterChanger.json
     Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_command_wakeFilterChanger.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_generic.json
+    Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_command_generic.hh to sal_${subSystem} code fragments
     Should Contain    ${output.stdout}    Configuring ${subSystem}/java/src/org/lsst/sal/SAL_${subSystem}.java
     Directory Should Exist    ${SALWorkDir}/${subSystem}/java
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*

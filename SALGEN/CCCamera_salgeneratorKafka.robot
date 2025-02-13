@@ -69,6 +69,7 @@ Salgen CCCamera Validate
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_play.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_playlist.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_alert.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_generic.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_heartbeat.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_logLevel.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_logMessage.json
@@ -832,6 +833,8 @@ Salgen CCCamera Java
     Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_command_playlist.hh to sal_${subSystem} code fragments
     Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_alert.json
     Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_command_alert.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_generic.json
+    Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_command_generic.hh to sal_${subSystem} code fragments
     Should Contain    ${output.stdout}    Configuring ${subSystem}/java/src/org/lsst/sal/SAL_${subSystem}.java
     Directory Should Exist    ${SALWorkDir}/${subSystem}/java
     @{files}=    List Directory    ${SALWorkDir}/${subSystem}/java    pattern=*${subSystem}*
