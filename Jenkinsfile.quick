@@ -6,8 +6,6 @@ pipeline {
     parameters {
         string defaultValue: 'develop', description: 'The branch of ts_sal to test.', name: 'SAL_BRANCH', trim: true
         string defaultValue: 'develop', description: 'The branch of ts_xml to test.', name: 'XML_BRANCH', trim: true
-        string defaultValue: 'main', description: 'The branch of ts_idl to test.', name: 'IDL_BRANCH', trim: true
-        string defaultValue: 'main', description: 'The branch of ts_ddsconfig to test.', name: 'DDSCONFIG_BRANCH', trim: true
         string defaultValue: 'develop', description: 'The branch of lsst-camera-ccs/org-lsst-camera-simple-sal to test.', name: 'SIMPLESAL_BRANCH', trim: true
         string defaultValue: '${BRANCH_NAME}', description: 'The branch of robotframework_salgenerator to test.', name: 'SALGEN_BRANCH', trim: true
         string defaultValue: 'develop', description: 'The branch of robotframework_SAL to test.', name: 'SALMSG_BRANCH', trim: true
@@ -23,9 +21,10 @@ pipeline {
     agent {
         docker { 
             image 'ts-dockerhub.lsst.org/robotsal:latest'
-            args '-w ' + _home + ' -e AWS_ACCESS_KEY_ID=$aws_key_id -e AWS_SECRET_ACCESS_KEY=$aws_secret_key ' + 
+            args '--network=kafka -w ' + _home + 
+            ' -e AWS_ACCESS_KEY_ID=$aws_key_id -e AWS_SECRET_ACCESS_KEY=$aws_secret_key ' + 
             '-e NEXUS_USER=$nexus_user -e NEXUS_PASS=$nexus_pass ' +
-            '-e LSST_DDS_PARTITION_PREFIX=citest_${BRANCH_NAME} -v ${WORKSPACE}:' + _home + '/repos'
+            '-v ${WORKSPACE}:' + _home + '/repos'
             label 'Node1_4CPU || Node3_4CPU'
          }
     }
@@ -34,16 +33,12 @@ pipeline {
             steps {
                 echo "The SAL Branch: " + SAL_BRANCH
                 echo "The XML Branch: " + XML_BRANCH
-                echo "The IDL Branch: " + IDL_BRANCH
-                echo "The DDSCONFIG Branch: " + DDSCONFIG_BRANCH
                 echo "The SIMPLESAL Branch: " + SIMPLESAL_BRANCH
                 echo "The RFSALGEN Branch: " + SALGEN_BRANCH
                 echo "The RFSALMSGs Branch: " + SALMSG_BRANCH
-                // Checkout the SAL, XML, IDL, DDSCONFIG and Salgenerator and SAL Messaging test repos.
+                // Checkout the SAL, XML, and Salgenerator and SAL Messaging test repos.
                 checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: SAL_BRANCH]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'ts_sal']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/ts_sal']]]
                 checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: XML_BRANCH]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'ts_xml']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/ts_xml']]]
-                checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: IDL_BRANCH]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'ts_idl']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/ts_idl']]]
-                checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: DDSCONFIG_BRANCH]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'ts_ddsconfig']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/ts_ddsconfig']]]
                 checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: SALGEN_BRANCH]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'robotframework_salgenerator']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/robotframework_salgenerator']]]
                 checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: SALMSG_BRANCH]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'robotframework_SAL']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/robotframework_SAL']]]
                 checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: SIMPLESAL_BRANCH]], extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'simple_sal']], userRemoteConfigs: [[credentialsId: '14e4c262-1fb1-4b73-b395-5fe617420c85', url: 'https://github.com/lsst-camera-ccs/org-lsst-camera-simple-sal.git']]]
@@ -109,28 +104,23 @@ pipeline {
                 sh label: 'SAL Generics', script: '#!/bin/bash \n' + 'cp -v ${WORKSPACE}/ts_xml/python/lsst/ts/xml/data/sal_interfaces/SALGenerics.xml ts_sal/test'
             }
         }//Copy XML
-        stage('Install IDL and XML python libraries') {
+        stage('Install XML python library') {
             steps {
-                sh label: 'IDL library', script: '#!/bin/bash -x \n' + 'cd ts_idl && pip3.11 install -e . --ignore-installed --no-deps'
                 sh label: 'XML library', script: '#!/bin/bash -x \n' + 'cd ts_xml && pip3.11 install -e . --ignore-installed --no-deps'
             }
-        }//IDL & XML
+        }//XML
         stage('Validate') {
             steps {
                 script {
                     if ( params.Generate ) {
-                        script_test_path = _home + '/repos/robotframework_salgenerator/GENERATE/Script_Generate.robot'
                         test_test_path = _home + '/repos/robotframework_salgenerator/GENERATE/Test_Generate.robot'
                     } else {
-                        script_test_path = _home + '/repos/robotframework_salgenerator/DDS_SALGEN/Script_salgenerator.robot'
-                        test_test_path = _home + '/repos/robotframework_salgenerator/DDS_SALGEN/Test_salgenerator.robot'
+                        test_test_path = _home + '/repos/robotframework_salgenerator/SALGEN/Test_salgeneratorKafka.robot'
                     }
                 }
-                echo "Script test suite: " + script_test_path
                 echo "Test test suite: " + test_test_path
-                // Validate the SAL/XML state using Test/Script CSCs
+                // Validate the SAL/XML state using Test CSC
                 sh label: 'Validate', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' + 'set -x \n' +
-                'echo LSST_DDS_QOS: $LSST_DDS_QOS \n' +
                 'echo TS_SAL_DIR: $TS_SAL_DIR \n' +
                 'echo TS_XML_DIR: $TS_XML_DIR \n' +
                 'echo ========= Move to robotframework_salgenerator directory ========= \n' +
@@ -143,7 +133,7 @@ pipeline {
                     ' --variable SALInstall:' + _home + '/repos/ts_sal --variable XMLHome:' + _home + '/repos/ts_xml' +
                     ' --variable MavenVersion:' + MavenVersion + ' --variable Build_Number:' + Build_Param + ' ' + 
                     '--name Validate --output VALIDATE --outputdir ' + _home + '/repos/Reports ' + 
-                    _home + '/repos/robotframework_salgenerator/Verify_SAL_DDS_Setup.robot ' + script_test_path + ' ' + test_test_path + '\n' +
+                    _home + '/repos/robotframework_salgenerator/Verify_SAL_Setup.robot ' + test_test_path + '\n' +
                 'Result=$? \n' +
                 'if [ $Result -eq 0 ]; then echo Validation complete; else exit $Result; fi'
             }
@@ -165,6 +155,24 @@ pipeline {
                         'mvn --no-transfer-progress -B clean install'
             }
         }//simple-sal
+        stage('Register Kafka Topics') {
+            when {
+                not {
+                    expression {
+                        return params.Generate
+                    }
+                } 
+            }
+            steps {
+                script {
+                    Exec_Branch = "Register_Kafka_Topics/" + SALGEN_BRANCH.replace("*/", "").replace("/", "%2F")
+                    echo "The XML version: ${XML_Version_Base}"
+                    echo "The exec branch: " + Exec_Branch
+                    echo "The build node: " + env.NODE_NAME
+                    build wait: true, job: Exec_Branch, parameters: [string(name: 'BUILD_NODE', value: env.NODE_NAME), string(name: 'XML_VERSION', value: XML_Version_Base)]
+                }
+            }
+        }//Register
         stage('Run C++ Messaging Tests') {
             when {
                 not {
@@ -186,7 +194,7 @@ pipeline {
                             ' --variable SALInstall:' + _home + '/repos/ts_sal --variable XMLHome:' + _home + '/repos/ts_xml ' +
                             ' --variable MavenVersion:' + MavenVersion + ' --variable Build_Number:' + Build_Param +
                             ' --outputdir ' + _home + '/repos/Reports --name CombinedCppTelemetry --output CombinedCppTelemetry ' +
-                            _home + '/repos/robotframework_SAL/Combined/DDS_CPP/Telemetry/Test_Telemetry.robot \n' +
+                            _home + '/repos/robotframework_SAL/Combined/CPP/Telemetry/Test_Telemetry.robot \n' +
                         'exit 0'
                     }
                 }//CppTelemetry
@@ -202,58 +210,12 @@ pipeline {
                             ' --variable SALInstall:' + _home + '/repos/ts_sal --variable XMLHome:' + _home + '/repos/ts_xml ' +
                             ' --variable MavenVersion:' + MavenVersion + ' --variable Build_Number:' + Build_Param +
                             ' --outputdir ' + _home + '/repos/Reports --name CombinedCppEvents --output CombinedCppEvents ' +
-                            _home + '/repos/robotframework_SAL/Combined/DDS_CPP/Events/Script_Events.robot ' +
-                            _home + '/repos/robotframework_SAL/Combined/DDS_CPP/Events/Test_Events.robot \n' +
+                            _home + '/repos/robotframework_SAL/Combined/CPP/Events/Test_Events.robot \n' +
                         'exit 0'
                     }
                 }//CppEvents
             }//parallel
         }//RunCppMessagingTests
-        stage('Run Java Messaging Tests') {
-            when {
-                not {
-                    expression {
-                        return params.Generate
-                    }
-                }
-            }
-            parallel {
-                stage('JavaTelemetry') {
-                    steps {
-                        sh label: 'JavaTelemetry', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' + 'set -x \n' +
-                        'echo ========= Move to robotframework_SAL directory ========= \n' +
-                        'echo cd ' + _home + '/repos/robotframework_SAL \n' +
-                        'cd ' + _home + '/repos/robotframework_SAL \n' +
-                        'echo ========= Execute SAL Java messaging tests ========= \n' +
-                        'robot --variable ContInt:true -e skipped --skiponfailure DM* --loglevel TRACE:INFO' +
-                            ' --variable SALVersion:' + SAL_Version + ' --variable SALVersionBase:' + SAL_Version_Base + 
-                            ' --variable XMLVersion:' + XML_Version + ' --variable XMLVersionBase:' + XML_Version_Base +
-                            ' --variable SALInstall:' + _home + '/repos/ts_sal --variable XMLHome:' + _home + '/repos/ts_xml ' +
-                            ' --variable MavenVersion:' + MavenVersion + ' --variable Build_Number:' + Build_Param + 
-                            ' --outputdir ' + _home + '/repos/Reports --name CombinedJavaTelemetry --output CombinedJavaTelemetry ' +
-                            _home + '/repos/robotframework_SAL/Combined/DDS_JAVA/Telemetry/Test_Telemetry.robot \n' +
-                        'exit 0'
-                    }
-                }//JavaTelemetry
-                stage('JavaEvents') {
-                    steps {
-                        sh label: 'JavaEvents', script: '#!/bin/bash \n' + 'source ' + _home + '/.bash_profile \n' + 'set -x \n' +
-                        'echo ========= Move to robotframework_SAL directory ========= \n' +
-                        'echo cd ' + _home + '/repos/robotframework_SAL \n' +
-                        'cd ' + _home + '/repos/robotframework_SAL \n' +
-                        'echo ========= Execute SAL messaging tests ========= \n' +
-                        'robot --variable ContInt:true -e skipped --skiponfailure DM* --loglevel TRACE:INFO' +
-                            ' --variable SALVersion:' + SAL_Version + ' --variable SALVersionBase:' + SAL_Version_Base + 
-                            ' --variable XMLVersion:' + XML_Version + ' --variable XMLVersionBase:' + XML_Version_Base +
-                            ' --variable SALInstall:' + _home + '/repos/ts_sal --variable XMLHome:' + _home + '/repos/ts_xml ' +
-                            ' --variable MavenVersion:' + MavenVersion + ' --variable Build_Number:' + Build_Param + 
-                            ' --outputdir ' + _home + '/repos/Reports --name CombinedJavaEvents --output CombinedJavaEvents ' +
-                            _home + '/repos/robotframework_SAL/Combined/DDS_JAVA/Events/Test_Events.robot \n' +
-                        'exit 0'
-                    }
-                }//JavaEvents
-            }//parallel
-        }//RunJavaMessagingTests
     }//stages
     post { 
         always {

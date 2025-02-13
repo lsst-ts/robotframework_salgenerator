@@ -22,6 +22,13 @@ rm -rf /var/cache/dnf
 
 RUN updatedb
 
+# Set EnvVars
+ENV PATH=$PATH:${HOME}/bin:${HOME}/.local/bin
+ENV ROBOTFRAMEWORK_SAL_DIR=${HOME}/repos/robotframework_SAL
+ENV TS_XML_DIR=${HOME}/repos/ts_xml
+ENV PYTHONPATH="$TS_XML_DIR/python"
+ENV JAVA_HOME=/usr/lib/jvm/java-17-zulu-openjdk-jdk
+
 # Python3.11
 RUN cd /tmp && \
 wget https://www.python.org/ftp/python/3.11.9/Python-3.11.9.tgz && \
@@ -30,8 +37,7 @@ tar xvf Python-3.11.9.tgz
 RUN cd /tmp/Python-3.11.9 && \
 ./configure --enable-optimizations && \
 make altinstall && \
-ln /usr/local/bin/python3.11 /usr/local/bin/python3 && \
-python3 --version && pip3.11 --version
+ln /usr/local/bin/python3.11 /usr/local/bin/python3
 
 # Install required Python packages
 RUN python3.11 -m pip install --upgrade pip setuptools numpy && \
@@ -53,9 +59,6 @@ WORKDIR ${HOME}
 USER ${USER}
 
 RUN mkdir bin && mkdir repos && mkdir Reports
-ENV PATH=$PATH:${HOME}/bin:${HOME}/.local/bin
-ENV ROBOTFRAMEWORK_SAL_DIR=${HOME}/repos/robotframework_SAL
-ENV TS_XML_DIR=${HOME}/repos/ts_xml
 
 # Apparently Docker does not support variable expansion in the ADD and COPY context.
 # ... Therefore, the ownership must be hardcoded.

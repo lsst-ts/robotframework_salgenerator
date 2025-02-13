@@ -1,11 +1,10 @@
-FROM lsstts/robot:kafka
+FROM lsstts/robot:latest
 LABEL org.opencontainers.image.authors="trekkie2@gmail.com"
 ARG USER=saluser
 ARG HOME=/home/${USER}
 
 # System EnvVars
 ENV PYTHONPATH="$PYTHONPATH:$TS_XML_DIR/python"
-ENV JAVA_HOME=/usr/lib/jvm/java-17-zulu-openjdk-jdk
 ENV MAVEN_HOME=/opt/maven
 ENV M2_HOME=${MAVEN_HOME}
 ENV PATH=${MAVEN_HOME}/bin:${PATH}
@@ -22,9 +21,10 @@ ENV BOOST_RELEASE=1.78
 ENV JDK_RELEASE=17
 ENV KAFKA_RELEASE=7.6
 ENV JACKSON_RELEASE=2.15.2
-ENV LIBRDKAFKA_RELEASE=1.9.0
+ENV LIBRDKAFKA_RELEASE=2.6.1
 ## Path variables
 ENV LSST_SAL_PREFIX=$HOME/ts_sal_stage
+ENV LSST_KAFKA_SECURITY_PROTOCOL=PLAINTEXT
 ENV LSST_KAFKA_CLASSDIR=${LSST_SAL_PREFIX}/lib
 ENV LSST_KAFKA_PREFIX=lsst.sal
 ENV LSST_KAFKA_HOST=broker
@@ -58,7 +58,7 @@ RUN python3.11 -m pip install awscli --upgrade
 RUN dnf -y install epel-release
 
 # Enable the CodeReady Builder repo for snappy and jansson packages
-RUN dnf config-manager --set-enabled crb
+RUN dnf config-manager --set-enabled powertools
 
 # Install packages and dependencies
 RUN dnf -y install tk-devel \
@@ -69,6 +69,7 @@ make cmake gcc-c++ \
 fmt fmt-devel \
 boost${BOOST_RELEASE}-devel jansson-devel \
 snappy-devel libcurl-devel \
+cyrus-sasl-devel \
 rpm-build && \
 dnf clean all && \
 rm -rf /var/cache/dnf
@@ -95,7 +96,7 @@ RUN git config --global --add safe.directory ${HOME}/repos/ts_sal && git config 
 # Install Avro
 ARG AVRO_RELEASE=${AVRO_RELEASE}
 RUN mkdir $HOME/external-packages && mkdir -p $LSST_SAL_PREFIX/include/avro && mkdir $LSST_SAL_PREFIX/lib && \
-mkdir $LSST_SAL_PREFIX/bin && ln -s $LSST_SDK_INSTALL/test/avro-templates $LSST_SAL_PREFIX/avro
+mkdir $LSST_SAL_PREFIX/bin && ln -s $LSST_SDK_INSTALL/test/avro-templates $LSST_SAL_PREFIX/avro-templates
 WORKDIR $HOME/external-packages
 RUN wget https://archive.apache.org/dist/avro/avro-${AVRO_RELEASE}/avro-src-${AVRO_RELEASE}.tar.gz
 RUN tar xvzf avro-src-${AVRO_RELEASE}.tar.gz

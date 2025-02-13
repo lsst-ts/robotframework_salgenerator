@@ -1,4 +1,4 @@
-FROM lsstts/robot:latest
+FROM lsstts/robot:dds
 LABEL org.opencontainers.image.authors="trekkie2@gmail.com"
 ARG USER=saluser
 ARG HOME=/home/${USER}
@@ -49,8 +49,6 @@ COPY --chown=0:0 rpmmacros /root/.rpmmacros
 RUN git config --global --add safe.directory ${HOME}/repos/ts_sal && git config --global --add safe.directory ${HOME}/repos/ts_xml
 
 # System EnvVars
-ENV PYTHONPATH="$PYTHONPATH:$TS_XML_DIR/python"
-ENV JAVA_HOME=/usr/lib/jvm/java-17-zulu-openjdk-jdk
 ENV MAVEN_HOME=/opt/maven
 ENV M2_HOME=${MAVEN_HOME}
 ENV PATH=${MAVEN_HOME}/bin:${PATH}
