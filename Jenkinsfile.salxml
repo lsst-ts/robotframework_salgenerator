@@ -429,16 +429,16 @@ pipeline {
                             sh 'curl --write-out %{http_code} -Ss -u $NEXUS_USER:$NEXUS_PASS -T ${WORKSPACE}/ts_sal/test/rpmbuild/RPMS/x86_64/' + file + ' https://repo-nexus.lsst.org/nexus/repository/ts_yum/' + location + '/'
                             sh 'echo "=== CSC RPM push complete ==="'
                         }//for
-                        // Push the ts_sal_utils RPM to Nexus3, if it was built.
-                        FILE = env.WORKSPACE + '/ts_sal/test/rpmbuild/RPMS/x86_64/ts_sal_utils-' + SAL_Version + '-1.x86_64.rpm'
-                        echo "ts_sal_utils file: " + FILE
+                        // Push the ts_sal_utilsKafka RPM to Nexus3, if it was built.
+                        FILE = env.WORKSPACE + '/ts_sal/test/rpmbuild/RPMS/x86_64/ts_sal_utilsKafka-' + SAL_Version + '-1.x86_64.rpm'
+                        echo "ts_sal_utilsKafka file: " + FILE
                         if (fileExists(FILE)) {
-                            sh 'echo "=== Push ts_sal_utils RPM to Nexus3 yum repo ==="'
+                            sh 'echo "=== Push ts_sal_utilsKafka RPM to Nexus3 yum repo ==="'
                             sh 'curl --write-out %{http_code} -Ss -u $NEXUS_USER:$NEXUS_PASS -T ' + FILE +
                                 ' https://repo-nexus.lsst.org/nexus/repository/ts_yum/' + location + '/'
-                            sh 'echo "=== ts_sal_utils RPM push complete ==="'
+                            sh 'echo "=== ts_sal_utilsKafka RPM push complete ==="'
                         } else {
-                            sh 'echo "=== No updates to ts_sal_utils ==="'
+                            sh 'echo "=== No updates to ts_sal_utilsKafka ==="'
                         }//fileExists
                     }//else
                 }//script
