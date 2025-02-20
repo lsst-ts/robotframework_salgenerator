@@ -435,6 +435,7 @@ Salgen MTPtg Lib
     @{files}=    List Directory    ${SALWorkDir}/lib    pattern=*${subSystem}*
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/lib/libSAL_${subSystem}.a
+    File Should Exist    ${SALWorkDir}/lib/libSAL_${subSystem}.so
 
 Salgen MTPtg RPM
     [Documentation]    Generate the SAL runtime RPM for ${subSystem}
@@ -579,6 +580,7 @@ Verify MTPtg RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_namedAzEl.json
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_mountPosition.json
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/lib/libSAL_${subSystem}.a
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/lib/libSAL_${subSystem}.so
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/SAL_${subSystem}.h
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_ackcmd.hh
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_currentTargetStatus.hh
