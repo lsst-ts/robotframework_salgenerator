@@ -86,9 +86,13 @@ ln -s /opt/apache-maven-3.9.8 /opt/maven
 USER ${USER}
 WORKDIR ${HOME}
 
+RUN mkdir -p ccs/maven ccs/scripts
 COPY --chown=73006:73006 start.sh ${HOME}/.
 COPY --chown=73006:73006 rpmmacros ${HOME}/.rpmmacros
 COPY --chown=0:0 rpmmacros /root/.rpmmacros
+COPY --chown=73006:73006 --chmod=664 ccs-settings.xml ccs/maven/ccs-settings.xml
+COPY --chown=73006:73006 --chmod=664 pipeline-settings.xml ccs/maven/pipeline-settings.xml
+COPY --chown=73006:73006 --chmod=775 updateJiraVersions.sh ccs/scripts/updateJiraVersions.sh
 
 # Set safe.directory
 RUN git config --global --add safe.directory ${HOME}/repos/ts_sal && git config --global --add safe.directory ${HOME}/repos/ts_xml
