@@ -389,6 +389,7 @@ shell=True    cwd=\${SALWorkDir}    stdout=\${EXECDIR}\${/}\${subSystem}_stdout.
     echo "    Log Many    @{files}" >> $testSuite
     if [[ ${langs[@]} =~ "CPP" ]]; then
         echo "    File Should Exist    \${SALWorkDir}/lib/libSAL_\${subSystem}.a" >> $testSuite
+        echo "    File Should Exist    \${SALWorkDir}/lib/libSAL_\${subSystem}.so" >> $testSuite
     fi
     if [[ ${langs[@]} =~ "Java" ]]; then
         echo "    File Should Exist    \${SALWorkDir}/lib/libsalUtils.so" >> $testSuite
@@ -503,6 +504,7 @@ function verifyRPM() {
     # Validate C++, Java and/or LabVIEW libraries.
     if [[ "$@" =~ "CPP" ]]; then
         echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_sal/lib/libSAL_\${subSystem}.a" >> $testSuite
+        echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_sal/lib/libSAL_\${subSystem}.so" >> $testSuite
         echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_sal/include/SAL_\${subSystem}.h" >> $testSuite
         echo "    Should Contain    \${output.stdout}    /opt/lsst/ts_sal/include/\${subSystem}_ackcmd.hh" >> $testSuite
         for topic in "${telemetryArray[@]}"; do

@@ -469,6 +469,7 @@ Salgen ESS Lib
     @{files}=    List Directory    ${SALWorkDir}/lib    pattern=*${subSystem}*
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/lib/libSAL_${subSystem}.a
+    File Should Exist    ${SALWorkDir}/lib/libSAL_${subSystem}.so
     File Should Exist    ${SALWorkDir}/lib/libsalUtils.so
     File Should Exist    ${SALWorkDir}/lib/org/lsst/sal/salUtils.class 
     File Should Exist    ${SALWorkDir}/lib/saj_${subSystem}_types.jar
@@ -582,6 +583,7 @@ Verify ESS RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_xups.json
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_aircraftTrack.json
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/lib/libSAL_${subSystem}.a
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/lib/libSAL_${subSystem}.so
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/SAL_${subSystem}.h
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_ackcmd.hh
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_airTurbulence.hh
