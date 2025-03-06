@@ -1,4 +1,4 @@
-FROM almalinux:8
+FROM almalinux:9
 LABEL org.opencontainers.image.authors="trekkie2@gmail.com"
 ARG USER=saluser
 ARG HOME=/home/${USER}
@@ -29,20 +29,20 @@ ENV TS_XML_DIR=${HOME}/repos/ts_xml
 ENV PYTHONPATH="$TS_XML_DIR/python"
 ENV JAVA_HOME=/usr/lib/jvm/java-17-zulu-openjdk-jdk
 
-# Python3.11
+# Python3.12
 RUN cd /tmp && \
-wget https://www.python.org/ftp/python/3.11.9/Python-3.11.9.tgz && \
-tar xvf Python-3.11.9.tgz
+wget https://www.python.org/ftp/python/3.12.9/Python-3.12.9.tgz && \
+tar xvf Python-3.12.9.tgz
 
-RUN cd /tmp/Python-3.11.9 && \
+RUN cd /tmp/Python-3.12.9 && \
 ./configure --enable-optimizations && \
 make altinstall && \
-ln /usr/local/bin/python3.11 /usr/local/bin/python3
+ln /usr/local/bin/python3.12 /usr/local/bin/python3
 
 # Install required Python packages
-RUN python3.11 -m pip install --upgrade pip setuptools numpy && \
-python3.11 -m pip install robotframework && \
-python3.11 -m pip install astropy pytest gnureadline
+RUN python3.12 -m pip install --upgrade pip setuptools numpy && \
+python3.12 -m pip install robotframework && \
+python3.12 -m pip install astropy pytest gnureadline
 
 # Java17 Azul
 ADD zulu17.52.17-ca-jdk17.0.12-linux.x86_64.rpm ${HOME}
