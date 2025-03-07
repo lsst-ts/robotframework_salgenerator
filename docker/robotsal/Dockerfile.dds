@@ -15,7 +15,7 @@ ADD settings.xml ${HOME}/.m2
 RUN chown -R 73006:73006 ${HOME}/.m2 
 
 # AWS CLI
-RUN python3.11 -m pip install awscli --upgrade
+RUN python3.12 -m pip install awscli --upgrade
 
 # Install packages and dependencies
 RUN dnf -y install tk tk-devel \
