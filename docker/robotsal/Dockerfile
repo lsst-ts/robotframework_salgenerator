@@ -52,13 +52,13 @@ ADD settings.xml ${HOME}/.m2
 RUN chown -R 73006:73006 ${HOME}/.m2 
 
 # AWS CLI
-RUN python3.11 -m pip install awscli --upgrade
+RUN python3.12 -m pip install awscli --upgrade
 
 # Enable EPEL repo for fmt packages.
 RUN dnf -y install epel-release
 
 # Enable the CodeReady Builder repo for snappy and jansson packages
-RUN dnf config-manager --set-enabled powertools
+RUN dnf config-manager --set-enabled crb
 
 # Install packages and dependencies
 RUN dnf -y install tk-devel \
@@ -90,7 +90,6 @@ RUN mkdir -p ccs/maven ccs/scripts
 COPY --chown=73006:73006 start.sh ${HOME}/.
 COPY --chown=73006:73006 rpmmacros ${HOME}/.rpmmacros
 COPY --chown=0:0 rpmmacros /root/.rpmmacros
-COPY --chown=73006:73006 --chmod=664 ccs-settings.xml ccs/maven/ccs-settings.xml
 COPY --chown=73006:73006 --chmod=664 pipeline-settings.xml ccs/maven/pipeline-settings.xml
 COPY --chown=73006:73006 --chmod=775 updateJiraVersions.sh ccs/scripts/updateJiraVersions.sh
 
