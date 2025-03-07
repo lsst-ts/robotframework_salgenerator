@@ -106,7 +106,7 @@ pipeline {
         }//Copy XML
         stage('Install XML python library') {
             steps {
-                sh label: 'XML library', script: '#!/bin/bash -x \n' + 'cd ts_xml && pip3.11 install -e . --ignore-installed --no-deps'
+                sh label: 'XML library', script: '#!/bin/bash -x \n' + 'cd ts_xml && pip3.12 install -e . --ignore-installed --no-deps'
             }
         }//XML
         stage('Validate') {
