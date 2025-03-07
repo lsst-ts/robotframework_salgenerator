@@ -6,7 +6,7 @@ ${ContInt}              false
 ${UserName}             saluser
 ${PassWord}             ${EMPTY}
 ${KeyFile}              ${EMPTY}
-${PythonVersion}        Python 3.11.9
+${PythonVersion}        Python 3.12.9
 ${AstropyVersion}       7.0.0
 ${MvnVersion}           Apache Maven 3.9.8
 ${MavenVersion}         -SNAPSHOT
