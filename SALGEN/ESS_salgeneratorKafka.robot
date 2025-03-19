@@ -62,6 +62,7 @@ Salgen ESS Validate
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_lightningStrike.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_highElectricField.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_precipitation.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_ringssMeasurement.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_sensorStatus.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_airTurbulence.json/
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_airFlow.json/
@@ -90,6 +91,8 @@ Salgen ESS Validate
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_schneiderPm5xxx.json/
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_xups.json/
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_aircraftTrack.json/
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_agcGenset150.json/
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_particleMeasurements.json/
 
 Salgen ESS C++
     [Documentation]    Generate C++ libraries.
@@ -128,8 +131,10 @@ Salgen ESS C++
     Should Contain    ${output.stdout}    Generating cpp type support for ${subSystem}
     Should Contain    ${output.stdout}    Generating cpp type support for ${subSystem}
     Should Contain    ${output.stdout}    Generating cpp type support for ${subSystem}
-    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    27
-    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    27
+    Should Contain    ${output.stdout}    Generating cpp type support for ${subSystem}
+    Should Contain    ${output.stdout}    Generating cpp type support for ${subSystem}
+    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    29
+    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    29
     Should Contain X Times    ${output.stdout}    cpp : Done Commander    1
     Should Contain X Times    ${output.stdout}    cpp : Done Event/Logger    1
 
@@ -175,6 +180,8 @@ Verify ESS Telemetry directories
     Directory Should Exist    ${SALWorkDir}/${subSystem}_schneiderPm5xxx
     Directory Should Exist    ${SALWorkDir}/${subSystem}_xups
     Directory Should Exist    ${SALWorkDir}/${subSystem}_aircraftTrack
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_agcGenset150
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_particleMeasurements
 
 Verify ESS C++ Telemetry Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -260,6 +267,12 @@ Verify ESS C++ Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}_aircraftTrack/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_aircraftTrack/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/${subSystem}_aircraftTrack.hh
+    File Should Exist    ${SALWorkDir}/${subSystem}_agcGenset150/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_agcGenset150/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/${subSystem}_agcGenset150.hh
+    File Should Exist    ${SALWorkDir}/${subSystem}_particleMeasurements/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_particleMeasurements/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/${subSystem}_particleMeasurements.hh
 
 Verify ESS C++ Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -323,6 +336,9 @@ Verify ESS C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_precipitation_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_precipitation_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/${subSystem}_logevent_precipitation.hh
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_ringssMeasurement_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_ringssMeasurement_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/${subSystem}_logevent_ringssMeasurement.hh
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_sensorStatus_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_sensorStatus_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/${subSystem}_logevent_sensorStatus.hh
@@ -393,6 +409,10 @@ Salgen ESS Java
     Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_xups.hh to sal_${subSystem} code fragments
     Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_aircraftTrack.json
     Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_aircraftTrack.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_agcGenset150.json
+    Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_agcGenset150.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_particleMeasurements.json
+    Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_particleMeasurements.hh to sal_${subSystem} code fragments
     Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_heartbeat.json
     Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_logevent_heartbeat.hh to sal_${subSystem} code fragments
     Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_logLevel.json
@@ -417,6 +437,8 @@ Salgen ESS Java
     Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_logevent_highElectricField.hh to sal_${subSystem} code fragments
     Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_precipitation.json
     Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_logevent_precipitation.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_ringssMeasurement.json
+    Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_logevent_ringssMeasurement.hh to sal_${subSystem} code fragments
     Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_sensorStatus.json
     Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_logevent_sensorStatus.hh to sal_${subSystem} code fragments
     Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_disable.json
@@ -554,6 +576,7 @@ Verify ESS RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_lightningStrike.json
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_highElectricField.json
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_precipitation.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_ringssMeasurement.json
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_sensorStatus.json
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_airTurbulence.json
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_airFlow.json
@@ -582,6 +605,8 @@ Verify ESS RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_schneiderPm5xxx.json
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_xups.json
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_aircraftTrack.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_agcGenset150.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_particleMeasurements.json
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/lib/libSAL_${subSystem}.a
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/lib/libSAL_${subSystem}.so
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/SAL_${subSystem}.h
@@ -613,6 +638,8 @@ Verify ESS RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_schneiderPm5xxx.hh
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_xups.hh
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_aircraftTrack.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_agcGenset150.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_particleMeasurements.hh
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_disable.hh
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_enable.hh
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_exitControl.hh
@@ -631,6 +658,7 @@ Verify ESS RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_lightningStrike.hh
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_highElectricField.hh
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_precipitation.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_ringssMeasurement.hh
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_sensorStatus.hh
     Comment    Verify the interface definition files are included.
     Should Contain    ${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subSystem}/${subSystem}_Generics.xml
@@ -698,6 +726,8 @@ Verify ESS TEST RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_highElectricField_log
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_precipitation_send
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_precipitation_log
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_ringssMeasurement_send
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_ringssMeasurement_log
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_sensorStatus_send
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_sensorStatus_log
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_airTurbulence_publisher
@@ -754,6 +784,10 @@ Verify ESS TEST RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_xups_subscriber
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_aircraftTrack_publisher
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_aircraftTrack_subscriber
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_agcGenset150_publisher
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_agcGenset150_subscriber
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_particleMeasurements_publisher
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_particleMeasurements_subscriber
 
 Cleanup stdout and stderr Files
     [Tags]

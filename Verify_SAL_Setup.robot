@@ -38,7 +38,7 @@ Verify Astropy Version
     [Documentation]    Verify the Astropy library version.
     [Tags]    smoke    version
     Comment    Verify Astropy version.
-    ${stdout}=    Run Process    pip3.11    freeze
+    ${stdout}=    Run Process    pip3.12    freeze
     Log    ${stdout.stdout}
     Should Contain    ${stdout.stdout}    astropy==${AstropyVersion}
 

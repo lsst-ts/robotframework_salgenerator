@@ -156,6 +156,7 @@ Salgen MTMount Validate
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_cooling.json/
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_dynaleneCooling.json/
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_generalPurposeGlycolWater.json/
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_capacitorBank.json/
 
 Salgen MTMount C++
     [Documentation]    Generate C++ libraries.
@@ -193,8 +194,9 @@ Salgen MTMount C++
     Should Contain    ${output.stdout}    Generating cpp type support for ${subSystem}
     Should Contain    ${output.stdout}    Generating cpp type support for ${subSystem}
     Should Contain    ${output.stdout}    Generating cpp type support for ${subSystem}
-    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    26
-    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    26
+    Should Contain    ${output.stdout}    Generating cpp type support for ${subSystem}
+    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    27
+    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    27
     Should Contain X Times    ${output.stdout}    cpp : Done Commander    1
     Should Contain X Times    ${output.stdout}    cpp : Done Event/Logger    1
 
@@ -239,6 +241,7 @@ Verify MTMount Telemetry directories
     Directory Should Exist    ${SALWorkDir}/${subSystem}_cooling
     Directory Should Exist    ${SALWorkDir}/${subSystem}_dynaleneCooling
     Directory Should Exist    ${SALWorkDir}/${subSystem}_generalPurposeGlycolWater
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_capacitorBank
 
 Verify MTMount C++ Telemetry Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -321,6 +324,9 @@ Verify MTMount C++ Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}_generalPurposeGlycolWater/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_generalPurposeGlycolWater/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/${subSystem}_generalPurposeGlycolWater.hh
+    File Should Exist    ${SALWorkDir}/${subSystem}_capacitorBank/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_capacitorBank/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/${subSystem}_capacitorBank.hh
 
 Verify MTMount C++ Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -641,6 +647,8 @@ Salgen MTMount Java
     Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_dynaleneCooling.hh to sal_${subSystem} code fragments
     Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_generalPurposeGlycolWater.json
     Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_generalPurposeGlycolWater.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_capacitorBank.json
+    Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_capacitorBank.hh to sal_${subSystem} code fragments
     Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_heartbeat.json
     Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_logevent_heartbeat.hh to sal_${subSystem} code fragments
     Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_logLevel.json
@@ -1019,6 +1027,7 @@ Verify MTMount RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_cooling.json
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_dynaleneCooling.json
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_generalPurposeGlycolWater.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_capacitorBank.json
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/lib/libSAL_${subSystem}.a
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/lib/libSAL_${subSystem}.so
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/SAL_${subSystem}.h
@@ -1049,6 +1058,7 @@ Verify MTMount RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_cooling.hh
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_dynaleneCooling.hh
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_generalPurposeGlycolWater.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_capacitorBank.hh
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_disable.hh
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_enable.hh
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_exitControl.hh
@@ -1378,6 +1388,8 @@ Verify MTMount TEST RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_dynaleneCooling_subscriber
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_generalPurposeGlycolWater_publisher
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_generalPurposeGlycolWater_subscriber
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_capacitorBank_publisher
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_capacitorBank_subscriber
 
 Cleanup stdout and stderr Files
     [Tags]
