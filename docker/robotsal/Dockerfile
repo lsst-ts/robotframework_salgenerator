@@ -15,13 +15,13 @@ ENV OSPL_HOME=/opt/OpenSpliceDDS/V6.10.4/HDE/x86_64.linux
 ENV LSST_DDS_DOMAIN=citest
 ENV LSST_DDS_PARTITION_PREFIX=citest
 ## Version variables
-ENV MAVEN_RELEASE=3.9.8
+ENV MAVEN_RELEASE=3.9.9
 ENV AVRO_RELEASE=1.11.1
 ENV BOOST_RELEASE=1.78
 ENV JDK_RELEASE=17
 ENV KAFKA_RELEASE=7.6
 ENV JACKSON_RELEASE=2.15.2
-ENV LIBRDKAFKA_RELEASE=2.6.1
+ENV LIBRDKAFKA_RELEASE=2.8.0
 ## Path variables
 ENV LSST_SAL_PREFIX=$HOME/ts_sal_stage
 ENV LSST_KAFKA_SECURITY_PROTOCOL=PLAINTEXT
@@ -78,9 +78,9 @@ rm -rf /var/cache/dnf
 
 # Maven
 ADD maven.sh /etc/profile.d/
-RUN wget -P /tmp https://mirrors.gigenet.com/apache/maven/maven-3/3.9.8/binaries/apache-maven-3.9.8-bin.tar.gz
-RUN tar xf /tmp/apache-maven-3.9.8-bin.tar.gz -C /opt && \
-ln -s /opt/apache-maven-3.9.8 /opt/maven
+RUN wget -P /tmp https://mirrors.gigenet.com/apache/maven/maven-3/${MAVEN_RELEASE}/binaries/apache-maven-${MAVEN_RELEASE}-bin.tar.gz
+RUN tar xf /tmp/apache-maven-${MAVEN_RELEASE}-bin.tar.gz -C /opt && \
+ln -s /opt/apache-maven-${MAVEN_RELEASE} /opt/maven
 
 # Switch to image user and complete setup
 USER ${USER}
