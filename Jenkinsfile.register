@@ -20,7 +20,7 @@ pipeline {
                     cd /home/saluser
                     source miniconda3/bin/activate
                     conda install -y -c lsstts/label/dev "ts-xml>=${XML_VERSION}"
-                    conda install -y -c lsstts ts-salobj>=8.1.0
+                    conda install -y -c lsstts "ts-salobj>=8"
                     create_topics --all
                 """
             }
