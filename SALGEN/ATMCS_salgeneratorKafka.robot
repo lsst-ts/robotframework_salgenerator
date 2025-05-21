@@ -103,7 +103,6 @@ Salgen ATMCS Validate
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_azimuthBrake2.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_nasmyth1Brake.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_nasmyth2Brake.json
-    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_crioSummaryState.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_trajectory.json/
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_mount_AzEl_Encoders.json/
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_mount_Nasmyth_Encoders.json/
@@ -361,9 +360,6 @@ Verify ATMCS C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_nasmyth2Brake_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_nasmyth2Brake_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/${subSystem}_logevent_nasmyth2Brake.hh
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_crioSummaryState_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_crioSummaryState_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/${subSystem}_logevent_crioSummaryState.hh
 
 Salgen ATMCS Lib
     [Documentation]    Generate the SAL shared library for ${subSystem}
@@ -497,7 +493,6 @@ Verify ATMCS RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_azimuthBrake2.json
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_nasmyth1Brake.json
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_nasmyth2Brake.json
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_crioSummaryState.json
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_trajectory.json
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_mount_AzEl_Encoders.json
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_mount_Nasmyth_Encoders.json
@@ -573,7 +568,6 @@ Verify ATMCS RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_azimuthBrake2.hh
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_nasmyth1Brake.hh
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_nasmyth2Brake.hh
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_crioSummaryState.hh
     Comment    Verify the interface definition files are included.
     Should Contain    ${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subSystem}/${subSystem}_Generics.xml
     Should Contain    ${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subSystem}/${subSystem}_Commands.xml
@@ -715,8 +709,6 @@ Verify ATMCS TEST RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_nasmyth1Brake_log
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_nasmyth2Brake_send
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_nasmyth2Brake_log
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_crioSummaryState_send
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_crioSummaryState_log
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_trajectory_publisher
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_trajectory_subscriber
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_mount_AzEl_Encoders_publisher
