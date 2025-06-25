@@ -1,6 +1,9 @@
+@Library('JenkinsShared') _
 pipeline {
     parameters {
         string defaultValue: '', description: 'The version of ts_xml.', name: 'XML_VERSION', trim: true
+        string defaultValue: '', description: 'The Kafka subname to delete.', name: 'SUBNAME', trim: true
+        booleanParam defaultValue: '', description: 'Must be TRUE if deleting the \'sal\' topic subname.', name: 'FORCE'
         choice choices: ['Node1_4CPU', 'Node2_8CPU', 'Node3_4CPU', 'CSC_Conda_Node'], description: 'The build node on which to execute this job.', name: 'BUILD_NODE'
     }
     options {
@@ -9,20 +12,18 @@ pipeline {
     agent {
         docker { 
             image 'lsstts/robotint:latest'
-            args '--entrypoint="" --network=kafka -e LSST_TOPIC_SUBNAME=ci_test'
+            args '--entrypoint="" --network=kafka -e LSST_TOPIC_SUBNAME=${SUBNAME}'
             label params.BUILD_NODE
          }
     }
     stages {
         stage('Delete SAL Kafka Topics') {
             steps {
-                sh """
-                    cd /home/saluser
-                    source miniconda3/bin/activate
-                    conda install -y -c lsstts/label/dev "ts-xml>=${XML_VERSION}"
-                    conda install -y -c lsstts "ts-salobj>=8"
-                    delete_topics --subname=ci_test --all
-                """
+                script {
+                    echo "XML_VERSION: ${XML_VERSION}"
+                    echo "SUBNAME: ${SUBNAME}"
+                    deleteKafkaTopics params.XML_VERSION, params.SUBNAME, params.FORCE
+                }
             }
         }//Register
     }//stages
