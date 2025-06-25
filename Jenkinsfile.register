@@ -9,7 +9,7 @@ pipeline {
     agent {
         docker { 
             image 'lsstts/robotint:latest'
-            args '--entrypoint="" --network=kafka -e LSST_TOPIC_SUBNAME=sal'
+            args '--entrypoint="" --network=kafka -e LSST_TOPIC_SUBNAME=ci_test'
             label params.BUILD_NODE
          }
     }
