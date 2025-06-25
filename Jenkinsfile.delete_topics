@@ -1,0 +1,34 @@
+pipeline {
+    parameters {
+        string defaultValue: '', description: 'The version of ts_xml.', name: 'XML_VERSION', trim: true
+        choice choices: ['Node1_4CPU', 'Node2_8CPU', 'Node3_4CPU', 'CSC_Conda_Node'], description: 'The build node on which to execute this job.', name: 'BUILD_NODE'
+    }
+    options {
+        disableConcurrentBuilds()
+    }
+    agent {
+        docker { 
+            image 'lsstts/robotint:latest'
+            args '--entrypoint="" --network=kafka -e LSST_TOPIC_SUBNAME=ci_test'
+            label params.BUILD_NODE
+         }
+    }
+    stages {
+        stage('Delete SAL Kafka Topics') {
+            steps {
+                sh """
+                    cd /home/saluser
+                    source miniconda3/bin/activate
+                    conda install -y -c lsstts/label/dev "ts-xml>=${XML_VERSION}"
+                    conda install -y -c lsstts "ts-salobj>=8"
+                    delete_topics --subname=ci_test --all
+                """
+            }
+        }//Register
+    }//stages
+    post { 
+        success {
+            cleanWs cleanWhenAborted: false, cleanWhenFailure: false, cleanWhenUnstable: false, deleteDirs: true, disableDeferredWipeout: true, notFailBuild: true
+        }
+    }//post
+}//pipeline
