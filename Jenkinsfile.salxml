@@ -476,6 +476,22 @@ pipeline {
                 'if [ $Result -eq 0 ]; then echo "=== Java artifact uploads complete ==="; else exit $Result; fi'
             }
         }//Java artifacts
+        stage('Delete Kafka Topics') {
+            when {
+                expression {
+                    return params.Messaging
+                }
+            }
+            steps {
+                script {
+                    Exec_Branch = "Delete_Kafka_Topics/" + RFSALGEN_Checkout.replace("*/", "").replace("/", "%2F")
+                    echo "The XML version: ${XML_Version_Base}"
+                    echo "The exec branch: " + Exec_Branch
+                    echo "The build node: " + env.NODE_NAME
+                    build wait: true, job: Exec_Branch, parameters: [string(name: 'BUILD_NODE', value: env.NODE_NAME), string(name: 'XML_VERSION', value: XML_Version_Base)]
+                }
+            }
+        }//DeleteTopics
         stage('Trigger Jobs') {
             when {
                 allOf {
