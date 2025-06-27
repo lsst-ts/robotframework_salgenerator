@@ -232,6 +232,7 @@ pipeline {
                 script {
                     echo "XMLVersion: ${XML_Version_Base}"
                     echo "SUBNAME: ${SUBNAME}"
+                    echo "FORCE: ${FORCE}"
                     deleteKafkaTopics ${XML_Version_Base}, params.SUBNAME, params.FORCE
                 }
             }
