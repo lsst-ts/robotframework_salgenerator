@@ -1,3 +1,4 @@
+@Library('JenkinsShared') _
 // Define variables
 def _user="saluser"
 def _home="/home/" + _user
@@ -16,6 +17,8 @@ pipeline {
         booleanParam defaultValue: params.Bleed ?:false, description: 'Is this a "bleeding edge" build?', name: 'Bleed'
         booleanParam defaultValue: params.Daily ?:false, description: 'Is this a Daily build?', name: 'Daily'
         booleanParam defaultValue: params.Release ?:false, description: 'Is this a Release build?', name: 'Release'
+        string defaultValue: 'sal', description: 'The Kafka subname to register and later cleanup (delete).', name: 'SUBNAME', trim: true
+        booleanParam defaultValue: '', description: 'Must be TRUE if deleting the \'sal\' topic subname.', name: 'FORCE'
         string defaultValue: '', description: '', name: 'SAL_tag', trim: true
         string defaultValue: '', description: '', name: 'XML_tag', trim: true
         string defaultValue: '', description: '', name: 'simple_sal_tag', trim: true
@@ -29,6 +32,7 @@ pipeline {
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
         NEXUS_USER = credentials('nexus_username')
         NEXUS_PASS = credentials('nexus_password')
+        LSST_TOPIC_SUBNAME = "${SUBNAME}"
     }
     options {
         disableConcurrentBuilds()
@@ -39,7 +43,7 @@ pipeline {
             args '--network=kafka -w ' + _home +
             ' -e AWS_ACCESS_KEY_ID=$aws_key_id -e AWS_SECRET_ACCESS_KEY=$aws_secret_key ' + 
             '-e NEXUS_USER=$nexus_user -e NEXUS_PASS=$nexus_pass ' +
-            '-e LSST_DDS_PARTITION_PREFIX=citest -v ${WORKSPACE}:' + _home + '/repos'
+            '-v ${WORKSPACE}:' + _home + '/repos'
             label 'Node2_8CPU'
          }
     }
@@ -305,10 +309,11 @@ pipeline {
             steps {
                 script {
                     Exec_Branch = "Register_Kafka_Topics/" + RFSALGEN_Checkout.replace("*/", "").replace("/", "%2F")
-                    echo "The XML version: ${XML_Version_Base}"
+                    echo "XMLVersion: ${XML_Version_Base}"
+                    echo "SUBNAME: $LSST_TOPIC_SUBNAME"
                     echo "The exec branch: " + Exec_Branch
                     echo "The build node: " + env.NODE_NAME
-                    build wait: true, job: Exec_Branch, parameters: [string(name: 'BUILD_NODE', value: env.NODE_NAME), string(name: 'XML_VERSION', value: XML_Version_Base)]
+                    registerKafkaTopics params.XML_VERSION
                 }
             }
         }//Register
@@ -485,10 +490,11 @@ pipeline {
             steps {
                 script {
                     Exec_Branch = "Delete_Kafka_Topics/" + RFSALGEN_Checkout.replace("*/", "").replace("/", "%2F")
-                    echo "The XML version: ${XML_Version_Base}"
+                    echo "XMLVersion: ${XML_Version_Base}"
+                    echo "SUBNAME: ${SUBNAME}"
                     echo "The exec branch: " + Exec_Branch
                     echo "The build node: " + env.NODE_NAME
-                    build wait: true, job: Exec_Branch, parameters: [string(name: 'BUILD_NODE', value: env.NODE_NAME), string(name: 'XML_VERSION', value: XML_Version_Base)]
+                    deleteKafkaTopics params.XML_VERSION, params.SUBNAME, params.FORCE
                 }
             }
         }//DeleteTopics

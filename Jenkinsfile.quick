@@ -1,9 +1,12 @@
+@Library('JenkinsShared') _
 // Define variables
 def _user="saluser"
 def _home="/home/" + _user
 
 pipeline {
     parameters {
+        string defaultValue: 'sal', description: 'The Kafka subname to register.', name: 'SUBNAME', trim: true
+        booleanParam defaultValue: '', description: 'Must be TRUE if deleting the \'sal\' topic subname.', name: 'FORCE'
         string defaultValue: 'develop', description: 'The branch of ts_sal to test.', name: 'SAL_BRANCH', trim: true
         string defaultValue: 'develop', description: 'The branch of ts_xml to test.', name: 'XML_BRANCH', trim: true
         string defaultValue: 'develop', description: 'The branch of lsst-camera-ccs/org-lsst-camera-simple-sal to test.', name: 'SIMPLESAL_BRANCH', trim: true
@@ -14,6 +17,7 @@ pipeline {
     environment {
         AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
+        LSST_TOPIC_SUBNAME = "${SUBNAME}"
     }
     options {
         disableConcurrentBuilds()
@@ -23,7 +27,6 @@ pipeline {
             image 'ts-dockerhub.lsst.org/robotsal:latest'
             args '--network=kafka -w ' + _home + 
             ' -e AWS_ACCESS_KEY_ID=$aws_key_id -e AWS_SECRET_ACCESS_KEY=$aws_secret_key ' + 
-            '-e NEXUS_USER=$nexus_user -e NEXUS_PASS=$nexus_pass ' +
             '-v ${WORKSPACE}:' + _home + '/repos'
             label 'Node1_4CPU || Node3_4CPU'
          }
@@ -138,6 +141,25 @@ pipeline {
                 'if [ $Result -eq 0 ]; then echo Validation complete; else exit $Result; fi'
             }
         }//Validate
+        stage('Register Kafka Topics') {
+            when {
+                not {
+                    expression {
+                        return params.Generate
+                    }
+                }
+            }
+            steps {
+                script {
+                    Exec_Branch = "Register_Kafka_Topics/" + SALGEN_BRANCH.replace("*/", "").replace("/", "%2F")
+                    echo "XMLVersion: ${XML_Version_Base}"
+                    echo "SUBNAME: $LSST_TOPIC_SUBNAME"
+                    echo "The exec branch: " + Exec_Branch
+                    echo "The build node: " + env.NODE_NAME
+                    registerKafkaTopics "${XML_Version_Base}"
+                }
+            }
+        }//Register
         stage('Run simple-sal tests') {
             when {
                 not {
@@ -155,24 +177,6 @@ pipeline {
                         'mvn --no-transfer-progress -B clean install'
             }
         }//simple-sal
-        stage('Register Kafka Topics') {
-            when {
-                not {
-                    expression {
-                        return params.Generate
-                    }
-                } 
-            }
-            steps {
-                script {
-                    Exec_Branch = "Register_Kafka_Topics/" + SALGEN_BRANCH.replace("*/", "").replace("/", "%2F")
-                    echo "The XML version: ${XML_Version_Base}"
-                    echo "The exec branch: " + Exec_Branch
-                    echo "The build node: " + env.NODE_NAME
-                    build wait: true, job: Exec_Branch, parameters: [string(name: 'BUILD_NODE', value: env.NODE_NAME), string(name: 'XML_VERSION', value: XML_Version_Base)]
-                }
-            }
-        }//Register
         stage('Run C++ Messaging Tests') {
             when {
                 not {
@@ -216,6 +220,25 @@ pipeline {
                 }//CppEvents
             }//parallel
         }//RunCppMessagingTests
+        stage('Delete Kafka Topics') {
+            when {
+                not {
+                    expression {
+                        return params.Generate
+                    }
+                }
+            }
+            steps {
+                script {
+                    Exec_Branch = "Delete_Kafka_Topics/" + RFSALGEN_Checkout.replace("*/", "").replace("/", "%2F")
+                    echo "XMLVersion: ${XML_Version_Base}"
+                    echo "SUBNAME: ${SUBNAME}"
+                    echo "The exec branch: " + Exec_Branch
+                    echo "The build node: " + env.NODE_NAME
+                    deleteKafkaTopics ${XML_Version_Base}, params.SUBNAME, params.FORCE
+                }
+            }
+        }//DeleteTopics
     }//stages
     post { 
         always {
