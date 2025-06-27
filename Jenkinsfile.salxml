@@ -18,7 +18,7 @@ pipeline {
         booleanParam defaultValue: params.Daily ?:false, description: 'Is this a Daily build?', name: 'Daily'
         booleanParam defaultValue: params.Release ?:false, description: 'Is this a Release build?', name: 'Release'
         string defaultValue: 'sal', description: 'The Kafka subname to register and later cleanup (delete).', name: 'SUBNAME', trim: true
-        booleanParam defaultValue: '', description: 'Must be TRUE if deleting the \'sal\' topic subname.', name: 'FORCE'
+        booleanParam defaultValue: true, description: 'Must be TRUE if deleting the \'sal\' topic subname.', name: 'FORCE'
         string defaultValue: '', description: '', name: 'SAL_tag', trim: true
         string defaultValue: '', description: '', name: 'XML_tag', trim: true
         string defaultValue: '', description: '', name: 'simple_sal_tag', trim: true

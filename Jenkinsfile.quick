@@ -6,7 +6,7 @@ def _home="/home/" + _user
 pipeline {
     parameters {
         string defaultValue: 'sal', description: 'The Kafka subname to register.', name: 'SUBNAME', trim: true
-        booleanParam defaultValue: '', description: 'Must be TRUE if deleting the \'sal\' topic subname.', name: 'FORCE'
+        booleanParam defaultValue: true, description: 'Must be TRUE if deleting the \'sal\' topic subname.', name: 'FORCE'
         string defaultValue: 'develop', description: 'The branch of ts_sal to test.', name: 'SAL_BRANCH', trim: true
         string defaultValue: 'develop', description: 'The branch of ts_xml to test.', name: 'XML_BRANCH', trim: true
         string defaultValue: 'develop', description: 'The branch of lsst-camera-ccs/org-lsst-camera-simple-sal to test.', name: 'SIMPLESAL_BRANCH', trim: true
