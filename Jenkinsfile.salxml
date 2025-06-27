@@ -489,11 +489,8 @@ pipeline {
             }
             steps {
                 script {
-                    Exec_Branch = "Delete_Kafka_Topics/" + RFSALGEN_Checkout.replace("*/", "").replace("/", "%2F")
                     echo "XMLVersion: ${XML_Version_Base}"
                     echo "SUBNAME: ${SUBNAME}"
-                    echo "The exec branch: " + Exec_Branch
-                    echo "The build node: " + env.NODE_NAME
                     deleteKafkaTopics params.XML_VERSION, params.SUBNAME, params.FORCE
                 }
             }
