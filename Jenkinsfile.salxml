@@ -313,7 +313,7 @@ pipeline {
                     echo "SUBNAME: $LSST_TOPIC_SUBNAME"
                     echo "The exec branch: " + Exec_Branch
                     echo "The build node: " + env.NODE_NAME
-                    registerKafkaTopics params.XML_VERSION
+                    registerKafkaTopics "${XML_Version_Base}"
                 }
             }
         }//Register
