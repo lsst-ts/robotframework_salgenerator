@@ -18,6 +18,10 @@ pipeline {
         AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
         LSST_TOPIC_SUBNAME = "${SUBNAME}"
+        LSST_KAFKA_HOST = "35.85.18.232"
+        LSST_KAFKA_BROKER_PORT = "9092"
+        LSST_KAFKA_BROKER_ADDR = "35.85.18.232:9092"
+        LSST_SCHEMA_REGISTRY_URL = "http://35.85.18.232:8081"
     }
     options {
         disableConcurrentBuilds()
@@ -25,10 +29,12 @@ pipeline {
     agent {
         docker { 
             image 'ts-dockerhub.lsst.org/robotsal:latest'
-            args '--network=kafka -w ' + _home + 
-            ' -e AWS_ACCESS_KEY_ID=$aws_key_id -e AWS_SECRET_ACCESS_KEY=$aws_secret_key ' + 
+            args '-w ' + _home + 
+            ' -e AWS_ACCESS_KEY_ID=${env.AWS_KEY_ID} -e AWS_SECRET_ACCESS_KEY=${env.AWS_SECRET_KEY} ' + 
+            ' -e LSST_KAFKA_BROKER_ADDR=${env.LSST_KAFKA_BROKER_ADDR} -e LSST_SCHEMA_REGISTRY_URL=${env.LSST_SCHEMA_REGISTRY_URL} ' + 
+            ' -e LSST_KAFKA_HOST=${env.LSST_KAFKA_HOST} -e LSST_KAFKA_BROKER_PORT=${env.LSST_KAFKA_BROKER_PORT} ' +
             '-v ${WORKSPACE}:' + _home + '/repos'
-            label 'Node1_4CPU || Node3_4CPU'
+            label 'Node3_4CPU'
          }
     }
     stages {
@@ -156,7 +162,7 @@ pipeline {
                     echo "SUBNAME: $LSST_TOPIC_SUBNAME"
                     echo "The exec branch: " + Exec_Branch
                     echo "The build node: " + env.NODE_NAME
-                    registerKafkaTopics "${XML_Version_Base}"
+                    registerKafkaTopics "${XML_Version_Base}", "Test"
                 }
             }
         }//Register
@@ -233,7 +239,7 @@ pipeline {
                     echo "XMLVersion: ${XML_Version_Base}"
                     echo "SUBNAME: ${SUBNAME}"
                     echo "FORCE: ${FORCE}"
-                    deleteKafkaTopics "${XML_Version_Base}", params.SUBNAME, params.FORCE
+                    deleteKafkaTopics "${XML_Version_Base}", params.SUBNAME, params.FORCE, "Test"
                 }
             }
         }//DeleteTopics
