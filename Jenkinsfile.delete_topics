@@ -3,8 +3,10 @@ pipeline {
     parameters {
         string defaultValue: '', description: 'The version of ts_xml.', name: 'XML_VERSION', trim: true
         string defaultValue: '', description: 'The Kafka subname to delete.', name: 'SUBNAME', trim: true
+        string defaultValue: 'Test', description: '''A space-separated, case-sensitive list of CSCs, e.g Test Script ScriptQueue
+or ALL if creating topics for all components.''', name: 'CSC_List', trim: true
         booleanParam defaultValue: '', description: 'Must be TRUE if deleting the \'sal\' topic subname.', name: 'FORCE'
-        choice choices: ['Node1_4CPU', 'Node2_8CPU', 'Node3_4CPU', 'CSC_Conda_Node'], description: 'The build node on which to execute this job.', name: 'BUILD_NODE'
+        choice choices: ['Node1_4CPU', 'Node2_8CPU', 'Node3_4CPU'], description: 'The build node on which to execute this job.', name: 'BUILD_NODE'
     }
     options {
         disableConcurrentBuilds()
@@ -22,7 +24,8 @@ pipeline {
                 script {
                     echo "XML_VERSION: ${XML_VERSION}"
                     echo "SUBNAME: ${SUBNAME}"
-                    deleteKafkaTopics params.XML_VERSION, params.SUBNAME, params.FORCE
+                    echo "CSCs: ${CSC_List}"
+                    deleteKafkaTopics params.XML_VERSION, params.SUBNAME, params.FORCE, params.CSC_List
                 }
             }
         }//Register
