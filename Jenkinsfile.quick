@@ -31,10 +31,11 @@ pipeline {
             image 'ts-dockerhub.lsst.org/robotsal:latest'
             args '-w ' + _home + 
             ' -e AWS_ACCESS_KEY_ID=${env.AWS_KEY_ID} -e AWS_SECRET_ACCESS_KEY=${env.AWS_SECRET_KEY} ' + 
+            ' -e LSST_USE_KAFKA=true ' +
             ' -e LSST_KAFKA_BROKER_ADDR=${env.LSST_KAFKA_BROKER_ADDR} -e LSST_SCHEMA_REGISTRY_URL=${env.LSST_SCHEMA_REGISTRY_URL} ' + 
             ' -e LSST_KAFKA_HOST=${env.LSST_KAFKA_HOST} -e LSST_KAFKA_BROKER_PORT=${env.LSST_KAFKA_BROKER_PORT} ' +
             '-v ${WORKSPACE}:' + _home + '/repos'
-            label 'Node3_4CPU'
+            label 'Node1_4CPU || Node3_4CPU'
          }
     }
     stages {
@@ -180,7 +181,19 @@ pipeline {
                         'echo cd ' + _home + '/repos/simple_sal  \n' +
                         'cd ' + _home + '/repos/simple_sal \n' +
                         'echo ========= Execute simple-sal tests ========= \n' +
-                        'mvn --no-transfer-progress -B clean install'
+                        'mvn --no-transfer-progress -DskipTests=true clean install \n' +
+                        'cd sal-camera \n' +
+                        'mvn test --no-transfer-progress -Dtest=org.lsst.sal.camera.CommandSendReceiveTest \n' +
+                        'mvn test --no-transfer-progress -Dtest=org.lsst.sal.camera.EventSendReceiveTest \n' +
+                        'mvn test --no-transfer-progress -Dtest=org.lsst.sal.camera.TelemetrySendReceiveTest \n' +
+                        'cd ../sal-atcamera \n' +
+                        'mvn test --no-transfer-progress -Dtest=org.lsst.sal.atcamera.CommandSendReceiveTest \n' +
+                        'mvn test --no-transfer-progress -Dtest=org.lsst.sal.atcamera.EventSendReceiveTest \n' +
+                        'mvn test --no-transfer-progress -Dtest=org.lsst.sal.atcamera.TelemetrySendReceiveTest \n' +
+                        'cd ../sal-cccamera \n' +
+                        'mvn test --no-transfer-progress -Dtest=org.lsst.sal.cccamera.CommandSendReceiveTest \n' +
+                        'mvn test --no-transfer-progress -Dtest=org.lsst.sal.cccamera.EventSendReceiveTest \n' +
+                        'mvn test --no-transfer-progress -Dtest=org.lsst.sal.cccamera.TelemetrySendReceiveTest'
             }
         }//simple-sal
         stage('Run C++ Messaging Tests') {
