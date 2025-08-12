@@ -32,6 +32,7 @@ ENV ROBOTFRAMEWORK_SAL_DIR=${HOME}/repos/robotframework_SAL
 ENV TS_XML_DIR=${HOME}/repos/ts_xml
 ENV PYTHONPATH="$TS_XML_DIR/python"
 ENV JAVA_HOME=/usr/lib/jvm/java-17-zulu-openjdk-jdk
+ENV CONDA_PLUGINS_AUTO_ACCEPT_TOS=true
 
 # Python3.12
 RUN cd /tmp && \
