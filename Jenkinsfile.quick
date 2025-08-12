@@ -35,7 +35,7 @@ pipeline {
             ' -e LSST_KAFKA_BROKER_ADDR=${env.LSST_KAFKA_BROKER_ADDR} -e LSST_SCHEMA_REGISTRY_URL=${env.LSST_SCHEMA_REGISTRY_URL} ' + 
             ' -e LSST_KAFKA_HOST=${env.LSST_KAFKA_HOST} -e LSST_KAFKA_BROKER_PORT=${env.LSST_KAFKA_BROKER_PORT} ' +
             '-v ${WORKSPACE}:' + _home + '/repos'
-            label 'Node1_4CPU || Node3_4CPU'
+            label 'CSC_Conda_Node'
          }
     }
     stages {
