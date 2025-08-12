@@ -313,7 +313,7 @@ pipeline {
                     echo "SUBNAME: $LSST_TOPIC_SUBNAME"
                     echo "The exec branch: " + Exec_Branch
                     echo "The build node: " + env.NODE_NAME
-                    registerKafkaTopics "${XML_Version_Base}"
+                    registerKafkaTopics "${XML_Version_Base}", "ATMCS ATPtg ESS Guider MTM1M3 MTM1M3TS MTMount MTPtg MTRotator MTVMS Test"
                 }
             }
         }//Register
@@ -492,7 +492,7 @@ pipeline {
                     echo "XMLVersion: ${XML_Version_Base}"
                     echo "SUBNAME: ${SUBNAME}"
                     echo "FORCE: ${FORCE}"
-                    deleteKafkaTopics "${XML_Version_Base}", params.SUBNAME, params.FORCE
+                    deleteKafkaTopics "${XML_Version_Base}", params.SUBNAME, params.FORCE, "ATMCS ATPtg ESS Guider MTM1M3 MTM1M3TS MTMount MTPtg MTRotator MTVMS Test"
                 }
             }
         }//DeleteTopics
