@@ -3,7 +3,9 @@ pipeline {
     parameters {
         string defaultValue: '', description: 'The version of ts_xml.', name: 'XML_VERSION', trim: true
         string defaultValue: '', description: 'The Kafka subname to register.', name: 'SUBNAME', trim: true
-        choice choices: ['Node1_4CPU', 'Node2_8CPU', 'Node3_4CPU', 'CSC_Conda_Node'], description: 'The build node on which to execute this job.', name: 'BUILD_NODE'
+        string defaultValue: 'Test', description: '''A space-separated, case-sensitive list of CSCs, e.g Test Script ScriptQueue
+or ALL if creating topics for all components.''', name: 'CSC_List', trim: true
+        choice choices: ['Node1_4CPU', 'Node2_8CPU', 'Node3_4CPU'], description: 'The build node on which to execute this job.', name: 'BUILD_NODE'
     }
     environment { 
         LSST_TOPIC_SUBNAME = "${SUBNAME}"
@@ -24,7 +26,8 @@ pipeline {
                 script {
                     echo "XML_VERSION: ${XML_VERSION}"
                     echo "SUBNAME: $LSST_TOPIC_SUBNAME"
-                    registerKafkaTopics params.XML_VERSION
+                    echo "CSCs: ${CSC_List}"
+                    registerKafkaTopics params.XML_VERSION, params.CSC_List
                 }
             }
         }//Register
