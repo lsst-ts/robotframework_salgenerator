@@ -1,7 +1,28 @@
 @Library('JenkinsShared') _
-// Define variables
+// Define and initialize variables
 def _user="saluser"
 def _home="/home/" + _user
+def BuildType = ""
+def SAL_Checkout = ""
+def XML_Checkout = ""
+def RFSALGEN_Checkout = ""
+def RFSALMSGs_Checkout = ""
+def SIMPLESAL_Checkout = ""
+def SAL_Version = ""
+def XML_Version = ""
+def SAL_Version_Base = ""
+def XML_Version_Base = ""
+def SAL_Version_RC = ""
+def XML_Version_RC = ""
+def MavenVersion = ""
+def Build_Param = ""
+def RPM_Version = ""
+def flags = ""
+def Exec_Branch = ""
+def location = ""
+def array = ""
+def rpm_array = ""
+def FILE = ""
 
 properties(
     [
