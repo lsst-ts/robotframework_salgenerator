@@ -1,7 +1,28 @@
 @Library('JenkinsShared') _
-// Define variables
+// Define and initialize variables
 def _user="saluser"
 def _home="/home/" + _user
+def BuildType = ""
+def SAL_Checkout = ""
+def XML_Checkout = ""
+def RFSALGEN_Checkout = ""
+def RFSALMSGs_Checkout = ""
+def SIMPLESAL_Checkout = ""
+def SAL_Version = ""
+def XML_Version = ""
+def SAL_Version_Base = ""
+def XML_Version_Base = ""
+def SAL_Version_RC = ""
+def XML_Version_RC = ""
+def MavenVersion = ""
+def Build_Param = ""
+def RPM_Version = ""
+def flags = ""
+def Exec_Branch = ""
+def location = ""
+def array = ""
+def rpm_array = ""
+def FILE = ""
 
 properties(
     [
@@ -33,6 +54,10 @@ pipeline {
         NEXUS_USER = credentials('nexus_username')
         NEXUS_PASS = credentials('nexus_password')
         LSST_TOPIC_SUBNAME = "${SUBNAME}"
+        LSST_KAFKA_HOST = "35.85.18.232"
+        LSST_KAFKA_BROKER_PORT = "9092"
+        LSST_KAFKA_BROKER_ADDR = "35.85.18.232:9092"
+        LSST_SCHEMA_REGISTRY_URL = "http://35.85.18.232:8081"
     }
     options {
         disableConcurrentBuilds()
@@ -40,10 +65,12 @@ pipeline {
     agent {
         docker { 
             image 'ts-dockerhub.lsst.org/robotsal:latest'
-            args '--network=kafka -w ' + _home +
+            args '-w ' + _home +
             ' -e AWS_ACCESS_KEY_ID=$aws_key_id -e AWS_SECRET_ACCESS_KEY=$aws_secret_key ' + 
             '-e NEXUS_USER=$nexus_user -e NEXUS_PASS=$nexus_pass ' +
-            '-v ${WORKSPACE}:' + _home + '/repos'
+            ' -e LSST_KAFKA_BROKER_ADDR=${env.LSST_KAFKA_BROKER_ADDR} -e LSST_SCHEMA_REGISTRY_URL=${env.LSST_SCHEMA_REGISTRY_URL} ' +
+            ' -e LSST_KAFKA_HOST=${env.LSST_KAFKA_HOST} -e LSST_KAFKA_BROKER_PORT=${env.LSST_KAFKA_BROKER_PORT} ' +
+            '-v ${WORKSPACE}:' + _home + '/repos' 
             label 'Node2_8CPU'
          }
     }
