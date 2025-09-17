@@ -11,6 +11,10 @@ groupadd -r -g 993 docker && \
 useradd -r -u 73006 -g ${USER} -G docker -m ${USER} -d ${HOME} && \
 chown ${USER}:docker ${HOME}
 
+RUN if [ -d "$HOME/.cache" ]; then \
+        chown -R saluser:saluser "$HOME/.cache"; \
+    fi
+
 # Install packages and dependencies
 RUN dnf -y update
 RUN dnf -y groupinstall "Development Tools"
@@ -28,6 +32,7 @@ ENV ROBOTFRAMEWORK_SAL_DIR=${HOME}/repos/robotframework_SAL
 ENV TS_XML_DIR=${HOME}/repos/ts_xml
 ENV PYTHONPATH="$TS_XML_DIR/python"
 ENV JAVA_HOME=/usr/lib/jvm/java-17-zulu-openjdk-jdk
+ENV CONDA_PLUGINS_AUTO_ACCEPT_TOS=true
 
 # Python3.12
 RUN cd /tmp && \
@@ -54,12 +59,25 @@ RUN cd /tmp && \
 curl -s https://archives.fedoraproject.org/pub/archive/epel/7/x86_64/Packages/x/xmlstarlet-1.6.1-1.el7.x86_64.rpm --output xmlstarlet-1.6.1-1.el7.x86_64.rpm && \
 yum -y install xmlstarlet-1.6.1-1.el7.x86_64.rpm
 
-# Setup environment
 WORKDIR ${HOME}
 USER ${USER}
 
-RUN mkdir bin && mkdir repos && mkdir Reports
+RUN mkdir bin repos Reports miniconda3
 
+# Conda
+RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda3/miniconda.sh && \
+bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3 && \
+rm ~/miniconda3/miniconda.sh
+
+RUN source miniconda3/bin/activate && \
+conda update conda -y && \
+conda config --add channels defaults && \
+conda config --add channels conda-forge && \
+conda install -c conda-forge 'python=3.12'  'libarchive' 'libmamba' -y && \
+pip3 install -U setuptools robotframework numpy astropy gnureadline && \
+conda clean --all
+
+# Setup environment
 # Apparently Docker does not support variable expansion in the ADD and COPY context.
 # ... Therefore, the ownership must be hardcoded.
 COPY --chown=73006:73006 Test_Vars.txt ${HOME}/bin/Test_Vars.txt
