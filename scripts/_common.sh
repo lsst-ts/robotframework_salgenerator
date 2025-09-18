@@ -217,7 +217,7 @@ function subsystemArray() {
     CCCamera CCHeaderService
     ESS GCHeaderService Guider 
     MTM1M3 MTM1M3TS MTCamera MTHeaderService
-    MTMount MTPtg MTRotator MTVMS Test"
+    MTMount MTPtg MTRotator MTVMS Test Watcher"
 }
 
 

@@ -10,3 +10,4 @@ SALGEN/ATMCS_salgeneratorKafka.robot
 SALGEN/ATPtg_salgeneratorKafka.robot
 SALGEN/ESS_salgeneratorKafka.robot
 SALGEN/Guider_salgeneratorKafka.robot
+SALGEN/Watcher_salgeneratorKafka.robot
