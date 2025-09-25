@@ -159,7 +159,7 @@ pipeline {
                 checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: XML_Checkout]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'ts_xml']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/ts_xml']]]
                 checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: RFSALGEN_Checkout]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'robotframework_salgenerator']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/robotframework_salgenerator']]]
                 checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: RFSALMSGs_Checkout]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'robotframework_SAL']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/lsst-ts/robotframework_SAL']]]
-                checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: SIMPLESAL_Checkout]], extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'simple_sal']], userRemoteConfigs: [[credentialsId: 'bfd5eb1e-91d9-4280-b936-6c4b407fd267', url: 'https://github.com/lsst-camera-ccs/org-lsst-camera-simple-sal.git']]]
+                checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: SIMPLESAL_Checkout]], extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'simple_sal']], userRemoteConfigs: [[credentialsId: '2f201490-cd26-46b6-9fd3-193560c72140', url: 'https://github.com/lsst-camera-ccs/org-lsst-camera-simple-sal.git']]]
             }
         }//Git repos
         stage('Setup: Define variables and create directories') {
