@@ -9,6 +9,10 @@ or ALL if creating topics for all components.''', name: 'CSC_List', trim: true
     }
     environment { 
         LSST_TOPIC_SUBNAME = "${SUBNAME}"
+        LSST_KAFKA_HOST = "35.85.18.232"
+        LSST_KAFKA_BROKER_PORT = "9092"
+        LSST_KAFKA_BROKER_ADDR = "35.85.18.232:9092"
+        LSST_SCHEMA_REGISTRY_URL = "http://35.85.18.232:8081" 
     }
     options {
         disableConcurrentBuilds()
@@ -16,7 +20,9 @@ or ALL if creating topics for all components.''', name: 'CSC_List', trim: true
     agent {
         docker { 
             image 'lsstts/robotint:latest'
-            args '--entrypoint="" --network=kafka -e LSST_TOPIC_SUBNAME=${SUBNAME}'
+            args '--entrypoint="" -e LSST_TOPIC_SUBNAME=${SUBNAME} ' +
+            ' -e LSST_KAFKA_BROKER_ADDR=${env.LSST_KAFKA_BROKER_ADDR} -e LSST_SCHEMA_REGISTRY_URL=${env.LSST_SCHEMA_REGISTRY_URL} ' +
+            ' -e LSST_KAFKA_HOST=${env.LSST_KAFKA_HOST} -e LSST_KAFKA_BROKER_PORT=${env.LSST_KAFKA_BROKER_PORT}'
             label params.BUILD_NODE
          }
     }
