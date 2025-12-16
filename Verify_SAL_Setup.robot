@@ -2,7 +2,6 @@
 Documentation    This verifies the SAL and all dependencies are installed correctly on the host.
 ...     It verifies the versions of installed software and that the installation
 ...     worked as expected, putting important files in the correct locations.
-Suite Setup    Log Many    ${SALVersion}    ${OpenspliceVersion}    ${OpenspliceDate}
 Library        OperatingSystem
 Library        Process
 Resource    Global_Vars.resource
@@ -14,7 +13,7 @@ ${timeout}    10s
 *** Test Cases ***
 Verify SAL Version
     [Documentation]    Verify the SAL version is correct.
-    [Tags]    smoke    version
+    [Tags]    smoke    version    robot:continue-on-failure
     ${output}=    Run Process    source    ${SALInstall}${/}setupKafka.env    shell=True
     Set Suite Variable    ${versionData}    ${output}
     Comment    Verify SAL version.
@@ -78,6 +77,7 @@ Verify SAL Generics defintion exists
 
 Verify Proper SAL Setup - base dir
     [Documentation]    There are a few dozen files that are necessary for SAL and salgenerator to function properly. This test verifies those files exist in the correct locations.
+    [Tags]    robot:continue-on-failure
     File Should Exist   ${SALInstall}/setup.env
     File Should Exist   ${SALInstall}/setupKafka.env
     File Should Exist   ${SALInstall}/SConstruct
@@ -85,7 +85,9 @@ Verify Proper SAL Setup - base dir
 
 Verify Proper SAL Setup - bin
     [Documentation]    There are a few dozen files that are necessary for SAL and salgenerator to function properly. This test verifies those files exist in the correct locations.
+    [Tags]    robot:continue-on-failure
     Directory Should Exist   ${SALInstall}/bin
+    List Directory    ${SALInstall}/bin
     File Should Exist   ${SALInstall}/bin/buildsharedlib
     File Should Exist   ${SALInstall}/bin/make_salUtils
     File Should Exist   ${SALInstall}/bin/salgenerator
@@ -97,28 +99,40 @@ Verify Proper SAL Setup - bin
 
 Verify Proper SAL Setup - lsstsal
     [Documentation]    There are a few dozen files that are necessary for SAL and salgenerator to function properly. This test verifies those files exist in the correct locations.
+    [Tags]    robot:continue-on-failure
     Directory Should Exist   ${SALInstall}/lsstsal
+    List Directory    ${SALInstall}/lsstsal
+    List Directory    ${SALInstall}/lsstsal/scripts/code/templates
     File Should Exist   ${SALInstall}/lsstsal/salenv.sh
     File Should Exist   ${SALInstall}/lsstsal/scripts/update_ts_xml_dictionary.tcl
-    File Should Exist   ${SALInstall}/lsstsal/scripts/code/templates/Makefile.sacpp_SAL_types.template
-    File Should Exist   ${SALInstall}/lsstsal/scripts/code/templates/Makefile.saj_SAL_types.template
+    File Should Exist   ${SALInstall}/lsstsal/scripts/code/templates/Makefile.sacpp_SALKafka_pub.template
+    File Should Exist   ${SALInstall}/lsstsal/scripts/code/templates/Makefile.sacpp_SALKafka_sub.template
+    File Should Exist   ${SALInstall}/lsstsal/scripts/code/templates/Makefile.sacpp_SALKafka_testcommands.template
+    File Should Exist   ${SALInstall}/lsstsal/scripts/code/templates/Makefile.sacpp_SALKafka_testevents.template
+    File Should Exist   ${SALInstall}/lsstsal/scripts/code/templates/Makefile.saj_SAL_Kafkatypes.template
+    File Should Exist   ${SALInstall}/lsstsal/scripts/code/templates/Makefile.saj_SAL_Kafkapub.template
+    File Should Exist   ${SALInstall}/lsstsal/scripts/code/templates/Makefile.saj_SAL_Kafkasub.template
     File Should Exist   ${SALInstall}/lsstsal/scripts/code/templates/salActor.java
     File Should Exist   ${SALInstall}/lsstsal/scripts/code/templates/salUtils.c
     File Should Exist   ${SALInstall}/lsstsal/scripts/code/templates/salUtils.h
     File Should Exist   ${SALInstall}/lsstsal/scripts/code/templates/salUtils.java
     File Should Exist   ${SALInstall}/lsstsal/scripts/code/templates/SAL_defines.h
-    File Should Exist   ${SALInstall}/lsstsal/scripts/code/templates/SALDDS.cpp.template
-    File Should Exist   ${SALInstall}/lsstsal/scripts/code/templates/SALDDS.h.template
-    File Should Exist   ${SALInstall}/lsstsal/scripts/code/templates/SALDDS.java.template
+    File Should Exist   ${SALInstall}/lsstsal/scripts/code/templates/SALKAFKA.cpp.template
+    File Should Exist   ${SALInstall}/lsstsal/scripts/code/templates/SALKAFKA.h.template
+    File Should Exist   ${SALInstall}/lsstsal/scripts/code/templates/SALKAFKA.java.template
 
 Verify Proper SAL Setup - scripts
     [Documentation]    There are a few dozen files that are necessary for SAL and salgenerator to function properly. This test verifies those files exist in the correct locations.
+    [Tags]    robot:continue-on-failure
     Directory Should Exist   ${SALInstall}/scripts
+    List Directory    ${SALInstall}/scripts
     File Should Exist   ${SALInstall}/scripts/buildJavaLibraries.sh
 
 Verify Proper SAL Setup - ups
     [Documentation]    There are a few dozen files that are necessary for SAL and salgenerator to function properly. This test verifies those files exist in the correct locations.
+    [Tags]    robot:continue-on-failure
     Directory Should Exist   ${SALInstall}/ups
+    List Directory    ${SALInstall}/ups
     File Should Exist   ${SALInstall}/ups/eupspkg.cfg.sh
     File Should Exist   ${SALInstall}/ups/ts_sal.cfg
     File Should Exist   ${SALInstall}/ups/ts_sal.table
