@@ -179,32 +179,6 @@ function clearTestSuites() {
 }
 
 
-function subsystemArrayDDS() {
-    # Independent definition of all the CSCs (called Subsystems in SalGen.sh).
-    #
-    # While it is possible to use ts_xml/python/lsst/ts/xml/data/sal_interfaces/SALSubsystems.xml to 
-    # generate this list, it is better to have an independent list, such that
-    # the thing being tested is not used to test the thing.
-    #
-    echo "ATAOS ATBuilding ATCamera 
-    ATDome ATDomeTrajectory ATHeaderService ATHexapod 
-    ATMCS ATMonochromator ATOODS ATPneumatics 
-    ATPtg ATSpectrograph ATWhiteLight
-    CCCamera CCHeaderService CCOODS CBP 
-    DIMM DREAM DSM
-    EAS Electrometer EPM ESS FiberSpectrograph 
-    GCHeaderService GenericCamera GIS Guider 
-    HVAC LaserTracker LEDProjector LinearStage LOVE 
-    MOSS MTAirCompressor MTAOS MTCamera MTDome 
-    MTDomeTrajectory MTHexapod MTEEC MTHeaderService
-    MTM1M3 MTM1M3TS MTM2 MTMount MTOODS MTPtg 
-    MTReflector MTRotator MTVMS OCPS PMD 
-    Scheduler Script ScriptQueue SummitFacility 
-    Test TunableLaser 
-    Watcher WeatherForecast"
-}
-
-
 function subsystemArray() {
     # Independent definition of all the CSCs (called Subsystems in SalGen.sh)
     # to build under Kafka.
