@@ -157,6 +157,7 @@ Salgen MTM1M3 Validate
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_preclippedForces.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_preclippedCylinderForces.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_forceActuatorBumpTestStatus.json
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_forceActuatorBumpTestStatistics.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_hardpointTestStatus.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_enabledForceActuators.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_forceActuatorSettings.json
@@ -649,6 +650,9 @@ Verify MTM1M3 C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_forceActuatorBumpTestStatus_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_forceActuatorBumpTestStatus_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/${subSystem}_logevent_forceActuatorBumpTestStatus.hh
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_forceActuatorBumpTestStatistics_send
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_forceActuatorBumpTestStatistics_log
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/${subSystem}_logevent_forceActuatorBumpTestStatistics.hh
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_hardpointTestStatus_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_hardpointTestStatus_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/${subSystem}_logevent_hardpointTestStatus.hh
@@ -866,6 +870,7 @@ Verify MTM1M3 RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_preclippedForces.json
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_preclippedCylinderForces.json
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_forceActuatorBumpTestStatus.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_forceActuatorBumpTestStatistics.json
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_hardpointTestStatus.json
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_enabledForceActuators.json
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_forceActuatorSettings.json
@@ -1026,6 +1031,7 @@ Verify MTM1M3 RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_preclippedForces.hh
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_preclippedCylinderForces.hh
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_forceActuatorBumpTestStatus.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_forceActuatorBumpTestStatistics.hh
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_hardpointTestStatus.hh
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_enabledForceActuators.hh
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_forceActuatorSettings.hh
@@ -1283,6 +1289,8 @@ Verify MTM1M3 TEST RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_preclippedCylinderForces_log
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_forceActuatorBumpTestStatus_send
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_forceActuatorBumpTestStatus_log
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_forceActuatorBumpTestStatistics_send
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_forceActuatorBumpTestStatistics_log
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_hardpointTestStatus_send
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_hardpointTestStatus_log
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_enabledForceActuators_send
