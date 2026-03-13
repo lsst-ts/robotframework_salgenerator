@@ -15,7 +15,7 @@ ENV OSPL_HOME=/opt/OpenSpliceDDS/V6.10.4/HDE/x86_64.linux
 ENV LSST_DDS_DOMAIN=citest
 ENV LSST_DDS_PARTITION_PREFIX=citest
 ## Version variables
-ENV MAVEN_RELEASE=3.9.12
+ENV MAVEN_RELEASE=3.9.13
 ENV AVRO_RELEASE=1.11.1
 ENV BOOST_RELEASE=1.78
 ENV JDK_RELEASE=17
@@ -37,6 +37,7 @@ ENV AVRO_CLASSPATH=lsst/sal
 ENV AVRO_INCL=${LSST_SAL_PREFIX}/include/avro
 ENV AVRO_HOME=${LSST_SAL_PREFIX}/lib
 ENV AVRO_PREFIX=lsst.sal
+ENV LIBRARY_PATH=/usr/lib64/boost1.78:${LSST_SAL_PREFIX}/lib
 ENV LD_LIBRARY_PATH="/usr/lib64/boost1.78:${LSST_SAL_PREFIX}/lib:/usr/local/lib"
 ENV CPPFLAGS="-I $LSST_SAL_PREFIX/include/avro"
 
@@ -70,6 +71,7 @@ fmt fmt-devel \
 boost${BOOST_RELEASE}-devel jansson-devel \
 snappy-devel libcurl-devel \
 cyrus-sasl-devel \
+catch-devel \
 rpm-build && \
 dnf clean all && \
 rm -rf /var/cache/dnf
@@ -154,6 +156,10 @@ RUN cd libserdes && ./configure --prefix=$LSST_SAL_PREFIX --includedir=$LSST_SAL
 make || true && \
 cd src-cpp && g++ -MD -MP  -I$LSST_SAL_PREFIX/include/avro -I$LSST_SAL_PREFIX/include -g -O2 -fPIC -Wall -Wsign-compare -Wfloat-equal -Wpointer-arith -Wcast-align -I../src  -Wno-non-virtual-dtor  -std=c++17 -c Serdes.cpp -o Serdes.o && make && \
 cd ../ && make install
+
+USER root
+WORKDIR /
+RUN dnf -y install catch-devel 
 
 # Setup startup environment
 USER ${USER}

@@ -8,7 +8,7 @@ ${PassWord}             ${EMPTY}
 ${KeyFile}              ${EMPTY}
 ${PythonVersion}        Python 3.12.9
 ${AstropyVersion}       7.2.0
-${MvnVersion}           Apache Maven 3.9.12
+${MvnVersion}           Apache Maven 3.9.13
 ${MavenVersion}         -SNAPSHOT
 ${SALInstall}           /opt/sal
 ${SALHome}              ${SalInstall}

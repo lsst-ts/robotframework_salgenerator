@@ -88,7 +88,6 @@ Salgen MTM1M3TS Validate
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_thermalData.json/
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_mixingValve.json/
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_glycolLoopTemperature.json/
-    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_flowMeter.json/
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_glycolPump.json/
 
 Salgen MTM1M3TS C++
@@ -105,9 +104,8 @@ Salgen MTM1M3TS C++
     Should Contain    ${output.stdout}    Generating cpp type support for ${subSystem}
     Should Contain    ${output.stdout}    Generating cpp type support for ${subSystem}
     Should Contain    ${output.stdout}    Generating cpp type support for ${subSystem}
-    Should Contain    ${output.stdout}    Generating cpp type support for ${subSystem}
-    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    5
-    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    5
+    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    4
+    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    4
     Should Contain X Times    ${output.stdout}    cpp : Done Commander    1
     Should Contain X Times    ${output.stdout}    cpp : Done Event/Logger    1
 
@@ -129,7 +127,6 @@ Verify MTM1M3TS Telemetry directories
     Directory Should Exist    ${SALWorkDir}/${subSystem}_thermalData
     Directory Should Exist    ${SALWorkDir}/${subSystem}_mixingValve
     Directory Should Exist    ${SALWorkDir}/${subSystem}_glycolLoopTemperature
-    Directory Should Exist    ${SALWorkDir}/${subSystem}_flowMeter
     Directory Should Exist    ${SALWorkDir}/${subSystem}_glycolPump
 
 Verify MTM1M3TS C++ Telemetry Interfaces
@@ -144,9 +141,6 @@ Verify MTM1M3TS C++ Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}_glycolLoopTemperature/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_glycolLoopTemperature/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/${subSystem}_glycolLoopTemperature.hh
-    File Should Exist    ${SALWorkDir}/${subSystem}_flowMeter/cpp/standalone/sacpp_${subSystem}_pub
-    File Should Exist    ${SALWorkDir}/${subSystem}_flowMeter/cpp/standalone/sacpp_${subSystem}_sub
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/${subSystem}_flowMeter.hh
     File Should Exist    ${SALWorkDir}/${subSystem}_glycolPump/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_glycolPump/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/${subSystem}_glycolPump.hh
@@ -388,7 +382,6 @@ Verify MTM1M3TS RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_thermalData.json
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_mixingValve.json
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_glycolLoopTemperature.json
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_flowMeter.json
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_glycolPump.json
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/lib/libSAL_${subSystem}.a
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/lib/libSAL_${subSystem}.so
@@ -397,7 +390,6 @@ Verify MTM1M3TS RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_thermalData.hh
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_mixingValve.hh
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_glycolLoopTemperature.hh
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_flowMeter.hh
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_glycolPump.hh
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_disable.hh
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_enable.hh
@@ -547,8 +539,6 @@ Verify MTM1M3TS TEST RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_mixingValve_subscriber
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_glycolLoopTemperature_publisher
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_glycolLoopTemperature_subscriber
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_flowMeter_publisher
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_flowMeter_subscriber
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_glycolPump_publisher
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_glycolPump_subscriber
 
