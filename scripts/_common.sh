@@ -187,7 +187,7 @@ function subsystemArray() {
     # generate this list, it is better to have an independent list, such that
     # the thing being tested is not used to test the thing.
     #
-    echo "ATCamera ATHeaderService ATMCS ATPtg 
+    echo "AlarmRule ATCamera ATHeaderService ATMCS ATPtg 
     CCCamera CCHeaderService
     ESS GCHeaderService Guider 
     MTM1M3 MTM1M3TS MTCamera MTHeaderService
