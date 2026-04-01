@@ -34,20 +34,20 @@ ENV PYTHONPATH="$TS_XML_DIR/python"
 ENV JAVA_HOME=/usr/lib/jvm/java-17-zulu-openjdk-jdk
 ENV CONDA_PLUGINS_AUTO_ACCEPT_TOS=true
 
-# Python3.12
+# Python3.13
 RUN cd /tmp && \
-wget https://www.python.org/ftp/python/3.12.9/Python-3.12.9.tgz && \
-tar xvf Python-3.12.9.tgz
+wget https://www.python.org/ftp/python/3.13.12/Python-3.13.12.tgz && \
+tar xvf Python-3.13.12.tgz
 
-RUN cd /tmp/Python-3.12.9 && \
+RUN cd /tmp/Python-3.13.12 && \
 ./configure --enable-optimizations && \
 make altinstall && \
-ln /usr/local/bin/python3.12 /usr/local/bin/python3
+ln /usr/local/bin/python3.13 /usr/local/bin/python3
 
 # Install required Python packages
-RUN python3.12 -m pip install --upgrade pip setuptools numpy && \
-python3.12 -m pip install robotframework && \
-python3.12 -m pip install astropy pytest gnureadline
+RUN python3.13 -m pip install --upgrade pip setuptools numpy && \
+python3.13 -m pip install robotframework && \
+python3.13 -m pip install astropy pytest gnureadline
 
 # Java17 Azul
 ADD zulu17.52.17-ca-jdk17.0.12-linux.x86_64.rpm ${HOME}
@@ -73,7 +73,7 @@ RUN source miniconda3/bin/activate && \
 conda update conda -y && \
 conda config --add channels defaults && \
 conda config --add channels conda-forge && \
-conda install -c conda-forge 'python=3.12'  'libarchive' 'libmamba' -y && \
+conda install -c conda-forge 'python=3.13'  'libarchive' 'libmamba' -y && \
 pip3 install -U setuptools robotframework numpy astropy gnureadline && \
 conda clean --all
 
