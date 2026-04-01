@@ -73,8 +73,8 @@ RUN source miniconda3/bin/activate && \
 conda update conda -y && \
 conda config --add channels defaults && \
 conda config --add channels conda-forge && \
-conda install -c conda-forge 'python=3.13'  'libarchive' 'libmamba' -y && \
-pip3 install -U setuptools robotframework numpy astropy gnureadline && \
+conda install -y -c conda-forge 'python=3.13.12' 'libarchive' 'libmamba' && \
+conda install -y setuptools robotframework numpy astropy && \
 conda clean --all
 
 # Setup environment
