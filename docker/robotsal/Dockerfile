@@ -15,7 +15,7 @@ ENV OSPL_HOME=/opt/OpenSpliceDDS/V6.10.4/HDE/x86_64.linux
 ENV LSST_DDS_DOMAIN=citest
 ENV LSST_DDS_PARTITION_PREFIX=citest
 ## Version variables
-ENV MAVEN_RELEASE=3.9.13
+ENV MAVEN_RELEASE=3.9.14
 ENV AVRO_RELEASE=1.11.1
 ENV BOOST_RELEASE=1.78
 ENV JDK_RELEASE=17
@@ -53,7 +53,7 @@ ADD settings.xml ${HOME}/.m2
 RUN chown -R 73006:73006 ${HOME}/.m2 
 
 # AWS CLI
-RUN python3.12 -m pip install awscli --upgrade
+RUN python3.13 -m pip install awscli --upgrade
 
 # Enable EPEL repo for fmt packages.
 RUN dnf -y install epel-release
