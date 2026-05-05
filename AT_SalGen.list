@@ -4,7 +4,6 @@
 --output AUXTEL
 
 # List of test suites
-SALGEN/AlarmRule_salgeneratorKafka.robot
 SALGEN/ATCamera_salgeneratorKafka.robot
 SALGEN/ATHeaderService_salgeneratorKafka.robot
 SALGEN/ATMCS_salgeneratorKafka.robot
