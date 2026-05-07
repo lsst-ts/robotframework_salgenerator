@@ -96,6 +96,8 @@ Salgen ESS Validate
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_particleMeasurements.json/
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_m1m3ThermalGradients.json/
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_flowMeter.json/
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_e9sxups.json/
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_agcMains150.json/
 
 Salgen ESS C++
     [Documentation]    Generate C++ libraries.
@@ -138,8 +140,10 @@ Salgen ESS C++
     Should Contain    ${output.stdout}    Generating cpp type support for ${subSystem}
     Should Contain    ${output.stdout}    Generating cpp type support for ${subSystem}
     Should Contain    ${output.stdout}    Generating cpp type support for ${subSystem}
-    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    31
-    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    31
+    Should Contain    ${output.stdout}    Generating cpp type support for ${subSystem}
+    Should Contain    ${output.stdout}    Generating cpp type support for ${subSystem}
+    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    33
+    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    33
     Should Contain X Times    ${output.stdout}    cpp : Done Commander    1
     Should Contain X Times    ${output.stdout}    cpp : Done Event/Logger    1
 
@@ -189,6 +193,8 @@ Verify ESS Telemetry directories
     Directory Should Exist    ${SALWorkDir}/${subSystem}_particleMeasurements
     Directory Should Exist    ${SALWorkDir}/${subSystem}_m1m3ThermalGradients
     Directory Should Exist    ${SALWorkDir}/${subSystem}_flowMeter
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_e9sxups
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_agcMains150
 
 Verify ESS C++ Telemetry Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -286,6 +292,12 @@ Verify ESS C++ Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}_flowMeter/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_flowMeter/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/${subSystem}_flowMeter.hh
+    File Should Exist    ${SALWorkDir}/${subSystem}_e9sxups/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_e9sxups/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/${subSystem}_e9sxups.hh
+    File Should Exist    ${SALWorkDir}/${subSystem}_agcMains150/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_agcMains150/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/${subSystem}_agcMains150.hh
 
 Verify ESS C++ Command Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -433,6 +445,10 @@ Salgen ESS Java
     Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_m1m3ThermalGradients.hh to sal_${subSystem} code fragments
     Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_flowMeter.json
     Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_flowMeter.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_e9sxups.json
+    Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_e9sxups.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_agcMains150.json
+    Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_agcMains150.hh to sal_${subSystem} code fragments
     Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_heartbeat.json
     Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_logevent_heartbeat.hh to sal_${subSystem} code fragments
     Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_logLevel.json
@@ -632,6 +648,8 @@ Verify ESS RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_particleMeasurements.json
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_m1m3ThermalGradients.json
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_flowMeter.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_e9sxups.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_agcMains150.json
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/lib/libSAL_${subSystem}.a
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/lib/libSAL_${subSystem}.so
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/SAL_${subSystem}.h
@@ -667,6 +685,8 @@ Verify ESS RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_particleMeasurements.hh
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_m1m3ThermalGradients.hh
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_flowMeter.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_e9sxups.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_agcMains150.hh
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_disable.hh
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_enable.hh
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_exitControl.hh
@@ -822,6 +842,10 @@ Verify ESS TEST RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_m1m3ThermalGradients_subscriber
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_flowMeter_publisher
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_flowMeter_subscriber
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_e9sxups_publisher
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_e9sxups_subscriber
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_agcMains150_publisher
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_agcMains150_subscriber
 
 Cleanup stdout and stderr Files
     [Tags]
