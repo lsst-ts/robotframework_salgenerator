@@ -70,6 +70,8 @@ Salgen ESS Validate
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_dewPoint.json/
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_pressure.json/
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_rainRate.json/
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_rainLevel.json/
+    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_lightLevel.json/
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_relativeHumidity.json/
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_snowRate.json/
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_solarRadiation.json/
@@ -142,8 +144,10 @@ Salgen ESS C++
     Should Contain    ${output.stdout}    Generating cpp type support for ${subSystem}
     Should Contain    ${output.stdout}    Generating cpp type support for ${subSystem}
     Should Contain    ${output.stdout}    Generating cpp type support for ${subSystem}
-    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    33
-    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    33
+    Should Contain    ${output.stdout}    Generating cpp type support for ${subSystem}
+    Should Contain    ${output.stdout}    Generating cpp type support for ${subSystem}
+    Should Contain X Times    ${output.stdout}    cpp : Done Publisher    35
+    Should Contain X Times    ${output.stdout}    cpp : Done Subscriber    35
     Should Contain X Times    ${output.stdout}    cpp : Done Commander    1
     Should Contain X Times    ${output.stdout}    cpp : Done Event/Logger    1
 
@@ -167,6 +171,8 @@ Verify ESS Telemetry directories
     Directory Should Exist    ${SALWorkDir}/${subSystem}_dewPoint
     Directory Should Exist    ${SALWorkDir}/${subSystem}_pressure
     Directory Should Exist    ${SALWorkDir}/${subSystem}_rainRate
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_rainLevel
+    Directory Should Exist    ${SALWorkDir}/${subSystem}_lightLevel
     Directory Should Exist    ${SALWorkDir}/${subSystem}_relativeHumidity
     Directory Should Exist    ${SALWorkDir}/${subSystem}_snowRate
     Directory Should Exist    ${SALWorkDir}/${subSystem}_solarRadiation
@@ -214,6 +220,12 @@ Verify ESS C++ Telemetry Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}_rainRate/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_rainRate/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/${subSystem}_rainRate.hh
+    File Should Exist    ${SALWorkDir}/${subSystem}_rainLevel/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_rainLevel/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/${subSystem}_rainLevel.hh
+    File Should Exist    ${SALWorkDir}/${subSystem}_lightLevel/cpp/standalone/sacpp_${subSystem}_pub
+    File Should Exist    ${SALWorkDir}/${subSystem}_lightLevel/cpp/standalone/sacpp_${subSystem}_sub
+    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/${subSystem}_lightLevel.hh
     File Should Exist    ${SALWorkDir}/${subSystem}_relativeHumidity/cpp/standalone/sacpp_${subSystem}_pub
     File Should Exist    ${SALWorkDir}/${subSystem}_relativeHumidity/cpp/standalone/sacpp_${subSystem}_sub
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/${subSystem}_relativeHumidity.hh
@@ -393,6 +405,10 @@ Salgen ESS Java
     Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_pressure.hh to sal_${subSystem} code fragments
     Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_rainRate.json
     Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_rainRate.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_rainLevel.json
+    Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_rainLevel.hh to sal_${subSystem} code fragments
+    Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_lightLevel.json
+    Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_lightLevel.hh to sal_${subSystem} code fragments
     Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_relativeHumidity.json
     Should Contain    ${output.stdout}    Adding /home/saluser/repos/ts_sal/test/${subSystem}/cpp/src/${subSystem}_relativeHumidity.hh to sal_${subSystem} code fragments
     Should Contain    ${output.stdout}    Processing ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_snowRate.json
@@ -622,6 +638,8 @@ Verify ESS RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_dewPoint.json
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_pressure.json
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_rainRate.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_rainLevel.json
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_lightLevel.json
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_relativeHumidity.json
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_snowRate.json
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_solarRadiation.json
@@ -659,6 +677,8 @@ Verify ESS RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_dewPoint.hh
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_pressure.hh
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_rainRate.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_rainLevel.hh
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_lightLevel.hh
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_relativeHumidity.hh
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_snowRate.hh
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_solarRadiation.hh
@@ -790,6 +810,10 @@ Verify ESS TEST RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_pressure_subscriber
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_rainRate_publisher
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_rainRate_subscriber
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_rainLevel_publisher
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_rainLevel_subscriber
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_lightLevel_publisher
+    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_lightLevel_subscriber
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_relativeHumidity_publisher
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_relativeHumidity_subscriber
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_snowRate_publisher
