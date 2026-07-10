@@ -55,17 +55,17 @@ ADD settings.xml ${HOME}/.m2
 ADD libschemaregistry-vcpkg-avro-only.patch ${HOME}
 RUN chown -R 73006:73006 ${HOME}/.m2 
 
-# AWS CLI
-RUN python3.13 -m pip install awscli --upgrade
+# AWS CLI and fastavro
+RUN python3.13 -m pip install fastavro awscli --upgrade
 
-# Enable EPEL repo for fmt packages.
+# Enable EPEL repo for fmt packages
 RUN dnf -y install epel-release
 
 # Enable the CodeReady Builder repo for snappy and jansson packages
 RUN dnf config-manager --set-enabled crb
 
 # Install packages and dependencies
-RUN dnf -y install tk-devel \
+RUN dnf -y install tk-devel tcllib \
 ncurses-libs xterm \
 xorg-x11-fonts-misc \
 gnome-terminal iproute \
