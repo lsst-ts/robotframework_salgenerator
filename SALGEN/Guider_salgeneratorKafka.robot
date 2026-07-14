@@ -17,7 +17,6 @@ Verify Guider XML Defintions exist
     ${output}    Run Process    ls    ${SALWorkDir}/${subSystem}_*xml    shell=True
     Log Many    ${output.stdout}    ${output.stderr}
     Should Not Be Empty    ${output.stdout}
-    File Should Exist    ${SALWorkDir}/Guider_Commands.xml
     File Should Exist    ${SALWorkDir}/Guider_Events.xml
     File Should Exist    ${SALWorkDir}/Guider_Telemetry.xml
 
@@ -39,8 +38,6 @@ Salgen Guider Validate
     @{files}=    List Directory    ${SALWorkDir}/avro-templates/${subSystem}
     Log Many    @{files}
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_Generics.xml
-    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_Commands.xml
-    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}_cmddef.tcl
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_Events.xml
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}_evtdef.tcl
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_Telemetry.xml
@@ -54,9 +51,6 @@ Salgen Guider Validate
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_setLogLevel.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_standby.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_start.json
-    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_startGuiding.json
-    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_stopGuiding.json
-    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_command_resumeGuiding.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_heartbeat.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_logLevel.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_logMessage.json
@@ -70,7 +64,6 @@ Salgen Guider Validate
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_seriesMetadata.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_perGuiderResults.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_summaryResults.json
-    File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_logevent_guidingStatus.json
     File Should Exist    ${SALWorkDir}/avro-templates/${subSystem}/${subSystem}_offsets.json/
 
 Salgen Guider C++
@@ -135,15 +128,6 @@ Verify Guider C++ Command Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_start_commander
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_start_controller
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/${subSystem}_command_start.hh
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_startGuiding_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_startGuiding_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/${subSystem}_command_startGuiding.hh
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_stopGuiding_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_stopGuiding_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/${subSystem}_command_stopGuiding.hh
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_resumeGuiding_commander
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_resumeGuiding_controller
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/${subSystem}_command_resumeGuiding.hh
 
 Verify Guider C++ Event Interfaces
     [Documentation]    Verify the C++ interfaces were properly created.
@@ -187,9 +171,6 @@ Verify Guider C++ Event Interfaces
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_summaryResults_send
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_summaryResults_log
     File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/${subSystem}_logevent_summaryResults.hh
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_guidingStatus_send
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/sacpp_${subSystem}_guidingStatus_log
-    File Should Exist    ${SALWorkDir}/${subSystem}/cpp/src/${subSystem}_logevent_guidingStatus.hh
 
 Salgen Guider Java
     [Documentation]    Generate Java libraries.
@@ -313,9 +294,6 @@ Verify Guider RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_command_setLogLevel.json
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_command_standby.json
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_command_start.json
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_command_startGuiding.json
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_command_stopGuiding.json
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_command_resumeGuiding.json
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_heartbeat.json
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_logLevel.json
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_logMessage.json
@@ -329,7 +307,6 @@ Verify Guider RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_seriesMetadata.json
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_perGuiderResults.json
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_summaryResults.json
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_logevent_guidingStatus.json
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/avro-templates/${subSystem}/${subSystem}_offsets.json
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/lib/libSAL_${subSystem}.a
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/lib/libSAL_${subSystem}.so
@@ -342,9 +319,6 @@ Verify Guider RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_setLogLevel.hh
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_standby.hh
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_start.hh
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_startGuiding.hh
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_stopGuiding.hh
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_command_resumeGuiding.hh
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_heartbeat.hh
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_logLevel.hh
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_logMessage.hh
@@ -358,10 +332,8 @@ Verify Guider RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_seriesMetadata.hh
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_perGuiderResults.hh
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_summaryResults.hh
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/include/${subSystem}_logevent_guidingStatus.hh
     Comment    Verify the interface definition files are included.
     Should Contain    ${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subSystem}/${subSystem}_Generics.xml
-    Should Contain    ${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subSystem}/${subSystem}_Commands.xml
     Should Contain    ${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subSystem}/${subSystem}_Commands.html
     Should Contain    ${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subSystem}/${subSystem}_Events.xml
     Should Contain    ${output.stdout}    /opt/lsst/ts_xml/python/lsst/ts/xml/data/sal_interfaces/${subSystem}/${subSystem}_Events.html
@@ -402,12 +374,6 @@ Verify Guider TEST RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_standby_controller
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_start_commander
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_start_controller
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_startGuiding_commander
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_startGuiding_controller
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_stopGuiding_commander
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_stopGuiding_controller
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_resumeGuiding_commander
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_resumeGuiding_controller
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_heartbeat_send
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_heartbeat_log
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_logLevel_send
@@ -434,8 +400,6 @@ Verify Guider TEST RPM Contents
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_perGuiderResults_log
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_summaryResults_send
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_summaryResults_log
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_guidingStatus_send
-    Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_guidingStatus_log
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_offsets_publisher
     Should Contain    ${output.stdout}    /opt/lsst/ts_sal/bin/sacpp_${subSystem}_offsets_subscriber
 
