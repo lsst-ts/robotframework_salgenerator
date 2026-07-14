@@ -42,7 +42,9 @@ tar xvf Python-3.13.12.tgz
 RUN cd /tmp/Python-3.13.12 && \
 ./configure --enable-optimizations && \
 make altinstall && \
-ln /usr/local/bin/python3.13 /usr/local/bin/python3
+ln /usr/local/bin/python3.13 /usr/local/bin/python3 && \
+ln /usr/local/bin/python3.13 /usr/local/bin/python
+
 
 # Install required Python packages
 RUN python3.13 -m pip install --upgrade pip setuptools numpy && \

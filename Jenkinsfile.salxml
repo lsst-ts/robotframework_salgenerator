@@ -23,6 +23,13 @@ def location = ""
 def array = ""
 def rpm_array = ""
 def FILE = ""
+def getDockerImage() {
+    if (params.Bleed) {
+        return "ts-dockerhub.lsst.org/robotsal:latest"
+    } else {
+        return "ts-dockerhub.lsst.org/robotsal:release"
+    } 
+}
 
 properties(
     [
@@ -64,7 +71,7 @@ pipeline {
     }
     agent {
         docker { 
-            image 'ts-dockerhub.lsst.org/robotsal:latest'
+            image "${getDockerImage()}"
             args '-w ' + _home +
             ' -e AWS_ACCESS_KEY_ID=$aws_key_id -e AWS_SECRET_ACCESS_KEY=$aws_secret_key ' + 
             '-e NEXUS_USER=$nexus_user -e NEXUS_PASS=$nexus_pass ' +
