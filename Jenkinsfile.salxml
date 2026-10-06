@@ -548,6 +548,10 @@ pipeline {
                 ], wait: false
                 echo "Starting the DevelopEnvSqre job; this builds the BaseSqre, SalObj and DevelopEnv images."
                 build job: 'DevelopEnvSqre', parameters: [string(name: 'ENV_FILE', value: 'cycle/develop.env')]
+                echo "Starting the DevelopEnvNode job; build_develop:true"
+                build wait: false, job: 'DevelopEnvNode', parameters: [booleanParam(name: 'build_develop', value: true)]
+                echo "Starting the DevelopEnvNoStack job; build_develop:true"
+                build wait: false, job: 'DevelopEnvNoStack', parameters: [booleanParam(name: 'build_develop', value: true)]
             }
         }//TriggerJobs
     }//stages
