@@ -546,11 +546,8 @@ pipeline {
                     booleanParam(name: 'buildSalObjConda', value: true), 
                     booleanParam(name: 'buildCSCConda', value: true), 
                 ], wait: false
-                echo "Starting the BaseDevImage job; BuildSalobjContainer:true and BuildDevEnv:true"
-                build job: 'BaseDevImage', parameters: [booleanParam(name: 'BuildSalobjContainer', value: true), 
-                    booleanParam(name: 'SalobjContainerDevelop', value: true), 
-                    booleanParam(name: 'BuildDevEnv', value: true), 
-                    booleanParam(name: 'DevEnvDevelop', value: true)], wait: false
+                echo "Starting the DevelopEnvSqre job; this builds the BaseSqre, SalObj and DevelopEnv images."
+                build job: 'DevelopEnvSqre', parameters: [string(name: 'ENV_FILE', value: 'cycle/develop.env')]
             }
         }//TriggerJobs
     }//stages
